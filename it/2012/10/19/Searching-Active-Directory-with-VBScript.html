@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Searching Active Directory with VBScript | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Searching Active Directory with VBScript" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="[gallery]I am constantly writing scripts to search AD. Basically I’m using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I’ve attached examples for searching users, computers, and shared printers that are published in AD. The following script is one that I am writing to get a list of user objects that have a Kerberos username in the â€œaltSecurityIdentities attribute. We are using pass-through authentication to a MIT Kerberos implementation outside of our Active Directory environment. Most of you won’t find anything in that attribute and may want to test this with the â€œdescription attribute instead. First you will need to connect to the Directory. Connecting to the RootDSE is usually the easiest place to connect. Using RootDSE will make your script more portable by not requiring you to change LDAP strings to use it in another domain. In this case I’ve broken up the connection string into variables to make it easier to change Set objRootDSE = GetObject(&quot;LDAP://RootDSE&quot;) strDNSDomain = objRootDSE.Get(&quot;defaultNamingContext&quot;) Set objCmd = CreateObject(&quot;ADODB.Command&quot;) Set objConn = CreateObject(&quot;ADODB.Connection&quot;) objConn.Provider = &quot;ADsDSOObject&quot; objConn.Open &quot;Active Directory Provider&quot; objCmd.ActiveConnection = objConn You will have to construct an ADSI filter to return the results that you want. Examples: “(objectClass=)” = All objects. “(&amp;(objectCategory=person)(objectClass=user)(!cn=andy))” = All user objects but “andy”. “(sn=sm)” = All objects with a surname that starts with “sm”. “(&amp;(objectCategory=person)(objectClass=contact)(|(sn=Smith)(sn=Johnson)))” = All contacts with a surname equal to “Smith” or “Johnson”. Search Filter Syntax strBase = &quot;&lt;LDAP://&quot; &amp; strDNSDomain &amp; &quot;&gt;&quot; strFilter = &quot;(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))&quot; strAttributes = &quot;distinguishedName,member,userPrincipalName,altSecurityIdentities&quot; strQuery = strBase &amp; &quot;;&quot; &amp; strFilter &amp; &quot;;&quot; &amp; strAttributes &amp; &quot;;subtree&quot; This is where the script sets the properties and actually makes the connection. objCmd.CommandText = strQuery objCmd.Properties(&quot;Page Size&quot;) = 100 objCmd.Properties(&quot;Timeout&quot;) = 30 objCmd.Properties(&quot;Cache Results&quot;) = False Set objRs = objCmd.Execute Now that we have made the connection we can loop through the recordset that is returned. Do Until objRs.EOF strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value arrKrb = objRs.Fields(&quot;altSecurityIdentities&quot;).value If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb objRs.MoveNext Loop Notice the difference between how the two attributes are assigned to variables. The strUPN variable is simply set this way: strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value With some attributes this method will fail with a â€œMismatch error. The reason for this is that the information is stored as a multi-value attribute. You’ll see this with â€œdescription, â€œaltSecurityIdentities, and several others. In this case you have to assign it to an array and then parse the array with a â€œfor each loop. If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if Once you’ve assigned the attributes to variables you must do something with them. Usually I will just echo the results. WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb If there is a lot of info to look at or I want to send the info to someone else I will pipe the output of the script to a text file or CSV. cscript enum_objects.vbs &gt; objects.txt Another option is to create the output file within the script. You just have to add a few lines of code at the top. set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;) set ts = fso.CreateTextFile(&quot;c:\scripts\users-.csv&quot;, true) We’re creating a CSV so we will want to add a header to the file. ts.writeline(&quot;UPN,Kerberos ID &quot;) Now we change the line with the â€œwscript.echo code to add a new line to the file that we created. ts.writeline( strDn &amp; &quot;,&quot; &amp; strKrb) Now all we have to do is close the recordset. objRs.Close" />
+<meta property="og:description" content="[gallery]I am constantly writing scripts to search AD. Basically I’m using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I’ve attached examples for searching users, computers, and shared printers that are published in AD. The following script is one that I am writing to get a list of user objects that have a Kerberos username in the â€œaltSecurityIdentities attribute. We are using pass-through authentication to a MIT Kerberos implementation outside of our Active Directory environment. Most of you won’t find anything in that attribute and may want to test this with the â€œdescription attribute instead. First you will need to connect to the Directory. Connecting to the RootDSE is usually the easiest place to connect. Using RootDSE will make your script more portable by not requiring you to change LDAP strings to use it in another domain. In this case I’ve broken up the connection string into variables to make it easier to change Set objRootDSE = GetObject(&quot;LDAP://RootDSE&quot;) strDNSDomain = objRootDSE.Get(&quot;defaultNamingContext&quot;) Set objCmd = CreateObject(&quot;ADODB.Command&quot;) Set objConn = CreateObject(&quot;ADODB.Connection&quot;) objConn.Provider = &quot;ADsDSOObject&quot; objConn.Open &quot;Active Directory Provider&quot; objCmd.ActiveConnection = objConn You will have to construct an ADSI filter to return the results that you want. Examples: “(objectClass=)” = All objects. “(&amp;(objectCategory=person)(objectClass=user)(!cn=andy))” = All user objects but “andy”. “(sn=sm)” = All objects with a surname that starts with “sm”. “(&amp;(objectCategory=person)(objectClass=contact)(|(sn=Smith)(sn=Johnson)))” = All contacts with a surname equal to “Smith” or “Johnson”. Search Filter Syntax strBase = &quot;&lt;LDAP://&quot; &amp; strDNSDomain &amp; &quot;&gt;&quot; strFilter = &quot;(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))&quot; strAttributes = &quot;distinguishedName,member,userPrincipalName,altSecurityIdentities&quot; strQuery = strBase &amp; &quot;;&quot; &amp; strFilter &amp; &quot;;&quot; &amp; strAttributes &amp; &quot;;subtree&quot; This is where the script sets the properties and actually makes the connection. objCmd.CommandText = strQuery objCmd.Properties(&quot;Page Size&quot;) = 100 objCmd.Properties(&quot;Timeout&quot;) = 30 objCmd.Properties(&quot;Cache Results&quot;) = False Set objRs = objCmd.Execute Now that we have made the connection we can loop through the recordset that is returned. Do Until objRs.EOF strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value arrKrb = objRs.Fields(&quot;altSecurityIdentities&quot;).value If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb objRs.MoveNext Loop Notice the difference between how the two attributes are assigned to variables. The strUPN variable is simply set this way: strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value With some attributes this method will fail with a â€œMismatch error. The reason for this is that the information is stored as a multi-value attribute. You’ll see this with â€œdescription, â€œaltSecurityIdentities, and several others. In this case you have to assign it to an array and then parse the array with a â€œfor each loop. If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if Once you’ve assigned the attributes to variables you must do something with them. Usually I will just echo the results. WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb If there is a lot of info to look at or I want to send the info to someone else I will pipe the output of the script to a text file or CSV. cscript enum_objects.vbs &gt; objects.txt Another option is to create the output file within the script. You just have to add a few lines of code at the top. set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;) set ts = fso.CreateTextFile(&quot;c:\scripts\users-.csv&quot;, true) We’re creating a CSV so we will want to add a header to the file. ts.writeline(&quot;UPN,Kerberos ID &quot;) Now we change the line with the â€œwscript.echo code to add a new line to the file that we created. ts.writeline( strDn &amp; &quot;,&quot; &amp; strKrb) Now all we have to do is close the recordset. objRs.Close" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/19/Searching-Active-Directory-with-VBScript.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/19/Searching-Active-Directory-with-VBScript.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/19/Searching-Active-Directory-with-VBScript.html","headline":"Searching Active Directory with VBScript","dateModified":"2012-10-19T00:00:00-05:00","datePublished":"2012-10-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/19/Searching-Active-Directory-with-VBScript.html"},"description":"[gallery]I am constantly writing scripts to search AD. Basically I’m using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I’ve attached examples for searching users, computers, and shared printers that are published in AD. The following script is one that I am writing to get a list of user objects that have a Kerberos username in the â€œaltSecurityIdentities attribute. We are using pass-through authentication to a MIT Kerberos implementation outside of our Active Directory environment. Most of you won’t find anything in that attribute and may want to test this with the â€œdescription attribute instead. First you will need to connect to the Directory. Connecting to the RootDSE is usually the easiest place to connect. Using RootDSE will make your script more portable by not requiring you to change LDAP strings to use it in another domain. In this case I’ve broken up the connection string into variables to make it easier to change Set objRootDSE = GetObject(&quot;LDAP://RootDSE&quot;) strDNSDomain = objRootDSE.Get(&quot;defaultNamingContext&quot;) Set objCmd = CreateObject(&quot;ADODB.Command&quot;) Set objConn = CreateObject(&quot;ADODB.Connection&quot;) objConn.Provider = &quot;ADsDSOObject&quot; objConn.Open &quot;Active Directory Provider&quot; objCmd.ActiveConnection = objConn You will have to construct an ADSI filter to return the results that you want. Examples: “(objectClass=)” = All objects. “(&amp;(objectCategory=person)(objectClass=user)(!cn=andy))” = All user objects but “andy”. “(sn=sm)” = All objects with a surname that starts with “sm”. “(&amp;(objectCategory=person)(objectClass=contact)(|(sn=Smith)(sn=Johnson)))” = All contacts with a surname equal to “Smith” or “Johnson”. Search Filter Syntax strBase = &quot;&lt;LDAP://&quot; &amp; strDNSDomain &amp; &quot;&gt;&quot; strFilter = &quot;(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))&quot; strAttributes = &quot;distinguishedName,member,userPrincipalName,altSecurityIdentities&quot; strQuery = strBase &amp; &quot;;&quot; &amp; strFilter &amp; &quot;;&quot; &amp; strAttributes &amp; &quot;;subtree&quot; This is where the script sets the properties and actually makes the connection. objCmd.CommandText = strQuery objCmd.Properties(&quot;Page Size&quot;) = 100 objCmd.Properties(&quot;Timeout&quot;) = 30 objCmd.Properties(&quot;Cache Results&quot;) = False Set objRs = objCmd.Execute Now that we have made the connection we can loop through the recordset that is returned. Do Until objRs.EOF strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value arrKrb = objRs.Fields(&quot;altSecurityIdentities&quot;).value If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb objRs.MoveNext Loop Notice the difference between how the two attributes are assigned to variables. The strUPN variable is simply set this way: strUPN = objRs.Fields(&quot;userPrincipalName&quot;).Value With some attributes this method will fail with a â€œMismatch error. The reason for this is that the information is stored as a multi-value attribute. You’ll see this with â€œdescription, â€œaltSecurityIdentities, and several others. In this case you have to assign it to an array and then parse the array with a â€œfor each loop. If IsNull(arrKrb) Then strKrb = &quot;&quot; Else For Each strAltID In arrKrb strKrb = strAltID Next End if Once you’ve assigned the attributes to variables you must do something with them. Usually I will just echo the results. WScript.echo strDn &amp; &quot; , &quot; &amp; strKrb If there is a lot of info to look at or I want to send the info to someone else I will pipe the output of the script to a text file or CSV. cscript enum_objects.vbs &gt; objects.txt Another option is to create the output file within the script. You just have to add a few lines of code at the top. set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;) set ts = fso.CreateTextFile(&quot;c:\\scripts\\users-.csv&quot;, true) We’re creating a CSV so we will want to add a header to the file. ts.writeline(&quot;UPN,Kerberos ID &quot;) Now we change the line with the â€œwscript.echo code to add a new line to the file that we created. ts.writeline( strDn &amp; &quot;,&quot; &amp; strKrb) Now all we have to do is close the recordset. objRs.Close","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Searching Active Directory with VBScript</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-19T00:00:00-05:00" itemprop="datePublished">Oct 19, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>[gallery]I am constantly writing scripts to search AD. Basically I’m using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I’ve attached examples for searching users, computers, and shared printers that are published in AD.</p>
+
+<p>The following script is one that I am writing to get a list of user objects that have a Kerberos username in the â€œaltSecurityIdentities attribute. We are using pass-through authentication to a MIT Kerberos implementation outside of our Active Directory environment. Most of you won’t find anything in that attribute and may want to test this with the â€œdescription attribute instead.</p>
+
+<p>First you will need to connect to the Directory. Connecting to the RootDSE is usually the easiest place to connect. Using RootDSE will make your script more portable by not requiring you to change LDAP strings to use it in another domain. In this case I’ve broken up the connection string into variables to make it easier to change</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Set</span> <span class="n">objRootDSE</span> <span class="o">=</span> <span class="no">GetObject</span><span class="p">(</span><span class="s2">"LDAP://RootDSE"</span><span class="p">)</span>
+<span class="n">strDNSDomain</span> <span class="o">=</span> <span class="n">objRootDSE</span><span class="o">.</span><span class="no">Get</span><span class="p">(</span><span class="s2">"defaultNamingContext"</span><span class="p">)</span>
+
+<span class="no">Set</span> <span class="n">objCmd</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Command"</span><span class="p">)</span>
+<span class="no">Set</span> <span class="n">objConn</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Connection"</span><span class="p">)</span>
+<span class="n">objConn</span><span class="o">.</span><span class="no">Provider</span> <span class="o">=</span> <span class="s2">"ADsDSOObject"</span>
+<span class="n">objConn</span><span class="o">.</span><span class="no">Open</span> <span class="s2">"Active Directory Provider"</span>
+<span class="n">objCmd</span><span class="o">.</span><span class="no">ActiveConnection</span> <span class="o">=</span> <span class="n">objConn</span></code></pre></figure>
+
+<p>You will have to construct an ADSI filter to return the results that you want.
+<b>Examples:</b>
+“(objectClass=<em>)” = All objects.
+“(&amp;(objectCategory=person)(objectClass=user)(!cn=andy))” = All user objects but “andy”.
+“(sn=sm</em>)” = All objects with a surname that starts with “sm”.
+“(&amp;(objectCategory=person)(objectClass=contact)(|(sn=Smith)(sn=Johnson)))” = All contacts with a surname equal to “Smith” or “Johnson”.</p>
+
+<p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475(v=vs.85).aspx">Search Filter Syntax</a></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">strBase</span> <span class="o">=</span> <span class="s2">"&lt;LDAP://"</span> <span class="o">&amp;</span> <span class="n">strDNSDomain</span> <span class="o">&amp;</span> <span class="s2">"&gt;"</span>
+<span class="n">strFilter</span> <span class="o">=</span> <span class="s2">"(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))"</span>
+<span class="n">strAttributes</span> <span class="o">=</span> <span class="s2">"distinguishedName,member,userPrincipalName,altSecurityIdentities"</span>
+<span class="n">strQuery</span> <span class="o">=</span> <span class="n">strBase</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strFilter</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strAttributes</span> <span class="o">&amp;</span> <span class="s2">";subtree"</span></code></pre></figure>
+
+<p>This is where the script sets the properties and actually makes the connection.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">objCmd</span><span class="o">.</span><span class="no">CommandText</span> <span class="o">=</span> <span class="n">strQuery</span>
+<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Page Size"</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Timeout"</span><span class="p">)</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Cache Results"</span><span class="p">)</span> <span class="o">=</span> <span class="no">False</span>
+<span class="no">Set</span> <span class="n">objRs</span> <span class="o">=</span> <span class="n">objCmd</span><span class="o">.</span><span class="no">Execute</span></code></pre></figure>
+
+<p>Now that we have made the connection we can loop through the recordset that is returned.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Do</span> <span class="no">Until</span> <span class="n">objRs</span><span class="o">.</span><span class="no">EOF</span>
+<span class="n">strUPN</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span>
+<span class="n">arrKrb</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"altSecurityIdentities"</span><span class="p">).</span><span class="nf">value</span>
+<span class="no">If</span> <span class="no">IsNull</span><span class="p">(</span><span class="n">arrKrb</span><span class="p">)</span> <span class="no">Then</span>
+<span class="n">strKrb</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="no">Else</span>
+<span class="no">For</span> <span class="no">Each</span> <span class="n">strAltID</span> <span class="no">In</span> <span class="n">arrKrb</span>
+<span class="n">strKrb</span> <span class="o">=</span> <span class="n">strAltID</span>
+<span class="no">Next</span>
+<span class="no">End</span> <span class="k">if</span>
+<span class="no">WScript</span><span class="p">.</span><span class="nf">echo</span>  <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">"	, "</span> <span class="o">&amp;</span> <span class="n">strKrb</span>
+<span class="n">objRs</span><span class="o">.</span><span class="no">MoveNext</span>
+<span class="no">Loop</span></code></pre></figure>
+
+<p>Notice the difference between how the two attributes are assigned to variables. The strUPN variable is simply set this way:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">strUPN</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span></code></pre></figure>
+
+<p>With some attributes this method will fail with a â€œMismatch error. The reason for this is that the information is stored as a multi-value attribute. You’ll see this with â€œdescription, â€œaltSecurityIdentities, and several others. In this case you have to assign it to an array and then parse the array with a â€œfor each loop.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">If</span> <span class="no">IsNull</span><span class="p">(</span><span class="n">arrKrb</span><span class="p">)</span> <span class="no">Then</span>
+<span class="n">strKrb</span> <span class="o">=</span> <span class="s2">""</span>
+<span class="no">Else</span>
+<span class="no">For</span> <span class="no">Each</span> <span class="n">strAltID</span> <span class="no">In</span> <span class="n">arrKrb</span>
+<span class="n">strKrb</span> <span class="o">=</span> <span class="n">strAltID</span>
+<span class="no">Next</span>
+<span class="no">End</span> <span class="k">if</span></code></pre></figure>
+
+<p>Once you’ve assigned the attributes to variables you must do something with them. Usually I will just echo the results.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">WScript</span><span class="p">.</span><span class="nf">echo</span>  <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">"	, "</span> <span class="o">&amp;</span> <span class="n">strKrb</span></code></pre></figure>
+
+<p>If there is a lot of info to look at or I want to send the info to someone else I will pipe the output of the script to a text file or CSV.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cscript</span> <span class="n">enum_objects</span><span class="p">.</span><span class="nf">vbs</span> <span class="o">&gt;</span> <span class="n">objects</span><span class="p">.</span><span class="nf">txt</span></code></pre></figure>
+
+<p>Another option is to create the output file within the script. You just have to add a few lines of code at the top.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="n">fso</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"Scripting.FileSystemObject"</span><span class="p">)</span>
+<span class="n">set</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">fso</span><span class="o">.</span><span class="no">CreateTextFile</span><span class="p">(</span><span class="s2">"c:</span><span class="se">\s</span><span class="s2">cripts</span><span class="se">\u</span><span class="s2">sers-.csv"</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span></code></pre></figure>
+
+<p>We’re creating a CSV so we will want to add a header to the file.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ts</span><span class="p">.</span><span class="nf">writeline</span><span class="p">(</span><span class="s2">"UPN,Kerberos ID "</span><span class="p">)</span></code></pre></figure>
+
+<p>Now we change the line with the â€œwscript.echo code to add a new line to the file that we created.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ts</span><span class="p">.</span><span class="nf">writeline</span><span class="p">(</span> <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">","</span> <span class="o">&amp;</span> <span class="n">strKrb</span><span class="p">)</span></code></pre></figure>
+
+<p>Now all we have to do is close the recordset.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">objRs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2012/10/19/Searching-Active-Directory-with-VBScript.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

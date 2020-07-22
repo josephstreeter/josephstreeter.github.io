@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Centralize Syslog-ng Data with MySQL | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Centralize Syslog-ng Data with MySQL" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="You can send all of your syslog data to a MySQL database using syslog-ng on a linux box. You can then use PHP to display the SQL queries in a table. It’s handy to see what’s going on with your equipment and doesn’t cost a thing! Configure the MySQL database: CREATE DATABASE syslog; USE syslog; CREATE TABLE logs ( host varchar(32) default NULL, facility varchar(10) default NULL, priority varchar(10) default NULL, level varchar(10) default NULL, tag varchar(10) default NULL, date date default NULL, time time default NULL, program varchar(15) default NULL, msg text, seq int(10) unsigned NOT NULL auto_increment, PRIMARY KEY (seq), KEY host (host), KEY seq (seq), KEY program (program), KEY time (time), KEY date (date), KEY priority (priority), KEY facility (facility) ) TYPE=MyISAM; Configure Syslog-ng: source net { udp(); }; destination d_mysql { pipe(&quot;/var/log/mysql.pipe&quot; template(&quot;INSERT INTO logs (host, facility, priority, level, tag, date, time, program, msg) VALUES ( &#39;$HOST&#39;, &#39;$FACILITY&#39;, &#39;$PRIORITY&#39;, &#39;$LEVEL&#39;, &#39;$TAG&#39;, &#39;$YEAR-$MONTH-$DAY&#39;, &#39;$HOUR:$MIN:$SEC&#39;, &#39;$PROGRAM&#39;, &#39;$MSG&#39;);\n&quot;) template-escape(yes)); }; log { source(net); destination(d_mysql); }; Configure this script to run (There are a few different ways to do it, just make sure it’s running all the time): #!/bin/bash if [ ! -e /var/log/mysql.pipe ] then mkfifo /var/log/mysql.pipe fi while [ -e /var/log/mysql.pipe ] do mysql -u root --password=iw2slep! syslog &lt; /var/log/mysql.pipe &gt;/dev/null done Now, configure your network equipment to send syslog to your linux machine: logging &lt;ip-address&gt; I’ve also written a simple PHP script to display the syslog info in a table. No real filtering or sorting. I would just teak the SQL query if I wanted to see something differnet. It would be nice to have all the sorting and filtering built into the page, but I’m just not that good with PHP yet. This is an example that I will work off of for the next project: &lt;html&gt; &lt;body&gt; &lt;?php $username=&quot;username&quot;; $password=&quot;password&quot;; $database=&quot;your_database&quot;; mysql_connect(localhost,$username,$password); @mysql_select_db($database) or die( &quot;Unable to select database&quot;); $query=&quot;SELECT * FROM tablename&quot;; $result=mysql_query($query); $num=mysql_numrows($result); mysql_close(); ?&gt; &lt;table border=&quot;0&quot; cellspacing=&quot;2&quot; cellpadding=&quot;2&quot;&gt; &lt;tr&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value1&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value2&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value3&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value4&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value5&lt;/font&gt;&lt;/th&gt; &lt;/tr&gt; &lt;?php $i=0; while ($i &lt; $num) { $f1=mysql_result($result,$i,&quot;field1&quot;); $f2=mysql_result($result,$i,&quot;field2&quot;); $f3=mysql_result($result,$i,&quot;field3&quot;); $f4=mysql_result($result,$i,&quot;field4&quot;); $f5=mysql_result($result,$i,&quot;field5&quot;); ?&gt; &lt;tr&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f1; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f2; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f3; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f4; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f5; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;/tr&gt; &lt;?php $i++; } ?&gt; &lt;/body&gt; &lt;/html&gt;" />
+<meta property="og:description" content="You can send all of your syslog data to a MySQL database using syslog-ng on a linux box. You can then use PHP to display the SQL queries in a table. It’s handy to see what’s going on with your equipment and doesn’t cost a thing! Configure the MySQL database: CREATE DATABASE syslog; USE syslog; CREATE TABLE logs ( host varchar(32) default NULL, facility varchar(10) default NULL, priority varchar(10) default NULL, level varchar(10) default NULL, tag varchar(10) default NULL, date date default NULL, time time default NULL, program varchar(15) default NULL, msg text, seq int(10) unsigned NOT NULL auto_increment, PRIMARY KEY (seq), KEY host (host), KEY seq (seq), KEY program (program), KEY time (time), KEY date (date), KEY priority (priority), KEY facility (facility) ) TYPE=MyISAM; Configure Syslog-ng: source net { udp(); }; destination d_mysql { pipe(&quot;/var/log/mysql.pipe&quot; template(&quot;INSERT INTO logs (host, facility, priority, level, tag, date, time, program, msg) VALUES ( &#39;$HOST&#39;, &#39;$FACILITY&#39;, &#39;$PRIORITY&#39;, &#39;$LEVEL&#39;, &#39;$TAG&#39;, &#39;$YEAR-$MONTH-$DAY&#39;, &#39;$HOUR:$MIN:$SEC&#39;, &#39;$PROGRAM&#39;, &#39;$MSG&#39;);\n&quot;) template-escape(yes)); }; log { source(net); destination(d_mysql); }; Configure this script to run (There are a few different ways to do it, just make sure it’s running all the time): #!/bin/bash if [ ! -e /var/log/mysql.pipe ] then mkfifo /var/log/mysql.pipe fi while [ -e /var/log/mysql.pipe ] do mysql -u root --password=iw2slep! syslog &lt; /var/log/mysql.pipe &gt;/dev/null done Now, configure your network equipment to send syslog to your linux machine: logging &lt;ip-address&gt; I’ve also written a simple PHP script to display the syslog info in a table. No real filtering or sorting. I would just teak the SQL query if I wanted to see something differnet. It would be nice to have all the sorting and filtering built into the page, but I’m just not that good with PHP yet. This is an example that I will work off of for the next project: &lt;html&gt; &lt;body&gt; &lt;?php $username=&quot;username&quot;; $password=&quot;password&quot;; $database=&quot;your_database&quot;; mysql_connect(localhost,$username,$password); @mysql_select_db($database) or die( &quot;Unable to select database&quot;); $query=&quot;SELECT * FROM tablename&quot;; $result=mysql_query($query); $num=mysql_numrows($result); mysql_close(); ?&gt; &lt;table border=&quot;0&quot; cellspacing=&quot;2&quot; cellpadding=&quot;2&quot;&gt; &lt;tr&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value1&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value2&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value3&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value4&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value5&lt;/font&gt;&lt;/th&gt; &lt;/tr&gt; &lt;?php $i=0; while ($i &lt; $num) { $f1=mysql_result($result,$i,&quot;field1&quot;); $f2=mysql_result($result,$i,&quot;field2&quot;); $f3=mysql_result($result,$i,&quot;field3&quot;); $f4=mysql_result($result,$i,&quot;field4&quot;); $f5=mysql_result($result,$i,&quot;field5&quot;); ?&gt; &lt;tr&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f1; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f2; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f3; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f4; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f5; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;/tr&gt; &lt;?php $i++; } ?&gt; &lt;/body&gt; &lt;/html&gt;" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html","headline":"Centralize Syslog-ng Data with MySQL","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html"},"description":"You can send all of your syslog data to a MySQL database using syslog-ng on a linux box. You can then use PHP to display the SQL queries in a table. It’s handy to see what’s going on with your equipment and doesn’t cost a thing! Configure the MySQL database: CREATE DATABASE syslog; USE syslog; CREATE TABLE logs ( host varchar(32) default NULL, facility varchar(10) default NULL, priority varchar(10) default NULL, level varchar(10) default NULL, tag varchar(10) default NULL, date date default NULL, time time default NULL, program varchar(15) default NULL, msg text, seq int(10) unsigned NOT NULL auto_increment, PRIMARY KEY (seq), KEY host (host), KEY seq (seq), KEY program (program), KEY time (time), KEY date (date), KEY priority (priority), KEY facility (facility) ) TYPE=MyISAM; Configure Syslog-ng: source net { udp(); }; destination d_mysql { pipe(&quot;/var/log/mysql.pipe&quot; template(&quot;INSERT INTO logs (host, facility, priority, level, tag, date, time, program, msg) VALUES ( &#39;$HOST&#39;, &#39;$FACILITY&#39;, &#39;$PRIORITY&#39;, &#39;$LEVEL&#39;, &#39;$TAG&#39;, &#39;$YEAR-$MONTH-$DAY&#39;, &#39;$HOUR:$MIN:$SEC&#39;, &#39;$PROGRAM&#39;, &#39;$MSG&#39;);\\n&quot;) template-escape(yes)); }; log { source(net); destination(d_mysql); }; Configure this script to run (There are a few different ways to do it, just make sure it’s running all the time): #!/bin/bash if [ ! -e /var/log/mysql.pipe ] then mkfifo /var/log/mysql.pipe fi while [ -e /var/log/mysql.pipe ] do mysql -u root --password=iw2slep! syslog &lt; /var/log/mysql.pipe &gt;/dev/null done Now, configure your network equipment to send syslog to your linux machine: logging &lt;ip-address&gt; I’ve also written a simple PHP script to display the syslog info in a table. No real filtering or sorting. I would just teak the SQL query if I wanted to see something differnet. It would be nice to have all the sorting and filtering built into the page, but I’m just not that good with PHP yet. This is an example that I will work off of for the next project: &lt;html&gt; &lt;body&gt; &lt;?php $username=&quot;username&quot;; $password=&quot;password&quot;; $database=&quot;your_database&quot;; mysql_connect(localhost,$username,$password); @mysql_select_db($database) or die( &quot;Unable to select database&quot;); $query=&quot;SELECT * FROM tablename&quot;; $result=mysql_query($query); $num=mysql_numrows($result); mysql_close(); ?&gt; &lt;table border=&quot;0&quot; cellspacing=&quot;2&quot; cellpadding=&quot;2&quot;&gt; &lt;tr&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value1&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value2&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value3&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value4&lt;/font&gt;&lt;/th&gt; &lt;th&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;Value5&lt;/font&gt;&lt;/th&gt; &lt;/tr&gt; &lt;?php $i=0; while ($i &lt; $num) { $f1=mysql_result($result,$i,&quot;field1&quot;); $f2=mysql_result($result,$i,&quot;field2&quot;); $f3=mysql_result($result,$i,&quot;field3&quot;); $f4=mysql_result($result,$i,&quot;field4&quot;); $f5=mysql_result($result,$i,&quot;field5&quot;); ?&gt; &lt;tr&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f1; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f2; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f3; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f4; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;td&gt;&lt;font face=&quot;Arial, Helvetica, sans-serif&quot;&gt;&lt;?php echo $f5; ?&gt;&lt;/font&gt;&lt;/td&gt; &lt;/tr&gt; &lt;?php $i++; } ?&gt; &lt;/body&gt; &lt;/html&gt;","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Centralize Syslog-ng Data with MySQL</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>You can send all of your syslog data to a MySQL database using syslog-ng on a linux box. You can then use PHP to display the SQL queries in a table. It’s handy to see what’s going on with your equipment and doesn’t cost a thing!</p>
+
+<p>Configure the MySQL database:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">CREATE</span> <span class="no">DATABASE</span> <span class="n">syslog</span><span class="p">;</span>
+
+<span class="no">USE</span> <span class="n">syslog</span><span class="p">;</span>
+
+<span class="no">CREATE</span> <span class="no">TABLE</span> <span class="n">logs</span> <span class="p">(</span>
+<span class="n">host</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">facility</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">priority</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">level</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">tag</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">date</span> <span class="n">date</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">time</span> <span class="n">time</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">program</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
+<span class="n">msg</span> <span class="n">text</span><span class="p">,</span>
+<span class="n">seq</span> <span class="n">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="no">NOT</span> <span class="no">NULL</span> <span class="n">auto_increment</span><span class="p">,</span>
+<span class="no">PRIMARY</span> <span class="no">KEY</span> <span class="p">(</span><span class="n">seq</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">host</span> <span class="p">(</span><span class="n">host</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">seq</span> <span class="p">(</span><span class="n">seq</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">program</span> <span class="p">(</span><span class="n">program</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">time</span> <span class="p">(</span><span class="n">time</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">date</span> <span class="p">(</span><span class="n">date</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">priority</span> <span class="p">(</span><span class="n">priority</span><span class="p">),</span>
+<span class="no">KEY</span> <span class="n">facility</span> <span class="p">(</span><span class="n">facility</span><span class="p">)</span>
+<span class="p">)</span> <span class="no">TYPE</span><span class="o">=</span><span class="no">MyISAM</span><span class="p">;</span></code></pre></figure>
+
+<p>Configure Syslog-ng:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="n">net</span> <span class="p">{</span> <span class="n">udp</span><span class="p">();</span> <span class="p">};</span>
+
+<span class="n">destination</span> <span class="n">d_mysql</span> <span class="p">{</span>
+<span class="n">pipe</span><span class="p">(</span><span class="s2">"/var/log/mysql.pipe"</span>
+<span class="n">template</span><span class="p">(</span><span class="s2">"INSERT INTO logs
+(host, facility, priority, level, tag, date, time, program, msg)
+VALUES ( '$HOST', '$FACILITY', '$PRIORITY', '$LEVEL', '$TAG', '$YEAR-$MONTH-$DAY', '$HOUR:$MIN:$SEC',
+'$PROGRAM', '$MSG');</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span> <span class="n">template</span><span class="o">-</span><span class="n">escape</span><span class="p">(</span><span class="n">yes</span><span class="p">));</span>
+<span class="p">};</span>
+
+<span class="n">log</span> <span class="p">{</span>
+<span class="n">source</span><span class="p">(</span><span class="n">net</span><span class="p">);</span>
+<span class="n">destination</span><span class="p">(</span><span class="n">d_mysql</span><span class="p">);</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Configure this script to run (There are a few different ways to do it, just make sure it’s running all the time):</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/bin/bash
+</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">e</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="p">]</span>
+<span class="k">then</span>
+<span class="n">mkfifo</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span>
+<span class="n">fi</span>
+<span class="k">while</span> <span class="p">[</span> <span class="o">-</span><span class="n">e</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="p">]</span>
+<span class="k">do</span>
+<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">--</span><span class="n">password</span><span class="o">=</span><span class="n">iw2slep!</span> <span class="n">syslog</span> <span class="o">&lt;</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="o">&gt;</span><span class="sr">/dev/nu</span><span class="n">ll</span>
+<span class="n">done</span></code></pre></figure>
+
+<p>Now, configure your network equipment to send syslog to your linux machine:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">logging</span> <span class="o">&lt;</span><span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="o">&gt;</span></code></pre></figure>
+
+<p>I’ve also written a simple PHP script to display the syslog info in a table. No real filtering or sorting. I would just teak the SQL query if I wanted to see something differnet. It would be nice to have all the sorting and filtering built into the page, but I’m just not that good with PHP yet.</p>
+
+<p>This is an example that I will work off of for the next project:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
+<span class="vg">$username</span><span class="o">=</span><span class="s2">"username"</span><span class="p">;</span>
+<span class="vg">$password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">;</span>
+<span class="vg">$database</span><span class="o">=</span><span class="s2">"your_database"</span><span class="p">;</span>
+
+<span class="n">mysql_connect</span><span class="p">(</span><span class="n">localhost</span><span class="p">,</span><span class="vg">$username</span><span class="p">,</span><span class="vg">$password</span><span class="p">);</span>
+<span class="vi">@mysql_select_db</span><span class="p">(</span><span class="vg">$database</span><span class="p">)</span> <span class="n">or</span> <span class="n">die</span><span class="p">(</span> <span class="s2">"Unable to select database"</span><span class="p">);</span>
+<span class="vg">$query</span><span class="o">=</span><span class="s2">"SELECT * FROM tablename"</span><span class="p">;</span>
+<span class="vg">$result</span><span class="o">=</span><span class="n">mysql_query</span><span class="p">(</span><span class="vg">$query</span><span class="p">);</span>
+
+<span class="vg">$num</span><span class="o">=</span><span class="n">mysql_numrows</span><span class="p">(</span><span class="vg">$result</span><span class="p">);</span>
+
+<span class="n">mysql_close</span><span class="p">();</span>
+<span class="sc">?&gt;</span>
+<span class="o">&lt;</span><span class="n">table</span> <span class="n">border</span><span class="o">=</span><span class="s2">"0"</span> <span class="n">cellspacing</span><span class="o">=</span><span class="s2">"2"</span> <span class="n">cellpadding</span><span class="o">=</span><span class="s2">"2"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value1</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value2</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value3</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value4</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value5</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+
+&lt;?php
+$i=0;
+while ($i &lt; $num) {
+
+$f1=mysql_result($result,$i,"field1");
+$f2=mysql_result($result,$i,"field2");
+$f3=mysql_result($result,$i,"field3");
+$f4=mysql_result($result,$i,"field4");
+$f5=mysql_result($result,$i,"field5");
+?&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f1; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
+&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f2; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
+&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f3; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
+&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f4; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
+&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f5; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
+&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+
+<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
+<span class="vg">$i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="sc">?&gt;</span>
+<span class="o">&lt;</span><span class="sr">/body&gt;
+&lt;/</span><span class="n">html</span><span class="o">&gt;</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

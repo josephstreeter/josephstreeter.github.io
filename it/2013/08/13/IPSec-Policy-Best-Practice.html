@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Create Legacy IPsec Policy from CLI | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Create Legacy IPsec Policy from CLI" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The following commands can be used to script the creation of legacy IPsec policies. The example here creates an IPsec policy meant to secure all IP traffic between domain controllers in separate forests in order to secure AD forest trust traffic. This example uses PSK for authentication, but you should use certificates if possible. Create the IPsec policy: netsh ipsec static add policy name=&quot;AD Trusts&quot; description=&quot;AD Forest Trust traffic&quot; mmpfs=&quot;no&quot; mmlifetime=&quot;10&quot; activatedefaultrule=&quot;no&quot; pollinginterval=&quot;5&quot; assign=no mmsec=&quot;3DES-SHA1-2&quot; Create a filter action: netsh ipsec static add filteraction name=&quot;ESP-3DES-SHA1-0-3600&quot; description=&quot;Require ESP 3DES/SHA1, no inbound clear, no fallback to clear, No PFS&quot; qmpfs=no inpass=no soft=no action=negotiate qmsecmethods=&quot;ESP[3DES,SHA1]:3600s&quot; Note: In the filter action example the name of the filter action reflects the settings in the filter action. This makes it easier to create reusable filter actions. Create the filter list: netsh ipsec static add filterlist &quot;Domain Controllers&quot; Create filters and add them to the filter list: netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC1 - TheirDC1&quot; srcaddr=192.168.0.10 dstaddr=172.16.10.20 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC2 - TheirDC3&quot; srcaddr=192.168.0.11 dstaddr=172.16.10.21 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC3 - TheirDC3&quot; srcaddr=192.168.0.12 dstaddr=172.16.10.22 Create a rule in the IPsec policy we created using the filter list and filter action that we created: netsh ipsec static add rule name=&quot;My Forest - Their Forest&quot; policy=&quot;AD Trusts&quot; filterlist=&quot;Domain Controllers&quot; filteraction=&quot;ESP-3DES-SHA1-0-3600&quot; kerberos=&quot;no&quot; psk=&quot;my complex password&quot;" />
+<meta property="og:description" content="The following commands can be used to script the creation of legacy IPsec policies. The example here creates an IPsec policy meant to secure all IP traffic between domain controllers in separate forests in order to secure AD forest trust traffic. This example uses PSK for authentication, but you should use certificates if possible. Create the IPsec policy: netsh ipsec static add policy name=&quot;AD Trusts&quot; description=&quot;AD Forest Trust traffic&quot; mmpfs=&quot;no&quot; mmlifetime=&quot;10&quot; activatedefaultrule=&quot;no&quot; pollinginterval=&quot;5&quot; assign=no mmsec=&quot;3DES-SHA1-2&quot; Create a filter action: netsh ipsec static add filteraction name=&quot;ESP-3DES-SHA1-0-3600&quot; description=&quot;Require ESP 3DES/SHA1, no inbound clear, no fallback to clear, No PFS&quot; qmpfs=no inpass=no soft=no action=negotiate qmsecmethods=&quot;ESP[3DES,SHA1]:3600s&quot; Note: In the filter action example the name of the filter action reflects the settings in the filter action. This makes it easier to create reusable filter actions. Create the filter list: netsh ipsec static add filterlist &quot;Domain Controllers&quot; Create filters and add them to the filter list: netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC1 - TheirDC1&quot; srcaddr=192.168.0.10 dstaddr=172.16.10.20 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC2 - TheirDC3&quot; srcaddr=192.168.0.11 dstaddr=172.16.10.21 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC3 - TheirDC3&quot; srcaddr=192.168.0.12 dstaddr=172.16.10.22 Create a rule in the IPsec policy we created using the filter list and filter action that we created: netsh ipsec static add rule name=&quot;My Forest - Their Forest&quot; policy=&quot;AD Trusts&quot; filterlist=&quot;Domain Controllers&quot; filteraction=&quot;ESP-3DES-SHA1-0-3600&quot; kerberos=&quot;no&quot; psk=&quot;my complex password&quot;" />
+<link rel="canonical" href="http://localhost:4000/it/2013/08/13/IPSec-Policy-Best-Practice.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/08/13/IPSec-Policy-Best-Practice.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-08-13T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/08/13/IPSec-Policy-Best-Practice.html","headline":"Create Legacy IPsec Policy from CLI","dateModified":"2013-08-13T00:00:00-05:00","datePublished":"2013-08-13T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/08/13/IPSec-Policy-Best-Practice.html"},"description":"The following commands can be used to script the creation of legacy IPsec policies. The example here creates an IPsec policy meant to secure all IP traffic between domain controllers in separate forests in order to secure AD forest trust traffic. This example uses PSK for authentication, but you should use certificates if possible. Create the IPsec policy: netsh ipsec static add policy name=&quot;AD Trusts&quot; description=&quot;AD Forest Trust traffic&quot; mmpfs=&quot;no&quot; mmlifetime=&quot;10&quot; activatedefaultrule=&quot;no&quot; pollinginterval=&quot;5&quot; assign=no mmsec=&quot;3DES-SHA1-2&quot; Create a filter action: netsh ipsec static add filteraction name=&quot;ESP-3DES-SHA1-0-3600&quot; description=&quot;Require ESP 3DES/SHA1, no inbound clear, no fallback to clear, No PFS&quot; qmpfs=no inpass=no soft=no action=negotiate qmsecmethods=&quot;ESP[3DES,SHA1]:3600s&quot; Note: In the filter action example the name of the filter action reflects the settings in the filter action. This makes it easier to create reusable filter actions. Create the filter list: netsh ipsec static add filterlist &quot;Domain Controllers&quot; Create filters and add them to the filter list: netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC1 - TheirDC1&quot; srcaddr=192.168.0.10 dstaddr=172.16.10.20 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC2 - TheirDC3&quot; srcaddr=192.168.0.11 dstaddr=172.16.10.21 netsh ipsec static add filter filterlist=&quot;Domain Controllers&quot; description=&quot;MyDC3 - TheirDC3&quot; srcaddr=192.168.0.12 dstaddr=172.16.10.22 Create a rule in the IPsec policy we created using the filter list and filter action that we created: netsh ipsec static add rule name=&quot;My Forest - Their Forest&quot; policy=&quot;AD Trusts&quot; filterlist=&quot;Domain Controllers&quot; filteraction=&quot;ESP-3DES-SHA1-0-3600&quot; kerberos=&quot;no&quot; psk=&quot;my complex password&quot;","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Create Legacy IPsec Policy from CLI</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-08-13T00:00:00-05:00" itemprop="datePublished">Aug 13, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The following commands can be used to script the creation of legacy IPsec policies. The example here creates an IPsec policy meant to secure all IP traffic between domain controllers in separate forests in order to secure AD forest trust traffic.
+This example uses PSK for authentication, but you should use certificates if possible.</p>
+
+<p>Create the IPsec policy:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">policy</span> <span class="nb">name</span><span class="o">=</span><span class="s2">"AD Trusts"</span> <span class="n">description</span><span class="o">=</span><span class="s2">"AD Forest Trust traffic"</span> <span class="n">mmpfs</span><span class="o">=</span><span class="s2">"no"</span> <span class="n">mmlifetime</span><span class="o">=</span><span class="s2">"10"</span> <span class="n">activatedefaultrule</span><span class="o">=</span><span class="s2">"no"</span> <span class="n">pollinginterval</span><span class="o">=</span><span class="s2">"5"</span> <span class="n">assign</span><span class="o">=</span><span class="n">no</span> <span class="n">mmsec</span><span class="o">=</span><span class="s2">"3DES-SHA1-2"</span></code></pre></figure>
+
+<p>Create a filter action:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">filteraction</span> <span class="nb">name</span><span class="o">=</span><span class="s2">"ESP-3DES-SHA1-0-3600"</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Require ESP 3DES/SHA1, no inbound clear, no fallback to clear, No PFS"</span> <span class="n">qmpfs</span><span class="o">=</span><span class="n">no</span> <span class="n">inpass</span><span class="o">=</span><span class="n">no</span> <span class="n">soft</span><span class="o">=</span><span class="n">no</span> <span class="n">action</span><span class="o">=</span><span class="n">negotiate</span> <span class="n">qmsecmethods</span><span class="o">=</span><span class="s2">"ESP[3DES,SHA1]:3600s"</span></code></pre></figure>
+
+<p>Note: In the filter action example the name of the filter action reflects the settings in the filter action. This makes it easier to create reusable filter actions.
+Create the filter list:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">filterlist</span> <span class="s2">"Domain Controllers"</span></code></pre></figure>
+
+<p>Create filters and add them to the filter list:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">filter</span> <span class="n">filterlist</span><span class="o">=</span><span class="s2">"Domain Controllers"</span> <span class="n">description</span><span class="o">=</span><span class="s2">"MyDC1 - TheirDC1"</span> <span class="n">srcaddr</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.10</span> <span class="n">dstaddr</span><span class="o">=</span><span class="mf">172.16</span><span class="o">.</span><span class="mf">10.20</span>
+<span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">filter</span> <span class="n">filterlist</span><span class="o">=</span><span class="s2">"Domain Controllers"</span> <span class="n">description</span><span class="o">=</span><span class="s2">"MyDC2 - TheirDC3"</span> <span class="n">srcaddr</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.11</span> <span class="n">dstaddr</span><span class="o">=</span><span class="mf">172.16</span><span class="o">.</span><span class="mf">10.21</span>
+<span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">filter</span> <span class="n">filterlist</span><span class="o">=</span><span class="s2">"Domain Controllers"</span> <span class="n">description</span><span class="o">=</span><span class="s2">"MyDC3 - TheirDC3"</span> <span class="n">srcaddr</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">0.12</span> <span class="n">dstaddr</span><span class="o">=</span><span class="mf">172.16</span><span class="o">.</span><span class="mf">10.22</span></code></pre></figure>
+
+<p>Create a rule in the IPsec policy we created using the filter list and filter action that we created:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netsh</span> <span class="n">ipsec</span> <span class="n">static</span> <span class="n">add</span> <span class="n">rule</span> <span class="nb">name</span><span class="o">=</span><span class="s2">"My Forest - Their Forest"</span> <span class="n">policy</span><span class="o">=</span><span class="s2">"AD Trusts"</span> <span class="n">filterlist</span><span class="o">=</span><span class="s2">"Domain Controllers"</span> <span class="n">filteraction</span><span class="o">=</span><span class="s2">"ESP-3DES-SHA1-0-3600"</span> <span class="n">kerberos</span><span class="o">=</span><span class="s2">"no"</span> <span class="n">psk</span><span class="o">=</span><span class="s2">"my complex password"</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/08/13/IPSec-Policy-Best-Practice.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

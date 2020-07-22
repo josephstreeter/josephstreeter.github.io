@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>QoS to Limit Some Web Traffic (ardenpackeer.com) | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="QoS to Limit Some Web Traffic (ardenpackeer.com)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I came across this blog post one day while doing some research on QoS. I’ve seen sites like youtube take down network links so that users could not do real work. I would really like to use this somewhere. I guess it is a solution searching for a problem at this point. My hat is off to the author. ardenpackeer.com Tutorial: How to use Cisco MQC &amp; NBAR to filter websites like YouTube I was asked a great question by one of my clients regarding filtering of websites. He had filtered http://www.youtube.com/ and http://video.google.com.au/ at his proxy server but with the number of different video sites popping up (metacafe, jibjab etc etc), his filters just couldn’t keep up…and neither could his bandwidth! One solution to this problem is the use of Cisco’s Network Based Application Recognition (NBAR). NBAR is a deep packet inspection and classification engine. It was first introduced in experimental versions of IOS v12.1 and can be used with Cisco’s Modular Quality Of Service Command Line (MQC). In this article we will look at using MQC to filter websites. I will demonstrate using the match protocol http command to match a URL, a host or MIME type. We will use the following topology for demonstration: R3 will act as a webserver and R1 as a client. The filtering will be applied on R2. You can download the dynamips .net file the following topology here. R1 Base Configuration: hostname R1 ! int s1/0 ip add 10.0.12.1 255.255.255.0 no shut ! router ospf 1 network 10.0.12.1 0.0.0.0 area 0 R2 Base Configuration: hostname R2 ! int s1/0 ip add 10.0.12.2 255.255.255.0 no shut ! int s1/1 ip add 10.0.23.2 255.255.255.0 no shut ! router ospf 1 network 10.0.12.2 0.0.0.0 area 0 network 10.0.23.2 0.0.0.0 area 0 R3 Base Configuration: hostname R3 ! int s1/0 ip add 10.0.23.3 255.255.255.0 no shut ! int f0/0 ip add 192.168.1.100 255.255.255.0 no shut ! router ospf 1 network 10.0.23.3 0.0.0.0 area 0 ! ip http server ip http path flash: We have set up R3 as a webserver. Details on how to setup R3 as a webserver using IOS can be found here. R3#sh run | in ip http ip http server no ip http secure-server ip http path flash: R3#dir Directory of flash:/ 1 -rw- 90 &lt;no&gt; picture.gif 2 -rw- 329 &lt;no&gt; picture.jpg 3 -rw- 174 &lt;no&gt; index.html 8388604 bytes total (8387812 bytes free) Basic HTTP Filtering using NBAR Lets set up basic http filtering with MQC on R2. R2(config)#class-map match-all MATCH-HTTP R2(config-cmap)#match protocol http R2(config-cmap)#exit R2(config)#policy-map HTTP-POLICY R2(config-pmap)#class MATCH-HTTP R2(config-pmap-c)#set dscp af13 R2(config-pmap-c)#exit R2(config-pmap)#int s1/0 R2(config-if)#service-policy input HTTP-POLICY In the code above we have a class map called MATCH-HTTP. The match protocol http command tells NBAR to match the http protocol. This will match all http traffic. The MATCH-HTTP class is then utilized in the HTTP-POLICY policy map. This policy map is used to set a DSCP marking on all traffic that matches the MATCH-HTTP class (ie all http traffic). The policy is then implemented on R2’s s1/0. Traffic is inspected and marked as it comes into that interface. We can check how many packets have been marked using the show policy-map command. R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 2 packets, 168 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any R2# Lets generate some http traffic, and see if our policy marks some packets. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.544 secs (320 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 124 packets, 10340 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We used the copy http://10.0.23.3/index.html null: command to generate some http traffic. We can see above that 5 packets were generated and were marked as af13. All other traffic will fall into the class-default class. With the packets marked, we could forward them or drop them. Instead of matching all of the http protocol we can use NBAR to look further into the packet and classify or drop packets based on the host requested. Match protocol HTTP host The match protocol HTTP url command is used to match a url. It takes a regular expression as an argument. For example: match protocol http host *youtube.com* ! This would match anything in youtube.com like http://www.youtube.com or http://video.youtube.com ! match protocol http host *google* ! This would match anything with google in the host like http://mail.google.com or http://www.google.com.au ! match protocol http host google* ! This would match http://google.com but not http://video.google.com Lets set up R2 to filter based on a host. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http R2(config-cmap)#match protocol http host 10.0.23.3 R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:04:42.071: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We’ve cleared the counters on R2, so lets generate some traffic on R1 again. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.596 secs (292 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 64 packets, 5300 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We can see here it matched 5 packets based on the host. We can use this to match whole sites like youtube.com or video.google.com. Match protocol HTTP url We can match strings AFTER the host portion of a URL using the match protocol http url command. It also takes a regular expression as an argument. For example: match protocol http url *video* ! This would match http://www.cisco.com/video/index.php or http://www.google.com/stuff/video.html ! match protocol http url video* ! This would match http://www.cisco.com/video but not http://www.cisco.com/stuff/video.html ! because stuff precedes the video portion of the url and in the expression above we have said ! it has to start with the string video ! match protocol http url *.jpeg|*.jpg|*.gif ! This would match any .jpeg or .jpg or .gif extention in the url Lets set up R2 to match based on a URL. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http host 10.0.23.3 R2(config-cmap)#match protocol http url *.jpg As you can see above we have used the match protocol http url function of NBAR to match any url that ends in a .jpg. This effectively blocks jpeg images (unless they have a different extension). Let test it, before we send some traffic we’ll reset the counters on the interface. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:43:39.135: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any If we request a gif file we shouldn’t match the class MATCH-HTTP. Lets test that first. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.644 secs (140 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 18 packets, 1209 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Great Success! Looks pretty good. Now lets try a .jpg extension. We should match this. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 0.820 secs (401 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 7 packets, 433 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 7 Class-map: class-default (match-any) 22 packets, 1469 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Awesome! You can see above we matched based on a URL. match protocol http mime We can also use the match protocol http mime to match internet mime types. The mime type has to be the same mime type that the web server responds with. For a list of valid mime types check out: http://www.sfsu.edu/training/mimetype.htm. Lets look at an example: match protocol http mime image/jpeg ! This would match jpeg,jpg,jpe,jfif,pjpeg, and pjp types ! match protocol http mime image/jpg ! This would not match anything as it is not a proper mime type. Get a list of the mime types ! here: http://www.sfsu.edu/training/mimetype.htm ! match protocol http mime image* ! This would match all image mime types ! match protocol http mime application/x-shockwave-flash ! This would not only match swf flash movies, but all of flash. Lets set up R2 to filter the image/jpeg mime type: R2#conf t Enter configuration commands, one per line. End with CNTL/Z. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http url *.jpg R2(config-cmap)#match protocol http mime ? WORD Enter a string as the sub-protocol parameter R2(config-cmap)#match protocol http mime image/jpeg R2(config-cmap)#exit R2(config)#exit Once again, we’ll clear the counters so we can verify that this works correctly. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 01:12:10.759: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any On R1 lets generate some traffic. A gif file will be requested first. This should not match our policy. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.808 secs (111 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 10 packets, 689 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any All good! Ok lets do the final test and actually request a jpeg image and see if it matches our policy. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 1.216 secs (271 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 220 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 16 packets, 1162 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any You can see above that the jpeg image was matched. It works! Putting it all together So lets put it all together. We can use all three match protocol http commands in a match-any class map. For example: class-map match-any INTERNET-SCUM match protocol http host *youtube.com*|*video.google.com* match protocol http mime video/flv|video/x-flv|video/mp4|video/x-m4v|audio/mp4a-latm match protocol http mime video/3gpp|video/quicktime match protocol http url *.flv|*.mp4|*.m4v|*.m4a|*.3gp|*.mov ! uncomment below if you don&#39;t want ANY flash. ! match protocol http mime application/x-shockwave-flash ! match protocol http url *.swf ! policy-map NOINTERNETVIDEO class INTERNET-SCUM drop ! int s1/0 service-policy input NOINTERNETVIDEO ! This would match any traffic going to youtube or video.google.com, or any flash applications, or common video mime types, and any swf (flash or flash movie) files! Be aware that NBAR does make your router take a hit in CPU processor usage, I’d suggest evaluating your processor usage before using this in production. HTH! Now back to labs! Summary: Use the match http protocol command to match the http protocol. match protocol http host matches the host portion match protocol http url matches the url after the hostname match protocol http mime matches mime types Resources Webserver – Dynamips .net configuration file QOS HTTP Filtering – R1 Final Configuration QOS HTTP Filtering – R2 Final Configuration QOS HTTP Filtering – R3 Final Configuration" />
+<meta property="og:description" content="I came across this blog post one day while doing some research on QoS. I’ve seen sites like youtube take down network links so that users could not do real work. I would really like to use this somewhere. I guess it is a solution searching for a problem at this point. My hat is off to the author. ardenpackeer.com Tutorial: How to use Cisco MQC &amp; NBAR to filter websites like YouTube I was asked a great question by one of my clients regarding filtering of websites. He had filtered http://www.youtube.com/ and http://video.google.com.au/ at his proxy server but with the number of different video sites popping up (metacafe, jibjab etc etc), his filters just couldn’t keep up…and neither could his bandwidth! One solution to this problem is the use of Cisco’s Network Based Application Recognition (NBAR). NBAR is a deep packet inspection and classification engine. It was first introduced in experimental versions of IOS v12.1 and can be used with Cisco’s Modular Quality Of Service Command Line (MQC). In this article we will look at using MQC to filter websites. I will demonstrate using the match protocol http command to match a URL, a host or MIME type. We will use the following topology for demonstration: R3 will act as a webserver and R1 as a client. The filtering will be applied on R2. You can download the dynamips .net file the following topology here. R1 Base Configuration: hostname R1 ! int s1/0 ip add 10.0.12.1 255.255.255.0 no shut ! router ospf 1 network 10.0.12.1 0.0.0.0 area 0 R2 Base Configuration: hostname R2 ! int s1/0 ip add 10.0.12.2 255.255.255.0 no shut ! int s1/1 ip add 10.0.23.2 255.255.255.0 no shut ! router ospf 1 network 10.0.12.2 0.0.0.0 area 0 network 10.0.23.2 0.0.0.0 area 0 R3 Base Configuration: hostname R3 ! int s1/0 ip add 10.0.23.3 255.255.255.0 no shut ! int f0/0 ip add 192.168.1.100 255.255.255.0 no shut ! router ospf 1 network 10.0.23.3 0.0.0.0 area 0 ! ip http server ip http path flash: We have set up R3 as a webserver. Details on how to setup R3 as a webserver using IOS can be found here. R3#sh run | in ip http ip http server no ip http secure-server ip http path flash: R3#dir Directory of flash:/ 1 -rw- 90 &lt;no&gt; picture.gif 2 -rw- 329 &lt;no&gt; picture.jpg 3 -rw- 174 &lt;no&gt; index.html 8388604 bytes total (8387812 bytes free) Basic HTTP Filtering using NBAR Lets set up basic http filtering with MQC on R2. R2(config)#class-map match-all MATCH-HTTP R2(config-cmap)#match protocol http R2(config-cmap)#exit R2(config)#policy-map HTTP-POLICY R2(config-pmap)#class MATCH-HTTP R2(config-pmap-c)#set dscp af13 R2(config-pmap-c)#exit R2(config-pmap)#int s1/0 R2(config-if)#service-policy input HTTP-POLICY In the code above we have a class map called MATCH-HTTP. The match protocol http command tells NBAR to match the http protocol. This will match all http traffic. The MATCH-HTTP class is then utilized in the HTTP-POLICY policy map. This policy map is used to set a DSCP marking on all traffic that matches the MATCH-HTTP class (ie all http traffic). The policy is then implemented on R2’s s1/0. Traffic is inspected and marked as it comes into that interface. We can check how many packets have been marked using the show policy-map command. R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 2 packets, 168 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any R2# Lets generate some http traffic, and see if our policy marks some packets. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.544 secs (320 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 124 packets, 10340 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We used the copy http://10.0.23.3/index.html null: command to generate some http traffic. We can see above that 5 packets were generated and were marked as af13. All other traffic will fall into the class-default class. With the packets marked, we could forward them or drop them. Instead of matching all of the http protocol we can use NBAR to look further into the packet and classify or drop packets based on the host requested. Match protocol HTTP host The match protocol HTTP url command is used to match a url. It takes a regular expression as an argument. For example: match protocol http host *youtube.com* ! This would match anything in youtube.com like http://www.youtube.com or http://video.youtube.com ! match protocol http host *google* ! This would match anything with google in the host like http://mail.google.com or http://www.google.com.au ! match protocol http host google* ! This would match http://google.com but not http://video.google.com Lets set up R2 to filter based on a host. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http R2(config-cmap)#match protocol http host 10.0.23.3 R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:04:42.071: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We’ve cleared the counters on R2, so lets generate some traffic on R1 again. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.596 secs (292 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 64 packets, 5300 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We can see here it matched 5 packets based on the host. We can use this to match whole sites like youtube.com or video.google.com. Match protocol HTTP url We can match strings AFTER the host portion of a URL using the match protocol http url command. It also takes a regular expression as an argument. For example: match protocol http url *video* ! This would match http://www.cisco.com/video/index.php or http://www.google.com/stuff/video.html ! match protocol http url video* ! This would match http://www.cisco.com/video but not http://www.cisco.com/stuff/video.html ! because stuff precedes the video portion of the url and in the expression above we have said ! it has to start with the string video ! match protocol http url *.jpeg|*.jpg|*.gif ! This would match any .jpeg or .jpg or .gif extention in the url Lets set up R2 to match based on a URL. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http host 10.0.23.3 R2(config-cmap)#match protocol http url *.jpg As you can see above we have used the match protocol http url function of NBAR to match any url that ends in a .jpg. This effectively blocks jpeg images (unless they have a different extension). Let test it, before we send some traffic we’ll reset the counters on the interface. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:43:39.135: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any If we request a gif file we shouldn’t match the class MATCH-HTTP. Lets test that first. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.644 secs (140 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 18 packets, 1209 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Great Success! Looks pretty good. Now lets try a .jpg extension. We should match this. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 0.820 secs (401 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 7 packets, 433 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 7 Class-map: class-default (match-any) 22 packets, 1469 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Awesome! You can see above we matched based on a URL. match protocol http mime We can also use the match protocol http mime to match internet mime types. The mime type has to be the same mime type that the web server responds with. For a list of valid mime types check out: http://www.sfsu.edu/training/mimetype.htm. Lets look at an example: match protocol http mime image/jpeg ! This would match jpeg,jpg,jpe,jfif,pjpeg, and pjp types ! match protocol http mime image/jpg ! This would not match anything as it is not a proper mime type. Get a list of the mime types ! here: http://www.sfsu.edu/training/mimetype.htm ! match protocol http mime image* ! This would match all image mime types ! match protocol http mime application/x-shockwave-flash ! This would not only match swf flash movies, but all of flash. Lets set up R2 to filter the image/jpeg mime type: R2#conf t Enter configuration commands, one per line. End with CNTL/Z. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http url *.jpg R2(config-cmap)#match protocol http mime ? WORD Enter a string as the sub-protocol parameter R2(config-cmap)#match protocol http mime image/jpeg R2(config-cmap)#exit R2(config)#exit Once again, we’ll clear the counters so we can verify that this works correctly. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 01:12:10.759: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any On R1 lets generate some traffic. A gif file will be requested first. This should not match our policy. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.808 secs (111 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 10 packets, 689 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any All good! Ok lets do the final test and actually request a jpeg image and see if it matches our policy. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 1.216 secs (271 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 220 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 16 packets, 1162 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any You can see above that the jpeg image was matched. It works! Putting it all together So lets put it all together. We can use all three match protocol http commands in a match-any class map. For example: class-map match-any INTERNET-SCUM match protocol http host *youtube.com*|*video.google.com* match protocol http mime video/flv|video/x-flv|video/mp4|video/x-m4v|audio/mp4a-latm match protocol http mime video/3gpp|video/quicktime match protocol http url *.flv|*.mp4|*.m4v|*.m4a|*.3gp|*.mov ! uncomment below if you don&#39;t want ANY flash. ! match protocol http mime application/x-shockwave-flash ! match protocol http url *.swf ! policy-map NOINTERNETVIDEO class INTERNET-SCUM drop ! int s1/0 service-policy input NOINTERNETVIDEO ! This would match any traffic going to youtube or video.google.com, or any flash applications, or common video mime types, and any swf (flash or flash movie) files! Be aware that NBAR does make your router take a hit in CPU processor usage, I’d suggest evaluating your processor usage before using this in production. HTH! Now back to labs! Summary: Use the match http protocol command to match the http protocol. match protocol http host matches the host portion match protocol http url matches the url after the hostname match protocol http mime matches mime types Resources Webserver – Dynamips .net configuration file QOS HTTP Filtering – R1 Final Configuration QOS HTTP Filtering – R2 Final Configuration QOS HTTP Filtering – R3 Final Configuration" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/QoS-to-Limit-Some-Web-Traffic-(ardenpackeer.com).html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/QoS-to-Limit-Some-Web-Traffic-(ardenpackeer.com).html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/QoS-to-Limit-Some-Web-Traffic-(ardenpackeer.com).html","headline":"QoS to Limit Some Web Traffic (ardenpackeer.com)","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/QoS-to-Limit-Some-Web-Traffic-(ardenpackeer.com).html"},"description":"I came across this blog post one day while doing some research on QoS. I’ve seen sites like youtube take down network links so that users could not do real work. I would really like to use this somewhere. I guess it is a solution searching for a problem at this point. My hat is off to the author. ardenpackeer.com Tutorial: How to use Cisco MQC &amp; NBAR to filter websites like YouTube I was asked a great question by one of my clients regarding filtering of websites. He had filtered http://www.youtube.com/ and http://video.google.com.au/ at his proxy server but with the number of different video sites popping up (metacafe, jibjab etc etc), his filters just couldn’t keep up…and neither could his bandwidth! One solution to this problem is the use of Cisco’s Network Based Application Recognition (NBAR). NBAR is a deep packet inspection and classification engine. It was first introduced in experimental versions of IOS v12.1 and can be used with Cisco’s Modular Quality Of Service Command Line (MQC). In this article we will look at using MQC to filter websites. I will demonstrate using the match protocol http command to match a URL, a host or MIME type. We will use the following topology for demonstration: R3 will act as a webserver and R1 as a client. The filtering will be applied on R2. You can download the dynamips .net file the following topology here. R1 Base Configuration: hostname R1 ! int s1/0 ip add 10.0.12.1 255.255.255.0 no shut ! router ospf 1 network 10.0.12.1 0.0.0.0 area 0 R2 Base Configuration: hostname R2 ! int s1/0 ip add 10.0.12.2 255.255.255.0 no shut ! int s1/1 ip add 10.0.23.2 255.255.255.0 no shut ! router ospf 1 network 10.0.12.2 0.0.0.0 area 0 network 10.0.23.2 0.0.0.0 area 0 R3 Base Configuration: hostname R3 ! int s1/0 ip add 10.0.23.3 255.255.255.0 no shut ! int f0/0 ip add 192.168.1.100 255.255.255.0 no shut ! router ospf 1 network 10.0.23.3 0.0.0.0 area 0 ! ip http server ip http path flash: We have set up R3 as a webserver. Details on how to setup R3 as a webserver using IOS can be found here. R3#sh run | in ip http ip http server no ip http secure-server ip http path flash: R3#dir Directory of flash:/ 1 -rw- 90 &lt;no&gt; picture.gif 2 -rw- 329 &lt;no&gt; picture.jpg 3 -rw- 174 &lt;no&gt; index.html 8388604 bytes total (8387812 bytes free) Basic HTTP Filtering using NBAR Lets set up basic http filtering with MQC on R2. R2(config)#class-map match-all MATCH-HTTP R2(config-cmap)#match protocol http R2(config-cmap)#exit R2(config)#policy-map HTTP-POLICY R2(config-pmap)#class MATCH-HTTP R2(config-pmap-c)#set dscp af13 R2(config-pmap-c)#exit R2(config-pmap)#int s1/0 R2(config-if)#service-policy input HTTP-POLICY In the code above we have a class map called MATCH-HTTP. The match protocol http command tells NBAR to match the http protocol. This will match all http traffic. The MATCH-HTTP class is then utilized in the HTTP-POLICY policy map. This policy map is used to set a DSCP marking on all traffic that matches the MATCH-HTTP class (ie all http traffic). The policy is then implemented on R2’s s1/0. Traffic is inspected and marked as it comes into that interface. We can check how many packets have been marked using the show policy-map command. R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 2 packets, 168 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any R2# Lets generate some http traffic, and see if our policy marks some packets. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.544 secs (320 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 124 packets, 10340 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We used the copy http://10.0.23.3/index.html null: command to generate some http traffic. We can see above that 5 packets were generated and were marked as af13. All other traffic will fall into the class-default class. With the packets marked, we could forward them or drop them. Instead of matching all of the http protocol we can use NBAR to look further into the packet and classify or drop packets based on the host requested. Match protocol HTTP host The match protocol HTTP url command is used to match a url. It takes a regular expression as an argument. For example: match protocol http host *youtube.com* ! This would match anything in youtube.com like http://www.youtube.com or http://video.youtube.com ! match protocol http host *google* ! This would match anything with google in the host like http://mail.google.com or http://www.google.com.au ! match protocol http host google* ! This would match http://google.com but not http://video.google.com Lets set up R2 to filter based on a host. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http R2(config-cmap)#match protocol http host 10.0.23.3 R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:04:42.071: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We’ve cleared the counters on R2, so lets generate some traffic on R1 again. R1#copy http://10.0.23.3/index.html null: Loading http://10.0.23.3/index.html 174 bytes copied in 0.596 secs (292 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 344 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http host &quot;10.0.23.3&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 64 packets, 5300 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any We can see here it matched 5 packets based on the host. We can use this to match whole sites like youtube.com or video.google.com. Match protocol HTTP url We can match strings AFTER the host portion of a URL using the match protocol http url command. It also takes a regular expression as an argument. For example: match protocol http url *video* ! This would match http://www.cisco.com/video/index.php or http://www.google.com/stuff/video.html ! match protocol http url video* ! This would match http://www.cisco.com/video but not http://www.cisco.com/stuff/video.html ! because stuff precedes the video portion of the url and in the expression above we have said ! it has to start with the string video ! match protocol http url *.jpeg|*.jpg|*.gif ! This would match any .jpeg or .jpg or .gif extention in the url Lets set up R2 to match based on a URL. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http host 10.0.23.3 R2(config-cmap)#match protocol http url *.jpg As you can see above we have used the match protocol http url function of NBAR to match any url that ends in a .jpg. This effectively blocks jpeg images (unless they have a different extension). Let test it, before we send some traffic we’ll reset the counters on the interface. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 00:43:39.135: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 by console R2# R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any If we request a gif file we shouldn’t match the class MATCH-HTTP. Lets test that first. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.644 secs (140 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 18 packets, 1209 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Great Success! Looks pretty good. Now lets try a .jpg extension. We should match this. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 0.820 secs (401 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 7 packets, 433 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http url &quot;*.jpg&quot; QoS Set dscp af13 Packets marked 7 Class-map: class-default (match-any) 22 packets, 1469 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any Awesome! You can see above we matched based on a URL. match protocol http mime We can also use the match protocol http mime to match internet mime types. The mime type has to be the same mime type that the web server responds with. For a list of valid mime types check out: http://www.sfsu.edu/training/mimetype.htm. Lets look at an example: match protocol http mime image/jpeg ! This would match jpeg,jpg,jpe,jfif,pjpeg, and pjp types ! match protocol http mime image/jpg ! This would not match anything as it is not a proper mime type. Get a list of the mime types ! here: http://www.sfsu.edu/training/mimetype.htm ! match protocol http mime image* ! This would match all image mime types ! match protocol http mime application/x-shockwave-flash ! This would not only match swf flash movies, but all of flash. Lets set up R2 to filter the image/jpeg mime type: R2#conf t Enter configuration commands, one per line. End with CNTL/Z. R2(config)#class-map MATCH-HTTP R2(config-cmap)#no match protocol http url *.jpg R2(config-cmap)#match protocol http mime ? WORD Enter a string as the sub-protocol parameter R2(config-cmap)#match protocol http mime image/jpeg R2(config-cmap)#exit R2(config)#exit Once again, we’ll clear the counters so we can verify that this works correctly. R2#clear counters s1/0 Clear &quot;show interface&quot; counters on this interface [confirm] *Mar 1 01:12:10.759: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0 R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 1 packets, 84 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any On R1 lets generate some traffic. A gif file will be requested first. This should not match our policy. R1#copy http://10.0.23.3/picture.gif null: Loading http://10.0.23.3/picture.gif 90 bytes copied in 0.808 secs (111 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 0 packets, 0 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 0 Class-map: class-default (match-any) 10 packets, 689 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any All good! Ok lets do the final test and actually request a jpeg image and see if it matches our policy. R1#copy http://10.0.23.3/picture.jpg null: Loading http://10.0.23.3/picture.jpg 329 bytes copied in 1.216 secs (271 bytes/sec) R2#sh policy-map int s1/0 Serial1/0 Service-policy input: HTTP-POLICY Class-map: MATCH-HTTP (match-all) 5 packets, 220 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: protocol http mime &quot;image/jpeg&quot; QoS Set dscp af13 Packets marked 5 Class-map: class-default (match-any) 16 packets, 1162 bytes 5 minute offered rate 0 bps, drop rate 0 bps Match: any You can see above that the jpeg image was matched. It works! Putting it all together So lets put it all together. We can use all three match protocol http commands in a match-any class map. For example: class-map match-any INTERNET-SCUM match protocol http host *youtube.com*|*video.google.com* match protocol http mime video/flv|video/x-flv|video/mp4|video/x-m4v|audio/mp4a-latm match protocol http mime video/3gpp|video/quicktime match protocol http url *.flv|*.mp4|*.m4v|*.m4a|*.3gp|*.mov ! uncomment below if you don&#39;t want ANY flash. ! match protocol http mime application/x-shockwave-flash ! match protocol http url *.swf ! policy-map NOINTERNETVIDEO class INTERNET-SCUM drop ! int s1/0 service-policy input NOINTERNETVIDEO ! This would match any traffic going to youtube or video.google.com, or any flash applications, or common video mime types, and any swf (flash or flash movie) files! Be aware that NBAR does make your router take a hit in CPU processor usage, I’d suggest evaluating your processor usage before using this in production. HTH! Now back to labs! Summary: Use the match http protocol command to match the http protocol. match protocol http host matches the host portion match protocol http url matches the url after the hostname match protocol http mime matches mime types Resources Webserver – Dynamips .net configuration file QOS HTTP Filtering – R1 Final Configuration QOS HTTP Filtering – R2 Final Configuration QOS HTTP Filtering – R3 Final Configuration","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">QoS to Limit Some Web Traffic (ardenpackeer.com)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I came across this blog post one day while doing some research on QoS. I’ve seen sites like youtube take down network links so that users could not do real work.
+I would really like to use this somewhere. I guess it is a solution searching for a problem at this point. My hat is off to the author.
+<br /></p>
+<h2 id="ardenpackeercom"><a href="http://ardenpackeer.com">ardenpackeer.com</a></h2>
+<p><a href="http://ardenpackeer.com/qos-voip/tutorial-how-to-use-cisco-mqc-nbar-to-filter-websites-like-youtube/">Tutorial: How to use Cisco MQC &amp; NBAR to filter websites like YouTube</a>
+<br />
+I was asked a great question by one of my clients regarding filtering of websites. He had filtered http://www.youtube.com/ and http://video.google.com.au/ at his proxy server but with the number of different video sites popping up (metacafe, jibjab etc etc), his filters just couldn’t keep up…and neither could his bandwidth!
+One solution to this problem is the use of Cisco’s Network Based Application Recognition (NBAR). NBAR is a deep packet inspection and classification engine. It was first introduced in experimental versions of IOS v12.1 and can be used with Cisco’s <a href="http://www.cisco.com/univercd/cc/td/doc/product/software/ios124/124cg/hqos_c/part40/qctmcli2.htm">Modular Quality Of Service Command Line (MQC)</a>.
+In this article we will look at using MQC to filter websites. I will demonstrate using the <a href="http://www.cisco.com/univercd/cc/td/doc/product/software/ios124/124cr/hqos_r/qos_m1h.htm#wp1128712">match protocol http</a> command to match a URL, a host or MIME type. We will use the following topology for demonstration:
+<img src="http://www.joseph-streeter.com/sites/default/files/topology1_0.jpg" alt="Network Topology - Webserver" style="width:95%;" />R3 will act as a webserver and R1 as a client. The filtering will be applied on R2. You can download the dynamips .net file the following topology <a href="http://ardenpackeer.com/wp-content/uploads/2007/12/webserver.net">here</a>.<br />
+R1 Base Configuration:
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hostname</span> <span class="no">R1</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">s1</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">ip</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">12.1</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shut</span>
+<span class="o">!</span>
+<span class="n">router</span> <span class="n">ospf</span> <span class="mi">1</span>
+<span class="n">network</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">12.1</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">area</span> <span class="mi">0</span></code></pre></figure>
+<p><br />
+<br />
+R2 Base Configuration:
+<br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hostname</span> <span class="no">R2</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">s1</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">ip</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">12.2</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shut</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">s1</span><span class="o">/</span><span class="mi">1</span>
+<span class="n">ip</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">23.2</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shut</span>
+<span class="o">!</span>
+<span class="n">router</span> <span class="n">ospf</span> <span class="mi">1</span>
+<span class="n">network</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">12.2</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">area</span> <span class="mi">0</span>
+<span class="n">network</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">23.2</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">area</span> <span class="mi">0</span></code></pre></figure>
+<p><br />
+R3 Base Configuration:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">hostname</span> <span class="no">R3</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">s1</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">ip</span> <span class="n">add</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shut</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">f0</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">ip</span> <span class="n">add</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.100</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">no</span> <span class="n">shut</span>
+<span class="o">!</span>
+<span class="n">router</span> <span class="n">ospf</span> <span class="mi">1</span>
+<span class="n">network</span> <span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span> <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span> <span class="n">area</span> <span class="mi">0</span>
+<span class="o">!</span>
+<span class="n">ip</span> <span class="n">http</span> <span class="n">server</span>
+<span class="n">ip</span> <span class="n">http</span> <span class="n">path</span> <span class="n">flash</span><span class="p">:</span></code></pre></figure>
+<p><br />
+We have set up R3 as a webserver. Details on how to setup R3 as a webserver using IOS can be found <a href="http://ardenpackeer.com/ios-features-management/how-to-set-up-a-cisco-router-as-a-webserver/">here</a>.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R3</span><span class="c1">#sh run | in ip http
+</span>
+<span class="n">ip</span> <span class="n">http</span> <span class="n">server</span>
+<span class="n">no</span> <span class="n">ip</span> <span class="n">http</span> <span class="n">secure</span><span class="o">-</span><span class="n">server</span>
+<span class="n">ip</span> <span class="n">http</span> <span class="n">path</span> <span class="n">flash</span><span class="p">:</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R3</span><span class="c1">#dir
+</span>
+<span class="no">Directory</span> <span class="n">of</span> <span class="n">flash</span><span class="ss">:/</span>
+
+<span class="mi">1</span>  <span class="o">-</span><span class="n">rw</span><span class="o">-</span>          <span class="mi">90</span>                    <span class="o">&lt;</span><span class="n">no</span><span class="o">&gt;</span>  <span class="n">picture</span><span class="p">.</span><span class="nf">gif</span>
+<span class="mi">2</span>  <span class="o">-</span><span class="n">rw</span><span class="o">-</span>         <span class="mi">329</span>                    <span class="o">&lt;</span><span class="n">no</span><span class="o">&gt;</span>  <span class="n">picture</span><span class="p">.</span><span class="nf">jpg</span>
+<span class="mi">3</span>  <span class="o">-</span><span class="n">rw</span><span class="o">-</span>         <span class="mi">174</span>                    <span class="o">&lt;</span><span class="n">no</span><span class="o">&gt;</span>  <span class="n">index</span><span class="p">.</span><span class="nf">html</span>
+
+<span class="mi">8388604</span> <span class="n">bytes</span> <span class="n">total</span> <span class="p">(</span><span class="mi">8387812</span> <span class="n">bytes</span> <span class="n">free</span><span class="p">)</span></code></pre></figure>
+<p><br />
+<strong><em>Basic HTTP Filtering using NBAR</em></strong>
+Lets set up basic http filtering with MQC on R2.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#class-map match-all MATCH-HTTP
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#match protocol http
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#exit
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#policy-map HTTP-POLICY
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">pmap</span><span class="p">)</span><span class="c1">#class MATCH-HTTP
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">pmap</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="c1">#set dscp af13
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">pmap</span><span class="o">-</span><span class="n">c</span><span class="p">)</span><span class="c1">#exit
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">pmap</span><span class="p">)</span><span class="c1">#int s1/0
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="k">if</span><span class="p">)</span><span class="c1">#service-policy input HTTP-POLICY</span></code></pre></figure>
+<p><br />
+In the code above we have a class map called MATCH-HTTP. The match protocol http command tells NBAR to match the http protocol. This will match all http traffic. The MATCH-HTTP class is then utilized in the HTTP-POLICY policy map. This policy map is used to set a DSCP marking on all traffic that matches the MATCH-HTTP class (ie all http traffic). The policy is then implemented on R2’s s1/0. Traffic is inspected and marked as it comes into that interface.
+We can check how many packets have been marked using the show policy-map command.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">2</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">168</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span>
+<span class="no">R2</span><span class="c1">#</span></code></pre></figure>
+<p><br />
+Lets generate some http traffic, and see if our policy marks some packets.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/index.html null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="nf">html</span>
+<span class="mi">174</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">0.544</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">320</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">5</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">344</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">5</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">124</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">10340</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+We used the <strong><em>copy http://10.0.23.3/index.html null:</em></strong> command to generate some http traffic. We can see above that 5 packets were generated and were marked as af13. All other traffic will fall into the class-default class. With the packets marked, we could forward them or drop them.
+Instead of matching all of the http protocol we can use NBAR to look further into the packet and classify or drop packets based on the host requested.
+<strong><em>Match protocol HTTP host</em></strong>
+The match protocol HTTP url command is used to match a url. It takes a regular expression as an argument. For example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="o">*</span><span class="n">youtube</span><span class="p">.</span><span class="nf">com</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">anything</span> <span class="k">in</span> <span class="n">youtube</span><span class="p">.</span><span class="nf">com</span> <span class="n">like</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">youtube</span><span class="p">.</span><span class="nf">com</span> <span class="n">or</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">video</span><span class="p">.</span><span class="nf">youtube</span><span class="p">.</span><span class="nf">com</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="o">*</span><span class="n">google</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">anything</span> <span class="n">with</span> <span class="n">google</span> <span class="k">in</span> <span class="n">the</span> <span class="n">host</span> <span class="n">like</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">mail</span><span class="p">.</span><span class="nf">google</span><span class="p">.</span><span class="nf">com</span> <span class="n">or</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">google</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span><span class="nf">au</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="n">google</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">google</span><span class="p">.</span><span class="nf">com</span> <span class="n">but</span> <span class="n">not</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">video</span><span class="p">.</span><span class="nf">google</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+<p><br />
+Lets set up R2 to filter based on a host.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#class-map MATCH-HTTP
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#no match protocol http
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#match protocol http host 10.0.23.3</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#clear counters s1/0
+</span>
+<span class="no">Clear</span> <span class="s2">"show interface"</span> <span class="n">counters</span> <span class="n">on</span> <span class="n">this</span> <span class="n">interface</span> <span class="p">[</span><span class="n">confirm</span><span class="p">]</span>
+<span class="o">*</span><span class="no">Mar</span>  <span class="mi">1</span> <span class="mo">00</span><span class="p">:</span><span class="mo">04</span><span class="p">:</span><span class="mf">42.071</span><span class="p">:</span> <span class="o">%</span><span class="no">CLEAR</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="no">COUNTERS</span><span class="p">:</span> <span class="no">Clear</span> <span class="n">counter</span> <span class="n">on</span> <span class="n">interface</span> <span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span> <span class="n">by</span> <span class="n">console</span>
+<span class="no">R2</span><span class="c1">#
+</span>
+<span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="s2">"10.0.23.3"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">1</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">84</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+We’ve cleared the counters on R2, so lets generate some traffic on R1 again.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/index.html null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="nf">html</span>
+<span class="mi">174</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">0.596</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">292</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">5</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">344</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="s2">"10.0.23.3"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">5</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">64</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">5300</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+We can see here it matched 5 packets based on the host. We can use this to match whole sites like youtube.com or video.google.com.
+<strong><em>Match protocol HTTP url</em></strong>
+We can match strings AFTER the host portion of a URL using the match protocol http url command. It also takes a regular expression as an argument. For example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="o">*</span><span class="n">video</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">cisco</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">video</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="nf">php</span> <span class="n">or</span>
+<span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">google</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">stuff</span><span class="o">/</span><span class="n">video</span><span class="p">.</span><span class="nf">html</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="n">video</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">cisco</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">video</span> <span class="n">but</span> <span class="n">not</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">cisco</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">stuff</span><span class="o">/</span><span class="n">video</span><span class="p">.</span><span class="nf">html</span>
+<span class="o">!</span> <span class="n">because</span> <span class="n">stuff</span> <span class="n">precedes</span> <span class="n">the</span> <span class="n">video</span> <span class="n">portion</span> <span class="n">of</span> <span class="n">the</span> <span class="n">url</span> <span class="n">and</span> <span class="k">in</span> <span class="n">the</span> <span class="n">expression</span> <span class="n">above</span> <span class="n">we</span> <span class="n">have</span> <span class="n">said</span>
+<span class="o">!</span> <span class="n">it</span> <span class="n">has</span> <span class="n">to</span> <span class="n">start</span> <span class="n">with</span> <span class="n">the</span> <span class="n">string</span> <span class="n">video</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="o">*</span><span class="p">.</span><span class="nf">jpeg</span><span class="o">|*</span><span class="p">.</span><span class="nf">jpg</span><span class="o">|*</span><span class="p">.</span><span class="nf">gif</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">any</span> <span class="p">.</span><span class="nf">jpeg</span> <span class="n">or</span> <span class="p">.</span><span class="nf">jpg</span> <span class="n">or</span> <span class="p">.</span><span class="nf">gif</span> <span class="n">extention</span> <span class="k">in</span> <span class="n">the</span> <span class="n">url</span></code></pre></figure>
+<p><br />
+Lets set up R2 to match based on a URL.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#class-map MATCH-HTTP
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#no match protocol http host 10.0.23.3
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#match protocol http url *.jpg</span></code></pre></figure>
+<p><br />
+As you can see above we have used the match protocol http url function of NBAR to match any url that ends in a .jpg. This effectively blocks jpeg images (unless they have a different extension).
+Let test it, before we send some traffic we’ll reset the counters on the interface.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#clear counters s1/0
+</span>
+<span class="no">Clear</span> <span class="s2">"show interface"</span> <span class="n">counters</span> <span class="n">on</span> <span class="n">this</span> <span class="n">interface</span> <span class="p">[</span><span class="n">confirm</span><span class="p">]</span>
+<span class="o">*</span><span class="no">Mar</span>  <span class="mi">1</span> <span class="mo">00</span><span class="p">:</span><span class="mi">43</span><span class="p">:</span><span class="mf">39.135</span><span class="p">:</span> <span class="o">%</span><span class="no">CLEAR</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="no">COUNTERS</span><span class="p">:</span> <span class="no">Clear</span> <span class="n">counter</span> <span class="n">on</span> <span class="n">interface</span> <span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span> <span class="n">by</span> <span class="n">console</span>
+<span class="no">R2</span><span class="c1">#
+</span>
+<span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="s2">"*.jpg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">1</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">84</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+If we request a gif file we <strong><em>shouldn’t</em></strong> match the class MATCH-HTTP. Lets test that first.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/picture.gif null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">picture</span><span class="p">.</span><span class="nf">gif</span>
+<span class="mi">90</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">0.644</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">140</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="s2">"*.jpg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">18</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">1209</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+Great Success! Looks pretty good. Now lets try a .jpg extension. We <strong><em>should</em></strong> match this.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/picture.jpg null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">picture</span><span class="p">.</span><span class="nf">jpg</span>
+<span class="mi">329</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">0.820</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">401</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">7</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">433</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="s2">"*.jpg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">7</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">22</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">1469</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+Awesome! You can see above we matched based on a URL.
+<strong><em>match protocol http mime</em></strong>
+We can also use the match protocol http mime to match internet mime types. The mime type has to be the same mime type that the web server responds with. For a list of valid mime types check out: <a href="http://www.sfsu.edu/training/mimetype.htm" onclick="javascript:pageTracker._trackPageview('/outbound/article/www.sfsu.edu');">http://www.sfsu.edu/training/mimetype.htm</a>. Lets look at an example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">image</span><span class="o">/</span><span class="n">jpeg</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">jpeg</span><span class="p">,</span><span class="n">jpg</span><span class="p">,</span><span class="n">jpe</span><span class="p">,</span><span class="n">jfif</span><span class="p">,</span><span class="n">pjpeg</span><span class="p">,</span> <span class="n">and</span> <span class="n">pjp</span> <span class="n">types</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">image</span><span class="o">/</span><span class="n">jpg</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">not</span> <span class="n">match</span> <span class="n">anything</span> <span class="n">as</span> <span class="n">it</span> <span class="n">is</span> <span class="n">not</span> <span class="n">a</span> <span class="n">proper</span> <span class="n">mime</span> <span class="n">type</span><span class="o">.</span> <span class="no">Get</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mime</span> <span class="n">types</span>
+<span class="o">!</span> <span class="ss">here: </span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">sfsu</span><span class="p">.</span><span class="nf">edu</span><span class="o">/</span><span class="n">training</span><span class="o">/</span><span class="n">mimetype</span><span class="p">.</span><span class="nf">htm</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">image</span><span class="o">*</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">match</span> <span class="n">all</span> <span class="n">image</span> <span class="n">mime</span> <span class="n">types</span>
+<span class="o">!</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">shockwave</span><span class="o">-</span><span class="n">flash</span>
+<span class="o">!</span> <span class="no">This</span> <span class="n">would</span> <span class="n">not</span> <span class="n">only</span> <span class="n">match</span> <span class="n">swf</span> <span class="n">flash</span> <span class="n">movies</span><span class="p">,</span> <span class="n">but</span> <span class="n">all</span> <span class="n">of</span> <span class="n">flash</span><span class="o">.</span></code></pre></figure>
+<p><br />
+Lets set up R2 to filter the image/jpeg mime type:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#conf t
+</span>
+<span class="no">Enter</span> <span class="n">configuration</span> <span class="n">commands</span><span class="p">,</span> <span class="n">one</span> <span class="n">per</span> <span class="n">line</span><span class="o">.</span>  <span class="no">End</span> <span class="n">with</span> <span class="no">CNTL</span><span class="o">/</span><span class="no">Z</span><span class="o">.</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#class-map MATCH-HTTP
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#no match protocol http url *.jpg
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#match protocol http mime ?
+</span>
+<span class="no">WORD</span>  <span class="no">Enter</span> <span class="n">a</span> <span class="n">string</span> <span class="n">as</span> <span class="n">the</span> <span class="nb">sub</span><span class="o">-</span><span class="n">protocol</span> <span class="n">parameter</span>
+
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#match protocol http mime image/jpeg
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="o">-</span><span class="n">cmap</span><span class="p">)</span><span class="c1">#exit
+</span>
+<span class="no">R2</span><span class="p">(</span><span class="n">config</span><span class="p">)</span><span class="c1">#exit</span></code></pre></figure>
+<p><br />
+Once again, we’ll clear the counters so we can verify that this works correctly.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#clear counters s1/0
+</span>
+<span class="no">Clear</span> <span class="s2">"show interface"</span> <span class="n">counters</span> <span class="n">on</span> <span class="n">this</span> <span class="n">interface</span> <span class="p">[</span><span class="n">confirm</span><span class="p">]</span>
+<span class="o">*</span><span class="no">Mar</span>  <span class="mi">1</span> <span class="mo">01</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">10.759</span><span class="p">:</span> <span class="o">%</span><span class="no">CLEAR</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="no">COUNTERS</span><span class="p">:</span> <span class="no">Clear</span> <span class="n">counter</span> <span class="n">on</span> <span class="n">interface</span> <span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="s2">"image/jpeg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">1</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">84</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+On R1 lets generate some traffic. A gif file will be requested first. This <strong><em>should not</em></strong> match our policy.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/picture.gif null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">picture</span><span class="p">.</span><span class="nf">gif</span>
+<span class="mi">90</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">0.808</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">111</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">0</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">0</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="s2">"image/jpeg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">0</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">10</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">689</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+All good! Ok lets do the final test and actually request a jpeg image and see if it matches our policy.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R1</span><span class="c1">#copy http://10.0.23.3/picture.jpg null:
+</span>
+<span class="no">Loading</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="mf">10.0</span><span class="o">.</span><span class="mf">23.3</span><span class="o">/</span><span class="n">picture</span><span class="p">.</span><span class="nf">jpg</span>
+<span class="mi">329</span> <span class="n">bytes</span> <span class="n">copied</span> <span class="k">in</span> <span class="mf">1.216</span> <span class="n">secs</span> <span class="p">(</span><span class="mi">271</span> <span class="n">bytes</span><span class="o">/</span><span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<p><br /></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">R2</span><span class="c1">#sh policy-map int s1/0
+</span>
+<span class="no">Serial1</span><span class="o">/</span><span class="mi">0</span>
+
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">input: </span><span class="no">HTTP</span><span class="o">-</span><span class="no">POLICY</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">MATCH</span><span class="o">-</span><span class="no">HTTP</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span>
+<span class="mi">5</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">220</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="s2">"image/jpeg"</span>
+<span class="no">QoS</span> <span class="no">Set</span>
+<span class="n">dscp</span> <span class="n">af13</span>
+<span class="no">Packets</span> <span class="n">marked</span> <span class="mi">5</span>
+
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span>
+<span class="mi">16</span> <span class="n">packets</span><span class="p">,</span> <span class="mi">1162</span> <span class="n">bytes</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span>
+<span class="no">Match</span><span class="p">:</span> <span class="n">any</span></code></pre></figure>
+<p><br />
+You can see above that the jpeg image was matched. It works!
+<strong><em>Putting it all together</em></strong>
+So lets put it all together. We can use all three match protocol http commands in a match-any class map. For example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span><span class="o">-</span><span class="n">map</span> <span class="n">match</span><span class="o">-</span><span class="n">any</span> <span class="no">INTERNET</span><span class="o">-</span><span class="no">SCUM</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">host</span> <span class="o">*</span><span class="n">youtube</span><span class="p">.</span><span class="nf">com</span><span class="o">*|*</span><span class="n">video</span><span class="p">.</span><span class="nf">google</span><span class="p">.</span><span class="nf">com</span><span class="o">*</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">video</span><span class="o">/</span><span class="n">flv</span><span class="o">|</span><span class="n">video</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">flv</span><span class="o">|</span><span class="n">video</span><span class="o">/</span><span class="n">mp4</span><span class="o">|</span><span class="n">video</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">m4v</span><span class="o">|</span><span class="n">audio</span><span class="o">/</span><span class="n">mp4a</span><span class="o">-</span><span class="n">latm</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">video</span><span class="o">/</span><span class="mi">3</span><span class="n">gpp</span><span class="o">|</span><span class="n">video</span><span class="o">/</span><span class="n">quicktime</span>
+<span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="o">*</span><span class="p">.</span><span class="nf">flv</span><span class="o">|*</span><span class="p">.</span><span class="nf">mp4</span><span class="o">|*</span><span class="p">.</span><span class="nf">m4v</span><span class="o">|*</span><span class="p">.</span><span class="nf">m4a</span><span class="o">|*.</span><span class="mi">3</span><span class="n">gp</span><span class="o">|*</span><span class="p">.</span><span class="nf">mov</span>
+<span class="o">!</span> <span class="n">uncomment</span> <span class="n">below</span> <span class="k">if</span> <span class="n">you</span> <span class="n">don</span><span class="err">'</span><span class="n">t</span> <span class="n">want</span> <span class="no">ANY</span> <span class="n">flash</span><span class="o">.</span>
+<span class="o">!</span> <span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">mime</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">shockwave</span><span class="o">-</span><span class="n">flash</span>
+<span class="o">!</span> <span class="n">match</span> <span class="n">protocol</span> <span class="n">http</span> <span class="n">url</span> <span class="o">*</span><span class="p">.</span><span class="nf">swf</span>
+<span class="o">!</span>
+<span class="n">policy</span><span class="o">-</span><span class="n">map</span> <span class="no">NOINTERNETVIDEO</span>
+<span class="k">class</span> <span class="nc">INTERNET</span><span class="o">-</span><span class="no">SCUM</span>
+<span class="n">drop</span>
+<span class="o">!</span>
+<span class="n">int</span> <span class="n">s1</span><span class="o">/</span><span class="mi">0</span>
+<span class="n">service</span><span class="o">-</span><span class="n">policy</span> <span class="n">input</span> <span class="no">NOINTERNETVIDEO</span>
+<span class="o">!</span></code></pre></figure>
+<p><br />
+This would match any traffic going to youtube or video.google.com, or any flash applications, or common video mime types, and any swf (flash or flash movie) files! Be aware that NBAR does make your router take a hit in CPU processor usage, I’d suggest evaluating your processor usage before using this in production.
+HTH! Now back to labs!
+<strong><em>Summary:</em></strong></p>
+
+<ul>
+  <li>Use the <a href="http://www.cisco.com/univercd/cc/td/doc/product/software/ios124/124cr/hqos_r/qos_m1h.htm#wp1128712" onclick="javascript:pageTracker._trackPageview('/outbound/article/www.cisco.com');">match http protocol</a> command to match the http protocol.</li>
+  <li>match protocol http host matches the host portion</li>
+  <li>match protocol http url matches the url after the hostname</li>
+  <li>match protocol http mime matches mime types</li>
+</ul>
+
+<p><strong><em>Resources</em></strong><br />
+<a href="http://ardenpackeer.com/wp-content/uploads/2007/12/webserver.net" title="Webserver - Dynamips .net configuration file">Webserver – Dynamips .net configuration file</a><br />
+<a href="http://ardenpackeer.com/wp-content/uploads/2007/12/qoshttp-r1.txt" title="QOS HTTP Filtering - R1 Final Configuration">QOS HTTP Filtering – R1 Final Configuration</a><br />
+<a href="http://ardenpackeer.com/wp-content/uploads/2007/12/qoshttp-r2.txt" title="QOS HTTP Filtering - R2 Final Configuration">QOS HTTP Filtering – R2 Final Configuration</a><br />
+<a href="http://ardenpackeer.com/wp-content/uploads/2007/12/qoshttp-r3.txt" title="QOS HTTP Filtering - R3 Final Configuration">QOS HTTP Filtering – R3 Final Configuration</a></p>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/QoS-to-Limit-Some-Web-Traffic-(ardenpackeer.com).html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

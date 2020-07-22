@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>MS Access DB with PowerShell | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="MS Access DB with PowerShell" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Use ADO to connect to a Microsoft Access database from PowerShell. In order to do this you may have to download “Microsoft Access Database Engine 2010.” If you have 32-bit MS Office installed you will have to install the 32-bit engine. Likewise, you will have to run PowerShell in 32-bit mode. $adOpenStatic = 3 $adLockOptimistic = 3 $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;&#39;) $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value $conn.Close $rs.Close First we set these two variables to set the cursor type and record locking method used $adOpenStatic = 3 $adLockOptimistic = 3 adLockOptimistic - Indicates optimistic locking, record by record. The provider uses optimistic locking, which locks records only when you call the Update method. adOpenStatic - Uses a static cursor, which is a static copy of a set of records that you can use to find data or generate reports. Additions, changes, or deletions by other users are not visible. Next we create objects for ADODB.Connection and ADODB.Recordset. These objects will be used for the connection to the database itself and the set of records we want to work with. $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; Now we will use the $conn object to connect to the database. (Access 2010 - 2013) $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;&#39;) (Access 2007 and earlier) $conn.Open(&#39;Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\inventory.mdb;&#39;) Now that we have a connection set we can select the records we want to work with. $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) Once the recordset is created we can read whats in it. $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value Or we could add a new record $rs.AddNew() $rs.Fields.Item(&quot;Name&quot;).value = &quot;Computer01&quot; $rs.Fields.Item(&quot;OperatingSystem&quot;).value = &quot;Microsoft Windows 8 Pro&quot; $rs.Fields.Item(&quot;Model&quot;).value = &quot;Dell D820 Latitude&quot; $rs.Fields.Item(&quot;SerialNumber&quot;).value &quot;D123456&quot; $rs.Update() Close the connection and recordset when you’re done. $conn.Close $rs.Close" />
+<meta property="og:description" content="Use ADO to connect to a Microsoft Access database from PowerShell. In order to do this you may have to download “Microsoft Access Database Engine 2010.” If you have 32-bit MS Office installed you will have to install the 32-bit engine. Likewise, you will have to run PowerShell in 32-bit mode. $adOpenStatic = 3 $adLockOptimistic = 3 $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;&#39;) $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value $conn.Close $rs.Close First we set these two variables to set the cursor type and record locking method used $adOpenStatic = 3 $adLockOptimistic = 3 adLockOptimistic - Indicates optimistic locking, record by record. The provider uses optimistic locking, which locks records only when you call the Update method. adOpenStatic - Uses a static cursor, which is a static copy of a set of records that you can use to find data or generate reports. Additions, changes, or deletions by other users are not visible. Next we create objects for ADODB.Connection and ADODB.Recordset. These objects will be used for the connection to the database itself and the set of records we want to work with. $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; Now we will use the $conn object to connect to the database. (Access 2010 - 2013) $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;&#39;) (Access 2007 and earlier) $conn.Open(&#39;Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\inventory.mdb;&#39;) Now that we have a connection set we can select the records we want to work with. $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) Once the recordset is created we can read whats in it. $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value Or we could add a new record $rs.AddNew() $rs.Fields.Item(&quot;Name&quot;).value = &quot;Computer01&quot; $rs.Fields.Item(&quot;OperatingSystem&quot;).value = &quot;Microsoft Windows 8 Pro&quot; $rs.Fields.Item(&quot;Model&quot;).value = &quot;Dell D820 Latitude&quot; $rs.Fields.Item(&quot;SerialNumber&quot;).value &quot;D123456&quot; $rs.Update() Close the connection and recordset when you’re done. $conn.Close $rs.Close" />
+<link rel="canonical" href="http://localhost:4000/it/2014/04/18/MS-Access-DB-with-PowerShell.html" />
+<meta property="og:url" content="http://localhost:4000/it/2014/04/18/MS-Access-DB-with-PowerShell.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-04-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2014/04/18/MS-Access-DB-with-PowerShell.html","headline":"MS Access DB with PowerShell","dateModified":"2014-04-18T00:00:00-05:00","datePublished":"2014-04-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2014/04/18/MS-Access-DB-with-PowerShell.html"},"description":"Use ADO to connect to a Microsoft Access database from PowerShell. In order to do this you may have to download “Microsoft Access Database Engine 2010.” If you have 32-bit MS Office installed you will have to install the 32-bit engine. Likewise, you will have to run PowerShell in 32-bit mode. $adOpenStatic = 3 $adLockOptimistic = 3 $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\inventory.accdb;Persist Security Info=True;&#39;) $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value $conn.Close $rs.Close First we set these two variables to set the cursor type and record locking method used $adOpenStatic = 3 $adLockOptimistic = 3 adLockOptimistic - Indicates optimistic locking, record by record. The provider uses optimistic locking, which locks records only when you call the Update method. adOpenStatic - Uses a static cursor, which is a static copy of a set of records that you can use to find data or generate reports. Additions, changes, or deletions by other users are not visible. Next we create objects for ADODB.Connection and ADODB.Recordset. These objects will be used for the connection to the database itself and the set of records we want to work with. $conn=New-Object -com &quot;ADODB.Connection&quot; $rs = New-Object -com &quot;ADODB.Recordset&quot; Now we will use the $conn object to connect to the database. (Access 2010 - 2013) $conn.Open(&#39;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\\inventory.accdb;Persist Security Info=True;&#39;) (Access 2007 and earlier) $conn.Open(&#39;Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\\inventory.mdb;&#39;) Now that we have a connection set we can select the records we want to work with. $rs.Open(&quot;SELECT * FROM COMPUTERS&quot;,$conn,$adOpenStatic,$adLockOptimistic) Once the recordset is created we can read whats in it. $rs.Fields.Item(&quot;Name&quot;).value $rs.Fields.Item(&quot;OperatingSystem&quot;).value $rs.Fields.Item(&quot;Model&quot;).value $rs.Fields.Item(&quot;SerialNumber&quot;).value Or we could add a new record $rs.AddNew() $rs.Fields.Item(&quot;Name&quot;).value = &quot;Computer01&quot; $rs.Fields.Item(&quot;OperatingSystem&quot;).value = &quot;Microsoft Windows 8 Pro&quot; $rs.Fields.Item(&quot;Model&quot;).value = &quot;Dell D820 Latitude&quot; $rs.Fields.Item(&quot;SerialNumber&quot;).value &quot;D123456&quot; $rs.Update() Close the connection and recordset when you’re done. $conn.Close $rs.Close","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MS Access DB with PowerShell</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-04-18T00:00:00-05:00" itemprop="datePublished">Apr 18, 2014
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Use ADO to connect to a Microsoft Access database from PowerShell. In order to do this you may have to download “Microsoft Access Database Engine 2010.” If you have 32-bit MS Office installed you will have to install the 32-bit engine. Likewise, you will have to run PowerShell in 32-bit mode.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$adOpenStatic</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="vg">$adLockOptimistic</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="vg">$conn</span><span class="o">=</span><span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Connection"</span>
+<span class="vg">$rs</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Recordset"</span>
+<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span>
+
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="vg">$conn</span><span class="p">,</span><span class="vg">$adOpenStatic</span><span class="p">,</span><span class="vg">$adLockOptimistic</span><span class="p">)</span>
+
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span>
+
+<span class="vg">$conn</span><span class="o">.</span><span class="no">Close</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+
+<p>First we set these two variables to set the cursor type and record locking method used</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$adOpenStatic</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="vg">$adLockOptimistic</span> <span class="o">=</span> <span class="mi">3</span></code></pre></figure>
+
+<p><em>adLockOptimistic</em> - Indicates optimistic locking, record by record. The provider uses optimistic locking, which locks records only when you call the Update method.
+<em>adOpenStatic</em> - Uses a static cursor, which is a static copy of a set of records that you can use to find data or generate reports. Additions, changes, or deletions by other users are not visible.</p>
+
+<p>Next we create objects for ADODB.Connection and ADODB.Recordset. These objects will be used for the connection to the database itself and the set of records we want to work with.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$conn</span><span class="o">=</span><span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Connection"</span>
+<span class="vg">$rs</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Recordset"</span></code></pre></figure>
+
+<p>Now we will use the $conn object to connect to the database.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">(</span><span class="no">Access</span> <span class="mi">2010</span> <span class="o">-</span> <span class="mi">2013</span><span class="p">)</span>
+<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">(</span><span class="no">Access</span> <span class="mi">2007</span> <span class="n">and</span> <span class="n">earlier</span><span class="p">)</span>
+<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\inventory.mdb;'</span><span class="p">)</span></code></pre></figure>
+
+<p>Now that we have a connection set we can select the records we want to work with.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="vg">$conn</span><span class="p">,</span><span class="vg">$adOpenStatic</span><span class="p">,</span><span class="vg">$adLockOptimistic</span><span class="p">)</span></code></pre></figure>
+
+<p>Once the recordset is created we can read whats in it.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span></code></pre></figure>
+
+<p>Or we could add a new record</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">AddNew</span><span class="p">()</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Computer01"</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Microsoft Windows 8 Pro"</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Dell D820 Latitude"</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span> <span class="s2">"D123456"</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Update</span><span class="p">()</span></code></pre></figure>
+
+<p>Close the connection and recordset when you’re done.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$conn</span><span class="o">.</span><span class="no">Close</span>
+<span class="vg">$rs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2014/04/18/MS-Access-DB-with-PowerShell.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

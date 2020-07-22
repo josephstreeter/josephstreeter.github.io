@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Mac OSX Bind Script | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Mac OSX Bind Script" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="We worked for some time on getting Mac OSX hosts to bind to Active Directory in such a way that we could require LDAP digital signing. As it turns out, 10.7 and 10.8 seem to work just fine. The issue was more with getting the certificates just- right on the Domain Controllers. It sounds as though the 10.6 hosts will have to be upgraded or replaced though. This is a script that was used in testing. Your mileage may vary. Test, test, test. #! /bin/bash # Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion # Author: Joseph A Streeter # Modified date: 06 FEB 2013 clear# Gather Computer and Domain User information printf &quot;\nEnter Computer Name: &quot; read computerid printf &quot;\nEnter Domain Name: &quot; read domain printf &quot;\nEnter Domain User: &quot; read domainuser stty -echo printf &quot;\nEnter Domain User Password: &quot; read domainpwd stty echo # Advanced Options - User Experience localhome=&quot;enable&quot; mobile=&quot;enable&quot; mobileconfirm=&quot;disable&quot; protocol=&quot;smb&quot; shell=&quot;/bin/bash&quot; # Advanced Options - Administrative groups=&quot;Domain Admins,Enterprise Admins&quot; alldomains=&quot;disable&quot; passinterval=&quot;30&quot; # Review user entered information and choose to contine or abort printf &quot;\nComputer Name = $computerid&quot; printf &quot;\nDomain Name = $domain&quot; printf &quot;\nDomain User = $domainuser&quot; printf &quot;\nWould you like to continue? [y/n] &quot; read continue if [ $continue == &quot;n&quot; ]; then exit 1; fi # Determin OS Version case $(sw_vers -productVersion) in 10.7.[1-9]) ver=&quot;10.7&quot; ;; 10.6.[1-9]) ver=&quot;10.6&quot; ;; *) echo &quot;Version unsupported&quot; exit 1 esac if [ $ver == &quot;10.6&quot; ]; then # Remove Existing Directory Services Config printf &quot;\nCleaning up any old Active Directory information&quot; if [ ! -d &quot;/Library/Preferences/DirectoryService/ActiveDirectory&quot; ]; then rm -R /Library/Preferences/DirectoryService/ActiveDirectory* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig&quot; ]; then rm -R /Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/SearchNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/SearchNode* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/ContactsNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/ContactsNode* fi if [ ! -d &quot;/Library/Preferences/edu.mit.Kerberos&quot; ]; then rm -R /Library/Preferences/edu.mit.Kerberos fi if [ ! -d &quot;/etc/krb5.keytab&quot; ]; then rm -R /etc/krb5.keytab fi # Clean up the DirectoryService configuration files rm -vfR &quot;/Library/Preferences/DirectoryService/*&quot; rm -vfR &quot;/Library/Preferences/DirectoryService/.*&quot; # Enable Active Directory Plugin defaults write /Library/Preferences/DirectoryService/DirectoryService &quot;Active Directory&quot; Active fi echo &quot;&quot; echo &quot;check Computer Name&quot; if [ $computerid == $(scutil --get ComputerName) ]; then echo &quot;Computer Name good&quot;;else scutil --set ComputerName $computerid;fi if [ $computerid.$domain == $(scutil --get HostName) ]; then echo &quot;Host Name good&quot;;else scutil --set HostName $computerid.$domain;fi if [ $computerid == $(scutil --get LocalHostName) ]; then echo &quot;Local Host Name good&quot;;else scutil --set LocalHostName $computerid;fi echo &quot;&quot; echo &quot;Bind computer to AD&quot; dsconfigad -a $computerid -domain $domain -u $domainuser -p $domainpwd -packetencrypt ssl -packetsign require if [ $? -ne 0 ];then exit 1;fi echo &quot;&quot; echo &quot;Configure Advanced User Experience Options&quot; dsconfigad -localhome $localhome -mobile $mobile -mobileconfirm $mobileconfirm -protocol $protocol -shell $shell echo &quot;&quot; echo &quot;Configure Advanced Administrative Options&quot; dsconfigad -nopreferred -groups &quot;$groups&quot; -alldomains $alldomains -passinterval $passinterval echo &quot;&quot; echo &quot;Configuration Complete!&quot; exit 0" />
+<meta property="og:description" content="We worked for some time on getting Mac OSX hosts to bind to Active Directory in such a way that we could require LDAP digital signing. As it turns out, 10.7 and 10.8 seem to work just fine. The issue was more with getting the certificates just- right on the Domain Controllers. It sounds as though the 10.6 hosts will have to be upgraded or replaced though. This is a script that was used in testing. Your mileage may vary. Test, test, test. #! /bin/bash # Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion # Author: Joseph A Streeter # Modified date: 06 FEB 2013 clear# Gather Computer and Domain User information printf &quot;\nEnter Computer Name: &quot; read computerid printf &quot;\nEnter Domain Name: &quot; read domain printf &quot;\nEnter Domain User: &quot; read domainuser stty -echo printf &quot;\nEnter Domain User Password: &quot; read domainpwd stty echo # Advanced Options - User Experience localhome=&quot;enable&quot; mobile=&quot;enable&quot; mobileconfirm=&quot;disable&quot; protocol=&quot;smb&quot; shell=&quot;/bin/bash&quot; # Advanced Options - Administrative groups=&quot;Domain Admins,Enterprise Admins&quot; alldomains=&quot;disable&quot; passinterval=&quot;30&quot; # Review user entered information and choose to contine or abort printf &quot;\nComputer Name = $computerid&quot; printf &quot;\nDomain Name = $domain&quot; printf &quot;\nDomain User = $domainuser&quot; printf &quot;\nWould you like to continue? [y/n] &quot; read continue if [ $continue == &quot;n&quot; ]; then exit 1; fi # Determin OS Version case $(sw_vers -productVersion) in 10.7.[1-9]) ver=&quot;10.7&quot; ;; 10.6.[1-9]) ver=&quot;10.6&quot; ;; *) echo &quot;Version unsupported&quot; exit 1 esac if [ $ver == &quot;10.6&quot; ]; then # Remove Existing Directory Services Config printf &quot;\nCleaning up any old Active Directory information&quot; if [ ! -d &quot;/Library/Preferences/DirectoryService/ActiveDirectory&quot; ]; then rm -R /Library/Preferences/DirectoryService/ActiveDirectory* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig&quot; ]; then rm -R /Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/SearchNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/SearchNode* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/ContactsNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/ContactsNode* fi if [ ! -d &quot;/Library/Preferences/edu.mit.Kerberos&quot; ]; then rm -R /Library/Preferences/edu.mit.Kerberos fi if [ ! -d &quot;/etc/krb5.keytab&quot; ]; then rm -R /etc/krb5.keytab fi # Clean up the DirectoryService configuration files rm -vfR &quot;/Library/Preferences/DirectoryService/*&quot; rm -vfR &quot;/Library/Preferences/DirectoryService/.*&quot; # Enable Active Directory Plugin defaults write /Library/Preferences/DirectoryService/DirectoryService &quot;Active Directory&quot; Active fi echo &quot;&quot; echo &quot;check Computer Name&quot; if [ $computerid == $(scutil --get ComputerName) ]; then echo &quot;Computer Name good&quot;;else scutil --set ComputerName $computerid;fi if [ $computerid.$domain == $(scutil --get HostName) ]; then echo &quot;Host Name good&quot;;else scutil --set HostName $computerid.$domain;fi if [ $computerid == $(scutil --get LocalHostName) ]; then echo &quot;Local Host Name good&quot;;else scutil --set LocalHostName $computerid;fi echo &quot;&quot; echo &quot;Bind computer to AD&quot; dsconfigad -a $computerid -domain $domain -u $domainuser -p $domainpwd -packetencrypt ssl -packetsign require if [ $? -ne 0 ];then exit 1;fi echo &quot;&quot; echo &quot;Configure Advanced User Experience Options&quot; dsconfigad -localhome $localhome -mobile $mobile -mobileconfirm $mobileconfirm -protocol $protocol -shell $shell echo &quot;&quot; echo &quot;Configure Advanced Administrative Options&quot; dsconfigad -nopreferred -groups &quot;$groups&quot; -alldomains $alldomains -passinterval $passinterval echo &quot;&quot; echo &quot;Configuration Complete!&quot; exit 0" />
+<link rel="canonical" href="http://localhost:4000/it/2013/06/05/Mac-OSX-Bind-Script.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/06/05/Mac-OSX-Bind-Script.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-06-05T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/06/05/Mac-OSX-Bind-Script.html","headline":"Mac OSX Bind Script","dateModified":"2013-06-05T00:00:00-05:00","datePublished":"2013-06-05T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/06/05/Mac-OSX-Bind-Script.html"},"description":"We worked for some time on getting Mac OSX hosts to bind to Active Directory in such a way that we could require LDAP digital signing. As it turns out, 10.7 and 10.8 seem to work just fine. The issue was more with getting the certificates just- right on the Domain Controllers. It sounds as though the 10.6 hosts will have to be upgraded or replaced though. This is a script that was used in testing. Your mileage may vary. Test, test, test. #! /bin/bash # Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion # Author: Joseph A Streeter # Modified date: 06 FEB 2013 clear# Gather Computer and Domain User information printf &quot;\\nEnter Computer Name: &quot; read computerid printf &quot;\\nEnter Domain Name: &quot; read domain printf &quot;\\nEnter Domain User: &quot; read domainuser stty -echo printf &quot;\\nEnter Domain User Password: &quot; read domainpwd stty echo # Advanced Options - User Experience localhome=&quot;enable&quot; mobile=&quot;enable&quot; mobileconfirm=&quot;disable&quot; protocol=&quot;smb&quot; shell=&quot;/bin/bash&quot; # Advanced Options - Administrative groups=&quot;Domain Admins,Enterprise Admins&quot; alldomains=&quot;disable&quot; passinterval=&quot;30&quot; # Review user entered information and choose to contine or abort printf &quot;\\nComputer Name = $computerid&quot; printf &quot;\\nDomain Name = $domain&quot; printf &quot;\\nDomain User = $domainuser&quot; printf &quot;\\nWould you like to continue? [y/n] &quot; read continue if [ $continue == &quot;n&quot; ]; then exit 1; fi # Determin OS Version case $(sw_vers -productVersion) in 10.7.[1-9]) ver=&quot;10.7&quot; ;; 10.6.[1-9]) ver=&quot;10.6&quot; ;; *) echo &quot;Version unsupported&quot; exit 1 esac if [ $ver == &quot;10.6&quot; ]; then # Remove Existing Directory Services Config printf &quot;\\nCleaning up any old Active Directory information&quot; if [ ! -d &quot;/Library/Preferences/DirectoryService/ActiveDirectory&quot; ]; then rm -R /Library/Preferences/DirectoryService/ActiveDirectory* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig&quot; ]; then rm -R /Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/SearchNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/SearchNode* fi if [ ! -d &quot;/Library/Preferences/DirectoryService/ContactsNode&quot; ]; then rm -R /Library/Preferences/DirectoryService/ContactsNode* fi if [ ! -d &quot;/Library/Preferences/edu.mit.Kerberos&quot; ]; then rm -R /Library/Preferences/edu.mit.Kerberos fi if [ ! -d &quot;/etc/krb5.keytab&quot; ]; then rm -R /etc/krb5.keytab fi # Clean up the DirectoryService configuration files rm -vfR &quot;/Library/Preferences/DirectoryService/*&quot; rm -vfR &quot;/Library/Preferences/DirectoryService/.*&quot; # Enable Active Directory Plugin defaults write /Library/Preferences/DirectoryService/DirectoryService &quot;Active Directory&quot; Active fi echo &quot;&quot; echo &quot;check Computer Name&quot; if [ $computerid == $(scutil --get ComputerName) ]; then echo &quot;Computer Name good&quot;;else scutil --set ComputerName $computerid;fi if [ $computerid.$domain == $(scutil --get HostName) ]; then echo &quot;Host Name good&quot;;else scutil --set HostName $computerid.$domain;fi if [ $computerid == $(scutil --get LocalHostName) ]; then echo &quot;Local Host Name good&quot;;else scutil --set LocalHostName $computerid;fi echo &quot;&quot; echo &quot;Bind computer to AD&quot; dsconfigad -a $computerid -domain $domain -u $domainuser -p $domainpwd -packetencrypt ssl -packetsign require if [ $? -ne 0 ];then exit 1;fi echo &quot;&quot; echo &quot;Configure Advanced User Experience Options&quot; dsconfigad -localhome $localhome -mobile $mobile -mobileconfirm $mobileconfirm -protocol $protocol -shell $shell echo &quot;&quot; echo &quot;Configure Advanced Administrative Options&quot; dsconfigad -nopreferred -groups &quot;$groups&quot; -alldomains $alldomains -passinterval $passinterval echo &quot;&quot; echo &quot;Configuration Complete!&quot; exit 0","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Mac OSX Bind Script</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-06-05T00:00:00-05:00" itemprop="datePublished">Jun 5, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>We worked for some time on getting Mac OSX hosts to bind to Active Directory in such a way that we could require LDAP digital signing. As it turns out, 10.7 and 10.8 seem to work just fine. The issue was more with getting the certificates just-  right on the Domain Controllers. It sounds as though the 10.6 hosts will have to be upgraded or replaced though.</p>
+
+<p>This is a script that was used in testing. Your mileage may vary. Test, test, test.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#! /bin/bash
+</span>
+<span class="c1"># Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion
+</span>
+<span class="c1"># Author: Joseph A Streeter
+</span>
+<span class="c1"># Modified date: 06 FEB 2013
+</span>
+<span class="n">clear</span><span class="c1"># Gather Computer and Domain User information
+</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Computer Name: "</span>
+<span class="n">read</span> <span class="n">computerid</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain Name: "</span>
+<span class="n">read</span> <span class="n">domain</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain User: "</span>
+<span class="n">read</span> <span class="n">domainuser</span>
+<span class="n">stty</span> <span class="o">-</span><span class="n">echo</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain User Password: "</span>
+<span class="n">read</span> <span class="n">domainpwd</span>
+<span class="n">stty</span> <span class="n">echo</span>
+
+<span class="c1"># Advanced Options - User Experience
+</span>
+<span class="n">localhome</span><span class="o">=</span><span class="s2">"enable"</span>
+<span class="n">mobile</span><span class="o">=</span><span class="s2">"enable"</span>
+<span class="n">mobileconfirm</span><span class="o">=</span><span class="s2">"disable"</span>
+<span class="n">protocol</span><span class="o">=</span><span class="s2">"smb"</span>
+<span class="n">shell</span><span class="o">=</span><span class="s2">"/bin/bash"</span>
+
+<span class="c1"># Advanced Options - Administrative
+</span>
+<span class="n">groups</span><span class="o">=</span><span class="s2">"Domain Admins,Enterprise Admins"</span>
+<span class="n">alldomains</span><span class="o">=</span><span class="s2">"disable"</span>
+<span class="n">passinterval</span><span class="o">=</span><span class="s2">"30"</span>
+
+<span class="c1"># Review user entered information and choose to contine or abort
+</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Computer Name = $computerid"</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Domain Name = $domain"</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Domain User = $domainuser"</span>
+
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Would you like to continue? [y/n] "</span>
+<span class="n">read</span> <span class="n">continue</span>
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$continue</span> <span class="o">==</span> <span class="s2">"n"</span> <span class="p">];</span> <span class="k">then</span> <span class="nb">exit</span> <span class="mi">1</span><span class="p">;</span> <span class="n">fi</span>
+
+<span class="c1"># Determin OS Version
+</span>
+<span class="k">case</span> <span class="err">$</span><span class="p">(</span><span class="n">sw_vers</span> <span class="o">-</span><span class="n">productVersion</span><span class="p">)</span> <span class="k">in</span>
+<span class="mf">10.7</span><span class="p">.</span><span class="nf">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">ver</span><span class="o">=</span><span class="s2">"10.7"</span>
+<span class="p">;;</span>
+<span class="mf">10.6</span><span class="p">.</span><span class="nf">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">ver</span><span class="o">=</span><span class="s2">"10.6"</span>
+<span class="p">;;</span>
+<span class="o">*</span><span class="p">)</span>
+<span class="n">echo</span> <span class="s2">"Version unsupported"</span>
+<span class="nb">exit</span> <span class="mi">1</span>
+<span class="n">esac</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$ver</span> <span class="o">==</span> <span class="s2">"10.6"</span> <span class="p">];</span> <span class="k">then</span>
+
+<span class="c1"># Remove Existing Directory Services Config
+</span>
+<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Cleaning up any old Active Directory information"</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/ActiveDirectory"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">ActiveDirectory</span><span class="o">*</span>
+<span class="n">fi</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">DSLDAPv3PlugInConfig</span><span class="o">*</span>
+<span class="n">fi</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/SearchNode"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">SearchNode</span><span class="o">*</span>
+<span class="n">fi</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/ContactsNode"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">ContactsNode</span><span class="o">*</span>
+<span class="n">fi</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/edu.mit.Kerberos"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="n">edu</span><span class="p">.</span><span class="nf">mit</span><span class="o">.</span><span class="no">Kerberos</span>
+<span class="n">fi</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/etc/krb5.keytab"</span> <span class="p">];</span> <span class="k">then</span>
+<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/etc/</span><span class="n">krb5</span><span class="p">.</span><span class="nf">keytab</span>
+<span class="n">fi</span>
+
+<span class="c1"># Clean up the DirectoryService configuration files
+</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">vfR</span> <span class="s2">"/Library/Preferences/DirectoryService/*"</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">vfR</span> <span class="s2">"/Library/Preferences/DirectoryService/.*"</span>
+
+<span class="c1"># Enable Active Directory Plugin
+</span>
+<span class="n">defaults</span> <span class="n">write</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">DirectoryService</span> <span class="s2">"Active Directory"</span> <span class="no">Active</span>
+<span class="n">fi</span>
+
+<span class="n">echo</span> <span class="s2">""</span>
+<span class="n">echo</span> <span class="s2">"check Computer Name"</span>
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">ComputerName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Computer Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">ComputerName</span> <span class="vg">$computerid</span><span class="p">;</span><span class="n">fi</span>
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span><span class="o">.</span><span class="vg">$domain</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">HostName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Host Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">HostName</span> <span class="vg">$computerid</span><span class="o">.</span><span class="vg">$domain</span><span class="p">;</span><span class="n">fi</span>
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">LocalHostName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Local Host Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">LocalHostName</span> <span class="vg">$computerid</span><span class="p">;</span><span class="n">fi</span>
+<span class="n">echo</span> <span class="s2">""</span>
+
+<span class="n">echo</span> <span class="s2">"Bind computer to AD"</span>
+<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">a</span> <span class="vg">$computerid</span> <span class="o">-</span><span class="n">domain</span> <span class="vg">$domain</span> <span class="o">-</span><span class="n">u</span> <span class="vg">$domainuser</span> <span class="o">-</span><span class="nb">p</span> <span class="vg">$domainpwd</span> <span class="o">-</span><span class="n">packetencrypt</span> <span class="n">ssl</span> <span class="o">-</span><span class="n">packetsign</span> <span class="nb">require</span>
+<span class="k">if</span> <span class="p">[</span> <span class="vg">$?</span> <span class="o">-</span><span class="n">ne</span> <span class="mi">0</span> <span class="p">];</span><span class="k">then</span> <span class="nb">exit</span> <span class="mi">1</span><span class="p">;</span><span class="n">fi</span>
+<span class="n">echo</span> <span class="s2">""</span>
+<span class="n">echo</span> <span class="s2">"Configure Advanced User Experience Options"</span>
+<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">localhome</span> <span class="vg">$localhome</span> <span class="o">-</span><span class="n">mobile</span> <span class="vg">$mobile</span> <span class="o">-</span><span class="n">mobileconfirm</span> <span class="vg">$mobileconfirm</span> <span class="o">-</span><span class="n">protocol</span> <span class="vg">$protocol</span> <span class="o">-</span><span class="n">shell</span> <span class="vg">$shell</span>
+<span class="n">echo</span> <span class="s2">""</span>
+<span class="n">echo</span> <span class="s2">"Configure Advanced Administrative Options"</span>
+<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">nopreferred</span> <span class="o">-</span><span class="n">groups</span> <span class="s2">"$groups"</span> <span class="o">-</span><span class="n">alldomains</span> <span class="vg">$alldomains</span> <span class="o">-</span><span class="n">passinterval</span> <span class="vg">$passinterval</span>
+<span class="n">echo</span> <span class="s2">""</span>
+<span class="n">echo</span> <span class="s2">"Configuration Complete!"</span>
+<span class="nb">exit</span> <span class="mi">0</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/06/05/Mac-OSX-Bind-Script.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

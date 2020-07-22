@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Enable Diagnostic Logging in Active Directory | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Enable Diagnostic Logging in Active Directory" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Sometimes the event logs just don’t give you enough information for what you’re troubleshooting. You can get a little more information by turning on diagnostic logging for a particular service. Diagnostic logging for domain controllers is managed in the following registry location: Logging can be configured by modifying these REG_DWORD entries: 1 Knowledge Consistency Checker (KCC) 2 Security Events 3 ExDS Interface Events 4 MAPI Interface Events 5 Replication Events 6 Garbage Collection 7 Internal Configuration 8 Directory Access 9 Internal Processing 10 Performance Counters 11 Initialization/Termination 12 Service Control 13 Name Resolution 14 Backup 15 Field Engineering 16 LDAP Interface Events 17 Setup 18 Global Catalog 19 Inter-site Messaging 20 Group Caching 21 Linked-Value Replication 22 DS RPC Client 23 DS RPC Server 24 DS Schema Edit them by hand, script them, or use Group Policy Preferences to push them out. I would recommend using GPO Preferences to keep them to the values that you want so that it’s not so easy for someone to change them without your knowledge. Diagnostic Logging Levels The values below are used to configure the level of diagnostic logging provided by the host: 0 None Only - critical events and error events are logged at this level. This is the - default setting for all entries, and it should be modified only if a problem - occurs that you want to investigate 1 Minimal Very - high-level events are recorded in the event log at this setting. Events may - include one message for each major task that is performed by the service. Use - this setting to start an investigation when you do not know the location of - the problem 2 Basic 3 Extensive This - level records more detailed information than the lower levels, such as steps - that are performed to complete a task. Use this setting when you have - narrowed the problem to a service or a group of categories 4 Verbose 5 Internal This - level logs all events, including debug strings and configuration changes. A - complete log of the service is recorded. Use this setting when you have - traced the problem to a particular category of a small set of categories Configure with PowerShell Use the following PowerShell example to configure logging levels: $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics Set-ItemProperty -Path $Reg -Name &lt;service&gt; -Type DWORD -Value &lt;value&gt; Enable NetLogon Logging After enabling Netlogon logging the activity will be logged to %windir%\debug\netlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. - When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created. The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default. Configure log size with PowerShell: $Reg = â€œHKLM:\ SYSTEM\CurrentControlSet\Services\Netlogon\Parameters New-ItemProperty -Path -Name MaximumLogFileSize- -Type DWORD -Value &lt;Log-Size&gt; Configure log size with Group Policy: Computer Configuration\Administrative Templates\System\Net Logon\Maximum Log File Size Turn on NetLogon Logging Command Line: nltest /dbflag:0x2080ffff Powershell: Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ New-ItemProperty -Path -Name DBFlag -Type DWORD -Value 545325055 $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 545325055 Restart-Service netlogon Turn off NetLogon Logging Command Line: nltest /dbflag:0x0 PowerShell: $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 0 Restart-Service netlogon" />
+<meta property="og:description" content="Sometimes the event logs just don’t give you enough information for what you’re troubleshooting. You can get a little more information by turning on diagnostic logging for a particular service. Diagnostic logging for domain controllers is managed in the following registry location: Logging can be configured by modifying these REG_DWORD entries: 1 Knowledge Consistency Checker (KCC) 2 Security Events 3 ExDS Interface Events 4 MAPI Interface Events 5 Replication Events 6 Garbage Collection 7 Internal Configuration 8 Directory Access 9 Internal Processing 10 Performance Counters 11 Initialization/Termination 12 Service Control 13 Name Resolution 14 Backup 15 Field Engineering 16 LDAP Interface Events 17 Setup 18 Global Catalog 19 Inter-site Messaging 20 Group Caching 21 Linked-Value Replication 22 DS RPC Client 23 DS RPC Server 24 DS Schema Edit them by hand, script them, or use Group Policy Preferences to push them out. I would recommend using GPO Preferences to keep them to the values that you want so that it’s not so easy for someone to change them without your knowledge. Diagnostic Logging Levels The values below are used to configure the level of diagnostic logging provided by the host: 0 None Only - critical events and error events are logged at this level. This is the - default setting for all entries, and it should be modified only if a problem - occurs that you want to investigate 1 Minimal Very - high-level events are recorded in the event log at this setting. Events may - include one message for each major task that is performed by the service. Use - this setting to start an investigation when you do not know the location of - the problem 2 Basic 3 Extensive This - level records more detailed information than the lower levels, such as steps - that are performed to complete a task. Use this setting when you have - narrowed the problem to a service or a group of categories 4 Verbose 5 Internal This - level logs all events, including debug strings and configuration changes. A - complete log of the service is recorded. Use this setting when you have - traced the problem to a particular category of a small set of categories Configure with PowerShell Use the following PowerShell example to configure logging levels: $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics Set-ItemProperty -Path $Reg -Name &lt;service&gt; -Type DWORD -Value &lt;value&gt; Enable NetLogon Logging After enabling Netlogon logging the activity will be logged to %windir%\debug\netlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. - When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created. The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default. Configure log size with PowerShell: $Reg = â€œHKLM:\ SYSTEM\CurrentControlSet\Services\Netlogon\Parameters New-ItemProperty -Path -Name MaximumLogFileSize- -Type DWORD -Value &lt;Log-Size&gt; Configure log size with Group Policy: Computer Configuration\Administrative Templates\System\Net Logon\Maximum Log File Size Turn on NetLogon Logging Command Line: nltest /dbflag:0x2080ffff Powershell: Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ New-ItemProperty -Path -Name DBFlag -Type DWORD -Value 545325055 $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 545325055 Restart-Service netlogon Turn off NetLogon Logging Command Line: nltest /dbflag:0x0 PowerShell: $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 0 Restart-Service netlogon" />
+<link rel="canonical" href="http://localhost:4000/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-06-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html","headline":"Enable Diagnostic Logging in Active Directory","dateModified":"2013-06-04T00:00:00-05:00","datePublished":"2013-06-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html"},"description":"Sometimes the event logs just don’t give you enough information for what you’re troubleshooting. You can get a little more information by turning on diagnostic logging for a particular service. Diagnostic logging for domain controllers is managed in the following registry location: Logging can be configured by modifying these REG_DWORD entries: 1 Knowledge Consistency Checker (KCC) 2 Security Events 3 ExDS Interface Events 4 MAPI Interface Events 5 Replication Events 6 Garbage Collection 7 Internal Configuration 8 Directory Access 9 Internal Processing 10 Performance Counters 11 Initialization/Termination 12 Service Control 13 Name Resolution 14 Backup 15 Field Engineering 16 LDAP Interface Events 17 Setup 18 Global Catalog 19 Inter-site Messaging 20 Group Caching 21 Linked-Value Replication 22 DS RPC Client 23 DS RPC Server 24 DS Schema Edit them by hand, script them, or use Group Policy Preferences to push them out. I would recommend using GPO Preferences to keep them to the values that you want so that it’s not so easy for someone to change them without your knowledge. Diagnostic Logging Levels The values below are used to configure the level of diagnostic logging provided by the host: 0 None Only - critical events and error events are logged at this level. This is the - default setting for all entries, and it should be modified only if a problem - occurs that you want to investigate 1 Minimal Very - high-level events are recorded in the event log at this setting. Events may - include one message for each major task that is performed by the service. Use - this setting to start an investigation when you do not know the location of - the problem 2 Basic 3 Extensive This - level records more detailed information than the lower levels, such as steps - that are performed to complete a task. Use this setting when you have - narrowed the problem to a service or a group of categories 4 Verbose 5 Internal This - level logs all events, including debug strings and configuration changes. A - complete log of the service is recorded. Use this setting when you have - traced the problem to a particular category of a small set of categories Configure with PowerShell Use the following PowerShell example to configure logging levels: $Reg = â€œHKLM:\\SYSTEM\\CurrentControlSet\\Services\\NTDS\\Diagnostics Set-ItemProperty -Path $Reg -Name &lt;service&gt; -Type DWORD -Value &lt;value&gt; Enable NetLogon Logging After enabling Netlogon logging the activity will be logged to %windir%\\debug\\netlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. - When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created. The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default. Configure log size with PowerShell: $Reg = â€œHKLM:\\ SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters New-ItemProperty -Path -Name MaximumLogFileSize- -Type DWORD -Value &lt;Log-Size&gt; Configure log size with Group Policy: Computer Configuration\\Administrative Templates\\System\\Net Logon\\Maximum Log File Size Turn on NetLogon Logging Command Line: nltest /dbflag:0x2080ffff Powershell: Reg = â€œHKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters\\ New-ItemProperty -Path -Name DBFlag -Type DWORD -Value 545325055 $Reg = â€œHKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters\\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 545325055 Restart-Service netlogon Turn off NetLogon Logging Command Line: nltest /dbflag:0x0 PowerShell: $Reg = â€œHKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters\\ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 0 Restart-Service netlogon","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Enable Diagnostic Logging in Active Directory</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-06-04T00:00:00-05:00" itemprop="datePublished">Jun 4, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Sometimes the event logs just don’t give you enough information for what you’re troubleshooting. You can get a little more information by turning on diagnostic logging for a particular service.</p>
+
+<p>Diagnostic logging for domain controllers is managed in the following registry location:</p>
+
+<p>Logging can be configured by modifying these REG_DWORD entries:</p>
+
+<p>1 Knowledge Consistency Checker (KCC)
+2 Security Events
+3 ExDS Interface Events
+4 MAPI Interface Events
+5 Replication Events
+6 Garbage Collection
+7 Internal Configuration
+8 Directory Access
+9 Internal Processing
+10 Performance Counters
+11 Initialization/Termination
+12 Service Control
+13 Name Resolution
+14 Backup
+15 Field Engineering
+16 LDAP Interface Events
+17 Setup
+18 Global Catalog
+19 Inter-site Messaging
+20 Group Caching
+21 Linked-Value Replication
+22 DS RPC Client
+23 DS RPC Server
+24 DS Schema</p>
+
+<p>Edit them by hand, script them, or use Group Policy Preferences to push them out. I would recommend using GPO Preferences to keep them to the values that you want so that it’s not so easy for someone to change them without your knowledge.</p>
+
+<p>Diagnostic Logging Levels</p>
+
+<p>The values below are used to configure the level of diagnostic logging provided by the host:</p>
+<table border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top" width="49">0</td>
+<td valign="top" width="72">None<b></b></td>
+<td valign="top" width="517">Only -  critical events and error events are logged at this level. This is the -  default setting for all entries, and it should be modified only if a problem -  occurs that you want to investigate<b></b></td>
+</tr>
+<tr>
+<td valign="top" width="49">1</td>
+<td valign="top" width="72">Minimal</td>
+<td valign="top" width="517">Very -  high-level events are recorded in the event log at this setting. Events may -  include one message for each major task that is performed by the service. Use -  this setting to start an investigation when you do not know the location of -  the problem</td>
+</tr>
+<tr>
+<td valign="top" width="49">2</td>
+<td valign="top" width="72">Basic</td>
+<td valign="top" width="517"></td>
+</tr>
+<tr>
+<td valign="top" width="49">3</td>
+<td valign="top" width="72">Extensive</td>
+<td valign="top" width="517">This -  level records more detailed information than the lower levels, such as steps -  that are performed to complete a task. Use this setting when you have -  narrowed the problem to a service or a group of categories</td>
+</tr>
+<tr>
+<td valign="top" width="49">4</td>
+<td valign="top" width="72">Verbose</td>
+<td valign="top" width="517"></td>
+</tr>
+<tr>
+<td valign="top" width="49">5</td>
+<td valign="top" width="72">Internal</td>
+<td valign="top" width="517">This -  level logs all events, including debug strings and configuration changes. A -  complete log of the service is recorded. Use this setting when you have -  traced the problem to a particular category of a small set of categories</td>
+</tr>
+</tbody>
+</table>
+
+<p>Configure with PowerShell</p>
+
+<p>Use the following PowerShell example to configure logging levels:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">NTDS</span><span class="p">\</span><span class="no">Diagnostics</span>
+<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="o">&lt;</span><span class="n">service</span><span class="o">&gt;</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span></code></pre></figure>
+
+<p><strong><em>Enable NetLogon Logging</em></strong></p>
+
+<p>After enabling Netlogon logging the activity will be logged to %windir%\debug\netlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. - When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created.</p>
+
+<p>The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default.</p>
+
+<p><strong><em>Configure log size with PowerShell:</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span> <span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span>
+<span class="no">New</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="o">-</span><span class="no">Name</span> <span class="no">MaximumLogFileSize</span><span class="o">-</span>  <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="o">&lt;</span><span class="no">Log</span><span class="o">-</span><span class="no">Size</span><span class="o">&gt;</span></code></pre></figure>
+
+<p><strong><em>Configure log size with Group Policy:</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Computer</span> <span class="no">Configuration</span><span class="p">\</span><span class="no">Administrative</span> <span class="no">Templates</span><span class="p">\</span><span class="no">System</span><span class="p">\</span><span class="no">Net</span> <span class="no">Logon</span><span class="p">\</span><span class="no">Maximum</span> <span class="no">Log</span> <span class="no">File</span> <span class="no">Size</span></code></pre></figure>
+
+<p><strong><em>Turn on NetLogon Logging</em></strong></p>
+
+<p>Command Line:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/dbflag:0x2080ffff</span></code></pre></figure>
+
+<p>Powershell:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
+<span class="no">New</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">545325055</span>
+
+<span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
+<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">545325055</span>
+
+<span class="no">Restart</span><span class="o">-</span><span class="no">Service</span> <span class="n">netlogon</span></code></pre></figure>
+
+<p><strong><em>Turn off NetLogon Logging</em></strong></p>
+
+<p>Command Line:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/dbflag:0x0</span></code></pre></figure>
+
+<p>PowerShell:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
+<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">0</span>
+
+<span class="no">Restart</span><span class="o">-</span><span class="no">Service</span> <span class="n">netlogon</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

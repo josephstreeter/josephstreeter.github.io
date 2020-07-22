@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>DMVPN Lab | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="DMVPN Lab" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some time ago I had to teach myself DMVPN so that I could troubleshoot and manager the current system. If I remember right, I got a lot of the information and text from somewhere. I’m just not sure where I got it from and what I wrote myself. Preparation Configure interfaces with â€œpublic IP addresses. R1 interface FastEthernet1/0 ip address 10.10.0.1 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.1 255.255.255.0 duplex auto speed auto **R2 **interface FastEthernet1/0 ip address 10.10.0.2 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.2 255.255.255.0 duplex auto speed auto R3** **interface FastEthernet1/0 ip address 10.10.0.3 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto **R4 **interface FastEthernet1/0 ip address 10.10.0.4 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto Configure R1 and R2 as DMVPN Hubs and configure tunnel interfaces **R1 **interface Tunnel0 description mGRE Interface ip address 192.168.3.1 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 **R2 **interface Tunnel1 description mGRE Interface ip address 192.168.3.129 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 Configure R3 and R4 as DMVPN Branches and configure tunnel interfaces **R3 **interface Tunnel0 ip address 192.168.3.101 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 55.94.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint **R4 **interface Tunnel0 ip address 192.168.3.100 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 192.168.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint Configure loopback interfaces to simulate other subnets **R1 **interface Loopback0 ip address 192.168.254.1 255.255.255.0 **R2 **interface Loopback0 ip address 192.168.6.1 255.255.255.0 **R3 **interface Loopback0 ip address 192.168.250.1 255.255.255.0 **R4 **interface Loopback0 ip address 192.168.251.1 255.255.255.0 Routing Protocols Configure EIGRP on each of the routers **R1 **router eigrp 100 network 192.168.1.2 0.0.0.0 network 192.168.3.1 0.0.0.0 network 192.168.254.1 0.0.0.0 no auto-summary **R2 **router eigrp 100 network 192.168.1.1 0.0.0.0 network 192.168.3.129 0.0.0.0} network 192.168.6.1 0.0.0.0 no auto-summary **R3 **router eigrp 100 network 192.168.3.101 0.0.0.0 network 192.168.3.200 0.0.0.0 network 192.168.250.1 0.0.0.0 no auto-summary **R4 **router eigrp 100 network 192.168.100 0.0.0.0 network 192.168.3.201 0.0.0.0 network 192.168.251.1 0.0.0.0 no auto-summary Configure Branch routers to use R1 as the primary DMVPN hub by adding delay 100 **to the **tunnel1 interfaces R3 **interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint R4 **interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint IOS Certificate Authority Server **Configure Hub router as a CA** Every time encryption keys an certificates are involved in a configuration, make sure the host and domain name are set. (config)#hostname R1 (config)#ip domain-name domain.com (config)#ip host org-ca 10.10.0.1 The time is also very important when using certificates. The most convenient and accurate way is to set the clock by NTP. Do not forget to set the timezone. (config)#ntp server 192.168.254.1 prefer (config)#clock timezone CST -6 (config)#clock summer-time CST recurring The CA is also the NTP server for the rest of the network. It must therefore be configured as NTP master. (config)#ntp master 6 (config)#ntp source Loopback0 The http server will be used by SCEP to download the certificates to the VPN routers. (config)#ip http server Configuration The CA needs asymmetric keys. They can either be created manually or have the CA server create them when it starts the first time. To have total control over the keys it is recommended to do that manually. This allows us to have exportable keys of any length. When creating the keys manually it is essential to chose the same name for the keypair (label) and the CA server name (later on in the configuration). (config)#crypto key generate rsa exportable general-keys label ORG-CA modulus 2048 The name for the keys will be: ORG-CA % The key modulus size is 2048 bits % Generating 2048 bit RSA keys, keys will be exportable…[OK] It is very important to have these keys available for rebuilding the CA after its loss. They should therefore be saved away immediately. (config)#crypto key export rsa ORG-CA pem url flash: 3des passphrase % Key name: ORG-CA Usage: General Purpose Key Exporting public key… Destination filename [ORG-CA.pub]? Writing file to flash:ORG-CA.pub Verifying checksum…- OK (0x9E1) Exporting private key… Destination filename [ORG-CA.prv]? Writing file to flash:ORG-CA.prv Verifying checksum…- OK (0x8ADF) We can finally start to configure the certificate authority (CA) server. Remember: To make the CA use the key previously defined, the name of the CA server must match the generation label of the key. (config)#crypto pki server ORG-CA The CA server must have a location to store its data. The default is NVRAM but this can also be a FTP or TFTP server or any URL that the router’s file system supports. (cs-server)#database url flash: % Server database url was changed. You need to move the % existing database to the new location. The following command defines how much data the database stores. The default is the minimum to maintain integrity of issued certificates. To identify certificates to revoke at a later stage some more information is necessary in the database. (cs-server)#database level complete This is the CA’s distinguished name (DN). The DN appears in all certificates signed by the CA as the issuer name. (cs-server)#issuer-name CN=R1.domain.com C=US L=Madison ST=WI C=US Set the lifetimes of the certificates and the CRL. The defaults are 3 years for the CA certificate, 1 year for certificates issued by the CA and 1 week for the CRL. (cs-server)#lifetime ca-certificate 1825 (cs-server)#lifetime certificate 1825 (cs-server)#lifetime crl 6 (cs-server)#database level names (cs-server)#database archive pem The URL of the CRL, the CRL distribution point (CDP), can also be set for the certificates that the CA issues, however, when using SCEP, the CRL check also runs on this protocol. All necessary definitions have been made and the CA server can be activated. (cs-server)#no shutdown %Some server settings cannot be changed after CA certificate generation. % Please enter a passphrase to protect the private key % or type Return to exit Password: passphrase Re-enter password: passphrase % Exporting Certificate Server signing certificate and keys… % Certificate Server enabled. Validation Take a look at what was just configured. #show crypto pki server Certificate Server ORG-CA: Status: enabled State: enabled Server’s configuration is locked- (enter “shut” to unlock it) Issuer name: CN=R1.domain.com L=Madison ST=WI C=US CA cert fingerprint: 280214D4 ACA8DE47 00CAA5A5 33E91350 Granting mode is: manual Last certificate issued serial number: 0x1 CA certificate expiration timer: 02:09:20 NZST Apr 19 2013 CRL NextUpdate timer: 08:09:20 NZST Apr 20 2008 Current primary storage dir: flash: Database Level: Complete - all issued certs written as .cer Make a note of the fingerprint. This will be used when the VPN routers are enrolled. VPN Router Configuration Now that we have a CA the VPN routers can enroll. To illustrate various possibilities, the two VPN routers are configured slightly different. The first, R3, uses the standard, simple enrolment, the second, R4, is configured with a user-defined asymmetric key. As the router also requires certificates, we first must define the domain it is in and get the correct time (on each VPN router). (config)#ip domain name domain.com (config)#ntp server 192.168.254.25 (config)#clock timezone CST -6 (config)#clock summer-time NSDT recurring last sun sep 02:00 first sun apr 03:00 60 VPN Router R3 The trustpoint holds the data that can be verified by a certain CA. A trustpoint must be defined for the CA that was defined in the previous step. The trustpoint needs information of how to get certificates. Different enrolment methods are available: from file, copy/paste, etc. In this case, SCEP is supported by the CA and we therefore use this method. R3(config)#crypto pki trustpoint org-ca R3(ca-trustpoint)#enrollment url http://org-ca With this configuration the CA certificate can now be downloaded. R3(config)#crypto pki authenticate org-ca Certificate has the following attributes: Fingerprint MD5: 280214D4 ACA8DE47 00CAA5A5 33E91350 Fingerprint SHA1: 24A169F4 558CA8D0 BB2BF8CF 4523072F EEE0CCCC % Do you accept this certificate? [yes/no]: yes Trustpoint CA certificate accepted. The fingerprint displayed during the download procedure must be verified against the fingerprint of the CA. See the show crypto pki server command in the previous step. The VPN router itself needs an asymmetric key and a certificate to authenticate itself to other devices to which it builds a VPN tunnel. Keys and certificate can be created with one single command. Keys are generated and the public key is sent to the CA (in a CSR). It must be signed there and as soon as the CA has granted the certificate it is downloaded to the VPN router. All with a single command. R3(config)#crypto pki enrol org-ca % % Start certificate enrollment .. % Create a challenge password. You will need to verbally provide this password to the CA Administrator in order to revoke your certificate. For security reasons your password will not be saved in the configuration. Please make a note of it. Password: password Re-enter password: password *Apr 20 15:15:23.383:- RSA key size needs to be at least 768 bits for ssh version 2 *Apr 20 15:15:23.403: %SSH-5-ENABLED: SSH 1.5 has been enabled *Apr 20 15:15:23.403: %CRYPTO-6-AUTOGEN: Generated new 512 bit key pair % The subject name in the certificate will include: R3 % Include the router serial number in the subject name? [yes/no]: no % Include an IP address in the subject name? [no]: no Request certificate from CA? [yes/no]: yes % Certificate request sent to Certificate Authority % The ‘show crypto ca certificate org-ca verbose’ command will show the fingerprint. *Apr 20 15:15:47.299: CRYPTO_PKI:- Certificate Request Fingerprint MD5: 1AABDA1F 2CE325F2 ED5BCA4A B1257766 *Apr 20 15:15:47.311: CRYPTO_PKI:- Certificate Request Fingerprint SHA1: 60B9258D D428899F 9273D501 FDE9C94D 74B319B4 Note that you can specify the content of the subject name. The serial number does not really matter in most cases. It is usually save to include it in the subject. The IP address ties the certificate to an IP address, which normally is not favorable. CA: Grant Certificate To grant the certificate we must switch to the CA. The CSR from the VPN router is on the list as the following display shows. Again, verify the fingerprint. It must match the one calculated by the VPN router, when it issued the CSR. The IOS CA server displays the MD5 fingerprint. R1#crypto pki server ORG-CA info requests Enrollment Request Database: Subordinate CA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– RA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– Router certificates requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– 1- - - - - pending- - - 1AABDA1F2CE325F2ED5BCA4AB1257766 hostname=R3 When the fingerprint and the subject are correct, the certificate can be granted. The command can issue individual certificates or grant all pending requests. R1#crypto pki server ORG-CA grant all There is an option in the CA server configuration that allows certificates be granted automatically on SCEP requests. (cs-server)#grant auto If grant auto was configured, the previous step is of course not required. Back to VPN Router R3 As soon as the CA has issued the certificate, the following message appears on the VPN router (may not be immediate but it may take some seconds). *Apr 20 15:18:10.459: %PKI-6-CERTRET: Certificate received from Certificate Authority Verification Two certificates are now stored on the router. The CA’s certificate for the trustpoint and the router’s certificate to build VPN connections. R3#show crypto pki certificates Certificate Status: Available Certificate Serial Number: 0x2 Certificate Usage: General Purpose Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: Name: R3 hostname=R3 Validity Date: start date: 15:19:09 UTC Apr 19 2008 end- - date: 15:19:09 UTC Apr 19 2010 Associated Trustpoints: org-ca CA Certificate Status: Available Certificate Serial Number: 0x1 Certificate Usage: Signature Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: CN=R1.domain.com L=Madison ST=WI C=US Validity Date: start date: 14:09:20 UTC Apr 19 2008 end- - date: 14:09:20 UTC Apr 18 2013 Associated Trustpoints: org-ca R3#show crypto pki trustpoint Trustpoint org-ca: Subject Name: CN=R1.domain.com L=Madison ST=WI C=US Serial Number: 0x1 Certificate configured. SCEP URL: http://org-ca:80/cgi-bin**- ** VPN Router R4 The second router also needs the CA certificate and a router certificate for the VPN connection. Instead of having the keys automatically created while enrolling, we generate them beforehand. Two separate keys are generated by the following command (using the keyword usage-keys. One is for signatures and the other for encryption. This is useful, if the router has multiple VPN tunnels using RSA encrypted nonces and RSA signatures at the same time. If one of the keys gets compromised the other is not. R4(config)#crypto key generate rsa usage-keys label wiarng-ca modulus 1536 exportable The name for the keys will be: org-ca % The key modulus size is 1536 bits % Generating 1536 bit RSA keys, keys will be exportable…[OK] % Generating 1536 bit RSA keys, keys will be exportable…[OK] As for the first router the trustpoint is next. The only difference to the trustpoint of router R3 is that we tell it what key to use. R4(config)#crypto pki trustpoint org-ca R4(ca-trustpoint)#enrollment url http://org-ca R4(ca-trustpoint)#rsakeypair org-ca VPN Configuration To test the VPN connection a policy is required on each router. An example is listed here. Define the IKE policy. (config)#crypto isakmp policy 1 (config-isakmp)#authentication rsa-sig (config-isakmp)#group 5 (config-isakmp)#encryption aes (config-isakmp)#hash sha Configure the transform set. (config)#crypto ipsec transform-set wiarng-sec esp-aes esp-sha-hmac (cfg-crypto-trans)#mode transport require (config)#crypto ipsec df-bit clear Configure the ipsec profile. crypto ipsec profile org-vpn set transform-set org-sec Configuration of Tunnel Interfaces Add the following command to each of the tunnel interfaces: **- **tunnel protection ipsec profile org-vpn Verify the Configuration Ping the neighbor VPN router. The source interface must be the loopback interface because only traffic between the loopback interfaces is encrypted (crypto map access list). R3#ping 172.31.1.2 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.2, timeout is 2 seconds: Packet sent with a source address of 172.31.1.1 .!!!! Success rate is 80 percent (4/5), round-trip min/avg/max = 20/30/36 ms Clear all SAs and try establishing the VPN tunnel from the other VPN router. Note, this is necessary, because some negotiation depends on the side that initiates the tunnel (e.g. timers). R4#clear crypto sa R4#clear crypto isakmp R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 ….. Success rate is 0 percent (0/5) R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 !!!!! Success rate is 100 percent (5/5), round-trip min/avg/max = 16/34/48 ms" />
+<meta property="og:description" content="Some time ago I had to teach myself DMVPN so that I could troubleshoot and manager the current system. If I remember right, I got a lot of the information and text from somewhere. I’m just not sure where I got it from and what I wrote myself. Preparation Configure interfaces with â€œpublic IP addresses. R1 interface FastEthernet1/0 ip address 10.10.0.1 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.1 255.255.255.0 duplex auto speed auto **R2 **interface FastEthernet1/0 ip address 10.10.0.2 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.2 255.255.255.0 duplex auto speed auto R3** **interface FastEthernet1/0 ip address 10.10.0.3 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto **R4 **interface FastEthernet1/0 ip address 10.10.0.4 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto Configure R1 and R2 as DMVPN Hubs and configure tunnel interfaces **R1 **interface Tunnel0 description mGRE Interface ip address 192.168.3.1 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 **R2 **interface Tunnel1 description mGRE Interface ip address 192.168.3.129 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 Configure R3 and R4 as DMVPN Branches and configure tunnel interfaces **R3 **interface Tunnel0 ip address 192.168.3.101 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 55.94.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint **R4 **interface Tunnel0 ip address 192.168.3.100 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 192.168.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint Configure loopback interfaces to simulate other subnets **R1 **interface Loopback0 ip address 192.168.254.1 255.255.255.0 **R2 **interface Loopback0 ip address 192.168.6.1 255.255.255.0 **R3 **interface Loopback0 ip address 192.168.250.1 255.255.255.0 **R4 **interface Loopback0 ip address 192.168.251.1 255.255.255.0 Routing Protocols Configure EIGRP on each of the routers **R1 **router eigrp 100 network 192.168.1.2 0.0.0.0 network 192.168.3.1 0.0.0.0 network 192.168.254.1 0.0.0.0 no auto-summary **R2 **router eigrp 100 network 192.168.1.1 0.0.0.0 network 192.168.3.129 0.0.0.0} network 192.168.6.1 0.0.0.0 no auto-summary **R3 **router eigrp 100 network 192.168.3.101 0.0.0.0 network 192.168.3.200 0.0.0.0 network 192.168.250.1 0.0.0.0 no auto-summary **R4 **router eigrp 100 network 192.168.100 0.0.0.0 network 192.168.3.201 0.0.0.0 network 192.168.251.1 0.0.0.0 no auto-summary Configure Branch routers to use R1 as the primary DMVPN hub by adding delay 100 **to the **tunnel1 interfaces R3 **interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint R4 **interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint IOS Certificate Authority Server **Configure Hub router as a CA** Every time encryption keys an certificates are involved in a configuration, make sure the host and domain name are set. (config)#hostname R1 (config)#ip domain-name domain.com (config)#ip host org-ca 10.10.0.1 The time is also very important when using certificates. The most convenient and accurate way is to set the clock by NTP. Do not forget to set the timezone. (config)#ntp server 192.168.254.1 prefer (config)#clock timezone CST -6 (config)#clock summer-time CST recurring The CA is also the NTP server for the rest of the network. It must therefore be configured as NTP master. (config)#ntp master 6 (config)#ntp source Loopback0 The http server will be used by SCEP to download the certificates to the VPN routers. (config)#ip http server Configuration The CA needs asymmetric keys. They can either be created manually or have the CA server create them when it starts the first time. To have total control over the keys it is recommended to do that manually. This allows us to have exportable keys of any length. When creating the keys manually it is essential to chose the same name for the keypair (label) and the CA server name (later on in the configuration). (config)#crypto key generate rsa exportable general-keys label ORG-CA modulus 2048 The name for the keys will be: ORG-CA % The key modulus size is 2048 bits % Generating 2048 bit RSA keys, keys will be exportable…[OK] It is very important to have these keys available for rebuilding the CA after its loss. They should therefore be saved away immediately. (config)#crypto key export rsa ORG-CA pem url flash: 3des passphrase % Key name: ORG-CA Usage: General Purpose Key Exporting public key… Destination filename [ORG-CA.pub]? Writing file to flash:ORG-CA.pub Verifying checksum…- OK (0x9E1) Exporting private key… Destination filename [ORG-CA.prv]? Writing file to flash:ORG-CA.prv Verifying checksum…- OK (0x8ADF) We can finally start to configure the certificate authority (CA) server. Remember: To make the CA use the key previously defined, the name of the CA server must match the generation label of the key. (config)#crypto pki server ORG-CA The CA server must have a location to store its data. The default is NVRAM but this can also be a FTP or TFTP server or any URL that the router’s file system supports. (cs-server)#database url flash: % Server database url was changed. You need to move the % existing database to the new location. The following command defines how much data the database stores. The default is the minimum to maintain integrity of issued certificates. To identify certificates to revoke at a later stage some more information is necessary in the database. (cs-server)#database level complete This is the CA’s distinguished name (DN). The DN appears in all certificates signed by the CA as the issuer name. (cs-server)#issuer-name CN=R1.domain.com C=US L=Madison ST=WI C=US Set the lifetimes of the certificates and the CRL. The defaults are 3 years for the CA certificate, 1 year for certificates issued by the CA and 1 week for the CRL. (cs-server)#lifetime ca-certificate 1825 (cs-server)#lifetime certificate 1825 (cs-server)#lifetime crl 6 (cs-server)#database level names (cs-server)#database archive pem The URL of the CRL, the CRL distribution point (CDP), can also be set for the certificates that the CA issues, however, when using SCEP, the CRL check also runs on this protocol. All necessary definitions have been made and the CA server can be activated. (cs-server)#no shutdown %Some server settings cannot be changed after CA certificate generation. % Please enter a passphrase to protect the private key % or type Return to exit Password: passphrase Re-enter password: passphrase % Exporting Certificate Server signing certificate and keys… % Certificate Server enabled. Validation Take a look at what was just configured. #show crypto pki server Certificate Server ORG-CA: Status: enabled State: enabled Server’s configuration is locked- (enter “shut” to unlock it) Issuer name: CN=R1.domain.com L=Madison ST=WI C=US CA cert fingerprint: 280214D4 ACA8DE47 00CAA5A5 33E91350 Granting mode is: manual Last certificate issued serial number: 0x1 CA certificate expiration timer: 02:09:20 NZST Apr 19 2013 CRL NextUpdate timer: 08:09:20 NZST Apr 20 2008 Current primary storage dir: flash: Database Level: Complete - all issued certs written as .cer Make a note of the fingerprint. This will be used when the VPN routers are enrolled. VPN Router Configuration Now that we have a CA the VPN routers can enroll. To illustrate various possibilities, the two VPN routers are configured slightly different. The first, R3, uses the standard, simple enrolment, the second, R4, is configured with a user-defined asymmetric key. As the router also requires certificates, we first must define the domain it is in and get the correct time (on each VPN router). (config)#ip domain name domain.com (config)#ntp server 192.168.254.25 (config)#clock timezone CST -6 (config)#clock summer-time NSDT recurring last sun sep 02:00 first sun apr 03:00 60 VPN Router R3 The trustpoint holds the data that can be verified by a certain CA. A trustpoint must be defined for the CA that was defined in the previous step. The trustpoint needs information of how to get certificates. Different enrolment methods are available: from file, copy/paste, etc. In this case, SCEP is supported by the CA and we therefore use this method. R3(config)#crypto pki trustpoint org-ca R3(ca-trustpoint)#enrollment url http://org-ca With this configuration the CA certificate can now be downloaded. R3(config)#crypto pki authenticate org-ca Certificate has the following attributes: Fingerprint MD5: 280214D4 ACA8DE47 00CAA5A5 33E91350 Fingerprint SHA1: 24A169F4 558CA8D0 BB2BF8CF 4523072F EEE0CCCC % Do you accept this certificate? [yes/no]: yes Trustpoint CA certificate accepted. The fingerprint displayed during the download procedure must be verified against the fingerprint of the CA. See the show crypto pki server command in the previous step. The VPN router itself needs an asymmetric key and a certificate to authenticate itself to other devices to which it builds a VPN tunnel. Keys and certificate can be created with one single command. Keys are generated and the public key is sent to the CA (in a CSR). It must be signed there and as soon as the CA has granted the certificate it is downloaded to the VPN router. All with a single command. R3(config)#crypto pki enrol org-ca % % Start certificate enrollment .. % Create a challenge password. You will need to verbally provide this password to the CA Administrator in order to revoke your certificate. For security reasons your password will not be saved in the configuration. Please make a note of it. Password: password Re-enter password: password *Apr 20 15:15:23.383:- RSA key size needs to be at least 768 bits for ssh version 2 *Apr 20 15:15:23.403: %SSH-5-ENABLED: SSH 1.5 has been enabled *Apr 20 15:15:23.403: %CRYPTO-6-AUTOGEN: Generated new 512 bit key pair % The subject name in the certificate will include: R3 % Include the router serial number in the subject name? [yes/no]: no % Include an IP address in the subject name? [no]: no Request certificate from CA? [yes/no]: yes % Certificate request sent to Certificate Authority % The ‘show crypto ca certificate org-ca verbose’ command will show the fingerprint. *Apr 20 15:15:47.299: CRYPTO_PKI:- Certificate Request Fingerprint MD5: 1AABDA1F 2CE325F2 ED5BCA4A B1257766 *Apr 20 15:15:47.311: CRYPTO_PKI:- Certificate Request Fingerprint SHA1: 60B9258D D428899F 9273D501 FDE9C94D 74B319B4 Note that you can specify the content of the subject name. The serial number does not really matter in most cases. It is usually save to include it in the subject. The IP address ties the certificate to an IP address, which normally is not favorable. CA: Grant Certificate To grant the certificate we must switch to the CA. The CSR from the VPN router is on the list as the following display shows. Again, verify the fingerprint. It must match the one calculated by the VPN router, when it issued the CSR. The IOS CA server displays the MD5 fingerprint. R1#crypto pki server ORG-CA info requests Enrollment Request Database: Subordinate CA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– RA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– Router certificates requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– 1- - - - - pending- - - 1AABDA1F2CE325F2ED5BCA4AB1257766 hostname=R3 When the fingerprint and the subject are correct, the certificate can be granted. The command can issue individual certificates or grant all pending requests. R1#crypto pki server ORG-CA grant all There is an option in the CA server configuration that allows certificates be granted automatically on SCEP requests. (cs-server)#grant auto If grant auto was configured, the previous step is of course not required. Back to VPN Router R3 As soon as the CA has issued the certificate, the following message appears on the VPN router (may not be immediate but it may take some seconds). *Apr 20 15:18:10.459: %PKI-6-CERTRET: Certificate received from Certificate Authority Verification Two certificates are now stored on the router. The CA’s certificate for the trustpoint and the router’s certificate to build VPN connections. R3#show crypto pki certificates Certificate Status: Available Certificate Serial Number: 0x2 Certificate Usage: General Purpose Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: Name: R3 hostname=R3 Validity Date: start date: 15:19:09 UTC Apr 19 2008 end- - date: 15:19:09 UTC Apr 19 2010 Associated Trustpoints: org-ca CA Certificate Status: Available Certificate Serial Number: 0x1 Certificate Usage: Signature Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: CN=R1.domain.com L=Madison ST=WI C=US Validity Date: start date: 14:09:20 UTC Apr 19 2008 end- - date: 14:09:20 UTC Apr 18 2013 Associated Trustpoints: org-ca R3#show crypto pki trustpoint Trustpoint org-ca: Subject Name: CN=R1.domain.com L=Madison ST=WI C=US Serial Number: 0x1 Certificate configured. SCEP URL: http://org-ca:80/cgi-bin**- ** VPN Router R4 The second router also needs the CA certificate and a router certificate for the VPN connection. Instead of having the keys automatically created while enrolling, we generate them beforehand. Two separate keys are generated by the following command (using the keyword usage-keys. One is for signatures and the other for encryption. This is useful, if the router has multiple VPN tunnels using RSA encrypted nonces and RSA signatures at the same time. If one of the keys gets compromised the other is not. R4(config)#crypto key generate rsa usage-keys label wiarng-ca modulus 1536 exportable The name for the keys will be: org-ca % The key modulus size is 1536 bits % Generating 1536 bit RSA keys, keys will be exportable…[OK] % Generating 1536 bit RSA keys, keys will be exportable…[OK] As for the first router the trustpoint is next. The only difference to the trustpoint of router R3 is that we tell it what key to use. R4(config)#crypto pki trustpoint org-ca R4(ca-trustpoint)#enrollment url http://org-ca R4(ca-trustpoint)#rsakeypair org-ca VPN Configuration To test the VPN connection a policy is required on each router. An example is listed here. Define the IKE policy. (config)#crypto isakmp policy 1 (config-isakmp)#authentication rsa-sig (config-isakmp)#group 5 (config-isakmp)#encryption aes (config-isakmp)#hash sha Configure the transform set. (config)#crypto ipsec transform-set wiarng-sec esp-aes esp-sha-hmac (cfg-crypto-trans)#mode transport require (config)#crypto ipsec df-bit clear Configure the ipsec profile. crypto ipsec profile org-vpn set transform-set org-sec Configuration of Tunnel Interfaces Add the following command to each of the tunnel interfaces: **- **tunnel protection ipsec profile org-vpn Verify the Configuration Ping the neighbor VPN router. The source interface must be the loopback interface because only traffic between the loopback interfaces is encrypted (crypto map access list). R3#ping 172.31.1.2 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.2, timeout is 2 seconds: Packet sent with a source address of 172.31.1.1 .!!!! Success rate is 80 percent (4/5), round-trip min/avg/max = 20/30/36 ms Clear all SAs and try establishing the VPN tunnel from the other VPN router. Note, this is necessary, because some negotiation depends on the side that initiates the tunnel (e.g. timers). R4#clear crypto sa R4#clear crypto isakmp R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 ….. Success rate is 0 percent (0/5) R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 !!!!! Success rate is 100 percent (5/5), round-trip min/avg/max = 16/34/48 ms" />
+<link rel="canonical" href="http://localhost:4000/it/2012/11/26/DMVPN-Lab.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/11/26/DMVPN-Lab.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-26T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/11/26/DMVPN-Lab.html","headline":"DMVPN Lab","dateModified":"2012-11-26T23:00:00-06:00","datePublished":"2012-11-26T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/11/26/DMVPN-Lab.html"},"description":"Some time ago I had to teach myself DMVPN so that I could troubleshoot and manager the current system. If I remember right, I got a lot of the information and text from somewhere. I’m just not sure where I got it from and what I wrote myself. Preparation Configure interfaces with â€œpublic IP addresses. R1 interface FastEthernet1/0 ip address 10.10.0.1 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.1 255.255.255.0 duplex auto speed auto **R2 **interface FastEthernet1/0 ip address 10.10.0.2 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 ip address 192.168.1.2 255.255.255.0 duplex auto speed auto R3** **interface FastEthernet1/0 ip address 10.10.0.3 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto **R4 **interface FastEthernet1/0 ip address 10.10.0.4 255.255.255.0 duplex auto speed auto interface FastEthernet1/1 no ip address shutdown duplex auto speed auto Configure R1 and R2 as DMVPN Hubs and configure tunnel interfaces **R1 **interface Tunnel0 description mGRE Interface ip address 192.168.3.1 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 **R2 **interface Tunnel1 description mGRE Interface ip address 192.168.3.129 255.255.255.128 no ip redirects no ip next-hop-self eigrp 100 ip nhrp authentication winhrp-1 ip nhrp map multicast dynamic ip nhrp network-id 2400 ip nhrp holdtime 360 no ip split-horizon eigrp 100 tunnel source FastEthernet1/0- - - - - (interface or public IP) tunnel mode gre multipoint tunnel key 2400 Configure R3 and R4 as DMVPN Branches and configure tunnel interfaces **R3 **interface Tunnel0 ip address 192.168.3.101 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 55.94.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint **R4 **interface Tunnel0 ip address 192.168.3.100 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map 192.168.3.1 10.10.0.1 ip nhrp map multicast 10.10.0.1 ip nhrp network-id 2400 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.1 tunnel source FastEthernet1/0 tunnel mode gre multipoint tunnel key 2400 interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 tunnel source FastEthernet1/0 tunnel mode gre multipoint Configure loopback interfaces to simulate other subnets **R1 **interface Loopback0 ip address 192.168.254.1 255.255.255.0 **R2 **interface Loopback0 ip address 192.168.6.1 255.255.255.0 **R3 **interface Loopback0 ip address 192.168.250.1 255.255.255.0 **R4 **interface Loopback0 ip address 192.168.251.1 255.255.255.0 Routing Protocols Configure EIGRP on each of the routers **R1 **router eigrp 100 network 192.168.1.2 0.0.0.0 network 192.168.3.1 0.0.0.0 network 192.168.254.1 0.0.0.0 no auto-summary **R2 **router eigrp 100 network 192.168.1.1 0.0.0.0 network 192.168.3.129 0.0.0.0} network 192.168.6.1 0.0.0.0 no auto-summary **R3 **router eigrp 100 network 192.168.3.101 0.0.0.0 network 192.168.3.200 0.0.0.0 network 192.168.250.1 0.0.0.0 no auto-summary **R4 **router eigrp 100 network 192.168.100 0.0.0.0 network 192.168.3.201 0.0.0.0 network 192.168.251.1 0.0.0.0 no auto-summary Configure Branch routers to use R1 as the primary DMVPN hub by adding delay 100 **to the **tunnel1 interfaces R3 **interface Tunnel1 ip address 192.168.3.200 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint R4 **interface Tunnel1 ip address 192.168.3.201 255.255.255.128 no ip redirects ip nhrp authentication winhrp-1 ip nhrp map multicast 10.10.0.2 ip nhrp map 192.168.3.129 10.10.0.2 ip nhrp network-id 2500 ip nhrp holdtime 360 ip nhrp nhs 192.168.3.129 **delay 100- - - - - - - - - - - - - - - - - - - - - - - - - **ÃŸ **tunnel source FastEthernet1/0 tunnel mode gre multipoint IOS Certificate Authority Server **Configure Hub router as a CA** Every time encryption keys an certificates are involved in a configuration, make sure the host and domain name are set. (config)#hostname R1 (config)#ip domain-name domain.com (config)#ip host org-ca 10.10.0.1 The time is also very important when using certificates. The most convenient and accurate way is to set the clock by NTP. Do not forget to set the timezone. (config)#ntp server 192.168.254.1 prefer (config)#clock timezone CST -6 (config)#clock summer-time CST recurring The CA is also the NTP server for the rest of the network. It must therefore be configured as NTP master. (config)#ntp master 6 (config)#ntp source Loopback0 The http server will be used by SCEP to download the certificates to the VPN routers. (config)#ip http server Configuration The CA needs asymmetric keys. They can either be created manually or have the CA server create them when it starts the first time. To have total control over the keys it is recommended to do that manually. This allows us to have exportable keys of any length. When creating the keys manually it is essential to chose the same name for the keypair (label) and the CA server name (later on in the configuration). (config)#crypto key generate rsa exportable general-keys label ORG-CA modulus 2048 The name for the keys will be: ORG-CA % The key modulus size is 2048 bits % Generating 2048 bit RSA keys, keys will be exportable…[OK] It is very important to have these keys available for rebuilding the CA after its loss. They should therefore be saved away immediately. (config)#crypto key export rsa ORG-CA pem url flash: 3des passphrase % Key name: ORG-CA Usage: General Purpose Key Exporting public key… Destination filename [ORG-CA.pub]? Writing file to flash:ORG-CA.pub Verifying checksum…- OK (0x9E1) Exporting private key… Destination filename [ORG-CA.prv]? Writing file to flash:ORG-CA.prv Verifying checksum…- OK (0x8ADF) We can finally start to configure the certificate authority (CA) server. Remember: To make the CA use the key previously defined, the name of the CA server must match the generation label of the key. (config)#crypto pki server ORG-CA The CA server must have a location to store its data. The default is NVRAM but this can also be a FTP or TFTP server or any URL that the router’s file system supports. (cs-server)#database url flash: % Server database url was changed. You need to move the % existing database to the new location. The following command defines how much data the database stores. The default is the minimum to maintain integrity of issued certificates. To identify certificates to revoke at a later stage some more information is necessary in the database. (cs-server)#database level complete This is the CA’s distinguished name (DN). The DN appears in all certificates signed by the CA as the issuer name. (cs-server)#issuer-name CN=R1.domain.com C=US L=Madison ST=WI C=US Set the lifetimes of the certificates and the CRL. The defaults are 3 years for the CA certificate, 1 year for certificates issued by the CA and 1 week for the CRL. (cs-server)#lifetime ca-certificate 1825 (cs-server)#lifetime certificate 1825 (cs-server)#lifetime crl 6 (cs-server)#database level names (cs-server)#database archive pem The URL of the CRL, the CRL distribution point (CDP), can also be set for the certificates that the CA issues, however, when using SCEP, the CRL check also runs on this protocol. All necessary definitions have been made and the CA server can be activated. (cs-server)#no shutdown %Some server settings cannot be changed after CA certificate generation. % Please enter a passphrase to protect the private key % or type Return to exit Password: passphrase Re-enter password: passphrase % Exporting Certificate Server signing certificate and keys… % Certificate Server enabled. Validation Take a look at what was just configured. #show crypto pki server Certificate Server ORG-CA: Status: enabled State: enabled Server’s configuration is locked- (enter “shut” to unlock it) Issuer name: CN=R1.domain.com L=Madison ST=WI C=US CA cert fingerprint: 280214D4 ACA8DE47 00CAA5A5 33E91350 Granting mode is: manual Last certificate issued serial number: 0x1 CA certificate expiration timer: 02:09:20 NZST Apr 19 2013 CRL NextUpdate timer: 08:09:20 NZST Apr 20 2008 Current primary storage dir: flash: Database Level: Complete - all issued certs written as .cer Make a note of the fingerprint. This will be used when the VPN routers are enrolled. VPN Router Configuration Now that we have a CA the VPN routers can enroll. To illustrate various possibilities, the two VPN routers are configured slightly different. The first, R3, uses the standard, simple enrolment, the second, R4, is configured with a user-defined asymmetric key. As the router also requires certificates, we first must define the domain it is in and get the correct time (on each VPN router). (config)#ip domain name domain.com (config)#ntp server 192.168.254.25 (config)#clock timezone CST -6 (config)#clock summer-time NSDT recurring last sun sep 02:00 first sun apr 03:00 60 VPN Router R3 The trustpoint holds the data that can be verified by a certain CA. A trustpoint must be defined for the CA that was defined in the previous step. The trustpoint needs information of how to get certificates. Different enrolment methods are available: from file, copy/paste, etc. In this case, SCEP is supported by the CA and we therefore use this method. R3(config)#crypto pki trustpoint org-ca R3(ca-trustpoint)#enrollment url http://org-ca With this configuration the CA certificate can now be downloaded. R3(config)#crypto pki authenticate org-ca Certificate has the following attributes: Fingerprint MD5: 280214D4 ACA8DE47 00CAA5A5 33E91350 Fingerprint SHA1: 24A169F4 558CA8D0 BB2BF8CF 4523072F EEE0CCCC % Do you accept this certificate? [yes/no]: yes Trustpoint CA certificate accepted. The fingerprint displayed during the download procedure must be verified against the fingerprint of the CA. See the show crypto pki server command in the previous step. The VPN router itself needs an asymmetric key and a certificate to authenticate itself to other devices to which it builds a VPN tunnel. Keys and certificate can be created with one single command. Keys are generated and the public key is sent to the CA (in a CSR). It must be signed there and as soon as the CA has granted the certificate it is downloaded to the VPN router. All with a single command. R3(config)#crypto pki enrol org-ca % % Start certificate enrollment .. % Create a challenge password. You will need to verbally provide this password to the CA Administrator in order to revoke your certificate. For security reasons your password will not be saved in the configuration. Please make a note of it. Password: password Re-enter password: password *Apr 20 15:15:23.383:- RSA key size needs to be at least 768 bits for ssh version 2 *Apr 20 15:15:23.403: %SSH-5-ENABLED: SSH 1.5 has been enabled *Apr 20 15:15:23.403: %CRYPTO-6-AUTOGEN: Generated new 512 bit key pair % The subject name in the certificate will include: R3 % Include the router serial number in the subject name? [yes/no]: no % Include an IP address in the subject name? [no]: no Request certificate from CA? [yes/no]: yes % Certificate request sent to Certificate Authority % The ‘show crypto ca certificate org-ca verbose’ command will show the fingerprint. *Apr 20 15:15:47.299: CRYPTO_PKI:- Certificate Request Fingerprint MD5: 1AABDA1F 2CE325F2 ED5BCA4A B1257766 *Apr 20 15:15:47.311: CRYPTO_PKI:- Certificate Request Fingerprint SHA1: 60B9258D D428899F 9273D501 FDE9C94D 74B319B4 Note that you can specify the content of the subject name. The serial number does not really matter in most cases. It is usually save to include it in the subject. The IP address ties the certificate to an IP address, which normally is not favorable. CA: Grant Certificate To grant the certificate we must switch to the CA. The CSR from the VPN router is on the list as the following display shows. Again, verify the fingerprint. It must match the one calculated by the VPN router, when it issued the CSR. The IOS CA server displays the MD5 fingerprint. R1#crypto pki server ORG-CA info requests Enrollment Request Database: Subordinate CA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– RA certificate requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– Router certificates requests: ReqID- State- - - - - Fingerprint- - - - - - - - - - - - - - - - - - - - - SubjectName ————————————————————– 1- - - - - pending- - - 1AABDA1F2CE325F2ED5BCA4AB1257766 hostname=R3 When the fingerprint and the subject are correct, the certificate can be granted. The command can issue individual certificates or grant all pending requests. R1#crypto pki server ORG-CA grant all There is an option in the CA server configuration that allows certificates be granted automatically on SCEP requests. (cs-server)#grant auto If grant auto was configured, the previous step is of course not required. Back to VPN Router R3 As soon as the CA has issued the certificate, the following message appears on the VPN router (may not be immediate but it may take some seconds). *Apr 20 15:18:10.459: %PKI-6-CERTRET: Certificate received from Certificate Authority Verification Two certificates are now stored on the router. The CA’s certificate for the trustpoint and the router’s certificate to build VPN connections. R3#show crypto pki certificates Certificate Status: Available Certificate Serial Number: 0x2 Certificate Usage: General Purpose Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: Name: R3 hostname=R3 Validity Date: start date: 15:19:09 UTC Apr 19 2008 end- - date: 15:19:09 UTC Apr 19 2010 Associated Trustpoints: org-ca CA Certificate Status: Available Certificate Serial Number: 0x1 Certificate Usage: Signature Issuer: CN=R1.domain.com L=Madison ST=WI C=US Subject: CN=R1.domain.com L=Madison ST=WI C=US Validity Date: start date: 14:09:20 UTC Apr 19 2008 end- - date: 14:09:20 UTC Apr 18 2013 Associated Trustpoints: org-ca R3#show crypto pki trustpoint Trustpoint org-ca: Subject Name: CN=R1.domain.com L=Madison ST=WI C=US Serial Number: 0x1 Certificate configured. SCEP URL: http://org-ca:80/cgi-bin**- ** VPN Router R4 The second router also needs the CA certificate and a router certificate for the VPN connection. Instead of having the keys automatically created while enrolling, we generate them beforehand. Two separate keys are generated by the following command (using the keyword usage-keys. One is for signatures and the other for encryption. This is useful, if the router has multiple VPN tunnels using RSA encrypted nonces and RSA signatures at the same time. If one of the keys gets compromised the other is not. R4(config)#crypto key generate rsa usage-keys label wiarng-ca modulus 1536 exportable The name for the keys will be: org-ca % The key modulus size is 1536 bits % Generating 1536 bit RSA keys, keys will be exportable…[OK] % Generating 1536 bit RSA keys, keys will be exportable…[OK] As for the first router the trustpoint is next. The only difference to the trustpoint of router R3 is that we tell it what key to use. R4(config)#crypto pki trustpoint org-ca R4(ca-trustpoint)#enrollment url http://org-ca R4(ca-trustpoint)#rsakeypair org-ca VPN Configuration To test the VPN connection a policy is required on each router. An example is listed here. Define the IKE policy. (config)#crypto isakmp policy 1 (config-isakmp)#authentication rsa-sig (config-isakmp)#group 5 (config-isakmp)#encryption aes (config-isakmp)#hash sha Configure the transform set. (config)#crypto ipsec transform-set wiarng-sec esp-aes esp-sha-hmac (cfg-crypto-trans)#mode transport require (config)#crypto ipsec df-bit clear Configure the ipsec profile. crypto ipsec profile org-vpn set transform-set org-sec Configuration of Tunnel Interfaces Add the following command to each of the tunnel interfaces: **- **tunnel protection ipsec profile org-vpn Verify the Configuration Ping the neighbor VPN router. The source interface must be the loopback interface because only traffic between the loopback interfaces is encrypted (crypto map access list). R3#ping 172.31.1.2 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.2, timeout is 2 seconds: Packet sent with a source address of 172.31.1.1 .!!!! Success rate is 80 percent (4/5), round-trip min/avg/max = 20/30/36 ms Clear all SAs and try establishing the VPN tunnel from the other VPN router. Note, this is necessary, because some negotiation depends on the side that initiates the tunnel (e.g. timers). R4#clear crypto sa R4#clear crypto isakmp R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 ….. Success rate is 0 percent (0/5) R4#ping 172.31.1.1 source loopback0 Type escape sequence to abort. Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds: Packet sent with a source address of 172.31.1.2 !!!!! Success rate is 100 percent (5/5), round-trip min/avg/max = 16/34/48 ms","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">DMVPN Lab</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-11-26T23:00:00-06:00" itemprop="datePublished">Nov 26, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Some time ago I had to teach myself DMVPN so that I could troubleshoot and manager the current system. If I remember right, I got a lot of the information and text from somewhere. I’m just not sure where I got it from and what I wrote myself.</p>
+
+<p><strong><em>Preparation</em></strong></p>
+
+<p>Configure interfaces with â€œpublic IP addresses.</p>
+
+<p><strong><em>R1</em></strong>
+interface FastEthernet1/0
+ip address 10.10.0.1 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p>interface FastEthernet1/1
+ip address 192.168.1.1 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p><em>**R2
+**</em>interface FastEthernet1/0
+ip address 10.10.0.2 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p>interface FastEthernet1/1
+ip address 192.168.1.2 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p><strong><em>R3</em></strong><em>**
+**</em>interface FastEthernet1/0
+ip address 10.10.0.3 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p>interface FastEthernet1/1
+no ip address
+shutdown
+duplex auto
+speed auto</p>
+
+<p><em>**R4
+**</em>interface FastEthernet1/0
+ip address 10.10.0.4 255.255.255.0
+duplex auto
+speed auto</p>
+
+<p>interface FastEthernet1/1
+no ip address
+shutdown
+duplex auto
+speed auto</p>
+
+<p><strong><em>Configure R1 and R2 as DMVPN Hubs and configure tunnel interfaces</em></strong></p>
+
+<p><em>**R1
+**</em>interface Tunnel0
+description mGRE Interface
+ip address 192.168.3.1 255.255.255.128
+no ip redirects
+no ip next-hop-self eigrp 100
+ip nhrp authentication winhrp-1
+ip nhrp map multicast dynamic
+ip nhrp network-id 2400
+ip nhrp holdtime 360
+no ip split-horizon eigrp 100
+tunnel source FastEthernet1/0- - - - -  (interface or public IP)
+tunnel mode gre multipoint
+tunnel key 2400</p>
+
+<p><em>**R2
+**</em>interface Tunnel1
+description mGRE Interface
+ip address 192.168.3.129 255.255.255.128
+no ip redirects
+no ip next-hop-self eigrp 100
+ip nhrp authentication winhrp-1
+ip nhrp map multicast dynamic
+ip nhrp network-id 2400
+ip nhrp holdtime 360
+no ip split-horizon eigrp 100
+tunnel source FastEthernet1/0- - - - -  (interface or public IP)
+tunnel mode gre multipoint
+tunnel key 2400</p>
+
+<p><strong><em>Configure R3 and R4 as DMVPN Branches and configure tunnel interfaces</em></strong></p>
+
+<p><em>**R3
+**</em>interface Tunnel0
+ip address 192.168.3.101 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map 55.94.3.1 10.10.0.1
+ip nhrp map multicast 10.10.0.1
+ip nhrp network-id 2400
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.1
+tunnel source FastEthernet1/0
+tunnel mode gre multipoint
+tunnel key 2400</p>
+
+<p>interface Tunnel1
+ip address 192.168.3.200 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map multicast 10.10.0.2
+ip nhrp map 192.168.3.129 10.10.0.2
+ip nhrp network-id 2500
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.129
+tunnel source FastEthernet1/0
+tunnel mode gre multipoint</p>
+
+<p><em>**R4
+**</em>interface Tunnel0
+ip address 192.168.3.100 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map 192.168.3.1 10.10.0.1
+ip nhrp map multicast 10.10.0.1
+ip nhrp network-id 2400
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.1
+tunnel source FastEthernet1/0
+tunnel mode gre multipoint
+tunnel key 2400</p>
+
+<p>interface Tunnel1
+ip address 192.168.3.201 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map multicast 10.10.0.2
+ip nhrp map 192.168.3.129 10.10.0.2
+ip nhrp network-id 2500
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.129
+tunnel source FastEthernet1/0
+tunnel mode gre multipoint</p>
+
+<p><strong><em>Configure loopback interfaces to simulate other subnets</em></strong></p>
+
+<p><em>**R1
+**</em>interface Loopback0
+ip address 192.168.254.1 255.255.255.0</p>
+
+<p><em>**R2
+**</em>interface Loopback0
+ip address 192.168.6.1 255.255.255.0</p>
+
+<p><em>**R3
+**</em>interface Loopback0
+ip address 192.168.250.1 255.255.255.0</p>
+
+<p><em>**R4
+**</em>interface Loopback0
+ip address 192.168.251.1 255.255.255.0</p>
+
+<p><strong><em>Routing Protocols</em></strong></p>
+
+<p>Configure EIGRP on each of the routers</p>
+
+<p><em>**R1
+**</em>router eigrp 100
+network 192.168.1.2 0.0.0.0
+network 192.168.3.1 0.0.0.0
+network 192.168.254.1 0.0.0.0
+no auto-summary</p>
+
+<p><em>**R2
+**</em>router eigrp 100
+network 192.168.1.1 0.0.0.0
+network 192.168.3.129 0.0.0.0}
+network 192.168.6.1 0.0.0.0
+no auto-summary</p>
+
+<p><em>**R3
+**</em>router eigrp 100
+network 192.168.3.101 0.0.0.0
+network 192.168.3.200 0.0.0.0
+network 192.168.250.1 0.0.0.0
+no auto-summary</p>
+
+<p><em>**R4
+**</em>router eigrp 100
+network 192.168.100 0.0.0.0
+network 192.168.3.201 0.0.0.0
+network 192.168.251.1 0.0.0.0
+no auto-summary</p>
+
+<p>Configure Branch routers to use R1 as the primary DMVPN hub by adding <strong><em>delay 100 **</em>to the **<em>tunnel1</em></strong> interfaces</p>
+
+<p><strong><em>R3
+**</em>interface Tunnel1
+ip address 192.168.3.200 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map multicast 10.10.0.2
+ip nhrp map 192.168.3.129 10.10.0.2
+ip nhrp network-id 2500
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.129
+**<em>delay 100- - - - - - - - - - - - - - - - - - - - - - - - -  **</em></strong><em>ÃŸ
+**</em>tunnel source FastEthernet1/0
+tunnel mode gre multipoint</p>
+
+<p><strong><em>R4
+**</em>interface Tunnel1
+ip address 192.168.3.201 255.255.255.128
+no ip redirects
+ip nhrp authentication winhrp-1
+ip nhrp map multicast 10.10.0.2
+ip nhrp map 192.168.3.129 10.10.0.2
+ip nhrp network-id 2500
+ip nhrp holdtime 360
+ip nhrp nhs 192.168.3.129
+**<em>delay 100- - - - - - - - - - - - - - - - - - - - - - - - -  **</em></strong><em>ÃŸ
+**</em>tunnel source FastEthernet1/0
+tunnel mode gre multipoint</p>
+
+<p><strong><em>IOS Certificate Authority Server
+**</em></strong><em>Configure Hub router as a CA</em>**</p>
+
+<p>Every time encryption keys an certificates are involved in a configuration, make sure the host and domain name are set.</p>
+
+<p>(config)#hostname R1
+(config)#ip domain-name domain.com
+(config)#ip host org-ca 10.10.0.1</p>
+
+<p>The time is also very important when using certificates. The most convenient and accurate way is to set the clock by NTP. Do not forget to set the timezone.</p>
+
+<p>(config)#ntp server 192.168.254.1 prefer
+(config)#clock timezone CST -6
+(config)#clock summer-time CST recurring</p>
+
+<p>The CA is also the NTP server for the rest of the network. It must therefore be configured as NTP master.</p>
+
+<p>(config)#ntp master 6
+(config)#ntp source Loopback0</p>
+
+<p>The http server will be used by SCEP to download the certificates to the VPN routers.</p>
+
+<p>(config)#ip http server</p>
+
+<p><strong><em>Configuration</em></strong></p>
+
+<p>The CA needs asymmetric keys. They can either be created manually or have the CA server create them when it starts the first time. To have total control over the keys it is recommended to do that manually. This allows us to have exportable keys of any length.</p>
+
+<p>When creating the keys manually it is essential to chose the same name for the keypair (label) and the CA server name (later on in the configuration).</p>
+
+<p>(config)#crypto key generate rsa exportable general-keys label ORG-CA modulus 2048</p>
+
+<p>The name for the keys will be: ORG-CA</p>
+
+<p>% The key modulus size is 2048 bits
+% Generating 2048 bit RSA keys, keys will be exportable…[OK]</p>
+
+<p>It is very important to have these keys available for rebuilding the CA after its loss. They should therefore be saved away immediately.</p>
+
+<p>(config)#crypto key export rsa ORG-CA pem url flash: 3des passphrase
+% Key name: ORG-CA
+Usage: General Purpose Key
+Exporting public key…
+Destination filename [ORG-CA.pub]?
+Writing file to flash:ORG-CA.pub
+Verifying checksum…-  OK (0x9E1)
+Exporting private key…
+Destination filename [ORG-CA.prv]?
+Writing file to flash:ORG-CA.prv
+Verifying checksum…-  OK (0x8ADF)</p>
+
+<p>We can finally start to configure the certificate authority (CA) server. Remember: To make the CA use the key previously defined, the name of the CA server must match the generation label of the key.</p>
+
+<p>(config)#crypto pki server ORG-CA</p>
+
+<p>The CA server must have a location to store its data. The default is NVRAM but this can also be a FTP or TFTP server or any URL that the router’s file system supports.</p>
+
+<p>(cs-server)#database url flash:
+% Server database url was changed. You need to move the
+% existing database to the new location.</p>
+
+<p>The following command defines how much data the database stores. The default is the minimum to maintain integrity of issued certificates. To identify certificates to revoke at a later stage some more information is necessary in the database.</p>
+
+<p>(cs-server)#database level complete</p>
+
+<p>This is the CA’s distinguished name (DN). The DN appears in all certificates signed by the CA as the issuer name.</p>
+
+<p>(cs-server)#issuer-name CN=R1.domain.com C=US L=Madison ST=WI C=US</p>
+
+<p>Set the lifetimes of the certificates and the CRL. The defaults are 3 years for the CA certificate, 1 year for certificates issued by the CA and 1 week for the CRL.</p>
+
+<p>(cs-server)#lifetime ca-certificate 1825
+(cs-server)#lifetime certificate 1825
+(cs-server)#lifetime crl 6
+<em>(cs-server)#database level names
+</em><em>(cs-server)#database archive pem</em></p>
+
+<p>The URL of the CRL, the CRL distribution point (CDP), can also be set for the certificates that the CA issues, however, when using SCEP, the CRL check also runs on this protocol.</p>
+
+<p>All necessary definitions have been made and the CA server can be activated.</p>
+
+<p>(cs-server)#no shutdown
+%Some server settings cannot be changed after CA certificate generation.
+% Please enter a passphrase to protect the private key
+% or type Return to exit
+Password: passphrase</p>
+
+<p>Re-enter password: passphrase
+% Exporting Certificate Server signing certificate and keys…
+% Certificate Server enabled.</p>
+
+<p><strong><em>Validation</em></strong></p>
+
+<p>Take a look at what was just configured.</p>
+
+<p>#show crypto pki server
+Certificate Server ORG-CA:
+Status: enabled
+State: enabled
+Server’s configuration is locked-  (enter “shut” to unlock it)
+Issuer name: CN=R1.domain.com L=Madison ST=WI C=US
+CA cert fingerprint: 280214D4 ACA8DE47 00CAA5A5 33E91350
+Granting mode is: manual
+Last certificate issued serial number: 0x1
+CA certificate expiration timer: 02:09:20 NZST Apr 19 2013
+CRL NextUpdate timer: 08:09:20 NZST Apr 20 2008
+Current primary storage dir: flash:
+Database Level: Complete - all issued certs written as .cer</p>
+
+<p>Make a note of the fingerprint. This will be used when the VPN routers are enrolled.</p>
+
+<p><strong><em>VPN Router Configuration</em></strong></p>
+
+<p>Now that we have a CA the VPN routers can enroll. To illustrate various possibilities, the two VPN routers are configured slightly different. The first, R3, uses the standard, simple enrolment, the second, R4, is configured with a user-defined asymmetric key.</p>
+
+<p>As the router also requires certificates, we first must define the domain it is in and get the correct time (on each VPN router).</p>
+
+<p>(config)#ip domain name domain.com
+(config)#ntp server 192.168.254.25
+(config)#clock timezone CST -6
+(config)#clock summer-time NSDT recurring last sun sep 02:00 first sun apr 03:00 60</p>
+
+<p><strong><em>VPN Router R3</em></strong></p>
+
+<p>The trustpoint holds the data that can be verified by a certain CA. A trustpoint must be defined for the CA that was defined in the previous step.</p>
+
+<p>The trustpoint needs information of how to get certificates. Different enrolment methods are available: from file, copy/paste, etc. In this case, SCEP is supported by the CA and we therefore use this method.</p>
+
+<p>R3(config)#crypto pki trustpoint org-ca
+R3(ca-trustpoint)#enrollment url http://org-ca</p>
+
+<p>With this configuration the CA certificate can now be downloaded.</p>
+
+<p>R3(config)#crypto pki authenticate org-ca
+Certificate has the following attributes:
+Fingerprint MD5: 280214D4 ACA8DE47 00CAA5A5 33E91350
+Fingerprint SHA1: 24A169F4 558CA8D0 BB2BF8CF 4523072F EEE0CCCC</p>
+
+<p>% Do you accept this certificate? [yes/no]: yes
+Trustpoint CA certificate accepted.</p>
+
+<p>The fingerprint displayed during the download procedure must be verified against the fingerprint of the CA. See the show crypto pki server command in the previous step.</p>
+
+<p>The VPN router itself needs an asymmetric key and a certificate to authenticate itself to other devices to which it builds a VPN tunnel. Keys and certificate can be created with one single command. Keys are generated and the public key is sent to the CA (in a CSR). It must be signed there and as soon as the CA has granted the certificate it is downloaded to the VPN router. All with a single command.</p>
+
+<p>R3(config)#crypto pki enrol org-ca
+%
+% Start certificate enrollment ..
+% Create a challenge password. You will need to verbally provide this
+password to the CA Administrator in order to revoke your certificate.
+For security reasons your password will not be saved in the configuration.
+Please make a note of it.</p>
+
+<p>Password: password
+Re-enter password: password
+*Apr 20 15:15:23.383:-  RSA key size needs to be at least 768 bits for ssh version 2
+*Apr 20 15:15:23.403: %SSH-5-ENABLED: SSH 1.5 has been enabled
+*Apr 20 15:15:23.403: %CRYPTO-6-AUTOGEN: Generated new 512 bit key pair</p>
+
+<p>% The subject name in the certificate will include: R3
+% Include the router serial number in the subject name? [yes/no]: no
+% Include an IP address in the subject name? [no]: no
+Request certificate from CA? [yes/no]: yes
+% Certificate request sent to Certificate Authority
+% The ‘show crypto ca certificate org-ca verbose’ command will show the fingerprint.</p>
+
+<p>*Apr 20 15:15:47.299: CRYPTO_PKI:-  Certificate Request Fingerprint MD5:
+1AABDA1F 2CE325F2 ED5BCA4A B1257766</p>
+
+<p>*Apr 20 15:15:47.311: CRYPTO_PKI:-  Certificate Request Fingerprint SHA1:
+60B9258D D428899F 9273D501 FDE9C94D 74B319B4</p>
+
+<p>Note that you can specify the content of the subject name. The serial number does not really matter in most cases. It is usually save to include it in the subject. The IP address ties the certificate to an IP address, which normally is not favorable.</p>
+
+<p><strong><em>CA: Grant Certificate</em></strong></p>
+
+<p>To grant the certificate we must switch to the CA. The CSR from the VPN router is on the list as the following display shows.</p>
+
+<p>Again, verify the fingerprint. It must match the one calculated by the VPN router, when it issued the CSR. The IOS CA server displays the MD5 fingerprint.</p>
+
+<p>R1#crypto pki server ORG-CA info requests
+Enrollment Request Database:</p>
+
+<p>Subordinate CA certificate requests:
+ReqID-  State- - - - -  Fingerprint- - - - - - - - - - - - - - - - - - - - -  SubjectName
+————————————————————–</p>
+
+<p>RA certificate requests:
+ReqID-  State- - - - -  Fingerprint- - - - - - - - - - - - - - - - - - - - -  SubjectName
+————————————————————–</p>
+
+<p>Router certificates requests:
+ReqID-  State- - - - -  Fingerprint- - - - - - - - - - - - - - - - - - - - -  SubjectName
+————————————————————–
+1- - - - -  pending- - -  1AABDA1F2CE325F2ED5BCA4AB1257766 hostname=R3</p>
+
+<p>When the fingerprint and the subject are correct, the certificate can be granted. The command can issue individual certificates or grant all pending requests.</p>
+
+<p>R1#crypto pki server ORG-CA grant all</p>
+
+<p>There is an option in the CA server configuration that allows certificates be granted automatically on SCEP requests.</p>
+
+<p>(cs-server)#grant auto</p>
+
+<p>If grant auto was configured, the previous step is of course not required.</p>
+
+<p><strong><em>Back to VPN Router R3</em></strong></p>
+
+<p>As soon as the CA has issued the certificate, the following message appears on the VPN router (may not be immediate but it may take some seconds).</p>
+
+<p>*Apr 20 15:18:10.459: %PKI-6-CERTRET: Certificate received from Certificate Authority</p>
+
+<p><strong><em>Verification</em></strong></p>
+
+<p>Two certificates are now stored on the router. The CA’s certificate for the trustpoint and the router’s certificate to build VPN connections.</p>
+
+<p>R3#show crypto pki certificates
+Certificate
+Status: Available
+Certificate Serial Number: 0x2
+Certificate Usage: General Purpose
+Issuer:
+CN=R1.domain.com L=Madison ST=WI C=US
+Subject:
+Name: R3
+hostname=R3
+Validity Date:
+start date: 15:19:09 UTC Apr 19 2008
+end- -  date: 15:19:09 UTC Apr 19 2010
+Associated Trustpoints: org-ca</p>
+
+<p>CA Certificate
+Status: Available
+Certificate Serial Number: 0x1
+Certificate Usage: Signature
+Issuer:
+CN=R1.domain.com L=Madison ST=WI C=US
+Subject:
+CN=R1.domain.com L=Madison ST=WI C=US
+Validity Date:
+start date: 14:09:20 UTC Apr 19 2008
+end- -  date: 14:09:20 UTC Apr 18 2013
+Associated Trustpoints: org-ca</p>
+
+<p>R3#show crypto pki trustpoint
+Trustpoint org-ca:
+Subject Name:
+CN=R1.domain.com L=Madison ST=WI C=US
+Serial Number: 0x1
+Certificate configured.
+SCEP URL: http://org-ca:80/cgi-bin<em>**- **</em></p>
+
+<p><strong><em>VPN Router R4</em></strong></p>
+
+<p>The second router also needs the CA certificate and a router certificate for the VPN connection. Instead of having the keys automatically created while enrolling, we generate them beforehand.</p>
+
+<p>Two separate keys are generated by the following command (using the keyword usage-keys. One is for signatures and the other for encryption. This is useful, if the router has multiple VPN tunnels using RSA encrypted nonces and RSA signatures at the same time. If one of the keys gets compromised the other is not.</p>
+
+<p>R4(config)#crypto key generate rsa usage-keys label wiarng-ca modulus 1536 exportable
+The name for the keys will be: org-ca</p>
+
+<p>% The key modulus size is 1536 bits
+% Generating 1536 bit RSA keys, keys will be exportable…[OK]
+% Generating 1536 bit RSA keys, keys will be exportable…[OK]</p>
+
+<p>As for the first router the trustpoint is next. The only difference to the trustpoint of router R3 is that we tell it what key to use.</p>
+
+<p>R4(config)#crypto pki trustpoint org-ca
+R4(ca-trustpoint)#enrollment url http://org-ca
+R4(ca-trustpoint)#rsakeypair org-ca</p>
+
+<p><strong><em>VPN Configuration</em></strong></p>
+
+<p>To test the VPN connection a policy is required on each router. An example is listed here.</p>
+
+<p>Define the IKE policy.
+(config)#crypto isakmp policy 1
+(config-isakmp)#authentication rsa-sig
+(config-isakmp)#group 5
+(config-isakmp)#encryption aes
+(config-isakmp)#hash sha</p>
+
+<p>Configure the transform set.</p>
+
+<p>(config)#crypto ipsec transform-set wiarng-sec esp-aes esp-sha-hmac
+(cfg-crypto-trans)#mode transport require
+(config)#crypto ipsec df-bit clear</p>
+
+<p>Configure the ipsec profile.
+crypto ipsec profile org-vpn
+set transform-set org-sec</p>
+
+<p><strong><em>Configuration of Tunnel Interfaces</em></strong></p>
+
+<p>Add the following command to each of the tunnel interfaces:</p>
+
+<p><em>**- **</em>tunnel protection ipsec profile org-vpn</p>
+
+<p><strong><em>Verify the Configuration</em></strong></p>
+
+<p>Ping the neighbor VPN router. The source interface must be the loopback interface because only traffic between the loopback interfaces is encrypted (crypto map access list).</p>
+
+<p>R3#ping 172.31.1.2 source loopback0
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.31.1.2, timeout is 2 seconds:
+Packet sent with a source address of 172.31.1.1
+.!!!!
+Success rate is 80 percent (4/5), round-trip min/avg/max = 20/30/36 ms</p>
+
+<p>Clear all SAs and try establishing the VPN tunnel from the other VPN router. Note, this is necessary, because some negotiation depends on the side that initiates the tunnel (e.g. timers).</p>
+
+<p>R4#clear crypto sa
+R4#clear crypto isakmp
+R4#ping 172.31.1.1 source loopback0
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds:
+Packet sent with a source address of 172.31.1.2
+…..
+Success rate is 0 percent (0/5)</p>
+
+<p>R4#ping 172.31.1.1 source loopback0
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 172.31.1.1, timeout is 2 seconds:
+Packet sent with a source address of 172.31.1.2
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 16/34/48 ms</p>
+
+
+  </div><a class="u-url" href="/it/2012/11/26/DMVPN-Lab.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

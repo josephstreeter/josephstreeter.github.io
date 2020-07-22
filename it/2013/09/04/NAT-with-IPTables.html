@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>NAT with IPTables | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="NAT with IPTables" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Turn on IP forwarding echo 1 &gt; /proc/sys/net/ipv4/ip_forward Configure IPTables rules. The following code assumes that interface “eth0” is connected to the public network and interface “eth1” is connected to the private network. iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT Once you’ve run the commands and verified that it works you can save the config /sbin/service iptables save" />
+<meta property="og:description" content="Turn on IP forwarding echo 1 &gt; /proc/sys/net/ipv4/ip_forward Configure IPTables rules. The following code assumes that interface “eth0” is connected to the public network and interface “eth1” is connected to the private network. iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT Once you’ve run the commands and verified that it works you can save the config /sbin/service iptables save" />
+<link rel="canonical" href="http://localhost:4000/it/2013/09/04/NAT-with-IPTables.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/09/04/NAT-with-IPTables.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/09/04/NAT-with-IPTables.html","headline":"NAT with IPTables","dateModified":"2013-09-04T00:00:00-05:00","datePublished":"2013-09-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/09/04/NAT-with-IPTables.html"},"description":"Turn on IP forwarding echo 1 &gt; /proc/sys/net/ipv4/ip_forward Configure IPTables rules. The following code assumes that interface “eth0” is connected to the public network and interface “eth1” is connected to the private network. iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT Once you’ve run the commands and verified that it works you can save the config /sbin/service iptables save","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">NAT with IPTables</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-09-04T00:00:00-05:00" itemprop="datePublished">Sep 4, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Turn on IP forwarding</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">echo</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="sr">/proc/s</span><span class="n">ys</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">ipv4</span><span class="o">/</span><span class="n">ip_forward</span></code></pre></figure>
+
+<p><span style="line-height: 1.714285714; font-size: 1rem;">Configure IPTables rules. The following code assumes that interface “eth0” is connected to the public network and interface “eth1” is connected to the private network.</span></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iptables</span> <span class="o">-</span><span class="n">t</span> <span class="n">nat</span> <span class="o">-</span><span class="no">A</span> <span class="no">POSTROUTING</span> <span class="o">-</span><span class="n">o</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">j</span> <span class="no">MASQUERADE</span>
+<span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">FORWARD</span> <span class="o">-</span><span class="n">i</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">o</span> <span class="n">eth1</span> <span class="o">-</span><span class="n">m</span> <span class="n">state</span> <span class="o">--</span><span class="n">state</span> <span class="no">RELATED</span><span class="p">,</span><span class="no">ESTABLISHED</span> <span class="o">-</span><span class="n">j</span> <span class="no">ACCEPT</span>
+<span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">FORWARD</span> <span class="o">-</span><span class="n">i</span> <span class="n">eth1</span> <span class="o">-</span><span class="n">o</span> <span class="n">eth0</span> <span class="o">-</span><span class="n">j</span> <span class="no">ACCEPT</span></code></pre></figure>
+
+<p>Once you’ve run the commands and verified that it works you can save the config</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="sr">/sbin/se</span><span class="n">rvice</span> <span class="n">iptables</span> <span class="n">save</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/09/04/NAT-with-IPTables.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

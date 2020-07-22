@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Reset Secure Channel | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Reset Secure Channel" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Problems with a host’s secure channel can be responsible for a number of authentication issues. Each host that is joined to Active Directory maintains a local secret, or password, that is created by the client and stored in Active Directory. The client will initiate a password change every 30 days by default. Active Directory will store the current password as well as the previous password in the computer object for the joined host. Each time the client creates a new password, it creates the new password locally and stores it in the registry and then attempts to update the password in Active Directory. If the Active Directory password update is unsuccessful, the client keeps the newly created password and continues to attempt updating the Active Directory password. If the client attempts to authenticate and Active Directory does not have the most recent password it will utilize the previous password. If the password used by the client to authenticate to Active Directory is newer than both passwords stored in the computer object, or the computer object is deleted, the authentication request will fail and the client will show the following error: “The trust relationship between this workstation and the primary domain failed.” It is possible to reset the computer password using the nltest.exe, dsmod.exe, netdom.exe, or the PowerShell cmdlets Test-ComputerSecureChannel and Reset-MachineAccountPassword. Netdom Command In order to use the netdom tool you must have Remote Server Administration Tools (RSAT) installed. Download and install RSAT Go to Control Panel -&gt; Programs and Features -&gt; Turn Windows features on or off Select Remote Server Administration Tools -&gt; Role Administration Tools -&gt; AD DS and AD LDS Tools and select AD DS Tools Click Ok To reset the computer’s password: Log into the affected client with a local account with administrative privileges Open an elevated PowerShell or Command prompt Run the Netdom command netdom.exe resetpwd /s:CADSDC-CSSC-01.ad.wisc.edu /ud:ad\jsmith-ou /pd:* The user specified with the “/ud:” must have rights to change the computer object password The “/pd:*” switch will hide the entered password Reboot PowerShell v2 - Test-ComputerSecureChannel Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the command with the “-Repair” switch Test-ComputerSecureChannel -Repair -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot PowerShell v3 or higher - Reset-MachineAccountPassword Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the Reset-MachineAccountPassword command Reset-MachineAccountPassword -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; DSMod Command The dsmod command can be used to reset the computer password on multiple computers at once dsmod computer CN=&lt;member-server&gt;,CN=computers,DC=domain,DC=com -reset References Use PowerShell to Reset the Secure Channel on a Desktop (Hey, Scripting Guy! Blog) Machine Account Password Process (Ask DS Blog) How To Use Netdom.exe to Reset Machine Account Passwords of a Windows 2000 Domain Controller (MS Support) Test-ComputerSecureChannel (MS TechNet) Reset-ComputerMachinePassword (MS TechNet)" />
+<meta property="og:description" content="Problems with a host’s secure channel can be responsible for a number of authentication issues. Each host that is joined to Active Directory maintains a local secret, or password, that is created by the client and stored in Active Directory. The client will initiate a password change every 30 days by default. Active Directory will store the current password as well as the previous password in the computer object for the joined host. Each time the client creates a new password, it creates the new password locally and stores it in the registry and then attempts to update the password in Active Directory. If the Active Directory password update is unsuccessful, the client keeps the newly created password and continues to attempt updating the Active Directory password. If the client attempts to authenticate and Active Directory does not have the most recent password it will utilize the previous password. If the password used by the client to authenticate to Active Directory is newer than both passwords stored in the computer object, or the computer object is deleted, the authentication request will fail and the client will show the following error: “The trust relationship between this workstation and the primary domain failed.” It is possible to reset the computer password using the nltest.exe, dsmod.exe, netdom.exe, or the PowerShell cmdlets Test-ComputerSecureChannel and Reset-MachineAccountPassword. Netdom Command In order to use the netdom tool you must have Remote Server Administration Tools (RSAT) installed. Download and install RSAT Go to Control Panel -&gt; Programs and Features -&gt; Turn Windows features on or off Select Remote Server Administration Tools -&gt; Role Administration Tools -&gt; AD DS and AD LDS Tools and select AD DS Tools Click Ok To reset the computer’s password: Log into the affected client with a local account with administrative privileges Open an elevated PowerShell or Command prompt Run the Netdom command netdom.exe resetpwd /s:CADSDC-CSSC-01.ad.wisc.edu /ud:ad\jsmith-ou /pd:* The user specified with the “/ud:” must have rights to change the computer object password The “/pd:*” switch will hide the entered password Reboot PowerShell v2 - Test-ComputerSecureChannel Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the command with the “-Repair” switch Test-ComputerSecureChannel -Repair -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot PowerShell v3 or higher - Reset-MachineAccountPassword Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the Reset-MachineAccountPassword command Reset-MachineAccountPassword -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; DSMod Command The dsmod command can be used to reset the computer password on multiple computers at once dsmod computer CN=&lt;member-server&gt;,CN=computers,DC=domain,DC=com -reset References Use PowerShell to Reset the Secure Channel on a Desktop (Hey, Scripting Guy! Blog) Machine Account Password Process (Ask DS Blog) How To Use Netdom.exe to Reset Machine Account Passwords of a Windows 2000 Domain Controller (MS Support) Test-ComputerSecureChannel (MS TechNet) Reset-ComputerMachinePassword (MS TechNet)" />
+<link rel="canonical" href="http://localhost:4000/it/2013/11/04/Reset-Secure-Channel.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/11/04/Reset-Secure-Channel.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-11-04T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/11/04/Reset-Secure-Channel.html","headline":"Reset Secure Channel","dateModified":"2013-11-04T23:00:00-06:00","datePublished":"2013-11-04T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/11/04/Reset-Secure-Channel.html"},"description":"Problems with a host’s secure channel can be responsible for a number of authentication issues. Each host that is joined to Active Directory maintains a local secret, or password, that is created by the client and stored in Active Directory. The client will initiate a password change every 30 days by default. Active Directory will store the current password as well as the previous password in the computer object for the joined host. Each time the client creates a new password, it creates the new password locally and stores it in the registry and then attempts to update the password in Active Directory. If the Active Directory password update is unsuccessful, the client keeps the newly created password and continues to attempt updating the Active Directory password. If the client attempts to authenticate and Active Directory does not have the most recent password it will utilize the previous password. If the password used by the client to authenticate to Active Directory is newer than both passwords stored in the computer object, or the computer object is deleted, the authentication request will fail and the client will show the following error: “The trust relationship between this workstation and the primary domain failed.” It is possible to reset the computer password using the nltest.exe, dsmod.exe, netdom.exe, or the PowerShell cmdlets Test-ComputerSecureChannel and Reset-MachineAccountPassword. Netdom Command In order to use the netdom tool you must have Remote Server Administration Tools (RSAT) installed. Download and install RSAT Go to Control Panel -&gt; Programs and Features -&gt; Turn Windows features on or off Select Remote Server Administration Tools -&gt; Role Administration Tools -&gt; AD DS and AD LDS Tools and select AD DS Tools Click Ok To reset the computer’s password: Log into the affected client with a local account with administrative privileges Open an elevated PowerShell or Command prompt Run the Netdom command netdom.exe resetpwd /s:CADSDC-CSSC-01.ad.wisc.edu /ud:ad\\jsmith-ou /pd:* The user specified with the “/ud:” must have rights to change the computer object password The “/pd:*” switch will hide the entered password Reboot PowerShell v2 - Test-ComputerSecureChannel Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the command with the “-Repair” switch Test-ComputerSecureChannel -Repair -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot PowerShell v3 or higher - Reset-MachineAccountPassword Log into the affected client with a local account with administrative privileges Open an elevated PowerShell prompt Load the Active Directory PowerShell module Import-Module activedirectory Test the secure channel Test-ComputerSecureChannel If the command returns false, run the Reset-MachineAccountPassword command Reset-MachineAccountPassword -Credential $(Get-Credential) verify the secure channel using the Test-ComputerSecureChannel Test-ComputerSecureChannel Reboot Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; Nltest Command The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken. nltest /sc_verify:&lt;domain-controller&gt; DSMod Command The dsmod command can be used to reset the computer password on multiple computers at once dsmod computer CN=&lt;member-server&gt;,CN=computers,DC=domain,DC=com -reset References Use PowerShell to Reset the Secure Channel on a Desktop (Hey, Scripting Guy! Blog) Machine Account Password Process (Ask DS Blog) How To Use Netdom.exe to Reset Machine Account Passwords of a Windows 2000 Domain Controller (MS Support) Test-ComputerSecureChannel (MS TechNet) Reset-ComputerMachinePassword (MS TechNet)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Reset Secure Channel</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-11-04T23:00:00-06:00" itemprop="datePublished">Nov 4, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Problems with a host’s secure channel can be responsible for a number of authentication issues.</p>
+
+<p>Each host that is joined to Active Directory maintains a local secret, or password, that is created by the client and stored in Active Directory. The client will initiate a password change every 30 days by default. Active Directory will store the current password as well as the previous password in the computer object for the joined host. Each time the client creates a new password, it creates the new password locally and stores it in the registry and then attempts to update the password in Active Directory. If the Active Directory password update is unsuccessful, the client keeps the newly created password and continues to attempt updating the Active Directory password.</p>
+
+<p>If the client attempts to authenticate and Active Directory does not have the most recent password it will utilize the previous password. If the password used by the client to authenticate to Active Directory is newer than both passwords stored in the computer object, or the computer object is deleted, the authentication request will fail and the client will show the following error: “The trust relationship between this workstation and the primary domain failed.”</p>
+
+<p>It is possible to reset the computer password using the nltest.exe, dsmod.exe, netdom.exe, or the PowerShell cmdlets Test-ComputerSecureChannel and Reset-MachineAccountPassword.</p>
+<h2 id="netdom-command">Netdom Command</h2>
+<p>In order to use the netdom tool you must have Remote Server Administration Tools (RSAT) installed.</p>
+
+<ul>
+  <li>Download and install RSAT</li>
+  <li>Go to Control Panel -&gt; Programs and Features -&gt; Turn Windows features on or off</li>
+  <li>Select Remote Server Administration Tools -&gt; Role Administration Tools -&gt; AD DS and AD LDS Tools and select AD DS Tools</li>
+  <li>Click Ok</li>
+</ul>
+
+<p>To reset the computer’s password:</p>
+
+<ul>
+  <li>Log into the affected client with a local account with administrative privileges</li>
+  <li>Open an elevated PowerShell or Command prompt</li>
+  <li>Run the Netdom command</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netdom</span><span class="p">.</span><span class="nf">exe</span> <span class="n">resetpwd</span> <span class="sr">/s:CADSDC-CSSC-01.ad.wisc.edu /u</span><span class="n">d</span><span class="ss">:ad</span><span class="p">\</span><span class="n">jsmith</span><span class="o">-</span><span class="n">ou</span> <span class="sr">/pd:*</span></code></pre></figure>
+
+<ul>
+  <li>The user specified with the “/ud:” must have rights to change the computer object password</li>
+  <li>
+    <p>The “/pd:*” switch will hide the entered password</p>
+  </li>
+  <li>Reboot</li>
+</ul>
+
+<h2 id="powershell-v2---test-computersecurechannel">PowerShell v2 - Test-ComputerSecureChannel</h2>
+
+<ul>
+  <li>Log into the affected client with a local account with administrative privileges</li>
+  <li>Open an elevated PowerShell prompt</li>
+  <li>Load the Active Directory PowerShell module</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span></code></pre></figure>
+
+<ul>
+  <li>Test the secure channel</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+
+<ul>
+  <li>If the command returns false, run the command with the “-Repair” switch</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span> <span class="o">-</span><span class="no">Repair</span> <span class="o">-</span><span class="no">Credential</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>verify the secure channel using the Test-ComputerSecureChannel</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+
+<ul>
+  <li>Reboot</li>
+</ul>
+
+<h2 id="powershell-v3-or-higher---reset-machineaccountpassword">PowerShell v3 or higher - Reset-MachineAccountPassword</h2>
+
+<ul>
+  <li>Log into the affected client with a local account with administrative privileges</li>
+  <li>Open an elevated PowerShell prompt</li>
+  <li>Load the Active Directory PowerShell module</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span></code></pre></figure>
+
+<ul>
+  <li>Test the secure channel</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+
+<ul>
+  <li>If the command returns false, run the Reset-MachineAccountPassword command</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Reset</span><span class="o">-</span><span class="no">MachineAccountPassword</span> <span class="o">-</span><span class="no">Credential</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span><span class="p">)</span></code></pre></figure>
+
+<ul>
+  <li>verify the secure channel using the Test-ComputerSecureChannel</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+
+<ul>
+  <li>Reboot</li>
+</ul>
+
+<h2 id="nltest-command">Nltest Command</h2>
+<p>The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/sc_verify:&lt;domain-controller&gt;</span></code></pre></figure>
+
+<h2 id="nltest-command-1">Nltest Command</h2>
+<p>The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/sc_verify:&lt;domain-controller&gt;</span></code></pre></figure>
+
+<h2 id="dsmod-command">DSMod Command</h2>
+<p>The dsmod command can be used to reset the computer password on multiple computers at once</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dsmod</span> <span class="n">computer</span> <span class="no">CN</span><span class="o">=&lt;</span><span class="n">member</span><span class="o">-</span><span class="n">server</span><span class="o">&gt;</span><span class="p">,</span><span class="no">CN</span><span class="o">=</span><span class="n">computers</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">com</span> <span class="o">-</span><span class="n">reset</span></code></pre></figure>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="http://blogs.technet.com/b/heyscriptingguy/archive/2012/03/02/use-powershell-to-reset-the-secure-channel-on-a-desktop.aspx">Use PowerShell to Reset the Secure Channel on a Desktop (Hey, Scripting Guy! Blog)</a></li>
+  <li><a href="http://blogs.technet.com/b/askds/archive/2009/02/15/test2.aspx">Machine Account Password Process (Ask DS Blog)</a></li>
+  <li><a href="http://support.microsoft.com/kb/260575/en-us">How To Use Netdom.exe to Reset Machine Account Passwords of a Windows 2000 Domain Controller (MS Support)</a></li>
+  <li><a href="http://technet.microsoft.com/en-us/library/hh849757.aspx"> Test-ComputerSecureChannel (MS TechNet)</a></li>
+  <li><a href="http://technet.microsoft.com/en-us/library/hh849751.aspx"> Reset-ComputerMachinePassword (MS TechNet)</a></li>
+</ul>
+
+
+  </div><a class="u-url" href="/it/2013/11/04/Reset-Secure-Channel.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

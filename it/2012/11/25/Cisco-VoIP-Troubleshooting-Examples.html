@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Cisco VoIP Troubleshooting Examples | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Cisco VoIP Troubleshooting Examples" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post: Troubleshooting and Debugging VoIP Call Basics show voice call status **and **show voice call summary â€“ Router#sh voice call status CallID- - - - CID- ccVdb- - - - - Port- - - - - - - Slot/DSP:Ch- Called #- - Codec- - - MLPP Dial-peers 0x21- - - - - - 1243 0x4A0C6EA0 0/1/0- - - - - - - - - - - 0/1:1- - 1234- - - - - - g711ulaw- - - - - - 1000/1001 0x22- - - - - - 1243 0x4A0BE8AC 0/0/0- - - - - - - - - - - 0/1:2- *1234- - - - - - g711ulaw- - - - - - 1001/1000 1 active call found Router#sh voice call summary PORT- - - - - - - - - - CODEC- - - - VAD VTSP STATE- - - - - - - - - - - VPM STATE ============== ========= === ==================== 0/0/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXSLS_CONNECT 0/0/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/1/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXOLS_CONNECT 0/1/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK **Show voice port summary **router#show voice port summary IN- - - - - - OUT PORT- - - - - - - - - - - CH- - SIG-TYPE- - ADMIN OPER STATUS- - STATUS- - EC =============== == ============ ===== ==== ======== ======== == 0/0/0:23- - - - - - - 01- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 02- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 03- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 04- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 05- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 06- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 07- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 08- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 09- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 10- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 11- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 12- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 13- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 14- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 15- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 16- isdn-voice- up- - - dorm none- - - - none- - - - y 0/2/0- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/1- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/2- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/3- - - - - - - - - - — fxs-ls - - - - - up- - - dorm on-hook- idle- - - - y 50/0/1- - - - - - - - - 1- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 2- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 3- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 4- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 5- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 6- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 7- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 8- - - - - efxs- - - - up - - - up- - on-hook- idle- - - - y PWR FAILOVER PORT- - - - - - - PSTN FAILOVER PORT =================- - - - - - - ==================" />
+<meta property="og:description" content="Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post: Troubleshooting and Debugging VoIP Call Basics show voice call status **and **show voice call summary â€“ Router#sh voice call status CallID- - - - CID- ccVdb- - - - - Port- - - - - - - Slot/DSP:Ch- Called #- - Codec- - - MLPP Dial-peers 0x21- - - - - - 1243 0x4A0C6EA0 0/1/0- - - - - - - - - - - 0/1:1- - 1234- - - - - - g711ulaw- - - - - - 1000/1001 0x22- - - - - - 1243 0x4A0BE8AC 0/0/0- - - - - - - - - - - 0/1:2- *1234- - - - - - g711ulaw- - - - - - 1001/1000 1 active call found Router#sh voice call summary PORT- - - - - - - - - - CODEC- - - - VAD VTSP STATE- - - - - - - - - - - VPM STATE ============== ========= === ==================== 0/0/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXSLS_CONNECT 0/0/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/1/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXOLS_CONNECT 0/1/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK **Show voice port summary **router#show voice port summary IN- - - - - - OUT PORT- - - - - - - - - - - CH- - SIG-TYPE- - ADMIN OPER STATUS- - STATUS- - EC =============== == ============ ===== ==== ======== ======== == 0/0/0:23- - - - - - - 01- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 02- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 03- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 04- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 05- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 06- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 07- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 08- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 09- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 10- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 11- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 12- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 13- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 14- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 15- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 16- isdn-voice- up- - - dorm none- - - - none- - - - y 0/2/0- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/1- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/2- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/3- - - - - - - - - - — fxs-ls - - - - - up- - - dorm on-hook- idle- - - - y 50/0/1- - - - - - - - - 1- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 2- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 3- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 4- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 5- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 6- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 7- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 8- - - - - efxs- - - - up - - - up- - on-hook- idle- - - - y PWR FAILOVER PORT- - - - - - - PSTN FAILOVER PORT =================- - - - - - - ==================" />
+<link rel="canonical" href="http://localhost:4000/it/2012/11/25/Cisco-VoIP-Troubleshooting-Examples.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/11/25/Cisco-VoIP-Troubleshooting-Examples.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-25T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/11/25/Cisco-VoIP-Troubleshooting-Examples.html","headline":"Cisco VoIP Troubleshooting Examples","dateModified":"2012-11-25T23:00:00-06:00","datePublished":"2012-11-25T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/11/25/Cisco-VoIP-Troubleshooting-Examples.html"},"description":"Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post: Troubleshooting and Debugging VoIP Call Basics show voice call status **and **show voice call summary â€“ Router#sh voice call status CallID- - - - CID- ccVdb- - - - - Port- - - - - - - Slot/DSP:Ch- Called #- - Codec- - - MLPP Dial-peers 0x21- - - - - - 1243 0x4A0C6EA0 0/1/0- - - - - - - - - - - 0/1:1- - 1234- - - - - - g711ulaw- - - - - - 1000/1001 0x22- - - - - - 1243 0x4A0BE8AC 0/0/0- - - - - - - - - - - 0/1:2- *1234- - - - - - g711ulaw- - - - - - 1001/1000 1 active call found Router#sh voice call summary PORT- - - - - - - - - - CODEC- - - - VAD VTSP STATE- - - - - - - - - - - VPM STATE ============== ========= === ==================== 0/0/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXSLS_CONNECT 0/0/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/0/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXSLS_ONHOOK 0/1/0- - - - - - - - None- - - - - - – S_CONNECT- - - - - - - - - - - - FXOLS_CONNECT 0/1/1- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/2- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK 0/1/3- - - - - - - - – - - - - - - - - – – - - - - - - - - - - - - - - - - - - - FXOLS_ONHOOK **Show voice port summary **router#show voice port summary IN- - - - - - OUT PORT- - - - - - - - - - - CH- - SIG-TYPE- - ADMIN OPER STATUS- - STATUS- - EC =============== == ============ ===== ==== ======== ======== == 0/0/0:23- - - - - - - 01- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 02- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 03- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 04- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 05- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 06- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 07- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 08- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 09- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 10- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 11- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 12- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 13- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 14- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 15- isdn-voice- up- - - dorm none- - - - none- - - - y 0/0/0:23- - - - - - - 16- isdn-voice- up- - - dorm none- - - - none- - - - y 0/2/0- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/1- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/2- - - - - - - - - - — fxs-ls- - - - - up- - - dorm on-hook- idle- - - - y 0/2/3- - - - - - - - - - — fxs-ls - - - - - up- - - dorm on-hook- idle- - - - y 50/0/1- - - - - - - - - 1- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 2- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 3- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 4- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 5- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 6- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 7- - - - - efxs- - - - up- - - up- - on-hook- idle- - - - y 50/0/1- - - - - - - - - 8- - - - - efxs- - - - up - - - up- - on-hook- idle- - - - y PWR FAILOVER PORT- - - - - - - PSTN FAILOVER PORT =================- - - - - - - ==================","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Cisco VoIP Troubleshooting Examples</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-11-25T23:00:00-06:00" itemprop="datePublished">Nov 25, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post:
+<a title="Permalink to Troubleshooting and Debugging VoIP Call Basics" href="../?p=4" rel="bookmark">Troubleshooting and Debugging VoIP Call Basics</a></p>
+
+<p><strong><em>show voice call status **</em>and **<em>show voice call summary</em></strong> â€“</p>
+
+<p>Router#sh voice call status
+CallID- - - -  CID-  ccVdb- - - - -  Port- - - - - - -  Slot/DSP:Ch-  Called #- -  Codec- - -  MLPP Dial-peers
+0x21- - - - - -  1243 0x4A0C6EA0 0/1/0- - - - - - - - - - -  0/1:1- -  1234- - - - - -  g711ulaw- - - - - -  1000/1001
+0x22- - - - - -  1243 0x4A0BE8AC 0/0/0- - - - - - - - - - -  0/1:2-  *1234- - - - - -  g711ulaw- - - - - -  1001/1000
+1 active call found</p>
+
+<p>Router#sh voice call summary
+PORT- - - - - - - - - -  CODEC- - - -  VAD VTSP STATE- - - - - - - - - - -  VPM STATE
+============== ========= === ====================
+0/0/0- - - - - - - -  None- - - - - -  –  S_CONNECT- - - - - - - - - - - -  FXSLS_CONNECT
+0/0/1- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - -  - FXSLS_ONHOOK
+0/0/2- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - - -  FXSLS_ONHOOK
+0/0/3- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - - -  FXSLS_ONHOOK
+0/1/0- - - - - - - -  None- - - - - -  –  S_CONNECT- - - - - - - - - - - -  FXOLS_CONNECT
+0/1/1- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK
+0/1/2- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK
+0/1/3- - - - - - - -  – - - - - - - - -  –  – - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK</p>
+
+<p><em>**Show voice port summary
+**</em>router#show voice port summary</p>
+
+<p>IN- - - - - -  OUT
+PORT- - - - - - - - - - -  CH- -  SIG-TYPE- -  ADMIN OPER STATUS- -  STATUS- -  EC
+=============== == ============ ===== ==== ======== ======== ==
+0/0/0:23- - - - - - -  01-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  02-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  03-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  04-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  05-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  06-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  07-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  08-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  09-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  10-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- -  - - - - - 11-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  12-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  13-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  14-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - -  - 15-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/0/0:23- - - - - - -  16-  isdn-voice-  up- - -  dorm none- - - -  none- - - -  y
+0/2/0- - - - - - - - - -  —  fxs-ls- - - - -  up- - -  dorm on-hook-  idle- - - -  y
+0/2/1- - - - - - - - - -  —  fxs-ls- - - - -  up- - -  dorm on-hook-  idle- - - -  y
+0/2/2- - - - - - - - - -  —  fxs-ls- - - - -  up- - -  dorm on-hook-  idle- - - -  y
+0/2/3- - - - - - - - - -  —  fxs-ls - - - - - up- - -  dorm on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  1- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  2- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  3- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  4- - - - -  efxs- - -  - up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  5- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  6- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  7- - - - -  efxs- - - -  up- - -  up- -  on-hook-  idle- - - -  y
+50/0/1- - - - - - - - -  8- - - - -  efxs- - - -  up - - - up- -  on-hook-  idle- - - -  y</p>
+
+<p>PWR FAILOVER PORT- - - - - - -  PSTN FAILOVER PORT
+=================- - - - - - -  ==================</p>
+
+
+  </div><a class="u-url" href="/it/2012/11/25/Cisco-VoIP-Troubleshooting-Examples.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

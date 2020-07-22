@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configure Exim4 to Send Mail for a Drupal Site | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Configure Exim4 to Send Mail for a Drupal Site" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Steps to configure Exim4 on Debian in order to send mail for a Drupal site. I haven’t had the chance to try it our yet, but it looks reasonalble. Taken from Howto - Drupal Install on Debian or Ubuntu - dimmeria Step 6a exim4 - outgoing mail So I thought drupal was set up right. Wrong. My friend tried to create an account, and he never got emailed his password. wtf, mate? Debian installed exim4 for me automatically when I installed - but it was not configured properly. Here is how you configure exim4 on debian so that it will work with drupal (and should work with everything else too). At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”internet site; mail is sent and received directly using SMTP” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for domains - blank 7.Relay mail for local machines - 192.168.0.0/24 (meaning 192.168.0.[1-255]) 8.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no Finally, do a update-exim4.conf /etc/init.d/exim4 restart Then test your email with drupal. If anyone has any mail problems, please post them here in the comments. Section 6b - exim4 alternate I actually wrote section 6b before I wrote section 6a, but then my mail stopped working after 2 days. The steps in section 6a work for me, so I consider them better. For those who are brave, or desperate, here is an alternate configuration. At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”Mail sent by smarthost; received via SMTP or fetchmail” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for LAN IPs only - “192.168.0.0/24” 7.hostname for outgoing mail: “smtp.dslextreme.com” This is because my isp is dslextreme.com. To make life easier for myself, I’m using their smtp server to send mail. I don’t know how to configure exim to send mail to any mail server..such as gmail or yahoo. Yours might be “smtp.mywebhost.com” or “mail.myisp.com” . 8.Hide local mail name? This is up to you. If you want your mail to come from “mydrupalsite.com” then select no. If you want your mail to come from something you create eg “myemailaddress.com” then select yes. I selected no. 9.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no" />
+<meta property="og:description" content="Steps to configure Exim4 on Debian in order to send mail for a Drupal site. I haven’t had the chance to try it our yet, but it looks reasonalble. Taken from Howto - Drupal Install on Debian or Ubuntu - dimmeria Step 6a exim4 - outgoing mail So I thought drupal was set up right. Wrong. My friend tried to create an account, and he never got emailed his password. wtf, mate? Debian installed exim4 for me automatically when I installed - but it was not configured properly. Here is how you configure exim4 on debian so that it will work with drupal (and should work with everything else too). At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”internet site; mail is sent and received directly using SMTP” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for domains - blank 7.Relay mail for local machines - 192.168.0.0/24 (meaning 192.168.0.[1-255]) 8.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no Finally, do a update-exim4.conf /etc/init.d/exim4 restart Then test your email with drupal. If anyone has any mail problems, please post them here in the comments. Section 6b - exim4 alternate I actually wrote section 6b before I wrote section 6a, but then my mail stopped working after 2 days. The steps in section 6a work for me, so I consider them better. For those who are brave, or desperate, here is an alternate configuration. At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”Mail sent by smarthost; received via SMTP or fetchmail” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for LAN IPs only - “192.168.0.0/24” 7.hostname for outgoing mail: “smtp.dslextreme.com” This is because my isp is dslextreme.com. To make life easier for myself, I’m using their smtp server to send mail. I don’t know how to configure exim to send mail to any mail server..such as gmail or yahoo. Yours might be “smtp.mywebhost.com” or “mail.myisp.com” . 8.Hide local mail name? This is up to you. If you want your mail to come from “mydrupalsite.com” then select no. If you want your mail to come from something you create eg “myemailaddress.com” then select yes. I selected no. 9.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/Configure-Exim4-to-Send-Mail-for-a-Drupal-Site.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/Configure-Exim4-to-Send-Mail-for-a-Drupal-Site.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/Configure-Exim4-to-Send-Mail-for-a-Drupal-Site.html","headline":"Configure Exim4 to Send Mail for a Drupal Site","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/Configure-Exim4-to-Send-Mail-for-a-Drupal-Site.html"},"description":"Steps to configure Exim4 on Debian in order to send mail for a Drupal site. I haven’t had the chance to try it our yet, but it looks reasonalble. Taken from Howto - Drupal Install on Debian or Ubuntu - dimmeria Step 6a exim4 - outgoing mail So I thought drupal was set up right. Wrong. My friend tried to create an account, and he never got emailed his password. wtf, mate? Debian installed exim4 for me automatically when I installed - but it was not configured properly. Here is how you configure exim4 on debian so that it will work with drupal (and should work with everything else too). At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”internet site; mail is sent and received directly using SMTP” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for domains - blank 7.Relay mail for local machines - 192.168.0.0/24 (meaning 192.168.0.[1-255]) 8.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no Finally, do a update-exim4.conf /etc/init.d/exim4 restart Then test your email with drupal. If anyone has any mail problems, please post them here in the comments. Section 6b - exim4 alternate I actually wrote section 6b before I wrote section 6a, but then my mail stopped working after 2 days. The steps in section 6a work for me, so I consider them better. For those who are brave, or desperate, here is an alternate configuration. At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took: 1.Do not break up the configuration file into smaller files - why make things more complicated for myself? 2.”Mail sent by smarthost; received via SMTP or fetchmail” 3.mailname=”dimmeria.com” 4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5 5.other final destinations = blank 6.relay mail for LAN IPs only - “192.168.0.0/24” 7.hostname for outgoing mail: “smtp.dslextreme.com” This is because my isp is dslextreme.com. To make life easier for myself, I’m using their smtp server to send mail. I don’t know how to configure exim to send mail to any mail server..such as gmail or yahoo. Yours might be “smtp.mywebhost.com” or “mail.myisp.com” . 8.Hide local mail name? This is up to you. If you want your mail to come from “mydrupalsite.com” then select no. If you want your mail to come from something you create eg “myemailaddress.com” then select yes. I selected no. 9.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Configure Exim4 to Send Mail for a Drupal Site</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Steps to configure Exim4 on Debian in order to send mail for a Drupal site. I haven’t had the chance to try it our yet, but it looks reasonalble.
+Taken from <a href="http://dimmeria.com/node/1">Howto - Drupal Install on Debian or Ubuntu - dimmeria</a></p>
+
+<p>Step 6a exim4 - outgoing mail</p>
+
+<p>So I thought drupal was set up right. Wrong. My friend tried to create an account, and he never got emailed his password. wtf, mate? Debian installed exim4 for me automatically when I installed - but it was not configured properly. Here is how you configure exim4 on debian so that it will work with drupal (and should work with everything else too). At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took:</p>
+
+<p>1.Do not break up the configuration file into smaller files - why make things more complicated for myself?
+2.”internet site; mail is sent and received directly using SMTP”
+3.mailname=”dimmeria.com”
+4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5
+5.other final destinations = blank
+6.relay mail for domains - blank
+7.Relay mail for local machines - 192.168.0.0/24 (meaning 192.168.0.[1-255])
+8.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no
+Finally, do a
+update-exim4.conf
+/etc/init.d/exim4 restart</p>
+
+<p>Then test your email with drupal. If anyone has any mail problems, please post them here in the comments.</p>
+
+<p>Section 6b - exim4 alternate</p>
+
+<p>I actually wrote section 6b before I wrote section 6a, but then my mail stopped working after 2 days. The steps in section 6a work for me, so I consider them better. For those who are brave, or desperate, here is an alternate configuration. At the command line, run: dpkg-reconfigure exim4-config Go through the configuration script. Your setup may vary from mine. Here are the steps I took:</p>
+
+<p>1.Do not break up the configuration file into smaller files - why make things more complicated for myself?
+2.”Mail sent by smarthost; received via SMTP or fetchmail”
+3.mailname=”dimmeria.com”
+4.IPs to listen on =”127.0.0.1:192.168.0.x” where x is the last digit of my LAN ip. eg 192.168.0.5
+5.other final destinations = blank
+6.relay mail for LAN IPs only - “192.168.0.0/24”
+7.hostname for outgoing mail: “smtp.dslextreme.com” This is because my isp is dslextreme.com. To make life easier for myself, I’m using their smtp server to send mail. I don’t know how to configure exim to send mail to any mail server..such as gmail or yahoo. Yours might be “smtp.mywebhost.com” or “mail.myisp.com” .
+8.Hide local mail name? This is up to you. If you want your mail to come from “mydrupalsite.com” then select no. If you want your mail to come from something you create eg “myemailaddress.com” then select yes. I selected no.
+9.Dial-on-demand: this is only necessary if you don’t have a constant internet connection - you’ll probably want to select no</p>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/Configure-Exim4-to-Send-Mail-for-a-Drupal-Site.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Another Article About QoS for Non-work Related Traffic (Networkers-Online) | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Another Article About QoS for Non-work Related Traffic (Networkers-Online)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="More info on QoS to help make sure the traffic you need to get through gets though. This one puts time limits on the policies. I find QoS to be so cool. Networkers-Online Limiting non-business related applications during work hours In this post we will explore how to limit or even stop your employees from using applications that are not related to the business during work hours. In the following example I am going to use HTTP as an example for unwanted applications, you can specify any type of application you would like to limit or stop (file sharing, chatting, downloading ..) ***Configuration Steps:*** 1- create your time range in which these applications will be deined as show below &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; This timerange matches everyday from 9am to 5pm expcet weekends time-range WEEKDAYS&lt;br /&gt; periodic ***weekdays ***9:00 to 17:00&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 2- Identify non-business applications using an ACL and attach the time-range to it. If you want to drop this traffic completely you can just attach this ACL to an interface. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; Specify all types of traffic you need to limit access-list 180 permit tcp any any eq ***www ***time-range ***WEEKDAYS***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 3- Classify this traffic using class-map commands and configure your policy map to ***police ***this traffic to what ever suitable value may be 64Kbps or drop them as I am doing in the configuration below: &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;class-map match-all NON-WORK-APPS&lt;br /&gt; match access-group 180policy-map WORK-POLICY&lt;br /&gt; class NON-WORK-APPS&lt;br /&gt; drop&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 4- Apply the policy map to the router interface in the right direction. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;int f0/0&lt;br /&gt; service-policy output WORK-POLICY&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Operation verfication:*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#show clock&lt;br /&gt; *** 10:03:59.183*** UTC ***Mon ***Jun 2 2008 !&amp;#8211;Notice the ACL is active as the time is matching the time range. R1#sh access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(active) (4 matches)*** R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 4 packets, 240 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 69 packets, 6349 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any !&amp;#8211; ***using telnet to port 80 to test the configuration*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230;&lt;br /&gt; % ***Connection timed out***; remote host not responding !&amp;#8211; Notice the increment in the dropped number of packets R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 8 packets, 480 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 80 packets, 7557 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Now lets set the clock outside our defined time range to check the operation.*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#clock set ***18:0:0*** 2 june 2008 R1#show access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(inactive) (8 matches)*** ***!&amp;#8211; telnet to port 80 succeeded*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230; ***Open ***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; That was a basic example you can modify to suite your organization policy by changing any of the configuration parameters. &lt;br /&gt;" />
+<meta property="og:description" content="More info on QoS to help make sure the traffic you need to get through gets though. This one puts time limits on the policies. I find QoS to be so cool. Networkers-Online Limiting non-business related applications during work hours In this post we will explore how to limit or even stop your employees from using applications that are not related to the business during work hours. In the following example I am going to use HTTP as an example for unwanted applications, you can specify any type of application you would like to limit or stop (file sharing, chatting, downloading ..) ***Configuration Steps:*** 1- create your time range in which these applications will be deined as show below &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; This timerange matches everyday from 9am to 5pm expcet weekends time-range WEEKDAYS&lt;br /&gt; periodic ***weekdays ***9:00 to 17:00&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 2- Identify non-business applications using an ACL and attach the time-range to it. If you want to drop this traffic completely you can just attach this ACL to an interface. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; Specify all types of traffic you need to limit access-list 180 permit tcp any any eq ***www ***time-range ***WEEKDAYS***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 3- Classify this traffic using class-map commands and configure your policy map to ***police ***this traffic to what ever suitable value may be 64Kbps or drop them as I am doing in the configuration below: &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;class-map match-all NON-WORK-APPS&lt;br /&gt; match access-group 180policy-map WORK-POLICY&lt;br /&gt; class NON-WORK-APPS&lt;br /&gt; drop&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 4- Apply the policy map to the router interface in the right direction. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;int f0/0&lt;br /&gt; service-policy output WORK-POLICY&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Operation verfication:*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#show clock&lt;br /&gt; *** 10:03:59.183*** UTC ***Mon ***Jun 2 2008 !&amp;#8211;Notice the ACL is active as the time is matching the time range. R1#sh access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(active) (4 matches)*** R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 4 packets, 240 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 69 packets, 6349 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any !&amp;#8211; ***using telnet to port 80 to test the configuration*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230;&lt;br /&gt; % ***Connection timed out***; remote host not responding !&amp;#8211; Notice the increment in the dropped number of packets R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 8 packets, 480 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 80 packets, 7557 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Now lets set the clock outside our defined time range to check the operation.*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#clock set ***18:0:0*** 2 june 2008 R1#show access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(inactive) (8 matches)*** ***!&amp;#8211; telnet to port 80 succeeded*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230; ***Open ***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; That was a basic example you can modify to suite your organization policy by changing any of the configuration parameters. &lt;br /&gt;" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/Another-Article-About-QoS-for-Non-work-Related-Traffic-(Networkers-Online).html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/Another-Article-About-QoS-for-Non-work-Related-Traffic-(Networkers-Online).html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/Another-Article-About-QoS-for-Non-work-Related-Traffic-(Networkers-Online).html","headline":"Another Article About QoS for Non-work Related Traffic (Networkers-Online)","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/Another-Article-About-QoS-for-Non-work-Related-Traffic-(Networkers-Online).html"},"description":"More info on QoS to help make sure the traffic you need to get through gets though. This one puts time limits on the policies. I find QoS to be so cool. Networkers-Online Limiting non-business related applications during work hours In this post we will explore how to limit or even stop your employees from using applications that are not related to the business during work hours. In the following example I am going to use HTTP as an example for unwanted applications, you can specify any type of application you would like to limit or stop (file sharing, chatting, downloading ..) ***Configuration Steps:*** 1- create your time range in which these applications will be deined as show below &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; This timerange matches everyday from 9am to 5pm expcet weekends time-range WEEKDAYS&lt;br /&gt; periodic ***weekdays ***9:00 to 17:00&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 2- Identify non-business applications using an ACL and attach the time-range to it. If you want to drop this traffic completely you can just attach this ACL to an interface. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;!&amp;#8211; Specify all types of traffic you need to limit access-list 180 permit tcp any any eq ***www ***time-range ***WEEKDAYS***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 3- Classify this traffic using class-map commands and configure your policy map to ***police ***this traffic to what ever suitable value may be 64Kbps or drop them as I am doing in the configuration below: &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;class-map match-all NON-WORK-APPS&lt;br /&gt; match access-group 180policy-map WORK-POLICY&lt;br /&gt; class NON-WORK-APPS&lt;br /&gt; drop&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; 4- Apply the policy map to the router interface in the right direction. &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;int f0/0&lt;br /&gt; service-policy output WORK-POLICY&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Operation verfication:*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#show clock&lt;br /&gt; *** 10:03:59.183*** UTC ***Mon ***Jun 2 2008 !&amp;#8211;Notice the ACL is active as the time is matching the time range. R1#sh access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(active) (4 matches)*** R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 4 packets, 240 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 69 packets, 6349 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any !&amp;#8211; ***using telnet to port 80 to test the configuration*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230;&lt;br /&gt; % ***Connection timed out***; remote host not responding !&amp;#8211; Notice the increment in the dropped number of packets R1#sh policy-map int f0/0&lt;br /&gt; FastEthernet0/0 Service-policy output: WORK-POLICY Class-map: WORK-APPS (match-all)&lt;br /&gt; *** 8 packets, 480 bytes***&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: access-group 180&lt;br /&gt; drop Class-map: class-default (match-any)&lt;br /&gt; 80 packets, 7557 bytes&lt;br /&gt; 5 minute offered rate 0 bps, drop rate 0 bps&lt;br /&gt; Match: any&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; ***Now lets set the clock outside our defined time range to check the operation.*** &lt;table style=&quot;border:1px solid gray; background-color: silver;&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td&gt;R1#clock set ***18:0:0*** 2 june 2008 R1#show access-list 180&lt;br /&gt; Extended IP access list 180&lt;br /&gt; 10 permit tcp any any eq www time-range WEEKDAYS ***(inactive) (8 matches)*** ***!&amp;#8211; telnet to port 80 succeeded*** R1#telnet 192.168.12.2 80&lt;br /&gt; Trying 192.168.12.2, 80 &amp;#8230; ***Open ***&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; That was a basic example you can modify to suite your organization policy by changing any of the configuration parameters. &lt;br /&gt;","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Another Article About QoS for Non-work Related Traffic (Networkers-Online)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>More info on QoS to help make sure the traffic you need to get through gets though. This one puts time limits on the policies. I find QoS to be so cool.</p>
+
+<h2 id="networkers-online"><a href="http://www.networkers-online.com/blog/">Networkers-Online</a></h2>
+
+<p><a href="http://www.networkers-online.com/blog/2008/07/limiting-non-business-related-applications-during-work-hours/">Limiting non-business related applications during work hours</a></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">In</span> <span class="n">this</span> <span class="n">post</span> <span class="n">we</span> <span class="n">will</span> <span class="n">explore</span> <span class="n">how</span> <span class="n">to</span> <span class="n">limit</span> <span class="n">or</span> <span class="n">even</span> <span class="n">stop</span> <span class="n">your</span> <span class="n">employees</span> <span class="n">from</span> <span class="n">using</span> <span class="n">applications</span> <span class="n">that</span> <span class="n">are</span> <span class="n">not</span> <span class="n">related</span> <span class="n">to</span> <span class="n">the</span> <span class="n">business</span> <span class="n">during</span> <span class="n">work</span> <span class="n">hours</span><span class="o">.</span>
+<span class="no">In</span> <span class="n">the</span> <span class="n">following</span> <span class="n">example</span> <span class="no">I</span> <span class="n">am</span> <span class="n">going</span> <span class="n">to</span> <span class="n">use</span> <span class="no">HTTP</span> <span class="n">as</span> <span class="n">an</span> <span class="n">example</span> <span class="k">for</span> <span class="n">unwanted</span> <span class="n">applications</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">specify</span> <span class="n">any</span> <span class="n">type</span> <span class="n">of</span> <span class="n">application</span> <span class="n">you</span> <span class="n">would</span> <span class="n">like</span> <span class="n">to</span> <span class="n">limit</span> <span class="n">or</span> <span class="n">stop</span> <span class="p">(</span><span class="n">file</span> <span class="n">sharing</span><span class="p">,</span> <span class="n">chatting</span><span class="p">,</span> <span class="n">downloading</span> <span class="o">..</span><span class="p">)</span>
+<span class="o">***</span><span class="no">Configuration</span> <span class="no">Steps</span><span class="ss">:**</span><span class="o">*</span>
+<span class="mi">1</span><span class="o">-</span> <span class="n">create</span> <span class="n">your</span> <span class="n">time</span> <span class="n">range</span> <span class="k">in</span> <span class="n">which</span> <span class="n">these</span> <span class="n">applications</span> <span class="n">will</span> <span class="n">be</span> <span class="n">deined</span> <span class="n">as</span> <span class="n">show</span> <span class="n">below</span>
+<span class="o">&lt;</span><span class="n">table</span> <span class="n">style</span><span class="o">=</span><span class="s2">"border:1px solid gray; background-color: silver;"</span> <span class="n">border</span><span class="o">=</span><span class="s2">"0"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;!&amp;</span><span class="c1">#8211; This timerange matches everyday from 9am to 5pm expcet weekends
+</span>
+<span class="n">time</span><span class="o">-</span><span class="n">range</span> <span class="no">WEEKDAYS</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+periodic ***weekdays ***9:00 to 17:00&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/table&gt;
+2- Identify non-business applications using an ACL and attach the time-range to it. If you want to drop this traffic completely you can just attach this ACL to an interface.
+&lt;table style="border:1px solid gray; background-color: silver;" border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;!&amp;#8211; Specify all types of traffic you need to limit
+access-list 180 permit tcp any any eq ***www ***time-range ***WEEKDAYS***&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/table&gt;
+3- Classify this traffic using class-map commands and configure your policy map to ***police ***this traffic to what ever suitable value may be 64Kbps or drop them as I am doing in the configuration below:
+&lt;table style="border:1px solid gray; background-color: silver;" border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;class-map match-all NON-WORK-APPS&lt;br /</span><span class="o">&gt;</span>
+<span class="n">match</span> <span class="n">access</span><span class="o">-</span><span class="n">group</span> <span class="mi">180</span><span class="n">policy</span><span class="o">-</span><span class="n">map</span> <span class="no">WORK</span><span class="o">-</span><span class="no">POLICY</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+class NON-WORK-APPS&lt;br /</span><span class="o">&gt;</span>
+<span class="n">drop</span><span class="o">&lt;</span><span class="sr">/td&gt;
+&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tbody&gt;
+&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
+<span class="mi">4</span><span class="o">-</span> <span class="no">Apply</span> <span class="n">the</span> <span class="n">policy</span> <span class="n">map</span> <span class="n">to</span> <span class="n">the</span> <span class="n">router</span> <span class="n">interface</span> <span class="k">in</span> <span class="n">the</span> <span class="n">right</span> <span class="n">direction</span><span class="p">.</span>
+<span class="nf">&lt;</span><span class="n">table</span> <span class="n">style</span><span class="o">=</span><span class="s2">"border:1px solid gray; background-color: silver;"</span> <span class="n">border</span><span class="o">=</span><span class="s2">"0"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span><span class="n">int</span> <span class="n">f0</span><span class="o">/</span><span class="mi">0</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+service-policy output WORK-POLICY&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/table&gt;
+***Operation verfication:***
+&lt;table style="border:1px solid gray; background-color: silver;" border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;R1#show clock&lt;br /</span><span class="o">&gt;</span>
+<span class="o">***</span> <span class="mi">10</span><span class="p">:</span><span class="mo">03</span><span class="p">:</span><span class="mf">59.183</span><span class="o">***</span> <span class="no">UTC</span> <span class="o">***</span><span class="no">Mon</span> <span class="o">***</span><span class="no">Jun</span> <span class="mi">2</span> <span class="mi">2008</span>
+<span class="o">!&amp;</span><span class="c1">#8211;Notice the ACL is active as the time is matching the time range.
+</span>
+<span class="no">R1</span><span class="c1">#sh access-list 180&lt;br /&gt;
+</span>
+<span class="no">Extended</span> <span class="no">IP</span> <span class="n">access</span> <span class="n">list</span> <span class="mi">180</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+10 permit tcp any any eq www time-range WEEKDAYS ***(active) (4 matches)***
+R1#sh policy-map int f0/</span><span class="mi">0</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+FastEthernet0/</span><span class="mi">0</span>
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">output: </span><span class="no">WORK</span><span class="o">-</span><span class="no">POLICY</span>
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">WORK</span><span class="o">-</span><span class="no">APPS</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+*** 4 packets, 240 bytes***&lt;br /</span><span class="o">&gt;</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+Match: access-group 180&lt;br /</span><span class="o">&gt;</span>
+<span class="n">drop</span>
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+69 packets, 6349 bytes&lt;br /</span><span class="o">&gt;</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+Match: any
+!&amp;#8211; ***using telnet to port 80 to test the configuration***
+R1#telnet 192.168.12.2 80&lt;br /</span><span class="o">&gt;</span>
+<span class="no">Trying</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.2</span><span class="p">,</span> <span class="mi">80</span> <span class="o">&amp;</span><span class="c1">#8230;&lt;br /&gt;
+</span>
+<span class="sx">% ***Connection </span><span class="n">timed</span> <span class="n">out</span><span class="o">***</span><span class="p">;</span> <span class="n">remote</span> <span class="n">host</span> <span class="n">not</span> <span class="n">responding</span>
+<span class="o">!&amp;</span><span class="c1">#8211; Notice the increment in the dropped number of packets
+</span>
+<span class="no">R1</span><span class="c1">#sh policy-map int f0/0&lt;br /&gt;
+</span>
+<span class="no">FastEthernet0</span><span class="o">/</span><span class="mi">0</span>
+<span class="no">Service</span><span class="o">-</span><span class="n">policy</span> <span class="ss">output: </span><span class="no">WORK</span><span class="o">-</span><span class="no">POLICY</span>
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="no">WORK</span><span class="o">-</span><span class="no">APPS</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">all</span><span class="p">)</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+*** 8 packets, 480 bytes***&lt;br /</span><span class="o">&gt;</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+Match: access-group 180&lt;br /</span><span class="o">&gt;</span>
+<span class="n">drop</span>
+<span class="no">Class</span><span class="o">-</span><span class="ss">map: </span><span class="k">class</span><span class="o">-</span><span class="n">default</span> <span class="p">(</span><span class="n">match</span><span class="o">-</span><span class="n">any</span><span class="p">)</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+80 packets, 7557 bytes&lt;br /</span><span class="o">&gt;</span>
+<span class="mi">5</span> <span class="n">minute</span> <span class="n">offered</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="p">,</span> <span class="n">drop</span> <span class="n">rate</span> <span class="mi">0</span> <span class="n">bps</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+Match: any&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/table&gt;
+***Now lets set the clock outside our defined time range to check the operation.***
+&lt;table style="border:1px solid gray; background-color: silver;" border="0"&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;R1#clock set ***18:0:0*** 2 june 2008
+R1#show access-list 180&lt;br /</span><span class="o">&gt;</span>
+<span class="no">Extended</span> <span class="no">IP</span> <span class="n">access</span> <span class="n">list</span> <span class="mi">180</span><span class="o">&lt;</span><span class="n">br</span> <span class="sr">/&gt;
+10 permit tcp any any eq www time-range WEEKDAYS ***(inactive) (8 matches)***
+***!&amp;#8211; telnet to port 80 succeeded***
+R1#telnet 192.168.12.2 80&lt;br /</span><span class="o">&gt;</span>
+<span class="no">Trying</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">12.2</span><span class="p">,</span> <span class="mi">80</span> <span class="o">&amp;</span><span class="c1">#8230; ***Open ***&lt;/td&gt;
+</span>
+<span class="o">&lt;</span><span class="sr">/tr&gt;
+&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sr">/table&gt;
+That was a basic example you can modify to suite your organization policy by changing any of the configuration parameters.
+&lt;br /</span><span class="o">&gt;</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/Another-Article-About-QoS-for-Non-work-Related-Traffic-(Networkers-Online).html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

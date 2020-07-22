@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Regular Active Directory Tasks | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Regular Active Directory Tasks" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="There are great benefits to closely monitoring your Active Directory domain controllers. Here are some lists of daily, weekly, and monthly tasks. Microsoft TechNet: Monitoring Active Directory Scribd: System Administrator Checklist Complete System Administrator Checklist Network Steve Forum: Active Directory Daily Check list Looking at the suggestion in the Network Steve post one suggestion is using several CLI tools to create a report. dcdiag /v /c /d /e /s:dcname &gt;c:\dcdiag.txt netdiag /v &gt;c:\netdiag.txt repadmin /showrepl * /verbose /all /intersite &gt;c:\repl.tx dnslint /ad /s &quot;DCipaddress&quot; Download DNSLINT: http://support.microsoft.com/kb/321045 Expect to see some errors using DCDIAG in certain situations: DCDIAG.EXE /E or /A or /C expected errors (MS Support) What does DCDIAG actuallyâ€¦ do? (Ask the AD Guys Blog) You will notice that REPLMON is no longer available in Windows Server 2008 R2. blog.powershell.no: Replmon.exe not included in Windows Server 2008/2008 R2 Ask the Directory Services Team Blog: Getting Over Replmon NETDIAG is also no longer supported, but DCDIAG should give you all the information and ability that you need." />
+<meta property="og:description" content="There are great benefits to closely monitoring your Active Directory domain controllers. Here are some lists of daily, weekly, and monthly tasks. Microsoft TechNet: Monitoring Active Directory Scribd: System Administrator Checklist Complete System Administrator Checklist Network Steve Forum: Active Directory Daily Check list Looking at the suggestion in the Network Steve post one suggestion is using several CLI tools to create a report. dcdiag /v /c /d /e /s:dcname &gt;c:\dcdiag.txt netdiag /v &gt;c:\netdiag.txt repadmin /showrepl * /verbose /all /intersite &gt;c:\repl.tx dnslint /ad /s &quot;DCipaddress&quot; Download DNSLINT: http://support.microsoft.com/kb/321045 Expect to see some errors using DCDIAG in certain situations: DCDIAG.EXE /E or /A or /C expected errors (MS Support) What does DCDIAG actuallyâ€¦ do? (Ask the AD Guys Blog) You will notice that REPLMON is no longer available in Windows Server 2008 R2. blog.powershell.no: Replmon.exe not included in Windows Server 2008/2008 R2 Ask the Directory Services Team Blog: Getting Over Replmon NETDIAG is also no longer supported, but DCDIAG should give you all the information and ability that you need." />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/19/Regular-Active-Directory-Tasks.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/19/Regular-Active-Directory-Tasks.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/19/Regular-Active-Directory-Tasks.html","headline":"Regular Active Directory Tasks","dateModified":"2012-10-19T00:00:00-05:00","datePublished":"2012-10-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/19/Regular-Active-Directory-Tasks.html"},"description":"There are great benefits to closely monitoring your Active Directory domain controllers. Here are some lists of daily, weekly, and monthly tasks. Microsoft TechNet: Monitoring Active Directory Scribd: System Administrator Checklist Complete System Administrator Checklist Network Steve Forum: Active Directory Daily Check list Looking at the suggestion in the Network Steve post one suggestion is using several CLI tools to create a report. dcdiag /v /c /d /e /s:dcname &gt;c:\\dcdiag.txt netdiag /v &gt;c:\\netdiag.txt repadmin /showrepl * /verbose /all /intersite &gt;c:\\repl.tx dnslint /ad /s &quot;DCipaddress&quot; Download DNSLINT: http://support.microsoft.com/kb/321045 Expect to see some errors using DCDIAG in certain situations: DCDIAG.EXE /E or /A or /C expected errors (MS Support) What does DCDIAG actuallyâ€¦ do? (Ask the AD Guys Blog) You will notice that REPLMON is no longer available in Windows Server 2008 R2. blog.powershell.no: Replmon.exe not included in Windows Server 2008/2008 R2 Ask the Directory Services Team Blog: Getting Over Replmon NETDIAG is also no longer supported, but DCDIAG should give you all the information and ability that you need.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Regular Active Directory Tasks</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-19T00:00:00-05:00" itemprop="datePublished">Oct 19, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>There are great benefits to closely monitoring your Active Directory domain controllers. Here are some lists of daily, weekly, and monthly tasks.</p>
+
+<p>Microsoft TechNet:</p>
+<ul>
+  <li><a href="http://technet.microsoft.com/en-us/library/bb727046.aspx">Monitoring Active Directory</a></li>
+</ul>
+
+<p>Scribd:</p>
+<ul>
+  <li><a href="http://www.scribd.com/doc/4623275/System-Administrator-Checklist">System Administrator Checklist</a></li>
+  <li><a href="http://www.scribd.com/doc/54687404/Complete-System-Administrator-Checklist">Complete System Administrator Checklist</a></li>
+</ul>
+
+<p>Network Steve Forum:</p>
+<ul>
+  <li><a href="http://www.networksteve.com/forum/topic.php/Active_Directory_Daily_Check_list/?TopicId=19558&amp;Posts=6">Active Directory Daily Check list</a></li>
+</ul>
+
+<p>Looking at the suggestion in the Network Steve post one suggestion is using several CLI tools to create a report.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dcdiag</span> <span class="sr">/v /</span><span class="n">c</span> <span class="sr">/d /e</span> <span class="o">/</span><span class="n">s</span><span class="ss">:dcname</span> <span class="o">&gt;</span><span class="n">c</span><span class="p">:\</span><span class="n">dcdiag</span><span class="p">.</span><span class="nf">txt</span>
+<span class="n">netdiag</span> <span class="sr">/v &gt;c:\netdiag.txt
+repadmin /s</span><span class="n">howrepl</span> <span class="o">*</span> <span class="sr">/verbose /</span><span class="n">all</span> <span class="sr">/intersite &gt;c:\repl.tx
+dnslint /</span><span class="n">ad</span> <span class="sr">/s "DCipaddress"
+Download DNSLINT: http:/</span><span class="o">/</span><span class="n">support</span><span class="p">.</span><span class="nf">microsoft</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">kb</span><span class="o">/</span><span class="mi">321045</span></code></pre></figure>
+
+<p>Expect to see some errors using DCDIAG in certain situations:
+<a href="http://support.microsoft.com/kb/2512643">DCDIAG.EXE /E or /A or /C expected errors (MS Support)</a></p>
+
+<p><a href="http://blogs.technet.com/b/askds/archive/2011/03/22/what-does-dcdiag-actually-do.aspx">What does DCDIAG actuallyâ€¦ do? (Ask the AD Guys Blog)</a></p>
+
+<p>You will notice that REPLMON is no longer available in Windows Server 2008 R2.</p>
+
+<p>blog.powershell.no:</p>
+<ul>
+  <li><a href="http://blogs.technet.com/b/askds/archive/2009/07/01/getting-over-replmon.aspx">Replmon.exe not included in Windows Server 2008/2008 R2</a></li>
+</ul>
+
+<p>Ask the Directory Services Team Blog:</p>
+<ul>
+  <li><a href="http://blogs.technet.com/b/askds/archive/2009/07/01/getting-over-replmon.aspx">Getting Over Replmon</a></li>
+</ul>
+
+<p>NETDIAG is also no longer supported, but DCDIAG should give you all the information and ability that you need.</p>
+
+
+  </div><a class="u-url" href="/it/2012/10/19/Regular-Active-Directory-Tasks.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

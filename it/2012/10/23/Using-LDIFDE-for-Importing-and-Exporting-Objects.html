@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Using LDIFDE for Importing and Exporting Objects | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Using LDIFDE for Importing and Exporting Objects" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Some useful information when creating Active Directory user objects. Creating User Objects with LDIFDE From Microsoft Support: *LDIFDE* - Export / Import data from Active Directory - *LDIFDE* … Command to export the user with a given name of SAM Account ldifde -f exportuser.ldf -s computer_name -r (samaccountname=SAMLNAME) Command to export Organizational Units: Running this command exports all OUs except domain controllers into a file named ExportOU.ldf. ldifde -f exportOu.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(objectClass=organizationalUnit)” -l “cn,objectclass,ou” Export the User Accounts from the Source Domain ldifde -f Exportuser.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(&amp;(objectCategory=person)(objectClass=User)(givenname=*))” -l “cn,givenName,objectclass,samAccountName” Running this command exports all users in the Export domain into a file named Exportuser.ldf. If you do not have all the required attributes, the import operation does not work. The attributes objectclass and samAccountName are required, but more can be added as needed. Command to Import users from a LDF file: ldifde -i -f Exportuser.ldf -s Server2 Exporting User Account attributes except attributes those can€™t be imported: (Using €“o switch) This is another example filter that will export all User Account data except for the attributes that cannot be imported: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; Another Example: To export for any given SamAccountName: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; From TechNet: How to set a user’s password with Ldifde The password attribute used by Active Directory is “unicodePwd.” This attribute can be written under restricted conditions, but cannot be read. This attribute can only be modified, not added on object creation or read by a search. To modify this attribute, the client must have a 128-bit Secure Sockets Layer (SSL) connection to the server. Note When you use a base-64 encoder, you must make sure that it supports Unicode, or you will create an incorrect password. The following sample Ldif file (chPwd.ldif) changes a password to newPassword: dn: CN=TestUser,DC=testdomain,DC=com changetype: modify replace: unicodePwd unicodePwd::IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA= - To import the chPwd.ldif file, use the following command: If the password does not fulfill the criteria of the enforced Password Policies, then it will throw an error:" />
+<meta property="og:description" content="Some useful information when creating Active Directory user objects. Creating User Objects with LDIFDE From Microsoft Support: *LDIFDE* - Export / Import data from Active Directory - *LDIFDE* … Command to export the user with a given name of SAM Account ldifde -f exportuser.ldf -s computer_name -r (samaccountname=SAMLNAME) Command to export Organizational Units: Running this command exports all OUs except domain controllers into a file named ExportOU.ldf. ldifde -f exportOu.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(objectClass=organizationalUnit)” -l “cn,objectclass,ou” Export the User Accounts from the Source Domain ldifde -f Exportuser.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(&amp;(objectCategory=person)(objectClass=User)(givenname=*))” -l “cn,givenName,objectclass,samAccountName” Running this command exports all users in the Export domain into a file named Exportuser.ldf. If you do not have all the required attributes, the import operation does not work. The attributes objectclass and samAccountName are required, but more can be added as needed. Command to Import users from a LDF file: ldifde -i -f Exportuser.ldf -s Server2 Exporting User Account attributes except attributes those can€™t be imported: (Using €“o switch) This is another example filter that will export all User Account data except for the attributes that cannot be imported: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; Another Example: To export for any given SamAccountName: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; From TechNet: How to set a user’s password with Ldifde The password attribute used by Active Directory is “unicodePwd.” This attribute can be written under restricted conditions, but cannot be read. This attribute can only be modified, not added on object creation or read by a search. To modify this attribute, the client must have a 128-bit Secure Sockets Layer (SSL) connection to the server. Note When you use a base-64 encoder, you must make sure that it supports Unicode, or you will create an incorrect password. The following sample Ldif file (chPwd.ldif) changes a password to newPassword: dn: CN=TestUser,DC=testdomain,DC=com changetype: modify replace: unicodePwd unicodePwd::IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA= - To import the chPwd.ldif file, use the following command: If the password does not fulfill the criteria of the enforced Password Policies, then it will throw an error:" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/23/Using-LDIFDE-for-Importing-and-Exporting-Objects.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/23/Using-LDIFDE-for-Importing-and-Exporting-Objects.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-23T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/23/Using-LDIFDE-for-Importing-and-Exporting-Objects.html","headline":"Using LDIFDE for Importing and Exporting Objects","dateModified":"2012-10-23T00:00:00-05:00","datePublished":"2012-10-23T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/23/Using-LDIFDE-for-Importing-and-Exporting-Objects.html"},"description":"Some useful information when creating Active Directory user objects. Creating User Objects with LDIFDE From Microsoft Support: *LDIFDE* - Export / Import data from Active Directory - *LDIFDE* … Command to export the user with a given name of SAM Account ldifde -f exportuser.ldf -s computer_name -r (samaccountname=SAMLNAME) Command to export Organizational Units: Running this command exports all OUs except domain controllers into a file named ExportOU.ldf. ldifde -f exportOu.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(objectClass=organizationalUnit)” -l “cn,objectclass,ou” Export the User Accounts from the Source Domain ldifde -f Exportuser.ldf -s Server1 -d “dc=Export,dc=com” -p subtree -r “(&amp;(objectCategory=person)(objectClass=User)(givenname=*))” -l “cn,givenName,objectclass,samAccountName” Running this command exports all users in the Export domain into a file named Exportuser.ldf. If you do not have all the required attributes, the import operation does not work. The attributes objectclass and samAccountName are required, but more can be added as needed. Command to Import users from a LDF file: ldifde -i -f Exportuser.ldf -s Server2 Exporting User Account attributes except attributes those can€™t be imported: (Using €“o switch) This is another example filter that will export all User Account data except for the attributes that cannot be imported: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; Another Example: To export for any given SamAccountName: ldifde -f Exportuser.ldf -s -d &quot;dc=Export,dc=com&quot; -p subtree -r &quot;(&amp;(objectCategory=person)(objectClass=User)(givenname=*))&quot; -o &quot;badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType&quot; From TechNet: How to set a user’s password with Ldifde The password attribute used by Active Directory is “unicodePwd.” This attribute can be written under restricted conditions, but cannot be read. This attribute can only be modified, not added on object creation or read by a search. To modify this attribute, the client must have a 128-bit Secure Sockets Layer (SSL) connection to the server. Note When you use a base-64 encoder, you must make sure that it supports Unicode, or you will create an incorrect password. The following sample Ldif file (chPwd.ldif) changes a password to newPassword: dn: CN=TestUser,DC=testdomain,DC=com changetype: modify replace: unicodePwd unicodePwd::IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA= - To import the chPwd.ldif file, use the following command: If the password does not fulfill the criteria of the enforced Password Policies, then it will throw an error:","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Using LDIFDE for Importing and Exporting Objects</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-23T00:00:00-05:00" itemprop="datePublished">Oct 23, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Some useful information when creating Active Directory user objects.</p>
+
+<p><strong><em>Creating User Objects with LDIFDE</em></strong></p>
+
+<p><strong><em>From Microsoft Support: <a href="http://support.microsoft.com/kb/555636">*LDIFDE* - Export / Import data from Active Directory - *LDIFDE* …</a></em></strong></p>
+
+<ol>
+  <li>Command to export the user with a given name of SAM Account</li>
+</ol>
+
+<p>ldifde -f exportuser.ldf -s computer_name -r (samaccountname=SAMLNAME)</p>
+
+<ol>
+  <li>Command to export Organizational Units:</li>
+</ol>
+
+<p>Running this command exports all OUs except domain controllers into a file named ExportOU.ldf.
+ldifde -f exportOu.ldf -s <em>Server1</em> -d “dc=Export,dc=com” -p subtree -r “(objectClass=organizationalUnit)” -l “cn,objectclass,ou”</p>
+
+<ol>
+  <li>Export the User Accounts from the Source Domain</li>
+</ol>
+
+<p>ldifde -f Exportuser.ldf -s <em>Server1</em> -d “dc=Export,dc=com” -p subtree -r “(&amp;(objectCategory=person)(objectClass=User)(givenname=*))” -l “cn,givenName,objectclass,samAccountName”</p>
+
+<p>Running this command exports all users in the Export domain into a file named Exportuser.ldf. If you do not have all the required attributes, the import operation does not work. The attributes objectclass and samAccountName are required, but more can be added as needed.</p>
+
+<ol>
+  <li>Command to Import users from a LDF file:</li>
+</ol>
+
+<p>ldifde -i -f Exportuser.ldf -s <em>Server2</em></p>
+
+<ol>
+  <li>Exporting User Account attributes except attributes those can€™t be imported: (Using €“o switch)</li>
+</ol>
+
+<p>This is another example filter that will export all User Account data except for the attributes that cannot be imported:</p>
+
+<p>ldifde -f Exportuser.ldf -s <Server1> -d "dc=Export,dc=com" -p subtree -r "(&amp;(objectCategory=person)(objectClass=User)(givenname=*))" -o "badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType"</Server1></p>
+
+<p>Another Example: To export for any given SamAccountName:</p>
+
+<p>ldifde -f Exportuser.ldf -s <Server1> -d "dc=Export,dc=com" -p subtree -r "(&amp;(objectCategory=person)(objectClass=User)(givenname=*))" -o "badPasswordTime,badPwdCount,lastLogoff,lastLogon,logonCount, memberOf,objectGUID,objectSid,primaryGroupID,pwdLastSet,sAMAccountType"</Server1></p>
+
+<p>From TechNet: <a href="http://support.microsoft.com/kb/263991">How to <em>set</em> a user’s <em>password</em> with <em>Ldifde</em></a></p>
+
+<p>The password attribute used by Active Directory is “unicodePwd.” This attribute can be written under restricted conditions, but cannot be read. This attribute can only be modified, not added on object creation or read by a search. To modify this attribute, the client must have a 128-bit Secure Sockets Layer (SSL) connection to the server.</p>
+
+<p>Note When you use a base-64 encoder, you must make sure that it supports Unicode, or you will create an incorrect password.</p>
+
+<p>The following sample Ldif file (chPwd.ldif) changes a password to newPassword:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">dn: </span><span class="no">CN</span><span class="o">=</span><span class="no">TestUser</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">testdomain</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">com</span>
+<span class="ss">changetype: </span><span class="n">modify</span>
+<span class="ss">replace: </span><span class="n">unicodePwd</span>
+<span class="n">unicodePwd</span><span class="o">::</span><span class="no">IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA</span><span class="o">=</span>
+<span class="o">-</span></code></pre></figure>
+
+<p>To import the chPwd.ldif file, use the following command:
+If the password does not fulfill the criteria of the enforced Password Policies, then it will throw an error:</p>
+
+
+  </div><a class="u-url" href="/it/2012/10/23/Using-LDIFDE-for-Importing-and-Exporting-Objects.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

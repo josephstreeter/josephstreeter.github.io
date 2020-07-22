@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configure BIND on CentOS | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Configure BIND on CentOS" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The following instructions will help you install and configure BIND on CentOS 6. Install BIND with the following command: yum install bind -y Create a zone file for the new domain vi /var/named/test.domain.com Add the zone information for the new domain $TTL 1H @ IN SOA test.domain.com. hostmaster.test.domain.com. ( 2012080701 ; Serial 1H ; Refresh 30M ; Retry 20D ; Expire 1H ) ; Minimum @ IN NS ns1.test.domain.com. @ IN NS ns2.test.domain.com. ns1 IN A 192.168.0.254 ns2 IN A 192.168.0.253 @ IN MX 10 smtp.test.domain.com. www IN A 192.168.0.1 smtp IN A 192.168.0.1 ftp IN A 192.168.0.1 Add the new zone file to the named.conf file. vi /etc/named.conf Add the following text to add the zone file zone &quot;test.domain.com&quot; { type master; file &quot;/var/named/test.domain.com&quot;; }; Change the following lines from: listen-on port 53 {127.0.0.1; }; allow-query { localhost; }; to: listen-on port 53 { 192.168.254.254; }; // Enter the interface you want BIND to listen on. allow-query { any; }; // May also be an IP address or subnet Optionally add forwarders by adding the following line: forwarders { 8.8.8.8; 8.8.4.4; }; You may turn off recursion if it isn’t required by changing the following line” recursion yes; To recursion no; Restart the named service service named restart" />
+<meta property="og:description" content="The following instructions will help you install and configure BIND on CentOS 6. Install BIND with the following command: yum install bind -y Create a zone file for the new domain vi /var/named/test.domain.com Add the zone information for the new domain $TTL 1H @ IN SOA test.domain.com. hostmaster.test.domain.com. ( 2012080701 ; Serial 1H ; Refresh 30M ; Retry 20D ; Expire 1H ) ; Minimum @ IN NS ns1.test.domain.com. @ IN NS ns2.test.domain.com. ns1 IN A 192.168.0.254 ns2 IN A 192.168.0.253 @ IN MX 10 smtp.test.domain.com. www IN A 192.168.0.1 smtp IN A 192.168.0.1 ftp IN A 192.168.0.1 Add the new zone file to the named.conf file. vi /etc/named.conf Add the following text to add the zone file zone &quot;test.domain.com&quot; { type master; file &quot;/var/named/test.domain.com&quot;; }; Change the following lines from: listen-on port 53 {127.0.0.1; }; allow-query { localhost; }; to: listen-on port 53 { 192.168.254.254; }; // Enter the interface you want BIND to listen on. allow-query { any; }; // May also be an IP address or subnet Optionally add forwarders by adding the following line: forwarders { 8.8.8.8; 8.8.4.4; }; You may turn off recursion if it isn’t required by changing the following line” recursion yes; To recursion no; Restart the named service service named restart" />
+<link rel="canonical" href="http://localhost:4000/it/2013/09/09/Configure-BIND-on-CentOS.html" />
+<meta property="og:url" content="http://localhost:4000/it/2013/09/09/Configure-BIND-on-CentOS.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-09T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2013/09/09/Configure-BIND-on-CentOS.html","headline":"Configure BIND on CentOS","dateModified":"2013-09-09T00:00:00-05:00","datePublished":"2013-09-09T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2013/09/09/Configure-BIND-on-CentOS.html"},"description":"The following instructions will help you install and configure BIND on CentOS 6. Install BIND with the following command: yum install bind -y Create a zone file for the new domain vi /var/named/test.domain.com Add the zone information for the new domain $TTL 1H @ IN SOA test.domain.com. hostmaster.test.domain.com. ( 2012080701 ; Serial 1H ; Refresh 30M ; Retry 20D ; Expire 1H ) ; Minimum @ IN NS ns1.test.domain.com. @ IN NS ns2.test.domain.com. ns1 IN A 192.168.0.254 ns2 IN A 192.168.0.253 @ IN MX 10 smtp.test.domain.com. www IN A 192.168.0.1 smtp IN A 192.168.0.1 ftp IN A 192.168.0.1 Add the new zone file to the named.conf file. vi /etc/named.conf Add the following text to add the zone file zone &quot;test.domain.com&quot; { type master; file &quot;/var/named/test.domain.com&quot;; }; Change the following lines from: listen-on port 53 {127.0.0.1; }; allow-query { localhost; }; to: listen-on port 53 { 192.168.254.254; }; // Enter the interface you want BIND to listen on. allow-query { any; }; // May also be an IP address or subnet Optionally add forwarders by adding the following line: forwarders { 8.8.8.8; 8.8.4.4; }; You may turn off recursion if it isn’t required by changing the following line” recursion yes; To recursion no; Restart the named service service named restart","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Configure BIND on CentOS</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2013-09-09T00:00:00-05:00" itemprop="datePublished">Sep 9, 2013
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The following instructions will help you install and configure BIND on CentOS 6.</p>
+
+<p>Install BIND with the following command:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">yum</span> <span class="n">install</span> <span class="n">bind</span> <span class="o">-</span><span class="n">y</span></code></pre></figure>
+
+<p>Create a zone file for the new domain</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">vi</span> <span class="sr">/var/n</span><span class="n">amed</span><span class="o">/</span><span class="nb">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+
+<p>Add the zone information for the new domain</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$TTL</span>	<span class="mi">1</span><span class="no">H</span>
+<span class="err">@</span>       <span class="no">IN</span>      <span class="no">SOA</span>     <span class="nb">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span> <span class="nf">hostmaster</span><span class="p">.</span><span class="nf">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span> <span class="p">(</span>
+<span class="mi">2012080701</span>      <span class="p">;</span> <span class="no">Serial</span>
+<span class="mi">1</span><span class="no">H</span>      <span class="p">;</span> <span class="no">Refresh</span>
+<span class="mi">30</span><span class="no">M</span>       <span class="p">;</span> <span class="no">Retry</span>
+<span class="mi">20</span><span class="no">D</span>    <span class="p">;</span> <span class="no">Expire</span>
+<span class="mi">1</span><span class="no">H</span> <span class="p">)</span>  <span class="p">;</span> <span class="no">Minimum</span>
+
+<span class="err">@</span>       <span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns1</span><span class="p">.</span><span class="nf">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>
+<span class="err">@</span>       <span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns2</span><span class="p">.</span><span class="nf">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
+<span class="nf">ns1</span>     <span class="no">IN</span>      <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.254</span>
+<span class="n">ns2</span>     <span class="no">IN</span>      <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.253</span>
+
+<span class="err">@</span>       <span class="no">IN</span>      <span class="no">MX</span>  <span class="mi">10</span>  <span class="n">smtp</span><span class="p">.</span><span class="nf">test</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
+
+<span class="nf">www</span>     <span class="no">IN</span>      <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.1</span>
+<span class="n">smtp</span>    <span class="no">IN</span>      <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.1</span>
+<span class="n">ftp</span>     <span class="no">IN</span>      <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.1</span></code></pre></figure>
+
+<p>Add the new zone file to the named.conf file.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">vi</span> <span class="sr">/etc/n</span><span class="n">amed</span><span class="p">.</span><span class="nf">conf</span></code></pre></figure>
+
+<p>Add the following text to add the zone file</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">zone</span> <span class="s2">"test.domain.com"</span> <span class="p">{</span>
+<span class="n">type</span> <span class="n">master</span><span class="p">;</span>
+<span class="n">file</span> <span class="s2">"/var/named/test.domain.com"</span><span class="p">;</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Change the following lines from:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">listen</span><span class="o">-</span><span class="n">on</span> <span class="n">port</span> <span class="mi">53</span> <span class="p">{</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">;</span> <span class="p">};</span>
+<span class="n">allow</span><span class="o">-</span><span class="n">query</span> <span class="p">{</span> <span class="n">localhost</span><span class="p">;</span> <span class="p">};</span></code></pre></figure>
+
+<p>to:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">listen</span><span class="o">-</span><span class="n">on</span> <span class="n">port</span> <span class="mi">53</span> <span class="p">{</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">254.254</span><span class="p">;</span> <span class="p">};</span> <span class="sr">//</span> <span class="no">Enter</span> <span class="n">the</span> <span class="n">interface</span> <span class="n">you</span> <span class="n">want</span> <span class="no">BIND</span> <span class="n">to</span> <span class="n">listen</span> <span class="n">on</span><span class="p">.</span>
+<span class="nf">allow</span><span class="o">-</span><span class="n">query</span> <span class="p">{</span> <span class="n">any</span><span class="p">;</span> <span class="p">};</span>  <span class="sr">//</span> <span class="no">May</span> <span class="n">also</span> <span class="n">be</span> <span class="n">an</span> <span class="no">IP</span> <span class="n">address</span> <span class="n">or</span> <span class="n">subnet</span></code></pre></figure>
+
+<p>Optionally add forwarders by adding the following line:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">forwarders</span> <span class="p">{</span> <span class="mf">8.8</span><span class="o">.</span><span class="mf">8.8</span><span class="p">;</span> <span class="mf">8.8</span><span class="o">.</span><span class="mf">4.4</span><span class="p">;</span> <span class="p">};</span></code></pre></figure>
+
+<p>You may turn off recursion if it isn’t required by changing the following line”</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">recursion</span> <span class="n">yes</span><span class="p">;</span></code></pre></figure>
+
+<p>To</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">recursion</span> <span class="n">no</span><span class="p">;</span></code></pre></figure>
+
+<p>Restart the named service</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">service</span> <span class="n">named</span> <span class="n">restart</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2013/09/09/Configure-BIND-on-CentOS.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

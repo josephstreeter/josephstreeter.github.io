@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Cacti Backup | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Cacti Backup" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Here is a Cacti backup script that I found the book “Cacti 0.8 Beginner’s Guide.” It’s really handy if you’ve gone through all the trouble to install and configure the PA. It seems to work, but I haven’t done a restore yet. #!/bin/bash#Set Variables DATE=`date +%Y%m%d` FILENAME=&quot;cacti_database_$DATE.sql&quot;; BACKUPDIR=&quot;/backup/&quot;; TGZFILENAME=&quot;cacti_files_$DATE.tgz&quot;; DBUSER=&quot;&lt;dbuser&gt;&quot;; DBPWD=&quot;&lt;dbpassword&gt;&quot;; DBNAME=&quot;cacti&quot;; GZIP=&quot;/bin/gzip -f&quot;; cd / #Remove files older than 3 days find /backup/cacti_*gz -mtime +3 -exec rm {} \; #Backup Cacti Database mysqldump --user=$DBUSER --password=$DBPWD --add-drop-table --databases $DBNAME &gt; $BACKUPDIR$FILENAME $GZIP $BACKUPDIR$FILENAME #Backup Important Files tar -csvpf $BACKUPDIR$TGZFILENAME ./etc/cron.d/cacti ./etc/php5/apache2/php.ini ./etc/apache2/sites-available/default ./usr/share/cacti Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space. Schedule the script to run daily at 2:00am by creating “/etc/cron.d/cactibackup” with the following lines: # Cacti backup Schedule 0 2 * * * root /bin/bash /backup/backupcacti.sh &gt; /dev/null 2&gt;&amp;amp;1" />
+<meta property="og:description" content="Here is a Cacti backup script that I found the book “Cacti 0.8 Beginner’s Guide.” It’s really handy if you’ve gone through all the trouble to install and configure the PA. It seems to work, but I haven’t done a restore yet. #!/bin/bash#Set Variables DATE=`date +%Y%m%d` FILENAME=&quot;cacti_database_$DATE.sql&quot;; BACKUPDIR=&quot;/backup/&quot;; TGZFILENAME=&quot;cacti_files_$DATE.tgz&quot;; DBUSER=&quot;&lt;dbuser&gt;&quot;; DBPWD=&quot;&lt;dbpassword&gt;&quot;; DBNAME=&quot;cacti&quot;; GZIP=&quot;/bin/gzip -f&quot;; cd / #Remove files older than 3 days find /backup/cacti_*gz -mtime +3 -exec rm {} \; #Backup Cacti Database mysqldump --user=$DBUSER --password=$DBPWD --add-drop-table --databases $DBNAME &gt; $BACKUPDIR$FILENAME $GZIP $BACKUPDIR$FILENAME #Backup Important Files tar -csvpf $BACKUPDIR$TGZFILENAME ./etc/cron.d/cacti ./etc/php5/apache2/php.ini ./etc/apache2/sites-available/default ./usr/share/cacti Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space. Schedule the script to run daily at 2:00am by creating “/etc/cron.d/cactibackup” with the following lines: # Cacti backup Schedule 0 2 * * * root /bin/bash /backup/backupcacti.sh &gt; /dev/null 2&gt;&amp;amp;1" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/Cacti-Backup.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/Cacti-Backup.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/Cacti-Backup.html","headline":"Cacti Backup","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/Cacti-Backup.html"},"description":"Here is a Cacti backup script that I found the book “Cacti 0.8 Beginner’s Guide.” It’s really handy if you’ve gone through all the trouble to install and configure the PA. It seems to work, but I haven’t done a restore yet. #!/bin/bash#Set Variables DATE=`date +%Y%m%d` FILENAME=&quot;cacti_database_$DATE.sql&quot;; BACKUPDIR=&quot;/backup/&quot;; TGZFILENAME=&quot;cacti_files_$DATE.tgz&quot;; DBUSER=&quot;&lt;dbuser&gt;&quot;; DBPWD=&quot;&lt;dbpassword&gt;&quot;; DBNAME=&quot;cacti&quot;; GZIP=&quot;/bin/gzip -f&quot;; cd / #Remove files older than 3 days find /backup/cacti_*gz -mtime +3 -exec rm {} \\; #Backup Cacti Database mysqldump --user=$DBUSER --password=$DBPWD --add-drop-table --databases $DBNAME &gt; $BACKUPDIR$FILENAME $GZIP $BACKUPDIR$FILENAME #Backup Important Files tar -csvpf $BACKUPDIR$TGZFILENAME ./etc/cron.d/cacti ./etc/php5/apache2/php.ini ./etc/apache2/sites-available/default ./usr/share/cacti Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space. Schedule the script to run daily at 2:00am by creating “/etc/cron.d/cactibackup” with the following lines: # Cacti backup Schedule 0 2 * * * root /bin/bash /backup/backupcacti.sh &gt; /dev/null 2&gt;&amp;amp;1","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Cacti Backup</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Here is a Cacti backup script that I found the book “Cacti 0.8 Beginner’s Guide.” It’s really handy if you’ve gone through all the trouble to install and configure the PA.</p>
+
+<p>It seems to work, but I haven’t done a restore yet.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/bin/bash#Set Variables
+</span>
+<span class="no">DATE</span><span class="o">=</span><span class="sb">`date +%Y%m%d`</span>
+<span class="no">FILENAME</span><span class="o">=</span><span class="s2">"cacti_database_$DATE.sql"</span><span class="p">;</span>
+<span class="no">BACKUPDIR</span><span class="o">=</span><span class="s2">"/backup/"</span><span class="p">;</span>
+<span class="no">TGZFILENAME</span><span class="o">=</span><span class="s2">"cacti_files_$DATE.tgz"</span><span class="p">;</span>
+<span class="no">DBUSER</span><span class="o">=</span><span class="s2">"&lt;dbuser&gt;"</span><span class="p">;</span>
+<span class="no">DBPWD</span><span class="o">=</span><span class="s2">"&lt;dbpassword&gt;"</span><span class="p">;</span>
+<span class="no">DBNAME</span><span class="o">=</span><span class="s2">"cacti"</span><span class="p">;</span>
+<span class="no">GZIP</span><span class="o">=</span><span class="s2">"/bin/gzip -f"</span><span class="p">;</span>
+
+<span class="n">cd</span> <span class="o">/</span>
+
+<span class="c1">#Remove files older than 3 days
+</span>
+<span class="n">find</span> <span class="sr">/backup/</span><span class="n">cacti_</span><span class="o">*</span><span class="n">gz</span> <span class="o">-</span><span class="n">mtime</span> <span class="o">+</span><span class="mi">3</span> <span class="o">-</span><span class="nb">exec</span> <span class="n">rm</span> <span class="p">{}</span> <span class="p">\;</span>
+
+<span class="c1">#Backup Cacti Database
+</span>
+<span class="n">mysqldump</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="vg">$DBUSER</span> <span class="o">--</span><span class="n">password</span><span class="o">=</span><span class="vg">$DBPWD</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">drop</span><span class="o">-</span><span class="n">table</span> <span class="o">--</span><span class="n">databases</span> <span class="vg">$DBNAME</span> <span class="o">&gt;</span> <span class="vg">$BACKUPDIR$FILENAME</span>
+<span class="vg">$GZIP</span> <span class="vg">$BACKUPDIR$FILENAME</span>
+
+<span class="c1">#Backup Important Files
+</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">csvpf</span> <span class="vg">$BACKUPDIR$TGZFILENAME</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="p">.</span><span class="nf">d</span><span class="o">/</span><span class="n">cacti</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php5</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">php</span><span class="p">.</span><span class="nf">ini</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">default</span> <span class="p">.</span><span class="nf">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">cacti</span></code></pre></figure>
+
+<p>Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space.</p>
+
+<p>Schedule the script to run daily at 2:00am by creating “/etc/cron.d/cactibackup” with the following lines:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Cacti backup Schedule
+</span>
+<span class="mi">0</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">root</span> <span class="sr">/bin/</span><span class="n">bash</span> <span class="sr">/backup/</span><span class="n">backupcacti</span><span class="p">.</span><span class="nf">sh</span> <span class="o">&gt;</span> <span class="sr">/dev/nu</span><span class="n">ll</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="n">amp</span><span class="p">;</span><span class="mi">1</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/Cacti-Backup.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

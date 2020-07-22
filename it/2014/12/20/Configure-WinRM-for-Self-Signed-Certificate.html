@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Configure WinRM for Self-Signed Certificate | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Configure WinRM for Self-Signed Certificate" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="First, create the self-sighed certificate using the New-SelfSignedCertificate cmdlet. New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\LocalMachine\My Example Results: PS C:\&gt; New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\LocalMachine\My Directory: Microsoft.PowerShell.Security\Certificate::LocalMachine\My Thumbprint Subject ---------- ------- 65C6C9F1B062FE48E53687AA226F6FF1655AFBCC CN=comp-name.domain.tdl Next, configure the WinRM listener to use the certificate that you created by specifying its thumbprint (place all on one line). winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; Notice the single quotes in the command. This allows the command to be run from PowerShell. Example Results: PS C:\&gt; winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; ResourceCreated Address = http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous ReferenceParameters ResourceURI = http://schemas.microsoft.com/wbem/wsman/1/config/listener SelectorSet Selector: Address = *, Transport = HTTPS Lastly, make sure that the WinRM traffic is allowed through the firewall. Create a rule with the name “Windows Remote Management (HTTPS-In)” that allows TCP/5986 through. New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP To connect to the host from another client use the following code: $Options = New-PsSessionOption -SkipCACheck etsn -cn comp-name.domain.tdl -Credential $(get-credential) -UseSSL -SessionOption $Options The following PowerShell script will configure the WinRM service create the HTTPS WinRM listener with a self-signed certificate and create a firewall rule: If ((Get-Service WinRM).status -eq &quot;Stopped&quot;) {Start-Service WinRM} $DNSName = $(Get-WmiObject -class win32_computersystem).name + &quot;.&quot; + $(Get-WmiObject -class win32_computersystem).domain $Name = $(Get-WmiObject -class win32_computersystem).name $cert = New-SelfSignedCertificate -DnsName $ENV:COMPUTERNAME, &quot;$env:COMPUTERNAME.$env:USERDNSDOMAIN&quot;.ToLower() -CertStoreLocation Cert:\LocalMachine\My $Config = &#39;@{Hostname=&quot;&#39; + $ENV:COMPUTERNAME + &#39;&quot;;CertificateThumbprint=&quot;&#39; + $cert.Thumbprint + &#39;&quot;}&#39; winrm create winrm/config/listener?Address=*+TransPort=HTTPS $Config If (-Not(get-netfirewallrule &quot;Windows Remote Management (HTTPS-In)&quot;)) { New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP }" />
+<meta property="og:description" content="First, create the self-sighed certificate using the New-SelfSignedCertificate cmdlet. New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\LocalMachine\My Example Results: PS C:\&gt; New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\LocalMachine\My Directory: Microsoft.PowerShell.Security\Certificate::LocalMachine\My Thumbprint Subject ---------- ------- 65C6C9F1B062FE48E53687AA226F6FF1655AFBCC CN=comp-name.domain.tdl Next, configure the WinRM listener to use the certificate that you created by specifying its thumbprint (place all on one line). winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; Notice the single quotes in the command. This allows the command to be run from PowerShell. Example Results: PS C:\&gt; winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; ResourceCreated Address = http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous ReferenceParameters ResourceURI = http://schemas.microsoft.com/wbem/wsman/1/config/listener SelectorSet Selector: Address = *, Transport = HTTPS Lastly, make sure that the WinRM traffic is allowed through the firewall. Create a rule with the name “Windows Remote Management (HTTPS-In)” that allows TCP/5986 through. New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP To connect to the host from another client use the following code: $Options = New-PsSessionOption -SkipCACheck etsn -cn comp-name.domain.tdl -Credential $(get-credential) -UseSSL -SessionOption $Options The following PowerShell script will configure the WinRM service create the HTTPS WinRM listener with a self-signed certificate and create a firewall rule: If ((Get-Service WinRM).status -eq &quot;Stopped&quot;) {Start-Service WinRM} $DNSName = $(Get-WmiObject -class win32_computersystem).name + &quot;.&quot; + $(Get-WmiObject -class win32_computersystem).domain $Name = $(Get-WmiObject -class win32_computersystem).name $cert = New-SelfSignedCertificate -DnsName $ENV:COMPUTERNAME, &quot;$env:COMPUTERNAME.$env:USERDNSDOMAIN&quot;.ToLower() -CertStoreLocation Cert:\LocalMachine\My $Config = &#39;@{Hostname=&quot;&#39; + $ENV:COMPUTERNAME + &#39;&quot;;CertificateThumbprint=&quot;&#39; + $cert.Thumbprint + &#39;&quot;}&#39; winrm create winrm/config/listener?Address=*+TransPort=HTTPS $Config If (-Not(get-netfirewallrule &quot;Windows Remote Management (HTTPS-In)&quot;)) { New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP }" />
+<link rel="canonical" href="http://localhost:4000/it/2014/12/20/Configure-WinRM-for-Self-Signed-Certificate.html" />
+<meta property="og:url" content="http://localhost:4000/it/2014/12/20/Configure-WinRM-for-Self-Signed-Certificate.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-12-20T23:00:00-06:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2014/12/20/Configure-WinRM-for-Self-Signed-Certificate.html","headline":"Configure WinRM for Self-Signed Certificate","dateModified":"2014-12-20T23:00:00-06:00","datePublished":"2014-12-20T23:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2014/12/20/Configure-WinRM-for-Self-Signed-Certificate.html"},"description":"First, create the self-sighed certificate using the New-SelfSignedCertificate cmdlet. New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\\LocalMachine\\My Example Results: PS C:\\&gt; New-SelfSignedCertificate -DnsName comp-name.domain.tdl -CertStoreLocation Cert:\\LocalMachine\\My Directory: Microsoft.PowerShell.Security\\Certificate::LocalMachine\\My Thumbprint Subject ---------- ------- 65C6C9F1B062FE48E53687AA226F6FF1655AFBCC CN=comp-name.domain.tdl Next, configure the WinRM listener to use the certificate that you created by specifying its thumbprint (place all on one line). winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; Notice the single quotes in the command. This allows the command to be run from PowerShell. Example Results: PS C:\\&gt; winrm create winrm/config/listener?Address=*+Transport=HTTPS &#39;@{Hostname=&quot;comp-name.domain.tdl&quot;;CertificateThumbprint=&quot;65C6C9F1B062FE48E53687AA226F6FF1655AFBCC&quot;;port=&quot;5986&quot;}&#39; ResourceCreated Address = http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous ReferenceParameters ResourceURI = http://schemas.microsoft.com/wbem/wsman/1/config/listener SelectorSet Selector: Address = *, Transport = HTTPS Lastly, make sure that the WinRM traffic is allowed through the firewall. Create a rule with the name “Windows Remote Management (HTTPS-In)” that allows TCP/5986 through. New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP To connect to the host from another client use the following code: $Options = New-PsSessionOption -SkipCACheck etsn -cn comp-name.domain.tdl -Credential $(get-credential) -UseSSL -SessionOption $Options The following PowerShell script will configure the WinRM service create the HTTPS WinRM listener with a self-signed certificate and create a firewall rule: If ((Get-Service WinRM).status -eq &quot;Stopped&quot;) {Start-Service WinRM} $DNSName = $(Get-WmiObject -class win32_computersystem).name + &quot;.&quot; + $(Get-WmiObject -class win32_computersystem).domain $Name = $(Get-WmiObject -class win32_computersystem).name $cert = New-SelfSignedCertificate -DnsName $ENV:COMPUTERNAME, &quot;$env:COMPUTERNAME.$env:USERDNSDOMAIN&quot;.ToLower() -CertStoreLocation Cert:\\LocalMachine\\My $Config = &#39;@{Hostname=&quot;&#39; + $ENV:COMPUTERNAME + &#39;&quot;;CertificateThumbprint=&quot;&#39; + $cert.Thumbprint + &#39;&quot;}&#39; winrm create winrm/config/listener?Address=*+TransPort=HTTPS $Config If (-Not(get-netfirewallrule &quot;Windows Remote Management (HTTPS-In)&quot;)) { New-NetFirewallRule -DisplayName &quot;Windows Remote Management (HTTPS-In)&quot; -Name &quot;Windows Remote Management (HTTPS-In)&quot; -Profile Any -LocalPort 5986 -Protocol TCP }","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Configure WinRM for Self-Signed Certificate</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2014-12-20T23:00:00-06:00" itemprop="datePublished">Dec 20, 2014
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>First, create the self-sighed certificate using the New-SelfSignedCertificate cmdlet.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">New</span><span class="o">-</span><span class="no">SelfSignedCertificate</span> <span class="o">-</span><span class="no">DnsName</span> <span class="n">comp</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">tdl</span> <span class="o">-</span><span class="no">CertStoreLocation</span> <span class="no">Cert</span><span class="p">:\</span><span class="no">LocalMachine</span><span class="p">\</span><span class="no">My</span></code></pre></figure>
+
+<p>Example Results:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">PS</span> <span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span> <span class="no">New</span><span class="o">-</span><span class="no">SelfSignedCertificate</span> <span class="o">-</span><span class="no">DnsName</span> <span class="n">comp</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">tdl</span> <span class="o">-</span><span class="no">CertStoreLocation</span> <span class="no">Cert</span><span class="p">:\</span><span class="no">LocalMachine</span><span class="p">\</span><span class="no">My</span>
+
+<span class="no">Directory</span><span class="p">:</span> <span class="no">Microsoft</span><span class="o">.</span><span class="no">PowerShell</span><span class="o">.</span><span class="no">Security</span><span class="p">\</span><span class="no">Certificate</span><span class="o">::</span><span class="no">LocalMachine</span><span class="p">\</span><span class="no">My</span>
+
+<span class="no">Thumbprint</span>                                <span class="no">Subject</span>
+<span class="o">----------</span>                                <span class="o">-------</span>
+<span class="mi">65</span><span class="no">C6C9F1B062FE48E53687AA226F6FF1655AFBCC</span>  <span class="no">CN</span><span class="o">=</span><span class="n">comp</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">tdl</span></code></pre></figure>
+
+<p>Next, configure the WinRM listener to use the certificate that you created by specifying its thumbprint (place all on one line).</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">winrm</span> <span class="n">create</span> <span class="n">winrm</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">listener?</span><span class="no">Address</span><span class="o">=*+</span><span class="no">Transport</span><span class="o">=</span><span class="no">HTTPS</span> <span class="s1">'@{Hostname="comp-name.domain.tdl";CertificateThumbprint="65C6C9F1B062FE48E53687AA226F6FF1655AFBCC";port="5986"}'</span></code></pre></figure>
+
+<p>Notice the single quotes in the command. This allows the command to be run from PowerShell.</p>
+
+<p>Example Results:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">PS</span> <span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span> <span class="n">winrm</span> <span class="n">create</span> <span class="n">winrm</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">listener?</span><span class="no">Address</span><span class="o">=*+</span><span class="no">Transport</span><span class="o">=</span><span class="no">HTTPS</span> <span class="s1">'@{Hostname="comp-name.domain.tdl";CertificateThumbprint="65C6C9F1B062FE48E53687AA226F6FF1655AFBCC";port="5986"}'</span>
+<span class="no">ResourceCreated</span>
+<span class="no">Address</span> <span class="o">=</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">schemas</span><span class="p">.</span><span class="nf">xmlsoap</span><span class="p">.</span><span class="nf">org</span><span class="o">/</span><span class="n">ws</span><span class="o">/</span><span class="mi">2004</span><span class="o">/</span><span class="mi">08</span><span class="o">/</span><span class="n">addressing</span><span class="o">/</span><span class="n">role</span><span class="o">/</span><span class="n">anonymous</span>
+<span class="no">ReferenceParameters</span>
+<span class="no">ResourceURI</span> <span class="o">=</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">schemas</span><span class="p">.</span><span class="nf">microsoft</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">wbem</span><span class="o">/</span><span class="n">wsman</span><span class="o">/</span><span class="mi">1</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">listener</span>
+<span class="no">SelectorSet</span>
+<span class="no">Selector</span><span class="p">:</span> <span class="no">Address</span> <span class="o">=</span> <span class="o">*</span><span class="p">,</span> <span class="no">Transport</span> <span class="o">=</span> <span class="no">HTTPS</span></code></pre></figure>
+
+<p>Lastly, make sure that the WinRM traffic is allowed through the firewall. Create a rule with the name “Windows Remote Management (HTTPS-In)” that allows TCP/5986 through.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">New</span><span class="o">-</span><span class="no">NetFirewallRule</span> <span class="o">-</span><span class="no">DisplayName</span> <span class="s2">"Windows Remote Management (HTTPS-In)"</span> <span class="o">-</span><span class="no">Name</span> <span class="s2">"Windows Remote Management (HTTPS-In)"</span> <span class="o">-</span><span class="no">Profile</span> <span class="no">Any</span> <span class="o">-</span><span class="no">LocalPort</span> <span class="mi">5986</span> <span class="o">-</span><span class="no">Protocol</span> <span class="no">TCP</span></code></pre></figure>
+
+<p>To connect to the host from another client use the following code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Options</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">PsSessionOption</span> <span class="o">-</span><span class="no">SkipCACheck</span>
+<span class="n">etsn</span> <span class="o">-</span><span class="n">cn</span> <span class="n">comp</span><span class="o">-</span><span class="nb">name</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">tdl</span> <span class="o">-</span><span class="no">Credential</span> <span class="err">$</span><span class="p">(</span><span class="n">get</span><span class="o">-</span><span class="n">credential</span><span class="p">)</span> <span class="o">-</span><span class="no">UseSSL</span> <span class="o">-</span><span class="no">SessionOption</span> <span class="vg">$Options</span></code></pre></figure>
+
+<p>The following PowerShell script will configure the WinRM service create the HTTPS WinRM listener with a self-signed certificate and create a firewall rule:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">If</span> <span class="p">((</span><span class="no">Get</span><span class="o">-</span><span class="no">Service</span> <span class="no">WinRM</span><span class="p">).</span><span class="nf">status</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"Stopped"</span><span class="p">)</span> <span class="p">{</span><span class="no">Start</span><span class="o">-</span><span class="no">Service</span> <span class="no">WinRM</span><span class="p">}</span>
+
+<span class="vg">$DNSName</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">WmiObject</span> <span class="o">-</span><span class="k">class</span> <span class="n">win32_computersystem</span><span class="p">).</span><span class="nf">name</span> <span class="o">+</span> <span class="s2">"."</span> <span class="o">+</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">WmiObject</span> <span class="o">-</span><span class="k">class</span> <span class="n">win32_computersystem</span><span class="p">).</span><span class="nf">domain</span>
+<span class="vg">$Name</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">WmiObject</span> <span class="o">-</span><span class="k">class</span> <span class="n">win32_computersystem</span><span class="p">).</span><span class="nf">name</span>
+
+<span class="vg">$cert</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">SelfSignedCertificate</span> <span class="o">-</span><span class="no">DnsName</span> <span class="vg">$ENV</span><span class="ss">:COMPUTERNAME</span><span class="p">,</span> <span class="s2">"$env:COMPUTERNAME.$env:USERDNSDOMAIN"</span><span class="o">.</span><span class="no">ToLower</span><span class="p">()</span> <span class="o">-</span><span class="no">CertStoreLocation</span> <span class="no">Cert</span><span class="p">:\</span><span class="no">LocalMachine</span><span class="p">\</span><span class="no">My</span>
+<span class="vg">$Config</span> <span class="o">=</span> <span class="s1">'@{Hostname="'</span> <span class="o">+</span> <span class="vg">$ENV</span><span class="ss">:COMPUTERNAME</span> <span class="o">+</span> <span class="s1">'";CertificateThumbprint="'</span> <span class="o">+</span> <span class="vg">$cert</span><span class="o">.</span><span class="no">Thumbprint</span> <span class="o">+</span> <span class="s1">'"}'</span>
+<span class="n">winrm</span> <span class="n">create</span> <span class="n">winrm</span><span class="o">/</span><span class="n">config</span><span class="o">/</span><span class="n">listener?</span><span class="no">Address</span><span class="o">=*+</span><span class="no">TransPort</span><span class="o">=</span><span class="no">HTTPS</span> <span class="vg">$Config</span>
+
+<span class="no">If</span> <span class="p">(</span><span class="o">-</span><span class="no">Not</span><span class="p">(</span><span class="n">get</span><span class="o">-</span><span class="n">netfirewallrule</span> <span class="s2">"Windows Remote Management (HTTPS-In)"</span><span class="p">))</span> <span class="p">{</span>
+<span class="no">New</span><span class="o">-</span><span class="no">NetFirewallRule</span> <span class="o">-</span><span class="no">DisplayName</span> <span class="s2">"Windows Remote Management (HTTPS-In)"</span> <span class="o">-</span><span class="no">Name</span> <span class="s2">"Windows Remote Management (HTTPS-In)"</span> <span class="o">-</span><span class="no">Profile</span> <span class="no">Any</span> <span class="o">-</span><span class="no">LocalPort</span> <span class="mi">5986</span> <span class="o">-</span><span class="no">Protocol</span> <span class="no">TCP</span>
+<span class="p">}</span></code></pre></figure>
+
+
+  </div><a class="u-url" href="/it/2014/12/20/Configure-WinRM-for-Self-Signed-Certificate.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

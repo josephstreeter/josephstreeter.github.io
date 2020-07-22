@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Microsoft Tools to Configure Local Group Policy | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Microsoft Tools to Configure Local Group Policy" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I was doing some digging into a fully automated install and noticed some tools. By the names of them I couldn’t tell if they were provided my Microsoft or home grown for these deployments. Turns out that they are Microsoft tools and can be downloaded here: Utilities for automating Local Group Policy management These tools allow you to apply policy based Group Policy settings to the local Group Policy Object using text files for input. For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below: ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall PolicyVersion DWORD:0x00000200; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DefaultOutboundAction DWORD:0x00000000 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DefaultInboundAction DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile AllowLocalPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile AllowLocalIPsecPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DisableNotifications DWORD:0x00000000 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DisableUnicastResponsesToMulticastBroadcast DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile EnableFirewall DWORD:0x00000001 The command you run looks something like: Here is a bit of the documentation that comes with the tool. Command line syntax and usage: Apply_LGPO_Delta.exe inputfile0 [inputfile1 …] [/log LogFile] [/error ErrorLogFile] [/boot] inputfileN One or more input files specifying the changes to make. Input files must be security template files, or registry-based policy files using a custom file format described below. Apply_LGPO_Delta automatically determines whether a file is a custom policy file or a security template. Security templates can be created using the Security Templates MMC snap-in. /log LogFile Writes detailed results to a log file. If this option is not specified, output is not logged nor displayed. /error ErrorLogFile Writes error information to a log file. If this option is not specified, error information is displayed in a message box dialog. /boot Reboots the computer when done. This utility is not a console app, so you won’t see a console window appear, and if you start it from a CMD prompt, it will run in the background â€“ CMD won’t wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with “start /wait”. Usage is demonstrated in the SampleUsage.cmd batch file that comes with Apply_LGPO_Delta. Input files: Apply_LGPO_Delta accepts two types of input files: security templates, and registry-based policy files. Apply_LGPO_Delta automatically determines whether each input file is a security template or a policy file and handles each appropriately. Although security template files are text files that can be created or edited with Notepad, the MMC Security Templates snap-in is the recommended security template editor that ensures correct formatting and syntax. Apply_LGPO_Delta runs a secedit.exe /configure â€¦ command for each security template on the command line to import its settings. If the /log option is used, Apply_LGPO_Delta captures all secedit.exe output into the log file. Note that you may see secedit.exe in the process list (e.g., in Task Manager), but no visible window for it. Windows normally uses registry.pol files to describe registry-based policy settings. Registry.pol is a documented, binary file format, but there aren’t any good viewers or editors for directly manipulating those files. Therefore, for registry-based policy, a custom, Notepad-editable file format has been defined for Apply_LGPO_Delta. It is described in detail below. Apply_LGPO_Delta parses each file, and Group Policy APIs are used to apply them to local policy. (ImportRegPol.exe can parse registry.pol files and produce text files that Apply_LGPO_Delta can consume.)" />
+<meta property="og:description" content="I was doing some digging into a fully automated install and noticed some tools. By the names of them I couldn’t tell if they were provided my Microsoft or home grown for these deployments. Turns out that they are Microsoft tools and can be downloaded here: Utilities for automating Local Group Policy management These tools allow you to apply policy based Group Policy settings to the local Group Policy Object using text files for input. For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below: ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall PolicyVersion DWORD:0x00000200; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DefaultOutboundAction DWORD:0x00000000 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DefaultInboundAction DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile AllowLocalPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile AllowLocalIPsecPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DisableNotifications DWORD:0x00000000 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile DisableUnicastResponsesToMulticastBroadcast DWORD:0x00000001 ; Description Computer SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile EnableFirewall DWORD:0x00000001 The command you run looks something like: Here is a bit of the documentation that comes with the tool. Command line syntax and usage: Apply_LGPO_Delta.exe inputfile0 [inputfile1 …] [/log LogFile] [/error ErrorLogFile] [/boot] inputfileN One or more input files specifying the changes to make. Input files must be security template files, or registry-based policy files using a custom file format described below. Apply_LGPO_Delta automatically determines whether a file is a custom policy file or a security template. Security templates can be created using the Security Templates MMC snap-in. /log LogFile Writes detailed results to a log file. If this option is not specified, output is not logged nor displayed. /error ErrorLogFile Writes error information to a log file. If this option is not specified, error information is displayed in a message box dialog. /boot Reboots the computer when done. This utility is not a console app, so you won’t see a console window appear, and if you start it from a CMD prompt, it will run in the background â€“ CMD won’t wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with “start /wait”. Usage is demonstrated in the SampleUsage.cmd batch file that comes with Apply_LGPO_Delta. Input files: Apply_LGPO_Delta accepts two types of input files: security templates, and registry-based policy files. Apply_LGPO_Delta automatically determines whether each input file is a security template or a policy file and handles each appropriately. Although security template files are text files that can be created or edited with Notepad, the MMC Security Templates snap-in is the recommended security template editor that ensures correct formatting and syntax. Apply_LGPO_Delta runs a secedit.exe /configure â€¦ command for each security template on the command line to import its settings. If the /log option is used, Apply_LGPO_Delta captures all secedit.exe output into the log file. Note that you may see secedit.exe in the process list (e.g., in Task Manager), but no visible window for it. Windows normally uses registry.pol files to describe registry-based policy settings. Registry.pol is a documented, binary file format, but there aren’t any good viewers or editors for directly manipulating those files. Therefore, for registry-based policy, a custom, Notepad-editable file format has been defined for Apply_LGPO_Delta. It is described in detail below. Apply_LGPO_Delta parses each file, and Group Policy APIs are used to apply them to local policy. (ImportRegPol.exe can parse registry.pol files and produce text files that Apply_LGPO_Delta can consume.)" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/19/Microsoft-Tools-to-Configure-Local-Group-Policy.html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/19/Microsoft-Tools-to-Configure-Local-Group-Policy.html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/19/Microsoft-Tools-to-Configure-Local-Group-Policy.html","headline":"Microsoft Tools to Configure Local Group Policy","dateModified":"2012-10-19T00:00:00-05:00","datePublished":"2012-10-19T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/19/Microsoft-Tools-to-Configure-Local-Group-Policy.html"},"description":"I was doing some digging into a fully automated install and noticed some tools. By the names of them I couldn’t tell if they were provided my Microsoft or home grown for these deployments. Turns out that they are Microsoft tools and can be downloaded here: Utilities for automating Local Group Policy management These tools allow you to apply policy based Group Policy settings to the local Group Policy Object using text files for input. For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below: ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall PolicyVersion DWORD:0x00000200; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile DefaultOutboundAction DWORD:0x00000000 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile DefaultInboundAction DWORD:0x00000001 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile AllowLocalPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile AllowLocalIPsecPolicyMerge DWORD:0x00000001 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile DisableNotifications DWORD:0x00000000 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile DisableUnicastResponsesToMulticastBroadcast DWORD:0x00000001 ; Description Computer SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile EnableFirewall DWORD:0x00000001 The command you run looks something like: Here is a bit of the documentation that comes with the tool. Command line syntax and usage: Apply_LGPO_Delta.exe inputfile0 [inputfile1 …] [/log LogFile] [/error ErrorLogFile] [/boot] inputfileN One or more input files specifying the changes to make. Input files must be security template files, or registry-based policy files using a custom file format described below. Apply_LGPO_Delta automatically determines whether a file is a custom policy file or a security template. Security templates can be created using the Security Templates MMC snap-in. /log LogFile Writes detailed results to a log file. If this option is not specified, output is not logged nor displayed. /error ErrorLogFile Writes error information to a log file. If this option is not specified, error information is displayed in a message box dialog. /boot Reboots the computer when done. This utility is not a console app, so you won’t see a console window appear, and if you start it from a CMD prompt, it will run in the background â€“ CMD won’t wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with “start /wait”. Usage is demonstrated in the SampleUsage.cmd batch file that comes with Apply_LGPO_Delta. Input files: Apply_LGPO_Delta accepts two types of input files: security templates, and registry-based policy files. Apply_LGPO_Delta automatically determines whether each input file is a security template or a policy file and handles each appropriately. Although security template files are text files that can be created or edited with Notepad, the MMC Security Templates snap-in is the recommended security template editor that ensures correct formatting and syntax. Apply_LGPO_Delta runs a secedit.exe /configure â€¦ command for each security template on the command line to import its settings. If the /log option is used, Apply_LGPO_Delta captures all secedit.exe output into the log file. Note that you may see secedit.exe in the process list (e.g., in Task Manager), but no visible window for it. Windows normally uses registry.pol files to describe registry-based policy settings. Registry.pol is a documented, binary file format, but there aren’t any good viewers or editors for directly manipulating those files. Therefore, for registry-based policy, a custom, Notepad-editable file format has been defined for Apply_LGPO_Delta. It is described in detail below. Apply_LGPO_Delta parses each file, and Group Policy APIs are used to apply them to local policy. (ImportRegPol.exe can parse registry.pol files and produce text files that Apply_LGPO_Delta can consume.)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Microsoft Tools to Configure Local Group Policy</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-19T00:00:00-05:00" itemprop="datePublished">Oct 19, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I was doing some digging into a fully automated install and noticed some tools. By the names of them I couldn’t tell if they were provided my Microsoft or home grown for these deployments.</p>
+
+<p>Turns out that they are Microsoft tools and can be downloaded here:
+<a href="http://blogs.technet.com/b/fdcc/archive/2008/05/07/lgpo-utilities.aspx">Utilities for automating Local Group Policy management</a></p>
+
+<p>These tools allow you to apply policy based Group Policy settings to the local Group Policy Object using text files for input.</p>
+
+<p>For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">;</span> 
+<span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span>
+<span class="no">PolicyVersion</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000200</span><span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">DefaultOutboundAction</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000000</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">DefaultInboundAction</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">AllowLocalPolicyMerge</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">AllowLocalIPsecPolicyMerge</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">DisableNotifications</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000000</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">DisableUnicastResponsesToMulticastBroadcast</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+
+<span class="p">;</span> <span class="no">Description</span>
+<span class="no">Computer</span>
+<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
+<span class="no">EnableFirewall</span>
+<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span></code></pre></figure>
+
+<p>The command you run looks something like:</p>
+
+<p>Here is a bit of the documentation that comes with the tool.</p>
+
+<p><strong><em>Command line syntax and usage:</em></strong></p>
+
+<p>Apply_LGPO_Delta.exe inputfile0 [inputfile1 …] [/log LogFile] [/error ErrorLogFile] [/boot]</p>
+
+<p><strong><em>inputfileN</em></strong> One or more input files specifying the changes to make. Input files must be security template files, or registry-based policy files using a custom file format described below. Apply_LGPO_Delta automatically determines whether a file is a custom policy file or a security template. Security templates can be created using the Security Templates MMC snap-in.</p>
+
+<p><strong><em>/log LogFile</em></strong> Writes detailed results to a log file. If this option is not specified, output is not logged nor displayed.</p>
+
+<p><strong><em>/error ErrorLogFile</em></strong> Writes error information to a log file. If this option is not specified, error information is displayed in a message box dialog.</p>
+
+<p><strong><em>/boot</em></strong> Reboots the computer when done.</p>
+
+<p>This utility is not a console app, so you won’t see a console window appear, and if you start it from a CMD prompt, it will run in the background â€“ CMD won’t wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with “start /wait”.</p>
+
+<p>Usage is demonstrated in the SampleUsage.cmd batch file that comes with Apply_LGPO_Delta.</p>
+
+<p><strong><em>Input files:</em></strong></p>
+
+<p>Apply_LGPO_Delta accepts two types of input files: security templates, and registry-based policy files. Apply_LGPO_Delta automatically determines whether each input file is a security template or a policy file and handles each appropriately.</p>
+
+<p>Although security template files are text files that can be created or edited with Notepad, the MMC Security Templates snap-in is the recommended security template editor that ensures correct formatting and syntax. Apply_LGPO_Delta runs a secedit.exe /configure â€¦ command for each security template on the command line to import its settings. If the /log option is used, Apply_LGPO_Delta captures all secedit.exe output into the log file. Note that you may see secedit.exe in the process list (e.g., in Task Manager), but no visible window for it.</p>
+
+<p>Windows normally uses registry.pol files to describe registry-based policy settings. Registry.pol is a documented, binary file format, but there aren’t any good viewers or editors for directly manipulating those files. Therefore, for registry-based policy, a custom, Notepad-editable file format has been defined for Apply_LGPO_Delta. It is described in detail below. Apply_LGPO_Delta parses each file, and Group Policy APIs are used to apply them to local policy. (ImportRegPol.exe can parse registry.pol files and produce text files that Apply_LGPO_Delta can consume.)</p>
+
+
+  </div><a class="u-url" href="/it/2012/10/19/Microsoft-Tools-to-Configure-Local-Group-Policy.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

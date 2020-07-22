@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Displaying Logs in Splunk (Updated) | Crusader Two-One</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Displaying Logs in Splunk (Updated)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="HOWTO: Simple Splunk install and config INSTALLING SPLUNK 1) Navigate to the /opt directory (the default for most Splunk installs… don’t ask me why) 2) Grab Splunk from the offical repositories with the wget command 3) Unpack the downloaded .tgz file using tar 4) Run the script to install/start Splunk cd /opt sudo wget &#39;http://www.splunk.com/index.php/download_track?file=3.4.8/linux/splunk-3.4.8-54309-Linux-i686.tgz&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; sudo tar xvfz splunk-3.4.6-51113-Linux-i686.tgz sudo splunk/bin/splunk start Here is the link for 4.2.2 wget -O splunk-4.2.2-101277-linux-2.6-amd64.deb &#39;http://www.splunk.com/index.php/download_track?file=4.2.2/splunk/linux/splunk-4.2.2-101277-linux-2.6-amd64.deb&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at http://your.server.ip.address:8000 Simple, no? UPGRADING SPLUNK Stop the old version, download the new version and extract it in the same folder. Start Splunk back up and it will recognize the upgrade. cd /opt sudo splunk/bin/splunk stop sudo wget &#39;new-splunk-version-link-goes-here&#39; sudo tar xvfz new-splunk-downloaded-version.tgz sudo splunk/bin/splunk start CONFIGURING SPLUNK This step will vary, depending on your needs. I still recommend a few settings for everyone: Listen for logs on port 514: Most devices and many apps (including syslog) use port 514 for sending log info. You’ll want Splunk to be listening. navigate to your Splunk web UI (http://your.server.ip.address:8000) click “Admin” click “Data Inputs” click “Network Ports” “New Input” button. choose “UDP” and the port number will automagically change to 514. click the “Submit” button to save the configuration change Start upon bootup: Pretty self-explanatory. When the machine boots up, so does Splunk. Code: sudo /opt/splunk/bin/splunk enable boot-startOnly allow certain IP addresses to access the Web UI: Since the free version of Splunk doesn&#39;t secure the web UI, I lock down access to all that sensitive information through iptables. Obviously, you&#39;ll want to replace &quot;ip.address1.to.allow&quot; with your address or a range you want to allow access from (i.e. 10.10.10.35 or 10.10.10.0/24). Code: sudo iptables -A INPUT -s ip.address1.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -s ip.address2.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -p tcp --dport 8000 -j DROP SEND MAC/LINUX LOGS TO SPLUNK: This is a two step process where you add your Slunk server to the list of known hosts on the client machine and then tell the syslog process to forward logs to Splunk. Add the following line to /etc/hosts (NOTE: Use tabs, spaces won’t work.) Code: ip.address.of.splunkserver splunkserver Where splunkserver is the name of your Splunk server. Now, add the following lines to /etc/syslog.conf: Code: # additional config for sending logs to splunk *.info @splunkseverWhere *.info is the level of detail you desire to be sent. SEND WINDOWS LOGS TO SPLUNK Download and Install Snare here: http://www.intersectalliance.com/dow…-MultiArch.exe Open the Snare interface to configure its log management: Click on “Network Configuration” Set the “Destination Snare Server Address” to Splunk’s IP Change “Destination Port” to 514 Click the checkbox to “Enable SYSLOG header” Select your desired “Syslog Priority” level from the drop down menu. Click the “Change Configuration” button You might need to add an exception for Snare in the Windows Firewall. (tested in XP) Navigate to the Windows Firwall settings (Start &gt; Control Panel &gt; Windows Firewall) Click on the Exceptions Tab Click the “Add Program” button Browse to C:\Program Files\Snare\SnareCore (or wherever you installed Snare)" />
+<meta property="og:description" content="HOWTO: Simple Splunk install and config INSTALLING SPLUNK 1) Navigate to the /opt directory (the default for most Splunk installs… don’t ask me why) 2) Grab Splunk from the offical repositories with the wget command 3) Unpack the downloaded .tgz file using tar 4) Run the script to install/start Splunk cd /opt sudo wget &#39;http://www.splunk.com/index.php/download_track?file=3.4.8/linux/splunk-3.4.8-54309-Linux-i686.tgz&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; sudo tar xvfz splunk-3.4.6-51113-Linux-i686.tgz sudo splunk/bin/splunk start Here is the link for 4.2.2 wget -O splunk-4.2.2-101277-linux-2.6-amd64.deb &#39;http://www.splunk.com/index.php/download_track?file=4.2.2/splunk/linux/splunk-4.2.2-101277-linux-2.6-amd64.deb&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at http://your.server.ip.address:8000 Simple, no? UPGRADING SPLUNK Stop the old version, download the new version and extract it in the same folder. Start Splunk back up and it will recognize the upgrade. cd /opt sudo splunk/bin/splunk stop sudo wget &#39;new-splunk-version-link-goes-here&#39; sudo tar xvfz new-splunk-downloaded-version.tgz sudo splunk/bin/splunk start CONFIGURING SPLUNK This step will vary, depending on your needs. I still recommend a few settings for everyone: Listen for logs on port 514: Most devices and many apps (including syslog) use port 514 for sending log info. You’ll want Splunk to be listening. navigate to your Splunk web UI (http://your.server.ip.address:8000) click “Admin” click “Data Inputs” click “Network Ports” “New Input” button. choose “UDP” and the port number will automagically change to 514. click the “Submit” button to save the configuration change Start upon bootup: Pretty self-explanatory. When the machine boots up, so does Splunk. Code: sudo /opt/splunk/bin/splunk enable boot-startOnly allow certain IP addresses to access the Web UI: Since the free version of Splunk doesn&#39;t secure the web UI, I lock down access to all that sensitive information through iptables. Obviously, you&#39;ll want to replace &quot;ip.address1.to.allow&quot; with your address or a range you want to allow access from (i.e. 10.10.10.35 or 10.10.10.0/24). Code: sudo iptables -A INPUT -s ip.address1.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -s ip.address2.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -p tcp --dport 8000 -j DROP SEND MAC/LINUX LOGS TO SPLUNK: This is a two step process where you add your Slunk server to the list of known hosts on the client machine and then tell the syslog process to forward logs to Splunk. Add the following line to /etc/hosts (NOTE: Use tabs, spaces won’t work.) Code: ip.address.of.splunkserver splunkserver Where splunkserver is the name of your Splunk server. Now, add the following lines to /etc/syslog.conf: Code: # additional config for sending logs to splunk *.info @splunkseverWhere *.info is the level of detail you desire to be sent. SEND WINDOWS LOGS TO SPLUNK Download and Install Snare here: http://www.intersectalliance.com/dow…-MultiArch.exe Open the Snare interface to configure its log management: Click on “Network Configuration” Set the “Destination Snare Server Address” to Splunk’s IP Change “Destination Port” to 514 Click the checkbox to “Enable SYSLOG header” Select your desired “Syslog Priority” level from the drop down menu. Click the “Change Configuration” button You might need to add an exception for Snare in the Windows Firewall. (tested in XP) Navigate to the Windows Firwall settings (Start &gt; Control Panel &gt; Windows Firewall) Click on the Exceptions Tab Click the “Add Program” button Browse to C:\Program Files\Snare\SnareCore (or wherever you installed Snare)" />
+<link rel="canonical" href="http://localhost:4000/it/2012/10/18/Displaying-Logs-in-Splunk-(Updated).html" />
+<meta property="og:url" content="http://localhost:4000/it/2012/10/18/Displaying-Logs-in-Splunk-(Updated).html" />
+<meta property="og:site_name" content="Crusader Two-One" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2012-10-18T00:00:00-05:00" />
+<script type="application/ld+json">
+{"@type":"BlogPosting","url":"http://localhost:4000/it/2012/10/18/Displaying-Logs-in-Splunk-(Updated).html","headline":"Displaying Logs in Splunk (Updated)","dateModified":"2012-10-18T00:00:00-05:00","datePublished":"2012-10-18T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/it/2012/10/18/Displaying-Logs-in-Splunk-(Updated).html"},"description":"HOWTO: Simple Splunk install and config INSTALLING SPLUNK 1) Navigate to the /opt directory (the default for most Splunk installs… don’t ask me why) 2) Grab Splunk from the offical repositories with the wget command 3) Unpack the downloaded .tgz file using tar 4) Run the script to install/start Splunk cd /opt sudo wget &#39;http://www.splunk.com/index.php/download_track?file=3.4.8/linux/splunk-3.4.8-54309-Linux-i686.tgz&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; sudo tar xvfz splunk-3.4.6-51113-Linux-i686.tgz sudo splunk/bin/splunk start Here is the link for 4.2.2 wget -O splunk-4.2.2-101277-linux-2.6-amd64.deb &#39;http://www.splunk.com/index.php/download_track?file=4.2.2/splunk/linux/splunk-4.2.2-101277-linux-2.6-amd64.deb&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases&#39; Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at http://your.server.ip.address:8000 Simple, no? UPGRADING SPLUNK Stop the old version, download the new version and extract it in the same folder. Start Splunk back up and it will recognize the upgrade. cd /opt sudo splunk/bin/splunk stop sudo wget &#39;new-splunk-version-link-goes-here&#39; sudo tar xvfz new-splunk-downloaded-version.tgz sudo splunk/bin/splunk start CONFIGURING SPLUNK This step will vary, depending on your needs. I still recommend a few settings for everyone: Listen for logs on port 514: Most devices and many apps (including syslog) use port 514 for sending log info. You’ll want Splunk to be listening. navigate to your Splunk web UI (http://your.server.ip.address:8000) click “Admin” click “Data Inputs” click “Network Ports” “New Input” button. choose “UDP” and the port number will automagically change to 514. click the “Submit” button to save the configuration change Start upon bootup: Pretty self-explanatory. When the machine boots up, so does Splunk. Code: sudo /opt/splunk/bin/splunk enable boot-startOnly allow certain IP addresses to access the Web UI: Since the free version of Splunk doesn&#39;t secure the web UI, I lock down access to all that sensitive information through iptables. Obviously, you&#39;ll want to replace &quot;ip.address1.to.allow&quot; with your address or a range you want to allow access from (i.e. 10.10.10.35 or 10.10.10.0/24). Code: sudo iptables -A INPUT -s ip.address1.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -s ip.address2.to.allow -p tcp --dport 8000 -j ACCEPT sudo iptables -A INPUT -p tcp --dport 8000 -j DROP SEND MAC/LINUX LOGS TO SPLUNK: This is a two step process where you add your Slunk server to the list of known hosts on the client machine and then tell the syslog process to forward logs to Splunk. Add the following line to /etc/hosts (NOTE: Use tabs, spaces won’t work.) Code: ip.address.of.splunkserver splunkserver Where splunkserver is the name of your Splunk server. Now, add the following lines to /etc/syslog.conf: Code: # additional config for sending logs to splunk *.info @splunkseverWhere *.info is the level of detail you desire to be sent. SEND WINDOWS LOGS TO SPLUNK Download and Install Snare here: http://www.intersectalliance.com/dow…-MultiArch.exe Open the Snare interface to configure its log management: Click on “Network Configuration” Set the “Destination Snare Server Address” to Splunk’s IP Change “Destination Port” to 514 Click the checkbox to “Enable SYSLOG header” Select your desired “Syslog Priority” level from the drop down menu. Click the “Change Configuration” button You might need to add an exception for Snare in the Windows Firewall. (tested in XP) Navigate to the Windows Firwall settings (Start &gt; Control Panel &gt; Windows Firewall) Click on the Exceptions Tab Click the “Add Program” button Browse to C:\\Program Files\\Snare\\SnareCore (or wherever you installed Snare)","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Crusader Two-One" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Crusader Two-One</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Displaying Logs in Splunk (Updated)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2012-10-18T00:00:00-05:00" itemprop="datePublished">Oct 18, 2012
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="http://ubuntuforums.org/showthread.php?t=900745">HOWTO: Simple Splunk install and config</a></p>
+
+<p>INSTALLING SPLUNK</p>
+
+<p>1) Navigate to the /opt directory (the default for most Splunk installs… don’t ask me why)
+2) Grab Splunk from the offical repositories with the wget command
+3) Unpack the downloaded .tgz file using tar
+4) Run the script to install/start Splunk</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="sr">/opt
+
+sudo wget 'http:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">splunk</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">index</span><span class="p">.</span><span class="nf">php</span><span class="o">/</span><span class="n">download_track?file</span><span class="o">=</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">8</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">splunk</span><span class="o">-</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">8</span><span class="o">-</span><span class="mi">54309</span><span class="o">-</span><span class="no">Linux</span><span class="o">-</span><span class="n">i686</span><span class="p">.</span><span class="nf">tgz</span><span class="o">&amp;</span><span class="n">ac</span><span class="o">=&amp;</span><span class="n">wget</span><span class="o">=</span><span class="kp">true</span><span class="o">&amp;</span><span class="nb">name</span><span class="o">=</span><span class="n">wget</span><span class="o">&amp;</span><span class="n">typed</span><span class="o">=</span><span class="n">releases</span><span class="err">'</span>
+<span class="n">sudo</span> <span class="n">tar</span> <span class="n">xvfz</span> <span class="n">splunk</span><span class="o">-</span><span class="mf">3.4</span><span class="o">.</span><span class="mi">6</span><span class="o">-</span><span class="mi">51113</span><span class="o">-</span><span class="no">Linux</span><span class="o">-</span><span class="n">i686</span><span class="p">.</span><span class="nf">tgz</span>
+<span class="n">sudo</span> <span class="n">splunk</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">splunk</span> <span class="n">start</span></code></pre></figure>
+
+<p>Here is the link for 4.2.2</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wget</span> <span class="o">-</span><span class="no">O</span> <span class="n">splunk</span><span class="o">-</span><span class="mf">4.2</span><span class="o">.</span><span class="mi">2</span><span class="o">-</span><span class="mi">101277</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="mf">2.6</span><span class="o">-</span><span class="n">amd64</span><span class="p">.</span><span class="nf">deb</span> <span class="s1">'http://www.splunk.com/index.php/download_track?file=4.2.2/splunk/linux/splunk-4.2.2-101277-linux-2.6-amd64.deb&amp;ac=&amp;wget=true&amp;name=wget&amp;typed=releases'</span></code></pre></figure>
+
+<p>Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at http://your.server.ip.address:8000 Simple, no?</p>
+
+<p>UPGRADING SPLUNK
+Stop the old version, download the new version and extract it in the same folder. Start Splunk back up and it will recognize the upgrade.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cd</span> <span class="sr">/opt
+sudo splunk/</span><span class="n">bin</span><span class="o">/</span><span class="n">splunk</span> <span class="n">stop</span>
+<span class="n">sudo</span> <span class="n">wget</span> <span class="s1">'new-splunk-version-link-goes-here'</span>
+<span class="n">sudo</span> <span class="n">tar</span> <span class="n">xvfz</span> <span class="n">new</span><span class="o">-</span><span class="n">splunk</span><span class="o">-</span><span class="n">downloaded</span><span class="o">-</span><span class="n">version</span><span class="p">.</span><span class="nf">tgz</span>
+<span class="n">sudo</span> <span class="n">splunk</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">splunk</span> <span class="n">start</span></code></pre></figure>
+
+<p>CONFIGURING SPLUNK
+This step will vary, depending on your needs. I still recommend a few settings for everyone:</p>
+
+<p>Listen for logs on port 514:
+Most devices and many apps (including syslog) use port 514 for sending log info. You’ll want Splunk to be listening.
+navigate to your Splunk web UI (http://your.server.ip.address:8000)
+click “Admin”
+click “Data Inputs”
+click “Network Ports”
+“New Input” button.
+choose “UDP” and the port number will automagically change to 514.
+click the “Submit” button to save the configuration change</p>
+
+<p>Start upon bootup:
+Pretty self-explanatory. When the machine boots up, so does Splunk.</p>
+
+<p>Code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="sr">/opt/s</span><span class="n">plunk</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">splunk</span> <span class="n">enable</span> <span class="n">boot</span><span class="o">-</span><span class="n">startOnly</span> <span class="n">allow</span> <span class="n">certain</span> <span class="no">IP</span> <span class="n">addresses</span> <span class="n">to</span> <span class="n">access</span> <span class="n">the</span> <span class="no">Web</span> <span class="no">UI</span><span class="p">:</span>
+<span class="no">Since</span> <span class="n">the</span> <span class="n">free</span> <span class="n">version</span> <span class="n">of</span> <span class="no">Splunk</span> <span class="n">doesn</span><span class="s1">'t secure the web UI, I lock down access to all that sensitive information through iptables. Obviously, you'</span><span class="n">ll</span> <span class="n">want</span> <span class="n">to</span> <span class="n">replace</span> <span class="s2">"ip.address1.to.allow"</span> <span class="n">with</span> <span class="n">your</span> <span class="n">address</span> <span class="n">or</span> <span class="n">a</span> <span class="n">range</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">allow</span> <span class="n">access</span> <span class="n">from</span> <span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="nf">e</span><span class="o">.</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.35</span> <span class="n">or</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.0</span><span class="o">/</span><span class="mi">24</span><span class="p">)</span><span class="o">.</span></code></pre></figure>
+
+<p>Code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sudo</span> <span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">INPUT</span> <span class="o">-</span><span class="n">s</span> <span class="n">ip</span><span class="p">.</span><span class="nf">address1</span><span class="p">.</span><span class="nf">to</span><span class="p">.</span><span class="nf">allow</span> <span class="o">-</span><span class="nb">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">8000</span> <span class="o">-</span><span class="n">j</span> <span class="no">ACCEPT</span>
+<span class="n">sudo</span> <span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">INPUT</span> <span class="o">-</span><span class="n">s</span> <span class="n">ip</span><span class="p">.</span><span class="nf">address2</span><span class="p">.</span><span class="nf">to</span><span class="p">.</span><span class="nf">allow</span> <span class="o">-</span><span class="nb">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">8000</span> <span class="o">-</span><span class="n">j</span> <span class="no">ACCEPT</span>
+<span class="n">sudo</span> <span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">INPUT</span> <span class="o">-</span><span class="nb">p</span> <span class="n">tcp</span> <span class="o">--</span><span class="n">dport</span> <span class="mi">8000</span> <span class="o">-</span><span class="n">j</span> <span class="no">DROP</span></code></pre></figure>
+
+<p>SEND MAC/LINUX LOGS TO SPLUNK:</p>
+
+<p>This is a two step process where you add your Slunk server to the list of known hosts on the client machine and then tell the syslog process to forward logs to Splunk.</p>
+
+<p>Add the following line to /etc/hosts (NOTE: Use tabs, spaces won’t work.)</p>
+
+<p>Code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ip</span><span class="p">.</span><span class="nf">address</span><span class="p">.</span><span class="nf">of</span><span class="p">.</span><span class="nf">splunkserver</span>			 <span class="n">splunkserver</span></code></pre></figure>
+
+<p>Where splunkserver is the name of your Splunk server. Now, add the following lines to /etc/syslog.conf:</p>
+
+<p>Code:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># additional config for sending logs to splunk
+</span>
+<span class="o">*</span><span class="p">.</span><span class="nf">info</span></code></pre></figure>
+
+<p>@splunkseverWhere *.info is the level of detail you desire to be sent.</p>
+
+<p>SEND WINDOWS LOGS TO SPLUNK</p>
+
+<p>Download and Install Snare here: <a href="http://www.intersectalliance.com/download.html?link=http://prdownloads.sourceforge.net/snare/SnareSetup-3.1.2-MultiArch.exe">http://www.intersectalliance.com/dow…-MultiArch.exe</a></p>
+
+<p>Open the Snare interface to configure its log management:
+Click on “Network Configuration”
+Set the “Destination Snare Server Address” to Splunk’s IP
+Change “Destination Port” to 514
+Click the checkbox to “Enable SYSLOG header”
+Select your desired “Syslog Priority” level from the drop down menu.
+Click the “Change Configuration” button</p>
+
+<p>You might need to add an exception for Snare in the Windows Firewall. (tested in XP)
+Navigate to the Windows Firwall settings (Start &gt; Control Panel &gt; Windows Firewall)
+Click on the Exceptions Tab
+Click the “Add Program” button
+Browse to C:\Program Files\Snare\SnareCore (or wherever you installed Snare)</p>
+
+
+  </div><a class="u-url" href="/it/2012/10/18/Displaying-Logs-in-Splunk-(Updated).html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Crusader Two-One</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Crusader Two-One</li><li><a class="u-email" href="mailto:joseph.streeter76@gmail.com">joseph.streeter76@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">josephstreeter</span></a></li><li><a href="https://www.twitter.com/josephstreeter"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">josephstreeter</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
