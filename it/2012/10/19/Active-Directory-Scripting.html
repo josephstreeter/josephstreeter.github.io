@@ -57,41 +57,41 @@
 
 <p><b>Connect to RootDSE</b></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Set</span> <span class="n">objRootDSE</span> <span class="o">=</span> <span class="no">GetObject</span><span class="p">(</span><span class="s2">"LDAP://RootDSE"</span><span class="p">)</span>
-<span class="n">strDNSDomain</span> <span class="o">=</span> <span class="n">objRootDSE</span><span class="o">.</span><span class="no">Get</span><span class="p">(</span><span class="s2">"defaultNamingContext"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Set</span><span class="w"> </span><span class="nx">objRootDSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">GetObject</span><span class="p">(</span><span class="s2">"LDAP://RootDSE"</span><span class="p">)</span><span class="w">
+</span><span class="nf">strDNSDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRootDSE.Get</span><span class="p">(</span><span class="s2">"defaultNamingContext"</span><span class="p">)</span><span class="w">
 
-<span class="s1">' Use ADO to search Active Directory.
+</span><span class="s1">' Use ADO to search Active Directory.
 Set objCmd = CreateObject("ADODB.Command")
 Set objConn = CreateObject("ADODB.Connection")
 objConn.Provider = "ADsDSOObject"
 objConn.Open "Active Directory Provider"
 objCmd.ActiveConnection = objConn
 
-'</span> <span class="no">Search</span> <span class="n">entire</span> <span class="n">domain</span><span class="p">.</span>
-<span class="nf">strBase</span> <span class="o">=</span> <span class="s2">"&lt;LDAP://"</span> <span class="o">&amp;</span> <span class="n">strDNSDomain</span> <span class="o">&amp;</span> <span class="s2">"&gt;"</span>
+'</span><span class="w"> </span><span class="nf">Search</span><span class="w"> </span><span class="nx">entire</span><span class="w"> </span><span class="nx">domain.</span><span class="w">
+</span><span class="nf">strBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;LDAP://"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">strDNSDomain</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"&gt;"</span><span class="w">
 
-<span class="s1">' Filter on group objects.
+</span><span class="s1">' Filter on group objects.
 strFilter = "(objectCategory=group)"
 
-'</span> <span class="no">Comma</span> <span class="n">delimited</span> <span class="n">list</span> <span class="n">of</span> <span class="n">attribute</span> <span class="n">values</span> <span class="n">to</span> <span class="n">retrieve</span><span class="o">.</span>
-<span class="s1">' The member attribute of group objects is a multi-valued attribute.
+'</span><span class="w"> </span><span class="nf">Comma</span><span class="w"> </span><span class="nx">delimited</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">attribute</span><span class="w"> </span><span class="nx">values</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">retrieve.</span><span class="w">
+</span><span class="s1">' The member attribute of group objects is a multi-valued attribute.
 strAttributes = "distinguishedName,member"
 
-'</span> <span class="no">Construct</span> <span class="n">the</span> <span class="no">ADO</span> <span class="n">query</span><span class="p">,</span> <span class="n">using</span> <span class="no">LDAP</span> <span class="n">syntax</span><span class="p">.</span>
-<span class="nf">strQuery</span> <span class="o">=</span> <span class="n">strBase</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strFilter</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strAttributes</span> <span class="o">&amp;</span> <span class="s2">";subtree"</span>
+'</span><span class="w"> </span><span class="nf">Construct</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">ADO</span><span class="w"> </span><span class="nx">query</span><span class="p">,</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">LDAP</span><span class="w"> </span><span class="nx">syntax.</span><span class="w">
+</span><span class="nf">strQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">strBase</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strFilter</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strAttributes</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";subtree"</span><span class="w">
 
-<span class="s1">' Run the query.
+</span><span class="s1">' Run the query.
 objCmd.CommandText = strQuery
 objCmd.Properties("Page Size") = 100
 objCmd.Properties("Timeout") = 30
 objCmd.Properties("Cache Results") = False
 Set objRs = objCmd.Execute
 
-'</span> <span class="no">Enumerate</span> <span class="n">the</span> <span class="n">recordset</span> <span class="no">Do</span> <span class="no">Until</span> <span class="n">objRs</span><span class="o">.</span><span class="no">EOF</span>
-<span class="n">strDN</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"distinguishedName"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span>
-<span class="n">objRs</span><span class="o">.</span><span class="no">MoveNext</span>
-<span class="no">Loop</span>
-<span class="n">objRs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+'</span><span class="w"> </span><span class="nf">Enumerate</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">recordset</span><span class="w"> </span><span class="nx">Do</span><span class="w"> </span><span class="nx">Until</span><span class="w"> </span><span class="nx">objRs.EOF</span><span class="w">
+</span><span class="nf">strDN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRs.Fields</span><span class="p">(</span><span class="s2">"distinguishedName"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w">
+</span><span class="nf">objRs.MoveNext</span><span class="w">
+</span><span class="nf">Loop</span><span class="w">
+</span><span class="nf">objRs.Close</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Active-Directory-Scripting.html" hidden></a>

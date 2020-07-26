@@ -47,15 +47,15 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Allow all user to sudo without password</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span>      <span class="no">ALL</span><span class="o">=</span><span class="p">(</span><span class="no">ALL</span><span class="p">)</span>      <span class="no">NOPASSWD</span><span class="p">:</span> <span class="no">ALL</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="err">&lt;</span><span class="nf">username</span><span class="err">&gt;</span><span class="w">      </span><span class="nx">ALL</span><span class="o">=</span><span class="p">(</span><span class="nf">ALL</span><span class="p">)</span><span class="w">      </span><span class="nf">NOPASSWD:</span><span class="w"> </span><span class="nx">ALL</span></code></pre></figure>
 
 <p>Allow members of the wheel group to sudo without password</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">%</span><span class="n">wheel</span>             <span class="no">ALL</span><span class="o">=</span><span class="p">(</span><span class="no">ALL</span><span class="p">)</span>      <span class="no">NOPASSWD</span><span class="p">:</span> <span class="no">ALL</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="o">%</span><span class="nf">wheel</span><span class="w">             </span><span class="nx">ALL</span><span class="o">=</span><span class="p">(</span><span class="nf">ALL</span><span class="p">)</span><span class="w">      </span><span class="nf">NOPASSWD:</span><span class="w"> </span><span class="nx">ALL</span></code></pre></figure>
 
 <p>Allow user to sudo for the listed commands</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">username</span><span class="o">&gt;</span>     <span class="no">ALL</span><span class="o">=</span><span class="sr">/sbin/s</span><span class="n">hutdown</span> <span class="o">-</span><span class="n">h</span> <span class="n">now</span><span class="p">,</span> <span class="n">reboot</span><span class="p">,</span> <span class="n">tcpdump</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="err">&lt;</span><span class="nf">username</span><span class="err">&gt;</span><span class="w">     </span><span class="nx">ALL</span><span class="o">=</span><span class="nf">/sbin/shutdown</span><span class="w"> </span><span class="nt">-h</span><span class="w"> </span><span class="nx">now</span><span class="p">,</span><span class="w"> </span><span class="nx">reboot</span><span class="p">,</span><span class="w"> </span><span class="nx">tcpdump</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/11/11/Configure-Sudoers.html" hidden></a>

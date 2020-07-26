@@ -49,12 +49,12 @@
 
 <p>Here is some powershell code that will do just that for you:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$account</span> <span class="o">=</span> <span class="s2">"username"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$account</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"username"</span><span class="w">
 
-<span class="k">if</span> <span class="p">(</span> <span class="o">-</span><span class="n">not</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADUser</span> <span class="o">-</span><span class="no">LDAPFilter</span> <span class="s2">"(sAMAccountName=$account)"</span><span class="p">))</span>
-<span class="p">{</span> <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"Create the account!"</span> <span class="p">}</span>
-<span class="k">else</span>
-<span class="p">{</span> <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"Already there"</span> <span class="p">}</span></code></pre></figure>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="o">-not</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-ADUser</span><span class="w"> </span><span class="nt">-LDAPFilter</span><span class="w"> </span><span class="s2">"(sAMAccountName=</span><span class="nv">$account</span><span class="s2">)"</span><span class="p">))</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"Create the account!"</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="kr">else</span><span class="w">
+</span><span class="p">{</span><span class="w"> </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"Already there"</span><span class="w"> </span><span class="p">}</span></code></pre></figure>
 
 <p>For this to work you will need to have the PowerShell AD modules installed and AD Web Services operational.</p>
 

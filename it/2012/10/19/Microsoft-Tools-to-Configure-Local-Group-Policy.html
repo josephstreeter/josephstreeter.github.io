@@ -54,52 +54,52 @@
 
 <p>For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">;</span> 
-<span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span>
-<span class="no">PolicyVersion</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000200</span><span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">DefaultOutboundAction</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000000</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">;</span><span class="w"> 
+</span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall</span><span class="w">
+</span><span class="nf">PolicyVersion</span><span class="w">
+</span><span class="nf">DWORD:0x00000200</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">DefaultOutboundAction</span><span class="w">
+</span><span class="nf">DWORD:0x00000000</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">DefaultInboundAction</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">DefaultInboundAction</span><span class="w">
+</span><span class="nf">DWORD:0x00000001</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">AllowLocalPolicyMerge</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">AllowLocalPolicyMerge</span><span class="w">
+</span><span class="nf">DWORD:0x00000001</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">AllowLocalIPsecPolicyMerge</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">AllowLocalIPsecPolicyMerge</span><span class="w">
+</span><span class="nf">DWORD:0x00000001</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">DisableNotifications</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000000</span>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">DisableNotifications</span><span class="w">
+</span><span class="nf">DWORD:0x00000000</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">DisableUnicastResponsesToMulticastBroadcast</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">DisableUnicastResponsesToMulticastBroadcast</span><span class="w">
+</span><span class="nf">DWORD:0x00000001</span><span class="w">
 
-<span class="p">;</span> <span class="no">Description</span>
-<span class="no">Computer</span>
-<span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Policies</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">WindowsFirewall</span><span class="p">\</span><span class="no">DomainProfile</span>
-<span class="no">EnableFirewall</span>
-<span class="no">DWORD</span><span class="p">:</span><span class="mh">0x00000001</span></code></pre></figure>
+</span><span class="p">;</span><span class="w"> </span><span class="nf">Description</span><span class="w">
+</span><span class="nf">Computer</span><span class="w">
+</span><span class="nf">SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile</span><span class="w">
+</span><span class="nf">EnableFirewall</span><span class="w">
+</span><span class="nf">DWORD:0x00000001</span></code></pre></figure>
 
 <p>The command you run looks something like:</p>
 

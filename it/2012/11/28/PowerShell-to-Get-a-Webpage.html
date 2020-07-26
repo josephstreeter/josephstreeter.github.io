@@ -47,8 +47,8 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>In an earlier post I wrote about getting your public IP address from the CLI or script using the ip.appspot.com webpage and CLI. Here is how you can do the same thing using PowerShell and the Net.WebClient.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$web</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="n">net</span><span class="o">.</span><span class="no">WebClient</span>
-<span class="vg">$web</span><span class="p">.</span><span class="nf">downloadstring</span><span class="p">(</span><span class="s2">"http://ip.appspot.com"</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$web</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">net.WebClient</span><span class="w">
+</span><span class="nv">$web</span><span class="o">.</span><span class="nf">downloadstring</span><span class="p">(</span><span class="s2">"http://ip.appspot.com"</span><span class="p">)</span></code></pre></figure>
 
 <p>You can use this to pull down any webpage. Have fun.</p>
 

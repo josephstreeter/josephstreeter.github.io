@@ -49,39 +49,39 @@
 
 <p>Here is one way to do it with PowerShell:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$date</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="n">date</span>
-<span class="vg">$site</span> <span class="o">=</span> <span class="s2">"http://www.joseph-streeter.com/"</span>
-<span class="vg">$webClient</span> <span class="o">=</span> <span class="n">new</span><span class="o">-</span><span class="n">object</span> <span class="no">System</span><span class="o">.</span><span class="no">Net</span><span class="o">.</span><span class="no">WebClient</span>
-<span class="vg">$webClient</span><span class="o">.</span><span class="no">Headers</span><span class="o">.</span><span class="no">Add</span><span class="p">(</span><span class="s2">"user-agent"</span><span class="p">,</span> <span class="s2">"PowerShell Script"</span><span class="p">)</span>
-<span class="no">If</span> <span class="p">(</span><span class="o">-</span><span class="no">Not</span> <span class="vg">$webClient</span><span class="o">.</span><span class="no">DownloadString</span><span class="p">(</span><span class="vg">$site</span><span class="p">).</span><span class="nf">tolower</span><span class="p">().</span><span class="nf">contains</span><span class="p">(</span><span class="s2">"crusader"</span><span class="p">))</span>
-<span class="p">{</span>
-<span class="s2">"Site is not available. Sent Email Alert: "</span> <span class="o">+</span> <span class="vg">$date</span>
-<span class="p">}</span>
-<span class="no">Else</span>
-<span class="p">{</span>
-<span class="s2">"Site is available"</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-date</span><span class="w">
+</span><span class="nv">$site</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://www.joseph-streeter.com/"</span><span class="w">
+</span><span class="nv">$webClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">new-object</span><span class="w"> </span><span class="nx">System.Net.WebClient</span><span class="w">
+</span><span class="nv">$webClient</span><span class="o">.</span><span class="nf">Headers</span><span class="o">.</span><span class="nf">Add</span><span class="p">(</span><span class="s2">"user-agent"</span><span class="p">,</span><span class="w"> </span><span class="s2">"PowerShell Script"</span><span class="p">)</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">-Not</span><span class="w"> </span><span class="nv">$webClient</span><span class="o">.</span><span class="nf">DownloadString</span><span class="p">(</span><span class="nv">$site</span><span class="p">)</span><span class="o">.</span><span class="nf">tolower</span><span class="p">()</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="s2">"crusader"</span><span class="p">))</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Site is not available. Sent Email Alert: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$date</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Else</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Site is available"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>If you have multiple sites to check, you can do that too:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$sites</span><span class="o">=</span><span class="err">@</span><span class="p">{}</span>
-<span class="vg">$sites</span><span class="p">[</span><span class="s2">"http://www.google.com"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Google"</span>
-<span class="vg">$sites</span><span class="p">[</span><span class="s2">"http://www.yahoo.com"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Yahoo"</span>
-<span class="vg">$sites</span><span class="p">[</span><span class="s2">"http://www.hbo.com"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"HBO"</span><span class="vg">$date</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="n">date</span>
-<span class="vg">$webClient</span> <span class="o">=</span> <span class="n">new</span><span class="o">-</span><span class="n">object</span> <span class="no">System</span><span class="o">.</span><span class="no">Net</span><span class="o">.</span><span class="no">WebClient</span>
-<span class="vg">$webClient</span><span class="o">.</span><span class="no">Headers</span><span class="o">.</span><span class="no">Add</span><span class="p">(</span><span class="s2">"user-agent"</span><span class="p">,</span> <span class="s2">"PowerShell Script"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$sites</span><span class="o">=</span><span class="p">@{}</span><span class="w">
+</span><span class="nv">$sites</span><span class="p">[</span><span class="s2">"http://www.google.com"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Google"</span><span class="w">
+</span><span class="nv">$sites</span><span class="p">[</span><span class="s2">"http://www.yahoo.com"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Yahoo"</span><span class="w">
+</span><span class="nv">$sites</span><span class="p">[</span><span class="s2">"http://www.hbo.com"</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"HBO"</span><span class="nv">$date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-date</span><span class="w">
+</span><span class="nv">$webClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">new-object</span><span class="w"> </span><span class="nx">System.Net.WebClient</span><span class="w">
+</span><span class="nv">$webClient</span><span class="o">.</span><span class="nf">Headers</span><span class="o">.</span><span class="nf">Add</span><span class="p">(</span><span class="s2">"user-agent"</span><span class="p">,</span><span class="w"> </span><span class="s2">"PowerShell Script"</span><span class="p">)</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$site</span> <span class="k">in</span> <span class="vg">$sites</span><span class="p">.</span><span class="nf">keys</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="no">If</span> <span class="p">(</span><span class="o">-</span><span class="no">Not</span> <span class="vg">$webClient</span><span class="o">.</span><span class="no">DownloadString</span><span class="p">(</span><span class="vg">$site</span><span class="p">).</span><span class="nf">tolower</span><span class="p">().</span><span class="nf">contains</span><span class="p">(</span><span class="vg">$sites</span><span class="p">[</span><span class="vg">$site</span><span class="p">]</span><span class="o">.</span><span class="no">ToLower</span><span class="p">()))</span>
-<span class="p">{</span>
-<span class="vg">$sites</span><span class="p">[</span><span class="vg">$site</span><span class="p">]</span><span class="o">+</span><span class="s2">" is not available. Sent Email Alert: "</span> <span class="o">+</span> <span class="vg">$date</span>
-<span class="p">}</span>
-<span class="no">Else</span>
-<span class="p">{</span>
-<span class="vg">$sites</span><span class="p">[</span><span class="vg">$site</span><span class="p">]</span><span class="o">+</span><span class="s2">" is available"</span>
-<span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$site</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$sites</span><span class="o">.</span><span class="nf">keys</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">-Not</span><span class="w"> </span><span class="nv">$webClient</span><span class="o">.</span><span class="nf">DownloadString</span><span class="p">(</span><span class="nv">$site</span><span class="p">)</span><span class="o">.</span><span class="nf">tolower</span><span class="p">()</span><span class="o">.</span><span class="nf">contains</span><span class="p">(</span><span class="nv">$sites</span><span class="p">[</span><span class="nv">$site</span><span class="p">]</span><span class="o">.</span><span class="nf">ToLower</span><span class="p">()))</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$sites</span><span class="p">[</span><span class="nv">$site</span><span class="p">]</span><span class="o">+</span><span class="s2">" is not available. Sent Email Alert: "</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$date</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Else</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$sites</span><span class="p">[</span><span class="nv">$site</span><span class="p">]</span><span class="o">+</span><span class="s2">" is available"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>You can schedule the script to run regularly and send you an email when the site fails to respond.</p>
 

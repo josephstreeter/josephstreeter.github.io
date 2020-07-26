@@ -49,7 +49,7 @@
 
 <p>On the remote client enter the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="o">-</span><span class="n">qNR</span> <span class="mi">10000</span><span class="ss">:localhost</span><span class="p">:</span><span class="mi">22</span> <span class="n">user</span><span class="vi">@home</span><span class="o">-</span><span class="n">server</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ssh</span><span class="w"> </span><span class="nt">-qNR</span><span class="w"> </span><span class="nx">10000:localhost:22</span><span class="w"> </span><span class="nx">user</span><span class="err">@</span><span class="nx">home-server</span></code></pre></figure>
 
 <p>“-qNR” - will create the reverse tunnel without and interactive session
 “10000” - Will be the local port that you will use when connecting to the remote host
@@ -59,7 +59,7 @@
 
 <p>Now on the server end enter the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="o">-</span><span class="nb">p</span> <span class="mi">10000</span> <span class="n">user</span><span class="vi">@localhost</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ssh</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="nx">10000</span><span class="w"> </span><span class="nx">user</span><span class="err">@</span><span class="nx">localhost</span></code></pre></figure>
 
 <p>“-p 10000” - The port that was created on the server end by the remote connection
 “user@localhost” - Your user and hostname for the remote connection</p>

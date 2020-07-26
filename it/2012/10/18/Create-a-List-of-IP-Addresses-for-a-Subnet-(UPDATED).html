@@ -51,17 +51,17 @@
 
 <p>Here is the script:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">255</span>
-<span class="k">for</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">255</span>
-<span class="n">wscript</span><span class="p">.</span><span class="nf">echo</span> <span class="s2">"192.168."</span> <span class="o">&amp;</span> <span class="n">i</span> <span class="o">&amp;</span> <span class="s2">"."</span> <span class="o">&amp;</span> <span class="n">x</span>
-<span class="k">next</span>
-<span class="k">next</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">for</span><span class="w"> </span><span class="nf">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">to</span><span class="w"> </span><span class="nx">255</span><span class="w">
+</span><span class="kr">for</span><span class="w"> </span><span class="nf">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">to</span><span class="w"> </span><span class="nx">255</span><span class="w">
+</span><span class="nf">wscript.echo</span><span class="w"> </span><span class="s2">"192.168."</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"."</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">x</span><span class="w">
+</span><span class="nf">next</span><span class="w">
+</span><span class="nf">next</span></code></pre></figure>
 
 <p>Change the first two octets for whatever network you need.</p>
 
 <p>run the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cscript</span> <span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="p">.</span><span class="nf">vbs</span> <span class="o">&gt;</span> <span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="p">.</span><span class="nf">txt</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">cscript</span><span class="w"> </span><span class="nx">ip-address.vbs</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">ip-address.txt</span></code></pre></figure>
 
 <p>Make sure you don’t execute the script with wscript or you’ll be clicking ‘ok’ a lot!</p>
 <hr />
@@ -69,14 +69,14 @@
 <p><strong>Update</strong>
 Here is the same script written to write the information directly to a text file in the root of C:.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="n">fso</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"Scripting.FileSystemObject"</span><span class="p">)</span>
-<span class="n">set</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">fso</span><span class="o">.</span><span class="no">CreateTextFile</span><span class="p">(</span><span class="s2">"c:</span><span class="se">\i</span><span class="s2">p-address.txt"</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">set</span><span class="w"> </span><span class="nx">fso</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CreateObject</span><span class="p">(</span><span class="s2">"Scripting.FileSystemObject"</span><span class="p">)</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">fso.CreateTextFile</span><span class="p">(</span><span class="s2">"c:\ip-address.txt"</span><span class="p">,</span><span class="w"> </span><span class="nf">true</span><span class="p">)</span><span class="w">
 
-<span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">255</span>
-<span class="k">for</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span> <span class="n">to</span> <span class="mi">255</span>
-<span class="n">ts</span><span class="p">.</span><span class="nf">writeline</span><span class="p">(</span><span class="s2">"192.168."</span> <span class="o">&amp;</span> <span class="n">i</span> <span class="o">&amp;</span> <span class="s2">"."</span> <span class="o">&amp;</span> <span class="n">x</span><span class="p">)</span>
-<span class="k">next</span>
-<span class="k">next</span></code></pre></figure>
+</span><span class="kr">for</span><span class="w"> </span><span class="nf">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">to</span><span class="w"> </span><span class="nx">255</span><span class="w">
+</span><span class="kr">for</span><span class="w"> </span><span class="nf">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nf">to</span><span class="w"> </span><span class="nx">255</span><span class="w">
+</span><span class="nf">ts.writeline</span><span class="p">(</span><span class="s2">"192.168."</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">i</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"."</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span><span class="w">
+</span><span class="nf">next</span><span class="w">
+</span><span class="nf">next</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Create-a-List-of-IP-Addresses-for-a-Subnet-(UPDATED).html" hidden></a>

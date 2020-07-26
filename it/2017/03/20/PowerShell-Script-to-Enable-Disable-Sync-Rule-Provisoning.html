@@ -50,58 +50,61 @@
 
 <p>I simplified it and made it a function to add to our scheduled run profile script.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">function</span> <span class="no">Set</span><span class="o">-</span><span class="no">SRProvisoning</span><span class="p">()</span>
-<span class="p">{</span>
-<span class="no">Param</span>
-<span class="p">(</span>
-<span class="p">[</span><span class="no">Parameter</span><span class="p">(</span><span class="no">Mandatory</span><span class="o">=</span><span class="vg">$false</span><span class="p">,</span><span class="no">Position</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span><span class="vg">$Server</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span>
-<span class="p">[</span><span class="no">Parameter</span><span class="p">(</span><span class="no">Mandatory</span><span class="o">=</span><span class="vg">$true</span><span class="p">,</span><span class="no">Position</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="vg">$Enable</span>
-<span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">function</span><span class="w"> </span><span class="nf">Set-SRProvisoning</span><span class="p">()</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">Param</span><span class="w">
+</span><span class="p">(</span><span class="w">
+</span><span class="p">[</span><span class="kt">Parameter</span><span class="p">(</span><span class="kt">Mandatory</span><span class="o">=</span><span class="bp">$false</span><span class="p">,</span><span class="kt">Position</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span><span class="nv">$Server</span><span class="o">=</span><span class="s2">"localhost"</span><span class="p">,</span><span class="w">
+</span><span class="p">[</span><span class="kt">Parameter</span><span class="p">(</span><span class="kt">Mandatory</span><span class="o">=</span><span class="bp">$true</span><span class="p">,</span><span class="kt">Position</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span><span class="nv">$Enable</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="n">set</span><span class="o">-</span><span class="n">variable</span> <span class="o">-</span><span class="nb">name</span> <span class="no">URI</span> <span class="o">-</span><span class="n">value</span> <span class="s2">"http://$($Server):5725/resourcemanagementservice' "</span> <span class="o">-</span><span class="n">option</span> <span class="n">constant</span>
+</span><span class="nf">set-variable</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">URI</span><span class="w"> </span><span class="nt">-value</span><span class="w"> </span><span class="s2">"http://</span><span class="si">$(</span><span class="nv">$Server</span><span class="si">)</span><span class="s2">:5725/resourcemanagementservice' "</span><span class="w"> </span><span class="nt">-option</span><span class="w"> </span><span class="nx">constant</span><span class="w">
 
-<span class="k">if</span><span class="p">(</span><span class="err">@</span><span class="p">(</span><span class="n">get</span><span class="o">-</span><span class="n">pssnapin</span> <span class="o">|</span> <span class="n">where</span><span class="o">-</span><span class="n">object</span> <span class="p">{</span><span class="vg">$_</span><span class="o">.</span><span class="no">Name</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"FIMAutomation"</span><span class="p">}</span> <span class="p">).</span><span class="nf">count</span> <span class="o">-</span><span class="n">eq</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="n">add</span><span class="o">-</span><span class="n">pssnapin</span> <span class="no">FIMAutomation</span><span class="p">}</span>
-<span class="n">clear</span><span class="o">-</span><span class="n">host</span>
+</span><span class="kr">if</span><span class="p">(@(</span><span class="err">get-pssnapin</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">where-object</span><span class="w"> </span><span class="err">{</span><span class="bp">$_</span><span class="err">.Name</span><span class="w"> </span><span class="err">-eq</span><span class="w"> </span><span class="s2">"FIMAutomation"</span><span class="err">}</span><span class="w"> </span><span class="p">)</span><span class="o">.</span><span class="nf">count</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="nf">add-pssnapin</span><span class="w"> </span><span class="nx">FIMAutomation</span><span class="p">}</span><span class="w">
+</span><span class="nf">clear-host</span><span class="w">
 
-<span class="n">switch</span> <span class="p">(</span><span class="vg">$Enable</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$True</span> <span class="p">{</span><span class="vg">$ProvisioningStatus</span> <span class="o">=</span> <span class="s2">"sync-rule"</span><span class="p">}</span>
-<span class="vg">$False</span> <span class="p">{</span><span class="vg">$ProvisioningStatus</span> <span class="o">=</span> <span class="s2">"none"</span><span class="p">}</span>
-<span class="no">Default</span> <span class="p">{</span><span class="no">Write</span> <span class="s2">"Bad option"</span><span class="p">}</span>
-<span class="p">}</span>
+</span><span class="kr">switch</span><span class="w"> </span><span class="p">(</span><span class="nv">$Enable</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$True</span><span class="w"> </span><span class="p">{</span><span class="nv">$ProvisioningStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sync-rule"</span><span class="p">}</span><span class="w">
+</span><span class="nv">$False</span><span class="w"> </span><span class="p">{</span><span class="nv">$ProvisioningStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"none"</span><span class="p">}</span><span class="w">
+</span><span class="nf">Default</span><span class="w"> </span><span class="p">{</span><span class="nf">Write</span><span class="w"> </span><span class="s2">"Bad option"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="vg">$exportObject</span> <span class="o">=</span> <span class="n">export</span><span class="o">-</span><span class="n">fimconfig</span> <span class="o">-</span><span class="n">uri</span> <span class="vg">$URI</span> <span class="sb">`
-â€“onlyBaseResources `</span>
-<span class="o">-</span><span class="n">customconfig</span> <span class="p">(</span><span class="s2">"/mv-data"</span><span class="p">)</span> <span class="sb">`
--ErrorVariable Err `</span>
-<span class="o">-</span><span class="no">ErrorAction</span> <span class="no">SilentlyContinue</span>
+</span><span class="nv">$exportObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">export-fimconfig</span><span class="w"> </span><span class="nt">-uri</span><span class="w"> </span><span class="nv">$URI</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">onlyBaseResources</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-customconfig</span><span class="w"> </span><span class="p">(</span><span class="s2">"/mv-data"</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-ErrorVariable</span><span class="w"> </span><span class="nf">Err</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nf">SilentlyContinue</span><span class="w">
 
-<span class="vg">$provisioningState</span> <span class="o">=</span> <span class="p">(</span><span class="vg">$exportObject</span><span class="o">.</span><span class="no">ResourceManagementObject</span><span class="o">.</span><span class="no">ResourceManagementAttributes</span> <span class="o">|</span> <span class="sb">`
-Where-Object {$_.AttributeName -eq "SyncConfig-provisioning-type"}).Value
+</span><span class="nv">$provisioningState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">$exportObject</span><span class="o">.</span><span class="nf">ResourceManagementObject</span><span class="o">.</span><span class="nf">ResourceManagementAttributes</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nf">Where-Object</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">AttributeName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"SyncConfig-provisioning-type"</span><span class="p">})</span><span class="o">.</span><span class="nf">Value</span><span class="w">
 
-$importChange = New-Object Microsoft.ResourceManagement.Automation.ObjectModel.ImportChange
-$importChange.Operation = 1
-$importChange.AttributeName = "SyncConfig-provisioning-type"
-$importChange.AttributeValue = $ProvisioningStatus
-$importChange.FullyResolved = 1
-$importChange.Locale = "Invariant"
+</span><span class="nv">$importChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">Microsoft.ResourceManagement.Automation.ObjectModel.ImportChange</span><span class="w">
+</span><span class="nv">$importChange</span><span class="o">.</span><span class="nf">Operation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="nv">$importChange</span><span class="o">.</span><span class="nf">AttributeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SyncConfig-provisioning-type"</span><span class="w">
+</span><span class="nv">$importChange</span><span class="o">.</span><span class="nf">AttributeValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ProvisioningStatus</span><span class="w">
+</span><span class="nv">$importChange</span><span class="o">.</span><span class="nf">FullyResolved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="nv">$importChange</span><span class="o">.</span><span class="nf">Locale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Invariant"</span><span class="w">
 
-$importObject = New-Object Microsoft.ResourceManagement.Automation.ObjectModel.ImportObject
-$importObject.ObjectType = $exportObject.ResourceManagementObject.ObjectType
-$importObject.TargetObjectIdentifier = $exportObject.ResourceManagementObject.ObjectIdentifier
-$importObject.SourceObjectIdentifier = $exportObject.ResourceManagementObject.ObjectIdentifier
-$importObject.State = 1
-$importObject.Changes = (,$importChange)
+</span><span class="nv">$importObject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">Microsoft.ResourceManagement.Automation.ObjectModel.ImportObject</span><span class="w">
+</span><span class="nv">$importObject</span><span class="o">.</span><span class="nf">ObjectType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$exportObject</span><span class="o">.</span><span class="nf">ResourceManagementObject</span><span class="o">.</span><span class="nf">ObjectType</span><span class="w">
+</span><span class="nv">$importObject</span><span class="o">.</span><span class="nf">TargetObjectIdentifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$exportObject</span><span class="o">.</span><span class="nf">ResourceManagementObject</span><span class="o">.</span><span class="nf">ObjectIdentifier</span><span class="w">
+</span><span class="nv">$importObject</span><span class="o">.</span><span class="nf">SourceObjectIdentifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$exportObject</span><span class="o">.</span><span class="nf">ResourceManagementObject</span><span class="o">.</span><span class="nf">ObjectIdentifier</span><span class="w">
+</span><span class="nv">$importObject</span><span class="o">.</span><span class="nf">State</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="nv">$importObject</span><span class="o">.</span><span class="nf">Changes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(,</span><span class="nv">$importChange</span><span class="p">)</span><span class="w">
 
-$importObject | Import-FIMConfig -uri $URI -ErrorVariable Err -ErrorAction SilentlyContinue
+</span><span class="nv">$importObject</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Import-FIMConfig</span><span class="w"> </span><span class="nt">-uri</span><span class="w"> </span><span class="nv">$URI</span><span class="w"> </span><span class="nt">-ErrorVariable</span><span class="w"> </span><span class="nx">Err</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">SilentlyContinue</span><span class="w">
 
-switch ($Enable)
-{
-$True {write-host "`</span><span class="n">nProvisioning</span> <span class="n">enabled</span> <span class="n">successfully</span><span class="sb">`n"}
-$False {write-host "`</span><span class="n">nProvisioning</span> <span class="n">disabled</span> <span class="n">successfully</span><span class="sb">`n"}
-}
+</span><span class="kr">switch</span><span class="w"> </span><span class="p">(</span><span class="nv">$Enable</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$True</span><span class="w"> </span><span class="p">{</span><span class="nf">write-host</span><span class="w"> </span><span class="s2">"</span><span class="se">`n</span><span class="s2">Provisioning enabled successfully</span><span class="se">`n</span><span class="s2">"</span><span class="p">}</span><span class="w">
+</span><span class="nv">$False</span><span class="w"> </span><span class="p">{</span><span class="nf">write-host</span><span class="w"> </span><span class="s2">"</span><span class="se">`n</span><span class="s2">Provisioning disabled successfully</span><span class="se">`n</span><span class="s2">"</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-}</span></code></pre></figure>
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2017/03/20/PowerShell-Script-to-Enable-Disable-Sync-Rule-Provisoning.html" hidden></a>

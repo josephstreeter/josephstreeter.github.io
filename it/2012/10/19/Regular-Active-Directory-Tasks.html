@@ -65,11 +65,11 @@
 
 <p>Looking at the suggestion in the Network Steve post one suggestion is using several CLI tools to create a report.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dcdiag</span> <span class="sr">/v /</span><span class="n">c</span> <span class="sr">/d /e</span> <span class="o">/</span><span class="n">s</span><span class="ss">:dcname</span> <span class="o">&gt;</span><span class="n">c</span><span class="p">:\</span><span class="n">dcdiag</span><span class="p">.</span><span class="nf">txt</span>
-<span class="n">netdiag</span> <span class="sr">/v &gt;c:\netdiag.txt
-repadmin /s</span><span class="n">howrepl</span> <span class="o">*</span> <span class="sr">/verbose /</span><span class="n">all</span> <span class="sr">/intersite &gt;c:\repl.tx
-dnslint /</span><span class="n">ad</span> <span class="sr">/s "DCipaddress"
-Download DNSLINT: http:/</span><span class="o">/</span><span class="n">support</span><span class="p">.</span><span class="nf">microsoft</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">kb</span><span class="o">/</span><span class="mi">321045</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dcdiag</span><span class="w"> </span><span class="nx">/v</span><span class="w"> </span><span class="nx">/c</span><span class="w"> </span><span class="nx">/d</span><span class="w"> </span><span class="nx">/e</span><span class="w"> </span><span class="nx">/s:dcname</span><span class="w"> </span><span class="err">&gt;</span><span class="nx">c:\dcdiag.txt</span><span class="w">
+</span><span class="nf">netdiag</span><span class="w"> </span><span class="nx">/v</span><span class="w"> </span><span class="err">&gt;</span><span class="nx">c:\netdiag.txt</span><span class="w">
+</span><span class="nf">repadmin</span><span class="w"> </span><span class="nx">/showrepl</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">/verbose</span><span class="w"> </span><span class="nx">/all</span><span class="w"> </span><span class="nx">/intersite</span><span class="w"> </span><span class="err">&gt;</span><span class="nx">c:\repl.tx</span><span class="w">
+</span><span class="nf">dnslint</span><span class="w"> </span><span class="nx">/ad</span><span class="w"> </span><span class="nx">/s</span><span class="w"> </span><span class="s2">"DCipaddress"</span><span class="w">
+</span><span class="nf">Download</span><span class="w"> </span><span class="nx">DNSLINT:</span><span class="w"> </span><span class="nx">http://support.microsoft.com/kb/321045</span></code></pre></figure>
 
 <p>Expect to see some errors using DCDIAG in certain situations:
 <a href="http://support.microsoft.com/kb/2512643">DCDIAG.EXE /E or /A or /C expected errors (MS Support)</a></p>

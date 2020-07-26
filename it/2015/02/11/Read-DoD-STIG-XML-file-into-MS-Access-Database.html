@@ -50,180 +50,180 @@
 <p>In order to access an MS Access database with PowerShell from Windows 8 you will need to install the Microsoft Access Database Engine.
 <a href="http://www.microsoft.com/en-us/download/details.aspx?id=13255">Download</a></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Variables
-</span>
-<span class="vg">$STIG</span> <span class="o">=</span> <span class="s2">"c:</span><span class="se">\s</span><span class="s2">cripts</span><span class="se">\S</span><span class="s2">TIGS</span><span class="se">\U</span><span class="s2">_Windows_2008_R2_DC_V1R10_STIG_Manual-xccdf.xml"</span>
-<span class="vg">$Database</span> <span class="o">=</span> <span class="s2">"C:</span><span class="se">\s</span><span class="s2">cripts</span><span class="se">\S</span><span class="s2">TIG.accdb"</span>
-<span class="vg">$Table</span> <span class="o">=</span> <span class="s2">"WS2008R2DC"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c"># Variables
+</span><span class="w">
+</span><span class="nv">$STIG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"c:\scripts\STIGS\U_Windows_2008_R2_DC_V1R10_STIG_Manual-xccdf.xml"</span><span class="w">
+</span><span class="nv">$Database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"C:\scripts\STIG.accdb"</span><span class="w">
+</span><span class="nv">$Table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"WS2008R2DC"</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Read</span><span class="o">-</span><span class="no">STIG</span> <span class="p">{</span>
-<span class="no">Foreach</span> <span class="p">(</span><span class="vg">$Rule</span> <span class="k">in</span> <span class="vg">$Rules</span><span class="p">)</span> <span class="p">{</span>
-<span class="c1">#"#############################"
-</span>
-<span class="vg">$discussion</span> <span class="o">=</span> <span class="s2">""</span><span class="o">+</span><span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">description</span><span class="o">+</span><span class="s2">""</span>
-<span class="vg">$discussion</span> <span class="o">=</span> <span class="p">[</span><span class="n">xml</span><span class="p">]</span> <span class="vg">$discussion</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Read-STIG</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Rule</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Rules</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="c">#"#############################"
+</span><span class="w">
+</span><span class="nv">$discussion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="o">+</span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">description</span><span class="o">+</span><span class="s2">""</span><span class="w">
+</span><span class="nv">$discussion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">xml</span><span class="p">]</span><span class="w"> </span><span class="nv">$discussion</span><span class="w">
 
-<span class="vg">$Global</span><span class="ss">:GroupID</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">id</span>
-<span class="vg">$Global</span><span class="ss">:GroupTitle</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">title</span>
-<span class="vg">$Global</span><span class="ss">:RuleTitle</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">title</span>
-<span class="vg">$Global</span><span class="ss">:id</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">id</span>
-<span class="vg">$Global</span><span class="ss">:Severity</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">severity</span>
-<span class="vg">$Global</span><span class="ss">:Weight</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">weight</span>
-<span class="vg">$Global</span><span class="ss">:Version</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">version</span>
-<span class="vg">$Global</span><span class="ss">:CheckContent</span> <span class="o">=</span> <span class="vg">$Rule</span><span class="p">.</span><span class="nf">rule</span><span class="p">.</span><span class="nf">fixtext</span><span class="o">.</span><span class="s2">"#text"</span>
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">GroupID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">id</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">GroupTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">title</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">RuleTitle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">title</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">id</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Severity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">severity</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">weight</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">version</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">CheckContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Rule</span><span class="o">.</span><span class="nf">rule</span><span class="o">.</span><span class="nf">fixtext</span><span class="o">.</span><span class="s2">"#text"</span><span class="w">
 
-<span class="vg">$Global</span><span class="ss">:VulnerabilityDiscussion</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">VulnDiscussion</span>
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">VulnerabilityDiscussion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">VulnDiscussion</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">FalsePositives</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:FalsePositives</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">FalsePositives</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:FalsePositives</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">FalsePositives</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">FalsePositives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">FalsePositives</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">FalsePositives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">FalseNegatives</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:FalseNegatives</span> <span class="o">=</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">FalseNegatives</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:FalseNegatives</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">FalseNegatives</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">FalseNegatives</span><span class="w"> </span><span class="o">=</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">FalseNegatives</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">FalseNegatives</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="vg">$Global</span><span class="ss">:Documentable</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">Documentable</span>
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Documentable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">Documentable</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">FalseNegatives</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:Mitigations</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">Mitigations</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:Mitigations</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">FalseNegatives</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Mitigations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">Mitigations</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Mitigations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">SeverityOverrideGuidance</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:SeverityOverride</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">SeverityOverrideGuidance</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:SeverityOverride</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">SeverityOverrideGuidance</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">SeverityOverride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">SeverityOverrideGuidance</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">SeverityOverride</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">PotentialImpacts</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:PotentialImpacts</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">PotentialImpacts</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:PotentialImpacts</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">PotentialImpacts</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">PotentialImpacts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">PotentialImpacts</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">PotentialImpacts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">ThirdPartyTools</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:ThirdPartyTools</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">ThirdPartyTools</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:ThirdPartyTools</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">ThirdPartyTools</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">ThirdPartyTools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">ThirdPartyTools</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">ThirdPartyTools</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">MitigationControl</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:MitigationControls</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">MitigationControl</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:MitigationControls</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">MitigationControl</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">MitigationControls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">MitigationControl</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">MitigationControls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">Responsibility</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:Responsibility</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">Responsibility</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:Responsibility</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">Responsibility</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Responsibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">Responsibility</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Responsibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">IAControls</span><span class="p">){</span>
-<span class="vg">$Global</span><span class="ss">:IAControls</span> <span class="o">=</span> <span class="vg">$discussion</span><span class="p">.</span><span class="nf">test</span><span class="o">.</span><span class="no">IAControls</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="vg">$Global</span><span class="ss">:IAControls</span> <span class="o">=</span> <span class="s2">"None"</span>
-<span class="p">}</span>
-<span class="c1">#"Group ID: $GroupID"
-</span>
-<span class="c1">#"Group Title: $GroupTitle"
-</span>
-<span class="c1">#"ID: $Id"
-</span>
-<span class="c1">#"Severity: $Severity"
-</span>
-<span class="c1">#"Weight: $Weight"
-</span>
-<span class="c1">#"Version: $Version"
-</span>
-<span class="c1">#"Rule Title: $RuleTitle"
-</span>
-<span class="c1">#"Check Content: $CheckContent"
-</span>
-<span class="c1">#"Vulnerability Discussion: $VulnerabilityDiscussion"
-</span>
-<span class="c1">#"False Positives: $FalsePositives"
-</span>
-<span class="c1">#"False Negatives: $FalseNegatives"
-</span>
-<span class="c1">#"Documentable: $Documentable"
-</span>
-<span class="c1">#"Mitigations: $Mitigations"
-</span>
-<span class="c1">#"Severity Override: $SeverityOverride"
-</span>
-<span class="c1">#"Potential Impacts: $ThirdPartyTools"
-</span>
-<span class="c1">#"Third Party Tools: $MitigationControls"
-</span>
-<span class="c1">#"Mitigation Controls: $Responsibility"
-</span>
-<span class="s2">"Responsibility: $Responsibility"</span>
-<span class="c1">#"IA Controls: $IAControls"
-</span>
-<span class="c1">#""
-</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">IAControls</span><span class="p">){</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">IAControls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$discussion</span><span class="o">.</span><span class="nf">test</span><span class="o">.</span><span class="nf">IAControls</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">IAControls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"None"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="c">#"Group ID: $GroupID"
+</span><span class="w">
+</span><span class="c">#"Group Title: $GroupTitle"
+</span><span class="w">
+</span><span class="c">#"ID: $Id"
+</span><span class="w">
+</span><span class="c">#"Severity: $Severity"
+</span><span class="w">
+</span><span class="c">#"Weight: $Weight"
+</span><span class="w">
+</span><span class="c">#"Version: $Version"
+</span><span class="w">
+</span><span class="c">#"Rule Title: $RuleTitle"
+</span><span class="w">
+</span><span class="c">#"Check Content: $CheckContent"
+</span><span class="w">
+</span><span class="c">#"Vulnerability Discussion: $VulnerabilityDiscussion"
+</span><span class="w">
+</span><span class="c">#"False Positives: $FalsePositives"
+</span><span class="w">
+</span><span class="c">#"False Negatives: $FalseNegatives"
+</span><span class="w">
+</span><span class="c">#"Documentable: $Documentable"
+</span><span class="w">
+</span><span class="c">#"Mitigations: $Mitigations"
+</span><span class="w">
+</span><span class="c">#"Severity Override: $SeverityOverride"
+</span><span class="w">
+</span><span class="c">#"Potential Impacts: $ThirdPartyTools"
+</span><span class="w">
+</span><span class="c">#"Third Party Tools: $MitigationControls"
+</span><span class="w">
+</span><span class="c">#"Mitigation Controls: $Responsibility"
+</span><span class="w">
+</span><span class="s2">"Responsibility: </span><span class="nv">$Responsibility</span><span class="s2">"</span><span class="w">
+</span><span class="c">#"IA Controls: $IAControls"
+</span><span class="w">
+</span><span class="c">#""
+</span><span class="w">
 
-<span class="no">Connect</span><span class="o">-</span><span class="no">Database</span>
-<span class="no">Upate</span><span class="o">-</span><span class="no">Database</span>
-<span class="no">Close</span><span class="o">-</span><span class="no">Database</span>
-<span class="p">}</span>
-<span class="p">}</span>
+</span><span class="nf">Connect-Database</span><span class="w">
+</span><span class="nf">Upate-Database</span><span class="w">
+</span><span class="nf">Close-Database</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Upate</span><span class="o">-</span><span class="no">Database</span> <span class="p">{</span>
-<span class="vg">$rs</span><span class="p">.</span><span class="nf">addnew</span><span class="p">()</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"GroupID"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$GroupID</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"GroupTitle"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$GroupTitle</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"RuleID"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$id</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Severity"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$Severity</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"RuleVersion"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$Version</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"RuleTitle"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$RuleTitle</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"VunlDiscuss"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$VulnerabilityDiscussion</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"FlaseNeg"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$FalseNegatives</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"FalsePos"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$FalsePositives</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Documentable"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$Documentable</span>
-<span class="c1">#$rs.Fields.Item("Responsibility").Value = $Responsibility
-</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"IAControls"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$IAControls</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"CheckContent"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$CheckContent</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"FixText"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span> <span class="o">=</span> <span class="vg">$MitigationControls</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Update</span><span class="p">()</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Upate-Database</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">addnew</span><span class="p">()</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"GroupID"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$GroupID</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"GroupTitle"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$GroupTitle</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"RuleID"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$id</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Severity"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Severity</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"RuleVersion"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Version</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"RuleTitle"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$RuleTitle</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"VunlDiscuss"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$VulnerabilityDiscussion</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"FlaseNeg"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$FalseNegatives</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"FalsePos"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$FalsePositives</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Documentable"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Documentable</span><span class="w">
+</span><span class="c">#$rs.Fields.Item("Responsibility").Value = $Responsibility
+</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"IAControls"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$IAControls</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"CheckContent"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$CheckContent</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"FixText"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$MitigationControls</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Update</span><span class="p">()</span><span class="w">
 
-<span class="p">}</span>
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Connect</span><span class="o">-</span><span class="no">Database</span> <span class="p">{</span>
-<span class="c1"># Configure database connection
-</span>
-<span class="vg">$adOpenStatic</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="vg">$adLockOptimistic</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Connect-Database</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="c"># Configure database connection
+</span><span class="w">
+</span><span class="nv">$adOpenStatic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="nv">$adLockOptimistic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">
 
-<span class="vg">$Global</span><span class="ss">:conn</span><span class="o">=</span><span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Connection"</span>
-<span class="vg">$Global</span><span class="ss">:rs</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Recordset"</span>
-<span class="vg">$Global</span><span class="ss">:conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=$Database;Persist Security Info=True;"</span><span class="p">)</span>
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">conn</span><span class="o">=</span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Connection"</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Recordset"</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">conn</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s2">"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=</span><span class="nv">$Database</span><span class="s2">;Persist Security Info=True;"</span><span class="p">)</span><span class="w">
 
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM $Table"</span><span class="p">,</span><span class="vg">$conn</span><span class="p">,</span><span class="vg">$adOpenStatic</span><span class="p">,</span><span class="vg">$adLockOptimistic</span><span class="p">)</span>
-<span class="p">}</span>
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM </span><span class="nv">$Table</span><span class="s2">"</span><span class="p">,</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$adOpenStatic</span><span class="p">,</span><span class="nv">$adLockOptimistic</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Close</span><span class="o">-</span><span class="no">Database</span> <span class="p">{</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Close</span><span class="p">()</span>
-<span class="vg">$conn</span><span class="o">.</span><span class="no">Close</span><span class="p">()</span>
-<span class="p">}</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Close-Database</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Close</span><span class="p">()</span><span class="w">
+</span><span class="nv">$conn</span><span class="o">.</span><span class="nf">Close</span><span class="p">()</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Get</span><span class="o">-</span><span class="no">STIG</span> <span class="p">{</span>
-<span class="c1"># Get STIG info from XML
-</span>
-<span class="vg">$Global</span><span class="ss">:xml</span> <span class="o">=</span> <span class="p">[</span><span class="n">xml</span><span class="p">]</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Content</span> <span class="vg">$STIG</span><span class="p">)</span>
-<span class="vg">$Global</span><span class="ss">:Rules</span> <span class="o">=</span> <span class="vg">$xml</span><span class="o">.</span><span class="no">Benchmark</span><span class="o">.</span><span class="no">Group</span>
-<span class="p">}</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Get-STIG</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="c"># Get STIG info from XML
+</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">xml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">xml</span><span class="p">]</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">Get-Content</span><span class="w"> </span><span class="nv">$STIG</span><span class="p">)</span><span class="w">
+</span><span class="nv">$</span><span class="nn">Global</span><span class="p">:</span><span class="nv">Rules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$xml</span><span class="o">.</span><span class="nf">Benchmark</span><span class="o">.</span><span class="nf">Group</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 
-<span class="no">Get</span><span class="o">-</span><span class="no">STIG</span>
-<span class="no">Read</span><span class="o">-</span><span class="no">STIG</span></code></pre></figure>
+</span><span class="nf">Get-STIG</span><span class="w">
+</span><span class="nf">Read-STIG</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2015/02/11/Read-DoD-STIG-XML-file-into-MS-Access-Database.html" hidden></a>

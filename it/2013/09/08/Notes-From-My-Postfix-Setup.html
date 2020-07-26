@@ -49,59 +49,59 @@
 
 <p>Configure Postfix main.cf</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="sr">/etc/</span><span class="n">postfix</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="nf">cf</span>
-<span class="c1"># The host name of the system
-</span>
-<span class="n">myhostname</span> <span class="o">=</span> <span class="n">mail</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">tld</span>
-<span class="c1"># The domain name for the email server
-</span>
-<span class="n">mydomain</span> <span class="o">=</span> <span class="n">domain</span><span class="p">.</span><span class="nf">tld</span>
-<span class="c1"># The domain name that locally-posted email appears to have come from
-</span>
-<span class="n">myorigin</span> <span class="o">=</span> <span class="vg">$mydomain</span>
-<span class="c1"># Network interfaces that Postfix can receive mail on
-</span>
-<span class="n">inet_interfaces</span> <span class="o">=</span> <span class="n">all</span>
-<span class="c1"># The list of domains that will be delivered
-</span>
-<span class="n">mydestination</span> <span class="o">=</span> <span class="vg">$myhostname</span><span class="p">,</span> <span class="n">localhost</span><span class="o">.</span><span class="vg">$mydomain</span><span class="p">,</span> <span class="n">localhost</span><span class="p">,</span> <span class="vg">$mydomain</span>
-<span class="c1"># Trusted IP addresses that may send or relay mail through the server
-</span>
-<span class="n">mynetworks</span> <span class="o">=</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="n">xxx</span><span class="p">.</span><span class="nf">xxx</span><span class="p">.</span><span class="nf">xxx</span><span class="p">.</span><span class="nf">xxx</span><span class="o">/</span><span class="mi">32</span><span class="p">,</span> <span class="mf">127.0</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">8</span>
-<span class="c1"># List of destination domains this system will relay mail to
-</span>
-<span class="n">relay_domains</span> <span class="o">=</span>
-<span class="c1"># Path of the mailbox relative to the users home directory
-</span>
-<span class="n">home_mailbox</span> <span class="o">=</span> <span class="no">Maildir</span><span class="o">/</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">/etc/postfix/main.cf</span><span class="w">
+</span><span class="c"># The host name of the system
+</span><span class="w">
+</span><span class="nf">myhostname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">mail.domain.tld</span><span class="w">
+</span><span class="c"># The domain name for the email server
+</span><span class="w">
+</span><span class="nf">mydomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">domain.tld</span><span class="w">
+</span><span class="c"># The domain name that locally-posted email appears to have come from
+</span><span class="w">
+</span><span class="nf">myorigin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$mydomain</span><span class="w">
+</span><span class="c"># Network interfaces that Postfix can receive mail on
+</span><span class="w">
+</span><span class="nf">inet_interfaces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">all</span><span class="w">
+</span><span class="c"># The list of domains that will be delivered
+</span><span class="w">
+</span><span class="nf">mydestination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$myhostname</span><span class="p">,</span><span class="w"> </span><span class="nf">localhost.</span><span class="nv">$mydomain</span><span class="p">,</span><span class="w"> </span><span class="nx">localhost</span><span class="p">,</span><span class="w"> </span><span class="nv">$mydomain</span><span class="w">
+</span><span class="c"># Trusted IP addresses that may send or relay mail through the server
+</span><span class="w">
+</span><span class="nf">mynetworks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">192.168.0.0</span><span class="nf">/24</span><span class="p">,</span><span class="w"> </span><span class="nx">xxx.xxx.xxx.xxx/32</span><span class="p">,</span><span class="w"> </span><span class="nx">127.0.0.0/8</span><span class="w">
+</span><span class="c"># List of destination domains this system will relay mail to
+</span><span class="w">
+</span><span class="nf">relay_domains</span><span class="w"> </span><span class="o">=</span><span class="w">
+</span><span class="c"># Path of the mailbox relative to the users home directory
+</span><span class="w">
+</span><span class="nf">home_mailbox</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Maildir/</span></code></pre></figure>
 
 <p>Configure Postfix to listen on custom port</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="sr">/etc/</span><span class="n">postfix</span><span class="o">/</span><span class="n">master</span><span class="p">.</span><span class="nf">cf</span>
-<span class="no">Change</span><span class="p">:</span>
-<span class="n">smtp</span> <span class="n">inet</span> <span class="n">n</span> <span class="o">-</span> <span class="n">n</span> <span class="o">-</span> <span class="o">-</span> <span class="n">smtpd</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">/etc/postfix/master.cf</span><span class="w">
+</span><span class="nf">Change:</span><span class="w">
+</span><span class="nf">smtp</span><span class="w"> </span><span class="nx">inet</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">smtpd</span></code></pre></figure>
 
 <p>to:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="mi">587</span> <span class="n">inet</span> <span class="n">n</span> <span class="o">-</span> <span class="n">n</span> <span class="o">-</span> <span class="o">-</span> <span class="n">smtpd</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="mi">587</span><span class="w"> </span><span class="nf">inet</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">smtpd</span></code></pre></figure>
 
 <p>Allow SMTP traffic to the custom port</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iptables</span> <span class="o">-</span><span class="no">A</span> <span class="no">INPUT</span> <span class="o">-</span><span class="nb">p</span> <span class="n">tcp</span> <span class="o">-</span><span class="n">dport</span> <span class="mi">587</span> <span class="o">-</span><span class="n">j</span> <span class="no">ACCEPT</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iptables</span><span class="w"> </span><span class="nt">-A</span><span class="w"> </span><span class="nx">INPUT</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="nx">tcp</span><span class="w"> </span><span class="nt">-dport</span><span class="w"> </span><span class="nx">587</span><span class="w"> </span><span class="nt">-j</span><span class="w"> </span><span class="nx">ACCEPT</span></code></pre></figure>
 
 <p>Create Aliases</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">vi</span> <span class="sr">/etc/</span><span class="n">aliases</span>
-<span class="ss">admin:  </span><span class="n">root</span>
-<span class="ss">postmaster: </span><span class="n">root</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">vi</span><span class="w"> </span><span class="nx">/etc/aliases</span><span class="w">
+</span><span class="nf">admin:</span><span class="w">  </span><span class="nx">root</span><span class="w">
+</span><span class="nf">postmaster:</span><span class="w"> </span><span class="nx">root</span></code></pre></figure>
 
 <p>View the mail queue</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mailq</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">mailq</span></code></pre></figure>
 
 <p>Flush the mail queue</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">postqueue</span> <span class="o">-</span><span class="n">f</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">postqueue</span><span class="w"> </span><span class="nt">-f</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/09/08/Notes-From-My-Postfix-Setup.html" hidden></a>

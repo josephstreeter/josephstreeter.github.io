@@ -47,24 +47,24 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Use the command line to configure the role and feature tools on Windows 7.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dism</span> <span class="sr">/online /en</span><span class="n">able</span><span class="o">-</span><span class="n">feature</span> <span class="sr">/featurename:*feature name*</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:</span><span class="o">*</span><span class="nx">feature</span><span class="w"> </span><span class="nx">name</span><span class="o">*</span></code></pre></figure>
 
 <p>For information about the current roles and features?</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dism</span> <span class="sr">/online /</span><span class="n">get</span><span class="o">-</span><span class="n">features</span> <span class="o">|</span> <span class="n">more</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/get-features</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">more</span></code></pre></figure>
 
 <p>How to install the Active Directory and Group Policy tools.</p>
 
 <p><b><strong><em>Must be in proper order</em></strong></b></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dism</span> <span class="sr">/online /en</span><span class="n">able</span><span class="o">-</span><span class="n">feature</span> <span class="sr">/featurename:RemoteServerAdministrationTools
-dism /on</span><span class="n">line</span> <span class="sr">/enable-feature /</span><span class="n">featurename</span><span class="ss">:RemoteServerAdministrationTools</span><span class="o">-</span><span class="no">Roles</span>
-<span class="n">dism</span> <span class="sr">/online /en</span><span class="n">able</span><span class="o">-</span><span class="n">feature</span> <span class="sr">/featurename:RemoteServerAdministrationTools-Roles-AD
-dism /on</span><span class="n">line</span> <span class="sr">/enable-feature /</span><span class="n">featurename</span><span class="ss">:RemoteServerAdministrationTools</span><span class="o">-</span><span class="no">Roles</span><span class="o">-</span><span class="no">AD</span><span class="o">-</span><span class="no">DS</span>
-<span class="n">dism</span> <span class="sr">/online /en</span><span class="n">able</span><span class="o">-</span><span class="n">feature</span> <span class="sr">/featurename:RemoteServerAdministrationTools-Roles-AD-DS-SnapIns
-dism /on</span><span class="n">line</span> <span class="sr">/enable-feature /</span><span class="n">featurename</span><span class="ss">:RemoteServerAdministrationTools</span><span class="o">-</span><span class="no">Roles</span><span class="o">-</span><span class="no">AD</span><span class="o">-</span><span class="no">Powershell</span>
-<span class="n">dism</span> <span class="sr">/online /en</span><span class="n">able</span><span class="o">-</span><span class="n">feature</span> <span class="sr">/featurename:RemoteServerAdministrationTools-Features
-dism /on</span><span class="n">line</span> <span class="sr">/enable-feature /</span><span class="n">featurename</span><span class="ss">:RemoteServerAdministrationTools</span><span class="o">-</span><span class="no">Features</span><span class="o">-</span><span class="no">GP</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Roles</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Roles-AD</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Roles-AD-DS</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Roles-AD-DS-SnapIns</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Roles-AD-Powershell</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Features</span><span class="w">
+</span><span class="nf">dism</span><span class="w"> </span><span class="nx">/online</span><span class="w"> </span><span class="nx">/enable-feature</span><span class="w"> </span><span class="nx">/featurename:RemoteServerAdministrationTools-Features-GP</span></code></pre></figure>
 
 <p><a href="http://4sysops.com/archives/how-to-install-rsat-on-windows-7-sp1/">How to install RSAT on Windows SP1 from CLI</a></p>
 
@@ -72,21 +72,21 @@ dism /on</span><span class="n">line</span> <span class="sr">/enable-feature /</s
 
 <p>Load the Server Manager module</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="no">Servermanager</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">Servermanager</span></code></pre></figure>
 
 <p>See a list of features and roles</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Get</span><span class="o">-</span><span class="no">WindowsFeature</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Get-WindowsFeature</span></code></pre></figure>
 
 <p>Add the feature</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Add</span><span class="o">-</span><span class="no">WindowsFeature</span> <span class="o">*</span><span class="nb">name</span><span class="o">*</span> <span class="o">-</span><span class="n">restart</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Add-WindowsFeature</span><span class="w"> </span><span class="o">*</span><span class="nx">name</span><span class="o">*</span><span class="w"> </span><span class="nt">-restart</span></code></pre></figure>
 
 <p>The “-restart” argument will cause the host to reboot.</p>
 
 <p>How to install the Active Directory and Group Policy tools.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Add</span><span class="o">-</span><span class="no">WindowsFeature</span> <span class="no">RSAT</span><span class="o">-</span><span class="no">AD</span><span class="o">-</span><span class="no">Tools</span><span class="p">,</span><span class="no">RSAT</span><span class="o">-</span><span class="no">ADDS</span><span class="p">,</span><span class="no">RSAT</span><span class="o">-</span><span class="no">ADDS</span><span class="o">-</span><span class="no">Tools</span><span class="p">,</span><span class="no">RSAT</span><span class="o">-</span><span class="no">AD</span><span class="o">-</span><span class="no">PowerShell</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Add-WindowsFeature</span><span class="w"> </span><span class="nx">RSAT-AD-Tools</span><span class="p">,</span><span class="nx">RSAT-ADDS</span><span class="p">,</span><span class="nx">RSAT-ADDS-Tools</span><span class="p">,</span><span class="nx">RSAT-AD-PowerShell</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Configure-RSAT-from-the-Command-Line.html" hidden></a>

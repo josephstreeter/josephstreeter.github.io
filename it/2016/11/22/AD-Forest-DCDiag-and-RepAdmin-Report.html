@@ -51,119 +51,119 @@
 
 <p>The RepAdmin results are now broken up by domain controller and sorted by context. This makes it a little easier to read and track issues.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
-</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c"># http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
+</span><span class="w">
 
-<span class="c1">############
-</span>
-<span class="c1"># Functions
-</span>
-<span class="c1">############
-</span>
-<span class="no">Function</span> <span class="no">Get</span><span class="o">-</span><span class="no">ForestDomainControllers</span>
-<span class="p">{</span>
-<span class="vg">$Results</span><span class="o">=</span><span class="err">@</span><span class="p">()</span>
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$domain</span> <span class="k">in</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADForest</span><span class="p">).</span><span class="nf">domains</span> <span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$Results</span><span class="o">+=</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADdomain</span> <span class="vg">$domain</span><span class="p">)</span><span class="o">.</span><span class="no">ReplicaDirectoryServers</span>
-<span class="p">}</span>
-<span class="no">Return</span> <span class="vg">$Results</span>
-<span class="p">}</span>
+</span><span class="c">############
+</span><span class="w">
+</span><span class="c"># Functions
+</span><span class="w">
+</span><span class="c">############
+</span><span class="w">
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Get-ForestDomainControllers</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$Results</span><span class="o">=</span><span class="p">@()</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$domain</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-ADForest</span><span class="p">)</span><span class="o">.</span><span class="nf">domains</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$Results</span><span class="o">+=</span><span class="p">(</span><span class="nf">Get-ADdomain</span><span class="w"> </span><span class="nv">$domain</span><span class="p">)</span><span class="o">.</span><span class="nf">ReplicaDirectoryServers</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Return</span><span class="w"> </span><span class="nv">$Results</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Get</span><span class="o">-</span><span class="no">DCDiagReport</span><span class="p">(</span><span class="vg">$DC</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="s2">"Testing $DC"</span>
-<span class="vg">$DCDIAG</span> <span class="o">=</span> <span class="n">dcdiag</span> <span class="sr">/s:$DC /</span><span class="n">v</span> <span class="c1">#/test:Intersite /test:topology
-</span>
-<span class="vg">$DCDiagResults</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="no">System</span><span class="o">.</span><span class="no">Object</span>
-<span class="vg">$DCDiagResults</span> <span class="o">|</span> <span class="no">Add</span><span class="o">-</span><span class="no">Member</span> <span class="o">-</span><span class="nb">name</span> <span class="no">Server</span> <span class="o">-</span><span class="no">Value</span> <span class="vg">$DC</span> <span class="o">-</span><span class="no">Type</span> <span class="no">NoteProperty</span> <span class="o">-</span><span class="no">Force</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Get-DCDiagReport</span><span class="p">(</span><span class="nv">$DC</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Testing </span><span class="nv">$DC</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$DCDIAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dcdiag</span><span class="w"> </span><span class="nx">/s:</span><span class="nv">$DC</span><span class="w"> </span><span class="nx">/v</span><span class="w"> </span><span class="c">#/test:Intersite /test:topology
+</span><span class="w">
+</span><span class="nv">$DCDiagResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Object</span><span class="w">
+</span><span class="nv">$DCDiagResults</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Add-Member</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">Server</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nv">$DC</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NoteProperty</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
 
-<span class="no">Foreach</span> <span class="p">(</span><span class="vg">$Entry</span> <span class="k">in</span> <span class="vg">$DCDIAG</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="no">Switch</span> <span class="o">-</span><span class="no">Regex</span> <span class="p">(</span><span class="vg">$Entry</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="s2">"Starting"</span> <span class="p">{</span><span class="vg">$Testname</span> <span class="o">=</span> <span class="p">(</span><span class="vg">$Entry</span> <span class="o">-</span><span class="n">replace</span> <span class="s2">".*Starting test: "</span><span class="p">)</span><span class="o">.</span><span class="no">Trim</span><span class="p">()}</span>
-<span class="s2">"passed|failed"</span> <span class="p">{</span><span class="no">If</span> <span class="p">(</span><span class="vg">$Entry</span> <span class="o">-</span><span class="n">match</span> <span class="s2">"passed"</span><span class="p">)</span> <span class="p">{</span><span class="vg">$TestStatus</span> <span class="o">=</span> <span class="s2">"Passed"</span><span class="p">}</span> <span class="no">Else</span> <span class="p">{</span><span class="vg">$TestStatus</span> <span class="o">=</span> <span class="s2">"failed"</span><span class="p">}}</span>
-<span class="p">}</span>
+</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$DCDIAG</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">Switch</span><span class="w"> </span><span class="nt">-Regex</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Starting"</span><span class="w"> </span><span class="p">{</span><span class="nv">$Testname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="o">-replace</span><span class="w"> </span><span class="s2">".*Starting test: "</span><span class="p">)</span><span class="o">.</span><span class="nf">Trim</span><span class="p">()}</span><span class="w">
+</span><span class="s2">"passed|failed"</span><span class="w"> </span><span class="p">{</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"passed"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Passed"</span><span class="p">}</span><span class="w"> </span><span class="kr">Else</span><span class="w"> </span><span class="p">{</span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"failed"</span><span class="p">}}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">If</span> <span class="p">(</span><span class="vg">$TestName</span> <span class="o">-</span><span class="n">ne</span> <span class="vg">$null</span> <span class="o">-</span><span class="n">and</span> <span class="vg">$TestStatus</span> <span class="o">-</span><span class="n">ne</span> <span class="vg">$null</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$DCDiagResults</span> <span class="o">|</span> <span class="no">Add</span><span class="o">-</span><span class="no">Member</span> <span class="o">-</span><span class="no">Type</span> <span class="no">NoteProperty</span> <span class="o">-</span><span class="nb">name</span> <span class="err">$</span><span class="p">(</span><span class="vg">$TestName</span><span class="o">.</span><span class="no">Trim</span><span class="p">())</span> <span class="o">-</span><span class="no">Value</span> <span class="vg">$TestStatus</span> <span class="o">-</span><span class="no">Force</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="no">Return</span> <span class="vg">$DCDiagResults</span>
-<span class="p">}</span>
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$TestName</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="bp">$null</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="bp">$null</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$DCDiagResults</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Add-Member</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NoteProperty</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$TestName</span><span class="o">.</span><span class="nf">Trim</span><span class="p">())</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nv">$TestStatus</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Return</span><span class="w"> </span><span class="nv">$DCDiagResults</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Function</span> <span class="no">Get</span><span class="o">-</span><span class="no">ReplReport</span>
-<span class="p">{</span>
-<span class="s2">"Starting Repadmin Tests"</span>
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Get-ReplReport</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Starting Repadmin Tests"</span><span class="w">
 
-<span class="vg">$Repl</span> <span class="o">=</span> <span class="n">repadmin</span> <span class="sr">/showrepl * /</span><span class="n">csv</span>
-<span class="vg">$ReplResults</span> <span class="o">=</span> <span class="vg">$Repl</span> <span class="o">|</span> <span class="no">ConvertFrom</span><span class="o">-</span><span class="no">Csv</span>
+</span><span class="nv">$Repl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">repadmin</span><span class="w"> </span><span class="nx">/showrepl</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">/csv</span><span class="w">
+</span><span class="nv">$ReplResults</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Repl</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ConvertFrom-Csv</span><span class="w">
 
-<span class="vg">$ReplReport</span> <span class="o">=</span> <span class="err">@</span><span class="p">()</span>
+</span><span class="nv">$ReplReport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
 
-<span class="no">Foreach</span> <span class="p">(</span><span class="vg">$result</span> <span class="k">in</span> <span class="vg">$ReplResults</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$ReplReport</span> <span class="o">+=</span> <span class="no">New</span><span class="o">-</span><span class="n">object</span> <span class="no">PSObject</span> <span class="o">-</span><span class="no">Property</span> <span class="err">@</span><span class="p">{</span>
-<span class="s2">"DestSite"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Destination DSA Site'</span>
-<span class="s2">"Dest"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Destination DSA'</span>
-<span class="s2">"NamingContext"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Naming Context'</span>
-<span class="s2">"SourceSite"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Source DSA Site'</span>
-<span class="s2">"Source"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Source DSA'</span>
-<span class="s2">"Transport"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Transport Type'</span>
-<span class="s2">"NumberFailures"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Number of Failures'</span>
-<span class="s2">"LastFailureTime"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Failure Time'</span>
-<span class="s2">"LastSuccessTime"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Success Time'</span>
-<span class="s2">"LastFailureStatus"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Failure Status'</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="no">Return</span> <span class="vg">$ReplReport</span>
-<span class="p">}</span>
+</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$result</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$ReplResults</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$ReplReport</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">New-object</span><span class="w"> </span><span class="nx">PSObject</span><span class="w"> </span><span class="nt">-Property</span><span class="w"> </span><span class="p">@{</span><span class="w">
+</span><span class="s2">"DestSite"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Destination DSA Site'</span><span class="w">
+</span><span class="s2">"Dest"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Destination DSA'</span><span class="w">
+</span><span class="s2">"NamingContext"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Naming Context'</span><span class="w">
+</span><span class="s2">"SourceSite"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Source DSA Site'</span><span class="w">
+</span><span class="s2">"Source"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Source DSA'</span><span class="w">
+</span><span class="s2">"Transport"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Transport Type'</span><span class="w">
+</span><span class="s2">"NumberFailures"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Number of Failures'</span><span class="w">
+</span><span class="s2">"LastFailureTime"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Failure Time'</span><span class="w">
+</span><span class="s2">"LastSuccessTime"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Success Time'</span><span class="w">
+</span><span class="s2">"LastFailureStatus"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Failure Status'</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Return</span><span class="w"> </span><span class="nv">$ReplReport</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="c1">##############
-</span>
-<span class="c1"># Gather Data
-</span>
-<span class="c1">##############
-</span>
+</span><span class="c">##############
+</span><span class="w">
+</span><span class="c"># Gather Data
+</span><span class="w">
+</span><span class="c">##############
+</span><span class="w">
 
-<span class="no">Clear</span><span class="o">-</span><span class="no">Host</span>
-<span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span>
+</span><span class="nf">Clear-Host</span><span class="w">
+</span><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">activedirectory</span><span class="w">
 
-<span class="s2">"Collecting Forest Domain Controllers"</span>
-<span class="vg">$DCs</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">ForestDomainControllers</span>
+</span><span class="s2">"Collecting Forest Domain Controllers"</span><span class="w">
+</span><span class="nv">$DCs</span><span class="o">=</span><span class="nf">Get-ForestDomainControllers</span><span class="w">
 
-<span class="s2">"Starting DCDiag Tests"</span>
-<span class="vg">$DCDiagRpt</span><span class="o">=</span><span class="err">@</span><span class="p">()</span>
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$DC</span> <span class="k">in</span> <span class="vg">$DCs</span> <span class="o">|</span> <span class="n">sort</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$DCDiagRpt</span><span class="o">+=</span><span class="no">Get</span><span class="o">-</span><span class="no">DCDiagReport</span> <span class="vg">$DC</span><span class="o">.</span><span class="no">ToUpper</span><span class="p">()</span>
-<span class="p">}</span>
+</span><span class="s2">"Starting DCDiag Tests"</span><span class="w">
+</span><span class="nv">$DCDiagRpt</span><span class="o">=</span><span class="p">@()</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$DC</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$DCs</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">sort</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$DCDiagRpt</span><span class="o">+=</span><span class="nf">Get-DCDiagReport</span><span class="w"> </span><span class="nv">$DC</span><span class="o">.</span><span class="nf">ToUpper</span><span class="p">()</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="c1">#################
-</span>
-<span class="c1"># Display Results
-</span>
-<span class="c1">#################
-</span>
+</span><span class="c">#################
+</span><span class="w">
+</span><span class="c"># Display Results
+</span><span class="w">
+</span><span class="c">#################
+</span><span class="w">
 
-<span class="s2">"Starting Repadmin Tests"</span>
-<span class="vg">$ReplRrt</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">ReplReport</span>
+</span><span class="s2">"Starting Repadmin Tests"</span><span class="w">
+</span><span class="nv">$ReplRrt</span><span class="o">=</span><span class="nf">Get-ReplReport</span><span class="w">
 
-<span class="s2">"DCDiag Test Results (Page 1 of 2)"</span>
-<span class="vg">$DCDiagRpt</span> <span class="o">|</span> <span class="n">ft</span> <span class="no">Server</span><span class="p">,</span><span class="no">Connectivity</span><span class="p">,</span><span class="no">Advertising</span><span class="p">,</span><span class="no">DFSREvent</span><span class="p">,</span><span class="no">SysVolCheck</span><span class="p">,</span><span class="no">KccEvent</span><span class="p">,</span><span class="no">NCSecDesc</span><span class="p">,</span><span class="no">Replications</span><span class="p">,</span><span class="no">RidManager</span><span class="p">,</span><span class="no">Services</span><span class="p">,</span><span class="no">Intersite</span><span class="p">,</span><span class="no">LocatorCheck</span> <span class="o">-</span><span class="no">AutoSize</span>
-<span class="s2">"DCDiag Test Results (Page 2 of 2)"</span>
-<span class="vg">$DCDiagRpt</span> <span class="o">|</span> <span class="n">ft</span> <span class="no">Server</span><span class="p">,</span><span class="no">FrsEvent</span><span class="p">,</span><span class="no">KnowsOfRoleHolders</span><span class="p">,</span><span class="no">MachineAccount</span><span class="p">,</span><span class="no">NetLogons</span><span class="p">,</span><span class="no">ObjectsReplicated</span><span class="p">,</span><span class="no">SystemLog</span><span class="p">,</span><span class="no">VerifyReferences</span><span class="p">,</span><span class="no">CheckSDRefDom</span><span class="p">,</span><span class="no">CrossRefValidation</span> <span class="o">-</span><span class="no">AutoSize</span>
+</span><span class="s2">"DCDiag Test Results (Page 1 of 2)"</span><span class="w">
+</span><span class="nv">$DCDiagRpt</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ft</span><span class="w"> </span><span class="nx">Server</span><span class="p">,</span><span class="nx">Connectivity</span><span class="p">,</span><span class="nx">Advertising</span><span class="p">,</span><span class="nx">DFSREvent</span><span class="p">,</span><span class="nx">SysVolCheck</span><span class="p">,</span><span class="nx">KccEvent</span><span class="p">,</span><span class="nx">NCSecDesc</span><span class="p">,</span><span class="nx">Replications</span><span class="p">,</span><span class="nx">RidManager</span><span class="p">,</span><span class="nx">Services</span><span class="p">,</span><span class="nx">Intersite</span><span class="p">,</span><span class="nx">LocatorCheck</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
+</span><span class="s2">"DCDiag Test Results (Page 2 of 2)"</span><span class="w">
+</span><span class="nv">$DCDiagRpt</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ft</span><span class="w"> </span><span class="nx">Server</span><span class="p">,</span><span class="nx">FrsEvent</span><span class="p">,</span><span class="nx">KnowsOfRoleHolders</span><span class="p">,</span><span class="nx">MachineAccount</span><span class="p">,</span><span class="nx">NetLogons</span><span class="p">,</span><span class="nx">ObjectsReplicated</span><span class="p">,</span><span class="nx">SystemLog</span><span class="p">,</span><span class="nx">VerifyReferences</span><span class="p">,</span><span class="nx">CheckSDRefDom</span><span class="p">,</span><span class="nx">CrossRefValidation</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
 
-<span class="s2">"Replication Test Results"</span>
-<span class="vg">$Servers</span> <span class="o">=</span> <span class="vg">$ReplRrt</span> <span class="o">|</span> <span class="nb">select</span> <span class="o">-</span><span class="no">ExpandProperty</span> <span class="no">Source</span> <span class="o">-</span><span class="no">Unique</span>
+</span><span class="s2">"Replication Test Results"</span><span class="w">
+</span><span class="nv">$Servers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$ReplRrt</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">select</span><span class="w"> </span><span class="nt">-ExpandProperty</span><span class="w"> </span><span class="nx">Source</span><span class="w"> </span><span class="nt">-Unique</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$Server</span> <span class="k">in</span> <span class="p">(</span><span class="vg">$Servers</span> <span class="o">|</span> <span class="no">Sort</span><span class="p">))</span>
-<span class="p">{</span>
-<span class="s2">"$Server"</span>
-<span class="vg">$ReplRrt</span> <span class="o">|</span> <span class="p">?</span> <span class="p">{</span><span class="vg">$_</span><span class="o">.</span><span class="no">Source</span> <span class="o">-</span><span class="n">eq</span> <span class="vg">$Server</span><span class="p">}</span> <span class="o">|</span> <span class="nb">select</span> <span class="s2">"NamingContext"</span><span class="p">,</span><span class="s2">"Dest"</span><span class="p">,</span><span class="s2">"SourceSite"</span><span class="p">,</span><span class="s2">"DestSite"</span><span class="p">,</span><span class="s2">"NumberFailures"</span><span class="p">,</span><span class="s2">"LastFailureTime"</span><span class="p">,</span><span class="s2">"LastFailureStatus"</span><span class="p">,</span><span class="s2">"LastSuccessTime"</span><span class="p">,</span><span class="s2">"Transport"</span> <span class="o">|</span> <span class="n">sort</span> <span class="no">NamingContext</span><span class="p">,</span><span class="no">Dest</span> <span class="o">|</span> <span class="n">ft</span> <span class="o">-</span><span class="no">AutoSize</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Server</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="p">(</span><span class="nv">$Servers</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Sort</span><span class="p">))</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="s2">"</span><span class="nv">$Server</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$ReplRrt</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">?</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">Source</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$Server</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">select</span><span class="w"> </span><span class="s2">"NamingContext"</span><span class="p">,</span><span class="s2">"Dest"</span><span class="p">,</span><span class="s2">"SourceSite"</span><span class="p">,</span><span class="s2">"DestSite"</span><span class="p">,</span><span class="s2">"NumberFailures"</span><span class="p">,</span><span class="s2">"LastFailureTime"</span><span class="p">,</span><span class="s2">"LastFailureStatus"</span><span class="p">,</span><span class="s2">"LastSuccessTime"</span><span class="p">,</span><span class="s2">"Transport"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">sort</span><span class="w"> </span><span class="nx">NamingContext</span><span class="p">,</span><span class="nx">Dest</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ft</span><span class="w"> </span><span class="nt">-AutoSize</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2016/11/22/AD-Forest-DCDiag-and-RepAdmin-Report.html" hidden></a>

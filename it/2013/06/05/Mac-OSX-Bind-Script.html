@@ -49,124 +49,124 @@
 
 <p>This is a script that was used in testing. Your mileage may vary. Test, test, test.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#! /bin/bash
-</span>
-<span class="c1"># Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion
-</span>
-<span class="c1"># Author: Joseph A Streeter
-</span>
-<span class="c1"># Modified date: 06 FEB 2013
-</span>
-<span class="n">clear</span><span class="c1"># Gather Computer and Domain User information
-</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Computer Name: "</span>
-<span class="n">read</span> <span class="n">computerid</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain Name: "</span>
-<span class="n">read</span> <span class="n">domain</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain User: "</span>
-<span class="n">read</span> <span class="n">domainuser</span>
-<span class="n">stty</span> <span class="o">-</span><span class="n">echo</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Enter Domain User Password: "</span>
-<span class="n">read</span> <span class="n">domainpwd</span>
-<span class="n">stty</span> <span class="n">echo</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#! /bin/bash
+</span><span class="w">
+</span><span class="c"># Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion
+</span><span class="w">
+</span><span class="c"># Author: Joseph A Streeter
+</span><span class="w">
+</span><span class="c"># Modified date: 06 FEB 2013
+</span><span class="w">
+</span><span class="nf">clear</span><span class="c"># Gather Computer and Domain User information
+</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nEnter Computer Name: "</span><span class="w">
+</span><span class="nf">read</span><span class="w"> </span><span class="nx">computerid</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nEnter Domain Name: "</span><span class="w">
+</span><span class="nf">read</span><span class="w"> </span><span class="nx">domain</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nEnter Domain User: "</span><span class="w">
+</span><span class="nf">read</span><span class="w"> </span><span class="nx">domainuser</span><span class="w">
+</span><span class="nf">stty</span><span class="w"> </span><span class="nt">-echo</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nEnter Domain User Password: "</span><span class="w">
+</span><span class="nf">read</span><span class="w"> </span><span class="nx">domainpwd</span><span class="w">
+</span><span class="nf">stty</span><span class="w"> </span><span class="nx">echo</span><span class="w">
 
-<span class="c1"># Advanced Options - User Experience
-</span>
-<span class="n">localhome</span><span class="o">=</span><span class="s2">"enable"</span>
-<span class="n">mobile</span><span class="o">=</span><span class="s2">"enable"</span>
-<span class="n">mobileconfirm</span><span class="o">=</span><span class="s2">"disable"</span>
-<span class="n">protocol</span><span class="o">=</span><span class="s2">"smb"</span>
-<span class="n">shell</span><span class="o">=</span><span class="s2">"/bin/bash"</span>
+</span><span class="c"># Advanced Options - User Experience
+</span><span class="w">
+</span><span class="nf">localhome</span><span class="o">=</span><span class="s2">"enable"</span><span class="w">
+</span><span class="nf">mobile</span><span class="o">=</span><span class="s2">"enable"</span><span class="w">
+</span><span class="nf">mobileconfirm</span><span class="o">=</span><span class="s2">"disable"</span><span class="w">
+</span><span class="nf">protocol</span><span class="o">=</span><span class="s2">"smb"</span><span class="w">
+</span><span class="nf">shell</span><span class="o">=</span><span class="s2">"/bin/bash"</span><span class="w">
 
-<span class="c1"># Advanced Options - Administrative
-</span>
-<span class="n">groups</span><span class="o">=</span><span class="s2">"Domain Admins,Enterprise Admins"</span>
-<span class="n">alldomains</span><span class="o">=</span><span class="s2">"disable"</span>
-<span class="n">passinterval</span><span class="o">=</span><span class="s2">"30"</span>
+</span><span class="c"># Advanced Options - Administrative
+</span><span class="w">
+</span><span class="nf">groups</span><span class="o">=</span><span class="s2">"Domain Admins,Enterprise Admins"</span><span class="w">
+</span><span class="nf">alldomains</span><span class="o">=</span><span class="s2">"disable"</span><span class="w">
+</span><span class="nf">passinterval</span><span class="o">=</span><span class="s2">"30"</span><span class="w">
 
-<span class="c1"># Review user entered information and choose to contine or abort
-</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Computer Name = $computerid"</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Domain Name = $domain"</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Domain User = $domainuser"</span>
+</span><span class="c"># Review user entered information and choose to contine or abort
+</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nComputer Name = </span><span class="nv">$computerid</span><span class="s2">"</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nDomain Name = </span><span class="nv">$domain</span><span class="s2">"</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nDomain User = </span><span class="nv">$domainuser</span><span class="s2">"</span><span class="w">
 
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Would you like to continue? [y/n] "</span>
-<span class="n">read</span> <span class="n">continue</span>
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$continue</span> <span class="o">==</span> <span class="s2">"n"</span> <span class="p">];</span> <span class="k">then</span> <span class="nb">exit</span> <span class="mi">1</span><span class="p">;</span> <span class="n">fi</span>
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nWould you like to continue? [y/n] "</span><span class="w">
+</span><span class="nf">read</span><span class="w"> </span><span class="nx">continue</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">$continue</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"n"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w"> </span><span class="nx">exit</span><span class="w"> </span><span class="nx">1</span><span class="p">;</span><span class="w"> </span><span class="nf">fi</span><span class="w">
 
-<span class="c1"># Determin OS Version
-</span>
-<span class="k">case</span> <span class="err">$</span><span class="p">(</span><span class="n">sw_vers</span> <span class="o">-</span><span class="n">productVersion</span><span class="p">)</span> <span class="k">in</span>
-<span class="mf">10.7</span><span class="p">.</span><span class="nf">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span>
-<span class="n">ver</span><span class="o">=</span><span class="s2">"10.7"</span>
-<span class="p">;;</span>
-<span class="mf">10.6</span><span class="p">.</span><span class="nf">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">9</span><span class="p">])</span>
-<span class="n">ver</span><span class="o">=</span><span class="s2">"10.6"</span>
-<span class="p">;;</span>
-<span class="o">*</span><span class="p">)</span>
-<span class="n">echo</span> <span class="s2">"Version unsupported"</span>
-<span class="nb">exit</span> <span class="mi">1</span>
-<span class="n">esac</span>
+</span><span class="c"># Determin OS Version
+</span><span class="w">
+</span><span class="nf">case</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">sw_vers</span><span class="w"> </span><span class="nt">-productVersion</span><span class="p">)</span><span class="w"> </span><span class="kr">in</span><span class="w">
+</span><span class="mf">10.7</span><span class="o">.</span><span class="p">[</span><span class="mi">1</span><span class="nt">-9</span><span class="p">])</span><span class="w">
+</span><span class="nf">ver</span><span class="o">=</span><span class="s2">"10.7"</span><span class="w">
+</span><span class="p">;;</span><span class="w">
+</span><span class="mf">10.6</span><span class="o">.</span><span class="p">[</span><span class="mi">1</span><span class="nt">-9</span><span class="p">])</span><span class="w">
+</span><span class="nf">ver</span><span class="o">=</span><span class="s2">"10.6"</span><span class="w">
+</span><span class="p">;;</span><span class="w">
+</span><span class="o">*</span><span class="p">)</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"Version unsupported"</span><span class="w">
+</span><span class="kr">exit</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="nf">esac</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$ver</span> <span class="o">==</span> <span class="s2">"10.6"</span> <span class="p">];</span> <span class="k">then</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">$ver</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">"10.6"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
 
-<span class="c1"># Remove Existing Directory Services Config
-</span>
-<span class="nb">printf</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Cleaning up any old Active Directory information"</span>
+</span><span class="c"># Remove Existing Directory Services Config
+</span><span class="w">
+</span><span class="nf">printf</span><span class="w"> </span><span class="s2">"\nCleaning up any old Active Directory information"</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/ActiveDirectory"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">ActiveDirectory</span><span class="o">*</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/ActiveDirectory"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/Library/Preferences/DirectoryService/ActiveDirectory</span><span class="o">*</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">DSLDAPv3PlugInConfig</span><span class="o">*</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/Library/Preferences/DirectoryService/DSLDAPv3PlugInConfig</span><span class="o">*</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/SearchNode"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">SearchNode</span><span class="o">*</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/SearchNode"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/Library/Preferences/DirectoryService/SearchNode</span><span class="o">*</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/DirectoryService/ContactsNode"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">ContactsNode</span><span class="o">*</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/ContactsNode"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/Library/Preferences/DirectoryService/ContactsNode</span><span class="o">*</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/Library/Preferences/edu.mit.Kerberos"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="n">edu</span><span class="p">.</span><span class="nf">mit</span><span class="o">.</span><span class="no">Kerberos</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/Library/Preferences/edu.mit.Kerberos"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/Library/Preferences/edu.mit.Kerberos</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"/etc/krb5.keytab"</span> <span class="p">];</span> <span class="k">then</span>
-<span class="n">rm</span> <span class="o">-</span><span class="no">R</span> <span class="sr">/etc/</span><span class="n">krb5</span><span class="p">.</span><span class="nf">keytab</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"/etc/krb5.keytab"</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-R</span><span class="w"> </span><span class="nx">/etc/krb5.keytab</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="c1"># Clean up the DirectoryService configuration files
-</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">vfR</span> <span class="s2">"/Library/Preferences/DirectoryService/*"</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">vfR</span> <span class="s2">"/Library/Preferences/DirectoryService/.*"</span>
+</span><span class="c"># Clean up the DirectoryService configuration files
+</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-vfR</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/*"</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-vfR</span><span class="w"> </span><span class="s2">"/Library/Preferences/DirectoryService/.*"</span><span class="w">
 
-<span class="c1"># Enable Active Directory Plugin
-</span>
-<span class="n">defaults</span> <span class="n">write</span> <span class="sr">/Library/</span><span class="no">Preferences</span><span class="o">/</span><span class="no">DirectoryService</span><span class="o">/</span><span class="no">DirectoryService</span> <span class="s2">"Active Directory"</span> <span class="no">Active</span>
-<span class="n">fi</span>
+</span><span class="c"># Enable Active Directory Plugin
+</span><span class="w">
+</span><span class="nf">defaults</span><span class="w"> </span><span class="nx">write</span><span class="w"> </span><span class="nx">/Library/Preferences/DirectoryService/DirectoryService</span><span class="w"> </span><span class="s2">"Active Directory"</span><span class="w"> </span><span class="nx">Active</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="n">echo</span> <span class="s2">""</span>
-<span class="n">echo</span> <span class="s2">"check Computer Name"</span>
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">ComputerName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Computer Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">ComputerName</span> <span class="vg">$computerid</span><span class="p">;</span><span class="n">fi</span>
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span><span class="o">.</span><span class="vg">$domain</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">HostName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Host Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">HostName</span> <span class="vg">$computerid</span><span class="o">.</span><span class="vg">$domain</span><span class="p">;</span><span class="n">fi</span>
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$computerid</span> <span class="o">==</span> <span class="err">$</span><span class="p">(</span><span class="n">scutil</span> <span class="o">--</span><span class="n">get</span> <span class="no">LocalHostName</span><span class="p">)</span> <span class="p">];</span> <span class="k">then</span> <span class="n">echo</span> <span class="s2">"Local Host Name good"</span><span class="p">;</span><span class="k">else</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="no">LocalHostName</span> <span class="vg">$computerid</span><span class="p">;</span><span class="n">fi</span>
-<span class="n">echo</span> <span class="s2">""</span>
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"check Computer Name"</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">$computerid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kt">scutil</span><span class="w"> </span><span class="nt">--get</span><span class="w"> </span><span class="kt">ComputerName</span><span class="p">)</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s2">"Computer Name good"</span><span class="p">;</span><span class="kr">else</span><span class="w"> </span><span class="nf">scutil</span><span class="w"> </span><span class="nt">--set</span><span class="w"> </span><span class="nx">ComputerName</span><span class="w"> </span><span class="nv">$computerid</span><span class="p">;</span><span class="nf">fi</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">$computerid</span><span class="o">.</span><span class="nv">$domain</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kt">scutil</span><span class="w"> </span><span class="nt">--get</span><span class="w"> </span><span class="kt">HostName</span><span class="p">)</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s2">"Host Name good"</span><span class="p">;</span><span class="kr">else</span><span class="w"> </span><span class="nf">scutil</span><span class="w"> </span><span class="nt">--set</span><span class="w"> </span><span class="nx">HostName</span><span class="w"> </span><span class="nv">$computerid</span><span class="o">.</span><span class="nv">$domain</span><span class="p">;</span><span class="nf">fi</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nv">$computerid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kt">scutil</span><span class="w"> </span><span class="nt">--get</span><span class="w"> </span><span class="kt">LocalHostName</span><span class="p">)</span><span class="w"> </span><span class="p">];</span><span class="w"> </span><span class="nf">then</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s2">"Local Host Name good"</span><span class="p">;</span><span class="kr">else</span><span class="w"> </span><span class="nf">scutil</span><span class="w"> </span><span class="nt">--set</span><span class="w"> </span><span class="nx">LocalHostName</span><span class="w"> </span><span class="nv">$computerid</span><span class="p">;</span><span class="nf">fi</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">""</span><span class="w">
 
-<span class="n">echo</span> <span class="s2">"Bind computer to AD"</span>
-<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">a</span> <span class="vg">$computerid</span> <span class="o">-</span><span class="n">domain</span> <span class="vg">$domain</span> <span class="o">-</span><span class="n">u</span> <span class="vg">$domainuser</span> <span class="o">-</span><span class="nb">p</span> <span class="vg">$domainpwd</span> <span class="o">-</span><span class="n">packetencrypt</span> <span class="n">ssl</span> <span class="o">-</span><span class="n">packetsign</span> <span class="nb">require</span>
-<span class="k">if</span> <span class="p">[</span> <span class="vg">$?</span> <span class="o">-</span><span class="n">ne</span> <span class="mi">0</span> <span class="p">];</span><span class="k">then</span> <span class="nb">exit</span> <span class="mi">1</span><span class="p">;</span><span class="n">fi</span>
-<span class="n">echo</span> <span class="s2">""</span>
-<span class="n">echo</span> <span class="s2">"Configure Advanced User Experience Options"</span>
-<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">localhome</span> <span class="vg">$localhome</span> <span class="o">-</span><span class="n">mobile</span> <span class="vg">$mobile</span> <span class="o">-</span><span class="n">mobileconfirm</span> <span class="vg">$mobileconfirm</span> <span class="o">-</span><span class="n">protocol</span> <span class="vg">$protocol</span> <span class="o">-</span><span class="n">shell</span> <span class="vg">$shell</span>
-<span class="n">echo</span> <span class="s2">""</span>
-<span class="n">echo</span> <span class="s2">"Configure Advanced Administrative Options"</span>
-<span class="n">dsconfigad</span> <span class="o">-</span><span class="n">nopreferred</span> <span class="o">-</span><span class="n">groups</span> <span class="s2">"$groups"</span> <span class="o">-</span><span class="n">alldomains</span> <span class="vg">$alldomains</span> <span class="o">-</span><span class="n">passinterval</span> <span class="vg">$passinterval</span>
-<span class="n">echo</span> <span class="s2">""</span>
-<span class="n">echo</span> <span class="s2">"Configuration Complete!"</span>
-<span class="nb">exit</span> <span class="mi">0</span></code></pre></figure>
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"Bind computer to AD"</span><span class="w">
+</span><span class="nf">dsconfigad</span><span class="w"> </span><span class="nt">-a</span><span class="w"> </span><span class="nv">$computerid</span><span class="w"> </span><span class="nt">-domain</span><span class="w"> </span><span class="nv">$domain</span><span class="w"> </span><span class="nt">-u</span><span class="w"> </span><span class="nv">$domainuser</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="nv">$domainpwd</span><span class="w"> </span><span class="nt">-packetencrypt</span><span class="w"> </span><span class="nx">ssl</span><span class="w"> </span><span class="nt">-packetsign</span><span class="w"> </span><span class="nx">require</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="bp">$?</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">];</span><span class="nf">then</span><span class="w"> </span><span class="nx">exit</span><span class="w"> </span><span class="nx">1</span><span class="p">;</span><span class="nf">fi</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"Configure Advanced User Experience Options"</span><span class="w">
+</span><span class="nf">dsconfigad</span><span class="w"> </span><span class="nt">-localhome</span><span class="w"> </span><span class="nv">$localhome</span><span class="w"> </span><span class="nt">-mobile</span><span class="w"> </span><span class="nv">$mobile</span><span class="w"> </span><span class="nt">-mobileconfirm</span><span class="w"> </span><span class="nv">$mobileconfirm</span><span class="w"> </span><span class="nt">-protocol</span><span class="w"> </span><span class="nv">$protocol</span><span class="w"> </span><span class="nt">-shell</span><span class="w"> </span><span class="nv">$shell</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"Configure Advanced Administrative Options"</span><span class="w">
+</span><span class="nf">dsconfigad</span><span class="w"> </span><span class="nt">-nopreferred</span><span class="w"> </span><span class="nt">-groups</span><span class="w"> </span><span class="s2">"</span><span class="nv">$groups</span><span class="s2">"</span><span class="w"> </span><span class="nt">-alldomains</span><span class="w"> </span><span class="nv">$alldomains</span><span class="w"> </span><span class="nt">-passinterval</span><span class="w"> </span><span class="nv">$passinterval</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="s2">"Configuration Complete!"</span><span class="w">
+</span><span class="kr">exit</span><span class="w"> </span><span class="mi">0</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/06/05/Mac-OSX-Bind-Script.html" hidden></a>

@@ -47,27 +47,27 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Creates a list of all Group Policy objects that are not linked or don’t have any policies configured.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">grouppolicy</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">grouppolicy</span><span class="w">
 
-<span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"`nUnlinked GPOs`n"</span>
-<span class="vg">$allGPOs</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">GPO</span> <span class="o">-</span><span class="no">All</span> <span class="o">|</span> <span class="n">sort</span> <span class="no">DisplayName</span>
-<span class="no">ForEach</span> <span class="p">(</span><span class="vg">$gpo</span> <span class="k">in</span> <span class="vg">$allGPOs</span><span class="p">)</span> <span class="p">{</span>
-<span class="vg">$xml</span> <span class="o">=</span> <span class="p">[</span><span class="n">xml</span><span class="p">](</span><span class="no">Get</span><span class="o">-</span><span class="no">GPOReport</span> <span class="vg">$gpo</span><span class="o">.</span><span class="no">Id</span> <span class="n">xml</span><span class="p">)</span>
-<span class="no">If</span> <span class="p">(</span><span class="o">!</span><span class="vg">$xml</span><span class="o">.</span><span class="no">GPO</span><span class="o">.</span><span class="no">LinksTo</span><span class="p">)</span> <span class="p">{</span>
-<span class="vg">$gpo</span><span class="o">.</span><span class="no">DisplayName</span>
-<span class="p">}</span>
-<span class="p">}</span>
+</span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"</span><span class="se">`n</span><span class="s2">Unlinked GPOs</span><span class="se">`n</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$allGPOs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-GPO</span><span class="w"> </span><span class="nt">-All</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">sort</span><span class="w"> </span><span class="nx">DisplayName</span><span class="w">
+</span><span class="kr">ForEach</span><span class="w"> </span><span class="p">(</span><span class="nv">$gpo</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$allGPOs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$xml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">xml</span><span class="p">](</span><span class="nf">Get-GPOReport</span><span class="w"> </span><span class="nv">$gpo</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="nx">xml</span><span class="p">)</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$xml</span><span class="o">.</span><span class="nf">GPO</span><span class="o">.</span><span class="nf">LinksTo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$gpo</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"`nGPOs with no settings`n"</span>
-<span class="vg">$allGPOs</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">GPO</span> <span class="o">-</span><span class="no">All</span> <span class="o">|</span> <span class="n">sort</span> <span class="no">DisplayName</span>
-<span class="no">ForEach</span> <span class="p">(</span><span class="vg">$gpo</span> <span class="k">in</span> <span class="vg">$allGPOs</span><span class="p">)</span> <span class="p">{</span>
-<span class="vg">$xml</span> <span class="o">=</span> <span class="p">[</span><span class="n">xml</span><span class="p">](</span><span class="no">Get</span><span class="o">-</span><span class="no">GPOReport</span> <span class="vg">$gpo</span><span class="o">.</span><span class="no">Id</span> <span class="n">xml</span><span class="p">)</span>
-<span class="no">If</span> <span class="p">(</span><span class="vg">$xml</span><span class="o">.</span><span class="no">GPO</span><span class="o">.</span><span class="no">LinksTo</span><span class="p">)</span> <span class="p">{</span>
-<span class="no">If</span> <span class="p">(</span><span class="o">!</span><span class="vg">$xml</span><span class="o">.</span><span class="no">GPO</span><span class="o">.</span><span class="no">Computer</span><span class="o">.</span><span class="no">ExtensionData</span> <span class="o">-</span><span class="n">and</span> <span class="o">!</span><span class="vg">$xml</span><span class="o">.</span><span class="no">GPO</span><span class="o">.</span><span class="no">User</span><span class="o">.</span><span class="no">ExtensionData</span><span class="p">)</span> <span class="p">{</span>
-<span class="vg">$gpo</span><span class="o">.</span><span class="no">DisplayName</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"</span><span class="se">`n</span><span class="s2">GPOs with no settings</span><span class="se">`n</span><span class="s2">"</span><span class="w">
+</span><span class="nv">$allGPOs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-GPO</span><span class="w"> </span><span class="nt">-All</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">sort</span><span class="w"> </span><span class="nx">DisplayName</span><span class="w">
+</span><span class="kr">ForEach</span><span class="w"> </span><span class="p">(</span><span class="nv">$gpo</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$allGPOs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$xml</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">xml</span><span class="p">](</span><span class="nf">Get-GPOReport</span><span class="w"> </span><span class="nv">$gpo</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="nx">xml</span><span class="p">)</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$xml</span><span class="o">.</span><span class="nf">GPO</span><span class="o">.</span><span class="nf">LinksTo</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nv">$xml</span><span class="o">.</span><span class="nf">GPO</span><span class="o">.</span><span class="nf">Computer</span><span class="o">.</span><span class="nf">ExtensionData</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="o">!</span><span class="nv">$xml</span><span class="o">.</span><span class="nf">GPO</span><span class="o">.</span><span class="nf">User</span><span class="o">.</span><span class="nf">ExtensionData</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nv">$gpo</span><span class="o">.</span><span class="nf">DisplayName</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2015/11/26/Find-GPOs-that-aren't-linked-or-Don't-Contain-Policies.html" hidden></a>

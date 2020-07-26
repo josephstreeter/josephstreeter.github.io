@@ -47,13 +47,13 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>The following script will move all of the VMs on a Hyper-V host to a new storage location. In this case we are moving the VMs from “C:\VM\VirtualMachines" to “D:\VM\VirtualMachines.” This script assumes that the VM disks are kept in the VM folder and not in a separate location.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$VMs</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">VM</span>
-<span class="vg">$Path</span><span class="o">=</span><span class="s2">"D:</span><span class="se">\V</span><span class="s2">M</span><span class="se">\V</span><span class="s2">irtualMachines</span><span class="se">\$</span><span class="s2">($VM.Name)"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$VMs</span><span class="o">=</span><span class="nf">Get-VM</span><span class="w">
+</span><span class="nv">$Path</span><span class="o">=</span><span class="s2">"D:\VM\VirtualMachines\</span><span class="si">$(</span><span class="nv">$VM</span><span class="o">.</span><span class="nf">Name</span><span class="si">)</span><span class="s2">"</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$VM</span> <span class="k">in</span> <span class="vg">$VMs</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="no">Move</span><span class="o">-</span><span class="no">VMStorage</span> <span class="o">-</span><span class="no">VM</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">VM</span> <span class="vg">$VM</span><span class="o">.</span><span class="no">Name</span><span class="p">)</span> <span class="o">-</span><span class="no">DestinationStoragePath</span> <span class="vg">$Path</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$VM</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$VMs</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nf">Move-VMStorage</span><span class="w"> </span><span class="nt">-VM</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">Get-VM</span><span class="w"> </span><span class="nv">$VM</span><span class="o">.</span><span class="nf">Name</span><span class="p">)</span><span class="w"> </span><span class="nt">-DestinationStoragePath</span><span class="w"> </span><span class="nv">$Path</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2017/02/27/Move-Hyper-V-VM-and-Storage-Files-to-New-Location.html" hidden></a>

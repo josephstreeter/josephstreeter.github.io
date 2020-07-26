@@ -49,42 +49,43 @@
 
 <p>Sending email to Gmail requires you to provide a username/password and a custom port number. This will send the output from DCDIAG in the body of the message.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$EmailFrom</span> <span class="o">=</span> <span class="s2">"joseph.admin@domain.tld"</span>
-<span class="vg">$EmailTo</span> <span class="o">=</span> <span class="s2">"joseph.admin@gmail.com"</span>
-<span class="vg">$Subject</span> <span class="o">=</span> <span class="s2">"subject"</span>
-<span class="vg">$Body</span> <span class="o">=</span> <span class="p">(</span><span class="no">DCDIAG</span> <span class="sr">/e /</span><span class="n">q</span> <span class="sr">/s:DC_Name)
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$EmailFrom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"joseph.admin@domain.tld"</span><span class="w">
+</span><span class="nv">$EmailTo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"joseph.admin@gmail.com"</span><span class="w">
+</span><span class="nv">$Subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"subject"</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">DCDIAG</span><span class="w"> </span><span class="nx">/e</span><span class="w"> </span><span class="nx">/q</span><span class="w"> </span><span class="nx">/s:DC_Name</span><span class="p">)</span><span class="w">
 
-$SMTPServer = "smtp.gmail.com"
-$SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
-$SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("username", "pass");
-$SMTPClient.Send($EmailFrom, $EmailTo, $Subject, $Body)</span></code></pre></figure>
+</span><span class="nv">$SMTPServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"smtp.gmail.com"</span><span class="w">
+</span><span class="nv">$SMTPClient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">Net.Mail.SmtpClient</span><span class="p">(</span><span class="nv">$SmtpServer</span><span class="p">,</span><span class="w"> </span><span class="mi">587</span><span class="p">)</span><span class="w">
+</span><span class="nv">$SMTPClient</span><span class="o">.</span><span class="nf">EnableSsl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">$true</span><span class="w">
+</span><span class="nv">$SMTPClient</span><span class="o">.</span><span class="nf">Credentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Net.NetworkCredential</span><span class="p">(</span><span class="s2">"username"</span><span class="p">,</span><span class="w"> </span><span class="s2">"pass"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$SMTPClient</span><span class="o">.</span><span class="nf">Send</span><span class="p">(</span><span class="nv">$EmailFrom</span><span class="p">,</span><span class="w"> </span><span class="nv">$EmailTo</span><span class="p">,</span><span class="w"> </span><span class="nv">$Subject</span><span class="p">,</span><span class="w"> </span><span class="nv">$Body</span><span class="p">)</span></code></pre></figure>
 
 <p>The following code can be used if you have the Send-MailMessage available to you. This script will send a message if the disk space on C: falls below 125GB. This one will prompt for credentials, but the hash could easily be stored in a file. Not totally secure, but slightly better than keeping it in plain text.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$HostName</span> <span class="o">=</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">WmiObject</span> <span class="o">-</span><span class="no">Class</span> <span class="n">win32_computersystem</span><span class="p">).</span><span class="nf">name</span>
-<span class="vg">$From</span> <span class="o">=</span> <span class="s2">"Admin, Joseph A &lt;joseph.admin@domain.tld&gt;"</span>
-<span class="vg">$To</span> <span class="o">=</span> <span class="s2">"Admin, Joseph A &lt;joseph.admin@gmail.com&gt;"</span>
-<span class="vg">$Subject</span> <span class="o">=</span> <span class="s2">"Disk Space Warning"</span>
-<span class="vg">$Port</span> <span class="o">=</span> <span class="mi">587</span>
-<span class="vg">$SmtpServer</span> <span class="o">=</span> <span class="s2">"smtp.gmail.com"</span>
-<span class="vg">$DiskSpace</span> <span class="o">=</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">PSDrive</span> <span class="n">c</span><span class="p">).</span><span class="nf">free</span> <span class="o">/</span> <span class="mi">1</span><span class="no">GB</span>
-<span class="vg">$Body</span> <span class="o">=</span> <span class="s2">"Low disk space on $hostname. `n$DiskSpace available on C:</span><span class="se">\"</span><span class="s2">
-$Warning = 125
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="bp">$Host</span><span class="nf">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-WmiObject</span><span class="w"> </span><span class="nt">-Class</span><span class="w"> </span><span class="nx">win32_computersystem</span><span class="p">)</span><span class="o">.</span><span class="nf">name</span><span class="w">
+</span><span class="nv">$From</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Admin, Joseph A &lt;joseph.admin@domain.tld&gt;"</span><span class="w">
+</span><span class="nv">$To</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Admin, Joseph A &lt;joseph.admin@gmail.com&gt;"</span><span class="w">
+</span><span class="nv">$Subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Disk Space Warning"</span><span class="w">
+</span><span class="nv">$Port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">587</span><span class="w">
+</span><span class="nv">$SmtpServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"smtp.gmail.com"</span><span class="w">
+</span><span class="nv">$DiskSpace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-PSDrive</span><span class="w"> </span><span class="nx">c</span><span class="p">)</span><span class="o">.</span><span class="nf">free</span><span class="w"> </span><span class="nf">/</span><span class="w"> </span><span class="nx">1GB</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Low disk space on </span><span class="nv">$hostname</span><span class="s2">. </span><span class="se">`n</span><span class="nv">$DiskSpace</span><span class="s2"> available on C:\"</span><span class="w">
+</span><span class="nv">$Warning</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">125</span><span class="w">
 
-if (!($hash)) {$hash = Get-Credential}
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nv">$hash</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="nv">$hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-Credential</span><span class="p">}</span><span class="w">
 
-if ($DiskSpace -lt $Warning) {
-Send-MailMessage `
--From $From `
--To $To `
--Subject $Subject `
--Body $Body `
--SmtpServer $SmtpServer `
--Port $Port `
--UseSsl `
--Credential $hash
-}</span></code></pre></figure>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$DiskSpace</span><span class="w"> </span><span class="o">-lt</span><span class="w"> </span><span class="nv">$Warning</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">Send-MailMessage</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-From</span><span class="w"> </span><span class="nv">$From</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-To</span><span class="w"> </span><span class="nv">$To</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Subject</span><span class="w"> </span><span class="nv">$Subject</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Body</span><span class="w"> </span><span class="nv">$Body</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-SmtpServer</span><span class="w"> </span><span class="nv">$SmtpServer</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Port</span><span class="w"> </span><span class="nv">$Port</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-UseSsl</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Credential</span><span class="w"> </span><span class="nv">$hash</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Send-Email-to-Gmail-from-Powershell.html" hidden></a>

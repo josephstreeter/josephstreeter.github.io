@@ -52,11 +52,11 @@
 <p>Example
 Change:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">kernel</span> <span class="sr">/vmlinuz-2.6.18-53.1.19.el5PAE ro root=/</span><span class="n">dev</span><span class="o">/</span><span class="no">VolGroup00</span><span class="o">/</span><span class="no">LogVol00</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyS0</span><span class="p">,</span><span class="mi">57600</span> <span class="n">console</span><span class="o">=</span><span class="n">tty0</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">kernel</span><span class="w"> </span><span class="nx">/vmlinuz-2.6.18-53.1.19.el5PAE</span><span class="w"> </span><span class="nx">ro</span><span class="w"> </span><span class="nx">root</span><span class="o">=</span><span class="nf">/dev/VolGroup00/LogVol00</span><span class="w"> </span><span class="nx">console</span><span class="o">=</span><span class="nf">ttyS0</span><span class="p">,</span><span class="nx">57600</span><span class="w"> </span><span class="nx">console</span><span class="o">=</span><span class="nf">tty0</span></code></pre></figure>
 
 <p>To:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">kernel</span> <span class="sr">/vmlinuz-2.6.18-53.1.19.el5PAE ro root=/</span><span class="n">dev</span><span class="o">/</span><span class="no">VolGroup00</span><span class="o">/</span><span class="no">LogVol00</span> <span class="n">console</span><span class="o">=</span><span class="n">ttyS0</span><span class="p">,</span><span class="mi">57600</span> <span class="n">console</span><span class="o">=</span><span class="n">tty0</span> <span class="n">vga</span><span class="o">=</span><span class="mi">791</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">kernel</span><span class="w"> </span><span class="nx">/vmlinuz-2.6.18-53.1.19.el5PAE</span><span class="w"> </span><span class="nx">ro</span><span class="w"> </span><span class="nx">root</span><span class="o">=</span><span class="nf">/dev/VolGroup00/LogVol00</span><span class="w"> </span><span class="nx">console</span><span class="o">=</span><span class="nf">ttyS0</span><span class="p">,</span><span class="nx">57600</span><span class="w"> </span><span class="nx">console</span><span class="o">=</span><span class="nf">tty0</span><span class="w"> </span><span class="nx">vga</span><span class="o">=</span><span class="mi">791</span></code></pre></figure>
 
 <p>Once you’ve edited and saved the file, reboot the host and you should see the new resolution.</p>
 
@@ -64,20 +64,20 @@ Change:</p>
 
 <p>For new versions of Fedora make the same change to the “/etc/default/grub” file by adding “vga=791” to the “GRUB_CMDLINE_LINUX” line. Then run the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="sr">/boot/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="nf">cfg</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">grub2-mkconfig</span><span class="w"> </span><span class="nt">-o</span><span class="w"> </span><span class="nx">/boot/grub2/grub.cfg</span></code></pre></figure>
 
 <p><strong><em>Debian</em></strong></p>
 
 <p>Similar to the Fedora fix, edit the “/etc/default/grub” file by adding “vga=791” to the “GRUB_CMDLINE_LINUX” line. Then run the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">grub</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="sr">/boot/</span><span class="n">grub</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="nf">cfg</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">grub-mkconfig</span><span class="w"> </span><span class="nt">-o</span><span class="w"> </span><span class="nx">/boot/grub/grub.cfg</span></code></pre></figure>
 
 <p><strong><em>Other Resolutions and Color Depths</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="mi">791</span> <span class="o">-</span> <span class="mi">1024</span><span class="n">x768</span><span class="p">,</span> <span class="mi">16</span> <span class="n">bit</span>
-<span class="mi">792</span> <span class="o">-</span> <span class="mi">1024</span><span class="n">x768</span><span class="p">,</span> <span class="mi">24</span> <span class="n">bit</span>
-<span class="mi">794</span> <span class="o">-</span> <span class="mi">1280</span><span class="n">x1024</span><span class="p">,</span> <span class="mi">16</span> <span class="n">bit</span>
-<span class="mi">795</span> <span class="o">-</span> <span class="mi">1280</span><span class="n">x1024</span><span class="p">,</span> <span class="mi">24</span> <span class="n">bit</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="mi">791</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="mi">1024</span><span class="nf">x768</span><span class="p">,</span><span class="w"> </span><span class="nx">16</span><span class="w"> </span><span class="nx">bit</span><span class="w">
+</span><span class="mi">792</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="mi">1024</span><span class="nf">x768</span><span class="p">,</span><span class="w"> </span><span class="nx">24</span><span class="w"> </span><span class="nx">bit</span><span class="w">
+</span><span class="mi">794</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="mi">1280</span><span class="nf">x1024</span><span class="p">,</span><span class="w"> </span><span class="nx">16</span><span class="w"> </span><span class="nx">bit</span><span class="w">
+</span><span class="mi">795</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="mi">1280</span><span class="nf">x1024</span><span class="p">,</span><span class="w"> </span><span class="nx">24</span><span class="w"> </span><span class="nx">bit</span></code></pre></figure>
 
 <p>If your linux install has a flash image that launches during boot, you can remove it so you can see the kernel do it’s thing. Using the same methods above on the- kernel line or GRUB_CMDLINE_LINUX- line, depending on distro,- remove ‘rhgb’ and ‘quiet’.</p>
 

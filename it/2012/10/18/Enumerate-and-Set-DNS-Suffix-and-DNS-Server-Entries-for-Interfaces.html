@@ -47,50 +47,53 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This is a PowerShell script that will enumerate the DNS suffix and DNS server entries for TCP/IP enabled interfaces on hosts that run a Windows Server OS.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$objName</span> <span class="o">=</span> <span class="s2">"***filter-text***"</span>
-<span class="vg">$searcher</span> <span class="o">=</span> <span class="n">new</span><span class="o">-</span><span class="n">object</span> <span class="no">DirectoryServices</span><span class="o">.</span><span class="no">DirectorySearcher</span><span class="p">([</span><span class="no">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span>
-<span class="vg">$searcher</span><span class="p">.</span><span class="nf">filter</span> <span class="o">=</span> <span class="s2">"(&amp;(objectClass=user)(objectCategory=computer)`
-	(cn= $objName*)(operatingSystem=*Server*))"</span>
-<span class="vg">$objAd</span> <span class="o">=</span> <span class="vg">$searcher</span><span class="p">.</span><span class="nf">findall</span><span class="p">()</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$objName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"***filter-text***"</span><span class="w">
+</span><span class="nv">$searcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">new-object</span><span class="w"> </span><span class="nx">DirectoryServices.DirectorySearcher</span><span class="p">([</span><span class="kt">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"(&amp;(objectClass=user)(objectCategory=computer)</span><span class="se">`
+</span><span class="s2">
+	(cn= </span><span class="nv">$objName</span><span class="s2">*)(operatingSystem=*Server*))"</span><span class="w">
+</span><span class="nv">$objAd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">findall</span><span class="p">()</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$objComp</span> <span class="k">in</span> <span class="vg">$objAd</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="vg">$strServerName</span> <span class="o">=</span> <span class="vg">$objComp</span><span class="p">.</span><span class="nf">properties</span><span class="p">.</span><span class="nf">cn</span>
-	<span class="vg">$strNICs</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">WMIObject</span> <span class="no">Win32_NetworkAdapterConfiguration</span><span class="sb">`
-		-computername $strServerName | where{$_.IPEnabled -eq $TRUE}
-	Foreach($strNIC in $strNICs)
-	{
-		write-host $strServerName
-		$strNIC.DNSDomain
-		$strNIC.DNSServerSearchOrder
-		write-host ""
-	}
-}</span></code></pre></figure>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$objComp</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$objAd</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+	</span><span class="nv">$strServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$objComp</span><span class="o">.</span><span class="nf">properties</span><span class="o">.</span><span class="nf">cn</span><span class="w">
+	</span><span class="nv">$strNICs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-WMIObject</span><span class="w"> </span><span class="nx">Win32_NetworkAdapterConfiguration</span><span class="se">`
+</span><span class="w">
+		</span><span class="nt">-computername</span><span class="w"> </span><span class="nv">$strServerName</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">where</span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">IPEnabled</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$TRUE</span><span class="p">}</span><span class="w">
+	</span><span class="kr">Foreach</span><span class="p">(</span><span class="nv">$strNIC</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$strNICs</span><span class="p">)</span><span class="w">
+	</span><span class="p">{</span><span class="w">
+		</span><span class="nf">write-host</span><span class="w"> </span><span class="nv">$strServerName</span><span class="w">
+		</span><span class="nv">$strNIC</span><span class="o">.</span><span class="nf">DNSDomain</span><span class="w">
+		</span><span class="nv">$strNIC</span><span class="o">.</span><span class="nf">DNSServerSearchOrder</span><span class="w">
+		</span><span class="nf">write-host</span><span class="w"> </span><span class="s2">""</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>This script will set the DNS suffix and DNS server entries for each interface. Just set the variables, $objName, $strDNSServers, and $strDNSName</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$objName</span> <span class="o">=</span> <span class="s2">"***filter-text***"</span>
-<span class="vg">$strDNSServers</span> <span class="o">=</span> <span class="s2">"***dns-server-1***"</span><span class="p">,</span><span class="s2">"***dns-server-1***"</span>
-<span class="vg">$strDNSName</span> <span class="o">=</span> <span class="s2">"***dns-suffix***"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$objName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"***filter-text***"</span><span class="w">
+</span><span class="nv">$strDNSServers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"***dns-server-1***"</span><span class="p">,</span><span class="s2">"***dns-server-1***"</span><span class="w">
+</span><span class="nv">$strDNSName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"***dns-suffix***"</span><span class="w">
 
-<span class="vg">$searcher</span> <span class="o">=</span> <span class="n">new</span><span class="o">-</span><span class="n">object</span> <span class="no">DirectoryServices</span><span class="o">.</span><span class="no">DirectorySearcher</span><span class="p">([</span><span class="no">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span>
-<span class="vg">$searcher</span><span class="p">.</span><span class="nf">filter</span> <span class="o">=</span> <span class="s2">"(&amp;(objectClass=user)(objectCategory=computer) '
-	(cn= $objName*)(operatingSystem=*Server*))"</span>
-<span class="vg">$objAd</span> <span class="o">=</span> <span class="vg">$searcher</span><span class="p">.</span><span class="nf">findall</span><span class="p">()</span>
+</span><span class="nv">$searcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">new-object</span><span class="w"> </span><span class="nx">DirectoryServices.DirectorySearcher</span><span class="p">([</span><span class="kt">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"(&amp;(objectClass=user)(objectCategory=computer) '
+	(cn= </span><span class="nv">$objName</span><span class="s2">*)(operatingSystem=*Server*))"</span><span class="w">
+</span><span class="nv">$objAd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">findall</span><span class="p">()</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$objComp</span> <span class="k">in</span> <span class="vg">$objAd</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="vg">$strServerName</span> <span class="o">=</span> <span class="vg">$objComp</span><span class="p">.</span><span class="nf">properties</span><span class="p">.</span><span class="nf">cn</span>
-	<span class="vg">$strNICs</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">WMIObject</span> <span class="no">Win32_NetworkAdapterConfiguration</span><span class="sb">`
-		-computername $strServerName | where{$_.IPEnabled -eq $TRUE}
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$objComp</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$objAd</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+	</span><span class="nv">$strServerName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$objComp</span><span class="o">.</span><span class="nf">properties</span><span class="o">.</span><span class="nf">cn</span><span class="w">
+	</span><span class="nv">$strNICs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-WMIObject</span><span class="w"> </span><span class="nx">Win32_NetworkAdapterConfiguration</span><span class="se">`
+</span><span class="w">
+		</span><span class="nt">-computername</span><span class="w"> </span><span class="nv">$strServerName</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">where</span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">IPEnabled</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$TRUE</span><span class="p">}</span><span class="w">
 
-	Foreach($strNIC in $strNICs) 
-	{
-		$strNIC.SetDNSServerSearchOrder()
-		$strNIC.SetDNSServerSearchOrder($strDNSServers)
-		$strNIC.SetDNSDomain($strDNSName)
-	}
-}</span></code></pre></figure>
+	</span><span class="kr">Foreach</span><span class="p">(</span><span class="nv">$strNIC</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$strNICs</span><span class="p">)</span><span class="w"> 
+	</span><span class="p">{</span><span class="w">
+		</span><span class="nv">$strNIC</span><span class="o">.</span><span class="nf">SetDNSServerSearchOrder</span><span class="p">()</span><span class="w">
+		</span><span class="nv">$strNIC</span><span class="o">.</span><span class="nf">SetDNSServerSearchOrder</span><span class="p">(</span><span class="nv">$strDNSServers</span><span class="p">)</span><span class="w">
+		</span><span class="nv">$strNIC</span><span class="o">.</span><span class="nf">SetDNSDomain</span><span class="p">(</span><span class="nv">$strDNSName</span><span class="p">)</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Enumerate-and-Set-DNS-Suffix-and-DNS-Server-Entries-for-Interfaces.html" hidden></a>

@@ -51,80 +51,80 @@ What I settled on was a combination of a perl script that calls an expect script
 —
 Here is the Perl Script</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#! \usr\bin\perl
-</span>
-<span class="n">use</span> <span class="n">warnings</span><span class="p">;</span>
-<span class="n">use</span> <span class="n">strict</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#! \usr\bin\perl
+</span><span class="w">
+</span><span class="nf">use</span><span class="w"> </span><span class="nx">warnings</span><span class="p">;</span><span class="w">
+</span><span class="nf">use</span><span class="w"> </span><span class="nx">strict</span><span class="p">;</span><span class="w">
 
-<span class="vg">$data_file</span><span class="o">=</span><span class="s2">"network_switches"</span><span class="p">;</span>
+</span><span class="nv">$data_file</span><span class="o">=</span><span class="s2">"network_switches"</span><span class="p">;</span><span class="w">
 
-<span class="nb">open</span><span class="p">(</span><span class="no">DAT</span><span class="p">,</span> <span class="vg">$data_file</span><span class="p">)</span> <span class="o">||</span> <span class="n">die</span><span class="p">(</span><span class="s2">"failed to open file!"</span><span class="p">);</span>
-<span class="vi">@raw_data</span><span class="o">=&lt;</span><span class="no">DAT</span><span class="o">&gt;</span><span class="p">;</span>
-<span class="n">close</span><span class="p">(</span><span class="no">DAT</span><span class="p">);</span>
+</span><span class="nf">open</span><span class="p">(</span><span class="nf">DAT</span><span class="p">,</span><span class="w"> </span><span class="nv">$data_file</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nf">die</span><span class="p">(</span><span class="s2">"failed to open file!"</span><span class="p">);</span><span class="w">
+</span><span class="err">@</span><span class="nf">raw_data</span><span class="o">=</span><span class="err">&lt;</span><span class="nf">DAT</span><span class="err">&gt;</span><span class="p">;</span><span class="w">
+</span><span class="nf">close</span><span class="p">(</span><span class="nf">DAT</span><span class="p">);</span><span class="w">
 
-<span class="n">my</span> <span class="vg">$i</span><span class="p">;</span>
-<span class="n">foreach</span> <span class="vg">$i</span> <span class="p">(</span><span class="vi">@array</span><span class="p">)</span> <span class="p">{</span>
-<span class="nb">system</span><span class="p">(</span><span class="s2">"expect expect_cisco_router $i"</span><span class="p">);</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="nf">my</span><span class="w"> </span><span class="nv">$i</span><span class="p">;</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">(</span><span class="err">@</span><span class="nf">array</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">system</span><span class="p">(</span><span class="s2">"expect expect_cisco_router </span><span class="nv">$i</span><span class="s2">"</span><span class="p">);</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>The script will enumerate the hosts listed in the text file, network_routers, and then calls the expect script below using the host ip as an argument.
 Here is the Expect Script</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/usr/bin/expect
-</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#!/usr/bin/expect
+</span><span class="w">
 
-<span class="n">set</span> <span class="n">timeout</span> <span class="mi">2</span>
-<span class="n">set</span> <span class="n">user</span> <span class="s2">"username"</span>
-<span class="n">set</span> <span class="n">password</span> <span class="s2">"password"</span>
-<span class="n">set</span> <span class="n">enable</span> <span class="s2">"enable-password"</span>
-<span class="n">set</span> <span class="n">tftp</span> <span class="s2">"ip or host of tftpd"</span>
-<span class="n">set</span> <span class="n">ip</span> <span class="p">[</span><span class="n">lindex</span> <span class="vg">$argv</span> <span class="mi">0</span><span class="p">]</span>
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">timeout</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="s2">"username"</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="s2">"password"</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">enable</span><span class="w"> </span><span class="s2">"enable-password"</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">tftp</span><span class="w"> </span><span class="s2">"ip or host of tftpd"</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="p">[</span><span class="kt">lindex</span><span class="w"> </span><span class="nv">$argv</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w">
 
-<span class="n">spawn</span> <span class="n">ssh</span> <span class="vg">$user</span><span class="err">@</span><span class="vg">$ip</span>
-<span class="n">expect</span> <span class="s2">"*port 22: Connection refused"</span> <span class="p">{</span>
-<span class="n">spawn</span> <span class="n">telnet</span> <span class="vg">$ip</span>
-<span class="n">expect</span> <span class="s2">"Username:"</span>
-<span class="nb">send</span> <span class="s2">"username</span><span class="se">\r</span><span class="s2">"</span>
-<span class="p">}</span>
-<span class="n">expect</span> <span class="s2">"*(yes/no)"</span> <span class="p">{</span>
-<span class="nb">send</span> <span class="s2">"yes</span><span class="se">\r</span><span class="s2">"</span>
-<span class="nb">sleep</span> <span class="mi">5</span>
-<span class="p">}</span>
+</span><span class="nf">spawn</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nv">$user</span><span class="err">@</span><span class="nv">$ip</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*port 22: Connection refused"</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">spawn</span><span class="w"> </span><span class="nx">telnet</span><span class="w"> </span><span class="nv">$ip</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"Username:"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"username\r"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*(yes/no)"</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"yes\r"</span><span class="w">
+</span><span class="nf">sleep</span><span class="w"> </span><span class="nx">5</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="nb">sleep</span> <span class="mi">2</span>
-<span class="n">expect</span> <span class="s2">"?assword:"</span>
-<span class="nb">send</span> <span class="vg">$password</span><span class="p">\</span><span class="n">r</span>
-<span class="n">expect</span> <span class="s2">"*#"</span>
-<span class="nb">send</span> <span class="s2">"enable</span><span class="se">\r</span><span class="s2">"</span>
-<span class="n">expect</span> <span class="s2">"Password:"</span>
-<span class="nb">send</span> <span class="vg">$enable</span><span class="p">\</span><span class="n">r</span>
-<span class="n">expect</span> <span class="s2">"*#"</span>
-<span class="nb">send</span> <span class="s2">"copy start tftp</span><span class="se">\r</span><span class="s2">"</span>
-<span class="n">expect</span> <span class="s2">"address or name of remote host"</span>
-<span class="nb">send</span> <span class="vg">$tftp</span> <span class="s2">"</span><span class="se">\r</span><span class="s2">"</span>
-<span class="n">expect</span> <span class="s2">"?"</span>
-<span class="nb">send</span> <span class="s2">"</span><span class="se">\r</span><span class="s2">"</span>
-<span class="n">expect</span> <span class="s2">"*#"</span>
-<span class="nb">sleep</span> <span class="mi">2</span>
-<span class="nb">send</span> <span class="s2">"exit</span><span class="se">\r</span><span class="s2">"</span>
-<span class="n">expect</span> <span class="n">eof</span></code></pre></figure>
+</span><span class="nf">sleep</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"?assword:"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="nv">$password</span><span class="nx">\r</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*#"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"enable\r"</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"Password:"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="nv">$enable</span><span class="nx">\r</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*#"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"copy start tftp\r"</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"address or name of remote host"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="nv">$tftp</span><span class="w"> </span><span class="s2">"\r"</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"?"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"\r"</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*#"</span><span class="w">
+</span><span class="nf">sleep</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"exit\r"</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="nx">eof</span></code></pre></figure>
 
 <p>This script will try SSH first and then telnet if that fails.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spawn</span> <span class="n">ssh</span> <span class="vg">$user</span><span class="err">@</span><span class="vg">$ip</span>
-<span class="n">expect</span> <span class="s2">"*port 22: Connection refused"</span> <span class="p">{</span>
-<span class="n">spawn</span> <span class="n">telnet</span> <span class="vg">$ip</span>
-<span class="n">expect</span> <span class="s2">"Username:"</span>
-<span class="nb">send</span> <span class="s2">"username</span><span class="se">\r</span><span class="s2">"</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">spawn</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nv">$user</span><span class="err">@</span><span class="nv">$ip</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*port 22: Connection refused"</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">spawn</span><span class="w"> </span><span class="nx">telnet</span><span class="w"> </span><span class="nv">$ip</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"Username:"</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"username\r"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>This can be removed if you do not have any equipment that is not capable of SSH. The code will look like the lines below instead.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">spawn</span> <span class="n">ssh</span> <span class="vg">$user</span><span class="err">@</span><span class="vg">$ip</span>
-<span class="n">expect</span> <span class="s2">"*(yes/no)"</span> <span class="p">{</span>
-<span class="nb">send</span> <span class="s2">"yes</span><span class="se">\r</span><span class="s2">"</span>
-<span class="nb">sleep</span> <span class="mi">5</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">spawn</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nv">$user</span><span class="err">@</span><span class="nv">$ip</span><span class="w">
+</span><span class="nf">expect</span><span class="w"> </span><span class="s2">"*(yes/no)"</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">send</span><span class="w"> </span><span class="s2">"yes\r"</span><span class="w">
+</span><span class="nf">sleep</span><span class="w"> </span><span class="nx">5</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Run-Commands-on-Remote-Routers-(Perl-and-EXPECT).html" hidden></a>

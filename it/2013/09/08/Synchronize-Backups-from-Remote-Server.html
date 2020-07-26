@@ -47,7 +47,7 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This line of code will copy the backups off of a remote server.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rsync</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">a</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"ssh -l &lt;username&gt;"</span> <span class="o">--</span><span class="n">delete</span> <span class="o">&lt;</span><span class="n">server</span><span class="o">&gt;</span><span class="ss">:/</span><span class="n">backup</span> <span class="sr">/backup</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">rsync</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="nt">-a</span><span class="w"> </span><span class="nt">-v</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"ssh -l &lt;username&gt;"</span><span class="w"> </span><span class="nt">--delete</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">server</span><span class="err">&gt;</span><span class="p">:</span><span class="nx">/backup</span><span class="w"> </span><span class="nx">/backup</span></code></pre></figure>
 
 <p>Create a user account with an ssh key pair so that you can schedule the task as a cron job and have it run without having to enter a username and password.</p>
 

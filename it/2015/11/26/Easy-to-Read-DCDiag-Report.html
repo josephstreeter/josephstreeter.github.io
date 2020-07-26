@@ -47,35 +47,35 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>The output for DCDiag can be a bit tedious to read through when you just want a quick check to see if everything is happy. This script that I found at http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell gives you a nice little dashboard.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
-</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c"># http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
+</span><span class="w">
 
-<span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span>
-<span class="vg">$DCs</span> <span class="o">=</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADDomainController</span> <span class="o">-</span><span class="n">filter</span> <span class="o">*</span><span class="p">).</span><span class="nf">name</span>
-<span class="vg">$Results</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="no">System</span><span class="o">.</span><span class="no">Object</span>
-<span class="vg">$Report</span> <span class="o">=</span> <span class="err">@</span><span class="p">()</span>
+</span><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">activedirectory</span><span class="w">
+</span><span class="nv">$DCs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">Get-ADDomainController</span><span class="w"> </span><span class="nt">-filter</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="o">.</span><span class="nf">name</span><span class="w">
+</span><span class="nv">$Results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nx">System.Object</span><span class="w">
+</span><span class="nv">$Report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
 
-<span class="no">Foreach</span> <span class="p">(</span><span class="vg">$DC</span> <span class="k">in</span> <span class="vg">$DCs</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="vg">$DCDIAG</span> <span class="o">=</span> <span class="n">dcdiag</span> <span class="sr">/s:$DC
-	$Results | Add-Member -name Server -Value $DC -Type NoteProperty -Force
-	Foreach ($Entry in $DCDIAG)
-	{
-		Switch -Regex ($Entry) 
-		{
-		"Starting" {$Testname = ($Entry -replace ".*Starting test: ").Trim()}
-		"passed|failed" {If ($Entry -match "Passed"){$TestStatus = "Passed"} Else {$TestStatus = "Failed"}
-		}
-	}
-	If (($TestName -ne $null) -and ($TestStatus -ne $null))
-	{
-		$Results | Add-Member -Type NoteProperty -name $($TestName.Trim()) -Value $TestStatus -Force
-	}
-}
-$Report += $Results
-}
+</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$DC</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$DCs</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+	</span><span class="nv">$DCDIAG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">dcdiag</span><span class="w"> </span><span class="nx">/s:</span><span class="nv">$DC</span><span class="w">
+	</span><span class="nv">$Results</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Add-Member</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="nx">Server</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nv">$DC</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NoteProperty</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+	</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$DCDIAG</span><span class="p">)</span><span class="w">
+	</span><span class="p">{</span><span class="w">
+		</span><span class="kr">Switch</span><span class="w"> </span><span class="nt">-Regex</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="p">)</span><span class="w"> 
+		</span><span class="p">{</span><span class="w">
+		</span><span class="s2">"Starting"</span><span class="w"> </span><span class="p">{</span><span class="nv">$Testname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="o">-replace</span><span class="w"> </span><span class="s2">".*Starting test: "</span><span class="p">)</span><span class="o">.</span><span class="nf">Trim</span><span class="p">()}</span><span class="w">
+		</span><span class="s2">"passed|failed"</span><span class="w"> </span><span class="p">{</span><span class="kr">If</span><span class="w"> </span><span class="p">(</span><span class="nv">$Entry</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"Passed"</span><span class="p">){</span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Passed"</span><span class="p">}</span><span class="w"> </span><span class="kr">Else</span><span class="w"> </span><span class="p">{</span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Failed"</span><span class="p">}</span><span class="w">
+		</span><span class="p">}</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+	</span><span class="kr">If</span><span class="w"> </span><span class="p">((</span><span class="nv">$TestName</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="bp">$null</span><span class="p">)</span><span class="w"> </span><span class="o">-and</span><span class="w"> </span><span class="p">(</span><span class="nv">$TestStatus</span><span class="w"> </span><span class="o">-ne</span><span class="w"> </span><span class="bp">$null</span><span class="p">))</span><span class="w">
+	</span><span class="p">{</span><span class="w">
+		</span><span class="nv">$Results</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Add-Member</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">NoteProperty</span><span class="w"> </span><span class="nt">-name</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nv">$TestName</span><span class="o">.</span><span class="nf">Trim</span><span class="p">())</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nv">$TestStatus</span><span class="w"> </span><span class="nt">-Force</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nv">$Report</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$Results</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-$Report | select Server, NetLogons, KccEvent, Replications, Services, SystemLog, SysVolCheck | ft * -AutoSize</span></code></pre></figure>
+</span><span class="nv">$Report</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">select</span><span class="w"> </span><span class="nx">Server</span><span class="p">,</span><span class="w"> </span><span class="nx">NetLogons</span><span class="p">,</span><span class="w"> </span><span class="nx">KccEvent</span><span class="p">,</span><span class="w"> </span><span class="nx">Replications</span><span class="p">,</span><span class="w"> </span><span class="nx">Services</span><span class="p">,</span><span class="w"> </span><span class="nx">SystemLog</span><span class="p">,</span><span class="w"> </span><span class="nx">SysVolCheck</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ft</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nt">-AutoSize</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2015/11/26/Easy-to-Read-DCDiag-Report.html" hidden></a>

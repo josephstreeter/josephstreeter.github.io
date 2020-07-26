@@ -53,22 +53,22 @@
 
 <p>Ever start working on a file in command mode and then hit the caps key without realizing it.  Wham! All sorts of un-expected things can happen before you know it.  What do you do then? You could use q! to exit without saving, then start over, but there is a more graceful way now.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">:e!</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">:</span><span class="nf">e</span><span class="o">!</span></code></pre></figure>
 
 <p>This will rollback ALL changes to the edited file without having to exit VIM.</p>
 
 <p>This is a cool interface to VIM’s undo/redo list:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">:earlier</span> <span class="mi">2</span><span class="n">m</span>    <span class="o">&lt;-</span> <span class="n">back</span> <span class="n">by</span> <span class="mi">2</span> <span class="n">minutes</span>
-<span class="ss">:later</span> <span class="mi">30</span><span class="n">s</span>      <span class="o">&lt;-</span><span class="n">forward</span> <span class="mi">30</span> <span class="n">seconds</span>
-<span class="ss">:undo</span> <span class="mi">5</span>         <span class="o">&lt;-</span> <span class="n">go</span> <span class="n">back</span> <span class="mi">5</span> <span class="n">changes</span>
-<span class="ss">:undolist</span>        <span class="o">&lt;-</span> <span class="n">show</span> <span class="n">entire</span> <span class="n">undo</span><span class="o">/</span><span class="k">redo</span> <span class="n">list</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">:</span><span class="nf">earlier</span><span class="w"> </span><span class="nx">2m</span><span class="w">    </span><span class="err">&lt;</span><span class="nf">-</span><span class="w"> </span><span class="nx">back</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">2</span><span class="w"> </span><span class="nx">minutes</span><span class="w">
+</span><span class="p">:</span><span class="nf">later</span><span class="w"> </span><span class="nx">30s</span><span class="w">      </span><span class="err">&lt;</span><span class="nt">-forward</span><span class="w"> </span><span class="nx">30</span><span class="w"> </span><span class="nx">seconds</span><span class="w">
+</span><span class="p">:</span><span class="nf">undo</span><span class="w"> </span><span class="nx">5</span><span class="w">         </span><span class="err">&lt;</span><span class="nf">-</span><span class="w"> </span><span class="nx">go</span><span class="w"> </span><span class="nx">back</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="nx">changes</span><span class="w">
+</span><span class="p">:</span><span class="nf">undolist</span><span class="w">        </span><span class="err">&lt;</span><span class="nf">-</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">entire</span><span class="w"> </span><span class="nx">undo/redo</span><span class="w"> </span><span class="nx">list</span></code></pre></figure>
 
 <p>Add line numbers
 I often find it helpful to have line numbers when editing.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">:set</span> <span class="n">number</span><span class="p">,</span> <span class="n">also</span> <span class="ss">:set</span> <span class="n">nu</span>   <span class="p">(</span><span class="n">turns</span> <span class="n">on</span><span class="p">)</span>
-<span class="ss">:set</span> <span class="n">nonumber</span><span class="p">,</span> <span class="n">also</span> <span class="ss">:set</span> <span class="n">nonu</span> <span class="p">(</span><span class="n">turns</span> <span class="n">off</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">:</span><span class="nf">set</span><span class="w"> </span><span class="nx">number</span><span class="p">,</span><span class="w"> </span><span class="nx">also</span><span class="w"> </span><span class="p">:</span><span class="nx">set</span><span class="w"> </span><span class="nx">nu</span><span class="w">   </span><span class="p">(</span><span class="nf">turns</span><span class="w"> </span><span class="nx">on</span><span class="p">)</span><span class="w">
+</span><span class="p">:</span><span class="nf">set</span><span class="w"> </span><span class="nx">nonumber</span><span class="p">,</span><span class="w"> </span><span class="nx">also</span><span class="w"> </span><span class="p">:</span><span class="nx">set</span><span class="w"> </span><span class="nx">nonu</span><span class="w"> </span><span class="p">(</span><span class="nf">turns</span><span class="w"> </span><span class="nx">off</span><span class="p">)</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/VIM-Undo-and-Line-Number-Tricks.html" hidden></a>

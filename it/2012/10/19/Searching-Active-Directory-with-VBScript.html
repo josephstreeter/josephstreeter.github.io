@@ -51,14 +51,14 @@
 
 <p>First you will need to connect to the Directory. Connecting to the RootDSE is usually the easiest place to connect. Using RootDSE will make your script more portable by not requiring you to change LDAP strings to use it in another domain. In this case I’ve broken up the connection string into variables to make it easier to change</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Set</span> <span class="n">objRootDSE</span> <span class="o">=</span> <span class="no">GetObject</span><span class="p">(</span><span class="s2">"LDAP://RootDSE"</span><span class="p">)</span>
-<span class="n">strDNSDomain</span> <span class="o">=</span> <span class="n">objRootDSE</span><span class="o">.</span><span class="no">Get</span><span class="p">(</span><span class="s2">"defaultNamingContext"</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Set</span><span class="w"> </span><span class="nx">objRootDSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">GetObject</span><span class="p">(</span><span class="s2">"LDAP://RootDSE"</span><span class="p">)</span><span class="w">
+</span><span class="nf">strDNSDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRootDSE.Get</span><span class="p">(</span><span class="s2">"defaultNamingContext"</span><span class="p">)</span><span class="w">
 
-<span class="no">Set</span> <span class="n">objCmd</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Command"</span><span class="p">)</span>
-<span class="no">Set</span> <span class="n">objConn</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Connection"</span><span class="p">)</span>
-<span class="n">objConn</span><span class="o">.</span><span class="no">Provider</span> <span class="o">=</span> <span class="s2">"ADsDSOObject"</span>
-<span class="n">objConn</span><span class="o">.</span><span class="no">Open</span> <span class="s2">"Active Directory Provider"</span>
-<span class="n">objCmd</span><span class="o">.</span><span class="no">ActiveConnection</span> <span class="o">=</span> <span class="n">objConn</span></code></pre></figure>
+</span><span class="nf">Set</span><span class="w"> </span><span class="nx">objCmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Command"</span><span class="p">)</span><span class="w">
+</span><span class="nf">Set</span><span class="w"> </span><span class="nx">objConn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CreateObject</span><span class="p">(</span><span class="s2">"ADODB.Connection"</span><span class="p">)</span><span class="w">
+</span><span class="nf">objConn.Provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"ADsDSOObject"</span><span class="w">
+</span><span class="nf">objConn.Open</span><span class="w"> </span><span class="s2">"Active Directory Provider"</span><span class="w">
+</span><span class="nf">objCmd.ActiveConnection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objConn</span></code></pre></figure>
 
 <p>You will have to construct an ADSI filter to return the results that you want.
 <b>Examples:</b>
@@ -69,73 +69,73 @@
 
 <p><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa746475(v=vs.85).aspx">Search Filter Syntax</a></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">strBase</span> <span class="o">=</span> <span class="s2">"&lt;LDAP://"</span> <span class="o">&amp;</span> <span class="n">strDNSDomain</span> <span class="o">&amp;</span> <span class="s2">"&gt;"</span>
-<span class="n">strFilter</span> <span class="o">=</span> <span class="s2">"(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))"</span>
-<span class="n">strAttributes</span> <span class="o">=</span> <span class="s2">"distinguishedName,member,userPrincipalName,altSecurityIdentities"</span>
-<span class="n">strQuery</span> <span class="o">=</span> <span class="n">strBase</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strFilter</span> <span class="o">&amp;</span> <span class="s2">";"</span> <span class="o">&amp;</span> <span class="n">strAttributes</span> <span class="o">&amp;</span> <span class="s2">";subtree"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">strBase</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;LDAP://"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nf">strDNSDomain</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"&gt;"</span><span class="w">
+</span><span class="nf">strFilter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"(&amp;(objectCategory=user)(altSecurityIdentities=Kerberos*))"</span><span class="w">
+</span><span class="nf">strAttributes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"distinguishedName,member,userPrincipalName,altSecurityIdentities"</span><span class="w">
+</span><span class="nf">strQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">strBase</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strFilter</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";"</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strAttributes</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">";subtree"</span></code></pre></figure>
 
 <p>This is where the script sets the properties and actually makes the connection.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">objCmd</span><span class="o">.</span><span class="no">CommandText</span> <span class="o">=</span> <span class="n">strQuery</span>
-<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Page Size"</span><span class="p">)</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Timeout"</span><span class="p">)</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">objCmd</span><span class="o">.</span><span class="no">Properties</span><span class="p">(</span><span class="s2">"Cache Results"</span><span class="p">)</span> <span class="o">=</span> <span class="no">False</span>
-<span class="no">Set</span> <span class="n">objRs</span> <span class="o">=</span> <span class="n">objCmd</span><span class="o">.</span><span class="no">Execute</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">objCmd.CommandText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">strQuery</span><span class="w">
+</span><span class="nf">objCmd.Properties</span><span class="p">(</span><span class="s2">"Page Size"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="w">
+</span><span class="nf">objCmd.Properties</span><span class="p">(</span><span class="s2">"Timeout"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">30</span><span class="w">
+</span><span class="nf">objCmd.Properties</span><span class="p">(</span><span class="s2">"Cache Results"</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">False</span><span class="w">
+</span><span class="nf">Set</span><span class="w"> </span><span class="nx">objRs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objCmd.Execute</span></code></pre></figure>
 
 <p>Now that we have made the connection we can loop through the recordset that is returned.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Do</span> <span class="no">Until</span> <span class="n">objRs</span><span class="o">.</span><span class="no">EOF</span>
-<span class="n">strUPN</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span>
-<span class="n">arrKrb</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"altSecurityIdentities"</span><span class="p">).</span><span class="nf">value</span>
-<span class="no">If</span> <span class="no">IsNull</span><span class="p">(</span><span class="n">arrKrb</span><span class="p">)</span> <span class="no">Then</span>
-<span class="n">strKrb</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="no">Else</span>
-<span class="no">For</span> <span class="no">Each</span> <span class="n">strAltID</span> <span class="no">In</span> <span class="n">arrKrb</span>
-<span class="n">strKrb</span> <span class="o">=</span> <span class="n">strAltID</span>
-<span class="no">Next</span>
-<span class="no">End</span> <span class="k">if</span>
-<span class="no">WScript</span><span class="p">.</span><span class="nf">echo</span>  <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">"	, "</span> <span class="o">&amp;</span> <span class="n">strKrb</span>
-<span class="n">objRs</span><span class="o">.</span><span class="no">MoveNext</span>
-<span class="no">Loop</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">Do</span><span class="w"> </span><span class="kr">Until</span><span class="w"> </span><span class="nf">objRs.EOF</span><span class="w">
+</span><span class="nf">strUPN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRs.Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span><span class="w">
+</span><span class="nf">arrKrb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRs.Fields</span><span class="p">(</span><span class="s2">"altSecurityIdentities"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="kr">If</span><span class="w"> </span><span class="nf">IsNull</span><span class="p">(</span><span class="nf">arrKrb</span><span class="p">)</span><span class="w"> </span><span class="nf">Then</span><span class="w">
+</span><span class="nf">strKrb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="kr">Else</span><span class="w">
+</span><span class="kr">For</span><span class="w"> </span><span class="nf">Each</span><span class="w"> </span><span class="nx">strAltID</span><span class="w"> </span><span class="nx">In</span><span class="w"> </span><span class="nx">arrKrb</span><span class="w">
+</span><span class="nf">strKrb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">strAltID</span><span class="w">
+</span><span class="nf">Next</span><span class="w">
+</span><span class="kr">End</span><span class="w"> </span><span class="kr">if</span><span class="w">
+</span><span class="nf">WScript.echo</span><span class="w">  </span><span class="nx">strDn</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"	, "</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strKrb</span><span class="w">
+</span><span class="nf">objRs.MoveNext</span><span class="w">
+</span><span class="nf">Loop</span></code></pre></figure>
 
 <p>Notice the difference between how the two attributes are assigned to variables. The strUPN variable is simply set this way:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">strUPN</span> <span class="o">=</span> <span class="n">objRs</span><span class="o">.</span><span class="no">Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="no">Value</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">strUPN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">objRs.Fields</span><span class="p">(</span><span class="s2">"userPrincipalName"</span><span class="p">)</span><span class="o">.</span><span class="nf">Value</span></code></pre></figure>
 
 <p>With some attributes this method will fail with a â€œMismatch error. The reason for this is that the information is stored as a multi-value attribute. You’ll see this with â€œdescription, â€œaltSecurityIdentities, and several others. In this case you have to assign it to an array and then parse the array with a â€œfor each loop.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">If</span> <span class="no">IsNull</span><span class="p">(</span><span class="n">arrKrb</span><span class="p">)</span> <span class="no">Then</span>
-<span class="n">strKrb</span> <span class="o">=</span> <span class="s2">""</span>
-<span class="no">Else</span>
-<span class="no">For</span> <span class="no">Each</span> <span class="n">strAltID</span> <span class="no">In</span> <span class="n">arrKrb</span>
-<span class="n">strKrb</span> <span class="o">=</span> <span class="n">strAltID</span>
-<span class="no">Next</span>
-<span class="no">End</span> <span class="k">if</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">If</span><span class="w"> </span><span class="nf">IsNull</span><span class="p">(</span><span class="nf">arrKrb</span><span class="p">)</span><span class="w"> </span><span class="nf">Then</span><span class="w">
+</span><span class="nf">strKrb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w">
+</span><span class="kr">Else</span><span class="w">
+</span><span class="kr">For</span><span class="w"> </span><span class="nf">Each</span><span class="w"> </span><span class="nx">strAltID</span><span class="w"> </span><span class="nx">In</span><span class="w"> </span><span class="nx">arrKrb</span><span class="w">
+</span><span class="nf">strKrb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">strAltID</span><span class="w">
+</span><span class="nf">Next</span><span class="w">
+</span><span class="kr">End</span><span class="w"> </span><span class="kr">if</span></code></pre></figure>
 
 <p>Once you’ve assigned the attributes to variables you must do something with them. Usually I will just echo the results.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">WScript</span><span class="p">.</span><span class="nf">echo</span>  <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">"	, "</span> <span class="o">&amp;</span> <span class="n">strKrb</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">WScript.echo</span><span class="w">  </span><span class="nx">strDn</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">"	, "</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strKrb</span></code></pre></figure>
 
 <p>If there is a lot of info to look at or I want to send the info to someone else I will pipe the output of the script to a text file or CSV.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">cscript</span> <span class="n">enum_objects</span><span class="p">.</span><span class="nf">vbs</span> <span class="o">&gt;</span> <span class="n">objects</span><span class="p">.</span><span class="nf">txt</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">cscript</span><span class="w"> </span><span class="nx">enum_objects.vbs</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">objects.txt</span></code></pre></figure>
 
 <p>Another option is to create the output file within the script. You just have to add a few lines of code at the top.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">set</span> <span class="n">fso</span> <span class="o">=</span> <span class="no">CreateObject</span><span class="p">(</span><span class="s2">"Scripting.FileSystemObject"</span><span class="p">)</span>
-<span class="n">set</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">fso</span><span class="o">.</span><span class="no">CreateTextFile</span><span class="p">(</span><span class="s2">"c:</span><span class="se">\s</span><span class="s2">cripts</span><span class="se">\u</span><span class="s2">sers-.csv"</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">set</span><span class="w"> </span><span class="nx">fso</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">CreateObject</span><span class="p">(</span><span class="s2">"Scripting.FileSystemObject"</span><span class="p">)</span><span class="w">
+</span><span class="nf">set</span><span class="w"> </span><span class="nx">ts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">fso.CreateTextFile</span><span class="p">(</span><span class="s2">"c:\scripts\users-.csv"</span><span class="p">,</span><span class="w"> </span><span class="nf">true</span><span class="p">)</span></code></pre></figure>
 
 <p>We’re creating a CSV so we will want to add a header to the file.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ts</span><span class="p">.</span><span class="nf">writeline</span><span class="p">(</span><span class="s2">"UPN,Kerberos ID "</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ts.writeline</span><span class="p">(</span><span class="s2">"UPN,Kerberos ID "</span><span class="p">)</span></code></pre></figure>
 
 <p>Now we change the line with the â€œwscript.echo code to add a new line to the file that we created.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ts</span><span class="p">.</span><span class="nf">writeline</span><span class="p">(</span> <span class="n">strDn</span> <span class="o">&amp;</span> <span class="s2">","</span> <span class="o">&amp;</span> <span class="n">strKrb</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ts.writeline</span><span class="p">(</span><span class="w"> </span><span class="nf">strDn</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s2">","</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="nx">strKrb</span><span class="p">)</span></code></pre></figure>
 
 <p>Now all we have to do is close the recordset.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">objRs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">objRs.Close</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Searching-Active-Directory-with-VBScript.html" hidden></a>

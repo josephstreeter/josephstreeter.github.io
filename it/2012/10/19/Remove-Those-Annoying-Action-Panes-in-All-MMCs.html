@@ -47,12 +47,12 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>If you find yourself removing the checkbox for the action pane to recover the wasted space in your snapins this powershell script is for you.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$snapins</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">ChildItem</span> <span class="no">HKLM</span><span class="p">:\</span><span class="no">SOFTWARE</span><span class="p">\</span><span class="no">Microsoft</span><span class="p">\</span><span class="no">MMC</span><span class="p">\</span><span class="no">SnapIns</span>
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$snap</span> <span class="k">in</span> <span class="vg">$snapins</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$snapname</span><span class="o">=</span><span class="p">(</span><span class="vg">$snap</span><span class="p">.</span><span class="nf">name</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">"</span><span class="se">\"</span><span class="s2">))[($snap.name.split("</span><span class="p">\</span><span class="s2">").count-1)]
-New-ItemProperty HKLM:</span><span class="se">\S</span><span class="s2">OFTWARE</span><span class="se">\M</span><span class="s2">icrosoft</span><span class="se">\M</span><span class="s2">MC</span><span class="se">\S</span><span class="s2">napIns</span><span class="se">\$</span><span class="s2">snapname SuppressActionsPane -value 1 -propertyType dword
-}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$snapins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-ChildItem</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\MMC\SnapIns</span><span class="w">
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$snap</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$snapins</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$snapname</span><span class="o">=</span><span class="p">(</span><span class="nv">$snap</span><span class="o">.</span><span class="nf">name</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">"\"</span><span class="p">))[(</span><span class="nv">$snap</span><span class="o">.</span><span class="nf">name</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">"\"</span><span class="p">)</span><span class="o">.</span><span class="nf">count-1</span><span class="p">)]</span><span class="w">
+</span><span class="nf">New-ItemProperty</span><span class="w"> </span><span class="nx">HKLM:\SOFTWARE\Microsoft\MMC\SnapIns\</span><span class="nv">$snapname</span><span class="w"> </span><span class="nx">SuppressActionsPane</span><span class="w"> </span><span class="nt">-value</span><span class="w"> </span><span class="nx">1</span><span class="w"> </span><span class="nt">-propertyType</span><span class="w"> </span><span class="nx">dword</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Remove-Those-Annoying-Action-Panes-in-All-MMCs.html" hidden></a>

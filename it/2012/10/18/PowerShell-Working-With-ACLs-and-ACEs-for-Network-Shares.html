@@ -55,24 +55,24 @@
 
 <p>Below is what I’ve come up with to start with. It enumerates all of the computer objects in the Directory and then enumerates all of the shares on each box. It then runs Get-Acl against each share.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$ErrorView</span> <span class="o">=</span> <span class="s2">"CategoryView"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="bp">$Error</span><span class="nf">View</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"CategoryView"</span><span class="w">
 
-<span class="vg">$objName</span> <span class="o">=</span> <span class="s2">"&lt;b&gt;partial name to query here&lt;/b&gt;"</span>
-<span class="vg">$searcher</span> <span class="o">=</span> <span class="n">new</span><span class="o">-</span><span class="n">object</span> <span class="no">DirectoryServices</span><span class="o">.</span><span class="no">DirectorySearcher</span><span class="p">([</span><span class="no">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span>
-<span class="vg">$searcher</span><span class="p">.</span><span class="nf">filter</span> <span class="o">=</span> <span class="s2">"(&amp;(objectClass=user)(objectCategory=computer)(cn= $objName*))"</span>
-<span class="vg">$objAd</span> <span class="o">=</span> <span class="vg">$searcher</span><span class="p">.</span><span class="nf">findall</span><span class="p">()</span>
+</span><span class="nv">$objName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"&lt;b&gt;partial name to query here&lt;/b&gt;"</span><span class="w">
+</span><span class="nv">$searcher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">new-object</span><span class="w"> </span><span class="nx">DirectoryServices.DirectorySearcher</span><span class="p">([</span><span class="kt">ADSI</span><span class="p">]</span><span class="s2">""</span><span class="p">)</span><span class="w">
+</span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">filter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"(&amp;(objectClass=user)(objectCategory=computer)(cn= </span><span class="nv">$objName</span><span class="s2">*))"</span><span class="w">
+</span><span class="nv">$objAd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$searcher</span><span class="o">.</span><span class="nf">findall</span><span class="p">()</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$objComp</span> <span class="k">in</span> <span class="vg">$objAd</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$strServer</span> <span class="o">=</span> <span class="vg">$objComp</span><span class="p">.</span><span class="nf">properties</span><span class="p">.</span><span class="nf">cn</span>
-<span class="vg">$shares</span> <span class="o">=</span> <span class="no">Get</span><span class="o">-</span><span class="no">WmiObject</span> <span class="o">-</span><span class="k">class</span> <span class="nc">Win32_Share</span> <span class="o">-</span><span class="n">computerName</span> <span class="vg">$strServer</span> <span class="o">|</span> <span class="n">where</span> <span class="p">{</span><span class="vg">$_</span><span class="p">.</span><span class="nf">type</span> <span class="o">-</span><span class="n">match</span> <span class="s2">"0"</span><span class="p">}</span>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$objComp</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$objAd</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$strServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$objComp</span><span class="o">.</span><span class="nf">properties</span><span class="o">.</span><span class="nf">cn</span><span class="w">
+</span><span class="nv">$shares</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Get-WmiObject</span><span class="w"> </span><span class="nt">-class</span><span class="w"> </span><span class="nx">Win32_Share</span><span class="w"> </span><span class="nt">-computerName</span><span class="w"> </span><span class="nv">$strServer</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">where</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">type</span><span class="w"> </span><span class="o">-match</span><span class="w"> </span><span class="s2">"0"</span><span class="p">}</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$strInfo</span> <span class="k">in</span> <span class="vg">$arrShares</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$strSharename</span> <span class="o">=</span> <span class="vg">$strInfo</span><span class="p">.</span><span class="nf">name</span>
-<span class="no">Get</span><span class="o">-</span><span class="no">Acl</span> <span class="p">\\</span><span class="vg">$strServer</span><span class="p">\</span><span class="vg">$sharename</span> <span class="o">|</span> <span class="nb">format</span><span class="o">-</span><span class="n">list</span>
-<span class="p">}</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$strInfo</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$arrShares</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$strSharename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$strInfo</span><span class="o">.</span><span class="nf">name</span><span class="w">
+</span><span class="nf">Get-Acl</span><span class="w"> </span><span class="nx">\\</span><span class="nv">$strServer</span><span class="nx">\</span><span class="nv">$sharename</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">format-list</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/PowerShell-Working-With-ACLs-and-ACEs-for-Network-Shares.html" hidden></a>

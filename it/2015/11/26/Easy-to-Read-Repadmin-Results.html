@@ -47,28 +47,28 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This scipt makes a nice little repadmin report.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rep</span> <span class="o">=</span> <span class="n">repadmin</span> <span class="sr">/showrepl * /</span><span class="n">csv</span>
-<span class="vg">$Results</span> <span class="o">=</span> <span class="vg">$rep</span> <span class="o">|</span> <span class="no">ConvertFrom</span><span class="o">-</span><span class="no">Csv</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$rep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">repadmin</span><span class="w"> </span><span class="nx">/showrepl</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">/csv</span><span class="w">
+</span><span class="nv">$Results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$rep</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ConvertFrom-Csv</span><span class="w">
 
-<span class="vg">$Report</span> <span class="o">=</span> <span class="err">@</span><span class="p">()</span>
+</span><span class="nv">$Report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
 
-<span class="no">Foreach</span> <span class="p">(</span><span class="vg">$result</span> <span class="k">in</span> <span class="vg">$results</span><span class="p">)</span>
-<span class="p">{</span>
-	<span class="vg">$Report</span> <span class="o">+=</span> <span class="no">New</span><span class="o">-</span><span class="n">object</span> <span class="no">PSObject</span> <span class="o">-</span><span class="no">Property</span> <span class="err">@</span><span class="p">{</span>
-	<span class="s2">"Dest"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Destination DSA'</span>
-	<span class="s2">"DestSite"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Destination DSA Site'</span>
-	<span class="s2">"NamingContext"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Naming Context'</span>
-	<span class="s2">"SourceSite"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Source DSA Site'</span>
-	<span class="s2">"Source"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Source DSA'</span>
-	<span class="s2">"Transport"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Transport Type'</span>
-	<span class="s2">"NumberFailures"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Number of Failures'</span>
-	<span class="s2">"LastFailureTime"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Failure Time'</span>
-	<span class="s2">"LastSuccessTime"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Success Time'</span>
-	<span class="s2">"LastFailureStatus"</span> <span class="o">=</span> <span class="vg">$Result</span><span class="o">.</span><span class="s1">'Last Failure Status'</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+</span><span class="kr">Foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$result</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$results</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+	</span><span class="nv">$Report</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">New-object</span><span class="w"> </span><span class="nx">PSObject</span><span class="w"> </span><span class="nt">-Property</span><span class="w"> </span><span class="p">@{</span><span class="w">
+	</span><span class="s2">"Dest"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Destination DSA'</span><span class="w">
+	</span><span class="s2">"DestSite"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Destination DSA Site'</span><span class="w">
+	</span><span class="s2">"NamingContext"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Naming Context'</span><span class="w">
+	</span><span class="s2">"SourceSite"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Source DSA Site'</span><span class="w">
+	</span><span class="s2">"Source"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Source DSA'</span><span class="w">
+	</span><span class="s2">"Transport"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Transport Type'</span><span class="w">
+	</span><span class="s2">"NumberFailures"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Number of Failures'</span><span class="w">
+	</span><span class="s2">"LastFailureTime"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Failure Time'</span><span class="w">
+	</span><span class="s2">"LastSuccessTime"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Success Time'</span><span class="w">
+	</span><span class="s2">"LastFailureStatus"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Result</span><span class="err">.</span><span class="s1">'Last Failure Status'</span><span class="w">
+	</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="vg">$Report</span> <span class="o">|</span> <span class="nb">select</span> <span class="s2">"Source"</span><span class="p">,</span><span class="s2">"SourceSite"</span><span class="p">,</span><span class="s2">"Dest"</span><span class="p">,</span><span class="s2">"DestSite"</span><span class="p">,</span><span class="s2">"NumberFailures"</span><span class="p">,</span><span class="s2">"LastFailureTime"</span><span class="p">,</span><span class="s2">"LastFailureStatus"</span><span class="p">,</span><span class="s2">"LastSuccessTime"</span><span class="p">,</span><span class="s2">"Transport"</span><span class="p">,</span><span class="s2">"NamingContext"</span> <span class="o">|</span> <span class="n">ft</span> <span class="o">-</span><span class="no">AutoSize</span></code></pre></figure>
+</span><span class="nv">$Report</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">select</span><span class="w"> </span><span class="s2">"Source"</span><span class="p">,</span><span class="s2">"SourceSite"</span><span class="p">,</span><span class="s2">"Dest"</span><span class="p">,</span><span class="s2">"DestSite"</span><span class="p">,</span><span class="s2">"NumberFailures"</span><span class="p">,</span><span class="s2">"LastFailureTime"</span><span class="p">,</span><span class="s2">"LastFailureStatus"</span><span class="p">,</span><span class="s2">"LastSuccessTime"</span><span class="p">,</span><span class="s2">"Transport"</span><span class="p">,</span><span class="s2">"NamingContext"</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">ft</span><span class="w"> </span><span class="nt">-AutoSize</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2015/11/26/Easy-to-Read-Repadmin-Results.html" hidden></a>

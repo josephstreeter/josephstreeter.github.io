@@ -70,7 +70,7 @@
   <li>Run the Netdom command</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">netdom</span><span class="p">.</span><span class="nf">exe</span> <span class="n">resetpwd</span> <span class="sr">/s:CADSDC-CSSC-01.ad.wisc.edu /u</span><span class="n">d</span><span class="ss">:ad</span><span class="p">\</span><span class="n">jsmith</span><span class="o">-</span><span class="n">ou</span> <span class="sr">/pd:*</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">netdom.exe</span><span class="w"> </span><span class="nx">resetpwd</span><span class="w"> </span><span class="nx">/s:CADSDC-CSSC-01.ad.wisc.edu</span><span class="w"> </span><span class="nx">/ud:ad\jsmith-ou</span><span class="w"> </span><span class="nx">/pd:</span><span class="o">*</span></code></pre></figure>
 
 <ul>
   <li>The user specified with the “/ud:” must have rights to change the computer object password</li>
@@ -88,25 +88,25 @@
   <li>Load the Active Directory PowerShell module</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">activedirectory</span></code></pre></figure>
 
 <ul>
   <li>Test the secure channel</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Test-ComputerSecureChannel</span></code></pre></figure>
 
 <ul>
   <li>If the command returns false, run the command with the “-Repair” switch</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span> <span class="o">-</span><span class="no">Repair</span> <span class="o">-</span><span class="no">Credential</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Test-ComputerSecureChannel</span><span class="w"> </span><span class="nt">-Repair</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">Get-Credential</span><span class="p">)</span></code></pre></figure>
 
 <ul>
   <li>verify the secure channel using the Test-ComputerSecureChannel</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Test-ComputerSecureChannel</span></code></pre></figure>
 
 <ul>
   <li>Reboot</li>
@@ -120,25 +120,25 @@
   <li>Load the Active Directory PowerShell module</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="n">activedirectory</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">activedirectory</span></code></pre></figure>
 
 <ul>
   <li>Test the secure channel</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Test-ComputerSecureChannel</span></code></pre></figure>
 
 <ul>
   <li>If the command returns false, run the Reset-MachineAccountPassword command</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Reset</span><span class="o">-</span><span class="no">MachineAccountPassword</span> <span class="o">-</span><span class="no">Credential</span> <span class="err">$</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Reset-MachineAccountPassword</span><span class="w"> </span><span class="nt">-Credential</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="nf">Get-Credential</span><span class="p">)</span></code></pre></figure>
 
 <ul>
   <li>verify the secure channel using the Test-ComputerSecureChannel</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Test</span><span class="o">-</span><span class="no">ComputerSecureChannel</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Test-ComputerSecureChannel</span></code></pre></figure>
 
 <ul>
   <li>Reboot</li>
@@ -147,17 +147,17 @@
 <h2 id="nltest-command">Nltest Command</h2>
 <p>The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/sc_verify:&lt;domain-controller&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">nltest</span><span class="w"> </span><span class="nx">/sc_verify:</span><span class="err">&lt;</span><span class="nx">domain-controller</span><span class="err">&gt;</span></code></pre></figure>
 
 <h2 id="nltest-command-1">Nltest Command</h2>
 <p>The nltest command exists by default in Windows 7 and later. The following command will show the status of the secure channel and repair it if it is broken.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/sc_verify:&lt;domain-controller&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">nltest</span><span class="w"> </span><span class="nx">/sc_verify:</span><span class="err">&lt;</span><span class="nx">domain-controller</span><span class="err">&gt;</span></code></pre></figure>
 
 <h2 id="dsmod-command">DSMod Command</h2>
 <p>The dsmod command can be used to reset the computer password on multiple computers at once</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">dsmod</span> <span class="n">computer</span> <span class="no">CN</span><span class="o">=&lt;</span><span class="n">member</span><span class="o">-</span><span class="n">server</span><span class="o">&gt;</span><span class="p">,</span><span class="no">CN</span><span class="o">=</span><span class="n">computers</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">domain</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">com</span> <span class="o">-</span><span class="n">reset</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dsmod</span><span class="w"> </span><span class="nx">computer</span><span class="w"> </span><span class="nx">CN</span><span class="o">=</span><span class="err">&lt;</span><span class="nf">member-server</span><span class="err">&gt;</span><span class="p">,</span><span class="nx">CN</span><span class="o">=</span><span class="nf">computers</span><span class="p">,</span><span class="nx">DC</span><span class="o">=</span><span class="nf">domain</span><span class="p">,</span><span class="nx">DC</span><span class="o">=</span><span class="nf">com</span><span class="w"> </span><span class="nt">-reset</span></code></pre></figure>
 
 <h2 id="references">References</h2>
 

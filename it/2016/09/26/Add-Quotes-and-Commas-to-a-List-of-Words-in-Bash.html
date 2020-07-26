@@ -49,23 +49,23 @@
 
 <p>Here is the list:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">cat</span> <span class="n">testfile</span><span class="p">.</span><span class="nf">txt</span>
-<span class="n">apple</span>
-<span class="n">pear</span>
-<span class="n">grape</span>
-<span class="n">orange</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="err">$</span><span class="w"> </span><span class="nf">cat</span><span class="w"> </span><span class="nx">testfile.txt</span><span class="w">
+</span><span class="nf">apple</span><span class="w">
+</span><span class="nf">pear</span><span class="w">
+</span><span class="nf">grape</span><span class="w">
+</span><span class="nf">orange</span></code></pre></figure>
 
 <p>Use sed to make the change:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="s1">'s/^/"/; $!s/$/",/; $s/$/"/'</span> <span class="n">testfile</span><span class="p">.</span><span class="nf">txt</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">sed</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="s1">'s/^/"/; $!s/$/",/; $s/$/"/'</span><span class="w"> </span><span class="nx">testfile.txt</span></code></pre></figure>
 
 <p>Here is the list after:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="err">$</span> <span class="n">cat</span> <span class="n">testfile</span><span class="p">.</span><span class="nf">txt</span>
-<span class="s2">"apple"</span><span class="p">,</span>
-<span class="s2">"pear"</span><span class="p">,</span>
-<span class="s2">"grape"</span><span class="p">,</span>
-<span class="s2">"orange"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="err">$</span><span class="w"> </span><span class="nf">cat</span><span class="w"> </span><span class="nx">testfile.txt</span><span class="w">
+</span><span class="s2">"apple"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"pear"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"grape"</span><span class="p">,</span><span class="w">
+</span><span class="s2">"orange"</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2016/09/26/Add-Quotes-and-Commas-to-a-List-of-Words-in-Bash.html" hidden></a>

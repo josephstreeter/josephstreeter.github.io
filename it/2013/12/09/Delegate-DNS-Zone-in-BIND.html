@@ -49,70 +49,70 @@
 
 <p>Edit the “/etc/named.conf” file on “ns1.example.com” by adding a block for the parent domain:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">zone</span> <span class="s2">"example.com"</span> <span class="no">IN</span> <span class="p">{</span>
-<span class="n">type</span> <span class="n">master</span><span class="p">;</span>
-<span class="n">file</span> <span class="s2">"db.example.com"</span><span class="p">;</span>
-<span class="n">allow</span><span class="o">-</span><span class="n">update</span> <span class="p">{</span> <span class="n">none</span><span class="p">;</span> <span class="p">};</span>
-<span class="n">notify</span> <span class="n">no</span><span class="p">;</span>
-<span class="n">forwarders</span> <span class="p">{</span> <span class="p">};</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">zone</span><span class="w"> </span><span class="s2">"example.com"</span><span class="w"> </span><span class="nx">IN</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="nf">master</span><span class="p">;</span><span class="w">
+</span><span class="nf">file</span><span class="w"> </span><span class="s2">"db.example.com"</span><span class="p">;</span><span class="w">
+</span><span class="nf">allow-update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">none</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span><span class="nf">notify</span><span class="w"> </span><span class="nx">no</span><span class="p">;</span><span class="w">
+</span><span class="nf">forwarders</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span></code></pre></figure>
 
 <p>Create the “db.example.com” zone file for the “example.com” domain if it doesn’t already exist:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$TTL</span> <span class="mi">1200</span>
-<span class="vg">$ORIGIN</span> <span class="n">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$TTL</span><span class="w"> </span><span class="mi">1200</span><span class="w">
+</span><span class="nv">$ORIGIN</span><span class="w"> </span><span class="nf">example.com.</span><span class="w">
 
-<span class="err">@</span>       <span class="no">IN</span>      <span class="no">SOA</span>     <span class="n">ns1</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>  <span class="nf">hostmaster</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span> <span class="p">(</span>
-<span class="mi">2009032201</span>      <span class="p">;</span> <span class="n">serial</span>
-<span class="mi">1800</span>            <span class="p">;</span> <span class="n">refresh</span>
-<span class="mi">900</span>             <span class="p">;</span> <span class="k">retry</span>
-<span class="mi">1209600</span>         <span class="p">;</span> <span class="n">expire</span>
-<span class="mi">1200</span>            <span class="p">;</span> <span class="n">minimum</span> <span class="no">TTL</span>
-<span class="p">)</span>
+</span><span class="err">@</span><span class="w">       </span><span class="kr">IN</span><span class="w">      </span><span class="nf">SOA</span><span class="w">     </span><span class="nx">ns1.example.com.</span><span class="w">  </span><span class="nx">hostmaster.example.com.</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="mi">2009032201</span><span class="w">      </span><span class="p">;</span><span class="w"> </span><span class="nf">serial</span><span class="w">
+</span><span class="mi">1800</span><span class="w">            </span><span class="p">;</span><span class="w"> </span><span class="nf">refresh</span><span class="w">
+</span><span class="mi">900</span><span class="w">             </span><span class="p">;</span><span class="w"> </span><span class="nf">retry</span><span class="w">
+</span><span class="mi">1209600</span><span class="w">         </span><span class="p">;</span><span class="w"> </span><span class="nf">expire</span><span class="w">
+</span><span class="mi">1200</span><span class="w">            </span><span class="p">;</span><span class="w"> </span><span class="nf">minimum</span><span class="w"> </span><span class="nx">TTL</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns1</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>
-<span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns2</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
+</span><span class="kr">IN</span><span class="w">      </span><span class="nf">NS</span><span class="w">      </span><span class="nx">ns1.example.com.</span><span class="w">
+</span><span class="kr">IN</span><span class="w">      </span><span class="nf">NS</span><span class="w">      </span><span class="nx">ns2.example.com.</span><span class="w">
 
-<span class="nf">ns1</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.53</span>
-<span class="n">ns2</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.53</span>
-<span class="n">mail</span>    <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.25</span>
-<span class="n">www</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.80</span></code></pre></figure>
+</span><span class="nf">ns1</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.0.53</span><span class="w">
+</span><span class="nf">ns2</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.1.53</span><span class="w">
+</span><span class="nf">mail</span><span class="w">    </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.0.25</span><span class="w">
+</span><span class="nf">www</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.0.80</span></code></pre></figure>
 
 <p>Once the “example.com” zone is verified as working you can add the info for the “sub.example.com” zone file:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>       <span class="no">IN</span>   <span class="no">NS</span>  <span class="n">ns1</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
-<span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>       <span class="no">IN</span>   <span class="no">NS</span>  <span class="n">ns2</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
-<span class="nf">ns1</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>   <span class="no">IN</span>   <span class="no">A</span>   <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.53</span>
-<span class="n">ns2</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>   <span class="no">IN</span>   <span class="no">A</span>   <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.53</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">sub.example.com.</span><span class="w">       </span><span class="nx">IN</span><span class="w">   </span><span class="nx">NS</span><span class="w">  </span><span class="nx">ns1.sub.example.com.</span><span class="w">
+</span><span class="nf">sub.example.com.</span><span class="w">       </span><span class="nx">IN</span><span class="w">   </span><span class="nx">NS</span><span class="w">  </span><span class="nx">ns2.sub.example.com.</span><span class="w">
+</span><span class="nf">ns1.sub.example.com.</span><span class="w">   </span><span class="nx">IN</span><span class="w">   </span><span class="nx">A</span><span class="w">   </span><span class="nx">192.168.10.53</span><span class="w">
+</span><span class="nf">ns2.sub.example.com.</span><span class="w">   </span><span class="nx">IN</span><span class="w">   </span><span class="nx">A</span><span class="w">   </span><span class="nx">192.168.20.53</span></code></pre></figure>
 
 <p>Edit the “/etc/named.conf” file on “ns1.sub.example.com” by adding a block for the sub domain:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">zone</span> <span class="s2">"sub.example.com"</span> <span class="no">IN</span> <span class="p">{</span>
-<span class="n">type</span> <span class="n">master</span><span class="p">;</span>
-<span class="n">file</span> <span class="s2">"db.sub.example.com"</span><span class="p">;</span>
-<span class="n">allow</span><span class="o">-</span><span class="n">update</span> <span class="p">{</span> <span class="n">none</span><span class="p">;</span> <span class="p">};</span>
-<span class="n">notify</span> <span class="n">no</span><span class="p">;</span>
-<span class="n">forwarders</span> <span class="p">{</span> <span class="p">};</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">zone</span><span class="w"> </span><span class="s2">"sub.example.com"</span><span class="w"> </span><span class="nx">IN</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="kr">type</span><span class="w"> </span><span class="nf">master</span><span class="p">;</span><span class="w">
+</span><span class="nf">file</span><span class="w"> </span><span class="s2">"db.sub.example.com"</span><span class="p">;</span><span class="w">
+</span><span class="nf">allow-update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">none</span><span class="p">;</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span><span class="nf">notify</span><span class="w"> </span><span class="nx">no</span><span class="p">;</span><span class="w">
+</span><span class="nf">forwarders</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">};</span></code></pre></figure>
 
 <p>Create the “db.sub.example.com” zone file for the “sub.example.com” domain:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$TTL</span> <span class="mi">1200</span>
-<span class="vg">$ORIGIN</span> <span class="nb">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$TTL</span><span class="w"> </span><span class="mi">1200</span><span class="w">
+</span><span class="nv">$ORIGIN</span><span class="w"> </span><span class="nf">sub.example.com.</span><span class="w">
 
-<span class="err">@</span>       <span class="no">IN</span>      <span class="no">SOA</span>     <span class="n">ns1</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>  <span class="nf">hostmaster</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span> <span class="p">(</span>
-<span class="mi">2009032201</span>      <span class="p">;</span> <span class="n">serial</span>
-<span class="mi">1800</span>            <span class="p">;</span> <span class="n">refresh</span>
-<span class="mi">900</span>             <span class="p">;</span> <span class="k">retry</span>
-<span class="mi">1209600</span>         <span class="p">;</span> <span class="n">expire</span>
-<span class="mi">1200</span>            <span class="p">;</span> <span class="n">minimum</span> <span class="no">TTL</span>
-<span class="p">)</span>
+</span><span class="err">@</span><span class="w">       </span><span class="kr">IN</span><span class="w">      </span><span class="nf">SOA</span><span class="w">     </span><span class="nx">ns1.sub.example.com.</span><span class="w">  </span><span class="nx">hostmaster.sub.example.com.</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="mi">2009032201</span><span class="w">      </span><span class="p">;</span><span class="w"> </span><span class="nf">serial</span><span class="w">
+</span><span class="mi">1800</span><span class="w">            </span><span class="p">;</span><span class="w"> </span><span class="nf">refresh</span><span class="w">
+</span><span class="mi">900</span><span class="w">             </span><span class="p">;</span><span class="w"> </span><span class="nf">retry</span><span class="w">
+</span><span class="mi">1209600</span><span class="w">         </span><span class="p">;</span><span class="w"> </span><span class="nf">expire</span><span class="w">
+</span><span class="mi">1200</span><span class="w">            </span><span class="p">;</span><span class="w"> </span><span class="nf">minimum</span><span class="w"> </span><span class="nx">TTL</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns1</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="o">.</span>
-<span class="no">IN</span>      <span class="no">NS</span>      <span class="n">ns2</span><span class="p">.</span><span class="nf">sub</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="p">.</span>
+</span><span class="kr">IN</span><span class="w">      </span><span class="nf">NS</span><span class="w">      </span><span class="nx">ns1.sub.example.com.</span><span class="w">
+</span><span class="kr">IN</span><span class="w">      </span><span class="nf">NS</span><span class="w">      </span><span class="nx">ns2.sub.example.com.</span><span class="w">
 
-<span class="nf">ns1</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.53</span>
-<span class="n">ns2</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">20.53</span>
-<span class="n">mail</span>    <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.25</span>
-<span class="n">www</span>     <span class="no">A</span>       <span class="mf">192.168</span><span class="o">.</span><span class="mf">10.80</span></code></pre></figure>
+</span><span class="nf">ns1</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.10.53</span><span class="w">
+</span><span class="nf">ns2</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.20.53</span><span class="w">
+</span><span class="nf">mail</span><span class="w">    </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.10.25</span><span class="w">
+</span><span class="nf">www</span><span class="w">     </span><span class="nx">A</span><span class="w">       </span><span class="nx">192.168.10.80</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/12/09/Delegate-DNS-Zone-in-BIND.html" hidden></a>

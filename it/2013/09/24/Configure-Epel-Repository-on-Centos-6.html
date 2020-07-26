@@ -52,51 +52,51 @@ Click <a title="Configure Epel Repository on Centos 6" href="http://www.joseph-s
 
 <p>Configure LAMP by installing Apache, MySQL, and PHP</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">yum</span> <span class="n">install</span> <span class="n">httpd</span> <span class="n">mysql</span><span class="o">-</span><span class="n">server</span> <span class="n">php</span> <span class="n">wordpress</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">yum</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">httpd</span><span class="w"> </span><span class="nx">mysql-server</span><span class="w"> </span><span class="nx">php</span><span class="w"> </span><span class="nx">wordpress</span></code></pre></figure>
 
 <p>Log in to MySQL</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="nb">p</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">mysql</span><span class="w"> </span><span class="nt">-u</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="nt">-p</span></code></pre></figure>
 
 <p>Create the database</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">CREATE</span> <span class="no">DATABASE</span> <span class="n">wordpress</span><span class="p">;</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="n">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">CREATE</span><span class="w"> </span><span class="nx">DATABASE</span><span class="w"> </span><span class="nx">wordpress</span><span class="p">;</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">1</span><span class="w"> </span><span class="nx">row</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span></code></pre></figure>
 
 <p>Create the wordpress user and set a password</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">CREATE</span> <span class="no">USER</span> <span class="n">wordpress</span><span class="vi">@localhost</span><span class="p">;</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">CREATE</span><span class="w"> </span><span class="nx">USER</span><span class="w"> </span><span class="nx">wordpress</span><span class="err">@</span><span class="nx">localhost</span><span class="p">;</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span><span class="w">
 
-<span class="no">SET</span> <span class="no">PASSWORD</span> <span class="no">FOR</span> <span class="n">wordpressuser</span><span class="vi">@localhost</span><span class="o">=</span> <span class="no">PASSWORD</span><span class="p">(</span><span class="s2">"password"</span><span class="p">);</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span></code></pre></figure>
+</span><span class="nf">SET</span><span class="w"> </span><span class="nx">PASSWORD</span><span class="w"> </span><span class="nx">FOR</span><span class="w"> </span><span class="nx">wordpressuser</span><span class="err">@</span><span class="nx">localhost</span><span class="o">=</span><span class="w"> </span><span class="nf">PASSWORD</span><span class="p">(</span><span class="s2">"password"</span><span class="p">);</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span></code></pre></figure>
 
 <p>Grant the wordpress user rights to the database</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">GRANT</span> <span class="no">ALL</span> <span class="no">PRIVILEGES</span> <span class="no">ON</span> <span class="n">wordpress</span><span class="p">.</span><span class="nf">*</span> <span class="no">TO</span> <span class="n">wordpress</span><span class="vi">@localhost</span> <span class="no">IDENTIFIED</span> <span class="no">BY</span> <span class="s1">'password'</span><span class="p">;</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">GRANT</span><span class="w"> </span><span class="nx">ALL</span><span class="w"> </span><span class="nx">PRIVILEGES</span><span class="w"> </span><span class="nx">ON</span><span class="w"> </span><span class="nx">wordpress.</span><span class="o">*</span><span class="w"> </span><span class="nx">TO</span><span class="w"> </span><span class="nx">wordpress</span><span class="err">@</span><span class="nx">localhost</span><span class="w"> </span><span class="nx">IDENTIFIED</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="s1">'password'</span><span class="p">;</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span><span class="w">
 
-<span class="no">FLUSH</span> <span class="no">PRIVILEGES</span><span class="p">;</span>
-<span class="no">Query</span> <span class="no">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="n">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mf">0.00</span> <span class="n">sec</span><span class="p">)</span></code></pre></figure>
+</span><span class="nf">FLUSH</span><span class="w"> </span><span class="nx">PRIVILEGES</span><span class="p">;</span><span class="w">
+</span><span class="nf">Query</span><span class="w"> </span><span class="nx">OK</span><span class="p">,</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">rows</span><span class="w"> </span><span class="nx">affected</span><span class="w"> </span><span class="p">(</span><span class="mf">0.00</span><span class="w"> </span><span class="nf">sec</span><span class="p">)</span></code></pre></figure>
 
 <p>Configure Wordpress</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">vi</span> <span class="sr">/usr/s</span><span class="n">hare</span><span class="o">/</span><span class="n">wordpress</span><span class="o">/</span><span class="n">wp</span><span class="o">-</span><span class="n">config</span><span class="p">.</span><span class="nf">php</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">vi</span><span class="w"> </span><span class="nx">/usr/share/wordpress/wp-config.php</span><span class="w">
 
-<span class="sr">//</span> <span class="o">**</span> <span class="no">MySQL</span> <span class="n">settings</span> <span class="o">-</span> <span class="no">You</span> <span class="n">can</span> <span class="n">get</span> <span class="n">this</span> <span class="n">info</span> <span class="n">from</span> <span class="n">your</span> <span class="n">web</span> <span class="n">host</span> <span class="o">**</span> <span class="sr">//</span>
-<span class="sr">/** The name of the database for WordPress */</span>
-<span class="n">define</span><span class="p">(</span><span class="s1">'DB_NAME'</span><span class="p">,</span> <span class="s1">'wordpress'</span><span class="p">);</span>
+</span><span class="nf">//</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="nx">MySQL</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">You</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">web</span><span class="w"> </span><span class="nx">host</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="nx">//</span><span class="w">
+</span><span class="nf">/</span><span class="o">**</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">name</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">database</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">WordPress</span><span class="w"> </span><span class="o">*</span><span class="nx">/</span><span class="w">
+</span><span class="kr">define</span><span class="p">(</span><span class="s1">'DB_NAME'</span><span class="p">,</span><span class="w"> </span><span class="s1">'wordpress'</span><span class="p">);</span><span class="w">
 
-<span class="sr">/** MySQL database username */</span>
-<span class="n">define</span><span class="p">(</span><span class="s1">'DB_USER'</span><span class="p">,</span> <span class="s1">'wordpress'</span><span class="p">);</span>
+</span><span class="nf">/</span><span class="o">**</span><span class="w"> </span><span class="nx">MySQL</span><span class="w"> </span><span class="nx">database</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="o">*</span><span class="nx">/</span><span class="w">
+</span><span class="kr">define</span><span class="p">(</span><span class="s1">'DB_USER'</span><span class="p">,</span><span class="w"> </span><span class="s1">'wordpress'</span><span class="p">);</span><span class="w">
 
-<span class="sr">/** MySQL database password */</span>
-<span class="n">define</span><span class="p">(</span><span class="s1">'DB_PASSWORD'</span><span class="p">,</span> <span class="s1">'password'</span><span class="p">);</span></code></pre></figure>
+</span><span class="nf">/</span><span class="o">**</span><span class="w"> </span><span class="nx">MySQL</span><span class="w"> </span><span class="nx">database</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">*</span><span class="nx">/</span><span class="w">
+</span><span class="kr">define</span><span class="p">(</span><span class="s1">'DB_PASSWORD'</span><span class="p">,</span><span class="w"> </span><span class="s1">'password'</span><span class="p">);</span></code></pre></figure>
 
 <p>Restart Apache</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">service</span> <span class="n">httpd</span> <span class="n">restart</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">service</span><span class="w"> </span><span class="nx">httpd</span><span class="w"> </span><span class="nx">restart</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/09/24/Configure-Epel-Repository-on-Centos-6.html" hidden></a>

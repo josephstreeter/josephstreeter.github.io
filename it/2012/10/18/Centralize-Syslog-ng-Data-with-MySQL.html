@@ -49,120 +49,120 @@
 
 <p>Configure the MySQL database:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">CREATE</span> <span class="no">DATABASE</span> <span class="n">syslog</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">CREATE</span><span class="w"> </span><span class="nx">DATABASE</span><span class="w"> </span><span class="nx">syslog</span><span class="p">;</span><span class="w">
 
-<span class="no">USE</span> <span class="n">syslog</span><span class="p">;</span>
+</span><span class="nf">USE</span><span class="w"> </span><span class="nx">syslog</span><span class="p">;</span><span class="w">
 
-<span class="no">CREATE</span> <span class="no">TABLE</span> <span class="n">logs</span> <span class="p">(</span>
-<span class="n">host</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">facility</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">priority</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">level</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">tag</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">date</span> <span class="n">date</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">time</span> <span class="n">time</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">program</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="n">default</span> <span class="no">NULL</span><span class="p">,</span>
-<span class="n">msg</span> <span class="n">text</span><span class="p">,</span>
-<span class="n">seq</span> <span class="n">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="n">unsigned</span> <span class="no">NOT</span> <span class="no">NULL</span> <span class="n">auto_increment</span><span class="p">,</span>
-<span class="no">PRIMARY</span> <span class="no">KEY</span> <span class="p">(</span><span class="n">seq</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">host</span> <span class="p">(</span><span class="n">host</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">seq</span> <span class="p">(</span><span class="n">seq</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">program</span> <span class="p">(</span><span class="n">program</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">time</span> <span class="p">(</span><span class="n">time</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">date</span> <span class="p">(</span><span class="n">date</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">priority</span> <span class="p">(</span><span class="n">priority</span><span class="p">),</span>
-<span class="no">KEY</span> <span class="n">facility</span> <span class="p">(</span><span class="n">facility</span><span class="p">)</span>
-<span class="p">)</span> <span class="no">TYPE</span><span class="o">=</span><span class="no">MyISAM</span><span class="p">;</span></code></pre></figure>
+</span><span class="nf">CREATE</span><span class="w"> </span><span class="nx">TABLE</span><span class="w"> </span><span class="nx">logs</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="nf">host</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">facility</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">priority</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">level</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">tag</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">date</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">time</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">program</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="nf">default</span><span class="w"> </span><span class="nx">NULL</span><span class="p">,</span><span class="w">
+</span><span class="nf">msg</span><span class="w"> </span><span class="nx">text</span><span class="p">,</span><span class="w">
+</span><span class="nf">seq</span><span class="w"> </span><span class="nx">int</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="nf">unsigned</span><span class="w"> </span><span class="nx">NOT</span><span class="w"> </span><span class="nx">NULL</span><span class="w"> </span><span class="nx">auto_increment</span><span class="p">,</span><span class="w">
+</span><span class="nf">PRIMARY</span><span class="w"> </span><span class="nx">KEY</span><span class="w"> </span><span class="p">(</span><span class="nf">seq</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">host</span><span class="w"> </span><span class="p">(</span><span class="nf">host</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">seq</span><span class="w"> </span><span class="p">(</span><span class="nf">seq</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">program</span><span class="w"> </span><span class="p">(</span><span class="nf">program</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="p">(</span><span class="nf">time</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="p">(</span><span class="nf">date</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">priority</span><span class="w"> </span><span class="p">(</span><span class="nf">priority</span><span class="p">),</span><span class="w">
+</span><span class="nf">KEY</span><span class="w"> </span><span class="nx">facility</span><span class="w"> </span><span class="p">(</span><span class="nf">facility</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span><span class="w"> </span><span class="kr">TYPE</span><span class="o">=</span><span class="nf">MyISAM</span><span class="p">;</span></code></pre></figure>
 
 <p>Configure Syslog-ng:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">source</span> <span class="n">net</span> <span class="p">{</span> <span class="n">udp</span><span class="p">();</span> <span class="p">};</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">source</span><span class="w"> </span><span class="nx">net</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nf">udp</span><span class="p">();</span><span class="w"> </span><span class="p">};</span><span class="w">
 
-<span class="n">destination</span> <span class="n">d_mysql</span> <span class="p">{</span>
-<span class="n">pipe</span><span class="p">(</span><span class="s2">"/var/log/mysql.pipe"</span>
-<span class="n">template</span><span class="p">(</span><span class="s2">"INSERT INTO logs
+</span><span class="nf">destination</span><span class="w"> </span><span class="nx">d_mysql</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">pipe</span><span class="p">(</span><span class="s2">"/var/log/mysql.pipe"</span><span class="w">
+</span><span class="nf">template</span><span class="p">(</span><span class="s2">"INSERT INTO logs
 (host, facility, priority, level, tag, date, time, program, msg)
-VALUES ( '$HOST', '$FACILITY', '$PRIORITY', '$LEVEL', '$TAG', '$YEAR-$MONTH-$DAY', '$HOUR:$MIN:$SEC',
-'$PROGRAM', '$MSG');</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span> <span class="n">template</span><span class="o">-</span><span class="n">escape</span><span class="p">(</span><span class="n">yes</span><span class="p">));</span>
-<span class="p">};</span>
+VALUES ( '</span><span class="nv">$HOST</span><span class="s2">', '</span><span class="nv">$FACILITY</span><span class="s2">', '</span><span class="nv">$PRIORITY</span><span class="s2">', '</span><span class="nv">$LEVEL</span><span class="s2">', '</span><span class="nv">$TAG</span><span class="s2">', '</span><span class="nv">$YEAR</span><span class="s2">-</span><span class="nv">$MONTH</span><span class="s2">-</span><span class="nv">$DAY</span><span class="s2">', '</span><span class="nv">$HOUR</span><span class="s2">:</span><span class="nv">$MIN</span><span class="s2">:</span><span class="nv">$SEC</span><span class="s2">',
+'</span><span class="nv">$PROGRAM</span><span class="s2">', '</span><span class="nv">$MSG</span><span class="s2">');\n"</span><span class="p">)</span><span class="w"> </span><span class="nf">template-escape</span><span class="p">(</span><span class="nf">yes</span><span class="p">));</span><span class="w">
+</span><span class="p">};</span><span class="w">
 
-<span class="n">log</span> <span class="p">{</span>
-<span class="n">source</span><span class="p">(</span><span class="n">net</span><span class="p">);</span>
-<span class="n">destination</span><span class="p">(</span><span class="n">d_mysql</span><span class="p">);</span>
-<span class="p">};</span></code></pre></figure>
+</span><span class="nf">log</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">source</span><span class="p">(</span><span class="nf">net</span><span class="p">);</span><span class="w">
+</span><span class="nf">destination</span><span class="p">(</span><span class="nf">d_mysql</span><span class="p">);</span><span class="w">
+</span><span class="p">};</span></code></pre></figure>
 
 <p>Configure this script to run (There are a few different ways to do it, just make sure it’s running all the time):</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/bin/bash
-</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#!/bin/bash
+</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="n">e</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="p">]</span>
-<span class="k">then</span>
-<span class="n">mkfifo</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span>
-<span class="n">fi</span>
-<span class="k">while</span> <span class="p">[</span> <span class="o">-</span><span class="n">e</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="p">]</span>
-<span class="k">do</span>
-<span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">--</span><span class="n">password</span><span class="o">=</span><span class="n">iw2slep!</span> <span class="n">syslog</span> <span class="o">&lt;</span> <span class="sr">/var/</span><span class="n">log</span><span class="o">/</span><span class="n">mysql</span><span class="p">.</span><span class="nf">pipe</span> <span class="o">&gt;</span><span class="sr">/dev/nu</span><span class="n">ll</span>
-<span class="n">done</span></code></pre></figure>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="o">!</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="nf">/var/log/mysql.pipe</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="kt">then</span><span class="w">
+</span><span class="kt">mkfifo</span><span class="w"> </span><span class="nf">/var/log/mysql.pipe</span><span class="w">
+</span><span class="kt">fi</span><span class="w">
+</span><span class="kt">while</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="nf">/var/log/mysql.pipe</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="kt">do</span><span class="w">
+</span><span class="kt">mysql</span><span class="w"> </span><span class="nt">-u</span><span class="w"> </span><span class="kt">root</span><span class="w"> </span><span class="nt">--password</span><span class="o">=</span><span class="kt">iw2slep</span><span class="o">!</span><span class="w"> </span><span class="kt">syslog</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="nf">/var/log/mysql.pipe</span><span class="w"> </span><span class="err">&gt;</span><span class="nx">/dev/null</span><span class="w">
+</span><span class="kt">done</span></code></pre></figure>
 
 <p>Now, configure your network equipment to send syslog to your linux machine:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">logging</span> <span class="o">&lt;</span><span class="n">ip</span><span class="o">-</span><span class="n">address</span><span class="o">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">logging</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">ip-address</span><span class="err">&gt;</span></code></pre></figure>
 
 <p>I’ve also written a simple PHP script to display the syslog info in a table. No real filtering or sorting. I would just teak the SQL query if I wanted to see something differnet. It would be nice to have all the sorting and filtering built into the page, but I’m just not that good with PHP yet.</p>
 
 <p>This is an example that I will work off of for the next project:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
-<span class="vg">$username</span><span class="o">=</span><span class="s2">"username"</span><span class="p">;</span>
-<span class="vg">$password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">;</span>
-<span class="vg">$database</span><span class="o">=</span><span class="s2">"your_database"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="err">&lt;</span><span class="nf">html</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">body</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w">
+</span><span class="nv">$username</span><span class="o">=</span><span class="s2">"username"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$password</span><span class="o">=</span><span class="s2">"password"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$database</span><span class="o">=</span><span class="s2">"your_database"</span><span class="p">;</span><span class="w">
 
-<span class="n">mysql_connect</span><span class="p">(</span><span class="n">localhost</span><span class="p">,</span><span class="vg">$username</span><span class="p">,</span><span class="vg">$password</span><span class="p">);</span>
-<span class="vi">@mysql_select_db</span><span class="p">(</span><span class="vg">$database</span><span class="p">)</span> <span class="n">or</span> <span class="n">die</span><span class="p">(</span> <span class="s2">"Unable to select database"</span><span class="p">);</span>
-<span class="vg">$query</span><span class="o">=</span><span class="s2">"SELECT * FROM tablename"</span><span class="p">;</span>
-<span class="vg">$result</span><span class="o">=</span><span class="n">mysql_query</span><span class="p">(</span><span class="vg">$query</span><span class="p">);</span>
+</span><span class="nf">mysql_connect</span><span class="p">(</span><span class="nf">localhost</span><span class="p">,</span><span class="nv">$username</span><span class="p">,</span><span class="nv">$password</span><span class="p">);</span><span class="w">
+</span><span class="err">@</span><span class="nf">mysql_select_db</span><span class="p">(</span><span class="nv">$database</span><span class="p">)</span><span class="w"> </span><span class="nf">or</span><span class="w"> </span><span class="nx">die</span><span class="p">(</span><span class="w"> </span><span class="s2">"Unable to select database"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$query</span><span class="o">=</span><span class="s2">"SELECT * FROM tablename"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$result</span><span class="o">=</span><span class="nf">mysql_query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span><span class="w">
 
-<span class="vg">$num</span><span class="o">=</span><span class="n">mysql_numrows</span><span class="p">(</span><span class="vg">$result</span><span class="p">);</span>
+</span><span class="nv">$num</span><span class="o">=</span><span class="nf">mysql_numrows</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span><span class="w">
 
-<span class="n">mysql_close</span><span class="p">();</span>
-<span class="sc">?&gt;</span>
-<span class="o">&lt;</span><span class="n">table</span> <span class="n">border</span><span class="o">=</span><span class="s2">"0"</span> <span class="n">cellspacing</span><span class="o">=</span><span class="s2">"2"</span> <span class="n">cellpadding</span><span class="o">=</span><span class="s2">"2"</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value1</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value2</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value3</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value4</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;&lt;</span><span class="n">font</span> <span class="n">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="o">&gt;</span><span class="no">Value5</span><span class="o">&lt;</span><span class="sr">/font&gt;&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="sr">/tr&gt;
+</span><span class="nf">mysql_close</span><span class="p">();</span><span class="w">
+</span><span class="nf">?</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">table</span><span class="w"> </span><span class="nx">border</span><span class="o">=</span><span class="s2">"0"</span><span class="w"> </span><span class="nf">cellspacing</span><span class="o">=</span><span class="s2">"2"</span><span class="w"> </span><span class="nf">cellpadding</span><span class="o">=</span><span class="s2">"2"</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">tr</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">th</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;</span><span class="nf">Value1</span><span class="err">&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/th</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">th</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;</span><span class="nf">Value2</span><span class="err">&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/th</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">th</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;</span><span class="nf">Value3</span><span class="err">&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/th</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">th</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;</span><span class="nf">Value4</span><span class="err">&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/th</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">th</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;</span><span class="nf">Value5</span><span class="err">&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/th</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">/tr</span><span class="err">&gt;</span><span class="w">
 
-&lt;?php
-$i=0;
-while ($i &lt; $num) {
+</span><span class="err">&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w">
+</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="kr">while</span><span class="w"> </span><span class="p">(</span><span class="nv">$i</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="nv">$num</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 
-$f1=mysql_result($result,$i,"field1");
-$f2=mysql_result($result,$i,"field2");
-$f3=mysql_result($result,$i,"field3");
-$f4=mysql_result($result,$i,"field4");
-$f5=mysql_result($result,$i,"field5");
-?&gt;
+</span><span class="nv">$f1</span><span class="o">=</span><span class="nf">mysql_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">,</span><span class="nv">$i</span><span class="p">,</span><span class="s2">"field1"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$f2</span><span class="o">=</span><span class="nf">mysql_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">,</span><span class="nv">$i</span><span class="p">,</span><span class="s2">"field2"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$f3</span><span class="o">=</span><span class="nf">mysql_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">,</span><span class="nv">$i</span><span class="p">,</span><span class="s2">"field3"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$f4</span><span class="o">=</span><span class="nf">mysql_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">,</span><span class="nv">$i</span><span class="p">,</span><span class="s2">"field4"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$f5</span><span class="o">=</span><span class="nf">mysql_result</span><span class="p">(</span><span class="nv">$result</span><span class="p">,</span><span class="nv">$i</span><span class="p">,</span><span class="s2">"field5"</span><span class="p">);</span><span class="w">
+</span><span class="nf">?</span><span class="err">&gt;</span><span class="w">
 
-&lt;tr&gt;
-&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f1; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
-&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f2; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
-&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f3; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
-&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f4; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
-&lt;td&gt;&lt;font face="Arial, Helvetica, sans-serif"&gt;&lt;?php echo $f5; ?&gt;&lt;/</span><span class="n">font</span><span class="o">&gt;&lt;</span><span class="sr">/td&gt;
-&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
+</span><span class="err">&lt;</span><span class="nf">tr</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">td</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="nv">$f1</span><span class="p">;</span><span class="w"> </span><span class="nf">?</span><span class="err">&gt;&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/td</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">td</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="nv">$f2</span><span class="p">;</span><span class="w"> </span><span class="nf">?</span><span class="err">&gt;&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/td</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">td</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="nv">$f3</span><span class="p">;</span><span class="w"> </span><span class="nf">?</span><span class="err">&gt;&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/td</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">td</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="nv">$f4</span><span class="p">;</span><span class="w"> </span><span class="nf">?</span><span class="err">&gt;&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/td</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">td</span><span class="err">&gt;&lt;</span><span class="nx">font</span><span class="w"> </span><span class="nx">face</span><span class="o">=</span><span class="s2">"Arial, Helvetica, sans-serif"</span><span class="err">&gt;&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="nv">$f5</span><span class="p">;</span><span class="w"> </span><span class="nf">?</span><span class="err">&gt;&lt;</span><span class="nx">/font</span><span class="err">&gt;&lt;</span><span class="nx">/td</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">/tr</span><span class="err">&gt;</span><span class="w">
 
-<span class="o">&lt;</span><span class="p">?</span><span class="n">php</span>
-<span class="vg">$i</span><span class="o">++</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="sc">?&gt;</span>
-<span class="o">&lt;</span><span class="sr">/body&gt;
-&lt;/</span><span class="n">html</span><span class="o">&gt;</span></code></pre></figure>
+</span><span class="err">&lt;</span><span class="nf">?</span><span class="nx">php</span><span class="w">
+</span><span class="nv">$i</span><span class="o">++</span><span class="p">;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="nf">?</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">/body</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">/html</span><span class="err">&gt;</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Centralize-Syslog-ng-Data-with-MySQL.html" hidden></a>

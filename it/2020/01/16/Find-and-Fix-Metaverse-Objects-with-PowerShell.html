@@ -57,113 +57,113 @@
 
 <p>This script will require the Lithnet MIIS Automation module.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"> 
-<span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="no">LithnetMIISAutomation</span>  
-<span class="n">function</span> <span class="no">Get</span><span class="o">-</span><span class="no">Records</span><span class="p">(</span><span class="vg">$EmpTypes</span><span class="p">)</span> 
-<span class="p">{</span>
-     <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"Retieving records"</span>
-     <span class="vg">$Records</span><span class="o">=</span><span class="err">@</span><span class="p">()</span>
-     <span class="n">foreach</span> <span class="p">(</span><span class="vg">$EmpType</span> <span class="k">in</span> <span class="vg">$EmpTypes</span><span class="p">)</span>
-     <span class="p">{</span>
-         <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"  EmployeeType: $EmpType"</span>
-         <span class="vg">$queries</span> <span class="o">=</span> <span class="err">@</span><span class="p">();</span>
-         <span class="vg">$queries</span> <span class="o">+=</span> <span class="no">New</span><span class="o">-</span><span class="no">MVQuery</span> <span class="o">-</span><span class="no">Attribute</span> <span class="n">employeeStatus</span> <span class="o">-</span><span class="no">Operator</span> <span class="no">Equals</span> <span class="o">-</span><span class="no">Value</span> <span class="s2">"P"</span>
-         <span class="vg">$queries</span> <span class="o">+=</span> <span class="no">New</span><span class="o">-</span><span class="no">MVQuery</span> <span class="o">-</span><span class="no">Attribute</span> <span class="n">employeeType</span> <span class="o">-</span><span class="no">Operator</span> <span class="no">Equals</span> <span class="o">-</span><span class="no">Value</span> <span class="vg">$EmpType</span>
-         <span class="vg">$Records</span> <span class="o">+=</span> <span class="no">Get</span><span class="o">-</span><span class="no">MVObject</span> <span class="o">-</span><span class="no">Queries</span> <span class="vg">$queries</span>
-     <span class="p">}</span>      
-     <span class="vg">$Results</span><span class="o">=</span><span class="err">@</span><span class="p">()</span>
-     <span class="n">foreach</span> <span class="p">(</span><span class="vg">$Record</span> <span class="k">in</span> <span class="vg">$Records</span><span class="p">)</span>
-     <span class="p">{</span>
-         <span class="vg">$Results</span><span class="o">+=</span><span class="p">[</span><span class="no">PSCustomObject</span><span class="p">]</span> <span class="err">@</span><span class="p">{</span><span class="s2">"AccountName"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">Attributes</span><span class="p">[</span><span class="s2">"accountName"</span><span class="p">]</span><span class="o">.</span><span class="no">Values</span><span class="p">.</span><span class="nf">valueString</span>
-                                     <span class="s2">"EmployeeID"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">Attributes</span><span class="p">[</span><span class="s2">"employeeID"</span><span class="p">]</span><span class="o">.</span><span class="no">Values</span><span class="p">.</span><span class="nf">valueString</span>
-                                     <span class="s2">"EmployeeNumber"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">Attributes</span><span class="p">[</span><span class="s2">"employeeNumber"</span><span class="p">]</span><span class="o">.</span><span class="no">Values</span><span class="p">.</span><span class="nf">valueString</span>
-                                     <span class="s2">"EmployeeType"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">Attributes</span><span class="p">[</span><span class="s2">"employeeType"</span><span class="p">]</span><span class="o">.</span><span class="no">Values</span><span class="p">.</span><span class="nf">valueString</span>
-                                     <span class="s2">"EmployeeStatus"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">Attributes</span><span class="p">[</span><span class="s2">"employeeStatus"</span><span class="p">]</span><span class="o">.</span><span class="no">Values</span><span class="p">.</span><span class="nf">valueString</span>
-                                     <span class="s2">"MVDN"</span><span class="o">=</span><span class="vg">$Record</span><span class="o">.</span><span class="no">DN</span>
-                                     <span class="s2">"ADMA-Main"</span><span class="o">=</span><span class="p">(</span><span class="vg">$Record</span><span class="o">.</span><span class="no">CSMVLinks</span> <span class="o">|</span> <span class="p">?</span> <span class="p">{</span><span class="vg">$_</span><span class="p">.</span><span class="nf">managementAgentName</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"ADMA-Main"</span><span class="p">})</span><span class="o">.</span><span class="no">ConnectorSpaceID</span>
-                                     <span class="s2">"ADMA-DM-Z"</span><span class="o">=</span><span class="p">(</span><span class="vg">$Record</span><span class="o">.</span><span class="no">CSMVLinks</span> <span class="o">|</span> <span class="p">?</span> <span class="p">{</span><span class="vg">$_</span><span class="p">.</span><span class="nf">managementAgentName</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"ADMA-DM-Z"</span><span class="p">})</span><span class="o">.</span><span class="no">ConnectorSpaceID</span>
-                                     <span class="s2">"SQLMA-SD"</span><span class="o">=</span><span class="p">(</span><span class="vg">$Record</span><span class="o">.</span><span class="no">CSMVLinks</span> <span class="o">|</span> <span class="p">?</span> <span class="p">{</span><span class="vg">$_</span><span class="p">.</span><span class="nf">managementAgentName</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"SQLMA-SD"</span><span class="p">})</span><span class="o">.</span><span class="no">ConnectorSpaceID</span>
-                                     <span class="s2">"MIMMA"</span><span class="o">=</span><span class="p">(</span><span class="vg">$Record</span><span class="o">.</span><span class="no">CSMVLinks</span> <span class="o">|</span> <span class="p">?</span> <span class="p">{</span><span class="vg">$_</span><span class="p">.</span><span class="nf">managementAgentName</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"MIMMA"</span><span class="p">})</span><span class="o">.</span><span class="no">ConnectorSpaceID</span>
-                                     <span class="p">}</span>
-      <span class="p">}</span>
-     <span class="no">Return</span> <span class="vg">$Results</span> <span class="p">}</span>  
-<span class="n">function</span> <span class="no">Evaluate</span><span class="o">-</span><span class="no">Records</span><span class="p">(</span><span class="vg">$Records</span><span class="p">)</span> 
-<span class="p">{</span>
-     <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"Evaluating records"</span>
-     <span class="vg">$Results</span><span class="o">=</span><span class="err">@</span><span class="p">()</span>
-     <span class="n">foreach</span> <span class="p">(</span><span class="vg">$Record</span> <span class="k">in</span> <span class="vg">$Records</span><span class="p">)</span>
-     <span class="p">{</span>
-         <span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="n">not</span> <span class="vg">$Record</span><span class="o">.</span><span class="s2">"ADMA-MAIN"</span><span class="o">.</span><span class="no">Guid</span><span class="p">)</span>
-         <span class="p">{</span>
-         <span class="vg">$Results</span><span class="o">+=</span><span class="vg">$Record</span>
-         <span class="p">}</span>
-     <span class="p">}</span>
-     <span class="no">Return</span> <span class="vg">$Results</span> 
-<span class="p">}</span>   
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="w"> 
+</span><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">LithnetMIISAutomation</span><span class="w">  
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Get-Records</span><span class="p">(</span><span class="nv">$EmpTypes</span><span class="p">)</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"Retieving records"</span><span class="w">
+     </span><span class="nv">$Records</span><span class="o">=</span><span class="p">@()</span><span class="w">
+     </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$EmpType</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$EmpTypes</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"  EmployeeType: </span><span class="nv">$EmpType</span><span class="s2">"</span><span class="w">
+         </span><span class="nv">$queries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@();</span><span class="w">
+         </span><span class="nv">$queries</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">New-MVQuery</span><span class="w"> </span><span class="nt">-Attribute</span><span class="w"> </span><span class="nx">employeeStatus</span><span class="w"> </span><span class="nt">-Operator</span><span class="w"> </span><span class="nx">Equals</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="s2">"P"</span><span class="w">
+         </span><span class="nv">$queries</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">New-MVQuery</span><span class="w"> </span><span class="nt">-Attribute</span><span class="w"> </span><span class="nx">employeeType</span><span class="w"> </span><span class="nt">-Operator</span><span class="w"> </span><span class="nx">Equals</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nv">$EmpType</span><span class="w">
+         </span><span class="nv">$Records</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nf">Get-MVObject</span><span class="w"> </span><span class="nt">-Queries</span><span class="w"> </span><span class="nv">$queries</span><span class="w">
+     </span><span class="p">}</span><span class="w">      
+     </span><span class="nv">$Results</span><span class="o">=</span><span class="p">@()</span><span class="w">
+     </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Record</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Records</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="nv">$Results</span><span class="o">+=</span><span class="p">[</span><span class="kt">PSCustomObject</span><span class="p">]</span><span class="w"> </span><span class="p">@{</span><span class="s2">"AccountName"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">Attributes</span><span class="err">[</span><span class="s2">"accountName"</span><span class="err">].</span><span class="nx">Values</span><span class="err">.</span><span class="nx">valueString</span><span class="w">
+                                     </span><span class="s2">"EmployeeID"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">Attributes</span><span class="err">[</span><span class="s2">"employeeID"</span><span class="err">].</span><span class="nx">Values</span><span class="err">.</span><span class="nx">valueString</span><span class="w">
+                                     </span><span class="s2">"EmployeeNumber"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">Attributes</span><span class="err">[</span><span class="s2">"employeeNumber"</span><span class="err">].</span><span class="nx">Values</span><span class="err">.</span><span class="nx">valueString</span><span class="w">
+                                     </span><span class="s2">"EmployeeType"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">Attributes</span><span class="err">[</span><span class="s2">"employeeType"</span><span class="err">].</span><span class="nx">Values</span><span class="err">.</span><span class="nx">valueString</span><span class="w">
+                                     </span><span class="s2">"EmployeeStatus"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">Attributes</span><span class="err">[</span><span class="s2">"employeeStatus"</span><span class="err">].</span><span class="nx">Values</span><span class="err">.</span><span class="nx">valueString</span><span class="w">
+                                     </span><span class="s2">"MVDN"</span><span class="o">=</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">DN</span><span class="w">
+                                     </span><span class="s2">"ADMA-Main"</span><span class="o">=</span><span class="err">(</span><span class="nv">$Record</span><span class="err">.</span><span class="nx">CSMVLinks</span><span class="w"> </span><span class="err">|</span><span class="w"> </span><span class="err">?</span><span class="w"> </span><span class="err">{</span><span class="bp">$_</span><span class="err">.</span><span class="nx">managementAgentName</span><span class="w"> </span><span class="err">-</span><span class="nx">eq</span><span class="w"> </span><span class="s2">"ADMA-Main"</span><span class="p">})</span><span class="o">.</span><span class="nf">ConnectorSpaceID</span><span class="w">
+                                     </span><span class="s2">"ADMA-DM-Z"</span><span class="o">=</span><span class="p">(</span><span class="nv">$Record</span><span class="o">.</span><span class="nf">CSMVLinks</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">?</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">managementAgentName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"ADMA-DM-Z"</span><span class="p">})</span><span class="o">.</span><span class="nf">ConnectorSpaceID</span><span class="w">
+                                     </span><span class="s2">"SQLMA-SD"</span><span class="o">=</span><span class="p">(</span><span class="nv">$Record</span><span class="o">.</span><span class="nf">CSMVLinks</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">?</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">managementAgentName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"SQLMA-SD"</span><span class="p">})</span><span class="o">.</span><span class="nf">ConnectorSpaceID</span><span class="w">
+                                     </span><span class="s2">"MIMMA"</span><span class="o">=</span><span class="p">(</span><span class="nv">$Record</span><span class="o">.</span><span class="nf">CSMVLinks</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">?</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">managementAgentName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"MIMMA"</span><span class="p">})</span><span class="o">.</span><span class="nf">ConnectorSpaceID</span><span class="w">
+                                     </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+     </span><span class="kr">Return</span><span class="w"> </span><span class="nv">$Results</span><span class="w"> </span><span class="p">}</span><span class="w">  
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Evaluate-Records</span><span class="p">(</span><span class="nv">$Records</span><span class="p">)</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"Evaluating records"</span><span class="w">
+     </span><span class="nv">$Results</span><span class="o">=</span><span class="p">@()</span><span class="w">
+     </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Record</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Records</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">-not</span><span class="w"> </span><span class="nv">$Record</span><span class="o">.</span><span class="s2">"ADMA-MAIN"</span><span class="o">.</span><span class="nf">Guid</span><span class="p">)</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+         </span><span class="nv">$Results</span><span class="o">+=</span><span class="nv">$Record</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+     </span><span class="kr">Return</span><span class="w"> </span><span class="nv">$Results</span><span class="w"> 
+</span><span class="p">}</span><span class="w">   
 
-<span class="n">function</span> <span class="no">Run</span><span class="o">-</span><span class="no">Sync</span><span class="p">()</span> 
-<span class="p">{</span>
-     <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"Running Delta Syncs"</span>
-     <span class="vg">$MAs</span><span class="o">=</span><span class="s2">"ADMA-MAIN"</span><span class="p">,</span><span class="s2">"ADMA-DMZ"</span><span class="p">,</span><span class="s2">"SQLMA-SD"</span><span class="p">,</span><span class="s2">"MIMMA"</span>
-     <span class="vg">$RPs</span><span class="o">=</span><span class="s2">"DI"</span><span class="p">,</span><span class="s2">"DS"</span><span class="p">,</span><span class="s2">"EX"</span><span class="p">,</span><span class="s2">"DI"</span>
-     <span class="n">foreach</span><span class="p">(</span><span class="vg">$MA</span> <span class="k">in</span> <span class="vg">$MAs</span><span class="p">)</span>
-     <span class="p">{</span>
-         <span class="n">foreach</span> <span class="p">(</span><span class="vg">$RP</span> <span class="k">in</span> <span class="vg">$RPs</span><span class="p">)</span>
-         <span class="p">{</span>
-             <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"  $MA - $RP"</span>
-             <span class="no">Start</span><span class="o">-</span><span class="no">ManagementAgent</span> <span class="o">-</span><span class="no">MA</span> <span class="vg">$MA</span> <span class="o">-</span><span class="no">RunProfileName</span> <span class="vg">$RP</span>
-         <span class="p">}</span>
-     <span class="p">}</span>
-<span class="p">}</span>  
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Run-Sync</span><span class="p">()</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"Running Delta Syncs"</span><span class="w">
+     </span><span class="nv">$MAs</span><span class="o">=</span><span class="s2">"ADMA-MAIN"</span><span class="p">,</span><span class="s2">"ADMA-DMZ"</span><span class="p">,</span><span class="s2">"SQLMA-SD"</span><span class="p">,</span><span class="s2">"MIMMA"</span><span class="w">
+     </span><span class="nv">$RPs</span><span class="o">=</span><span class="s2">"DI"</span><span class="p">,</span><span class="s2">"DS"</span><span class="p">,</span><span class="s2">"EX"</span><span class="p">,</span><span class="s2">"DI"</span><span class="w">
+     </span><span class="kr">foreach</span><span class="p">(</span><span class="nv">$MA</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$MAs</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$RP</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$RPs</span><span class="p">)</span><span class="w">
+         </span><span class="p">{</span><span class="w">
+             </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"  </span><span class="nv">$MA</span><span class="s2"> - </span><span class="nv">$RP</span><span class="s2">"</span><span class="w">
+             </span><span class="nf">Start-ManagementAgent</span><span class="w"> </span><span class="nt">-MA</span><span class="w"> </span><span class="nv">$MA</span><span class="w"> </span><span class="nt">-RunProfileName</span><span class="w"> </span><span class="nv">$RP</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">  
 
-<span class="n">function</span> <span class="no">Remove</span><span class="o">-</span><span class="no">Connectors</span><span class="p">(</span><span class="vg">$Conns</span><span class="p">)</span> 
-<span class="p">{</span>
-     <span class="n">foreach</span> <span class="p">(</span><span class="vg">$Conn</span> <span class="k">in</span> <span class="vg">$Conns</span><span class="p">)</span>
-     <span class="p">{</span>
-        <span class="vg">$ADMCS</span><span class="o">=</span><span class="vg">$ADDCS</span><span class="o">=</span><span class="vg">$SDCS</span><span class="o">=</span><span class="vg">$MCS</span><span class="o">=</span><span class="vg">$NuLL</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vg">$Result</span><span class="o">.</span><span class="no">ADMMA</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="vg">$ADMCS</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">MA</span> <span class="no">ADMA</span><span class="o">-</span><span class="no">MAIN</span> <span class="o">-</span><span class="no">DN</span> <span class="vg">$Conn</span><span class="o">.</span><span class="no">ADMMA</span>
-            <span class="k">if</span> <span class="p">(</span><span class="vg">$ADMCS</span><span class="p">){</span><span class="no">Disconnect</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">CSObject</span> <span class="vg">$ADMCS</span> <span class="o">-</span><span class="no">Force</span><span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vg">$Result</span><span class="o">.</span><span class="no">ADDMA</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="vg">$ADDCS</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">MA</span> <span class="no">ADMA</span><span class="o">-</span><span class="no">DM</span><span class="o">-</span><span class="no">Z</span> <span class="o">-</span><span class="no">DN</span> <span class="vg">$Conn</span><span class="o">.</span><span class="no">ADDMA</span>
-            <span class="k">if</span> <span class="p">(</span><span class="vg">$ADDCS</span><span class="p">){</span><span class="no">Disconnect</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">CSObject</span> <span class="vg">$ADDCS</span> <span class="o">-</span><span class="no">Force</span><span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vg">$Result</span><span class="o">.</span><span class="no">SDMA</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="vg">$SDCS</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">MA</span> <span class="no">SQLMA</span><span class="o">-</span><span class="no">SD</span> <span class="o">-</span><span class="no">DN</span> <span class="vg">$Conn</span><span class="o">.</span><span class="no">SDMA</span>
-            <span class="k">if</span> <span class="p">(</span><span class="vg">$SDCS</span><span class="p">){</span><span class="no">Disconnect</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">CSObject</span> <span class="vg">$SDCS</span> <span class="o">-</span><span class="no">Force</span><span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="vg">$Result</span><span class="o">.</span><span class="no">MIMMA</span><span class="p">)</span>
-        <span class="p">{</span>
-            <span class="vg">$MCS</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">MA</span> <span class="no">MIMMA</span> <span class="o">-</span><span class="no">DN</span> <span class="vg">$Conn</span><span class="o">.</span><span class="no">MIMMA</span>
-            <span class="k">if</span> <span class="p">(</span><span class="vg">$mcs</span><span class="p">){</span><span class="no">Disconnect</span><span class="o">-</span><span class="no">CSObject</span> <span class="o">-</span><span class="no">CSObject</span> <span class="vg">$mcs</span> <span class="o">-</span><span class="no">Force</span><span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span> 
-<span class="p">}</span>  
+</span><span class="kr">function</span><span class="w"> </span><span class="nf">Remove-Connectors</span><span class="p">(</span><span class="nv">$Conns</span><span class="p">)</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$Conn</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$Conns</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+        </span><span class="nv">$ADMCS</span><span class="o">=</span><span class="nv">$ADDCS</span><span class="o">=</span><span class="nv">$SDCS</span><span class="o">=</span><span class="nv">$MCS</span><span class="o">=</span><span class="nv">$NuLL</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$Result</span><span class="o">.</span><span class="nf">ADMMA</span><span class="p">)</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$ADMCS</span><span class="o">=</span><span class="nf">Get-CSObject</span><span class="w"> </span><span class="nt">-MA</span><span class="w"> </span><span class="nx">ADMA-MAIN</span><span class="w"> </span><span class="nt">-DN</span><span class="w"> </span><span class="nv">$Conn</span><span class="o">.</span><span class="nf">ADMMA</span><span class="w">
+            </span><span class="nx">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$ADMCS</span><span class="p">){</span><span class="nf">Disconnect-CSObject</span><span class="w"> </span><span class="nt">-CSObject</span><span class="w"> </span><span class="nv">$ADMCS</span><span class="w"> </span><span class="nt">-Force</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$Result</span><span class="o">.</span><span class="nf">ADDMA</span><span class="p">)</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$ADDCS</span><span class="o">=</span><span class="nf">Get-CSObject</span><span class="w"> </span><span class="nt">-MA</span><span class="w"> </span><span class="nx">ADMA-DM-Z</span><span class="w"> </span><span class="nt">-DN</span><span class="w"> </span><span class="nv">$Conn</span><span class="o">.</span><span class="nf">ADDMA</span><span class="w">
+            </span><span class="nx">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$ADDCS</span><span class="p">){</span><span class="nf">Disconnect-CSObject</span><span class="w"> </span><span class="nt">-CSObject</span><span class="w"> </span><span class="nv">$ADDCS</span><span class="w"> </span><span class="nt">-Force</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$Result</span><span class="o">.</span><span class="nf">SDMA</span><span class="p">)</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$SDCS</span><span class="o">=</span><span class="nf">Get-CSObject</span><span class="w"> </span><span class="nt">-MA</span><span class="w"> </span><span class="nx">SQLMA-SD</span><span class="w"> </span><span class="nt">-DN</span><span class="w"> </span><span class="nv">$Conn</span><span class="o">.</span><span class="nf">SDMA</span><span class="w">
+            </span><span class="nx">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$SDCS</span><span class="p">){</span><span class="nf">Disconnect-CSObject</span><span class="w"> </span><span class="nt">-CSObject</span><span class="w"> </span><span class="nv">$SDCS</span><span class="w"> </span><span class="nt">-Force</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$Result</span><span class="o">.</span><span class="nf">MIMMA</span><span class="p">)</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nv">$MCS</span><span class="o">=</span><span class="nf">Get-CSObject</span><span class="w"> </span><span class="nt">-MA</span><span class="w"> </span><span class="nx">MIMMA</span><span class="w"> </span><span class="nt">-DN</span><span class="w"> </span><span class="nv">$Conn</span><span class="o">.</span><span class="nf">MIMMA</span><span class="w">
+            </span><span class="nx">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$mcs</span><span class="p">){</span><span class="nf">Disconnect-CSObject</span><span class="w"> </span><span class="nt">-CSObject</span><span class="w"> </span><span class="nv">$mcs</span><span class="w"> </span><span class="nt">-Force</span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w"> 
+</span><span class="p">}</span><span class="w">  
 
-<span class="k">if</span> <span class="p">(</span><span class="vg">$BrokenIDs</span><span class="p">){</span><span class="no">Clear</span><span class="o">-</span><span class="no">Variable</span> <span class="no">BrokenIDs</span><span class="p">}</span>  
-<span class="vg">$IDs</span><span class="o">=</span><span class="no">Get</span><span class="o">-</span><span class="no">Records</span> <span class="p">(</span><span class="s2">"A"</span><span class="p">,</span><span class="s2">"C"</span><span class="p">,</span><span class="s2">"E"</span><span class="p">,</span><span class="s2">"F"</span><span class="p">,</span><span class="s2">"I"</span><span class="p">)</span> 
-<span class="vg">$BrokenIDs</span><span class="o">=</span><span class="no">Evaluate</span><span class="o">-</span><span class="no">Records</span> <span class="vg">$IDs</span>  
-<span class="k">if</span> <span class="p">(</span><span class="vg">$BrokenIDs</span><span class="p">)</span> 
-<span class="p">{</span>
-     <span class="k">if</span> <span class="p">(</span><span class="vg">$BrokenIDs</span><span class="p">)</span>
-     <span class="p">{</span>
-         <span class="no">Run</span><span class="o">-</span><span class="no">Sync</span>
-         <span class="no">Remove</span><span class="o">-</span><span class="no">Connectors</span> <span class="vg">$BrokenIDs</span>
-         <span class="no">Run</span><span class="o">-</span><span class="no">Sync</span>
-     <span class="p">}</span>
-     <span class="no">Else</span>
-     <span class="p">{</span>
-         <span class="s2">"No objects to be disconnected"</span>
-     <span class="p">}</span>
-<span class="p">}</span> 
-<span class="no">Else</span> 
-<span class="p">{</span>
-     <span class="no">Write</span><span class="o">-</span><span class="no">Host</span> <span class="s2">"No broken records"</span> 
-<span class="p">}</span> </code></pre></figure>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$BrokenIDs</span><span class="p">){</span><span class="nf">Clear-Variable</span><span class="w"> </span><span class="nx">BrokenIDs</span><span class="p">}</span><span class="w">  
+</span><span class="nv">$IDs</span><span class="o">=</span><span class="nf">Get-Records</span><span class="w"> </span><span class="p">(</span><span class="s2">"A"</span><span class="p">,</span><span class="s2">"C"</span><span class="p">,</span><span class="s2">"E"</span><span class="p">,</span><span class="s2">"F"</span><span class="p">,</span><span class="s2">"I"</span><span class="p">)</span><span class="w"> 
+</span><span class="nv">$BrokenIDs</span><span class="o">=</span><span class="nf">Evaluate-Records</span><span class="w"> </span><span class="nv">$IDs</span><span class="w">  
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$BrokenIDs</span><span class="p">)</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$BrokenIDs</span><span class="p">)</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="nf">Run-Sync</span><span class="w">
+         </span><span class="nx">Remove-Connectors</span><span class="w"> </span><span class="nv">$BrokenIDs</span><span class="w">
+         </span><span class="nf">Run-Sync</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+     </span><span class="kr">Else</span><span class="w">
+     </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"No objects to be disconnected"</span><span class="w">
+     </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
+</span><span class="kr">Else</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+     </span><span class="nf">Write-Host</span><span class="w"> </span><span class="s2">"No broken records"</span><span class="w"> 
+</span><span class="p">}</span><span class="w"> </span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2020/01/16/Find-and-Fix-Metaverse-Objects-with-PowerShell.html" hidden></a>

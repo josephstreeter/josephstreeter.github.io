@@ -47,39 +47,47 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>I wanted a script that would email me the daily links that are posted on a web site for a radio show I listen to. This script will need some rewriting for other sites, but it does what I want it to do.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Page</span> <span class="o">=</span> <span class="s2">"http://www.site.com/daily_links.html"</span>
-<span class="vg">$Div_Class</span> <span class="o">=</span> <span class="s2">"main_content"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://www.site.com/daily_links.html"</span><span class="w">
+</span><span class="nv">$Div_Class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"main_content"</span><span class="w">
 
-<span class="vg">$Site</span> <span class="o">=</span> <span class="no">Invoke</span><span class="o">-</span><span class="no">WebRequest</span> <span class="vg">$Page</span> <span class="o">-</span><span class="no">UseBasicParsing</span>
-<span class="vg">$Body</span> <span class="o">=</span> <span class="vg">$Site</span> <span class="o">|</span> <span class="no">Select</span><span class="o">-</span><span class="no">String</span> <span class="o">-</span><span class="no">Pattern</span> <span class="s1">'(?s)&lt;div class="main_content"&gt;.*?&amp;lt/div&amp;gt'</span> <span class="o">|</span> <span class="sx">% {$_.matches} </span><span class="o">|</span> <span class="o">%</span> <span class="p">{</span><span class="vg">$_</span><span class="o">.</span><span class="no">Value</span><span class="p">}</span>
+</span><span class="nv">$Site</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Invoke-WebRequest</span><span class="w"> </span><span class="nv">$Page</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Site</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-String</span><span class="w"> </span><span class="nt">-Pattern</span><span class="w"> </span><span class="s1">'(?s)&lt;div class="main_content"&gt;.*?&amp;lt/div&amp;gt'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">matches</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">Value</span><span class="p">}</span><span class="w">
 
-<span class="no">Send</span><span class="o">-</span><span class="no">MailMessage</span> <span class="sb">`
--to from@domain.tld `</span>
-<span class="o">-</span><span class="n">subject</span> <span class="s2">"Daily Links"</span> <span class="sb">`
--from to@domain.tld `</span>
-<span class="o">-</span><span class="n">body</span> <span class="vg">$Body</span> <span class="sb">`
--smtpserver smtp.domain.tld `</span>
-<span class="o">-</span><span class="no">BodyAsHtml</span></code></pre></figure>
+</span><span class="nf">Send-MailMessage</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-to</span><span class="w"> </span><span class="kr">from</span><span class="err">@</span><span class="nf">domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-subject</span><span class="w"> </span><span class="s2">"Daily Links"</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-from</span><span class="w"> </span><span class="nf">to</span><span class="err">@</span><span class="nx">domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-body</span><span class="w"> </span><span class="nv">$Body</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-smtpserver</span><span class="w"> </span><span class="nf">smtp.domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-BodyAsHtml</span></code></pre></figure>
 
 <p>First, I set two variables. One is the URL for the site that has the links and the other is the class associated with the &lt;div&gt; tag that contains the links I want.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Page</span> <span class="o">=</span> <span class="s2">"http://www.site.com/daily_links.html"</span>
-<span class="vg">$Div_Class</span> <span class="o">=</span> <span class="s2">"main_content"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Page</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"http://www.site.com/daily_links.html"</span><span class="w">
+</span><span class="nv">$Div_Class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"main_content"</span></code></pre></figure>
 
 <p>To do this I used the Invoke-Webrequest cmdlet. In this case I was prompted to accept a cookie every time the script ran preventing it from being non-interactive. To get around this I had to add the “-UseBasicParsing” switch. Then I use the Select-String cmdlet to parse out the HTML &lt;div&gt; that contains the links.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Site</span> <span class="o">=</span> <span class="no">Invoke</span><span class="o">-</span><span class="no">WebRequest</span> <span class="vg">$Page</span> <span class="o">-</span><span class="no">UseBasicParsing</span>
-<span class="vg">$Body</span> <span class="o">=</span> <span class="vg">$Site</span> <span class="o">|</span> <span class="no">Select</span><span class="o">-</span><span class="no">String</span> <span class="o">-</span><span class="no">Pattern</span> <span class="s1">'(?s)&lt;div class="main_content"&gt;.*?&amp;lt/div&amp;gt'</span> <span class="o">|</span> <span class="sx">% {$_.matches} </span><span class="o">|</span> <span class="o">%</span> <span class="p">{</span><span class="vg">$_</span><span class="o">.</span><span class="no">Value</span><span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Site</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">Invoke-WebRequest</span><span class="w"> </span><span class="nv">$Page</span><span class="w"> </span><span class="nt">-UseBasicParsing</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$Site</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">Select-String</span><span class="w"> </span><span class="nt">-Pattern</span><span class="w"> </span><span class="s1">'(?s)&lt;div class="main_content"&gt;.*?&amp;lt/div&amp;gt'</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">matches</span><span class="p">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">{</span><span class="bp">$_</span><span class="o">.</span><span class="nf">Value</span><span class="p">}</span></code></pre></figure>
 
 <p>Now, just use the Send-MailMessage cmdlet to send the variable that contains the links. Since the content is the remaining HTML from the site I use the “-BodyAsHtml” switch.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Send</span><span class="o">-</span><span class="no">MailMessage</span> <span class="sb">`
--to to.domain.tld `</span>
-<span class="o">-</span><span class="n">subject</span> <span class="s2">"Daily Links"</span> <span class="sb">`
--from from.domain.tld `</span>
-<span class="o">-</span><span class="n">body</span> <span class="vg">$Body</span> <span class="sb">`
--smtpserver smtp.domain.tld `</span>
-<span class="o">-</span><span class="no">BodyAsHtml</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Send-MailMessage</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-to</span><span class="w"> </span><span class="nf">to.domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-subject</span><span class="w"> </span><span class="s2">"Daily Links"</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-from</span><span class="w"> </span><span class="nf">from.domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-body</span><span class="w"> </span><span class="nv">$Body</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-smtpserver</span><span class="w"> </span><span class="nf">smtp.domain.tld</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-BodyAsHtml</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2014/05/19/PowerShell-to-Email-Web-Content.html" hidden></a>

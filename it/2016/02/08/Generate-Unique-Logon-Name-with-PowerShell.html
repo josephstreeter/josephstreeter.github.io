@@ -47,58 +47,58 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This script takes the first name, last name, and middle initial to create a logon name so that it’s unique. It creates an array of available names for that user and then selects the first one that will work.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Param</span><span class="p">(</span>
-<span class="vg">$firstName</span> <span class="o">=</span> <span class="s2">"Joseph"</span><span class="p">,</span>
-<span class="vg">$LastName</span> <span class="o">=</span> <span class="s2">"Streeter"</span><span class="p">,</span>
-<span class="vg">$MI</span> <span class="o">=</span> <span class="s2">"A"</span>
-<span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">Param</span><span class="p">(</span><span class="w">
+</span><span class="nv">$firstName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Joseph"</span><span class="p">,</span><span class="w">
+</span><span class="nv">$LastName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Streeter"</span><span class="p">,</span><span class="w">
+</span><span class="nv">$MI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"A"</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="k">BEGIN</span>
-<span class="p">{</span>
-<span class="no">Import</span><span class="o">-</span><span class="no">Module</span> <span class="no">ActiveDirectory</span>
-<span class="p">}</span>
+</span><span class="kr">BEGIN</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nf">Import-Module</span><span class="w"> </span><span class="nx">ActiveDirectory</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="no">PROCESS</span>
-<span class="p">{</span>
-<span class="no">Function</span> <span class="no">Check</span><span class="o">-</span><span class="no">UserName</span><span class="p">(</span><span class="vg">$UserName</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="k">if</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADUser</span> <span class="o">-</span><span class="n">f</span> <span class="p">{</span><span class="n">samaccountname</span> <span class="o">-</span><span class="n">eq</span> <span class="vg">$UserName</span><span class="p">}</span> <span class="o">-</span><span class="n">ea</span> <span class="mi">0</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="no">Return</span> <span class="vg">$False</span>
-<span class="p">}</span>
-<span class="no">Else</span>
-<span class="p">{</span>
-<span class="no">Return</span> <span class="vg">$True</span>
-<span class="p">}</span>
-<span class="p">}</span>
+</span><span class="kr">PROCESS</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">Function</span><span class="w"> </span><span class="nf">Check-UserName</span><span class="p">(</span><span class="nv">$UserName</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-ADUser</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="p">{</span><span class="nf">samaccountname</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="nv">$UserName</span><span class="p">}</span><span class="w"> </span><span class="nt">-ea</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">Return</span><span class="w"> </span><span class="nv">$False</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">Else</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">Return</span><span class="w"> </span><span class="nv">$True</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="vg">$UserNames</span> <span class="o">=</span> <span class="err">@</span><span class="p">()</span>
-<span class="vg">$UserNames</span> <span class="o">+=</span> <span class="vg">$firstName</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="vg">$LastName</span>
-<span class="vg">$UserNames</span> <span class="o">+=</span> <span class="vg">$firstName</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="vg">$MI</span> <span class="o">+</span> <span class="vg">$LastName</span>
+</span><span class="nv">$UserNames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">@()</span><span class="w">
+</span><span class="nv">$UserNames</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$firstName</span><span class="o">.</span><span class="nf">substring</span><span class="p">(</span><span class="nx">0</span><span class="p">,</span><span class="nx">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$LastName</span><span class="w">
+</span><span class="nv">$UserNames</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$firstName</span><span class="o">.</span><span class="nf">substring</span><span class="p">(</span><span class="nx">0</span><span class="p">,</span><span class="nx">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$MI</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$LastName</span><span class="w">
 
-<span class="vg">$i</span><span class="o">=</span><span class="mi">1</span>
-<span class="k">do</span>
-<span class="p">{</span>
-<span class="vg">$UserNames</span> <span class="o">+=</span> <span class="vg">$firstName</span><span class="p">.</span><span class="nf">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="vg">$LastName</span> <span class="o">+</span> <span class="vg">$i</span>
+</span><span class="nv">$i</span><span class="o">=</span><span class="mi">1</span><span class="w">
+</span><span class="kr">do</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$UserNames</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="nv">$firstName</span><span class="o">.</span><span class="nf">substring</span><span class="p">(</span><span class="nx">0</span><span class="p">,</span><span class="nx">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$LastName</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$i</span><span class="w">
 
-<span class="vg">$i</span><span class="o">++</span>
-<span class="p">}</span>
-<span class="k">while</span> <span class="p">(</span><span class="vg">$i</span> <span class="o">-</span><span class="n">lt</span> <span class="mi">99</span><span class="p">)</span>
+</span><span class="nv">$i</span><span class="o">++</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="kr">while</span><span class="w"> </span><span class="p">(</span><span class="nv">$i</span><span class="w"> </span><span class="o">-lt</span><span class="w"> </span><span class="mi">99</span><span class="p">)</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$UserName</span> <span class="k">in</span> <span class="vg">$UserNames</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="k">if</span> <span class="p">(</span><span class="no">Check</span><span class="o">-</span><span class="no">UserName</span> <span class="vg">$UserName</span> <span class="o">-</span><span class="n">eq</span> <span class="s2">"True"</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$UserName</span>
-<span class="no">Break</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="p">}</span>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$UserName</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$UserNames</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nf">Check-UserName</span><span class="w"> </span><span class="nv">$UserName</span><span class="w"> </span><span class="o">-eq</span><span class="w"> </span><span class="s2">"True"</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$UserName</span><span class="w">
+</span><span class="kr">Break</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
-<span class="k">END</span>
-<span class="p">{</span>
-<span class="no">Clear</span><span class="o">-</span><span class="no">Variable</span> <span class="no">UserNames</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="kr">END</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nf">Clear-Variable</span><span class="w"> </span><span class="nx">UserNames</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2016/02/08/Generate-Unique-Logon-Name-with-PowerShell.html" hidden></a>

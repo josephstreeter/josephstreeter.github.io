@@ -49,38 +49,38 @@
 
 <p>Download keys from a key server</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gpg</span> <span class="o">--</span><span class="n">keyserver</span> <span class="n">pgp</span><span class="p">.</span><span class="nf">mit</span><span class="p">.</span><span class="nf">edu</span> <span class="o">--</span><span class="n">search</span><span class="o">-</span><span class="n">keys</span> <span class="n">streeter76</span><span class="vi">@gmail</span><span class="p">.</span><span class="nf">com</span>
-<span class="n">gpg</span> <span class="o">--</span><span class="n">keyserver</span> <span class="n">pgp</span><span class="p">.</span><span class="nf">mit</span><span class="p">.</span><span class="nf">edu</span> <span class="o">--</span><span class="n">recv</span><span class="o">-</span><span class="n">keys</span> <span class="mi">88488596</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">gpg</span><span class="w"> </span><span class="nt">--keyserver</span><span class="w"> </span><span class="nx">pgp.mit.edu</span><span class="w"> </span><span class="nt">--search-keys</span><span class="w"> </span><span class="nx">streeter76</span><span class="err">@</span><span class="nx">gmail.com</span><span class="w">
+</span><span class="nf">gpg</span><span class="w"> </span><span class="nt">--keyserver</span><span class="w"> </span><span class="nx">pgp.mit.edu</span><span class="w"> </span><span class="nt">--recv-keys</span><span class="w"> </span><span class="nx">88488596</span></code></pre></figure>
 
 <p>Import private key</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">gpg</span> <span class="o">--</span><span class="n">import</span> <span class="p">.</span><span class="nf">/</span><span class="kp">private</span><span class="p">.</span><span class="nf">asc</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">gpg</span><span class="w"> </span><span class="nt">--import</span><span class="w"> </span><span class="o">.</span><span class="nx">/private.asc</span></code></pre></figure>
 
 <p>Put the contents of a file into a variable to be encrypted</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$a</span> <span class="o">=</span> <span class="n">gc</span> <span class="sr">/etc/</span><span class="n">passwd</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">gc</span><span class="w"> </span><span class="nx">/etc/passwd</span></code></pre></figure>
 
 <p>Symmetric encryption of the variable contents</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$a</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">symmetric</span> <span class="o">--</span><span class="n">armor</span>
-<span class="c1"># Decrypt the message
-</span>
-<span class="vg">$a</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">decrypt</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">--symmetric</span><span class="w"> </span><span class="nt">--armor</span><span class="w">
+</span><span class="c"># Decrypt the message
+</span><span class="w">
+</span><span class="nv">$a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">--decrypt</span></code></pre></figure>
 
 <p>Symmetric encryption of the variable contents with the passphrase provided</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$a</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">symmetric</span> <span class="o">--</span><span class="n">armor</span> <span class="o">--</span><span class="n">passphrase</span> <span class="n">password</span>
-<span class="c1"># Decrypt the message with the passphrase provided
-</span>
-<span class="vg">$a</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">decrypt</span> <span class="o">--</span><span class="n">passphrase</span> <span class="n">password</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">--symmetric</span><span class="w"> </span><span class="nt">--armor</span><span class="w"> </span><span class="nt">--passphrase</span><span class="w"> </span><span class="nx">password</span><span class="w">
+</span><span class="c"># Decrypt the message with the passphrase provided
+</span><span class="w">
+</span><span class="nv">$a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">--decrypt</span><span class="w"> </span><span class="nt">--passphrase</span><span class="w"> </span><span class="nx">password</span></code></pre></figure>
 
 <p>Encrypt the variable contents for a recipient</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$a</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">-</span><span class="n">e</span> <span class="o">-</span><span class="n">r</span> <span class="n">joseph</span><span class="p">.</span><span class="nf">streeter76</span><span class="vi">@gmail</span><span class="p">.</span><span class="nf">com</span> <span class="o">--</span><span class="n">armor</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="nx">joseph.streeter76</span><span class="err">@</span><span class="nx">gmail.com</span><span class="w"> </span><span class="nt">--armor</span></code></pre></figure>
 
 <p>Decrypt the message sent to recipient</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$b</span> <span class="o">|</span> <span class="n">gpg</span> <span class="o">-</span><span class="n">d</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">gpg</span><span class="w"> </span><span class="nt">-d</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2016/11/24/GPG-Command-Line-Examples.html" hidden></a>

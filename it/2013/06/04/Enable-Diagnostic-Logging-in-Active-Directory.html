@@ -120,8 +120,8 @@
 
 <p>Use the following PowerShell example to configure logging levels:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">NTDS</span><span class="p">\</span><span class="no">Diagnostics</span>
-<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="o">&lt;</span><span class="n">service</span><span class="o">&gt;</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="o">&lt;</span><span class="n">value</span><span class="o">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">â€œ</span><span class="nf">HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics</span><span class="w">
+</span><span class="nf">Set-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$Reg</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">service</span><span class="err">&gt;</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWORD</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">value</span><span class="err">&gt;</span></code></pre></figure>
 
 <p><strong><em>Enable NetLogon Logging</em></strong></p>
 
@@ -131,41 +131,41 @@
 
 <p><strong><em>Configure log size with PowerShell:</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span> <span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span>
-<span class="no">New</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="o">-</span><span class="no">Name</span> <span class="no">MaximumLogFileSize</span><span class="o">-</span>  <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="o">&lt;</span><span class="no">Log</span><span class="o">-</span><span class="no">Size</span><span class="o">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">â€œ</span><span class="nf">HKLM:\</span><span class="w"> </span><span class="nx">SYSTEM\CurrentControlSet\Services\Netlogon\Parameters</span><span class="w">
+</span><span class="nf">New-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">MaximumLogFileSize-</span><span class="w">  </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWORD</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">Log-Size</span><span class="err">&gt;</span></code></pre></figure>
 
 <p><strong><em>Configure log size with Group Policy:</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Computer</span> <span class="no">Configuration</span><span class="p">\</span><span class="no">Administrative</span> <span class="no">Templates</span><span class="p">\</span><span class="no">System</span><span class="p">\</span><span class="no">Net</span> <span class="no">Logon</span><span class="p">\</span><span class="no">Maximum</span> <span class="no">Log</span> <span class="no">File</span> <span class="no">Size</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Computer</span><span class="w"> </span><span class="nx">Configuration\Administrative</span><span class="w"> </span><span class="nx">Templates\System\Net</span><span class="w"> </span><span class="nx">Logon\Maximum</span><span class="w"> </span><span class="nx">Log</span><span class="w"> </span><span class="nx">File</span><span class="w"> </span><span class="nx">Size</span></code></pre></figure>
 
 <p><strong><em>Turn on NetLogon Logging</em></strong></p>
 
 <p>Command Line:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/dbflag:0x2080ffff</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">nltest</span><span class="w"> </span><span class="nx">/dbflag:0x2080ffff</span></code></pre></figure>
 
 <p>Powershell:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
-<span class="no">New</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">545325055</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">â€œ</span><span class="nf">HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\</span><span class="w">
+</span><span class="nf">New-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">DBFlag</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWORD</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nx">545325055</span><span class="w">
 
-<span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
-<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">545325055</span>
+</span><span class="nv">$Reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">â€œ</span><span class="nf">HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\</span><span class="w">
+</span><span class="nf">Set-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$Reg</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">DBFlag</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWORD</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nx">545325055</span><span class="w">
 
-<span class="no">Restart</span><span class="o">-</span><span class="no">Service</span> <span class="n">netlogon</span></code></pre></figure>
+</span><span class="nf">Restart-Service</span><span class="w"> </span><span class="nx">netlogon</span></code></pre></figure>
 
 <p><strong><em>Turn off NetLogon Logging</em></strong></p>
 
 <p>Command Line:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">nltest</span> <span class="sr">/dbflag:0x0</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">nltest</span><span class="w"> </span><span class="nx">/dbflag:0x0</span></code></pre></figure>
 
 <p>PowerShell:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$Reg</span> <span class="o">=</span> <span class="err">â€œ</span><span class="no">HKLM</span><span class="p">:\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Services</span><span class="p">\</span><span class="no">Netlogon</span><span class="p">\</span><span class="no">Parameters</span><span class="p">\</span>
-<span class="no">Set</span><span class="o">-</span><span class="no">ItemProperty</span> <span class="o">-</span><span class="no">Path</span> <span class="vg">$Reg</span> <span class="o">-</span><span class="no">Name</span> <span class="no">DBFlag</span> <span class="o">-</span><span class="no">Type</span> <span class="no">DWORD</span> <span class="o">-</span><span class="no">Value</span> <span class="mi">0</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$Reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">â€œ</span><span class="nf">HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters\</span><span class="w">
+</span><span class="nf">Set-ItemProperty</span><span class="w"> </span><span class="nt">-Path</span><span class="w"> </span><span class="nv">$Reg</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nx">DBFlag</span><span class="w"> </span><span class="nt">-Type</span><span class="w"> </span><span class="nx">DWORD</span><span class="w"> </span><span class="nt">-Value</span><span class="w"> </span><span class="nx">0</span><span class="w">
 
-<span class="no">Restart</span><span class="o">-</span><span class="no">Service</span> <span class="n">netlogon</span></code></pre></figure>
+</span><span class="nf">Restart-Service</span><span class="w"> </span><span class="nx">netlogon</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/06/04/Enable-Diagnostic-Logging-in-Active-Directory.html" hidden></a>

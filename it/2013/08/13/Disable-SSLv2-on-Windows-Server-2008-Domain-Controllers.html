@@ -49,13 +49,13 @@
 
 <p>On each of your domain controllers create the following registry key:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">HKEY_LOCAL_MACHINE</span><span class="p">\</span><span class="no">SYSTEM</span><span class="p">\</span><span class="no">CurrentControlSet</span><span class="p">\</span><span class="no">Control</span><span class="p">\</span><span class="no">SecurityProviders</span>
-<span class="p">\</span><span class="no">SCHANNEL</span><span class="p">\</span><span class="no">Protocols</span><span class="p">\</span><span class="no">SSL</span> <span class="mf">2.0</span><span class="p">]</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">[</span><span class="kt">HKEY_LOCAL_MACHINE</span><span class="nf">\SYSTEM\CurrentControlSet\Control\SecurityProviders</span><span class="w">
+</span><span class="nf">\SCHANNEL\Protocols\SSL</span><span class="w"> </span><span class="nx">2.0</span><span class="p">]</span></code></pre></figure>
 
 <p>Then create the following DWORD</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DWORD</span> <span class="o">=</span> <span class="s2">"Enabled"</span>
-<span class="no">Value</span> <span class="o">=</span> <span class="mo">00000000</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">DWORD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Enabled"</span><span class="w">
+</span><span class="nf">Value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">00000000</span></code></pre></figure>
 
 <p>Finally, reboot the domain controller</p>
 

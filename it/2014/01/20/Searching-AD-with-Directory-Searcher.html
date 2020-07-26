@@ -47,31 +47,32 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>An example of using the Send-MailMessage to send an email and attachment</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Import</span><span class="o">-</span><span class="k">module</span> <span class="nn">activedirectory</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Import-module</span><span class="w"> </span><span class="nx">activedirectory</span><span class="w">
 
-<span class="vg">$Domain</span> <span class="o">=</span> <span class="p">(</span><span class="n">get</span><span class="o">-</span><span class="n">addomain</span><span class="p">)</span><span class="o">.</span><span class="no">Forest</span><span class="p">.</span><span class="nf">toupper</span><span class="p">()</span>
-<span class="vg">$RootDSE</span> <span class="o">=</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">ADRootDSE</span><span class="p">).</span><span class="nf">defaultnamingcontext</span>
-<span class="vg">$date</span> <span class="o">=</span> <span class="n">get</span><span class="o">-</span><span class="n">date</span> <span class="o">-</span><span class="n">uformat</span> <span class="s2">"%Y-%m-%d"</span>
+</span><span class="nv">$Domain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">get-addomain</span><span class="p">)</span><span class="o">.</span><span class="nf">Forest</span><span class="o">.</span><span class="nf">toupper</span><span class="p">()</span><span class="w">
+</span><span class="nv">$RootDSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-ADRootDSE</span><span class="p">)</span><span class="o">.</span><span class="nf">defaultnamingcontext</span><span class="w">
+</span><span class="nv">$date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">get-date</span><span class="w"> </span><span class="nt">-uformat</span><span class="w"> </span><span class="s2">"%Y-%m-%d"</span><span class="w">
 
-<span class="no">Search</span><span class="o">-</span><span class="no">ADAccount</span> <span class="o">-</span><span class="no">LockedOut</span> <span class="o">|</span> <span class="no">FT</span> <span class="no">Name</span><span class="p">,</span><span class="no">ObjectClass</span> <span class="o">-</span><span class="no">A</span> <span class="o">|</span> <span class="n">out</span><span class="o">-</span><span class="n">file</span> <span class="n">c</span><span class="p">:\</span><span class="n">locked_out</span><span class="p">.</span><span class="nf">txt</span>
-<span class="vg">$Attachments</span> <span class="o">=</span> <span class="s2">"c:</span><span class="se">\l</span><span class="s2">ocked_out.txt"</span>
+</span><span class="nf">Search-ADAccount</span><span class="w"> </span><span class="nt">-LockedOut</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">FT</span><span class="w"> </span><span class="nx">Name</span><span class="p">,</span><span class="nx">ObjectClass</span><span class="w"> </span><span class="nt">-A</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">out-file</span><span class="w"> </span><span class="nx">c:\locked_out.txt</span><span class="w">
+</span><span class="nv">$Attachments</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"c:\locked_out.txt"</span><span class="w">
 
-<span class="vg">$To</span> <span class="o">=</span> <span class="s2">"Joe Admin &lt;joe.admin@domain.tld&gt;"</span>
-<span class="vg">$From</span> <span class="o">=</span> <span class="s2">"AD Service &lt;ad.service@domain.tld&gt;"</span>
-<span class="vg">$Subject</span> <span class="o">=</span> <span class="s2">"All Locked Out Users - $date ($domain)"</span>
-<span class="vg">$Attachments</span> <span class="o">=</span> <span class="vg">$NetIDList</span>
-<span class="vg">$SmtpServer</span> <span class="o">=</span> <span class="s2">"smtp.domain.tld"</span>
-<span class="vg">$Body</span> <span class="o">=</span> <span class="s2">" All user objects that are locked out. List of NetIDs is attached."</span>
+</span><span class="nv">$To</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Joe Admin &lt;joe.admin@domain.tld&gt;"</span><span class="w">
+</span><span class="nv">$From</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"AD Service &lt;ad.service@domain.tld&gt;"</span><span class="w">
+</span><span class="nv">$Subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"All Locked Out Users - </span><span class="nv">$date</span><span class="s2"> (</span><span class="nv">$domain</span><span class="s2">)"</span><span class="w">
+</span><span class="nv">$Attachments</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$NetIDList</span><span class="w">
+</span><span class="nv">$SmtpServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"smtp.domain.tld"</span><span class="w">
+</span><span class="nv">$Body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" All user objects that are locked out. List of NetIDs is attached."</span><span class="w">
 
-<span class="no">Send</span><span class="o">-</span><span class="no">MailMessage</span> <span class="sb">`
--To $To `</span>
-<span class="o">-</span><span class="no">From</span> <span class="vg">$From</span>  <span class="sb">`
--Subject $Subject `</span>
-<span class="o">-</span><span class="no">Body</span> <span class="vg">$Body</span> <span class="sb">`
--SmtpServer $SmtpServer `</span>
-<span class="o">-</span><span class="no">Attachments</span> <span class="vg">$Attachments</span>
+</span><span class="nf">Send-MailMessage</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-To</span><span class="w"> </span><span class="nv">$To</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-From</span><span class="w"> </span><span class="nv">$From</span><span class="w">  </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Subject</span><span class="w"> </span><span class="nv">$Subject</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Body</span><span class="w"> </span><span class="nv">$Body</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-SmtpServer</span><span class="w"> </span><span class="nv">$SmtpServer</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="nt">-Attachments</span><span class="w"> </span><span class="nv">$Attachments</span><span class="w">
 
-<span class="no">Remove</span><span class="o">-</span><span class="no">Item</span> <span class="vg">$Attachments</span></code></pre></figure>
+</span><span class="nf">Remove-Item</span><span class="w"> </span><span class="nv">$Attachments</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2014/01/20/Searching-AD-with-Directory-Searcher.html" hidden></a>

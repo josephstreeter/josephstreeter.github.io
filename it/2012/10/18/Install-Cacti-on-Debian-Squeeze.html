@@ -47,22 +47,22 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Not too hard to get started. Once you have SNMPD installed and working just run:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">cacti</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">apt-get</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">cacti</span></code></pre></figure>
 
 <p>When that is complete you will have to modify the Apache config.
 Add the follwing to “/etc/apache2/sites-available/default” between the VirtualHost tags:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Alias</span> <span class="sr">/cacti/</span> <span class="s2">"/usr/share/cacti/site/"</span>
-<span class="o">&lt;</span><span class="no">Directory</span> <span class="s2">"/usr/share/cacti/site/"</span><span class="o">&gt;</span>
-<span class="no">Options</span> <span class="no">Indexes</span> <span class="no">MultiViews</span> <span class="no">FollowSymLinks</span>
-<span class="no">AllowOverride</span> <span class="no">None</span>
-<span class="no">Order</span> <span class="n">allow</span><span class="p">,</span><span class="n">deny</span>
-<span class="no">Allow</span> <span class="n">from</span> <span class="n">all</span>
-<span class="o">&lt;</span><span class="sr">/Directory&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Alias</span><span class="w"> </span><span class="nx">/cacti/</span><span class="w"> </span><span class="s2">"/usr/share/cacti/site/"</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">Directory</span><span class="w"> </span><span class="s2">"/usr/share/cacti/site/"</span><span class="err">&gt;</span><span class="w">
+</span><span class="nf">Options</span><span class="w"> </span><span class="nx">Indexes</span><span class="w"> </span><span class="nx">MultiViews</span><span class="w"> </span><span class="nx">FollowSymLinks</span><span class="w">
+</span><span class="nf">AllowOverride</span><span class="w"> </span><span class="nx">None</span><span class="w">
+</span><span class="nf">Order</span><span class="w"> </span><span class="nx">allow</span><span class="p">,</span><span class="nx">deny</span><span class="w">
+</span><span class="nf">Allow</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">all</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">/Directory</span><span class="err">&gt;</span></code></pre></figure>
 
 <p>Then restart Apache:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">invoke</span><span class="o">-</span><span class="n">rc</span><span class="p">.</span><span class="nf">d</span> <span class="n">apache2</span> <span class="n">restart</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">invoke-rc.d</span><span class="w"> </span><span class="nx">apache2</span><span class="w"> </span><span class="nx">restart</span></code></pre></figure>
 
 <p>Use the url http://hostname/cacti and log in with the username <b>admin</b> and password <b>admin</b>. You will be asked to change the password and then you’re in!</p>
 

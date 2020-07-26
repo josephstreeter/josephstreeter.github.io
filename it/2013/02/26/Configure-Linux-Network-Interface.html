@@ -48,18 +48,18 @@
     <p><strong><em>Red Hat/Centos</em></strong>
 Edit interface settings by editing the “/etc/sysconfig/network-scrips/ifcfg-eth0” file. The following settings will configure an interface to have a static IP address:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DEVICE</span><span class="o">=</span><span class="n">eth0</span>
-<span class="no">BOOTPROTO</span><span class="o">=</span><span class="n">none</span>
-<span class="no">ONBOOT</span><span class="o">=</span><span class="n">yes</span>
-<span class="no">NETMASK</span><span class="o">=</span><span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
-<span class="no">IPADDR</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.27</span>
-<span class="no">USERCTL</span><span class="o">=</span><span class="n">no</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">DEVICE</span><span class="o">=</span><span class="nf">eth0</span><span class="w">
+</span><span class="nf">BOOTPROTO</span><span class="o">=</span><span class="nf">none</span><span class="w">
+</span><span class="nf">ONBOOT</span><span class="o">=</span><span class="nf">yes</span><span class="w">
+</span><span class="nf">NETMASK</span><span class="o">=</span><span class="mf">255.255.255.0</span><span class="w">
+</span><span class="nf">IPADDR</span><span class="o">=</span><span class="mf">192.168.1.27</span><span class="w">
+</span><span class="nf">USERCTL</span><span class="o">=</span><span class="nf">no</span></code></pre></figure>
 
 <p>The following settings will configure an interface to use DHCP:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DEVICE</span><span class="o">=</span><span class="n">eth0</span>
-<span class="no">BOOTPROTO</span><span class="o">=</span><span class="n">dhcp</span>
-<span class="no">ONBOOT</span><span class="o">=</span><span class="n">yes</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">DEVICE</span><span class="o">=</span><span class="nf">eth0</span><span class="w">
+</span><span class="nf">BOOTPROTO</span><span class="o">=</span><span class="nf">dhcp</span><span class="w">
+</span><span class="nf">ONBOOT</span><span class="o">=</span><span class="nf">yes</span></code></pre></figure>
 
 <p>Some additional details from <a href="http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html">http://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-networkscripts-interfaces-eth0.html</a></p>
 
@@ -96,15 +96,15 @@ no â€” This device should not be activated at boot-time.</answer></answer><
 <p><strong><em>Debian</em></strong>
 Edit interface settings by editing the “/etc/network/interfaces” file. The following settings will configure an interface to have a static IP address:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">static</span>
-<span class="n">address</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.5</span>
-<span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
-<span class="n">gateway</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.254</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iface</span><span class="w"> </span><span class="nx">eth0</span><span class="w"> </span><span class="nx">inet</span><span class="w"> </span><span class="nx">static</span><span class="w">
+</span><span class="nf">address</span><span class="w"> </span><span class="nx">192.168.1.5</span><span class="w">
+</span><span class="nf">netmask</span><span class="w"> </span><span class="nx">255.255.255.0</span><span class="w">
+</span><span class="nf">gateway</span><span class="w"> </span><span class="nx">192.168.1.254</span></code></pre></figure>
 
 <p>The following settings will configure an interface to use DHCP:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">auto</span> <span class="n">eth0</span>
-<span class="n">iface</span> <span class="n">eth0</span> <span class="n">inet</span> <span class="n">dhcp</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">auto</span><span class="w"> </span><span class="nx">eth0</span><span class="w">
+</span><span class="nf">iface</span><span class="w"> </span><span class="nx">eth0</span><span class="w"> </span><span class="nx">inet</span><span class="w"> </span><span class="nx">dhcp</span></code></pre></figure>
 
 <p>Some additional details from <a href="http://www.debian.org/doc/manuals/debian-reference/ch05.en.html">http://www.debian.org/doc/manuals/debian-reference/ch05.en.html</a></p>
 
@@ -119,10 +119,10 @@ Lines started with "mapping <interface_name_glob>" define mapping value of <conf
 
 <p>Lines started with iface stanza has the following syntax.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iface</span> <span class="o">&lt;</span><span class="n">config_name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">address_family</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">method_name</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">option1</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value1</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">option2</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">value2</span><span class="o">&gt;</span>
-<span class="o">...</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iface</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">config_name</span><span class="err">&gt;</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">address_family</span><span class="err">&gt;</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">method_name</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">option1</span><span class="err">&gt;</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">value1</span><span class="err">&gt;</span><span class="w">
+</span><span class="err">&lt;</span><span class="nf">option2</span><span class="err">&gt;</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">value2</span><span class="err">&gt;</span><span class="w">
+</span><span class="o">...</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/02/26/Configure-Linux-Network-Interface.html" hidden></a>

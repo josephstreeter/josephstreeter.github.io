@@ -49,52 +49,67 @@
 
 <p>First, make sure that the Active Directory PowerShell module is loaded.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">import</span><span class="o">-</span><span class="k">module</span> <span class="nn">activedirectory</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">import-module</span><span class="w"> </span><span class="nx">activedirectory</span></code></pre></figure>
 
 <p>Now you can create the connection with the New-PSDrive commandlet.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">New</span><span class="o">-</span><span class="no">PSDrive</span> <span class="sb">`
-â€“Name &lt;PSDrive-Name&gt; `</span>
-<span class="err">â€“</span><span class="no">PSProvider</span> <span class="no">ActiveDirectory</span> <span class="sb">`
-â€“Server "&lt;Domain-Controller&gt;" `</span>
-<span class="err">â€“</span><span class="no">Credential</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span> <span class="s2">"&lt;User-Name&gt;"</span><span class="p">)</span> <span class="sb">`
-â€“Root "//RootDSE/" `</span>
-<span class="o">-</span><span class="no">Scope</span> <span class="no">Global</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">New-PSDrive</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Name</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">PSDrive-Name</span><span class="err">&gt;</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">PSProvider</span><span class="w"> </span><span class="nx">ActiveDirectory</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Server</span><span class="w"> </span><span class="s2">"&lt;Domain-Controller&gt;"</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Credential</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-Credential</span><span class="w"> </span><span class="s2">"&lt;User-Name&gt;"</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Root</span><span class="w"> </span><span class="s2">"//RootDSE/"</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-Scope</span><span class="w"> </span><span class="nf">Global</span></code></pre></figure>
 
 <p>The new PSDrive can be used in several ways. Lets say that you have a test AD forest that you want to manage with PowerShell from a host joined to your production AD forest. The test forest has a domain controller named “dc-test-01.test.domain.com” that is providing the AD web service. The following command will create a PSDrive named “TEST” that will be connected to the “test.domain.com” domain.</p>
 
 <p>If you’re going to run this cmd-let from a script you will have to make sure that you include the “-Scope Global” switch. Otherwise the PSDrive will be created within the scope of the script and will not be available to you in the shell.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">New</span><span class="o">-</span><span class="no">PSDrive</span> <span class="sb">`
-â€“Name TEST `</span>
-<span class="err">â€“</span><span class="no">PSProvider</span> <span class="no">ActiveDirectory</span> <span class="sb">`
-â€“Server "dc-test-01.test.domain.com" `</span>
-<span class="err">â€“</span><span class="no">Credential</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span> <span class="s2">"TEST</span><span class="se">\j</span><span class="s2">smith-da"</span><span class="p">)</span> <span class="sb">`
-â€“Root "//RootDSE/" `</span>
-<span class="o">-</span><span class="no">Scope</span> <span class="no">Global</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">New-PSDrive</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Name</span><span class="w"> </span><span class="nx">TEST</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">PSProvider</span><span class="w"> </span><span class="nx">ActiveDirectory</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Server</span><span class="w"> </span><span class="s2">"dc-test-01.test.domain.com"</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Credential</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-Credential</span><span class="w"> </span><span class="s2">"TEST\jsmith-da"</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Root</span><span class="w"> </span><span class="s2">"//RootDSE/"</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-Scope</span><span class="w"> </span><span class="nf">Global</span></code></pre></figure>
 
 <p>To use this PSDrive you can “cd” to the “TEST” PSDrive and then run the Active Directory modules as normal:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">PS</span> <span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span> <span class="n">cd</span> <span class="no">TEST</span><span class="p">:</span>
-<span class="no">PS</span> <span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span> <span class="no">Get</span><span class="o">-</span><span class="no">ADDomain</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">cd</span><span class="w"> </span><span class="nx">TEST:</span><span class="w">
+</span><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Get-ADDomain</span></code></pre></figure>
 
 <p>The second method is to provide the “server” switch with the name of the domain controller:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">PS</span> <span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span> <span class="no">Get</span><span class="o">-</span><span class="no">ADDomain</span> <span class="o">-</span><span class="n">server</span> <span class="s2">"dc-test-01.test.domain.com"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">PS</span><span class="w"> </span><span class="nx">C:\</span><span class="err">&gt;</span><span class="w"> </span><span class="nx">Get-ADDomain</span><span class="w"> </span><span class="nt">-server</span><span class="w"> </span><span class="s2">"dc-test-01.test.domain.com"</span></code></pre></figure>
 
 <p>The following code will check to see if the drive exists prior to attempting creation of the new PSDrive</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">if</span> <span class="p">(</span><span class="o">-</span><span class="n">not</span><span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">PSDrive</span> <span class="no">TEST</span><span class="p">))</span> <span class="p">{</span>
-<span class="no">New</span><span class="o">-</span><span class="no">PSDrive</span> <span class="sb">`
-â€“Name TEST `</span>
-<span class="err">â€“</span><span class="no">PSProvider</span> <span class="no">ActiveDirectory</span> <span class="sb">`
-â€“Server "dc-test-01.test.domain.com" `</span>
-<span class="err">â€“</span><span class="no">Credential</span> <span class="p">(</span><span class="no">Get</span><span class="o">-</span><span class="no">Credential</span> <span class="s1">'TEST\jsmith-da'</span><span class="p">)</span> <span class="sb">`
-â€“Root '//RootDSE/' `</span>
-<span class="o">-</span><span class="no">Scope</span> <span class="no">Global</span>
-<span class="p">}</span><span class="no">Else</span><span class="p">{</span>
-<span class="s2">"Drive already exists"</span>
-<span class="p">}</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">-not</span><span class="p">(</span><span class="nf">Get-PSDrive</span><span class="w"> </span><span class="nx">TEST</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="nf">New-PSDrive</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Name</span><span class="w"> </span><span class="nx">TEST</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">PSProvider</span><span class="w"> </span><span class="nx">ActiveDirectory</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Server</span><span class="w"> </span><span class="s2">"dc-test-01.test.domain.com"</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Credential</span><span class="w"> </span><span class="p">(</span><span class="nf">Get-Credential</span><span class="w"> </span><span class="s1">'TEST\jsmith-da'</span><span class="p">)</span><span class="w"> </span><span class="err">`</span><span class="w">
+</span><span class="err">â€“</span><span class="nf">Root</span><span class="w"> </span><span class="s1">'//RootDSE/'</span><span class="w"> </span><span class="se">`
+</span><span class="w">
+</span><span class="nt">-Scope</span><span class="w"> </span><span class="nf">Global</span><span class="w">
+</span><span class="p">}</span><span class="kr">Else</span><span class="p">{</span><span class="w">
+</span><span class="s2">"Drive already exists"</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 <p>References:</p>
 

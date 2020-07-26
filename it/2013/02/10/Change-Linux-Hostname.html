@@ -48,18 +48,18 @@
     <p><strong><em>Redhat/CentOS</em></strong>
 Edit the line that starts with “HOSTNAME” in the /etc/sysconfig/network file to reflect the new name</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">HOSTNAME</span><span class="o">=</span><span class="n">host</span><span class="p">.</span><span class="nf">domain</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">HOSTNAME</span><span class="o">=</span><span class="nf">host.domain.com</span></code></pre></figure>
 
 <p><strong><em>Debian/Ubuntu</em></strong>
 Echo the new host name to “/etc/hostname”</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">echo</span> <span class="err">“</span><span class="n">host</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span><span class="err">”</span> <span class="o">&gt;</span> <span class="sr">/etc/</span><span class="n">hostname</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">echo</span><span class="w"> </span><span class="err">“</span><span class="nx">host.example.com</span><span class="err">”</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">/etc/hostname</span></code></pre></figure>
 
 <p><strong><em>All Distros</em></strong>
 For both types of distributions update the “/etc/hosts” file so that the new name points to the loopback</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span>  <span class="n">localhost</span>
-<span class="mf">127.0</span><span class="o">.</span><span class="mf">1.1</span><span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span> <span class="o">-</span>  <span class="n">host</span><span class="p">.</span><span class="nf">example</span><span class="p">.</span><span class="nf">com</span> <span class="n">localhost</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="mf">127.0.0.1</span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w">  </span><span class="nf">localhost</span><span class="w">
+</span><span class="mf">127.0.1.1</span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nf">-</span><span class="w">  </span><span class="nf">host.example.com</span><span class="w"> </span><span class="nx">localhost</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/02/10/Change-Linux-Hostname.html" hidden></a>

@@ -47,17 +47,17 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>This script creates Host A records for a list of hosts.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$records</span> <span class="o">=</span> <span class="s2">"mimsvc,10.39.0.78"</span><span class="p">,</span><span class="s2">"mimsps,10.39.0.78"</span><span class="p">,</span><span class="s2">"mimsync,10.36.1.53"</span><span class="p">,</span><span class="s2">"mimsvcsql,10.36.1.52"</span><span class="p">,</span><span class="s2">"mimspssql,10.36.1.52"</span><span class="p">,</span><span class="s2">"mimsyncsql,10.36.1.52"</span>
-<span class="vg">$DNSServer</span> <span class="o">=</span> <span class="s2">"DC"</span>
-<span class="vg">$Zone</span> <span class="o">=</span> <span class="s2">"domain.tld"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"mimsvc,10.39.0.78"</span><span class="p">,</span><span class="s2">"mimsps,10.39.0.78"</span><span class="p">,</span><span class="s2">"mimsync,10.36.1.53"</span><span class="p">,</span><span class="s2">"mimsvcsql,10.36.1.52"</span><span class="p">,</span><span class="s2">"mimspssql,10.36.1.52"</span><span class="p">,</span><span class="s2">"mimsyncsql,10.36.1.52"</span><span class="w">
+</span><span class="nv">$DNSServer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"DC"</span><span class="w">
+</span><span class="nv">$Zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"domain.tld"</span><span class="w">
 
-<span class="n">foreach</span> <span class="p">(</span><span class="vg">$record</span> <span class="k">in</span> <span class="vg">$records</span><span class="p">)</span>
-<span class="p">{</span>
-<span class="vg">$Name</span> <span class="o">=</span> <span class="vg">$record</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-<span class="vg">$Ip</span> <span class="o">=</span> <span class="vg">$record</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class="kr">foreach</span><span class="w"> </span><span class="p">(</span><span class="nv">$record</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="nv">$records</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="nv">$Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$record</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="w">
+</span><span class="nv">$Ip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$record</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s2">","</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w">
 
-<span class="no">Add</span><span class="o">-</span><span class="no">DnsServerResourceRecordA</span> <span class="o">-</span><span class="no">ComputerName</span> <span class="vg">$DNSServer</span> <span class="o">-</span><span class="no">ZoneName</span> <span class="vg">$Zone</span> <span class="o">-</span><span class="no">Name</span> <span class="vg">$Name</span> <span class="o">-</span><span class="no">IPv4Address</span> <span class="vg">$Ip</span> <span class="o">-</span><span class="no">PassThru</span>
-<span class="p">}</span></code></pre></figure>
+</span><span class="nf">Add-DnsServerResourceRecordA</span><span class="w"> </span><span class="nt">-ComputerName</span><span class="w"> </span><span class="nv">$DNSServer</span><span class="w"> </span><span class="nt">-ZoneName</span><span class="w"> </span><span class="nv">$Zone</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$Name</span><span class="w"> </span><span class="nt">-IPv4Address</span><span class="w"> </span><span class="nv">$Ip</span><span class="w"> </span><span class="nt">-PassThru</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2015/11/26/Script-Creating-DNS-Records.html" hidden></a>

@@ -98,11 +98,11 @@ ldifde -f exportOu.ldf -s <em>Server1</em> -d “dc=Export,dc=com” -p subtre
 
 <p>The following sample Ldif file (chPwd.ldif) changes a password to newPassword:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="ss">dn: </span><span class="no">CN</span><span class="o">=</span><span class="no">TestUser</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">testdomain</span><span class="p">,</span><span class="no">DC</span><span class="o">=</span><span class="n">com</span>
-<span class="ss">changetype: </span><span class="n">modify</span>
-<span class="ss">replace: </span><span class="n">unicodePwd</span>
-<span class="n">unicodePwd</span><span class="o">::</span><span class="no">IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA</span><span class="o">=</span>
-<span class="o">-</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">dn:</span><span class="w"> </span><span class="nx">CN</span><span class="o">=</span><span class="nf">TestUser</span><span class="p">,</span><span class="nx">DC</span><span class="o">=</span><span class="nf">testdomain</span><span class="p">,</span><span class="nx">DC</span><span class="o">=</span><span class="nf">com</span><span class="w">
+</span><span class="nf">changetype:</span><span class="w"> </span><span class="nx">modify</span><span class="w">
+</span><span class="nf">replace:</span><span class="w"> </span><span class="nx">unicodePwd</span><span class="w">
+</span><span class="nf">unicodePwd::IgBuAGUAdwBQAGEAcwBzAHcAbwByAGQAIgA</span><span class="o">=</span><span class="w">
+</span><span class="nf">-</span></code></pre></figure>
 
 <p>To import the chPwd.ldif file, use the following command:
 If the password does not fulfill the criteria of the enforced Password Policies, then it will throw an error:</p>

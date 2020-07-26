@@ -48,22 +48,22 @@
     <p>You can always find a use for a script that will query against a database.
 I worte this one to query on of our network management databases running on MySQL 5 to feed another Perl script that I’ve written for configuring Cisco equipment.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#! /usr/bin/perl
-</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#! /usr/bin/perl
+</span><span class="w">
 
-<span class="n">use</span> <span class="n">warnings</span><span class="p">;</span>
-<span class="n">use</span> <span class="no">DBI</span><span class="p">;</span>
+</span><span class="nf">use</span><span class="w"> </span><span class="nx">warnings</span><span class="p">;</span><span class="w">
+</span><span class="nf">use</span><span class="w"> </span><span class="nx">DBI</span><span class="p">;</span><span class="w">
 
-<span class="vg">$host</span> <span class="o">=</span> <span class="s2">"*Name/ip*"</span><span class="p">;</span>
-<span class="vg">$dbname</span> <span class="o">=</span> <span class="s2">"*DB Name*"</span><span class="p">;</span>
-<span class="vg">$user</span> <span class="o">=</span> <span class="s2">"*DB UserName*"</span><span class="p">;</span>
-<span class="vg">$pass</span> <span class="o">=</span> <span class="s2">"*DB Password*"</span><span class="p">;</span>
-<span class="vg">$table</span> <span class="o">=</span> <span class="s2">"*Table Name*"</span><span class="p">;</span>
+</span><span class="nv">$host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*Name/ip*"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$dbname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*DB Name*"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*DB UserName*"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$pass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*DB Password*"</span><span class="p">;</span><span class="w">
+</span><span class="nv">$table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"*Table Name*"</span><span class="p">;</span><span class="w">
 
-<span class="n">my</span> <span class="vg">$db</span> <span class="o">=</span> <span class="no">DBI</span><span class="o">-&gt;</span><span class="n">connect</span><span class="p">(</span><span class="s2">"DBI:mysql:$dbname;host=$host"</span><span class="p">,</span> <span class="vg">$user</span><span class="p">,</span> <span class="vg">$pass</span><span class="p">);</span>
+</span><span class="nf">my</span><span class="w"> </span><span class="nv">$db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">DBI-</span><span class="err">&gt;</span><span class="nx">connect</span><span class="p">(</span><span class="s2">"DBI:mysql:</span><span class="nv">$dbname</span><span class="s2">;host=</span><span class="nv">$host</span><span class="s2">"</span><span class="p">,</span><span class="w"> </span><span class="nv">$user</span><span class="p">,</span><span class="w"> </span><span class="nv">$pass</span><span class="p">);</span><span class="w">
 
-<span class="vg">$DBI</span><span class="o">::</span><span class="n">result</span> <span class="o">=</span> <span class="vg">$db</span><span class="o">-&gt;</span><span class="n">prepare</span><span class="p">(</span><span class="s2">"select * from $table ORDER by hostname"</span><span class="p">);</span>
-<span class="vg">$DBI</span><span class="o">::</span><span class="n">result</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">();</span></code></pre></figure>
+</span><span class="nv">$DBI</span><span class="p">::</span><span class="nf">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$db</span><span class="nf">-</span><span class="err">&gt;</span><span class="nf">prepare</span><span class="p">(</span><span class="s2">"select * from </span><span class="nv">$table</span><span class="s2"> ORDER by hostname"</span><span class="p">);</span><span class="w">
+</span><span class="nv">$DBI</span><span class="p">::</span><span class="nf">result-</span><span class="err">&gt;</span><span class="nx">execute</span><span class="p">();</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Database-Query-from-Perl-Script.html" hidden></a>

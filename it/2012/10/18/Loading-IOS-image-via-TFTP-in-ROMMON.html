@@ -51,68 +51,68 @@
 
 <p>Create a new file, router-image, in the /tftpboot directory of the TFTP server. On UNIX, use the syntax touch <em>filename</em>.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">touch</span> <span class="o">*</span><span class="n">filename</span><span class="o">*</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">touch</span><span class="w"> </span><span class="o">*</span><span class="nx">filename</span><span class="o">*</span></code></pre></figure>
 
 <p>Use the same file name shown in the show flash output in order to create the file on the /tftpboot directory of the TFTP server. For this example, the router lists c2600-i-mz.122-2.XA as the output for the show flash: command.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">touch</span> <span class="n">c2600</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">122</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="no">XA</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">touch</span><span class="w"> </span><span class="nx">c2600-i-mz.122-2.XA</span></code></pre></figure>
 
 <p>Change the permissions of the file to 777 with syntax chmod <permissions> <filename>.</filename></permissions></p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">chmod</span> <span class="mi">777</span> <span class="n">c2600</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">122</span><span class="o">-</span><span class="mi">2</span><span class="o">.</span><span class="no">XA</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">chmod</span><span class="w"> </span><span class="nx">777</span><span class="w"> </span><span class="nx">c2600-i-mz.122-2.XA</span></code></pre></figure>
 
 <p>From the Cisco device:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">copy</span> <span class="n">flash</span><span class="p">:</span><span class="o">*</span><span class="no">IOS</span><span class="o">-</span><span class="no">Image</span><span class="o">-</span><span class="no">File</span><span class="o">*</span> <span class="n">tftp</span><span class="p">:</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">copy</span><span class="w"> </span><span class="nx">flash:</span><span class="o">*</span><span class="nx">IOS-Image-File</span><span class="o">*</span><span class="w"> </span><span class="nx">tftp:</span></code></pre></figure>
 
 <p>Now on to loading it onto the device that was nuked. First we have to give it an IP address in ROMMON since it has no OS. Then we can copy the file from the TFTP server to the device.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rommon</span> <span class="mi">11</span> <span class="o">&gt;</span> <span class="no">IP_ADDRESS</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.5</span>
-<span class="n">rommon</span> <span class="mi">12</span> <span class="o">&gt;</span> <span class="no">IP_SUBNET_MASK</span><span class="o">=</span><span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
-<span class="n">rommon</span> <span class="mi">13</span> <span class="o">&gt;</span> <span class="no">DEFAULT_GATEWAY</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span>
-<span class="n">rommon</span> <span class="mi">14</span> <span class="o">&gt;</span> <span class="no">TFTP_SERVER</span><span class="o">=</span><span class="mf">192.168</span><span class="o">.</span><span class="mf">1.10</span>
-<span class="n">rommon</span> <span class="mi">15</span> <span class="o">&gt;</span> <span class="no">TFTP_FILE</span><span class="o">=</span><span class="n">c1841</span><span class="o">-</span><span class="n">advipservicesk9</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">124</span><span class="o">-</span><span class="mi">13</span><span class="n">a</span><span class="p">.</span><span class="nf">bin</span>
-<span class="n">rommon</span> <span class="mi">16</span> <span class="o">&gt;</span> <span class="n">tftpdnld</span>
-<span class="o">.</span>
-<span class="no">IP_ADDRESS</span><span class="p">:</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.5</span>
-<span class="no">IP_SUBNET_MASK</span><span class="p">:</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
-<span class="no">DEFAULT_GATEWAY</span><span class="p">:</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.1</span>
-<span class="no">TFTP_SERVER</span><span class="p">:</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.10</span>
-<span class="no">TFTP_FILE</span><span class="p">:</span> <span class="n">c1841</span><span class="o">-</span><span class="n">advipservicesk9</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">124</span><span class="o">-</span><span class="mi">13</span><span class="n">a</span><span class="p">.</span><span class="nf">bin</span>
-<span class="no">TFTP_MACADDR</span><span class="p">:</span> <span class="mo">00</span><span class="p">:</span><span class="mi">13</span><span class="p">:</span><span class="mi">80</span><span class="p">:</span><span class="mi">7</span><span class="n">b</span><span class="p">:</span><span class="mi">20</span><span class="p">:</span><span class="mi">1</span><span class="n">e</span>
-<span class="no">TFTP_VERBOSE</span><span class="p">:</span> <span class="no">Progress</span>
-<span class="no">TFTP_RETRY_COUNT</span><span class="p">:</span> <span class="mi">18</span>
-<span class="no">TFTP_TIMEOUT</span><span class="p">:</span> <span class="mi">7200</span>
-<span class="no">TFTP_CHECKSUM</span><span class="p">:</span> <span class="no">Yes</span>
-<span class="no">FE_PORT</span><span class="p">:</span> <span class="mi">0</span>
-<span class="no">FE_SPEED_MODE</span><span class="p">:</span> <span class="no">Auto</span> <span class="no">Detect</span>
-<span class="o">.</span>
-<span class="no">Invoke</span> <span class="n">this</span> <span class="n">command</span> <span class="k">for</span> <span class="n">disaster</span> <span class="n">recovery</span> <span class="n">only</span><span class="o">.</span>
-<span class="no">WARNING</span><span class="p">:</span> <span class="n">all</span> <span class="n">existing</span> <span class="n">data</span> <span class="k">in</span> <span class="n">all</span> <span class="n">partitions</span> <span class="n">on</span> <span class="n">flash</span> <span class="n">will</span> <span class="n">be</span> <span class="n">lost!</span>
-<span class="no">Do</span> <span class="n">you</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">continue?</span> <span class="n">y</span><span class="o">/</span><span class="ss">n: </span><span class="p">[</span><span class="n">n</span><span class="p">]:</span> <span class="n">y</span>
-<span class="o">...</span>
-<span class="no">Receiving</span> <span class="n">c1841</span><span class="o">-</span><span class="n">advipservicesk9</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">124</span><span class="o">-</span><span class="mi">13</span><span class="n">a</span><span class="p">.</span><span class="nf">bin</span> <span class="n">from</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">1.10</span> <span class="o">!!!!!!!!!!!!!!!</span>
-<span class="o">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
-<span class="o">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
-<span class="o">....</span>
-<span class="no">File</span> <span class="n">reception</span> <span class="n">completed</span><span class="o">.</span>
-<span class="no">Validating</span> <span class="n">checksum</span><span class="o">.</span>
-<span class="no">Copying</span> <span class="n">file</span> <span class="n">c1841</span><span class="o">-</span><span class="n">advipservicesk9</span><span class="o">-</span><span class="n">mz</span><span class="o">.</span><span class="mi">124</span><span class="o">-</span><span class="mi">13</span><span class="n">a</span><span class="p">.</span><span class="nf">bin</span> <span class="n">to</span> <span class="n">flash</span><span class="p">.</span>
-<span class="nf">program</span> <span class="nb">load</span> <span class="n">complete</span><span class="p">,</span> <span class="n">entry</span> <span class="ss">point: </span><span class="mh">0x8000f000</span><span class="p">,</span> <span class="ss">size: </span><span class="mh">0xc100</span>
-<span class="o">.</span>
-<span class="no">Initializing</span> <span class="no">ATA</span> <span class="n">monitor</span> <span class="n">library</span><span class="o">......</span><span class="p">.</span>
-<span class="nf">.</span>
-<span class="no">Format</span><span class="p">:</span> <span class="no">Drive</span> <span class="n">communication</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="n">st</span> <span class="no">Sector</span> <span class="no">Write</span> <span class="no">OK</span><span class="o">...</span>
-<span class="no">Writing</span> <span class="no">Monlib</span> <span class="n">sectors</span><span class="p">.</span>
-<span class="nf">.</span><span class="o">..............................................................................</span><span class="p">.</span>
-<span class="nf">.</span><span class="o">.................</span>
-<span class="no">Monlib</span> <span class="n">write</span> <span class="n">complete</span>
-<span class="no">Format</span><span class="p">:</span> <span class="no">All</span> <span class="nb">system</span> <span class="n">sectors</span> <span class="n">written</span><span class="o">.</span> <span class="no">OK</span><span class="o">...</span>
-<span class="no">Format</span><span class="p">:</span> <span class="no">Operation</span> <span class="n">completed</span> <span class="n">successfully</span><span class="o">.</span>
-<span class="no">Format</span> <span class="n">of</span> <span class="ss">flash: </span><span class="n">complete</span>
-<span class="n">program</span> <span class="nb">load</span> <span class="n">complete</span><span class="p">,</span> <span class="n">entry</span> <span class="ss">point: </span><span class="mh">0x8000f000</span><span class="p">,</span> <span class="ss">size: </span><span class="mh">0xc100</span>
-<span class="no">Initializing</span> <span class="no">ATA</span> <span class="n">monitor</span> <span class="n">library</span><span class="o">......</span><span class="p">.</span>
-<span class="nf">rommon</span> <span class="mi">17</span> <span class="o">&gt;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">rommon</span><span class="w"> </span><span class="nx">11</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">IP_ADDRESS</span><span class="o">=</span><span class="mf">192.168.1.5</span><span class="w">
+</span><span class="nf">rommon</span><span class="w"> </span><span class="nx">12</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">IP_SUBNET_MASK</span><span class="o">=</span><span class="mf">255.255.255.0</span><span class="w">
+</span><span class="nf">rommon</span><span class="w"> </span><span class="nx">13</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">DEFAULT_GATEWAY</span><span class="o">=</span><span class="mf">192.168.1.1</span><span class="w">
+</span><span class="nf">rommon</span><span class="w"> </span><span class="nx">14</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">TFTP_SERVER</span><span class="o">=</span><span class="mf">192.168.1.10</span><span class="w">
+</span><span class="nf">rommon</span><span class="w"> </span><span class="nx">15</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">TFTP_FILE</span><span class="o">=</span><span class="nf">c1841-advipservicesk9-mz.124-13a.bin</span><span class="w">
+</span><span class="nf">rommon</span><span class="w"> </span><span class="nx">16</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">tftpdnld</span><span class="w">
+</span><span class="o">.</span><span class="w">
+</span><span class="nf">IP_ADDRESS:</span><span class="w"> </span><span class="nx">192.168.1.5</span><span class="w">
+</span><span class="nf">IP_SUBNET_MASK:</span><span class="w"> </span><span class="nx">255.255.255.0</span><span class="w">
+</span><span class="nf">DEFAULT_GATEWAY:</span><span class="w"> </span><span class="nx">192.168.1.1</span><span class="w">
+</span><span class="nf">TFTP_SERVER:</span><span class="w"> </span><span class="nx">192.168.1.10</span><span class="w">
+</span><span class="nf">TFTP_FILE:</span><span class="w"> </span><span class="nx">c1841-advipservicesk9-mz.124-13a.bin</span><span class="w">
+</span><span class="nf">TFTP_MACADDR:</span><span class="w"> </span><span class="nx">00:13:80:7b:20:1e</span><span class="w">
+</span><span class="nf">TFTP_VERBOSE:</span><span class="w"> </span><span class="nx">Progress</span><span class="w">
+</span><span class="nf">TFTP_RETRY_COUNT:</span><span class="w"> </span><span class="nx">18</span><span class="w">
+</span><span class="nf">TFTP_TIMEOUT:</span><span class="w"> </span><span class="nx">7200</span><span class="w">
+</span><span class="nf">TFTP_CHECKSUM:</span><span class="w"> </span><span class="nx">Yes</span><span class="w">
+</span><span class="nf">FE_PORT:</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="nf">FE_SPEED_MODE:</span><span class="w"> </span><span class="nx">Auto</span><span class="w"> </span><span class="nx">Detect</span><span class="w">
+</span><span class="o">.</span><span class="w">
+</span><span class="nf">Invoke</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">command</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">disaster</span><span class="w"> </span><span class="nx">recovery</span><span class="w"> </span><span class="nx">only.</span><span class="w">
+</span><span class="nf">WARNING:</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">existing</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">partitions</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">flash</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">lost</span><span class="o">!</span><span class="w">
+</span><span class="kr">Do</span><span class="w"> </span><span class="nf">you</span><span class="w"> </span><span class="nx">wish</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">continue</span><span class="nf">?</span><span class="w"> </span><span class="nx">y/n:</span><span class="w"> </span><span class="p">[</span><span class="nf">n</span><span class="p">]:</span><span class="w"> </span><span class="nf">y</span><span class="w">
+</span><span class="o">...</span><span class="w">
+</span><span class="kt">Receiving</span><span class="w"> </span><span class="kt">c1841</span><span class="nt">-advipservicesk9-mz</span><span class="mf">.124</span><span class="nt">-13a</span><span class="o">.</span><span class="nf">bin</span><span class="w"> </span><span class="kt">from</span><span class="w"> </span><span class="mf">192.168.1.10</span><span class="w"> </span><span class="o">!!!!!!!!!!!!!!!</span><span class="w">
+</span><span class="o">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><span class="w">
+</span><span class="o">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span><span class="w">
+</span><span class="o">....</span><span class="w">
+</span><span class="kt">File</span><span class="w"> </span><span class="kt">reception</span><span class="w"> </span><span class="no">completed.</span><span class="w">
+</span><span class="kt">Validating</span><span class="w"> </span><span class="no">checksum.</span><span class="w">
+</span><span class="kt">Copying</span><span class="w"> </span><span class="kt">file</span><span class="w"> </span><span class="kt">c1841</span><span class="nt">-advipservicesk9-mz</span><span class="mf">.124</span><span class="nt">-13a</span><span class="o">.</span><span class="nf">bin</span><span class="w"> </span><span class="kt">to</span><span class="w"> </span><span class="no">flash.</span><span class="w">
+</span><span class="kt">program</span><span class="w"> </span><span class="kt">load</span><span class="w"> </span><span class="kt">complete</span><span class="p">,</span><span class="w"> </span><span class="kt">entry</span><span class="w"> </span><span class="kt">point</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">x8000f000</span><span class="p">,</span><span class="w"> </span><span class="kt">size</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">xc100</span><span class="w">
+</span><span class="o">.</span><span class="w">
+</span><span class="kt">Initializing</span><span class="w"> </span><span class="kt">ATA</span><span class="w"> </span><span class="kt">monitor</span><span class="w"> </span><span class="no">library.</span><span class="o">......</span><span class="w">
+</span><span class="o">.</span><span class="w">
+</span><span class="kt">Format</span><span class="p">:</span><span class="w"> </span><span class="kt">Drive</span><span class="w"> </span><span class="kt">communication</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">1</span><span class="kt">st</span><span class="w"> </span><span class="kt">Sector</span><span class="w"> </span><span class="kt">Write</span><span class="w"> </span><span class="no">OK.</span><span class="o">..</span><span class="w">
+</span><span class="kt">Writing</span><span class="w"> </span><span class="kt">Monlib</span><span class="w"> </span><span class="no">sectors.</span><span class="w">
+</span><span class="o">................................................................................</span><span class="w">
+</span><span class="o">..................</span><span class="w">
+</span><span class="kt">Monlib</span><span class="w"> </span><span class="kt">write</span><span class="w"> </span><span class="kt">complete</span><span class="w">
+</span><span class="kt">Format</span><span class="p">:</span><span class="w"> </span><span class="kt">All</span><span class="w"> </span><span class="kt">system</span><span class="w"> </span><span class="kt">sectors</span><span class="w"> </span><span class="no">written.</span><span class="w"> </span><span class="no">OK.</span><span class="o">..</span><span class="w">
+</span><span class="kt">Format</span><span class="p">:</span><span class="w"> </span><span class="kt">Operation</span><span class="w"> </span><span class="kt">completed</span><span class="w"> </span><span class="no">successfully.</span><span class="w">
+</span><span class="kt">Format</span><span class="w"> </span><span class="kt">of</span><span class="w"> </span><span class="kt">flash</span><span class="p">:</span><span class="w"> </span><span class="kt">complete</span><span class="w">
+</span><span class="kt">program</span><span class="w"> </span><span class="kt">load</span><span class="w"> </span><span class="kt">complete</span><span class="p">,</span><span class="w"> </span><span class="kt">entry</span><span class="w"> </span><span class="kt">point</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">x8000f000</span><span class="p">,</span><span class="w"> </span><span class="kt">size</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="kt">xc100</span><span class="w">
+</span><span class="kt">Initializing</span><span class="w"> </span><span class="kt">ATA</span><span class="w"> </span><span class="kt">monitor</span><span class="w"> </span><span class="no">library.</span><span class="o">......</span><span class="w">
+</span><span class="kt">rommon</span><span class="w"> </span><span class="mi">17</span><span class="w"> </span><span class="err">&gt;</span></code></pre></figure>
 
 <p>All done!</p>
 

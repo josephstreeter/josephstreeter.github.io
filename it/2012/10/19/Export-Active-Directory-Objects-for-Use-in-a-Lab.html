@@ -49,7 +49,7 @@
 
 <p>Export Users from Production:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ldifde</span> <span class="o">-</span><span class="n">f</span> <span class="no">Exportuser</span><span class="p">.</span><span class="nf">ldf</span> <span class="o">-</span><span class="n">s</span> <span class="no">Server1</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"ou=users,dc=Export,dc=com"</span> <span class="o">-</span><span class="nb">p</span> <span class="n">subtree</span> <span class="o">-</span><span class="n">r</span> <span class="s2">"(&amp;(objectCategory=person)(objectClass=User)(givenname=*))"</span> <span class="o">-</span><span class="n">l</span> <span class="s2">"cn,givenName,objectclass,samAccountName"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ldifde</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">Exportuser.ldf</span><span class="w"> </span><span class="nt">-s</span><span class="w"> </span><span class="nx">Server1</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"ou=users,dc=Export,dc=com"</span><span class="w"> </span><span class="nt">-p</span><span class="w"> </span><span class="nx">subtree</span><span class="w"> </span><span class="nt">-r</span><span class="w"> </span><span class="s2">"(&amp;(objectCategory=person)(objectClass=User)(givenname=*))"</span><span class="w"> </span><span class="nt">-l</span><span class="w"> </span><span class="s2">"cn,givenName,objectclass,samAccountName"</span></code></pre></figure>
 
 <p>-f Exportuser.ldf = Export to this file
 -s Server1 = Remote server (not needed if run locally)
@@ -61,7 +61,7 @@
 
 <p>Import Users into Development:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ldifde</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">f</span> <span class="no">Exportuser</span><span class="p">.</span><span class="nf">ldf</span> <span class="o">-</span><span class="n">s</span> <span class="no">Server2</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ldifde</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">Exportuser.ldf</span><span class="w"> </span><span class="nt">-s</span><span class="w"> </span><span class="nx">Server2</span></code></pre></figure>
 
 <p>The “-f” and “-s” switches are the same as the export. The addition of “-i” tells LDIFDE to import.</p>
 
@@ -69,15 +69,15 @@
 
 <p>CSVDE:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">csvde</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"ou=orgUsers,DC=name,DC=com"</span> <span class="o">-</span><span class="n">f</span> <span class="n">c</span><span class="p">:\</span><span class="n">ouput</span><span class="p">.</span><span class="nf">csv</span> <span class="o">-</span><span class="n">l</span> <span class="s2">"cn,objectclass,ou"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">csvde</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"ou=orgUsers,DC=name,DC=com"</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">c:\ouput.csv</span><span class="w"> </span><span class="nt">-l</span><span class="w"> </span><span class="s2">"cn,objectclass,ou"</span><span class="w">
 
-<span class="n">csvde</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">f</span> <span class="n">c</span><span class="p">:\</span><span class="n">output</span><span class="p">.</span><span class="nf">csv</span></code></pre></figure>
+</span><span class="nf">csvde</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">c:\output.csv</span></code></pre></figure>
 
 <p>LDIFDE:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ldifde</span> <span class="o">-</span><span class="n">d</span> <span class="s2">"ou=orgUsers,DC=name,DC=com"</span> <span class="o">-</span><span class="n">f</span> <span class="n">c</span><span class="p">:\</span><span class="n">ouput</span><span class="p">.</span><span class="nf">ldif</span> <span class="o">-</span><span class="n">l</span> <span class="s2">"cn,objectclass,ou"</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ldifde</span><span class="w"> </span><span class="nt">-d</span><span class="w"> </span><span class="s2">"ou=orgUsers,DC=name,DC=com"</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">c:\ouput.ldif</span><span class="w"> </span><span class="nt">-l</span><span class="w"> </span><span class="s2">"cn,objectclass,ou"</span><span class="w">
 
-<span class="n">ldifde</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">f</span> <span class="n">c</span><span class="p">:\</span><span class="n">output</span><span class="p">.</span><span class="nf">ldif</span></code></pre></figure>
+</span><span class="nf">ldifde</span><span class="w"> </span><span class="nt">-i</span><span class="w"> </span><span class="nt">-f</span><span class="w"> </span><span class="nx">c:\output.ldif</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Export-Active-Directory-Objects-for-Use-in-a-Lab.html" hidden></a>

@@ -53,21 +53,21 @@
 
 <p>First we will cover basic tunneling. We will tunnel specific traffic to services located on our remote host. In the first example we will tunnel out web- traffic to our remote Squid proxy server.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="o">-</span><span class="no">L</span> <span class="mi">8080</span><span class="ss">:localhost</span><span class="p">:</span><span class="mi">3129</span> <span class="n">proxy</span><span class="p">.</span><span class="nf">server</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ssh</span><span class="w"> </span><span class="nt">-L</span><span class="w"> </span><span class="nx">8080:localhost:3129</span><span class="w"> </span><span class="nx">proxy.server.com</span></code></pre></figure>
 
 <p>8080 - Client port
 localhost - local hostname
 3129 - Remote port
 In this example we will forward POP3 traffic to our remote mail server</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="o">-</span><span class="no">L</span> <span class="mi">8110</span><span class="ss">:localhost</span><span class="p">:</span><span class="mi">110</span> <span class="n">pop</span><span class="p">.</span><span class="nf">server</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ssh</span><span class="w"> </span><span class="nt">-L</span><span class="w"> </span><span class="nx">8110:localhost:110</span><span class="w"> </span><span class="nx">pop.server.com</span></code></pre></figure>
 
 <p>8080 - Client port
 localhost - local hostname
 3129 - Remote port
 You can simplify things by creating a dynamic tunnel for any application able to use SOCKS proxies. Browsers, games, etc can use this tunnel to get traffic out of whatever hole you’re stuck in. If you use the example below to create the tunnel and configure your browser to use the local listener as a SOCKS proxy you do not require Squid on the remote server.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ssh</span> <span class="o">-</span><span class="no">D</span> <span class="mi">8080</span> <span class="n">socks</span><span class="p">.</span><span class="nf">server</span><span class="p">.</span><span class="nf">com</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ssh</span><span class="w"> </span><span class="nt">-D</span><span class="w"> </span><span class="nx">8080</span><span class="w"> </span><span class="nx">socks.server.com</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/02/28/Tunneling-with-SSH.html" hidden></a>

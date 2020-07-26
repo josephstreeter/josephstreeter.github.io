@@ -49,11 +49,11 @@
 
 <p>First install SNMPD.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">snmpd</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">apt-get</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">snmpd</span></code></pre></figure>
 
 <p>The default config file seems to be what was giving be some trouble early on. You can create one from scratch using the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">snmpconf</span> <span class="o">-</span><span class="n">g</span> <span class="n">basic_setup</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">snmpconf</span><span class="w"> </span><span class="nt">-g</span><span class="w"> </span><span class="nx">basic_setup</span></code></pre></figure>
 
 <p>Just answer the questions and it will create the file for you. If you run the command from the “/etc/snmp” directory and you won’t have to move the file when you’re done.</p>
 
@@ -63,11 +63,11 @@
 
 <p>Then run the the following command:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">snmp</span><span class="o">-</span><span class="n">mibs</span><span class="o">-</span><span class="n">downloader</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">apt-get</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">apt-get</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">snmp-mibs-downloader</span></code></pre></figure>
 
 <p>That should do it. Try a snmpwalk command against the box and see what you get.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">snmpwalk</span> <span class="o">-</span><span class="n">c</span> <span class="n">community</span> <span class="o">-</span><span class="n">v</span> <span class="mi">2</span><span class="n">c</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.10</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">snmpwalk</span><span class="w"> </span><span class="nt">-c</span><span class="w"> </span><span class="nx">community</span><span class="w"> </span><span class="nt">-v</span><span class="w"> </span><span class="nx">2c</span><span class="w"> </span><span class="nx">192.168.0.10</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Install-SNMP-on-Debian-Squeeze.html" hidden></a>

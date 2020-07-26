@@ -53,14 +53,14 @@
 
 <p>The event id 1646 “Free hard disk space (megabytes)” will tell you how much space within the database is whitespace. The entry will look similar to this:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Event</span> <span class="no">ID</span><span class="p">:</span><span class="o">-</span> <span class="o">-</span>  <span class="mi">1646</span>
-<span class="no">Event</span> <span class="no">Type</span><span class="p">:</span> <span class="no">Information</span>
-<span class="no">Event</span> <span class="no">Message</span><span class="p">:</span>
-<span class="no">Internal</span> <span class="ss">event: </span><span class="no">The</span> <span class="no">Active</span> <span class="no">Directory</span> <span class="no">Domain</span> <span class="no">Services</span> <span class="n">database</span> <span class="n">has</span> <span class="n">the</span> <span class="n">following</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">free</span> <span class="n">hard</span> <span class="n">disk</span> <span class="n">space</span> <span class="n">remaining</span><span class="o">.</span>
-<span class="no">Free</span> <span class="n">hard</span> <span class="n">disk</span> <span class="n">space</span> <span class="p">(</span><span class="n">megabytes</span><span class="p">):</span>
-<span class="mi">393</span>
-<span class="no">Total</span> <span class="n">allocated</span> <span class="n">hard</span> <span class="n">disk</span> <span class="n">space</span> <span class="p">(</span><span class="n">megabytes</span><span class="p">):</span>
-<span class="mi">5182</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">Event</span><span class="w"> </span><span class="nx">ID:-</span><span class="w"> </span><span class="nf">-</span><span class="w">  </span><span class="nx">1646</span><span class="w">
+</span><span class="nf">Event</span><span class="w"> </span><span class="nx">Type:</span><span class="w"> </span><span class="nx">Information</span><span class="w">
+</span><span class="nf">Event</span><span class="w"> </span><span class="nx">Message:</span><span class="w">
+</span><span class="nf">Internal</span><span class="w"> </span><span class="nx">event:</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">Active</span><span class="w"> </span><span class="nx">Directory</span><span class="w"> </span><span class="nx">Domain</span><span class="w"> </span><span class="nx">Services</span><span class="w"> </span><span class="nx">database</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">following</span><span class="w"> </span><span class="nx">amount</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">free</span><span class="w"> </span><span class="nx">hard</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">space</span><span class="w"> </span><span class="nx">remaining.</span><span class="w">
+</span><span class="nf">Free</span><span class="w"> </span><span class="nx">hard</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">space</span><span class="w"> </span><span class="p">(</span><span class="nf">megabytes</span><span class="p">):</span><span class="w">
+</span><span class="mi">393</span><span class="w">
+</span><span class="nf">Total</span><span class="w"> </span><span class="nx">allocated</span><span class="w"> </span><span class="nx">hard</span><span class="w"> </span><span class="nx">disk</span><span class="w"> </span><span class="nx">space</span><span class="w"> </span><span class="p">(</span><span class="nf">megabytes</span><span class="p">):</span><span class="w">
+</span><span class="mi">5182</span></code></pre></figure>
 
 <p>In the following example we will perform an offline defrag on a Domain Controller that has the database stored on the D: drive (D:\NTDS\ntds.dit) and the logs on the L: drive (L:\Logs). The configuration of other Domain Controllers may vary.</p>
 
@@ -73,17 +73,17 @@
   </li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">files</span>
-<span class="n">info</span>
-<span class="n">compact</span> <span class="no">D</span><span class="p">:\</span><span class="no">NTDS</span><span class="o">-</span><span class="no">Backup</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">files</span><span class="w">
+</span><span class="nf">info</span><span class="w">
+</span><span class="nf">compact</span><span class="w"> </span><span class="nx">D:\NTDS-Backup</span></code></pre></figure>
 
 <p>When the operation finishes you should see the following text:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">If</span> <span class="n">compaction</span> <span class="n">was</span> <span class="n">successful</span><span class="p">,</span> <span class="n">you</span> <span class="n">need</span> <span class="ss">to:
-</span><span class="n">copy</span> <span class="s2">"D:</span><span class="se">\N</span><span class="s2">TDS-Backup</span><span class="se">\n</span><span class="s2">tds.dit"</span>
-<span class="s2">"D:</span><span class="se">\N</span><span class="s2">TDS</span><span class="se">\n</span><span class="s2">tds.dit"</span>
-<span class="n">and</span> <span class="n">delete</span> <span class="n">the</span> <span class="n">old</span> <span class="n">log</span> <span class="ss">files:
-</span><span class="n">del</span> <span class="no">L</span><span class="p">:\</span><span class="no">Logs</span><span class="o">*</span><span class="p">.</span><span class="nf">log</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">If</span><span class="w"> </span><span class="nf">compaction</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">successful</span><span class="p">,</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">need</span><span class="w"> </span><span class="nx">to:</span><span class="w">
+</span><span class="nf">copy</span><span class="w"> </span><span class="s2">"D:\NTDS-Backup\ntds.dit"</span><span class="w">
+</span><span class="s2">"D:\NTDS\ntds.dit"</span><span class="w">
+</span><span class="nf">and</span><span class="w"> </span><span class="nx">delete</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">old</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">files:</span><span class="w">
+</span><span class="nf">del</span><span class="w"> </span><span class="nx">L:\Logs</span><span class="o">*.</span><span class="nf">log</span></code></pre></figure>
 
 <ol>
   <li>
@@ -97,9 +97,9 @@
   </li>
 </ol>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ntdsutil</span>
-<span class="n">files</span>
-<span class="n">integrity</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">ntdsutil</span><span class="w">
+</span><span class="nf">files</span><span class="w">
+</span><span class="nf">integrity</span></code></pre></figure>
 
 <ol>
   <li>Finally, restart the Domain Controller or start the AD DS service.</li>

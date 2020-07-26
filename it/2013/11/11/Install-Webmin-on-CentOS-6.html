@@ -49,24 +49,24 @@
 
 <p>Download and install the key for the Webmin repo</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">wget</span> <span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">www</span><span class="p">.</span><span class="nf">webmin</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">jcameron</span><span class="o">-</span><span class="n">key</span><span class="p">.</span><span class="nf">asc</span>
-<span class="n">rpm</span> <span class="o">--</span><span class="n">import</span> <span class="n">jcameron</span><span class="o">-</span><span class="n">key</span><span class="p">.</span><span class="nf">asc</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">wget</span><span class="w"> </span><span class="nx">http://www.webmin.com/jcameron-key.asc</span><span class="w">
+</span><span class="nf">rpm</span><span class="w"> </span><span class="nt">--import</span><span class="w"> </span><span class="nx">jcameron-key.asc</span></code></pre></figure>
 
 <p>Create a file for the Webmin repo</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">vi</span> <span class="sr">/etc/</span><span class="n">yum</span><span class="p">.</span><span class="nf">repos</span><span class="p">.</span><span class="nf">d</span><span class="o">/</span><span class="n">webmin</span><span class="p">.</span><span class="nf">repo</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">vi</span><span class="w"> </span><span class="nx">/etc/yum.repos.d/webmin.repo</span></code></pre></figure>
 
 <p>Add the repo information to the repo file</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="no">Webmin</span><span class="p">]</span> <span class="nb">name</span><span class="o">=</span><span class="no">Webmin</span> <span class="no">Distribution</span> <span class="no">Neutral</span>
-<span class="c1">#baseurl=http://download.webmin.com/download/yum
-</span>
-<span class="n">mirrorlist</span><span class="o">=</span><span class="n">http</span><span class="ss">:/</span><span class="o">/</span><span class="n">download</span><span class="p">.</span><span class="nf">webmin</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">yum</span><span class="o">/</span><span class="n">mirrorlist</span>
-<span class="n">enabled</span><span class="o">=</span><span class="mi">1</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">[</span><span class="kt">Webmin</span><span class="p">]</span><span class="w"> </span><span class="nf">name</span><span class="o">=</span><span class="nf">Webmin</span><span class="w"> </span><span class="nx">Distribution</span><span class="w"> </span><span class="nx">Neutral</span><span class="w">
+</span><span class="c">#baseurl=http://download.webmin.com/download/yum
+</span><span class="w">
+</span><span class="nf">mirrorlist</span><span class="o">=</span><span class="nf">http://download.webmin.com/download/yum/mirrorlist</span><span class="w">
+</span><span class="nf">enabled</span><span class="o">=</span><span class="mi">1</span></code></pre></figure>
 
 <p>Install Webmin package</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">yum</span> <span class="err">â€“</span><span class="n">y</span> <span class="n">install</span> <span class="n">webmin</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">yum</span><span class="w"> </span><span class="err">â€“</span><span class="nx">y</span><span class="w"> </span><span class="nx">install</span><span class="w"> </span><span class="nx">webmin</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2013/11/11/Install-Webmin-on-CentOS-6.html" hidden></a>

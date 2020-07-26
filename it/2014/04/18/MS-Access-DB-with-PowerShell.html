@@ -47,68 +47,68 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Use ADO to connect to a Microsoft Access database from PowerShell. In order to do this you may have to download “Microsoft Access Database Engine 2010.” If you have 32-bit MS Office installed you will have to install the 32-bit engine. Likewise, you will have to run PowerShell in 32-bit mode.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$adOpenStatic</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="vg">$adLockOptimistic</span> <span class="o">=</span> <span class="mi">3</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$adOpenStatic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="nv">$adLockOptimistic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">
 
-<span class="vg">$conn</span><span class="o">=</span><span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Connection"</span>
-<span class="vg">$rs</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Recordset"</span>
-<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span>
+</span><span class="nv">$conn</span><span class="o">=</span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Connection"</span><span class="w">
+</span><span class="nv">$rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Recordset"</span><span class="w">
+</span><span class="nv">$conn</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span><span class="w">
 
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="vg">$conn</span><span class="p">,</span><span class="vg">$adOpenStatic</span><span class="p">,</span><span class="vg">$adLockOptimistic</span><span class="p">)</span>
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$adOpenStatic</span><span class="p">,</span><span class="nv">$adLockOptimistic</span><span class="p">)</span><span class="w">
 
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span>
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
 
-<span class="vg">$conn</span><span class="o">.</span><span class="no">Close</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+</span><span class="nv">$conn</span><span class="o">.</span><span class="nf">Close</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Close</span></code></pre></figure>
 
 <p>First we set these two variables to set the cursor type and record locking method used</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$adOpenStatic</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="vg">$adLockOptimistic</span> <span class="o">=</span> <span class="mi">3</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$adOpenStatic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w">
+</span><span class="nv">$adLockOptimistic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span></code></pre></figure>
 
 <p><em>adLockOptimistic</em> - Indicates optimistic locking, record by record. The provider uses optimistic locking, which locks records only when you call the Update method.
 <em>adOpenStatic</em> - Uses a static cursor, which is a static copy of a set of records that you can use to find data or generate reports. Additions, changes, or deletions by other users are not visible.</p>
 
 <p>Next we create objects for ADODB.Connection and ADODB.Recordset. These objects will be used for the connection to the database itself and the set of records we want to work with.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$conn</span><span class="o">=</span><span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Connection"</span>
-<span class="vg">$rs</span> <span class="o">=</span> <span class="no">New</span><span class="o">-</span><span class="no">Object</span> <span class="o">-</span><span class="n">com</span> <span class="s2">"ADODB.Recordset"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$conn</span><span class="o">=</span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Connection"</span><span class="w">
+</span><span class="nv">$rs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">New-Object</span><span class="w"> </span><span class="nt">-com</span><span class="w"> </span><span class="s2">"ADODB.Recordset"</span></code></pre></figure>
 
 <p>Now we will use the $conn object to connect to the database.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">(</span><span class="no">Access</span> <span class="mi">2010</span> <span class="o">-</span> <span class="mi">2013</span><span class="p">)</span>
-<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">(</span><span class="nf">Access</span><span class="w"> </span><span class="nx">2010</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">2013</span><span class="p">)</span><span class="w">
+</span><span class="nv">$conn</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\inventory.accdb;Persist Security Info=True;'</span><span class="p">)</span></code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">(</span><span class="no">Access</span> <span class="mi">2007</span> <span class="n">and</span> <span class="n">earlier</span><span class="p">)</span>
-<span class="vg">$conn</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\inventory.mdb;'</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="p">(</span><span class="nf">Access</span><span class="w"> </span><span class="nx">2007</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">earlier</span><span class="p">)</span><span class="w">
+</span><span class="nv">$conn</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s1">'Provider=Microsoft.Jet.OLEDB.4.0; Data Source=C:\inventory.mdb;'</span><span class="p">)</span></code></pre></figure>
 
 <p>Now that we have a connection set we can select the records we want to work with.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="vg">$conn</span><span class="p">,</span><span class="vg">$adOpenStatic</span><span class="p">,</span><span class="vg">$adLockOptimistic</span><span class="p">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$rs</span><span class="o">.</span><span class="nf">Open</span><span class="p">(</span><span class="s2">"SELECT * FROM COMPUTERS"</span><span class="p">,</span><span class="nv">$conn</span><span class="p">,</span><span class="nv">$adOpenStatic</span><span class="p">,</span><span class="nv">$adLockOptimistic</span><span class="p">)</span></code></pre></figure>
 
 <p>Once the recordset is created we can read whats in it.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span></code></pre></figure>
 
 <p>Or we could add a new record</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$rs</span><span class="o">.</span><span class="no">AddNew</span><span class="p">()</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Computer01"</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Microsoft Windows 8 Pro"</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">).</span><span class="nf">value</span> <span class="o">=</span> <span class="s2">"Dell D820 Latitude"</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Fields</span><span class="o">.</span><span class="no">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">).</span><span class="nf">value</span> <span class="s2">"D123456"</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Update</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$rs</span><span class="o">.</span><span class="nf">AddNew</span><span class="p">()</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Name"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Computer01"</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"OperatingSystem"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Microsoft Windows 8 Pro"</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"Model"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Dell D820 Latitude"</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Fields</span><span class="o">.</span><span class="nf">Item</span><span class="p">(</span><span class="s2">"SerialNumber"</span><span class="p">)</span><span class="o">.</span><span class="nf">value</span><span class="w"> </span><span class="s2">"D123456"</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Update</span><span class="p">()</span></code></pre></figure>
 
 <p>Close the connection and recordset when you’re done.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$conn</span><span class="o">.</span><span class="no">Close</span>
-<span class="vg">$rs</span><span class="o">.</span><span class="no">Close</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$conn</span><span class="o">.</span><span class="nf">Close</span><span class="w">
+</span><span class="nv">$rs</span><span class="o">.</span><span class="nf">Close</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2014/04/18/MS-Access-DB-with-PowerShell.html" hidden></a>

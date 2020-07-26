@@ -55,171 +55,171 @@
 
 <p>I’ve also attached the Cisco guide to hardening IOS devices.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">no</span> <span class="n">service</span> <span class="n">pad</span>
-<span class="n">no</span> <span class="n">service</span> <span class="n">finger</span>
-<span class="n">no</span> <span class="n">service</span> <span class="n">tcp</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">servers</span>
-<span class="n">no</span> <span class="n">service</span> <span class="n">udp</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">servers</span>
-<span class="o">!</span>
-<span class="n">service</span> <span class="n">tcp</span><span class="o">-</span><span class="n">keepalives</span><span class="o">-</span><span class="k">in</span>
-<span class="n">service</span> <span class="n">tcp</span><span class="o">-</span><span class="n">keepalives</span><span class="o">-</span><span class="n">out</span>
-<span class="n">service</span> <span class="n">timestamps</span> <span class="n">debug</span> <span class="n">datetime</span> <span class="n">msec</span> <span class="n">localtime</span> <span class="n">show</span><span class="o">-</span><span class="n">timezone</span>
-<span class="n">service</span> <span class="n">timestamps</span> <span class="n">log</span> <span class="n">datetime</span> <span class="n">msec</span> <span class="n">localtime</span> <span class="n">show</span><span class="o">-</span><span class="n">timezone</span>
-<span class="n">service</span> <span class="n">password</span><span class="o">-</span><span class="n">encryption</span>
-<span class="n">service</span> <span class="n">sequence</span><span class="o">-</span><span class="n">numbers</span>
-<span class="o">!</span>
-<span class="n">hostname</span> <span class="o">*</span><span class="n">strDevicename</span><span class="o">*</span>
-<span class="o">!</span>
-<span class="n">no</span> <span class="n">logging</span> <span class="n">console</span>
-<span class="n">enable</span> <span class="n">secret</span> <span class="mi">0</span> <span class="o">*</span><span class="n">strEnablesecret</span><span class="o">*</span>
-<span class="o">!</span>
-<span class="n">username</span> <span class="o">*</span><span class="n">strUsername</span><span class="o">*</span> <span class="n">password</span> <span class="mi">0</span> <span class="o">*</span><span class="n">strUserpassword</span><span class="o">*</span>
-<span class="n">no</span> <span class="n">aaa</span> <span class="n">new</span><span class="o">-</span><span class="n">model</span>
-<span class="n">clock</span> <span class="n">timezone</span> <span class="no">CDT</span> <span class="o">-</span><span class="mi">6</span>
-<span class="n">clock</span> <span class="n">summer</span><span class="o">-</span><span class="n">time</span> <span class="no">CST</span> <span class="n">recurring</span>
-<span class="nb">system</span> <span class="n">mtu</span> <span class="n">routing</span> <span class="mi">1500</span>
-<span class="n">vtp</span> <span class="n">mode</span> <span class="n">transparent</span>
-<span class="n">ip</span> <span class="n">subnet</span><span class="o">-</span><span class="n">zero</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">finger</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">source</span><span class="o">-</span><span class="n">route</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">gratuitous</span><span class="o">-</span><span class="n">arps</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="n">lookup</span>
-<span class="n">ip</span> <span class="n">domain</span><span class="o">-</span><span class="nb">name</span> <span class="o">*</span><span class="n">strDomainname</span><span class="o">*</span>
-<span class="n">ip</span> <span class="nb">name</span><span class="o">-</span><span class="n">server</span> <span class="o">*</span><span class="n">strPrimarydns</span><span class="o">*</span>
-<span class="n">ip</span> <span class="nb">name</span><span class="o">-</span><span class="n">server</span> <span class="o">*</span><span class="n">strSecondarydns</span><span class="o">*</span>
-<span class="o">!</span>
-<span class="n">crypto</span> <span class="n">key</span> <span class="n">generate</span> <span class="n">rsa</span>
-<span class="mi">1024</span>
-<span class="o">!</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">mode</span> <span class="n">rapid</span><span class="o">-</span><span class="n">pvst</span>
-<span class="n">no</span> <span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">optimize</span> <span class="n">bpdu</span> <span class="n">transmission</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="kp">extend</span> <span class="nb">system</span><span class="o">-</span><span class="nb">id</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">uplinkfast</span>
-<span class="o">!</span>
-<span class="n">vlan</span> <span class="n">internal</span> <span class="n">allocation</span> <span class="n">policy</span> <span class="n">ascending</span>
-<span class="o">!</span>
-<span class="n">vlan</span> <span class="mi">192</span>
-<span class="nb">name</span> <span class="c1">####_Data_VLAN_####
-</span>
-<span class="o">!</span>
-<span class="n">ip</span> <span class="n">ssh</span> <span class="n">time</span><span class="o">-</span><span class="n">out</span> <span class="mi">60</span>
-<span class="n">ip</span> <span class="n">ssh</span> <span class="n">version</span> <span class="mi">2</span>
-<span class="n">ip</span> <span class="n">ssh</span> <span class="n">authentication</span><span class="o">-</span><span class="n">retries</span> <span class="mi">3</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="no">FastEthernet0</span><span class="o">/</span><span class="mi">1</span>
-<span class="n">description</span> <span class="c1">#### UPS ####
-</span>
-<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">192</span>
-<span class="n">switchport</span> <span class="n">mode</span> <span class="n">access</span>
-<span class="n">switchport</span> <span class="n">nonegotiate</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">portfast</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">bpduguard</span> <span class="n">enable</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">max</span><span class="o">-</span><span class="n">mac</span><span class="o">-</span><span class="n">count</span> <span class="mi">1</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">action</span> <span class="n">shutdown</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="no">FastEthernet0</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">description</span> <span class="c1">#### Print Server ####
-</span>
-<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">192</span>
-<span class="n">switchport</span> <span class="n">mode</span> <span class="n">access</span>
-<span class="n">switchport</span> <span class="n">nonegotiate</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">portfast</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">bpduguard</span> <span class="n">enable</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">max</span><span class="o">-</span><span class="n">mac</span><span class="o">-</span><span class="n">count</span> <span class="mi">1</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">action</span> <span class="n">shutdown</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="n">range</span> <span class="no">FastEthernet0</span><span class="o">/</span><span class="mi">3</span> <span class="o">-</span> <span class="o">*</span><span class="n">strPortnumber</span><span class="o">*</span>
-<span class="n">switchport</span> <span class="n">access</span> <span class="n">vlan</span> <span class="mi">192</span>
-<span class="n">switchport</span> <span class="n">mode</span> <span class="n">access</span>
-<span class="n">switchport</span> <span class="n">nonegotiate</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">portfast</span>
-<span class="n">spanning</span><span class="o">-</span><span class="n">tree</span> <span class="n">bpduguard</span> <span class="n">enable</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">max</span><span class="o">-</span><span class="n">mac</span><span class="o">-</span><span class="n">count</span> <span class="mi">1</span>
-<span class="n">switchport</span> <span class="n">port</span><span class="o">-</span><span class="n">security</span> <span class="n">action</span> <span class="n">shutdown</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="n">range</span> <span class="no">GigabitEthernet0</span><span class="o">/</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
-<span class="n">switchport</span> <span class="n">trunk</span> <span class="n">encapsulation</span> <span class="n">dot1q</span>
-<span class="n">switchport</span> <span class="n">trunk</span> <span class="n">native</span> <span class="n">vlan</span> <span class="mi">192</span>
-<span class="n">switchport</span> <span class="n">mode</span> <span class="n">trunk</span>
-<span class="n">switchport</span> <span class="n">trunk</span> <span class="n">allowed</span> <span class="n">vlan</span> <span class="mi">192</span>
-<span class="n">switchport</span> <span class="n">nonegotiate</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="no">Vlan1</span>
-<span class="n">description</span> <span class="c1">#### Default VLAN - Do NOT use ####
-</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">address</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">route</span><span class="o">-</span><span class="n">cache</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">redirects</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">unreachables</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">proxy</span><span class="o">-</span><span class="n">arp</span>
-<span class="n">shutdown</span>
-<span class="o">!</span>
-<span class="n">interface</span> <span class="no">Vlan192</span>
-<span class="n">description</span> <span class="c1">#### Management Interface ####
-</span>
-<span class="n">ip</span> <span class="n">address</span> <span class="o">*</span><span class="n">strManagementip</span><span class="o">*</span> <span class="o">*</span><span class="n">strManagementnetmask</span><span class="o">*</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">redirects</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">unreachables</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">proxy</span><span class="o">-</span><span class="n">arp</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">route</span><span class="o">-</span><span class="n">cache</span>
-<span class="o">!</span>
-<span class="n">ip</span> <span class="n">default</span><span class="o">-</span><span class="n">gateway</span> <span class="o">*</span><span class="n">strDefaultgateway</span><span class="o">*</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">http</span> <span class="n">server</span>
-<span class="n">no</span> <span class="n">ip</span> <span class="n">http</span> <span class="n">secure</span><span class="o">-</span><span class="n">server</span>
-<span class="n">logging</span> <span class="n">facility</span> <span class="n">local6</span>
-<span class="n">logging</span> <span class="n">strSyslog</span><span class="o">-</span><span class="n">server</span>
-<span class="n">snmp</span><span class="o">-</span><span class="n">server</span> <span class="n">community</span> <span class="o">*</span><span class="n">strSnmp</span><span class="o">-</span><span class="n">communityreadonly</span><span class="o">*</span> <span class="no">RO</span>
-<span class="n">snmp</span><span class="o">-</span><span class="n">server</span> <span class="n">community</span> <span class="o">*</span><span class="n">strSnmp</span><span class="o">-</span><span class="n">communityreadwrite</span><span class="o">*</span> <span class="no">RW</span>
-<span class="n">snmp</span><span class="o">-</span><span class="n">server</span> <span class="n">location</span> <span class="o">*</span><span class="n">strLocation</span><span class="o">*</span>
-<span class="n">snmp</span><span class="o">-</span><span class="n">server</span> <span class="n">chassis</span><span class="o">-</span><span class="nb">id</span> <span class="n">sn</span><span class="c1"># *strDevicesn* Asset# *strDeviceassettag*
-</span>
-<span class="n">snmp</span> <span class="n">ifmib</span> <span class="n">ifindex</span> <span class="n">persist</span>
-<span class="o">!</span>
-<span class="n">banner</span> <span class="n">motd</span> <span class="o">%</span>
-<span class="o">*</span><span class="n">strDevicename</span><span class="o">*</span>   <span class="o">*</span><span class="n">strLocation</span><span class="o">*</span>
-<span class="no">NOTICE</span> <span class="no">TO</span> <span class="no">USERS</span>
-<span class="c1">###############################################################
-</span>
-<span class="no">This</span> <span class="n">is</span> <span class="n">an</span> <span class="n">official</span> <span class="n">computer</span> <span class="nb">system</span> <span class="n">and</span> <span class="n">is</span> <span class="n">the</span> <span class="n">property</span> <span class="n">of</span> <span class="n">the</span>
-<span class="o">*</span><span class="n">strOrganization</span><span class="o">*.</span> <span class="no">It</span> <span class="n">is</span> <span class="k">for</span> <span class="n">authorized</span> <span class="n">users</span> <span class="n">only</span><span class="o">.</span>
-<span class="no">Unauthorized</span> <span class="n">users</span> <span class="n">are</span> <span class="n">prohibited</span><span class="o">.</span> <span class="no">Users</span> <span class="p">(</span><span class="n">authorized</span> <span class="n">or</span> <span class="n">unauthorized</span><span class="p">)</span>
-<span class="n">have</span> <span class="n">no</span> <span class="n">explicit</span> <span class="n">or</span> <span class="n">implicit</span> <span class="n">expectation</span> <span class="n">of</span> <span class="n">privacy</span><span class="o">.</span> <span class="no">Any</span> <span class="n">or</span> <span class="n">all</span> <span class="n">uses</span>
-<span class="n">of</span> <span class="n">this</span> <span class="nb">system</span> <span class="n">may</span> <span class="n">be</span> <span class="n">subject</span> <span class="n">to</span> <span class="n">one</span> <span class="n">or</span> <span class="n">more</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="ss">actions:
-</span><span class="n">interception</span><span class="p">,</span>  <span class="n">monitoring</span><span class="p">,</span> <span class="n">recording</span><span class="p">,</span> <span class="n">auditing</span><span class="p">,</span> <span class="n">inspection</span> <span class="n">and</span> <span class="n">disclosing</span>
-<span class="n">to</span> <span class="n">security</span> <span class="n">personnel</span> <span class="n">and</span> <span class="n">law</span> <span class="n">enforcement</span> <span class="n">personnel</span><span class="p">,</span> <span class="n">as</span> <span class="n">well</span> <span class="n">as</span> <span class="n">authorized</span>
-<span class="n">officials</span> <span class="n">of</span> <span class="n">other</span> <span class="n">agencies</span><span class="p">,</span> <span class="n">both</span> <span class="n">domestic</span> <span class="n">and</span> <span class="n">foreign</span><span class="o">.</span> <span class="no">By</span> <span class="n">using</span> <span class="n">this</span>
-<span class="nb">system</span><span class="p">,</span> <span class="n">the</span> <span class="n">user</span> <span class="n">consents</span> <span class="n">to</span> <span class="n">these</span> <span class="n">actions</span><span class="o">.</span> <span class="no">Unauthorized</span> <span class="n">or</span> <span class="n">improper</span>
-<span class="n">use</span> <span class="n">of</span> <span class="n">this</span> <span class="nb">system</span> <span class="n">may</span> <span class="n">result</span> <span class="k">in</span> <span class="n">administrative</span> <span class="n">disciplinary</span> <span class="n">action</span>
-<span class="n">and</span> <span class="n">civil</span> <span class="n">and</span> <span class="n">criminal</span> <span class="n">penalties</span><span class="o">.</span> <span class="no">By</span> <span class="n">accessing</span> <span class="n">this</span> <span class="nb">system</span> <span class="n">you</span>
-<span class="n">indicate</span> <span class="n">your</span> <span class="n">awareness</span> <span class="n">of</span> <span class="n">and</span> <span class="n">consent</span> <span class="n">to</span> <span class="n">these</span> <span class="n">terms</span> <span class="n">and</span> <span class="n">conditions</span>
-<span class="n">of</span> <span class="n">use</span><span class="o">.</span> <span class="no">Discontinue</span> <span class="n">access</span> <span class="n">immediately</span> <span class="k">if</span> <span class="n">you</span> <span class="k">do</span> <span class="n">not</span> <span class="n">agree</span> <span class="n">to</span> <span class="n">the</span>
-<span class="n">conditions</span> <span class="n">stated</span> <span class="k">in</span> <span class="n">this</span> <span class="n">notice</span><span class="p">.</span><span class="nf">^</span>
-<span class="c1">###############################################################
-</span>
-<span class="o">%</span>
-<span class="o">!</span>
-<span class="n">line</span> <span class="n">con</span> <span class="mi">0</span>
-<span class="nb">exec</span><span class="o">-</span><span class="n">timeout</span> <span class="mi">5</span> <span class="mi">0</span>
-<span class="n">password</span> <span class="mi">0</span> <span class="o">*</span><span class="n">strConsolepassword</span><span class="o">*</span>
-<span class="n">logging</span> <span class="n">synchronous</span>
-<span class="n">login</span> <span class="n">local</span>
-<span class="n">line</span> <span class="n">vty</span> <span class="mi">0</span> <span class="mi">4</span>
-<span class="nb">exec</span><span class="o">-</span><span class="n">timeout</span> <span class="mi">5</span> <span class="mi">0</span>
-<span class="n">password</span> <span class="mi">0</span> <span class="o">*</span><span class="n">strVtypassword</span><span class="o">*</span>
-<span class="n">logging</span> <span class="n">synchronous</span>
-<span class="n">login</span> <span class="n">local</span>
-<span class="n">transport</span> <span class="n">input</span> <span class="n">ssh</span>
-<span class="n">line</span> <span class="n">vty</span> <span class="mi">5</span> <span class="mi">15</span>
-<span class="nb">exec</span><span class="o">-</span><span class="n">timeout</span> <span class="mi">5</span> <span class="mi">0</span>
-<span class="n">password</span> <span class="mi">0</span> <span class="o">*</span><span class="n">strVtypassword</span><span class="o">*</span>
-<span class="n">logging</span> <span class="n">synchronous</span>
-<span class="n">login</span> <span class="n">local</span>
-<span class="n">transport</span> <span class="n">input</span> <span class="n">ssh</span>
-<span class="o">!</span>
-<span class="n">ntp</span> <span class="n">server</span> <span class="o">*</span><span class="n">strNtpserver</span><span class="o">*</span>
-<span class="k">end</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">no</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">pad</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">finger</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">tcp-small-servers</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="nx">udp-small-servers</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">tcp-keepalives-in</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">tcp-keepalives-out</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">timestamps</span><span class="w"> </span><span class="nx">debug</span><span class="w"> </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">msec</span><span class="w"> </span><span class="nx">localtime</span><span class="w"> </span><span class="nx">show-timezone</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">timestamps</span><span class="w"> </span><span class="nx">log</span><span class="w"> </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">msec</span><span class="w"> </span><span class="nx">localtime</span><span class="w"> </span><span class="nx">show-timezone</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">password-encryption</span><span class="w">
+</span><span class="nf">service</span><span class="w"> </span><span class="nx">sequence-numbers</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">hostname</span><span class="w"> </span><span class="o">*</span><span class="nx">strDevicename</span><span class="o">*</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">logging</span><span class="w"> </span><span class="nx">console</span><span class="w">
+</span><span class="nf">enable</span><span class="w"> </span><span class="nx">secret</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="o">*</span><span class="nx">strEnablesecret</span><span class="o">*</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">username</span><span class="w"> </span><span class="o">*</span><span class="nx">strUsername</span><span class="o">*</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="o">*</span><span class="nx">strUserpassword</span><span class="o">*</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">aaa</span><span class="w"> </span><span class="nx">new-model</span><span class="w">
+</span><span class="nf">clock</span><span class="w"> </span><span class="nx">timezone</span><span class="w"> </span><span class="nx">CDT</span><span class="w"> </span><span class="nt">-6</span><span class="w">
+</span><span class="nf">clock</span><span class="w"> </span><span class="nx">summer-time</span><span class="w"> </span><span class="nx">CST</span><span class="w"> </span><span class="nx">recurring</span><span class="w">
+</span><span class="nf">system</span><span class="w"> </span><span class="nx">mtu</span><span class="w"> </span><span class="nx">routing</span><span class="w"> </span><span class="nx">1500</span><span class="w">
+</span><span class="nf">vtp</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">transparent</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">subnet-zero</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">finger</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">source-route</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">gratuitous-arps</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">domain-lookup</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">domain-name</span><span class="w"> </span><span class="o">*</span><span class="nx">strDomainname</span><span class="o">*</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">name-server</span><span class="w"> </span><span class="o">*</span><span class="nx">strPrimarydns</span><span class="o">*</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">name-server</span><span class="w"> </span><span class="o">*</span><span class="nx">strSecondarydns</span><span class="o">*</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">crypto</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="nx">generate</span><span class="w"> </span><span class="nx">rsa</span><span class="w">
+</span><span class="mi">1024</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">rapid-pvst</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">spanning-tree</span><span class="w"> </span><span class="nx">optimize</span><span class="w"> </span><span class="nx">bpdu</span><span class="w"> </span><span class="nx">transmission</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">extend</span><span class="w"> </span><span class="nx">system-id</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">uplinkfast</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">vlan</span><span class="w"> </span><span class="nx">internal</span><span class="w"> </span><span class="nx">allocation</span><span class="w"> </span><span class="nx">policy</span><span class="w"> </span><span class="nx">ascending</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">name</span><span class="w"> </span><span class="c">####_Data_VLAN_####
+</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nx">time-out</span><span class="w"> </span><span class="nx">60</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nx">version</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">ssh</span><span class="w"> </span><span class="nx">authentication-retries</span><span class="w"> </span><span class="nx">3</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">FastEthernet0/1</span><span class="w">
+</span><span class="nf">description</span><span class="w"> </span><span class="c">#### UPS ####
+</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">access</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">nonegotiate</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">portfast</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">bpduguard</span><span class="w"> </span><span class="nx">enable</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">max-mac-count</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="nx">shutdown</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">FastEthernet0/2</span><span class="w">
+</span><span class="nf">description</span><span class="w"> </span><span class="c">#### Print Server ####
+</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">access</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">nonegotiate</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">portfast</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">bpduguard</span><span class="w"> </span><span class="nx">enable</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">max-mac-count</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="nx">shutdown</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">range</span><span class="w"> </span><span class="nx">FastEthernet0/3</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="o">*</span><span class="nx">strPortnumber</span><span class="o">*</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">access</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">nonegotiate</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">portfast</span><span class="w">
+</span><span class="nf">spanning-tree</span><span class="w"> </span><span class="nx">bpduguard</span><span class="w"> </span><span class="nx">enable</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">max-mac-count</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">port-security</span><span class="w"> </span><span class="nx">action</span><span class="w"> </span><span class="nx">shutdown</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">range</span><span class="w"> </span><span class="nx">GigabitEthernet0/1</span><span class="w"> </span><span class="nf">-</span><span class="w"> </span><span class="nx">2</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">trunk</span><span class="w"> </span><span class="nx">encapsulation</span><span class="w"> </span><span class="nx">dot1q</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">trunk</span><span class="w"> </span><span class="nx">native</span><span class="w"> </span><span class="nx">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="nx">trunk</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">trunk</span><span class="w"> </span><span class="nx">allowed</span><span class="w"> </span><span class="nx">vlan</span><span class="w"> </span><span class="nx">192</span><span class="w">
+</span><span class="nf">switchport</span><span class="w"> </span><span class="nx">nonegotiate</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">Vlan1</span><span class="w">
+</span><span class="nf">description</span><span class="w"> </span><span class="c">#### Default VLAN - Do NOT use ####
+</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">address</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">route-cache</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">redirects</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">unreachables</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">proxy-arp</span><span class="w">
+</span><span class="nf">shutdown</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="kr">interface</span><span class="w"> </span><span class="nf">Vlan192</span><span class="w">
+</span><span class="nf">description</span><span class="w"> </span><span class="c">#### Management Interface ####
+</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">address</span><span class="w"> </span><span class="o">*</span><span class="nx">strManagementip</span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="nx">strManagementnetmask</span><span class="o">*</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">redirects</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">unreachables</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">proxy-arp</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">route-cache</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">ip</span><span class="w"> </span><span class="nx">default-gateway</span><span class="w"> </span><span class="o">*</span><span class="nx">strDefaultgateway</span><span class="o">*</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">http</span><span class="w"> </span><span class="nx">server</span><span class="w">
+</span><span class="nf">no</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="nx">http</span><span class="w"> </span><span class="nx">secure-server</span><span class="w">
+</span><span class="nf">logging</span><span class="w"> </span><span class="nx">facility</span><span class="w"> </span><span class="nx">local6</span><span class="w">
+</span><span class="nf">logging</span><span class="w"> </span><span class="nx">strSyslog-server</span><span class="w">
+</span><span class="nf">snmp-server</span><span class="w"> </span><span class="nx">community</span><span class="w"> </span><span class="o">*</span><span class="nx">strSnmp-communityreadonly</span><span class="o">*</span><span class="w"> </span><span class="nx">RO</span><span class="w">
+</span><span class="nf">snmp-server</span><span class="w"> </span><span class="nx">community</span><span class="w"> </span><span class="o">*</span><span class="nx">strSnmp-communityreadwrite</span><span class="o">*</span><span class="w"> </span><span class="nx">RW</span><span class="w">
+</span><span class="nf">snmp-server</span><span class="w"> </span><span class="nx">location</span><span class="w"> </span><span class="o">*</span><span class="nx">strLocation</span><span class="o">*</span><span class="w">
+</span><span class="nf">snmp-server</span><span class="w"> </span><span class="nx">chassis-id</span><span class="w"> </span><span class="nx">sn</span><span class="c"># *strDevicesn* Asset# *strDeviceassettag*
+</span><span class="w">
+</span><span class="nf">snmp</span><span class="w"> </span><span class="nx">ifmib</span><span class="w"> </span><span class="nx">ifindex</span><span class="w"> </span><span class="nx">persist</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">banner</span><span class="w"> </span><span class="nx">motd</span><span class="w"> </span><span class="o">%</span><span class="w">
+</span><span class="o">*</span><span class="nf">strDevicename</span><span class="o">*</span><span class="w">   </span><span class="o">*</span><span class="nx">strLocation</span><span class="o">*</span><span class="w">
+</span><span class="nf">NOTICE</span><span class="w"> </span><span class="nx">TO</span><span class="w"> </span><span class="nx">USERS</span><span class="w">
+</span><span class="c">###############################################################
+</span><span class="w">
+</span><span class="nf">This</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">official</span><span class="w"> </span><span class="nx">computer</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">property</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w">
+</span><span class="o">*</span><span class="nf">strOrganization</span><span class="o">*.</span><span class="w"> </span><span class="nx">It</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">for</span><span class="w"> </span><span class="nx">authorized</span><span class="w"> </span><span class="nx">users</span><span class="w"> </span><span class="nx">only.</span><span class="w">
+</span><span class="nf">Unauthorized</span><span class="w"> </span><span class="nx">users</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">prohibited.</span><span class="w"> </span><span class="nx">Users</span><span class="w"> </span><span class="p">(</span><span class="nf">authorized</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">unauthorized</span><span class="p">)</span><span class="w">
+</span><span class="nf">have</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">explicit</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">implicit</span><span class="w"> </span><span class="nx">expectation</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">privacy.</span><span class="w"> </span><span class="nx">Any</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">uses</span><span class="w">
+</span><span class="nf">of</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">subject</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">following</span><span class="w"> </span><span class="nx">actions:</span><span class="w">
+</span><span class="nf">interception</span><span class="p">,</span><span class="w">  </span><span class="nx">monitoring</span><span class="p">,</span><span class="w"> </span><span class="nx">recording</span><span class="p">,</span><span class="w"> </span><span class="nx">auditing</span><span class="p">,</span><span class="w"> </span><span class="nx">inspection</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">disclosing</span><span class="w">
+</span><span class="nf">to</span><span class="w"> </span><span class="nx">security</span><span class="w"> </span><span class="nx">personnel</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">law</span><span class="w"> </span><span class="nx">enforcement</span><span class="w"> </span><span class="nx">personnel</span><span class="p">,</span><span class="w"> </span><span class="nx">as</span><span class="w"> </span><span class="nx">well</span><span class="w"> </span><span class="nx">as</span><span class="w"> </span><span class="nx">authorized</span><span class="w">
+</span><span class="nf">officials</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">other</span><span class="w"> </span><span class="nx">agencies</span><span class="p">,</span><span class="w"> </span><span class="nx">both</span><span class="w"> </span><span class="nx">domestic</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">foreign.</span><span class="w"> </span><span class="nx">By</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">this</span><span class="w">
+</span><span class="nf">system</span><span class="p">,</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="nx">consents</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">these</span><span class="w"> </span><span class="nx">actions.</span><span class="w"> </span><span class="nx">Unauthorized</span><span class="w"> </span><span class="nx">or</span><span class="w"> </span><span class="nx">improper</span><span class="w">
+</span><span class="nf">use</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">administrative</span><span class="w"> </span><span class="nx">disciplinary</span><span class="w"> </span><span class="nx">action</span><span class="w">
+</span><span class="nf">and</span><span class="w"> </span><span class="nx">civil</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">criminal</span><span class="w"> </span><span class="nx">penalties.</span><span class="w"> </span><span class="nx">By</span><span class="w"> </span><span class="nx">accessing</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">system</span><span class="w"> </span><span class="nx">you</span><span class="w">
+</span><span class="nf">indicate</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">awareness</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">consent</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">these</span><span class="w"> </span><span class="nx">terms</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">conditions</span><span class="w">
+</span><span class="nf">of</span><span class="w"> </span><span class="nx">use.</span><span class="w"> </span><span class="nx">Discontinue</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">immediately</span><span class="w"> </span><span class="nx">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">do</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">agree</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w">
+</span><span class="nf">conditions</span><span class="w"> </span><span class="nx">stated</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">notice.</span><span class="err">^</span><span class="w">
+</span><span class="c">###############################################################
+</span><span class="w">
+</span><span class="o">%</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">line</span><span class="w"> </span><span class="nx">con</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="nf">exec-timeout</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="nf">password</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="o">*</span><span class="nx">strConsolepassword</span><span class="o">*</span><span class="w">
+</span><span class="nf">logging</span><span class="w"> </span><span class="nx">synchronous</span><span class="w">
+</span><span class="nf">login</span><span class="w"> </span><span class="nx">local</span><span class="w">
+</span><span class="nf">line</span><span class="w"> </span><span class="nx">vty</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="nx">4</span><span class="w">
+</span><span class="nf">exec-timeout</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="nf">password</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="o">*</span><span class="nx">strVtypassword</span><span class="o">*</span><span class="w">
+</span><span class="nf">logging</span><span class="w"> </span><span class="nx">synchronous</span><span class="w">
+</span><span class="nf">login</span><span class="w"> </span><span class="nx">local</span><span class="w">
+</span><span class="nf">transport</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="nx">ssh</span><span class="w">
+</span><span class="nf">line</span><span class="w"> </span><span class="nx">vty</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="nx">15</span><span class="w">
+</span><span class="nf">exec-timeout</span><span class="w"> </span><span class="nx">5</span><span class="w"> </span><span class="nx">0</span><span class="w">
+</span><span class="nf">password</span><span class="w"> </span><span class="nx">0</span><span class="w"> </span><span class="o">*</span><span class="nx">strVtypassword</span><span class="o">*</span><span class="w">
+</span><span class="nf">logging</span><span class="w"> </span><span class="nx">synchronous</span><span class="w">
+</span><span class="nf">login</span><span class="w"> </span><span class="nx">local</span><span class="w">
+</span><span class="nf">transport</span><span class="w"> </span><span class="nx">input</span><span class="w"> </span><span class="nx">ssh</span><span class="w">
+</span><span class="o">!</span><span class="w">
+</span><span class="nf">ntp</span><span class="w"> </span><span class="nx">server</span><span class="w"> </span><span class="o">*</span><span class="nx">strNtpserver</span><span class="o">*</span><span class="w">
+</span><span class="kr">end</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/19/Secure-Switch-Template.html" hidden></a>

@@ -47,7 +47,7 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Mount a Windows file share in Linux from the CLI:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">mount</span> <span class="o">-</span><span class="n">t</span> <span class="n">cifs</span> <span class="o">-</span><span class="n">o</span> <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">password</span> <span class="sr">//</span><span class="n">host</span><span class="o">-</span><span class="no">IP</span><span class="o">/</span><span class="n">sharename</span> <span class="sr">/media/s</span><span class="n">hare</span><span class="s2">"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">mount</span><span class="w"> </span><span class="nt">-t</span><span class="w"> </span><span class="nx">cifs</span><span class="w"> </span><span class="nt">-o</span><span class="w"> </span><span class="nx">user</span><span class="o">=</span><span class="nf">username</span><span class="p">,</span><span class="nx">password</span><span class="o">=</span><span class="nf">password</span><span class="w"> </span><span class="nx">//host-IP/sharename</span><span class="w"> </span><span class="nx">/media/share</span><span class="s2">"</span></code></pre></figure>
 
 <p>Notice to Windows users: These are forward slashes instead of back slashes. Not a typo.</p>
 

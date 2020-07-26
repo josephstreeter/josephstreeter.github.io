@@ -49,39 +49,40 @@
 
 <p>It seems to work, but I haven’t done a restore yet.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/bin/bash#Set Variables
-</span>
-<span class="no">DATE</span><span class="o">=</span><span class="sb">`date +%Y%m%d`</span>
-<span class="no">FILENAME</span><span class="o">=</span><span class="s2">"cacti_database_$DATE.sql"</span><span class="p">;</span>
-<span class="no">BACKUPDIR</span><span class="o">=</span><span class="s2">"/backup/"</span><span class="p">;</span>
-<span class="no">TGZFILENAME</span><span class="o">=</span><span class="s2">"cacti_files_$DATE.tgz"</span><span class="p">;</span>
-<span class="no">DBUSER</span><span class="o">=</span><span class="s2">"&lt;dbuser&gt;"</span><span class="p">;</span>
-<span class="no">DBPWD</span><span class="o">=</span><span class="s2">"&lt;dbpassword&gt;"</span><span class="p">;</span>
-<span class="no">DBNAME</span><span class="o">=</span><span class="s2">"cacti"</span><span class="p">;</span>
-<span class="no">GZIP</span><span class="o">=</span><span class="s2">"/bin/gzip -f"</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c">#!/bin/bash#Set Variables
+</span><span class="w">
+</span><span class="nf">DATE</span><span class="o">=</span><span class="err">`</span><span class="nf">date</span><span class="w"> </span><span class="o">+%</span><span class="nx">Y</span><span class="o">%</span><span class="nx">m</span><span class="o">%</span><span class="nx">d</span><span class="se">`
+</span><span class="w">
+</span><span class="nf">FILENAME</span><span class="o">=</span><span class="s2">"cacti_database_</span><span class="nv">$DATE</span><span class="s2">.sql"</span><span class="p">;</span><span class="w">
+</span><span class="nf">BACKUPDIR</span><span class="o">=</span><span class="s2">"/backup/"</span><span class="p">;</span><span class="w">
+</span><span class="nf">TGZFILENAME</span><span class="o">=</span><span class="s2">"cacti_files_</span><span class="nv">$DATE</span><span class="s2">.tgz"</span><span class="p">;</span><span class="w">
+</span><span class="nf">DBUSER</span><span class="o">=</span><span class="s2">"&lt;dbuser&gt;"</span><span class="p">;</span><span class="w">
+</span><span class="nf">DBPWD</span><span class="o">=</span><span class="s2">"&lt;dbpassword&gt;"</span><span class="p">;</span><span class="w">
+</span><span class="nf">DBNAME</span><span class="o">=</span><span class="s2">"cacti"</span><span class="p">;</span><span class="w">
+</span><span class="nf">GZIP</span><span class="o">=</span><span class="s2">"/bin/gzip -f"</span><span class="p">;</span><span class="w">
 
-<span class="n">cd</span> <span class="o">/</span>
+</span><span class="nf">cd</span><span class="w"> </span><span class="nx">/</span><span class="w">
 
-<span class="c1">#Remove files older than 3 days
-</span>
-<span class="n">find</span> <span class="sr">/backup/</span><span class="n">cacti_</span><span class="o">*</span><span class="n">gz</span> <span class="o">-</span><span class="n">mtime</span> <span class="o">+</span><span class="mi">3</span> <span class="o">-</span><span class="nb">exec</span> <span class="n">rm</span> <span class="p">{}</span> <span class="p">\;</span>
+</span><span class="c">#Remove files older than 3 days
+</span><span class="w">
+</span><span class="nf">find</span><span class="w"> </span><span class="nx">/backup/cacti_</span><span class="o">*</span><span class="nx">gz</span><span class="w"> </span><span class="nt">-mtime</span><span class="w"> </span><span class="o">+</span><span class="nx">3</span><span class="w"> </span><span class="nt">-exec</span><span class="w"> </span><span class="nx">rm</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="nf">\</span><span class="p">;</span><span class="w">
 
-<span class="c1">#Backup Cacti Database
-</span>
-<span class="n">mysqldump</span> <span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="vg">$DBUSER</span> <span class="o">--</span><span class="n">password</span><span class="o">=</span><span class="vg">$DBPWD</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">drop</span><span class="o">-</span><span class="n">table</span> <span class="o">--</span><span class="n">databases</span> <span class="vg">$DBNAME</span> <span class="o">&gt;</span> <span class="vg">$BACKUPDIR$FILENAME</span>
-<span class="vg">$GZIP</span> <span class="vg">$BACKUPDIR$FILENAME</span>
+</span><span class="c">#Backup Cacti Database
+</span><span class="w">
+</span><span class="nf">mysqldump</span><span class="w"> </span><span class="nt">--user</span><span class="o">=</span><span class="nv">$DBUSER</span><span class="w"> </span><span class="nt">--password</span><span class="o">=</span><span class="nv">$DBPWD</span><span class="w"> </span><span class="nt">--add-drop-table</span><span class="w"> </span><span class="nt">--databases</span><span class="w"> </span><span class="nv">$DBNAME</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nv">$BACKUPDIR$FILENAME</span><span class="w">
+</span><span class="nv">$GZIP</span><span class="w"> </span><span class="nv">$BACKUPDIR$FILENAME</span><span class="w">
 
-<span class="c1">#Backup Important Files
-</span>
-<span class="n">tar</span> <span class="o">-</span><span class="n">csvpf</span> <span class="vg">$BACKUPDIR$TGZFILENAME</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cron</span><span class="p">.</span><span class="nf">d</span><span class="o">/</span><span class="n">cacti</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php5</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">php</span><span class="p">.</span><span class="nf">ini</span> <span class="p">.</span><span class="nf">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">default</span> <span class="p">.</span><span class="nf">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">cacti</span></code></pre></figure>
+</span><span class="c">#Backup Important Files
+</span><span class="w">
+</span><span class="nf">tar</span><span class="w"> </span><span class="nt">-csvpf</span><span class="w"> </span><span class="nv">$BACKUPDIR$TGZFILENAME</span><span class="w"> </span><span class="o">.</span><span class="nx">/etc/cron.d/cacti</span><span class="w"> </span><span class="o">.</span><span class="nx">/etc/php5/apache2/php.ini</span><span class="w"> </span><span class="o">.</span><span class="nx">/etc/apache2/sites-available/default</span><span class="w"> </span><span class="o">.</span><span class="nx">/usr/share/cacti</span></code></pre></figure>
 
 <p>Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space.</p>
 
 <p>Schedule the script to run daily at 2:00am by creating “/etc/cron.d/cactibackup” with the following lines:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1"># Cacti backup Schedule
-</span>
-<span class="mi">0</span> <span class="mi">2</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="n">root</span> <span class="sr">/bin/</span><span class="n">bash</span> <span class="sr">/backup/</span><span class="n">backupcacti</span><span class="p">.</span><span class="nf">sh</span> <span class="o">&gt;</span> <span class="sr">/dev/nu</span><span class="n">ll</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="n">amp</span><span class="p">;</span><span class="mi">1</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="c"># Cacti backup Schedule
+</span><span class="w">
+</span><span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">root</span><span class="w"> </span><span class="nx">/bin/bash</span><span class="w"> </span><span class="nx">/backup/backupcacti.sh</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="nx">/dev/null</span><span class="w"> </span><span class="nx">2</span><span class="err">&gt;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="mi">1</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2012/10/18/Cacti-Backup.html" hidden></a>

@@ -47,8 +47,8 @@
   <div class="post-content e-content" itemprop="articleBody">
     <p>Here is a PowerShell script that will find the process using the most CPU and then kills that process.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="vg">$strProc</span> <span class="o">=</span> <span class="n">gps</span> <span class="o">|</span> <span class="n">sort</span> <span class="n">cpu</span> <span class="o">-</span><span class="n">desc</span> <span class="o">|</span> <span class="nb">select</span> <span class="o">-</span><span class="n">first</span> <span class="mi">1</span>
-<span class="vg">$strProc</span><span class="p">.</span><span class="nf">kill</span><span class="p">()</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nv">$strProc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">gps</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">sort</span><span class="w"> </span><span class="nx">cpu</span><span class="w"> </span><span class="nt">-desc</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">select</span><span class="w"> </span><span class="nt">-first</span><span class="w"> </span><span class="nx">1</span><span class="w">
+</span><span class="nv">$strProc</span><span class="o">.</span><span class="nf">kill</span><span class="p">()</span></code></pre></figure>
 
 <p>Schedule it to run every once in a while and let it go. I think I would like to narrow the list if processes that it could shut off though.</p>
 

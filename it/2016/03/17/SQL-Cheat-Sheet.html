@@ -48,88 +48,88 @@
     <p>A place to save the SQL queries that I constantly have to Google.</p>
 <h3 id="select-statements">SELECT Statements</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">SELECT</span> <span class="o">*</span>
-<span class="no">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
-<span class="no">WHERE</span> <span class="p">(</span><span class="n">column</span> <span class="o">=</span> <span class="s1">'value1'</span><span class="p">)</span> <span class="no">AND</span> <span class="p">(</span><span class="no">Column</span> <span class="o">=</span> <span class="s1">'value2'</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
+</span><span class="nf">WHERE</span><span class="w"> </span><span class="p">(</span><span class="nf">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'value1'</span><span class="p">)</span><span class="w"> </span><span class="nf">AND</span><span class="w"> </span><span class="p">(</span><span class="nf">Column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'value2'</span><span class="p">)</span><span class="w">
 
-<span class="no">SELECT</span> <span class="no">DISTINCT</span> <span class="p">[</span><span class="n">column</span><span class="p">]</span>
-<span class="no">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="nx">DISTINCT</span><span class="w"> </span><span class="p">[</span><span class="kt">column</span><span class="p">]</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
 
-<span class="no">SELECT</span> <span class="n">column1</span><span class="p">,</span> <span class="no">COUNT</span><span class="p">(</span><span class="n">column2</span><span class="p">)</span>
-<span class="no">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
-<span class="no">GROUP</span> <span class="no">BY</span> <span class="n">email</span>
-<span class="no">HAVING</span> <span class="p">(</span> <span class="no">COUNT</span><span class="p">(</span><span class="n">email</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="nx">column1</span><span class="p">,</span><span class="w"> </span><span class="nx">COUNT</span><span class="p">(</span><span class="nf">column2</span><span class="p">)</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
+</span><span class="nf">GROUP</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="nx">email</span><span class="w">
+</span><span class="nf">HAVING</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nf">COUNT</span><span class="p">(</span><span class="nf">email</span><span class="p">)</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w">
 
-<span class="no">DECLARE</span> <span class="vi">@Temp</span> <span class="no">TABLE</span> <span class="p">(</span><span class="no">NAME</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
-<span class="no">INSERT</span> <span class="no">INTO</span> <span class="vi">@Temp</span> <span class="p">(</span><span class="no">NAME</span><span class="p">)</span>
-<span class="no">SELECT</span> <span class="n">accountName</span> <span class="o">--</span><span class="p">,</span> <span class="no">COUNT</span><span class="p">(</span><span class="no">AccountName</span><span class="p">)</span> <span class="no">AS</span> <span class="no">Count</span>
-<span class="no">FROM</span> <span class="p">[</span><span class="no">StagingDirectory</span><span class="p">].</span><span class="nf">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="no">Identities</span><span class="p">]</span>
-<span class="no">GROUP</span> <span class="no">BY</span> <span class="n">accountName</span>
-<span class="no">HAVING</span> <span class="p">(</span> <span class="no">COUNT</span><span class="p">(</span><span class="n">accountName</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+</span><span class="nf">DECLARE</span><span class="w"> </span><span class="err">@</span><span class="nx">Temp</span><span class="w"> </span><span class="nx">TABLE</span><span class="w"> </span><span class="p">(</span><span class="nf">NAME</span><span class="w"> </span><span class="nx">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w">
+</span><span class="nf">INSERT</span><span class="w"> </span><span class="nx">INTO</span><span class="w"> </span><span class="err">@</span><span class="nx">Temp</span><span class="w"> </span><span class="p">(</span><span class="nf">NAME</span><span class="p">)</span><span class="w">
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="nx">accountName</span><span class="w"> </span><span class="nf">--</span><span class="p">,</span><span class="w"> </span><span class="nx">COUNT</span><span class="p">(</span><span class="nf">AccountName</span><span class="p">)</span><span class="w"> </span><span class="nf">AS</span><span class="w"> </span><span class="nx">Count</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="p">[</span><span class="kt">StagingDirectory</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">Identities</span><span class="p">]</span><span class="w">
+</span><span class="nf">GROUP</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="nx">accountName</span><span class="w">
+</span><span class="nf">HAVING</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="nf">COUNT</span><span class="p">(</span><span class="nf">accountName</span><span class="p">)</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w">
 
-<span class="no">SELECT</span> <span class="p">[</span><span class="n">accountName</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">lastName</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">firstName</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">initials</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">employeeID</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">employeeStatus</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">employeeType</span><span class="p">]</span>
-<span class="p">,[</span><span class="n">employeeNumber</span><span class="p">]</span>
-<span class="no">FROM</span> <span class="vi">@Temp</span> <span class="no">Temp</span>
-<span class="no">JOIN</span> <span class="no">Identities</span>
-<span class="no">ON</span> <span class="no">Temp</span><span class="p">.</span><span class="nf">name</span><span class="o">=</span><span class="no">Identities</span><span class="p">.</span><span class="nf">accountname</span>
-<span class="no">ORDER</span> <span class="no">BY</span> <span class="n">accountName</span></code></pre></figure>
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="p">[</span><span class="kt">accountName</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">lastName</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">firstName</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">initials</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">employeeID</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">employeeStatus</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">employeeType</span><span class="p">]</span><span class="w">
+</span><span class="p">,[</span><span class="kt">employeeNumber</span><span class="p">]</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="err">@</span><span class="nf">Temp</span><span class="w"> </span><span class="nx">Temp</span><span class="w">
+</span><span class="nf">JOIN</span><span class="w"> </span><span class="nx">Identities</span><span class="w">
+</span><span class="nf">ON</span><span class="w"> </span><span class="nx">Temp.name</span><span class="o">=</span><span class="nf">Identities.accountname</span><span class="w">
+</span><span class="nf">ORDER</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="nx">accountName</span></code></pre></figure>
 
 <h3 id="update-statements">UPDATE Statements</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">UPDATE</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
-<span class="no">SET</span> <span class="n">column</span><span class="o">=</span><span class="s1">'value'</span>
-<span class="no">WHERE</span> <span class="n">column</span><span class="o">=</span><span class="s1">'value'</span><span class="p">;</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">UPDATE</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
+</span><span class="nf">SET</span><span class="w"> </span><span class="nx">column</span><span class="o">=</span><span class="s1">'value'</span><span class="w">
+</span><span class="nf">WHERE</span><span class="w"> </span><span class="nx">column</span><span class="o">=</span><span class="s1">'value'</span><span class="p">;</span><span class="w">
 
-<span class="no">UPDATE</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
-<span class="no">SET</span> <span class="no">Column</span> <span class="o">=</span> <span class="no">REPLACE</span><span class="p">(</span><span class="no">Column</span><span class="p">,</span><span class="s1">'xx'</span><span class="p">,</span><span class="s1">'XX'</span><span class="p">)</span></code></pre></figure>
+</span><span class="nf">UPDATE</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
+</span><span class="nf">SET</span><span class="w"> </span><span class="nx">Column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">REPLACE</span><span class="p">(</span><span class="nf">Column</span><span class="p">,</span><span class="s1">'xx'</span><span class="p">,</span><span class="s1">'XX'</span><span class="p">)</span></code></pre></figure>
 
 <h2 id="insert-statements">INSERT Statements</h2>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">INSERT</span> <span class="no">INTO</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span> <span class="p">(</span><span class="n">column1</span><span class="p">,</span><span class="n">column2</span><span class="p">,</span><span class="n">column3</span><span class="p">)</span>
-<span class="no">VALUES</span> <span class="p">(</span><span class="s1">'value1'</span><span class="p">,</span><span class="s1">'value2'</span><span class="p">,</span><span class="s1">'value3'</span><span class="p">);</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">INSERT</span><span class="w"> </span><span class="nx">INTO</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">column1</span><span class="p">,</span><span class="nx">column2</span><span class="p">,</span><span class="nx">column3</span><span class="p">)</span><span class="w">
+</span><span class="nf">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">'value1'</span><span class="p">,</span><span class="s1">'value2'</span><span class="p">,</span><span class="s1">'value3'</span><span class="p">);</span></code></pre></figure>
 
 <h3 id="delete-statements">DELETE Statements</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">DELETE</span> <span class="no">FROM</span> <span class="p">[</span><span class="n">dbo</span><span class="p">].</span><span class="nf">[</span><span class="n">table</span><span class="p">]</span>
-<span class="no">WHERE</span> <span class="n">column</span> <span class="o">=</span> <span class="s1">'value'</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">DELETE</span><span class="w"> </span><span class="nx">FROM</span><span class="w"> </span><span class="p">[</span><span class="kt">dbo</span><span class="p">]</span><span class="o">.</span><span class="p">[</span><span class="kt">table</span><span class="p">]</span><span class="w">
+</span><span class="nf">WHERE</span><span class="w"> </span><span class="nx">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'value'</span></code></pre></figure>
 
 <h3 id="merge-statements">MERGE Statements</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">BEGIN</span> <span class="no">TRAN</span><span class="p">;</span>
-<span class="no">MERGE</span> <span class="no">Target</span> <span class="no">AS</span> <span class="no">T</span>
-<span class="no">USING</span> <span class="no">Source</span> <span class="no">AS</span> <span class="no">S</span>
-<span class="no">ON</span> <span class="p">(</span><span class="no">T</span><span class="o">.</span><span class="no">EmployeeID</span> <span class="o">=</span> <span class="no">S</span><span class="o">.</span><span class="no">EmployeeID</span><span class="p">)</span>
-<span class="no">WHEN</span> <span class="no">NOT</span> <span class="no">MATCHED</span> <span class="no">BY</span> <span class="no">TARGET</span> <span class="no">AND</span> <span class="no">S</span><span class="o">.</span><span class="no">EmployeeName</span> <span class="no">LIKE</span> <span class="s1">'S%'</span>
-<span class="no">THEN</span> <span class="no">INSERT</span><span class="p">(</span><span class="no">EmployeeID</span><span class="p">,</span> <span class="no">EmployeeName</span><span class="p">)</span> <span class="no">VALUES</span><span class="p">(</span><span class="no">S</span><span class="o">.</span><span class="no">EmployeeID</span><span class="p">,</span> <span class="no">S</span><span class="o">.</span><span class="no">EmployeeName</span><span class="p">)</span>
-<span class="no">WHEN</span> <span class="no">MATCHED</span>
-<span class="no">THEN</span> <span class="no">UPDATE</span> <span class="no">SET</span> <span class="no">T</span><span class="o">.</span><span class="no">EmployeeName</span> <span class="o">=</span> <span class="no">S</span><span class="o">.</span><span class="no">EmployeeName</span>
-<span class="no">WHEN</span> <span class="no">NOT</span> <span class="no">MATCHED</span> <span class="no">BY</span> <span class="no">SOURCE</span> <span class="no">AND</span> <span class="no">T</span><span class="o">.</span><span class="no">EmployeeName</span> <span class="no">LIKE</span> <span class="s1">'S%'</span>
-<span class="no">THEN</span> <span class="no">DELETE</span>
-<span class="no">OUTPUT</span> <span class="vg">$action</span><span class="p">,</span> <span class="n">inserted</span><span class="p">.</span><span class="nf">*</span><span class="p">,</span> <span class="n">deleted</span><span class="p">.</span><span class="nf">*</span><span class="p">;</span>
-<span class="no">ROLLBACK</span> <span class="no">TRAN</span><span class="p">;</span>
-<span class="no">GO</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="kr">BEGIN</span><span class="w"> </span><span class="nf">TRAN</span><span class="p">;</span><span class="w">
+</span><span class="nf">MERGE</span><span class="w"> </span><span class="nx">Target</span><span class="w"> </span><span class="nx">AS</span><span class="w"> </span><span class="nx">T</span><span class="w">
+</span><span class="kr">USING</span><span class="w"> </span><span class="nf">Source</span><span class="w"> </span><span class="nx">AS</span><span class="w"> </span><span class="nx">S</span><span class="w">
+</span><span class="nf">ON</span><span class="w"> </span><span class="p">(</span><span class="nf">T.EmployeeID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">S.EmployeeID</span><span class="p">)</span><span class="w">
+</span><span class="nf">WHEN</span><span class="w"> </span><span class="nx">NOT</span><span class="w"> </span><span class="nx">MATCHED</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="nx">TARGET</span><span class="w"> </span><span class="nx">AND</span><span class="w"> </span><span class="nx">S.EmployeeName</span><span class="w"> </span><span class="nx">LIKE</span><span class="w"> </span><span class="s1">'S%'</span><span class="w">
+</span><span class="nf">THEN</span><span class="w"> </span><span class="nx">INSERT</span><span class="p">(</span><span class="nf">EmployeeID</span><span class="p">,</span><span class="w"> </span><span class="nx">EmployeeName</span><span class="p">)</span><span class="w"> </span><span class="nf">VALUES</span><span class="p">(</span><span class="nf">S.EmployeeID</span><span class="p">,</span><span class="w"> </span><span class="nx">S.EmployeeName</span><span class="p">)</span><span class="w">
+</span><span class="nf">WHEN</span><span class="w"> </span><span class="nx">MATCHED</span><span class="w">
+</span><span class="nf">THEN</span><span class="w"> </span><span class="nx">UPDATE</span><span class="w"> </span><span class="nx">SET</span><span class="w"> </span><span class="nx">T.EmployeeName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">S.EmployeeName</span><span class="w">
+</span><span class="nf">WHEN</span><span class="w"> </span><span class="nx">NOT</span><span class="w"> </span><span class="nx">MATCHED</span><span class="w"> </span><span class="nx">BY</span><span class="w"> </span><span class="nx">SOURCE</span><span class="w"> </span><span class="nx">AND</span><span class="w"> </span><span class="nx">T.EmployeeName</span><span class="w"> </span><span class="nx">LIKE</span><span class="w"> </span><span class="s1">'S%'</span><span class="w">
+</span><span class="nf">THEN</span><span class="w"> </span><span class="nx">DELETE</span><span class="w">
+</span><span class="nf">OUTPUT</span><span class="w"> </span><span class="nv">$action</span><span class="p">,</span><span class="w"> </span><span class="nx">inserted.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="nx">deleted.</span><span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="nf">ROLLBACK</span><span class="w"> </span><span class="nx">TRAN</span><span class="p">;</span><span class="w">
+</span><span class="nf">GO</span></code></pre></figure>
 
 <h3 id="copy-table-data">Copy Table Data</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">INSERT</span> <span class="no">INTO</span> <span class="n">dbo</span><span class="o">.</span><span class="no">Table2</span>
-<span class="no">SELECT</span> <span class="o">*</span>
-<span class="no">FROM</span> <span class="n">dob</span><span class="o">.</span><span class="no">Table1</span><span class="p">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">INSERT</span><span class="w"> </span><span class="nx">INTO</span><span class="w"> </span><span class="nx">dbo.Table2</span><span class="w">
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="nf">dob.Table1</span><span class="p">;</span></code></pre></figure>
 
 <h3 id="list-columns-in-a-table">List Columns in a Table</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">SELECT</span> <span class="no">COLUMN_NAME</span><span class="p">,</span> <span class="no">DATA_TYPE</span><span class="p">,</span> <span class="no">CHARACTER_MAXIMUM_LENGTH</span>
-<span class="no">FROM</span> <span class="no">INFORMATION_SCHEMA</span><span class="o">.</span><span class="no">COLUMNS</span>
-<span class="no">WHERE</span> <span class="no">TABLE_NAME</span> <span class="o">=</span> <span class="s1">'TableName'</span>
+<figure class="highlight"><pre><code class="language-powershell" data-lang="powershell"><span class="nf">SELECT</span><span class="w"> </span><span class="nx">COLUMN_NAME</span><span class="p">,</span><span class="w"> </span><span class="nx">DATA_TYPE</span><span class="p">,</span><span class="w"> </span><span class="nx">CHARACTER_MAXIMUM_LENGTH</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="nf">INFORMATION_SCHEMA.COLUMNS</span><span class="w">
+</span><span class="nf">WHERE</span><span class="w"> </span><span class="nx">TABLE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'TableName'</span><span class="w">
 
-<span class="no">SELECT</span> <span class="no">COLUMN_NAME</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="no">DATA_TYPE</span> <span class="o">+</span> <span class="s1">'('</span> <span class="o">+</span> <span class="no">CAST</span><span class="p">(</span><span class="no">CHARACTER_MAXIMUM_LENGTH</span> <span class="no">AS</span> <span class="n">varchar</span><span class="p">)</span> <span class="o">+</span> <span class="s1">')'</span> <span class="no">AS</span> <span class="no">Columns</span>
-<span class="no">FROM</span> <span class="no">INFORMATION_SCHEMA</span><span class="o">.</span><span class="no">COLUMNS</span>
-<span class="no">WHERE</span> <span class="no">TABLE_NAME</span> <span class="o">=</span> <span class="s1">'TableName'</span></code></pre></figure>
+</span><span class="nf">SELECT</span><span class="w"> </span><span class="nx">COLUMN_NAME</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">' '</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">DATA_TYPE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">'('</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">CAST</span><span class="p">(</span><span class="nf">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="nx">AS</span><span class="w"> </span><span class="nx">varchar</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">')'</span><span class="w"> </span><span class="nf">AS</span><span class="w"> </span><span class="nx">Columns</span><span class="w">
+</span><span class="kr">FROM</span><span class="w"> </span><span class="nf">INFORMATION_SCHEMA.COLUMNS</span><span class="w">
+</span><span class="nf">WHERE</span><span class="w"> </span><span class="nx">TABLE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'TableName'</span></code></pre></figure>
 
 
   </div><a class="u-url" href="/it/2016/03/17/SQL-Cheat-Sheet.html" hidden></a>
