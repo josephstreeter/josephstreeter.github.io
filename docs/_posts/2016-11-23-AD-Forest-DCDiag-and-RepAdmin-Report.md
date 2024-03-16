@@ -18,8 +18,6 @@ The RepAdmin results are now broken up by domain controller and sorted by contex
 
 {% highlight powershell %}
 # http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
-
-
 # Functions
 
 Function Get-ForestDomainControllers
