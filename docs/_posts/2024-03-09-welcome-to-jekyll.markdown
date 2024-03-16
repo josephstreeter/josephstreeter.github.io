@@ -4,26 +4,6 @@ title:  "Welcome to Jekyll!"
 date:   2024-03-09 17:57:25 -0600
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+Welcome (back?) to this blog. There isn't much to look at from this point back. I used to put stuff out here as a kind of online notebook. It started out as a Drupal site, it was migrated to Wordpress, and now it's sitting on GitHub Pages as a Jekyll site. 
 
-Jekyll requires blog post files to be named according to the following format:
-
-`YEAR-MONTH-DAY-title.MARKUP`
-
-Where `YEAR` is a four-digit number, `MONTH` and `DAY` are both two-digit numbers, and `MARKUP` is the file extension representing the format used in the file. After that, include the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-Jekyll also offers powerful support for code snippets:
-
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
-
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+At some point in the migrations all the dates were lost. That's why all the posts seem to happen on two days a lot of years ago. Most of it is old garbage for stuff that doesn't exist anymore. Why is it here? Because I started over with this site and thought it should have some content so that it wasn't empty. Hopefully I will get to posting new things and no one will notice this old garbage I posted a decade ago. It is something of a "way back machine" for me though. Please don't judge current me based on old me. 

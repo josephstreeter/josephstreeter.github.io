@@ -21,9 +21,9 @@
 title: Crusader Two One
 email: joseph.streeter76@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  This is just a place to keep some old info that I once thought was usefull.
+  I hope to put some new content here. Topics should cover PowerShell, Active Directory, Azure, Exchange, etc. 
+  Perhaps there will be some home automation info here to. Maybe someone will come across it and find some of it helpful.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://josephstreeter.github.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: josephstreeter

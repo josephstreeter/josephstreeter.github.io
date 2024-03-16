@@ -20,7 +20,7 @@ Since I've been job hunting, everyone seems to want someone that knows PowerShel
 
 Below is what I've come up with to start with. It enumerates all of the computer objects in the Directory and then enumerates all of the shares on each box. It then runs Get-Acl against each share.
 
-{% highlight powershell %}
+```
 $ErrorView = "CategoryView"
 
 $objName = "<b>partial name to query here</b>"
@@ -30,16 +30,16 @@ $objAd = $searcher.findall()
 
 foreach ($objComp in $objAd)
 {
-$strServer = $objComp.properties.cn
-$shares = Get-WmiObject -class Win32_Share -computerName $strServer | where {$_.type -match "0"}
+    $strServer = $objComp.properties.cn
+    $shares = Get-WmiObject -class Win32_Share -computerName $strServer | where {$_.type -match "0"}
 
-foreach ($strInfo in $arrShares)
-{
-$strSharename = $strInfo.name
-Get-Acl \\$strServer\$sharename | format-list
+    foreach ($strInfo in $arrShares)
+    {
+        $strSharename = $strInfo.name
+        Get-Acl \\$strServer\$sharename | format-list
+    }
 }
-}
-{% endhighlight %}
+```
 
 
 
