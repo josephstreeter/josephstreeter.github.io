@@ -10,15 +10,13 @@ This is a PowerShell script that will enumerate the DNS suffix and DNS server en
 {% highlight powershell %}
 $objName = "***filter-text***"
 $searcher = new-object DirectoryServices.DirectorySearcher([ADSI]"")
-$searcher.filter = "(&(objectClass=user)(objectCategory=computer)`
-	(cn= $objName*)(operatingSystem=*Server*))"
+$searcher.filter = "(&(objectClass=user)(objectCategory=computer)(cn= $objName*)(operatingSystem=*Server*))"
 $objAd = $searcher.findall()
 
 foreach ($objComp in $objAd)
 {
 	$strServerName = $objComp.properties.cn
-	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration`
-		-computername $strServerName | where{$_.IPEnabled -eq $TRUE}
+	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername $strServerName | where{$_.IPEnabled -eq $TRUE}
 	Foreach($strNIC in $strNICs)
 	{
 		write-host $strServerName
@@ -39,15 +37,13 @@ $strDNSServers = "***dns-server-1***","***dns-server-1***"
 $strDNSName = "***dns-suffix***"
 
 $searcher = new-object DirectoryServices.DirectorySearcher([ADSI]"")
-$searcher.filter = "(&(objectClass=user)(objectCategory=computer) '
-	(cn= $objName*)(operatingSystem=*Server*))"
+$searcher.filter = "(&(objectClass=user)(objectCategory=computer) (cn= $objName*)(operatingSystem=*Server*))"
 $objAd = $searcher.findall()
 
 foreach ($objComp in $objAd)
 {
 	$strServerName = $objComp.properties.cn
-	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration`
-		-computername $strServerName | where{$_.IPEnabled -eq $TRUE}
+	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername $strServerName | where{$_.IPEnabled -eq $TRUE}
 
 	Foreach($strNIC in $strNICs) 
 	{
