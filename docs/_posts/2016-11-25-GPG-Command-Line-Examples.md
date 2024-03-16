@@ -44,7 +44,7 @@ $a | gpg --decrypt --passphrase password
 
 Encrypt the variable contents for a recipient
 {% highlight powershell %}
-$a | gpg -e -r joseph.streeter76@gmail.com --armor
+$a | gpg -e -r first.last@gmail.com --armor
 {% endhighlight %}
 
 Decrypt the message sent to recipient

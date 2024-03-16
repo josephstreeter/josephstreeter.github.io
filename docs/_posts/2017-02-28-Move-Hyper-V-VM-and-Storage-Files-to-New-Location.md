@@ -18,7 +18,7 @@ $Path="D:\VM\VirtualMachines\$($VM.Name)"
 
 foreach ($VM in $VMs)
 {
-Move-VMStorage -VM $(Get-VM $VM.Name) -DestinationStoragePath $Path
+    Move-VMStorage -VM $(Get-VM $VM.Name) -DestinationStoragePath $Path
 }
 {% endhighlight %}
 

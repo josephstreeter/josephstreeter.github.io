@@ -19,72 +19,71 @@ The RepAdmin results are now broken up by domain controller and sorted by contex
 {% highlight powershell %}
 # http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
 
-############
+
 # Functions
-############
+
 Function Get-ForestDomainControllers
 {
-$Results=@()
-foreach ($domain in (Get-ADForest).domains )
-{
-$Results+=(Get-ADdomain $domain).ReplicaDirectoryServers
-}
-Return $Results
+    $Results=@()
+    foreach ($domain in (Get-ADForest).domains )
+    {
+        $Results+=(Get-ADdomain $domain).ReplicaDirectoryServers
+    }
+    Return $Results
 }
 
 Function Get-DCDiagReport($DC)
 {
-"Testing $DC"
-$DCDIAG = dcdiag /s:$DC /v #/test:Intersite /test:topology
-$DCDiagResults = New-Object System.Object
-$DCDiagResults | Add-Member -name Server -Value $DC -Type NoteProperty -Force
+    "Testing $DC"
+    $DCDIAG = dcdiag /s:$DC /v #/test:Intersite /test:topology
+    $DCDiagResults = New-Object System.Object
+    $DCDiagResults | Add-Member -name Server -Value $DC -Type NoteProperty -Force
 
-Foreach ($Entry in $DCDIAG)
-{
-Switch -Regex ($Entry)
-{
-"Starting" {$Testname = ($Entry -replace ".*Starting test: ").Trim()}
-"passed|failed" {If ($Entry -match "passed") {$TestStatus = "Passed"} Else {$TestStatus = "failed"}}
-}
+    Foreach ($Entry in $DCDIAG)
+    {
+        Switch -Regex ($Entry)
+        {
+            "Starting" {$Testname = ($Entry -replace ".*Starting test: ").Trim()}
+            "passed|failed" {If ($Entry -match "passed") {$TestStatus = "Passed"} Else {$TestStatus = "failed"}}
+        }
 
-If ($TestName -ne $null -and $TestStatus -ne $null)
-{
-$DCDiagResults | Add-Member -Type NoteProperty -name $($TestName.Trim()) -Value $TestStatus -Force
-}
-}
-Return $DCDiagResults
+        If ($TestName -ne $null -and $TestStatus -ne $null)
+        {
+            $DCDiagResults | Add-Member -Type NoteProperty -name $($TestName.Trim()) -Value $TestStatus -Force
+        }
+    }
+    Return $DCDiagResults
 }
 
 Function Get-ReplReport
 {
-"Starting Repadmin Tests"
+    "Starting Repadmin Tests"
 
-$Repl = repadmin /showrepl * /csv
-$ReplResults = $Repl | ConvertFrom-Csv
+    $Repl = repadmin /showrepl * /csv
+    $ReplResults = $Repl | ConvertFrom-Csv
 
-$ReplReport = @()
+    $ReplReport = @()
 
-Foreach ($result in $ReplResults)
-{
-$ReplReport += New-object PSObject -Property @{
-"DestSite" = $Result.'Destination DSA Site'
-"Dest" = $Result.'Destination DSA'
-"NamingContext" = $Result.'Naming Context'
-"SourceSite" = $Result.'Source DSA Site'
-"Source" = $Result.'Source DSA'
-"Transport" = $Result.'Transport Type'
-"NumberFailures" = $Result.'Number of Failures'
-"LastFailureTime" = $Result.'Last Failure Time'
-"LastSuccessTime" = $Result.'Last Success Time'
-"LastFailureStatus" = $Result.'Last Failure Status'
+    Foreach ($result in $ReplResults)
+    {
+        $ReplReport += New-object PSObject -Property @{
+            "DestSite" = $Result.'Destination DSA Site'
+            "Dest" = $Result.'Destination DSA'
+            "NamingContext" = $Result.'Naming Context'
+            "SourceSite" = $Result.'Source DSA Site'
+            "Source" = $Result.'Source DSA'
+            "Transport" = $Result.'Transport Type'
+            "NumberFailures" = $Result.'Number of Failures'
+            "LastFailureTime" = $Result.'Last Failure Time'
+            "LastSuccessTime" = $Result.'Last Success Time'
+            "LastFailureStatus" = $Result.'Last Failure Status'
+        }
+    }
+    
+    Return $ReplReport
 }
-}
-Return $ReplReport
-}
 
-##############
 # Gather Data
-##############
 
 Clear-Host
 Import-Module activedirectory
@@ -96,12 +95,10 @@ $DCs=Get-ForestDomainControllers
 $DCDiagRpt=@()
 foreach ($DC in $DCs | sort)
 {
-$DCDiagRpt+=Get-DCDiagReport $DC.ToUpper()
+    $DCDiagRpt+=Get-DCDiagReport $DC.ToUpper()
 }
 
-#################
 # Display Results
-#################
 
 "Starting Repadmin Tests"
 $ReplRrt=Get-ReplReport
@@ -116,9 +113,7 @@ $Servers = $ReplRrt | select -ExpandProperty Source -Unique
 
 foreach ($Server in ($Servers | Sort))
 {
-"$Server"
-$ReplRrt | ? {$_.Source -eq $Server} | select "NamingContext","Dest","SourceSite","DestSite","NumberFailures","LastFailureTime","LastFailureStatus","LastSuccessTime","Transport" | sort NamingContext,Dest | ft -AutoSize
+    "$Server"
+    $ReplRrt | ? {$_.Source -eq $Server} | select "NamingContext","Dest","SourceSite","DestSite","NumberFailures","LastFailureTime","LastFailureStatus","LastSuccessTime","Transport" | sort NamingContext,Dest | ft -AutoSize
 }
 {% endhighlight %}
-
-

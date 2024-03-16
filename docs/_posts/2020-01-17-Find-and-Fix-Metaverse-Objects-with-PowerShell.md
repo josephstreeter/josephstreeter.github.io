@@ -20,81 +20,87 @@ This script will require the Lithnet MIIS Automation module.
 Import-Module LithnetMIISAutomation  
 function Get-Records($EmpTypes) 
 {
-     Write-Host "Retieving records"
-     $Records=@()
-     foreach ($EmpType in $EmpTypes)
-     {
-         Write-Host "  EmployeeType: $EmpType"
-         $queries = @();
-         $queries += New-MVQuery -Attribute employeeStatus -Operator Equals -Value "P"
-         $queries += New-MVQuery -Attribute employeeType -Operator Equals -Value $EmpType
-         $Records += Get-MVObject -Queries $queries
-     }      
-     $Results=@()
-     foreach ($Record in $Records)
-     {
-         $Results+=[PSCustomObject] @{"AccountName"=$Record.Attributes["accountName"].Values.valueString
-                                     "EmployeeID"=$Record.Attributes["employeeID"].Values.valueString
-                                     "EmployeeNumber"=$Record.Attributes["employeeNumber"].Values.valueString
-                                     "EmployeeType"=$Record.Attributes["employeeType"].Values.valueString
-                                     "EmployeeStatus"=$Record.Attributes["employeeStatus"].Values.valueString
-                                     "MVDN"=$Record.DN
-                                     "ADMA-Main"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "ADMA-Main"}).ConnectorSpaceID
-                                     "ADMA-DM-Z"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "ADMA-DM-Z"}).ConnectorSpaceID
-                                     "SQLMA-SD"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "SQLMA-SD"}).ConnectorSpaceID
-                                     "MIMMA"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "MIMMA"}).ConnectorSpaceID
-                                     }
-      }
-     Return $Results }  
+    Write-Host "Retieving records"
+    $Records=@()
+    foreach ($EmpType in $EmpTypes)
+    {
+        Write-Host "  EmployeeType: $EmpType"
+        $queries = @();
+        $queries += New-MVQuery -Attribute employeeStatus -Operator Equals -Value "P"
+        $queries += New-MVQuery -Attribute employeeType -Operator Equals -Value $EmpType
+        $Records += Get-MVObject -Queries $queries
+    }      
+    
+    $Results=@()
+    foreach ($Record in $Records)
+    {
+        $Results+=[PSCustomObject] @{
+            "AccountName"=$Record.Attributes["accountName"].Values.valueString
+            "EmployeeID"=$Record.Attributes["employeeID"].Values.valueString
+            "EmployeeNumber"=$Record.Attributes["employeeNumber"].Values.valueString
+            "EmployeeType"=$Record.Attributes["employeeType"].Values.valueString
+            "EmployeeStatus"=$Record.Attributes["employeeStatus"].Values.valueString
+            "MVDN"=$Record.DN
+            "ADMA-Main"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "ADMA-Main"}).ConnectorSpaceID
+            "ADMA-DM-Z"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "ADMA-DM-Z"}).ConnectorSpaceID
+            "SQLMA-SD"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "SQLMA-SD"}).ConnectorSpaceID
+            "MIMMA"=($Record.CSMVLinks | ? {$_.managementAgentName -eq "MIMMA"}).ConnectorSpaceID
+        }
+    }
+    Return $Results }  
+
 function Evaluate-Records($Records) 
 {
-     Write-Host "Evaluating records"
-     $Results=@()
-     foreach ($Record in $Records)
-     {
-         if (-not $Record."ADMA-MAIN".Guid)
-         {
-         $Results+=$Record
-         }
-     }
-     Return $Results 
+    Write-Host "Evaluating records"
+    $Results=@()
+    foreach ($Record in $Records)
+    {
+        if (-not $Record."ADMA-MAIN".Guid)
+        {
+            $Results+=$Record
+        }
+    }
+    Return $Results 
 }   
 
 function Run-Sync() 
 {
-     Write-Host "Running Delta Syncs"
-     $MAs="ADMA-MAIN","ADMA-DMZ","SQLMA-SD","MIMMA"
-     $RPs="DI","DS","EX","DI"
-     foreach($MA in $MAs)
-     {
-         foreach ($RP in $RPs)
-         {
-             Write-Host "  $MA - $RP"
-             Start-ManagementAgent -MA $MA -RunProfileName $RP
-         }
-     }
+    Write-Host "Running Delta Syncs"
+    $MAs="ADMA-MAIN","ADMA-DMZ","SQLMA-SD","MIMMA"
+    $RPs="DI","DS","EX","DI"
+    foreach($MA in $MAs)
+    {
+        foreach ($RP in $RPs)
+        {
+            Write-Host "  $MA - $RP"
+            Start-ManagementAgent -MA $MA -RunProfileName $RP
+        }
+    }
 }  
 
 function Remove-Connectors($Conns) 
 {
-     foreach ($Conn in $Conns)
-     {
+    foreach ($Conn in $Conns)
+    {
         $ADMCS=$ADDCS=$SDCS=$MCS=$NuLL
         if ($Result.ADMMA)
         {
             $ADMCS=Get-CSObject -MA ADMA-MAIN -DN $Conn.ADMMA
             if ($ADMCS){Disconnect-CSObject -CSObject $ADMCS -Force}
         }
+        
         if ($Result.ADDMA)
         {
             $ADDCS=Get-CSObject -MA ADMA-DM-Z -DN $Conn.ADDMA
             if ($ADDCS){Disconnect-CSObject -CSObject $ADDCS -Force}
         }
+        
         if ($Result.SDMA)
         {
             $SDCS=Get-CSObject -MA SQLMA-SD -DN $Conn.SDMA
             if ($SDCS){Disconnect-CSObject -CSObject $SDCS -Force}
         }
+        
         if ($Result.MIMMA)
         {
             $MCS=Get-CSObject -MA MIMMA -DN $Conn.MIMMA
@@ -108,19 +114,19 @@ $IDs=Get-Records ("A","C","E","F","I")
 $BrokenIDs=Evaluate-Records $IDs  
 if ($BrokenIDs) 
 {
-     if ($BrokenIDs)
-     {
-         Run-Sync
-         Remove-Connectors $BrokenIDs
-         Run-Sync
-     }
-     Else
-     {
-         "No objects to be disconnected"
-     }
+    if ($BrokenIDs)
+    {
+        Run-Sync
+        Remove-Connectors $BrokenIDs
+        Run-Sync
+    }
+    Else
+    {
+        "No objects to be disconnected"
+    }
 } 
 Else 
 {
-     Write-Host "No broken records" 
+    Write-Host "No broken records" 
 } 
 {% endhighlight %}  
