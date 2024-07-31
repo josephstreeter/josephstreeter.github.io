@@ -1,0 +1,63 @@
+### YamlMime:ManagedReference
+version: '3'
+volumes:
+  homeassistant:
+    name: homeassistant
+  mosquitto-config:
+    name: mosquitto-config
+  mosquitto-data:
+    name: mosquitto-data
+  mosquitto-log:
+    name: mosquitto-log
+  zigbee2mqtt-data:
+    name: zigbee2mqtt-data
+  node-red:
+    name: node-red
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "homeassistant/home-assistant:2024.4.0b7"
+    volumes:
+      - homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+  mosquitto:
+    container_name: mqtt
+    image: "eclipse-mosquitto:2.0.18-openssl"
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - mosquitto-config:/mosquitto/config
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+    restart: unless-stopped
+    privileged: true
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    restart: unless-stopped
+    image: koenkk/zigbee2mqtt:1.36.1
+    volumes:
+     - zigbee2mqtt-data:/app/data
+     - /run/udev:/run/udev:ro
+    ports:
+     - 8080:8080
+    environment:
+     - TZ=America/Chicago
+    devices:
+     - /dev/ttyUSB0:/dev/ttyUSB0
+
+  node-red:
+    container_name: node-red
+    image: nodered/node-red:3.1-debian
+    environment:
+      - TZ=America/Chicago
+    ports:
+      - "1880:1880"
+    volumes:
+      - node-red:/data

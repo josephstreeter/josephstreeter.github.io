@@ -1,0 +1,41 @@
+permit_join: true
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://192.168.1.114
+serial:
+  port: /dev/ttyUSB0
+frontend:
+  port: 8080
+advanced:
+  pan_id: 8105
+  ext_pan_id:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+  network_key:
+    - 138
+    - 10
+    - 187
+    - 191
+    - 37
+    - 73
+    - 110
+    - 43
+    - 144
+    - 17
+    - 164
+    - 17
+    - 9
+    - 238
+    - 76
+    - 240
+  homeassistant_legacy_entity_attributes: false
+  legacy_api: false
+  legacy_availability_payload: false
+device_options:
+  legacy: false
