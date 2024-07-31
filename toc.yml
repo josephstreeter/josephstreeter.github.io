@@ -2,3 +2,5 @@
   href: docs/
 - name: Blog
   href: docs/_posts/
+- name: About Me
+  href: docs/about.md

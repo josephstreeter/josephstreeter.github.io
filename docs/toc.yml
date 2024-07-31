@@ -20,6 +20,14 @@
       href: homeassistant/automations.md
     - name: Deployment
       href: homeassistant/deployment.md
+    - name: Groups
+      href: homeassistant/groups.md
+    - name: Guidlines
+      href: homeassistant/guidlines.md
+    - name: Sensors
+      href: homeassistant/sensors.md
+    - name: Templates
+      href: homeassistant/templates.md
 - name: Home Lab
   href: homelab/index.md
 - name: KQL
