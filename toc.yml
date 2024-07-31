@@ -1,4 +1,4 @@
-- name: Docs
+- name: Knowledgebase
   href: docs/
-- name: KB
-  href: /KnowledgeBase/
+- name: Blog
+  href: docs/_posts/

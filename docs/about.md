@@ -17,7 +17,7 @@ In addition to my professional work, I do a lot of tinkering around with differe
 ---
 I am no longer a working as a photographer. I will occasionally take the cameras out and do some shooting. Once upon a time I used to shoot a lot of sports. During my time in Iraq I worked with two fellow Soldiers to write and publish and photographic history of our unit's time in country.
 
-[Alt text](/images/10541394_10152247838672196_7281252923930978514_o.jpg "image")
+![Alt text](/images/10541394_10152247838672196_7281252923930978514_o.jpg "image")
 
 ## Military Service
 
