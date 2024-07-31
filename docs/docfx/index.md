@@ -228,10 +228,3 @@ _toc.yml_:
 ## Customize the Site
 
 - **Change Site Icon**: -- insert text --
-
-## References
-
-- [Write Articles](docs/markdown.md)
-- [Organize Contents](docs/table-of-contents.md)
-- [Configure Website](docs/config.md)
-- [Add .NET API Docs](docs/dotnet-api-docs.md)
