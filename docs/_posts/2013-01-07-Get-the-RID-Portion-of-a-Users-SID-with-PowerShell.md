@@ -1,5 +1,4 @@
 ﻿---
-
 title:  Get the RID Portion of a Users SID with PowerShell
 date:   2013-01-07 00:00:00 -0500
 categories: IT
@@ -21,5 +20,3 @@ Get-ADUser -f * | % {$_.sid.tostring().split(“-“)[7]}
 To make them all line up I will have to find a way to pad the RID with a number of zeros so that all of the UID/GIDs are the same length.
 
 More to come....
-
-

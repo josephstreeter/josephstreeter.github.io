@@ -1,17 +1,12 @@
 ﻿---
-
 title:  Selective Dial Peers with Translation Rules
 date:   2012-11-26 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 I'm not sure if I remember how these work, but just in case I need them in the future...here they are.
 
+```console
 voice translation-rule 1
 rule 1 /^9/ /19/
 !
@@ -72,5 +67,4 @@ destination-pattern 29011T
 port 0/0/1
 forward-digits all
 !
-
-
+```

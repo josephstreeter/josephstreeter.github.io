@@ -5,15 +5,11 @@ date:   2013-06-05 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 We worked for some time on getting Mac OSX hosts to bind to Active Directory in such a way that we could require LDAP digital signing. As it turns out, 10.7 and 10.8 seem to work just fine. The issue was more with getting the certificates just-  right on the Domain Controllers. It sounds as though the 10.6 hosts will have to be upgraded or replaced though.
 
 This is a script that was used in testing. Your mileage may vary. Test, test, test.
-```powershell
+
+```bash
 #! /bin/bash
 # Active Directory Bind script for Mac OSX Snow Leopard/Lion/Mountain Lion
 # Author: Joseph A Streeter
@@ -121,5 +117,3 @@ echo ""
 echo "Configuration Complete!"
 exit 0
 ```
-
-

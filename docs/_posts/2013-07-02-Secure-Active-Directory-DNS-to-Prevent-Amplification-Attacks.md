@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Secure Active Directory DNS to Prevent Amplification Attacks
 date:   2013-07-02 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 ***Background***
 
@@ -69,6 +63,4 @@ Configure DNS zones to only accept secure dynamic updates. This configuration ch
 - Disable Recursion on the DNS Server <a href="http://technet.microsoft.com/en-us/library/cc771738.aspx">http://technet.microsoft.com/en-us/library/cc771738.aspx</a>
 - Configure a DNS Server to Use Forwarders <a href="http://technet.microsoft.com/en-us/library/cc754941.aspx">http://technet.microsoft.com/en-us/library/cc754941.aspx</a>
 - Understanding stub zones <a href="http://technet.microsoft.com/en-us/library/cc779197(v=WS.10).aspx">http://technet.microsoft.com/en-us/library/cc779197(v=WS.10).aspx</a>
-
-
 

@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Enable Diagnostic Logging in Active Directory
 date:   2013-06-04 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Sometimes the event logs just don't give you enough information for what you're troubleshooting. You can get a little more information by turning on diagnostic logging for a particular service.
 
@@ -16,34 +10,34 @@ Diagnostic logging for domain controllers is managed in the following registry l
 
 Logging can be configured by modifying these REG_DWORD entries:
 
-1 Knowledge Consistency Checker (KCC)
-2 Security Events
-3 ExDS Interface Events
-4 MAPI Interface Events
-5 Replication Events
-6 Garbage Collection
-7 Internal Configuration
-8 Directory Access
-9 Internal Processing
-10 Performance Counters
-11 Initialization/Termination
-12 Service Control
-13 Name Resolution
-14 Backup
-15 Field Engineering
-16 LDAP Interface Events
-17 Setup
-18 Global Catalog
-19 Inter-site Messaging
-20 Group Caching
-21 Linked-Value Replication
-22 DS RPC Client
-23 DS RPC Server
-24 DS Schema
+1. Knowledge Consistency Checker (KCC)
+2. Security Events
+3. ExDS Interface Events
+4. MAPI Interface Events
+5. Replication Events
+6. Garbage Collection
+7. Internal Configuration
+8. Directory Access
+9. Internal Processing
+10. Performance Counters
+11. Initialization/Termination
+12. Service Control
+13. Name Resolution
+14. Backup
+15. Field Engineering
+16. LDAP Interface Events
+17. Setup
+18. Global Catalog
+19. Inter-site Messaging
+20. Group Caching
+21. Linked-Value Replication
+22. DS RPC Client
+23. DS RPC Server
+24. DS Schema
 
 Edit them by hand, script them, or use Group Policy Preferences to push them out. I would recommend using GPO Preferences to keep them to the values that you want so that it's not so easy for someone to change them without your knowledge.
 
-Diagnostic Logging Levels
+## Diagnostic Logging Levels
 
 The values below are used to configure the level of diagnostic logging provided by the host:
 <table border="1" cellspacing="0" cellpadding="0">
@@ -81,8 +75,7 @@ The values below are used to configure the level of diagnostic logging provided 
 </tbody>
 </table>
 
-
-Configure with PowerShell
+### Configure with PowerShell
 
 Use the following PowerShell example to configure logging levels:
 
@@ -91,30 +84,30 @@ $Reg = â€œHKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics
 Set-ItemProperty -Path $Reg -Name <service> -Type DWORD -Value <value>
 ```
 
-***Enable NetLogon Logging***
+## Enable NetLogon Logging
 
 After enabling Netlogon logging the activity will be logged to %windir%\debug\netlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. - When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created.
 
 The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default.
 
-***Configure log size with PowerShell:***
+### Configure log size with PowerShell
 
 ```powershell
 $Reg = â€œHKLM:\ SYSTEM\CurrentControlSet\Services\Netlogon\Parameters
 New-ItemProperty -Path -Name MaximumLogFileSize-  -Type DWORD -Value <Log-Size>
 ```
 
-***Configure log size with Group Policy:***
+### Configure log size with Group Policy
 
-```powershell
+```text
 Computer Configuration\Administrative Templates\System\Net Logon\Maximum Log File Size
 ```
 
-***Turn on NetLogon Logging***
+## Turn on NetLogon Logging
 
 Command Line:
 
-```powershell
+```cmd
 nltest /dbflag:0x2080ffff
 ```
 
@@ -129,11 +122,12 @@ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 545325055
 
 Restart-Service netlogon
 ```
-***Turn off NetLogon Logging***
+
+## Turn off NetLogon Logging
 
 Command Line:
 
-```powershell
+```cmd
 nltest /dbflag:0x0
 ```
 
@@ -145,5 +139,3 @@ Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 0
 
 Restart-Service netlogon
 ```
-
-

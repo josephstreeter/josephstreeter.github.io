@@ -1,18 +1,13 @@
 ﻿---
-
 title:  Data Security in Active Directory
 date:   2012-12-01 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 One of my biggest and most important tasks lately is figuring out how to secure user information within Active Directory without breaking anything and everything that will use AD.
 
 Here are some resources that I've been reviewing while working on the design.
+
 ## MS TechNet
 
 - <a href="http://technet.microsoft.com/en-us/library/cc546843.aspx" target="_blank">Centralized Management</a>
@@ -29,6 +24,3 @@ Here are some resources that I've been reviewing while working on the design.
 
 - <a href="http://blogs.technet.com/b/askds/archive/2011/06/17/friday-mail-sack-gargamel-edition.aspx#listobject">The downsides to List Object Access dsheuristics</a>
 - <a href="http://blogs.technet.com/b/askds/archive/2009/05/07/five-common-questions-about-adminsdholder-and-sdprop.aspx" target="_blank">Five common questions about AdminSdHolder and SDProp</a>
-
-
-

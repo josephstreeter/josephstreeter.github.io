@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Offline Defrag of the Active Directory Database
 date:   2013-06-06 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 In small instances of Active Directory the regular online defrag that runs every 12 hours is likely enough. Many administrators can get away with installing one or more Domain Controllers and never really touching them again, except for patching.
 
@@ -17,7 +11,8 @@ For larger organizations that might have large numbers of people who come and go
 How can I tell how much whitespace the database has? You can turn on Garbage Collection logging and you will see the amount of whitespace in your database every 12 hours in Event ID 1646. To turn on Garbage Collection logging set the Garbage Collection entry in "HKLM\SYSTEM\CurrentControlSet\Services\NTDS\Diagnostics" to "1."
 
 The event id 1646 "Free hard disk space (megabytes)" will tell you how much space within the database is whitespace. The entry will look similar to this:
-```powershell
+
+```text
 Event ID:- -  1646
 Event Type: Information
 Event Message:

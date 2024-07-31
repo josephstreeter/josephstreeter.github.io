@@ -38,6 +38,3 @@ To check the value of these attributes you will need to add the partitions to th
 
 
 - Click Ok
-
-
-
