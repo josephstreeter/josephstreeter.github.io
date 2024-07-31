@@ -101,6 +101,8 @@
       href: powershell/security.md
     - name: Tips and Tricks
       href: powershell/tipsandtricks.md
+    - name: Troubleshooting
+      href: powershell/troubleshooting.md
 - name: Software Defined Radio
   href: RTL-SDR/index.md
 - name: SQL
