@@ -20,6 +20,7 @@ Function Generate-Password()
      $results = [PSCustomObject] @{Password=$pw;SecureString=$SecString}
      return $Results 
 }
+
 Generate-Password -LowerCase 15 -UpperCase 15 -Numbers 14 -SpecialChar 14  
 Password                                                      SecureString 
 --------                                                      ------------ 

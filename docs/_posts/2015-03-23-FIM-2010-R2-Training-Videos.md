@@ -1,24 +1,18 @@
 ﻿---
-
 title:  FIM 2010 R2 Training Videos
 date:   2015-03-23 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
-
-```powershellAbout This Video
+```text
+About This Video
 - Successfully install FIM 2010 R2 SP1 on Windows Server 2012
 - Set up your very own complete FIM solution including self-service
 - Implement self-service enrollment of Smart Cards using FIMWho This Video Is For
-If you are implementing and managing FIM 2010 R2 in your business, then this video course is for you. You will need to have a basic understanding of Microsoft-based infrastructure using Active Directory. If you are new to Forefront Identity Management, the case-study approach of this video course will help you understand the concepts and implement them quickly and efficiently. Even if you're well-versed with the technology, this is a great guide to strengthen your knowledge.```
+If you are implementing and managing FIM 2010 R2 in your business, then this video course is for you. You will need to have a basic understanding of Microsoft-based infrastructure using Active Directory. If you are new to Forefront Identity Management, the case-study approach of this video course will help you understand the concepts and implement them quickly and efficiently. Even if you're well-versed with the technology, this is a great guide to strengthen your knowledge.
+```
 
-```powershell
-
+```text
 Table of Contents
 
 1. INSTALLING FIM 2010 R2 ON WINDOWS SERVER 2012
@@ -100,38 +94,36 @@ Free IT Training Video
 Join the Community:
 <a class="yt-uix-redirect-link" dir="ltr" title="https://www.facebook.com/groups/FreeITTrainingVideo/" href="https://www.facebook.com/groups/FreeITTrainingVideo/" target="_blank" rel="nofollow">https://www.facebook.com/groups/FreeITTrainingVideo/</a>
 <a class="yt-uix-redirect-link" dir="ltr" title="https://www.linkedin.com/groups/FREE-IT-TRAINING-VIDEO-3722400" href="https://www.linkedin.com/groups/FREE-IT-TRAINING-VIDEO-3722400" target="_blank" rel="nofollow">https://www.linkedin.com/groups/FREE-IT-TRAINING-VIDEO-37...</a>
-
 ```
+
 01. MS FIM: Installing SharePoint Foundation 2013 on Windows Server 2012
-<a href="https://www.youtube.com/watch?v=692V2DPX_uA&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=19" target="_blank">02. MS FIM: Configuring Service Accounts for FIM 2010 R2</a>
-<a href="https://www.youtube.com/watch?v=cqbGeBvwEuY&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=18" target="_blank">03. MS FIM: Configuring SQL Aliases for FIM 2010 R2</a>
-<a href="https://www.youtube.com/watch?v=kCHMosfWIAI&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=17" target="_blank">04. MS FIM: Installing the FIM 2010 R2 Synchronization Service</a>
-05. MS FIM: Installing the FIM 2010 R2 Service and Portal
-06. MS FIM: Configuring the FIM Service Management Agent
-07. MS FIM: Setting Up the Active Directory Management Agent
-08. MS FIM: Configuring Run Profiles and Schedules
-09. MS FIM: Schema Management in FIM 2010 R2
-10. MS FIM: Importing Users from HR
-12. MS FIM: Provisioning Users to Active Directory
-13. MS FIM: Managing the userAccountControl Attribute in AD
-14. MS FIM: Exchange Management Using Built in FIM Functionality
-15. MS FIM: Deleting Users in Active Directory
-16. MS FIM: Understanding Group Types and Scopes
-17. MS FIM: Importing Groups from HR
-18. MS FIM: Provisioning Groups to Active Directory
-19. MS FIM: Using FIM Portal to Manage Groups
-20. MS FIM: Managing Distribution Lists Using the Outlook Add in
-21. MS FIM: Allowing Users to Access the FIM Portal
-25. MS FIM: Changing the FIM Portal Look and Feel
-26. MS FIM: Adding Custom Workflow Activities
-27. MS FIM: Using Classic Rules Extensions
-28. MS FIM: Using a PowerShell Management Agent to Manage Lync
-29. MS FIM: Installing FIM Reporting
-30. MS FIM: Running the Initial Data Load
-31. MS FIM: Viewing Reports
-32. MS FIM: Allowing Managers to Access Reports from FIM Portal
-33. MS FIM: Installing FIM CM
-34. MS FIM: Configuring FIM CM
-35. MS FIM: Configuring CA for FIM CM Usage
-
-
+    <a href="https://www.youtube.com/watch?v=692V2DPX_uA&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=19" target="_blank">02. MS FIM: Configuring Service Accounts for FIM 2010 R2</a>
+    <a href="https://www.youtube.com/watch?v=cqbGeBvwEuY&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=18" target="_blank">03. MS FIM: Configuring SQL Aliases for FIM 2010 R2</a>
+    <a href="https://www.youtube.com/watch?v=kCHMosfWIAI&amp;list=PLtgPDeBpcq2FpCk0LblB1W1-TYQEPxJno&amp;index=17" target="_blank">04. MS FIM: Installing the FIM 2010 R2 Synchronization Service</a>
+02. MS FIM: Installing the FIM 2010 R2 Service and Portal
+03. MS FIM: Configuring the FIM Service Management Agent
+04. MS FIM: Setting Up the Active Directory Management Agent
+05. MS FIM: Configuring Run Profiles and Schedules
+06. MS FIM: Schema Management in FIM 2010 R2
+07. MS FIM: Importing Users from HR
+08. MS FIM: Provisioning Users to Active Directory
+09. MS FIM: Managing the userAccountControl Attribute in AD
+10. MS FIM: Exchange Management Using Built in FIM Functionality
+11. MS FIM: Deleting Users in Active Directory
+12. MS FIM: Understanding Group Types and Scopes
+13. MS FIM: Importing Groups from HR
+14. MS FIM: Provisioning Groups to Active Directory
+15. MS FIM: Using FIM Portal to Manage Groups
+16. MS FIM: Managing Distribution Lists Using the Outlook Add in
+17. MS FIM: Allowing Users to Access the FIM Portal
+18. MS FIM: Changing the FIM Portal Look and Feel
+19. MS FIM: Adding Custom Workflow Activities
+20. MS FIM: Using Classic Rules Extensions
+21. MS FIM: Using a PowerShell Management Agent to Manage Lync
+22. MS FIM: Installing FIM Reporting
+23. MS FIM: Running the Initial Data Load
+24. MS FIM: Viewing Reports
+25. MS FIM: Allowing Managers to Access Reports from FIM Portal
+26. MS FIM: Installing FIM CM
+27. MS FIM: Configuring FIM CM
+28. MS FIM: Configuring CA for FIM CM Usage

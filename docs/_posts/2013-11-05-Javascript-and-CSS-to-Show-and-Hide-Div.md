@@ -1,19 +1,15 @@
 ﻿---
-
 title:  Javascript and CSS to Show and Hide Div
 date:   2013-11-05 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 I wanted a way to show and hide div elements in a web page by clicking on other elements. Initially I wanted to do it with CSS only and avoid using javascript, but I just couldn't find an easy way to do it.
 
 The code bellow will create a series of radio buttons that correspond to different Windows operating systems. When a radio button is clicked the "showhide()" function is called. The function will hide all the div elements and then show just the div element that was selected with the button click. If a different radio button is clicked the "showhide()" function is called again which hides all the elements and shows the new element that was selected.
-```powershell<html>
+
+```html
+<html>
 <head>
 <script language="JavaScript" type="text/javascript">
 function showhide(os) {
@@ -62,6 +58,5 @@ document.getElementById("mac").style.display = 'none';
 
 <div id="mac">
 <p>This is Apple Mac</p>
-</div>```
-
-
+</div>
+```

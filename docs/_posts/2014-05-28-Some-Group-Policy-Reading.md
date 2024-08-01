@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Some Group Policy Reading
 date:   2014-05-28 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Some Group Policy articles for your viewing pleasure.
 
@@ -20,6 +14,3 @@ Some Group Policy articles for your viewing pleasure.
 - <a href="http://www.grouppolicy.biz/2013/05/what-group-policy-settings-should-i-configure/" target="_blank">What group policy settings should I configure?</a>
 - <a href="http://blogs.technet.com/b/fdcc/archive/2010/10/06/sticking-with-well-known-and-proven-solutions.aspx" target="_blank">Sticking with Well-Known and Proven Solutions</a>
 - <a href="http://www.verboon.info/2008/08/gp-preferences/" target="_blank">GP Preferences</a>
-
-
-

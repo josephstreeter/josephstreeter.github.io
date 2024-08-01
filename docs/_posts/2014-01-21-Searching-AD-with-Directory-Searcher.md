@@ -1,16 +1,11 @@
 ﻿---
-
 title:  Send-MailMessage Example
 date:   2014-01-21 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 An example of using the Send-MailMessage to send an email and attachment
+
 ```powershell
 Import-module activedirectory
 
@@ -38,5 +33,3 @@ Send-MailMessage `
 
 Remove-Item $Attachments
 ```
-
-

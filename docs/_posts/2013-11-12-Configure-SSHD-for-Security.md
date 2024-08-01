@@ -1,5 +1,4 @@
 ﻿---
-
 title:  Configure SSHD for Security
 date:   2013-11-12 00:00:00 -0500
 categories: IT
@@ -17,11 +16,10 @@ Verify that /etc/ssh/sshd_config contains the following lines and that they are 
 - PermitEmptyPasswords no
 - AllowTcpForwarding no (unless needed)
 - X11Forwarding no
-- AllowUsers <username1> <username2> (Optional)
-- DenyUsers <username1> <username2> (Optional)
+- AllowUsers ***username1*** ***username2*** (Optional)
+- DenyUsers ***username1*** ***username2*** (Optional)
 
-
-```powershell
+```text
 -------------------------------------------------------------------
 You are accessing an Information System (IS) that is provided for
 authorized use only.
@@ -48,5 +46,3 @@ communications and work product are private and confidential. See
 User Agreement for details.
 -------------------------------------------------------------------
 ```
-
-

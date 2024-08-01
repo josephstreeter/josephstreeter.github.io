@@ -1,15 +1,8 @@
 ﻿---
-
 title:  Check SHA1 Hash of a File with PowerShell
 date:   2015-07-06 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
-
 
 A short PowerShell script for checking the hash on a file downloaded from the Internet
 
@@ -22,6 +15,5 @@ $hashSha1 = [System.BitConverter]::ToString($sha1.ComputeHash([System.IO.File]::
 If ($hashSha1.Replace("-","") -eq $SourceSha1) {"Match"}Else{"Doesn not Match"}
 
 $hashSha1.Replace("-","")
-$SourceSha1.ToUpper()```
-
-
+$SourceSha1.ToUpper()
+```

@@ -1,23 +1,23 @@
 ﻿---
-
 title:  Fake Access Point with BT5/Kali Linux
 date:   2014-04-21 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I'm not sure who to credit with the writing of the script below. It's all over the Internet and I haven't been able to determine with any certainty who originally wrote it.
 
 While technically a way to attack wireless clients, I just wanted a quick way to set up and access point. This worked out well since I had a BackTrack 5 VM, a USB wireless NIC, some familiarity with the Aircrack suite, and a bit of free time.
 
 This post assumes that you already have the Aircrack tools installed. You will also have to install and configure DHCP.
-```powershellapt-get install dhcp3-server```
+
+```bash
+apt-get install dhcp3-server
+```
+
 Configure a DHCP scope for use by the wireless clients that connect to your access point. You can edit the one at â€œ/etc/dhcp3/dhcpd.conf or create a separate one for this task. Just be sure to change the final script to point at the new file location if you create a new one.
-```powershellddns-update-style ad-hoc;
+
+```bash
+ddns-update-style ad-hoc;
 default-lease-time 600;
 max-lease-time 7200;
 authoritative;
@@ -27,11 +27,15 @@ option broadcast-address 10.0.0.255;
 option routers 10.0.0.254;
 option domain-name-servers 8.8.8.8;
 range 10.0.0.1 10.0.0.140;
-}```
+}
+```
+
 While this configuration uses Google's DNS for name resolution you may want to configure BIND as well. This may be useful for other reasons...just sayin'.
 
 Use the below script to configure your NIC, DHCP, and start the AP. Be sure to cha
-```powershell#!/bin/bash
+
+```bash
+#!/bin/bash
 
 echo "Killing Airbase-ng..."
 pkill airbase-ng
@@ -68,6 +72,5 @@ ln -s /var/run/dhcp3-server/dhcpd.pid /var/run/dhcpd.pid
 dhcpd3 -d -f -cf /etc/dhcp3/dhcpd.conf at0 &amp;
 
 sleep 5;
-echo "1" > /proc/sys/net/ipv4/ip_forward```
-
-
+echo "1" > /proc/sys/net/ipv4/ip_forward
+```

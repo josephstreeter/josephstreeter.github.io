@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Microsoft Deployment Toolkit
 date:   2015-02-21 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I've been doing a lot of labs lately and they're getting more and more elaborate. The hope is that using the Microsoft Deployment Toolkit can help me set up labs faster. Here are a series of links for MDT reading:
 
