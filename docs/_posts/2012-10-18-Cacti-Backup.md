@@ -35,7 +35,6 @@ tar -csvpf $BACKUPDIR$TGZFILENAME ./etc/cron.d/cacti ./etc/php5/apache2/php.ini 
 Additional files or directories can be added to the backup by entering them as arguments to the final line on the script separated by a space.
 
 Schedule the script to run daily at 2:00am by creating "/etc/cron.d/cactibackup" with the following lines:
-```powershell
 
 ## Cacti backup Schedule
 

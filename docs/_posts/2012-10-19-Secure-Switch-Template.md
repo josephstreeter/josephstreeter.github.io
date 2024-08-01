@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Secure Switch Template
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I think this is a good template to start with for configuring your layer 2 switches.
 
@@ -179,5 +173,3 @@ transport input ssh
 ntp server *strNtpserver*
 end
 ```
-
-

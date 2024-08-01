@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Disable Computer Objects in Default Location Daily and Delete them Weekly
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Stale, or unused, objects in Active Directory pose a security risk to an organization as well affect replication performance, increase the size of system state backups, and increase the amount of time it takes to create and restore backups.
 
@@ -20,10 +14,7 @@ If Administrators find that a computer object is disabled and is still in use th
 
 That should encourage your Computer admins to move the computer objects to the appropriate OU or start pre-staging them.
 
-
-
----
-
+```powershell
 Import-Module ActiveDirectory
 If (-not $?) { "Failed to import AD module!" ; exit }
 
@@ -36,8 +27,7 @@ foreach ($Computer in $Computers)
 {
 If (-not $Computer.Comment)
 {
-set-adComputer -identity $Computer.name -Enable $False '
--replace @{comment = (Get-Date).ToShortDateString()}
+set-adComputer -identity $Computer.name -Enable $False -replace @{comment = (Get-Date).ToShortDateString()}
 
 $Disabled++
 }
@@ -54,7 +44,4 @@ $Deleted++
 
 "$Disabled Computers disabled"
 "$Deleted Computers deleted"
-
----
-
-
+```

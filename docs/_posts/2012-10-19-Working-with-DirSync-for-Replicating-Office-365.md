@@ -5,14 +5,7 @@ date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 Some helpful information about setting passwords and configuring accounts when programatically creating Active Directory user objects.
-
-
 
 ***pwdLastSet Attribute***
 
@@ -89,5 +82,3 @@ The date and time that the password for this account was last changed. This valu
 </tr>
 </tbody>
 </table>
-
-

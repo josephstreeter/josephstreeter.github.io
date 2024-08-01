@@ -1,21 +1,16 @@
 ﻿---
-
 title:  Run Commands on Remote Routers (Perl and EXPECT)
 date:   2012-10-18 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 It seems that you can blow your budget and dedicate one person to using something like CiscoWorks (just to have the server die anyways) or you can use a little Perl-fu and learn some Expect scripting.
 I wanted to be able to do bulk configurations to routers and switches the way I could with servers and workstations. Originally I wanted to use Perl only, but the SSH module seems a bit flaky. The telnet module works awesome, but who uses telnet anymore unless they have no choice! After that I tried Expect and it seemed to work well, but if it cratered on something the whole thing hung and ended. I'm sure it could be fixed with some more code, but I'm not that strong at Expect yet.
 What I settled on was a combination of a perl script that calls an expect script for each device. In the future I would like to have the Perl script get it's information from a database, but lets not get ahead of ourselves.
----
+
 Here is the Perl Script
-```powershell
+
+```perl
 #! \usr\bin\perl
 use warnings;
 use strict;
@@ -34,7 +29,8 @@ system("expect expect_cisco_router $i");
 
 The script will enumerate the hosts listed in the text file, network_routers, and then calls the expect script below using the host ip as an argument.
 Here is the Expect Script
-```powershell
+
+```perl
 #!/usr/bin/expect
 
 set timeout 2
@@ -75,7 +71,8 @@ expect eof
 ```
 
 This script will try SSH first and then telnet if that fails.
-```powershell
+
+```perl
 spawn ssh $user@$ip
 expect "*port 22: Connection refused" {
 spawn telnet $ip
@@ -85,12 +82,11 @@ send "username\r"
 ```
 
 This can be removed if you do not have any equipment that is not capable of SSH. The code will look like the lines below instead.
-```powershell
+
+```perl
 spawn ssh $user@$ip
 expect "*(yes/no)" {
 send "yes\r"
 sleep 5
 }
 ```
-
-

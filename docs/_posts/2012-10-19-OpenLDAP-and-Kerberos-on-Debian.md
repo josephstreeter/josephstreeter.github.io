@@ -1,14 +1,8 @@
 ﻿---
-
 title:  OpenLDAP and Kerberos on Debian
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I've been working on creating a LDAP/Kerberos lab for a while now. The idea being that once I get it all working I can start trying out how to make it play nicely with Active Directory.
 
@@ -31,9 +25,13 @@ klist - List the tickets that you have been issued
 klist -k - List the SPNs that are configured in your keytab file
 
 Command for creating Keytab:
+
+```cmd
 ktpass /princ host/servername@domain.com /mapuser servername@domain.com /pass Pa$$Word123456 /out c:\krb5.keytab /crypto all /ptype KRB5_NT_PRINCIPAL
+```
 
 Command for creating mod_auth_kerb Keytab:
+
+```cmd
 ktpass /princ HTTP/servername@domain.com /mapuser servername@domain.com /pass Pa$$Word123456 /out c:\mod_auth_kerb.keytab /crypto all /ptype KRB5_NT_PRINCIPAL
-
-
+```

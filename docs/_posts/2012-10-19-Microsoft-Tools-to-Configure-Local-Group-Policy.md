@@ -1,10 +1,8 @@
 ﻿---
-
 title:  Microsoft Tools to Configure Local Group Policy
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
 
 I was doing some digging into a fully automated install and noticed some tools. By the names of them I couldn't tell if they were provided my Microsoft or home grown for these deployments.
 
@@ -14,7 +12,8 @@ Turns out that they are Microsoft tools and can be downloaded here:
 These tools allow you to apply policy based Group Policy settings to the local Group Policy Object using text files for input.
 
 For example, you have one or more text files with the Group Policy settings you want applied. One of them is a text file named lgpo.txt with some Advanced Firewall settings like the ones below:
-```powershell; 
+
+```text
 Description
 Computer
 SOFTWARE\Policies\Microsoft\WindowsFirewall
@@ -60,15 +59,17 @@ Computer
 SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile
 EnableFirewall
 DWORD:0x00000001
-
 ```
+
 The command you run looks something like:
 
 Here is a bit of the documentation that comes with the tool.
 
 ***Command line syntax and usage:***
 
+```cmd
 Apply_LGPO_Delta.exe inputfile0 [inputfile1 ...] [/log LogFile] [/error ErrorLogFile] [/boot]
+```
 
 ***inputfileN*** One or more input files specifying the changes to make. Input files must be security template files, or registry-based policy files using a custom file format described below. Apply_LGPO_Delta automatically determines whether a file is a custom policy file or a security template. Security templates can be created using the Security Templates MMC snap-in.
 
@@ -89,5 +90,3 @@ Apply_LGPO_Delta accepts two types of input files: security templates, and regis
 Although security template files are text files that can be created or edited with Notepad, the MMC Security Templates snap-in is the recommended security template editor that ensures correct formatting and syntax. Apply_LGPO_Delta runs a secedit.exe /configure â€¦ command for each security template on the command line to import its settings. If the /log option is used, Apply_LGPO_Delta captures all secedit.exe output into the log file. Note that you may see secedit.exe in the process list (e.g., in Task Manager), but no visible window for it.
 
 Windows normally uses registry.pol files to describe registry-based policy settings. Registry.pol is a documented, binary file format, but there aren't any good viewers or editors for directly manipulating those files. Therefore, for registry-based policy, a custom, Notepad-editable file format has been defined for Apply_LGPO_Delta. It is described in detail below. Apply_LGPO_Delta parses each file, and Group Policy APIs are used to apply them to local policy. (ImportRegPol.exe can parse registry.pol files and produce text files that Apply_LGPO_Delta can consume.)
-
-

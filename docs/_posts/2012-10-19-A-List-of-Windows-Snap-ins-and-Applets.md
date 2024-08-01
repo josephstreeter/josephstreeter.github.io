@@ -1,14 +1,8 @@
 ﻿---
-
 title:  A List of Windows Snap-ins and Applets
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 From the "Ask the Directory Services Team" blog:
 

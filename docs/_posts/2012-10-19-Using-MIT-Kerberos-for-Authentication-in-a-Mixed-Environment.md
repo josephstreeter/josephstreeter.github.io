@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Using MIT Kerberos for Authentication in a Mixed Environment
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I will have to do some lab work to learn more about working in a mixed AD environment where the passwords are kept in a separate kerberos system.
 
@@ -28,6 +22,3 @@ Active Directory and MIT Kerberos trusts (PIG: Practical Interoperability Guides
 - <a href="http://pig.made-it.com/pig-dns.html">DNS setup for use with Windows</a>
 - <a href="http://pig.made-it.com/kerberos.html">Microsoft trusting MIT Kerberos</a>
 - <a href="http://pig.made-it.com/kerberos-trust.html">Microsoft trusting MIT Kerberos</a>
-
-
-

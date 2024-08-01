@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Wordpress Installation on CentOS 6
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 It's time to move on from the old Debian host that this blog is running on. Since I've decided that it is also time to move from Debian to CentOS for my Linux OS of choice. Now that I work in a place that has a Linux team that uses RHEL I figure it would be a good idea to make the change.
 
@@ -51,5 +45,3 @@ Navigate to http:///wordpress/ with a browser and complete the form.
 Click login
 Enter credentials
 Begin blogging
-
-

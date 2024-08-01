@@ -1,14 +1,8 @@
 ﻿---
-
 title:  PS Script to Manage Groups Based on User Attribute
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 We have a security group that is supposed to contain all user objects that are able to log in. Becuse we're doing a passthrough authentication to an MIT Kerberos realm the user objects that can authenticate have the "altSecurityIdentities" attribute populated. However, this could be any attribute like Description or Office.
 
@@ -18,6 +12,7 @@ Below is the final version of the script. It only tries to add users to the grou
 
 ---
 
+```powershell
 Import-Module ActiveDirectory
 If (-not $?) { "Failed to import AD module!" ; exit }
 
@@ -36,6 +31,7 @@ $i++
 }
 
 "$i users added to group"
+```
 
 ---
 
@@ -43,11 +39,11 @@ To find users that are in the group that are not supposed to be you can change t
 
 ---
 
+```text
 -Filter {(-not(altSecurityIdentities -like "*")) -and (memberof `
 -eq "CN=groupname,OU=groups,DC=domain,DC=com"
+```
 
 ---
 
 Then you will just have to edit the foreach loop to remove the user insted of adding it.
-
-

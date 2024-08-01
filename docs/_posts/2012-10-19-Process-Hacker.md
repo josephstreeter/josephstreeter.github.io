@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Process Hacker
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I attended a "Tech Talk" tonight at the SANS conference in Las Vegas where Jason Fossen discussed the open source tool called Process Hacker.
 
@@ -18,5 +12,3 @@ I attended a "Tech Talk" tonight at the SANS conference in Las Vegas where Jason
 <a href="http://technet.microsoft.com/en-us/sysinternals/bb963901.aspx">Windows Internals Book</a>
 
 Pretty cool stuff.
-
-

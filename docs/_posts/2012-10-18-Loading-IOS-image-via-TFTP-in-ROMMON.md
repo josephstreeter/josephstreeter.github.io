@@ -1,47 +1,40 @@
 ﻿---
-
 title:  Loading IOS image via TFTP in ROMMON
 date:   2012-10-18 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
-
 I think I am going to need this later this week. To bail out a IOS-less device. Why oh why do you leave us IOS image?
-
 
 First I will need to get the IOS image off of another switch
 
-
 Create a new file, router-image, in the /tftpboot directory of the TFTP server. On UNIX, use the syntax touch *filename*.
 
-```powershell
+```bash
 touch *filename*
 ```
 
 Use the same file name shown in the show flash output in order to create the file on the /tftpboot directory of the TFTP server. For this example, the router lists c2600-i-mz.122-2.XA as the output for the show flash: command.
 
-```powershell
+```bash
 touch c2600-i-mz.122-2.XA
 ```
-Change the permissions of the file to 777 with syntax chmod <permissions> <filename>.
-```powershell
+
+Change the permissions of the file to 777 with syntax chmod ***permissions*** ***filename***.
+
+```bash
 chmod 777 c2600-i-mz.122-2.XA
 ```
 
 From the Cisco device:
 
-```powershell
+```console
 copy flash:*IOS-Image-File* tftp:
 ```
 
 Now on to loading it onto the device that was nuked. First we have to give it an IP address in ROMMON since it has no OS. Then we can copy the file from the TFTP server to the device.
 
-```powershell
+```console
 rommon 11 > IP_ADDRESS=192.168.1.5
 rommon 12 > IP_SUBNET_MASK=255.255.255.0
 rommon 13 > DEFAULT_GATEWAY=192.168.1.1
@@ -91,6 +84,3 @@ rommon 17 >
 ```
 
 All done!
-
-
-

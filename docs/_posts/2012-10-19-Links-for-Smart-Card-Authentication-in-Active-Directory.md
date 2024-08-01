@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Links for Smart Card Authentication in Active Directory
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Some info from Microsoft on setting up for Active Directory for smart card authentication. Since we're looking to use a non-Microsoft vendor for certificates information for use of a 3rd party CA are particularly important.
 
@@ -23,5 +17,3 @@ Some info from Microsoft on setting up for Active Directory for smart card authe
 
 
 I've accomplished this at home in a lab and it isn't too hard. Once you have the appropriate certificates in place, smart card provisioned, and middleware installed you're almost there.
-
-

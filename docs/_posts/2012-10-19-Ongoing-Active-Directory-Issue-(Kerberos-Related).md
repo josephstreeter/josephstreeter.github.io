@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Ongoing Active Directory Issue (Kerberos Related)
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 The KDC service hangs long enough on a booting Domain Controller to create an error and the popup messgage for a service failing to start. Unfortunatly the popup is visible to end users as they are also file/print servers that users have console access to (yeah, yeah, I know. I just can't do anything about it).
 
@@ -17,20 +11,24 @@ The results of *certutil -dcinfo verify* shows *Element.dwErrorStatus = CERT_TRU
 It would appear that *certutil -dcinfo deletebad* but I'm nor 100% sure that the DC will auto enrole for a new certificate. I also have no idea what things might be using kerberos for authentication. At least I know that smart cards are not being used, but that is of little comfort.
 
 To be continued....
-<hr>
+
+---
+
 ...later that same day.
 Tried the *certutil -dcinfo deletebad* command. It succeded in giving me an error message:
-```powershell
+
+```text
 The currently selected KDC certificate was once valid, but now is invalid and no suitable replacement was found. Smartcard logon may not function correctly if this problem is not remedied. Have the system administrator check on the state of the domain's public key infrastructure. The chain status is in the error data.
 ```
 
 For this error I used the follwing steps from Microsoft:
-```powershell
-<b>Resolve</b>
+
+```text
+**Resolve**
 Request a new domain controller certificate
 Kerberos uses a domain controller certificate to ensure that the authentication information sent over the network is encrypted. If the certificate is missing or is no longer valid, you must delete the domain controller certificate and then request a new one.
 
-<b>To resolve this issue:</b>
+**To resolve this issue:**
 
 Delete the domain controller certificate that is no longer valid.
 Request a new certificate.

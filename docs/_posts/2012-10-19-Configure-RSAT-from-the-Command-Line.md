@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Configure RSAT from the Command Line
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Use the command line to configure the role and feature tools on Windows 7.
 
@@ -24,7 +18,7 @@ dism /online /get-features | more
 
 How to install the Active Directory and Group Policy tools.
 
-<b>***Must be in proper order***</b>
+***Must be in proper order***
 
 ```powershell
 dism /online /enable-feature /featurename:RemoteServerAdministrationTools
@@ -66,5 +60,3 @@ How to install the Active Directory and Group Policy tools.
 ```powershell
 Add-WindowsFeature RSAT-AD-Tools,RSAT-ADDS,RSAT-ADDS-Tools,RSAT-AD-PowerShell
 ```
-
-

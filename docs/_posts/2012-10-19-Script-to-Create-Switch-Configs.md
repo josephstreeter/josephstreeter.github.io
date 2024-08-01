@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Script to Create Switch Configs
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 I had a big stack of switches of various different models that needed configuration. The first thought was that I could create a spreadsheet with information for each switch and then use a script to create the configs.
 
@@ -20,24 +14,25 @@ Have multiple configs? Add a column to the spreadsheet and put an "if, then, els
 
 <table>
 <tr><td>
-<p style="color:orange"><b>** NOTE **</b>
+<p style="color:orange">**** NOTE ****
 </td></tr>
 <tr><td>
+
 This script currently only creates configs for a handful of devices. However, you can change or add devices pretty easily.
+
 </td></tr>
 </table>
 
 <table>
 <tr><td>
-<p style="color:red"><b>****WARNING****</b>
+<p style="color:red">******WARNING******
 </td></tr>
 <tr><td>
-<b>*DO NOT</b>* use this config on any production switches. There is litttle security involved here. This is the config I had to use, but wouldn't recomend this config to someone I don't even like very much.
+
+***DO NOT*** use this config on any production switches. There is litttle security involved here. This is the config I had to use, but wouldn't recomend this config to someone I don't even like very much.
 </td></tr>
 </table>
 
 Ideally, I would like to add as many of the currently supported switches and wrap this script in an HTA.
 
 To be continued....
-
-

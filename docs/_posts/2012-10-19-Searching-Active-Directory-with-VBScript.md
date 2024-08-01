@@ -1,16 +1,10 @@
 ﻿---
-
 title:  Searching Active Directory with VBScript
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
-[gallery]I am constantly writing scripts to search AD. Basically I'm using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I've attached examples for searching users, computers, and shared printers that are published in AD.
+I am constantly writing scripts to search AD. Basically I'm using them to create little reports for one reason or another. Sometimes I will use them to do bulk updates. I've attached examples for searching users, computers, and shared printers that are published in AD.
 
 The following script is one that I am writing to get a list of user objects that have a Kerberos username in the â€œaltSecurityIdentities attribute. We are using pass-through authentication to a MIT Kerberos implementation outside of our Active Directory environment. Most of you won't find anything in that attribute and may want to test this with the â€œdescription attribute instead.
 
@@ -28,7 +22,9 @@ objCmd.ActiveConnection = objConn
 ```
 
 You will have to construct an ADSI filter to return the results that you want.
-<b>Examples:</b>
+
+**Examples:**
+
 "(objectClass=*)" = All objects.
 "(&(objectCategory=person)(objectClass=user)(!cn=andy))" = All user objects but "andy".
 "(sn=sm*)" = All objects with a surname that starts with "sm".
@@ -126,5 +122,3 @@ Now all we have to do is close the recordset.
 ```powershell
 objRs.Close
 ```
-
-

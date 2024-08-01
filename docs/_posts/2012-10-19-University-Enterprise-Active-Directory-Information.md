@@ -1,14 +1,8 @@
 ﻿---
-
 title:  University Enterprise Active Directory Information
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 A number of universities have sites providing information about their Enterprise AD environments.
 
@@ -27,5 +21,3 @@ Windows Enterprise Design Enterprise Design Summary - July 25, 2002
 
 <a href="http://suad.syr.edu/SUAD/display.cfm?content_ID=%23%28I%5F%2D%0A">Syracuse Univeristy</a>
 Active Directory Implimentation - AD Policies
-
-

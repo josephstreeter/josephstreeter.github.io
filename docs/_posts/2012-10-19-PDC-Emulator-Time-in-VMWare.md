@@ -1,18 +1,12 @@
 ﻿---
-
 title:  PDC Emulator Time in VMWare
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 This information was taken from the VMWare white paper <a href="http://www.vmware.com/files/pdf/Virtualizing_Windows_Active_Directory.pdf">*Virtualizing a Windows Active Directoy Domain Infrastructure*</a>
 
-<b>Using Windows Time Service for Synchronization</b>
+## Using Windows Time Service for Synchronization
 
 The first option is to use the Windows Time Service and not
 VMware Tools synchronization for the forest root PDC Emulator.
@@ -65,5 +59,3 @@ REG_DWORD value from 10 to 5 here.
 
 Microsoft KB article # 816042 provides detailed instructions
 for this process.
-
-

@@ -4,7 +4,6 @@ date:   2012-10-18 00:00:00 -0500
 categories: IT
 ---
 
-
 I haven't had a chance to try this script out yet. From what I've read it's pretty handy.
 
 This is a  <a href="http://www.remothelast.altervista.org/switchSNMP.html">site</a> that looks like it was taken from a SNMP book that I've read.

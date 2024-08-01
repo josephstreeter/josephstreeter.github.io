@@ -1,14 +1,8 @@
 ﻿---
-
 title:  PowerShell Working With ACLs and ACEs for Network Shares
 date:   2012-10-18 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Need to do some scripting to make some reports on ACLs on network shares. Should be an interesting project.
 
@@ -20,7 +14,7 @@ Since I've been job hunting, everyone seems to want someone that knows PowerShel
 
 Below is what I've come up with to start with. It enumerates all of the computer objects in the Directory and then enumerates all of the shares on each box. It then runs Get-Acl against each share.
 
-```
+```powershell
 $ErrorView = "CategoryView"
 
 $objName = "<b>partial name to query here</b>"
@@ -40,6 +34,3 @@ foreach ($objComp in $objAd)
     }
 }
 ```
-
-
-

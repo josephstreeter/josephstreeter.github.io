@@ -1,36 +1,30 @@
 ﻿---
-
 title:  Active Directory and Cached Credentials
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 We usually just take for granted that cached credentials work. Ever wonder how they work?
 
-<hr>
+---
 
 From "Web Active Directory LLC"
 
-<a href="http://blog.webactivedirectory.com/2011/06/09/windows-active-directory-cached-user-credentials/">Windows Active Directory Cached User Credentials
-</a>
+<a href="http://blog.webactivedirectory.com/2011/06/09/windows-active-directory-cached-user-credentials/">Windows Active Directory Cached User Credentials</a>
 
-<hr>
+---
 
 From the AD Troubleshooting Blog
 <a href="http://blogs.technet.com/b/instan/archive/2011/08/29/the-effect-on-cached-log
 ons-when-smart-card-is-required-for-interactive-logon-is-set.aspx">The effect on Cached Logons when Smart Card is required for interactive logon is set</a>
 
-<hr>
+---
 
 From the "Ask the Directory Services Team" blog:
 
 <a href="http://blogs.technet.com/b/askds/archive/2011/04/15/friday-mail-sack-now-with-100-more-words.aspx">Friday Mail Sack: Now with 100% more words<a>
-```powershell
+
+```text
 We don't do a great job in documenting how the cached interactive logon credentials work. There is some info here that might be helpful, but it's fairly limited:
 
 How Interactive Logon Works
@@ -55,6 +49,3 @@ DirectAccess
 
 If you have a VPN solution that doesn't allow XP to create the â€œdial-up network at interactive logon, that's something your remote-access vendor has to fix. Nothing we can do for you I'm afraid.
 ```
-
-
-

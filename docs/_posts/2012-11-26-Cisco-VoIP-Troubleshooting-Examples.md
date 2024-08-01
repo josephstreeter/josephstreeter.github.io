@@ -1,27 +1,20 @@
 ﻿---
-
 title:  Cisco VoIP Troubleshooting Examples
 date:   2012-11-26 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post:
 <a title="Permalink to Troubleshooting and Debugging VoIP Call Basics" href="../?p=4" rel="bookmark">Troubleshooting and Debugging VoIP Call Basics</a>
 
 ***show voice call status ***and ***show voice call summary*** â€“
 
+```console
 Router#sh voice call status
 CallID- - - -  CID-  ccVdb- - - - -  Port- - - - - - -  Slot/DSP:Ch-  Called #- -  Codec- - -  MLPP Dial-peers
 0x21- - - - - -  1243 0x4A0C6EA0 0/1/0- - - - - - - - - - -  0/1:1- -  1234- - - - - -  g711ulaw- - - - - -  1000/1001
 0x22- - - - - -  1243 0x4A0BE8AC 0/0/0- - - - - - - - - - -  0/1:2-  *1234- - - - - -  g711ulaw- - - - - -  1001/1000
 1 active call found
-
-
 
 Router#sh voice call summary
 PORT- - - - - - - - - -  CODEC- - - -  VAD VTSP STATE- - - - - - - - - - -  VPM STATE
@@ -34,12 +27,12 @@ PORT- - - - - - - - - -  CODEC- - - -  VAD VTSP STATE- - - - - - - - - - -  VPM 
 0/1/1- - - - - - - -  -- - - - - - - - -  --  -- - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK
 0/1/2- - - - - - - -  -- - - - - - - - -  --  -- - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK
 0/1/3- - - - - - - -  -- - - - - - - - -  --  -- - - - - - - - - - - - - - - - - - - -  FXOLS_ONHOOK
-
-
+```
 
 ***Show voice port summary
 ***router#show voice port summary
 
+```console
 IN- - - - - -  OUT
 PORT- - - - - - - - - - -  CH- -  SIG-TYPE- -  ADMIN OPER STATUS- -  STATUS- -  EC
 =============== == ============ ===== ==== ======== ======== ==
@@ -74,7 +67,4 @@ PORT- - - - - - - - - - -  CH- -  SIG-TYPE- -  ADMIN OPER STATUS- -  STATUS- -  
 
 PWR FAILOVER PORT- - - - - - -  PSTN FAILOVER PORT
 =================- - - - - - -  ==================
-
-
-
-
+```

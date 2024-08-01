@@ -1,20 +1,14 @@
 ﻿---
-
 title:  Active Directory PowerShell Blogs and Links
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 <img src="http://www.powershellcommunity.org/Portals/0/community-logo.png" border="0">
 
 Lots and lots of PowerShell resources for when you're bored and need something to read, need some scripting insperation, or are just stuck on a scripting problem.
 
-<h4> PowerShell Blogs</h4>
+## PowerShell Blogs
 
 - <a href="http://www.powershellpro.com/powershell-tutorial-introduction/powershell-tutorial-active-directory/">PowerShel Pro - PowerShell Tutorial 12 â€“ Part 1: Active Directory Management</a>
 - <a title="PowerShelled" href="http://mow001.blogspot.com">/\/\o\/\/ PowerShelled</a>
@@ -26,7 +20,6 @@ Lots and lots of PowerShell resources for when you're bored and need something t
 - <a href="http://mow001.blogspot.com/2006/08/powershell-and-active-directory-part-5.html">PowerShell and Active Directory Part 5</a>
 - <a href="http://mow001.blogspot.com/2006/08/powershell-and-active-directory-part-6.html">PowerShell and Active Directory Part 6</a>
 - <a href="http://mow001.blogspot.com/2006/08/powershell-and-active-directory-part-7.html">PowerShell and Active Directory Part 7</a>
-
 
 - <a  title="Blog of Windows PowerShell team. Improving the world one-liner at a time." href="http://blogs.msdn.com/powershell/default.aspx">Windows PowerShell Team Blog</a>
 
@@ -50,8 +43,7 @@ Lots and lots of PowerShell resources for when you're bored and need something t
 
 - <a  title="newpops Japanese MVP" href="http://d.hatena.ne.jp/newpops/">PowerShell Memo (JP)</a>
 
-
-<h4> PowerShell Links</h4>
+## PowerShell Links
 
 - <a title="Microsoft PowerShell Main Page" href="http://www.microsoft.com/windowsserver2003/technologies/management/powershell/default.mspx">  Windows PowerShell Home</a>
 
@@ -78,6 +70,3 @@ Lots and lots of PowerShell resources for when you're bored and need something t
 - <a title="Microsoft ScriptCenter : PowerShell Tip of the Week" href="http://www.microsoft.com/technet/scriptcenter/resources/pstips/archive.mspx">PowerShell Tip of the Week</a>
 
 - <a href="http://www.powershellcommunity.org">powershellcommunity.org</a>
-
-
-

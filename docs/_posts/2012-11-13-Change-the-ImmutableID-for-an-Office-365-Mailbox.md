@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Change the ImmutableID for an Office 365 Mailbox
 date:   2012-11-13 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 The immutableID is what ties an on-premise AD user object to an Office 365 mailbox. The immutableID is really a Base64 encoded version of the Active Directory user object's objectGUID attribute.
 
@@ -22,5 +16,3 @@ $upn = (get-aduser -f {cn -eq $cn}).userprincipalname
 $ImmutableID = [System.Convert]::ToBase64String($guid.ToByteArray())
 
 set-msolUser -userprincipalname $upn -immutableID $ImmutableID
-
-

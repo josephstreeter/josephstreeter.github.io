@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Information About Tokens and Kerberos
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 This is some good reading about access tokens and kerberos from the TechNet "Ask the Directory Services Team" blog.
 
@@ -27,5 +21,3 @@ This is some good reading about access tokens and kerberos from the TechNet "Ask
 
 <a href="http://blogs.technet.com/b/askds/archive/2008/06/11/kerberos-authentication-problems-service-principal-name-spn-issues-part-3.aspx">Kerberos Authentication problems â€“ Service Principal Name (SPN) issues - Part 3
 </a>
-
-

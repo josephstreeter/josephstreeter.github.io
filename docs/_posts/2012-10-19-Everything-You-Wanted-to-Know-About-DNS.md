@@ -1,14 +1,8 @@
 ﻿---
-
 title:  Everything You Wanted to Know About DNS
 date:   2012-10-19 00:00:00 -0500
 categories: IT
 ---
-
-
-
-
-
 
 Not an overly exciting story, but "need to know" stuff.
 
@@ -16,5 +10,3 @@ If you're going to support Active Directory then you had better know DNS. To quo
 </a> on the "Ask the Directory Services Team" blog.
 
 <a href="http://technet.microsoft.com/en-us/library/cc759550(WS.10).aspx">How DNS Support for Active Directory Works</a>
-
-
