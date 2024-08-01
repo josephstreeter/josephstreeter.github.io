@@ -2,10 +2,13 @@
 _layout: landing
 ---
 
-# This is the **HOMEPAGE**.
+# Welcome to my site
+
+This has been a sort of online notebook of mine for years. Written in markdown and served up with docfx and hosted on GitHub Pages.
 
 Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
 
-## Quick Start Notes:
+## Purpose
 
-1. Add images to the *images* folder if the file is referencing an image.
+1. Information Technology information saved for everything from my home lab to my daily professional work.
+2. Learning docfx.
