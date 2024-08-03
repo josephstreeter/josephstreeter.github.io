@@ -1,5 +1,7 @@
 - name: Knowledgebase
   href: docs/
+- name: Photography
+  href: docs/photography
 - name: Blog
   href: docs/_posts/
 - name: About Me
