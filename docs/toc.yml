@@ -13,8 +13,6 @@
       href: docker/dockercompose.md
 - name: Home Assistant
   href: homeassistant/index.md
-- name: Git
-  href: git/index.md
   items:
     - name: Guidlines
       href: homeassistant/guidlines.md
