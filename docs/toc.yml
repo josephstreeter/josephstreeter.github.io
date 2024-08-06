@@ -11,19 +11,19 @@
       href: docker/install.md
     - name: Docker Compose
       href: docker/dockercompose.md
-- name: Git
-  href: git/index.md
 - name: Home Assistant
   href: homeassistant/index.md
+- name: Git
+  href: git/index.md
   items:
+    - name: Guidlines
+      href: homeassistant/guidlines.md
     - name: Automations
       href: homeassistant/automations.md
     - name: Deployment
       href: homeassistant/deployment.md
     - name: Groups
       href: homeassistant/groups.md
-    - name: Guidlines
-      href: homeassistant/guidlines.md
     - name: Sensors
       href: homeassistant/sensors.md
     - name: Templates
