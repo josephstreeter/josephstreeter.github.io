@@ -4,9 +4,9 @@ DocFX supports "DocFX Flavored Markdown," or DFM. It is 100% compatible with Git
 
 ## Table of Contents
 
-- [Notes](notes)
-- [Yaml Header](yaml-header)
-- [Cross Reference](cross-reference)
+- [Notes](#notes)
+- [Yaml Header](#yaml-header)
+- [Cross Reference](#cross-reference)
 
 
 ## Yaml Header

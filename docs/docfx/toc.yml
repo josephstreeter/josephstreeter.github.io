@@ -4,4 +4,5 @@
   href: markdown.md
 - name: References
   href: references.md
-- name: toc script
+- name: Table of Contents Script
+  href: toc-script.md
