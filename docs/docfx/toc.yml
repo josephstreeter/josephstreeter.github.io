@@ -1,4 +1,8 @@
 - name: index
   href: index.md
+- name: Markdown
+  href: markdown.md
+- name: References
+  href: references.md
 - name: toc script
   href: toc-script.md
