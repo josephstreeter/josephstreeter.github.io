@@ -1,142 +1,36 @@
-- name: Introduction
+- name: introduction
   href: introduction.md
-- name: Ansible
-  href: ansible/index.md
-- name: DocFx
-  href: docfx/index.md
-- name: Docker
-  href: docker/index.md
-  items:
-    - name: Install Docker
-      href: docker/install.md
-    - name: Docker Compose
-      href: docker/dockercompose.md
-- name: Home Assistant
-  href: homeassistant/index.md
-  items:
-    - name: Guidlines
-      href: homeassistant/guidlines.md
-    - name: Automations
-      href: homeassistant/automations.md
-    - name: Deployment
-      href: homeassistant/deployment.md
-    - name: Groups
-      href: homeassistant/groups.md
-    - name: Sensors
-      href: homeassistant/sensors.md
-    - name: Templates
-      href: homeassistant/templates.md
-- name: Home Lab
-  href: homelab/index.md
-- name: KQL
-  href: kql/index.md
-- name: Git
-  href: git/index.md
-  items: 
-    - name: Terminology
-      href: git/terminology.md
-    - name: Configuration
-      href: git/configuration.md
-    - name: Branching
-      href: git/branching.md
-    - name: Rebaseing
-      href: git/rebaseing.md
-    - name: Resolving Merge Conflicts
-      href: git/resolvingconflicts.md
-    - name: Resolving Errors
-      href: git/resolvingerrors.md
-    - name: SSH
-      href: git/ssh.md
-- name: PGP
-  href: pgp/index.md
-  items:
-    - name: Summary
-      href: pgp/01-summary.md
-    - name: Concepts
-      href: pgp/02-concepts.md
-    - name: Installation
-      href: pgp/04-install-clients.md
-    - name: Command Line
-      href: pgp/05-command-line.md
-    - name: GPG4Win
-      href: pgp/06-gpg4win.md
-    - name: Advanced
-      href: pgp/07-advanced.md
-    - name: Conclusion
-      href: pgp/08-conclusion.md
-    - name: References
-      href: pgp/09-references.md
-    - name: Glossary
-      href: pgp/10-glossary.md
-- name: PowerShell
-  href: powershell/index.md
-  items:
-    - name: Introduction
-      href: powershell/introduction.md
-    - name: Variables
-      href: powershell/variables.md
-    - name: Functions
-      href: powershell/functions.md
-    - name: Loops
-      href: powershell/loops.md
-    - name: Conditions
-      href: powershell/conditions.md
-    - name: Error Handling
-      href: powershell/errorhandling.md
-    - name: Scripts
-      href: powershell/scripts.md
-    - name: Remote Execution
-      href: powershell/remoteexecution.md
-    - name: Modules
-      href: powershell/modules.md
-    - name: Module Development
-      href: powershell/moduledev.md
-    - name: PowerShell Runspaces
-      href: powershell/powershellrunspaces.md
-    - name: Active Directory
-      href: powershell/activedirectory.md
-    - name: Security
-      href: powershell/security.md
-    - name: Tips and Tricks
-      href: powershell/tipsandtricks.md
-    - name: Troubleshooting
-      href: powershell/troubleshooting.md
-- name: Software Defined Radio
-  href: RTL-SDR/index.md
-- name: SQL
-  href: sql/index.md
-  items:
-    - name: SQL Queries
-      href: sql/sqlqueries.md
-- name: Secure Shell
-  href: ssh/index.md
-  items:
-    - name: SSH Keys
-      href: ssh/SSHKeys.md
-    - name: Secure File Copy
-      href: ssh/SecureFileCopy.md
-    - name: Configuration
-      href: ssh/SSHConfig.md
-    - name: SSH Forwarding
-      href: ssh/SSHForwarding.md
-    - name: SSH Useage
-      href: ssh/SSHUse.md
-- name: Terraform
-  href: terraform/index.md
-  items:
-    - name: Proxmox
-      href: terraform/proxmox.md
-- name: Unifi Networking
-  href: unifi/index.md
-  items:
-    - name: 802.1x
-      href: unifi/802.1x.md
-    - name: Networking
-      href: unifi/networking.md
-- name: Visual Studio Code
-  href: vscode/index.md
-  items:
-    - name: Installation
-      href: vscode/install.md
-    - name: Configuration
-      href: vscode/configure.md
+- name: getting started
+  href: getting-started.md
+- name: ansible
+  href: ansible/toc.yml
+- name: docfx
+  href: docfx/toc.yml
+- name: docker
+  href: docker/toc.yml
+- name: git
+  href: git/toc.yml
+- name: homeassistant
+  href: homeassistant/toc.yml
+- name: homelab
+  href: homelab/toc.yml
+- name: kql
+  href: kql/toc.yml
+- name: pgp
+  href: pgp/toc.yml
+- name: photography
+  href: photography/toc.yml
+- name: powershell
+  href: powershell/toc.yml
+- name: RTL SDR
+  href: RTL-SDR/toc.yml
+- name: sql
+  href: sql/toc.yml
+- name: ssh
+  href: ssh/toc.yml
+- name: terraform
+  href: terraform/toc.yml
+- name: unifi
+  href: unifi/toc.yml
+- name: vscode
+  href: vscode/toc.yml
