@@ -1,0 +1,16 @@
+- name: index
+  href: index.md
+- name: terminology
+  href: terminology.md
+- name: configuration
+  href: configuration.md
+- name: branching
+  href: branching.md
+- name: rebaseing
+  href: rebaseing.md
+- name: resolvingconflicts
+  href: resolvingconflicts.md
+- name: resolvingerrors
+  href: resolvingerrors.md
+- name: ssh
+  href: ssh.md

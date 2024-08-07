@@ -1,0 +1,14 @@
+- name: index
+  href: index.md
+- name: automations
+  href: automations.md
+- name: deployment
+  href: deployment.md
+- name: groups
+  href: groups.md
+- name: guidlines
+  href: guidlines.md
+- name: sensors
+  href: sensors.md
+- name: templates
+  href: templates.md
