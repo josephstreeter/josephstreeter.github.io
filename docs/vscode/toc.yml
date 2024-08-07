@@ -1,8 +1,8 @@
-- name: configure
-  href: configure.md
-- name: index
+- name: Index
   href: index.md
-- name: install
+- name: Install
   href: install.md
-- name: tipaandtricks
+- name: Configure
+  href: configure.md
+- name: Tipa and Tricks
   href: tipaandtricks.md

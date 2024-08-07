@@ -1,6 +1,4 @@
-# Ansible
-
----
+# Ansibles
 
 ## Ansible Setup
 

@@ -1,4 +1,4 @@
 - name: index
   href: index.md
-- name: sqlqueries
+- name: SQL Queries
   href: sqlqueries.md

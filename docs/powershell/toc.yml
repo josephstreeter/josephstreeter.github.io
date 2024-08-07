@@ -1,34 +1,34 @@
 - name: index
   href: index.md
-- name: introduction
+- name: Introduction
   href: introduction.md
-- name: variables
+- name: Variables
   href: variables.md
-- name: conditions
+- name: Conditions
   href: conditions.md
-- name: loops
+- name: Loops
   href: loops.md
-- name: functions
+- name: Functions
   href: functions.md
-- name: errorhandling
+- name: Error Handling
   href: errorhandling.md
-- name: moduledev
-  href: moduledev.md
-- name: modulerepo
-  href: modulerepo.md
-- name: modules
+- name: Modules
   href: modules.md
-- name: powershellrunspaces
+- name: Module Development
+  href: moduledev.md
+- name: Module Reposiitoy
+  href: modulerepo.md
+- name: Powershell Runspaces
   href: powershellrunspaces.md
-- name: remoteexecution
+- name: Remot Execution
   href: remoteexecution.md
-- name: scripts
+- name: Scripts
   href: scripts.md
-- name: activedirectory
+- name: Active Directory
   href: activedirectory.md
-- name: security
+- name: Security
   href: security.md
-- name: tipsandtricks
+- name: Tips and Tricks
   href: tipsandtricks.md
-- name: troubleshooting
+- name: Troubleshooting
   href: troubleshooting.md

@@ -1,6 +1,6 @@
-- name: dockercompose
-  href: dockercompose.md
 - name: index
   href: index.md
-- name: install
+- name: Install
   href: install.md
+- name: Docker Compose
+  href: dockercompose.md

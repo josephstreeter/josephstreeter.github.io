@@ -1,20 +1,20 @@
 - name: index
   href: index.md
-- name: 01 summary
+- name: Summary
   href: 01-summary.md
-- name: 02 concepts
+- name: Concepts
   href: 02-concepts.md
-- name: 04 install clients
+- name: Install Clients
   href: 04-install-clients.md
-- name: 05 command line
+- name: Command Line
   href: 05-command-line.md
-- name: 06 gpg4win
+- name: GPG4Win
   href: 06-gpg4win.md
-- name: 07 advanced
+- name: Advanced
   href: 07-advanced.md
-- name: 08 conclusion
+- name: Conclusion
   href: 08-conclusion.md
-- name: 09 references
+- name: References
   href: 09-references.md
-- name: 10 glossary
+- name: Glossary
   href: 10-glossary.md
