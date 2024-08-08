@@ -5,9 +5,9 @@ categories: IT
 ---
 
 Some quick examples of commands to troubleshoot voice issues on Cisco voice routers. Links to some resources can be found in an earlier post:
-<a title="Permalink to Troubleshooting and Debugging VoIP Call Basics" href="../?p=4" rel="bookmark">Troubleshooting and Debugging VoIP Call Basics</a>
+[Permalink to Troubleshooting and Debugging VoIP Call Basics]("bookmark">Troubleshooting and Debugging VoIP Call Basics)
 
-***show voice call status ***and ***show voice call summary*** â€“
+***show voice call status **and** show voice call summary***“
 
 ```console
 Router#sh voice call status

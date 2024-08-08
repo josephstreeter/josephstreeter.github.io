@@ -1,7 +1,5 @@
 # Glossary
 
-- [References](09-References.md)
-
 ---
 
 - PGP – Pretty Good Privacy

@@ -8,7 +8,6 @@ DocFX supports "DocFX Flavored Markdown," or DFM. It is 100% compatible with Git
 - [Yaml Header](#yaml-header)
 - [Cross Reference](#cross-reference)
 
-
 ## Yaml Header
 
 Yaml header in DFM is considered as the metadata for the Markdown file. It will transform to yamlheader tag when processed. Yaml header MUST be the first thing in the file and MUST take the form of valid YAML set between triple-dashed lines.
@@ -41,7 +40,7 @@ DFM adds syntax to include other file parts into current file, the included file
 
 ### Inline
 
-Inline file inclusion is in the following syntax, in which ```<title>``` stands for the title of the included file, and ```<filepath>``` stands for the file path of the included file. The file path can be either absolute or relative.```<filepath>``` can be wrapped by ' or ". NOTE that for inline file inclusion, the file included will be considered as containing only inline tags, for example, ###header inside the file will not transfer since ```<h3>``` is a block tag, while [a](b) will transform to ```<a href='b'>a</a>``` since ```<a>``` is an inline tag.
+Inline file inclusion is in the following syntax, in which ```<title>``` stands for the title of the included file, and ```<filepath>``` stands for the file path of the included file. The file path can be either absolute or relative.```<filepath>``` can be wrapped by ' or ". NOTE that for inline file inclusion, the file included will be considered as containing only inline tags, for example, ###header inside the file will not transfer since ```<h3>``` is a block tag, while ```[a](b)``` will transform to ```<a href='b'>a</a>``` since ```<a>``` is an inline tag.
 
 ```text
 ...Other inline contents... [!include[<title>](<filepath>)]

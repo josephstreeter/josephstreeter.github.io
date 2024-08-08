@@ -1,7 +1,5 @@
 # Kusto Query Language
 
----
-
 ## Azure Log Analyitics Workspaces
 
 ### Threat Hunting
@@ -28,7 +26,7 @@ SigninLogs
 
 ### Email Activity
 
-All messages sent to "[edu-noreply@github.com](edu-noreply@github.com)"
+All messages sent to ```edu-noreply@github.com```
 
 ```kql
 EmailEvents
