@@ -1,4 +1,4 @@
-- name: index
+- name: PowerShell
   href: index.md
 - name: Introduction
   href: introduction.md

@@ -1,2 +1,4 @@
-- name: index
+- name: Home
   href: index.md
+- name: Basics
+  href: basics.md

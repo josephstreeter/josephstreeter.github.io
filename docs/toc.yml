@@ -18,8 +18,6 @@
   href: kql/toc.yml
 - name: pgp
   href: pgp/toc.yml
-- name: photography
-  href: photography/toc.yml
 - name: powershell
   href: powershell/toc.yml
 - name: RTL SDR

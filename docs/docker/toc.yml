@@ -1,4 +1,4 @@
-- name: index
+- name: Docker
   href: index.md
 - name: Install
   href: install.md

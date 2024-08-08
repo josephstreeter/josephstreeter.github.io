@@ -1,4 +1,4 @@
-- name: index
+- name: Terraform
   href: index.md
 - name: Proxmox
   href: proxmox.md

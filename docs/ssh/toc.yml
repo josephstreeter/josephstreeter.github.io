@@ -1,4 +1,4 @@
-- name: index
+- name: Secure Shell
   href: index.md
 - name: SecureFileCopy
   href: SecureFileCopy.md

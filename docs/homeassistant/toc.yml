@@ -1,4 +1,4 @@
-- name: index
+- name: Home Assistant
   href: index.md
 - name: Automations
   href: automations.md

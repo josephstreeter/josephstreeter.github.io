@@ -1,4 +1,4 @@
-- name: index
+- name: Git
   href: index.md
 - name: Terminology
   href: terminology.md
