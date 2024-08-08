@@ -170,3 +170,33 @@ Warning
 Caution
 > [!CAUTION]
 > Negative potential consequences of an action.
+
+## \<div\> in Markdown
+
+> [!WARNING]
+> Not sure how this will work in DocFX. Your mileage may vary.
+
+Markdown itself does not have the concept of a ```<div>```, but it can be done using HTML. If you add ```markdown="1" to the \<div\> tag it will work as expected in most markdown flavors.
+
+```text
+<div class="special-class" markdown="1">
+1. Item 1
+2. Item 2
+3. Item 3
+</div>
+
+```
+
+Example:
+
+<div class="special-class" markdown="1">
+1. Item 1
+2. Item 2
+3. Item 3
+</div>
+
+## Escape characters
+
+Certain characters have meaning in markdown, like how *asterisks* make text italic. But what if you want to actually display an asterisk? You escape it with a backslash, like ```\*```.
+
+You can even escape the backslash itself, meaning ```\\``` is ```\```.
