@@ -18,7 +18,7 @@ Make sure that Kleopatra and GNU Privacy Assistant (GPA) are installed. GPA is n
 
 ## Create PGP Key Pair
 
-### Kleopatra
+## [Kleopatra](#tab/createkeypairkleopatra)
 
 The next step is to generate your keypair so you can encrypt/decrypt messages. Like always, we’ll be going with 4096 bit RSA. You will create a Public and Private key pair with information related to your identity and email address or addresses. This is important to help others locate your public key on the key server.
 If we were concerned with anonymity, we would make sure that none of the information used in the key pair could be used to reveal our true identity. The e-mail could be a valid alias for an anonymous email service on the DarkNet or complete gibberish.
@@ -40,8 +40,8 @@ Kleopatra should be used to create your key pairs instead of GPA because it will
 8. Kleopatra will now generate the key pair. The random entry of data is used to create entropy. Enter text, move the mouse, etc.
   
 9. Once the key is created, click “Finish”
-  
-### GPA
+
+## [GPA](#tab/createkeygpa)
 
 Next, you want to make a PGP key. Remember, none of the details need to be valid. I'd use your online name or a different alias when making your key. Something that isn't your gamertag for online games, or anything that may tie to you. A completely new alias. The e-mail doesn't need to be valid at all. Here are some pictures to help you through the process. Also, make a backup of your key!!!
 First, click the keys in the menu at the top. Alternatively, you can click CTRL+N to begin the process of creating a key. Shown here:
@@ -55,37 +55,70 @@ First, click the keys in the menu at the top. Alternatively, you can click CTRL+
 4. Find where you put the back up of your key. It will be an .asc file but no worries, when asked to open the file just tell windows or whatever OS to open it using Notepad. Here you will find a public key similar to this.
 
 5. When sharing your key with others, you want to copy and paste from the beginning dashes to the end dashes. Exactly how I have copied and pasted above.
+## [CLI](#tab/cli)
+
+The following command creates a new key pair.
+
+``` bash
+gpg --gen-key
+```
+
+---
 
 ## Publish the Public Key to a Key Server
 
-### Kleopatra Key Publish
-
 Add your public key to a public key server so people can find your public key in order to send you secure messages.
 
-### GPA Key Publish
+## [Kleopatra](#tab/publishkeypairkleopatra)
 
 Add your public key to a public key server so people can find your public key in order to send you secure messages. A public key can be published to a key server from GPA by clicking on the “Server” menu and selecting “Send Keys.”
 
+## [GPA](#tab/publishkeypairgpa)
+
+## [CLI](#tab/publishkeypairCLI)
+
+``` bash
+gpg --armor --output public.asc --export <Your Name>;
+```
+
+``` bash
+gpg --send-keys <Your Name> --keyserver hkp://subkeys.pgp.net
+```
+
+``` bash
+gpg --search-keys <myfriend@his.isp.com> --keyserver hkp://subkeys.pgp.net
+```
+---
+
+
 ## Retrieve Public Keys
 
-### Kleopatra Retrieve Public Keys
-
 In this step we are going to retrieve the public key from the key pair that was just created. By doing this we are able to make the public key available to those that wish to communicate with you securely. Without it, they will not be able to encrypt messages that you are able to decrypt.
+## [Kleopatra](#tab/retrevekeypairkleopatra)
+
+
+## [GPA](#tab/retrevekeypairgpa)
+
 
 1. In the “My Certificates” tab, right click on your key and click “Export Certificates…”
-  
 2. Browse to the location where you want to save the public key and click “Save” (Note: you may want to give it a name that distinguishes this file as your public key)
 3. The public key can be viewed in a text editor, like notepad. Browse to the location where you saved the key and open it. (Note: The key will have a “.asc” extension, you may have to select “All files” from the dropdown menu.
-  
 4. The text you see in the file is your public key. This is the text that you will send to others so they can import it into their PGP application.
   
-### GPA Retrieve Public Keys
+## [CLI](#tab/retrevekeypairCLI)
 
-<…>
+``` bash
+gpg --import key.asc
+```
+
+``` bash
+gpg --list-keys
+```
+---
 
 ## Obtaining the Private Key
 
-### Kleopatra Obtaining the Private Key
+## [Kleopatra](#tab/obtainprikeykleopatra)
 
 Similar to obtaining your public key
 
@@ -94,33 +127,24 @@ Similar to obtaining your public key
 2. Select the location to save your private key, give it a name, check “ASCII armor”, and click “Ok”  
 The following dialog box confirms the export of your private key. (Remember to keep the private key safe and never share it!)
 3.
-  
-### GPA Obtaining the Private Key
 
-<…>
+## [GPA](#tab/obtainprikeygpa)
+
+## [CLI](#tab/obtainprikeycli)
+
+``` bash
+gpg --armor --export-secret-key --output private.asc --export <Your Name>
+```
+
+---
 
 ## Importing a Public Key
 
-### Kleopatra Importing a Public Key
+It’s impossible to send a vendor an encrypted message without their public key. 
 
-It’s impossible to send a vendor an encrypted message without their public key. The public key could be sent to you in an email as an attachment or included in the signature block, downloaded from a key server, shared from removable storage, etc.
+The public key could be sent to you in an email as an attachment or included in the signature block, downloaded from a key server, shared from removable storage, etc.
 
-1. Receive a public key as a text file through email or other electronic method
-2. Copy all text including “—–BEGIN PGP PUBLIC KEY BLOCK—–” and “—–END PGP PUBLIC KEY BLOCK—”
-
-3. In your task bar, right click on the Kleopatra icon, go to “Clipboard”, then click “Certificate Import”
-
-4. If the import worked you should see a window pop up as confirmation, click “Ok”
-
-5. The imported key should now be displayed in Kleopatra under the “Other Certificates” tab  
-
-### GPA Importing a Public Key
-
-<…>
-
-## Importing the Private Key
-
-### Kleopatra Importing the Private Key
+## [Kleopatra](#tab/importprikeykleopatra)
 
 The private key that you will be importing is from a key pair that you have previously created. This private key is used to sign outgoing messages and to decrypt incoming messages. Any host or device that contains your private key should be considered “sensitive” because loss or theft could lead to the compromise of your private key.
 
@@ -130,16 +154,25 @@ The private key that you will be importing is from a key pair that you have prev
 3. A window will be displayed confirming the import of the private key. Click “Ok” to contintue.
 4. The key information should now be displayed in the “My Certificates” tab
 
-### GPA Importing the Private Key
+## [GPA](#tab/importprikeygpa)
 
 You see people giving their public keys away so others can contact them. Simply open a notepad file, copy and paste their key and import it using the GPA program. I will show you how to do this.
 First make a blank text file and copy the users pubic key to it. Shown here:
 
 Then, in the Keys menu where you made your key, select import keys. Shown here:
 
+## [CLI](#tab/importprikeycli)
+
+``` bash
+gpg
+```
+
+---
+
 ## Encrypting a Message
 
-### Kleopatra Encrypting a Message
+
+## [Kleopatra](#tab/encryptmessagekleopatra)
 
 To create a message and encrypt it:
 
@@ -156,13 +189,27 @@ To create a message and encrypt it:
   
 8. Your encrypted message will be in your clipboard, all you need to do is paste it into the message box and send
   
-GPA
-<..>
+## [GPA](#tab/encryptmessagegpa)
+
+## [CLI](#tab/encryptmessagecli)
+
+Here we encrypt/decrypt a file that is just for our own use.
+
+``` bash
+gpg --encrypt --recipient <Your Name> foo.txt
+```
+
+Encrypting for another recipient
+
+``` bash
+gpg --encrypt --recipient <myfriend@his.isp.net> foo.txt
+```
+
+---
 
 ## Decrypting a Message
 
-### Kleopatra Decrypting a Message
-
+## [Kleopatra](#tab/decryptmessagekleopatra)
 This is just as easy as encrypting.
 
 1. Copy everything that was sent
@@ -174,7 +221,37 @@ This is just as easy as encrypting.
 4. A window should pop up verifying it was decrypted, and copied to your clipboard. Click “Finish”
 
 5. Open your text editor of choice, and paste your message
+## [GPA](#tab/decryptmessagegpa)
+## [CLI](#tab/decryptmessagecli)
+``` bash
+gpg --output foo.txt --decrypt foo.txt.gpg
+```
 
-### GPA Decrypting a Message
+---
 
-<…>
+## Revoke a Key
+
+## [Kleopatra](#tab/revokekeykleopatra)
+## [GPA](#tab/revokeprikeygpa)
+## [CLI](#tab/revokeprikeycli)
+
+``` bash
+gpg --gen-revoke --output revoke.txt --export <Your Name>
+```
+
+---
+
+## Verify Signature
+
+## [Kleopatra](#tab/verifysigkleopatra)
+## [GPA](#tab/verifysiggpa)
+## [CLI](#tab/verifysigcli)
+
+``` bash
+gpg --verify crucial.tar.gz.asc crucial.tar.gz
+```
+
+``` bash
+gpg --armor --detach-sign your-file.zip
+```
+---

@@ -1,20 +1,14 @@
-- name: PGP
-  href: index.md
 - name: Summary
   href: 01-summary.md
-- name: Concepts
-  href: 02-concepts.md
 - name: Install Clients
-  href: 04-install-clients.md
-- name: Command Line
-  href: 05-command-line.md
-- name: GPG4Win
-  href: 06-gpg4win.md
+  href: 03-install-clients.md
+- name: Useage
+  href: 02-useage.md
 - name: Advanced
-  href: 07-advanced.md
+  href: 04-advanced.md
 - name: Conclusion
-  href: 08-conclusion.md
+  href: 05-conclusion.md
 - name: References
-  href: 09-references.md
+  href: 06-references.md
 - name: Glossary
-  href: 10-glossary.md
+  href: 07-glossary.md

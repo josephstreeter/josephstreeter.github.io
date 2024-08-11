@@ -24,12 +24,13 @@ There is little else you can do about the To, From, and IP, as those are control
 - xxx
 - ;;;
 - :::
-- \&lt;space\&gt;
+- ```<space>```
 
 The Subject must never ever refer to the content of the email, even obliquely. For example, &quot;Subject: Your cocaine has shipped!&quot; is a total email security failure.
 
-- **Subjects should be empty**!
-  - Disable the _Warn about empty subject_ setting on your email client
+**Subjects should be empty**!
+
+Disable the _Warn about empty subject_ setting on your email client
 
 ### Writing
 
@@ -44,35 +45,35 @@ There are fundamentally two options when composing an email: you can either writ
 
 ### Drafts
 
-- Don&#39;t save Drafts in plaintext
+Do not save Drafts in plaintext
 
 Drafts can be a significant source of risk. The storage and handling of drafts must be approached with care. Make sure that they are encrypted (never stored in plaintext), that they are stored locally (where you can be sure of deleting them) and that they are deleted after use. Make sure to configure your email client to store drafts locally and to encrypt them before writing them to disk.
 
-- Don&#39;t store on server
+- Do not store on server
 - Ensure they are encrypted
 - Ensure they are deleted after use
 
 ### Composition
 
-- Delete the content in a reply, only quote the relevant parts if necessary
+Delete the content in a reply, only quote the relevant parts if necessary
 
 Mitigate against the potential threat of any single email being compromised by limiting the information within any single email. The more information is stored in the mental context of the correspondents, the less useful the information in the email is to an adversary. Wherever possible minimize the amount of irrelevant contextual information within the email body. Keep it short, simple, and clean.
 
 ### Attachments
 
-- PGP has all the capability of tar or zip.
+PGP has all the capability of tar or zip.
 
 It is possible to include all the files you need to include as a pure PGP messages without having an attachment called secret-leaked-nsa-docs.tar.gz.gpg.asc. The program to use is gpg-zip and it takes both --tar= command line options and gpgcommand line options. Use this to bundle your files and send them as an opaque encrypted blob.
 
 ### Encrypting
 
-- use --throw-keys to prevent leaking more metadata
+use ```--throw-keys``` to prevent leaking more metadata
 
 PGP encryption stores metadata about the decryption keys in the encrypted data. This is a simple optimization to allow the recipient to rapidly determine whether the email can be decrypted by a private key they possess. This information also allows an attacker to determine who can read the email. If the email is intended to be truly anonymous, this metadata must be discarded. Fortunately, there is a gpg command line flag for this: --throw-keys.
 
 Ensure that --throw-keys is added to the command line when encrypting data.
 
-- PGP/MIME and inline PGP -ear aren&#39;t the same.
+PGP/MIME and inline PGP -ear are not the same.
 
 For more control and compatibility, use inline PGP.
 
@@ -103,11 +104,10 @@ After the email has been sent and is no longer operationally useful, delete it. 
 
 ### Riseup.net PGP Configuration Guide
 
-There is a PGP configuration guide from riseup.net. If you want to incorporate their best practice recommendations without any of their terrible advice about using key servers etc, then simply install this gpg.conf into your ~/.gnupg.
+There is a PGP configuration guide from riseup.net. If you want to incorporate their best practice recommendations without any of their terrible advice about using key servers etc, then simply install this gpg.conf into your ~```/.gnupg```.
 
 - [gpg.conf](https://github.com/stribika/duraconf/blob/master/configs/gnupg/gpg.conf)
 
 ### Outreach
 
-- Remind your correspondents to practice the same PGP hygiene
-
+Remind your correspondents to practice the same PGP hygiene
