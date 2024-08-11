@@ -1,4 +1,4 @@
-# Knowledge Base
+# Technology
 
 This serves as my personal knowledge base. An online notebook of sorts for information I would like to store for later use.  
 
@@ -16,16 +16,3 @@ This serves as my personal knowledge base. An online notebook of sorts for infor
 - Home Assistant
 - Terraform
 - Ansible
-
-### Photography
-
-The basics for: 
-
-- Camera settings
-- Composition
-- Tips and tricks
-
-### Cooking
-
-- Propane Griddle
-- Pellet Smoker

@@ -1,4 +1,4 @@
 - name: Home
   href: index.md
-- name: Basics
-  href: basics.md
+- name: Camera Settings
+  href: camerasettings.md
