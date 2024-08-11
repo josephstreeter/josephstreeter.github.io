@@ -1,7 +1,29 @@
 # Install Clients
 
 ---
+## [GnuPG (Windows)](#tab/gnupgwindows)
 
+Manage GnuPG installtion using Chocoletly.
+
+[https://community.chocolatey.org/packages/gnupg#install](https://community.chocolatey.org/packages/gnupg#install)
+
+### Install
+
+```powershell
+choco install gnupg
+```
+
+### Update
+
+```powershell
+choco update gnupg
+```
+
+### Uninstall
+
+```powershell
+choco uninstall gnupg
+```
 
 ## [GPG4Win (Windows)](#tab/windows)
 
@@ -13,7 +35,7 @@ Make sure that Kleopatra and GNU Privacy Assistant (GPA) are installed. GPA is n
 
 [![image](RackMultipart20211128-4-dbovmn_html_e53115da50210aaf.png)](http://www.deepdotweb.com/wp-content/uploads/2015/02/SUJ3aT21.png)
 
-1. Click **Next**, then **Next** again. You**ll now be at a screen asking what components you want to install. We&#39;ll be selecting **Kleopatra**, **GpgEX**, and **Gpg4win Compendium**. Then click **Next**
+1. Click **Next**, then **Next** again. You will now be at a screen asking what components you want to install. We&#39;ll be selecting **Kleopatra**, **GpgEX**, and **Gpg4win Compendium**. Then click **Next**
 
 [![image](RackMultipart20211128-4-dbovmn_html_b2b6267a689e4d14.png)](http://www.deepdotweb.com/wp-content/uploads/2015/02/oNLB4Kk1.png)
 
