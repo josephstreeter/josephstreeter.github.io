@@ -1,7 +1,8 @@
-## Sensors
+# Sensors
 
-### Template Sensor
-```
+## Template Sensor
+
+```yml
 - sensor:
     - name: "AC_On_Window_Open
       state: >
@@ -12,7 +13,8 @@
          {%- endif %}
 
 ```
-```
+
+```yml
 - sensor:
    - name: "outdoor_temp"
      state: >
@@ -23,7 +25,8 @@
        {% endif %}
 
 ```
-```
+
+```yml
   - sensor:
       - name: "Average temperature"
         unit_of_measurement: "°C"
@@ -34,9 +37,9 @@
           {{ ((bedroom + kitchen) / 2) | round(1, default=0) }}
 ```
 
-### Time of Day
+## Time of Day
 
-```
+```yml
 - platform: tod
   name: Night
   after: sunset
@@ -48,9 +51,9 @@
   before: '06:00'
 ```
 
-# Workday
+## Workday
 
-```text
+```yml
 - platform: workday
   country: US
   province: WI

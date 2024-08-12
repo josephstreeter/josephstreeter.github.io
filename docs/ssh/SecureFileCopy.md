@@ -1,6 +1,5 @@
 # Secure File Copy - SCP
 
----
 SCP uses the SSH protocol to securly copy files between systems. SCP is often included as part of the SSH client application.
 
 ## Copy a file

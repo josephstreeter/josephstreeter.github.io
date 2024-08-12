@@ -1,7 +1,5 @@
 # Module Development
 
----
-
 ## Introduction
 
 This document will outline creating PowerShell modules using Plaster and an opinionated PLaster template called Stucco. Plaster and Stucco will create the scaffolding needed to organize the files needed to create and publish the PowerShell module. This includes creating Pester tests to ensure that the module meets the defined requirements.

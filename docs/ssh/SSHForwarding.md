@@ -1,6 +1,5 @@
 # Port Forwarding
 
----
 SSH can be used to create secure tunnels for access to applications and services.
 
 ## Local Forwarding

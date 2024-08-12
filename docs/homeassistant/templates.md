@@ -32,7 +32,7 @@ View the value of an attribute
 {{ state_attr('light.kitchen_sink_light', 'friendly_name') }}
 ```
 
-### Manipulate Text
+## Manipulate Text
 
 Capitalize
 
@@ -43,13 +43,13 @@ Capitalize
 To Upper
 
 ```jinger
-{{ states('light.kitchen_sink_light') | upper}
+{{ states('light.kitchen_sink_light') | upper}}
 ```
 
 To Lower
 
 ```jinger
-{{ states('light.kitchen_sink_light') | lower}
+{{ states('light.kitchen_sink_light') | lower}}
 
 ```
 
@@ -71,7 +71,7 @@ Join
 {{ output.sensors | join(',') }}
 ```
 
-### Variables
+## Variables
 
 Set Variable
 
@@ -101,7 +101,7 @@ Create an Array from HA data
 {{ output.sensors }}
 ```
 
-### Math
+## Math
 
 Subtraction
 
@@ -130,7 +130,7 @@ Average
 {{ average }}
 ```
 
-### Conditions
+## Conditions
 
 For
 
@@ -229,7 +229,7 @@ is_state('binary_sensor.oc_contact_bedroom_01_window_01_contact', 'on')
 {% endif %}
 ```
 
-### Snippets
+## Snippets
 
 Show the state of an entity
 

@@ -1,7 +1,5 @@
 # SSH Connect
 
----
-
 ## Authentiction
 
 ```text

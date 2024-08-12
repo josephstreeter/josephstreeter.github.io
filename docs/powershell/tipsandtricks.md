@@ -1,6 +1,5 @@
 # PowerShell Tips and Tricks
 
----
 The following is a list of tips and tricks that I've used to make the use of PowerShell better in certain situations.
 
 ## Setting Default Parameter Values

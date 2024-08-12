@@ -1,7 +1,5 @@
 # Active Directory
 
----
-
 Remove ACE from a list of object's ACL for a security principal
 
 ```powershell

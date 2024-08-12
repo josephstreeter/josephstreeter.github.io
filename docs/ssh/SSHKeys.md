@@ -1,6 +1,5 @@
 # SSH Keys
 
----
 SSH Keys are asymetric cryprographic keys, or key pairs, that are used for authorization and authentication.
 A key pair consists of a private key (Identification key) and a public key (Authorization key). The owner of a key pair is authorized access to a resource by installing that user's public key (Authorization) on that resource.
 The user then uses the private key (Identity) to authenticate to that resource. The private key is protected by a passowrd or passphrase that only the owner knows. A users private key's are to be protected the same as passwords.

@@ -1,7 +1,5 @@
 # Git
 
----
-
 ## Concept
 
 Below is simplified example of a workflow.

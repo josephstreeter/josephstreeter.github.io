@@ -1,7 +1,5 @@
 # Home Lab
 
----
-
 ## Services
 
 - Proxmox

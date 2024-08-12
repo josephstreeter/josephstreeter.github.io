@@ -1,6 +1,6 @@
 # Configuration
 
-Every time a git is used for the first time, two basic configurations must bet set. Git must be told the name and the email address of the user that is using Git. This information will be used to identity a user's actions.
+Every time a git is used for the first time, two basic configurations must be set. Git must be told the name and the email address of the user that is using Git. This information will be used to identity a user's actions.
 
 ```bash
 git config --global user.name First I Last
