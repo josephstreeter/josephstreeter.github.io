@@ -2,35 +2,9 @@
   href: introduction.md
 - name: getting started
   href: getting-started.md
-- name: ansible
-  href: ansible/toc.yml
-- name: docfx
-  href: docfx/toc.yml
-- name: docker
-  href: docker/toc.yml
-- name: git
-  href: git/toc.yml
-- name: homeassistant
-  href: homeassistant/toc.yml
-- name: homelab
-  href: homelab/toc.yml
-- name: kql
-  href: kql/toc.yml
-- name: pgp
-  href: pgp/toc.yml
-- name: photography
-  href: photography/toc.yml
-- name: powershell
-  href: powershell/toc.yml
-- name: RTL SDR
-  href: RTL-SDR/toc.yml
-- name: sql
-  href: sql/toc.yml
-- name: ssh
-  href: ssh/toc.yml
-- name: terraform
-  href: terraform/toc.yml
-- name: unifi
-  href: unifi/toc.yml
-- name: vscode
-  href: vscode/toc.yml
+- name: Technology
+  href: technology/index.md
+- name: Photography
+  href: photography/index.md
+- name: Cooking
+  href: cooking/index.md

@@ -1,7 +1,9 @@
-- name: Knowledgebase
-  href: docs/
+- name: Technology
+  href: docs/technology/index.md
 - name: Photography
-  href: docs/photography
+  href: docs/photography/index.md
+- name: Cooking
+  href: docs/cooking/index.md
 - name: Blog
   href: docs/_posts/
 - name: About Me

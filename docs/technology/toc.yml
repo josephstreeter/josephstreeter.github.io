@@ -1,0 +1,47 @@
+- name: Technology
+  href: index.md
+
+- name: Virtualization and Containers
+- name: Home Lab
+  href: homelab/toc.yml
+- name: Secure Shell
+  href: ssh/toc.yml
+- name: Docker
+  href: docker/toc.yml
+- name: Terraform
+  href: terraform/toc.yml
+- name: Ansible
+  href: ansible/toc.yml
+
+- name: Networking
+- name: Unifi Networking
+  href: unifi/toc.yml
+
+- name: Scripting
+- name: Powershell
+  href: powershell/toc.yml
+- name: Visual Studio Code
+  href: vscode/toc.yml
+- name: Git
+  href: git/toc.yml
+- name: SQL
+  href: sql/toc.yml
+- name: DocFX
+  href: docfx/toc.yml
+
+- name: Automation
+- name: Home Assistant
+  href: homeassistant/toc.yml
+
+- name: Cloud Operations
+- name: Kusto Query Language
+  href: kql/toc.yml
+
+- name: Security
+- name: PGP
+  href: pgp/toc.yml
+
+
+- name: Radio
+- name: RTL SDR
+  href: RTL-SDR/toc.yml

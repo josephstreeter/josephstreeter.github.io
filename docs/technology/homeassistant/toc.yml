@@ -1,0 +1,14 @@
+- name: Home Assistant
+  href: index.md
+- name: Automations
+  href: automations.md
+- name: Deployment
+  href: deployment.md
+- name: Groups
+  href: groups.md
+- name: Guidlines
+  href: guidlines.md
+- name: Sensors
+  href: sensors.md
+- name: Templates
+  href: templates.md
