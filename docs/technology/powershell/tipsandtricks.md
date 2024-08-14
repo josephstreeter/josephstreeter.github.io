@@ -74,7 +74,7 @@ $PSDefaultParameterValues=@{ "CmdletName:ParameterName"={{ScriptBlock}} }
 $PSDefaultParameterValues["Disabled"]=$True | $False
 ```
 
-### PowerShell Paths When Using Folder Redirection
+## PowerShell Paths When Using Folder Redirection
 
 Group Policy is configuring folder redirection for several profile directories, including "Documents" where the default $PSModulePath and $Profile is located.  There has been performance issues when using PowerShell remotely over VPN as it takes PowerShell a while to search $PSModulePath to autoload modules.
 
@@ -105,7 +105,7 @@ if ($ProfilePath -like "\\*")
 }
 ```
 
-### Dynamic PSCustomObject
+## Dynamic PSCustomObject
 
 > [!NOTE]
 > This was just copied out of a script. Needs some work.
@@ -123,7 +123,7 @@ foreach ($Object in $Results)
 }
 ```
 
-### Bulk Create Entra ID Dynamic Security Groups
+## Bulk Create Entra ID Dynamic Security Groups
 
 ```powershell
 Grps = @('MC-GS-Role-Employee-BoardMember','Entitlements and licenses for Board Members',"BM"),
