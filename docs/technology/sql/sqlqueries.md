@@ -146,3 +146,20 @@ SELECT COLUMN_NAME + ' ' + DATA_TYPE + '(' + CAST(CHARACTER_MAXIMUM_LENGTH AS va
 FROM INFORMATION_SCHEMA.COLUMNS
 WHERE TABLE_NAME = 'TableName'
 ```
+
+### Counting
+
+```sql
+SELECT  SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus IN ('A','P') THEN 1 ELSE 0 END) ActiveIds,
+        SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus IN ('D') THEN 1 ELSE 0 END) DisabledIds,
+        SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus IN ('A','P') AND employeeType != 'S' THEN 1 ELSE 0 END) ActiveIdsEmployees,
+        SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus = 'D' AND employeeType != 'S' THEN 1 ELSE 0 END) DisabledIdsEmployees,
+        SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus IN ('A','P') AND employeeType = 'S' THEN 1 ELSE 0 END) ActiveIdsStudents,
+        SUM(CASE WHEN accountName IS NOT NULL AND employeeStatus = 'D' AND employeeType = 'S' THEN 1 ELSE 0 END) DisabledIdsStudents,
+        SUM(CASE WHEN accountName IS NOT NULL AND ((employeeStatus = 'A' AND employeeType = 'S' AND termNumber < 1250) OR (employeeStatus = 'A' AND employeeType != 'S')) THEN 1 ELSE 0 END) O365Users
+FROM [StagingDirectory].[dbo].[Identities]
+```
+
+|ActiveIds|DisabledIds|ActiveIdsEmployees|DisabledIdsEmployees|ActiveIdsStudents|DisabledIdsStudents|O365Users|
+|---------|-----------|------------------|--------------------|-----------------|-------------------|---------|
+|323944|14296|3406|8831|320538|5465|241263|
