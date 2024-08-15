@@ -17,7 +17,7 @@
 - name: Unifi Networking
   href: unifi/toc.yml
 
-- name: Scripting
+- name: Development
 - name: Powershell
   href: powershell/toc.yml
 - name: Visual Studio Code
@@ -29,7 +29,7 @@
 - name: DocFX
   href: docfx/toc.yml
 
-- name: Automation
+- name: Home Automation
 - name: Home Assistant
   href: homeassistant/toc.yml
 
@@ -40,7 +40,6 @@
 - name: Security
 - name: PGP
   href: pgp/toc.yml
-
 
 - name: Radio
 - name: RTL SDR

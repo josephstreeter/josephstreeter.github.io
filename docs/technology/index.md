@@ -4,7 +4,7 @@ This serves as my personal knowledge base. An online notebook of sorts for infor
 
 ## Topics
 
-### Technology
+### Sections
 
 - PowerShell
 - Docker

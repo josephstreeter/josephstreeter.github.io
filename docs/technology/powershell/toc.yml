@@ -26,6 +26,8 @@
   href: scripts.md
 - name: Active Directory
   href: activedirectory.md
+- name: Entra ID
+  href: entraid.md
 - name: Security
   href: security.md
 - name: Tips and Tricks
