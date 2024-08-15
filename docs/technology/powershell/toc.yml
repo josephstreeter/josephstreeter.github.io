@@ -1,7 +1,5 @@
 - name: PowerShell
   href: index.md
-- name: Introduction
-  href: introduction.md
 - name: Variables
   href: variables.md
 - name: Conditions
@@ -12,6 +10,8 @@
   href: functions.md
 - name: Error Handling
   href: errorhandling.md
+- name: Output Streams
+  href: outputstreams.md
 - name: Modules
   href: modules.md
 - name: Module Development

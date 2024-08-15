@@ -3,34 +3,79 @@
 ---
 The following steps will install and configure VS Code with the primary intended purpose of working with PowerShell.
 
-1. Install VS Code
-    Without overrides:
+## Install VS Code
 
-    ```powershell
-    winget install --id Microsoft.VisualStudioCode -e --source winget
-    ```
+### [Windows](#tab/vscodewindows)
 
-    With overrides:
+WinGet:
 
-    ```powershell
-    winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' 
-    ```
+Install Without Overrides:
 
-2. Install Git for Windows
+```powershell
+winget install --id Microsoft.VisualStudioCode -e --source winget
+```
 
-    ```powershell
-    winget install --id Git.Git -e --source winget
-    ```
+Install With Overrides:
 
-3. Install PowerShell
+```powershell
+winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' 
+```
 
-    ```powershell
-    winget install --id Microsoft.PowerShell -e --source winget
-    ```
+### [Linux](#tab/vscodelinux)
+
+Debian/Ubuntu
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install ....
+```
+---
+
+## Install Git
+
+### [Windows](#tab/gitwindows)
+
+Git for Windows
+
+```powershell
+winget install --id Git.Git -e --source winget
+```
+
+### [Linux](#tab/gitlinux)
+
+Debian/Ubuntu
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install 
+```
+
+---
+
+## Install PowerShell
+
+### [Windows](#tab/pwshwindows)
+
+WinGet:
+
+```powershell
+winget install --id Microsoft.PowerShell -e --source winget
+```
+
+### [Linux](#tab/pwshlinux)
+
+Debian/Ubuntu
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install ....
+```
+
+---
 
 ## Resources
 
-[How to use winget to install VSCode with custom options? · microsoft/winget-cli · Discussion #1798 · GitHub](https://github.com/microsoft/winget-cli/discussions/1798)
+- [How to use winget to install VSCode with custom options? · microsoft/winget-cli · Discussion #1798 · GitHub](https://github.com/microsoft/winget-cli/discussions/1798)
 
 ```text
 You can use the --override argument on winget install to replace the arguments winget uses with ones you want yourself. Unfortunately, you'll probably have to do some googling or run the installer with /? to get all possible arguments.

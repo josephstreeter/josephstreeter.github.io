@@ -126,7 +126,7 @@ foreach ($Object in $Results)
 ## Bulk Create Entra ID Dynamic Security Groups
 
 ```powershell
-Grps = @('MC-GS-Role-Employee-BoardMember','Entitlements and licenses for Board Members',"BM"),
+Grps = @('MC-GS-Role-Employee-BoardMember','Entitlements and licenses for Board Members',"BRD"),
 @('MC-GS-Role-Employee-Casual','Entitlements and licenses for Casual',"CAS"),
 @('MC-GS-Role-Employee-Contractor','Entitlements and licenses for Contractors',"CON"),
 @('MC-GS-Role-Employee-DualCredit-Instructors','Entitlements and licenses for Dual Credit Instructors',"DCI"),
