@@ -64,6 +64,8 @@ MetadataError: Cannot convert value "AB" to type "System.Char". Error: "String m
 
 ## Byte
 
+A byte is...
+
 ## Numeric Type
 
 A numeric type is one that allows representation of integer or fractional values, and that supports arithmetic operations on those values. The set of numerical types includes the integer and real number types, but does not include bool or char.
@@ -81,10 +83,17 @@ Other integer types are SByte, Int16, UInt16, UInt32, and UInt64, all in the nam
 $sum = $positiveInt + $negativeInt
 
 Write-Output $sum
+```
+
+Output
+
+```text
 9
 ```
 
 ### Long
+
+The type of ```[long]``` uses 64 bits as opposed to ```[int]```, which only uses 32 bits. Using 64 bits gives it a range of -9223372036854775808 to +9223372036854775807 opposed to -2147483648 to +2147483647.
 
 ### Bool
 
