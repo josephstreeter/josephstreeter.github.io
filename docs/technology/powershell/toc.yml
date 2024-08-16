@@ -2,6 +2,10 @@
   href: index.md
 - name: Variables
   href: variables.md
+- name: Collections
+  href: collections.md
+- name: Data Types
+  href: datatypes.md
 - name: Conditions
   href: conditions.md
 - name: Loops
