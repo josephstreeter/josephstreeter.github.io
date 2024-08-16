@@ -40,20 +40,16 @@ Many collection classes are defined as part of the System.Collections or System.
 
 #### Performance Considerations
 
-```console
-PS C:\> $ArrayList = [System.Collections.ArrayList]@()
-PS C:\> $Array = @()
-PS C:\> Measure-Command -Expression {@(0..10000).foreach({$ArrayList.Add("Number: {0}" -f $_)})} | Select-Object Milliseconds
+Adding to an standard array using "+=" is expensive and slow. The problem becomes worse the larger the collection is. There is a considerable performance improvement using an array list or generic list.
 
-Milliseconds
-------------
-          43
+```powershell
+$ArrayList = [System.Collections.ArrayList]@()
+$GenericList = [System.Collections.Generic.List]@()
+$Array = @()
+Measure-Command -Expression {@(0..10000).foreach({$ArrayList.Add("Number: {0}" -f $_)})} | Select-Object Milliseconds
+Measure-Command -Expression {@(0..10000).foreach({$GenericList.Add("Number: {0}" -f $_)})} | Select-Object Milliseconds
+Measure-Command -Expression {@(0..10000).foreach({$Array += ("Number: {0}" -f $_)})} | Select-Object Milliseconds
 
-PS C:\> Measure-Command -Expression {@(0..10000).foreach({$Array += ("Number: {0}" -f $_)})} | Select-Object Milliseconds
-
-Milliseconds
-------------
-         915
 ```
 
 ### Hashtable
