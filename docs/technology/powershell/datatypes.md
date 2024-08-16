@@ -38,31 +38,48 @@ Many collection classes are defined as part of the System.Collections or System.
 
 #### Generic List
 
+#### Performance Considerations
+
+```console
+PS C:\> $ArrayList = [System.Collections.ArrayList]@()
+PS C:\> $Array = @()
+PS C:\> Measure-Command -Expression {@(0..10000).foreach({$ArrayList.Add("Number: {0}" -f $_)})} | Select-Object Milliseconds
+
+Milliseconds
+------------
+          43
+
+PS C:\> Measure-Command -Expression {@(0..10000).foreach({$Array += ("Number: {0}" -f $_)})} | Select-Object Milliseconds
+
+Milliseconds
+------------
+         915
+```
+
 ### Hashtable
 
 ## Type Excellerators
 
 The most common DataTypes (type accelerators) used in PowerShell are listed below.
 
-|Excellerator | Description                                  |
-|-------------|----------------------------------------------|
-| [string]    | Fixed-length string of Unicode characters    |
-| [char]      | A Unicode 16-bit character                   |
-| [byte]      | An 8-bit unsigned character                  |
-|             |                                              |
-| [int]       | 32-bit signed integer                        |
-| [long]      | 64-bit signed integer                        |
-| [bool]      | Boolean True/False value                     |
-|             |                                              |
-| [decimal]   | A 128-bit decimal value                      |
-| [single]    | Single-precision 32-bit floating point number|
-| [double]    | Double-precision 64-bit floating point number|
-| [DateTime]  |  Date and Time                               |
-
- [xml]       Xml object
- [array]     An array of values
- [hashtable] Hashtable object
- ```
+|Excellerator | Description                                   |
+|-------------|-----------------------------------------------|
+| [string]    | Fixed-length string of Unicode characters     |
+| [char]      | A Unicode 16-bit character                    |
+| [byte]      | An 8-bit unsigned character                   |
+|             |                                               |
+| [int]       | 32-bit signed integer                         |
+| [long]      | 64-bit signed integer                         |
+| [bool]      | Boolean True/False value                      |
+|             |                                               |
+| [decimal]   | A 128-bit decimal value                       |
+| [single]    | Single-precision 32-bit floating point number |
+| [double]    | Double-precision 64-bit floating point number |
+| [DateTime]  | Date and Time                                 |
+|             |                                               |
+| [xml]       | Xml object                                    |
+| [array]     | An array of values                            |
+| [hashtable] | Hashtable object                              |
 
 ## References
 
