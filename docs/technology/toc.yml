@@ -44,3 +44,7 @@
 - name: Radio
 - name: RTL SDR
   href: RTL-SDR/toc.yml
+
+- name: Trail Cameras
+- name: Cuddeback
+  href: cuddeback/toc.yml
