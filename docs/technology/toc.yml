@@ -1,7 +1,7 @@
 - name: Technology
   href: index.md
 
-- name: Virtualization and Containers
+- name: System Administation
 - name: Home Lab
   href: homelab/toc.yml
 - name: Secure Shell
@@ -12,6 +12,10 @@
   href: terraform/toc.yml
 - name: Ansible
   href: ansible/toc.yml
+- name: SQL
+  href: sql/toc.yml
+- name: Kusto Query Language
+  href: kql/toc.yml
 
 - name: Networking
 - name: Unifi Networking
@@ -28,18 +32,12 @@
   href: git/toc.yml
 - name: Windows Terminal
   href: windows-terminal/toc.yml
-- name: SQL
-  href: sql/toc.yml
 - name: DocFX
   href: docfx/toc.yml
 
 - name: Home Automation
 - name: Home Assistant
   href: homeassistant/toc.yml
-
-- name: Cloud Operations
-- name: Kusto Query Language
-  href: kql/toc.yml
 
 - name: Security
 - name: PGP
@@ -49,6 +47,6 @@
 - name: RTL SDR
   href: RTL-SDR/toc.yml
 
-- name: Trail Cameras
+- name: Outdoors
 - name: Cuddeback
   href: cuddeback/toc.yml
