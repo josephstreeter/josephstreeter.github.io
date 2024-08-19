@@ -15,6 +15,8 @@ Methods:
 - Substring()
 - StartsWith()
 
+- [PowerShell String Manipulation: A Comprehensive Guide](https://www.sharepointdiary.com/2021/11/powershell-string-manipulation-comprehensive-guide.html)
+
 ## Character
 
 A character data type in PowerShell represents a single character, such as a letter, digit, or symbol. In PowerShell, characters are of the type ```[char]```, which corresponds to a Unicode character. This type is useful for handling individual characters in strings, performing character-level operations, and working with text data.
@@ -105,6 +107,8 @@ Decimals are used for high-precision arithmetic, especially useful in financial 
 
 ### Single
 
+A single....
+
 ### Float and Double
 
 Floats and doubles represent numbers with fractional components. Floats (single precision) and doubles (double precision) differ in the amount of precision and range they offer. Floats are generally used when less precision is acceptable, while doubles are used for more accurate calculations.
@@ -120,7 +124,7 @@ Write-Output $floatSum
 Write-Output $doubleSum
 ```
 
-output:
+Output:
 
 ```text
 6.00000010490417
