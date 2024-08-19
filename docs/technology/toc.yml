@@ -22,8 +22,12 @@
   href: powershell/toc.yml
 - name: Visual Studio Code
   href: vscode/toc.yml
+- name: Windows Terminal
+  href: windows-terminal/toc.yml
 - name: Git
   href: git/toc.yml
+- name: Windows Terminal
+  href: windows-terminal/toc.yml
 - name: SQL
   href: sql/toc.yml
 - name: DocFX
