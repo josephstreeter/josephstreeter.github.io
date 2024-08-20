@@ -1,5 +1,13 @@
 # Entra ID
 
+Some PowerShell for managing Entra ID, Conditional Access, Identity Protection, etc.
+
+## Table of Contents
+
+- [Add IP Addresses to Conditional Access Named Location](#add-ip-addresses-to-conditional-access-named-location)
+- [Bulk Create Entra ID Dynamic Security Groups](#bulk-create-entra-id-dynamic-security-groups)
+- [View Entra ID Custom Extensions](#view-entra-id-custom-extensions)
+
 ## Add IP Addresses to Conditional Access Named Location
 
 ```powershell
