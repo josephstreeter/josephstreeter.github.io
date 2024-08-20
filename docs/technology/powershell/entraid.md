@@ -1,5 +1,44 @@
 # Entra ID
 
+## Add IP Addresses to Conditional Access Named Location
+
+```powershell
+$IPAddresses = 
+'188.130.185.167',
+'46.8.212.27',
+'109.248.49.142',
+'45.86.1.158',
+'46.8.17.93',
+'95.182.124.28',
+'46.8.56.213',
+'188.130.186.19',
+'5.183.130.182',
+'46.8.56.173',
+'188.130.186.213',
+'192.162.100.241',
+'188.130.184.159'
+
+$NamedLocation = "Threat IP Ranges"
+
+$namedLocationId = Get-MgIdentityConditionalAccessNamedLocation -Filter "DisplayName eq '$($NamedLocation)'" | Select-Object -ExpandProperty id
+
+foreach ($IPAddress in $IPAddresses)
+{
+    $params = @{
+        "@odata.type" = "#microsoft.graph.ipNamedLocation"
+        displayName = "Threat IP Ranges"
+        isTrusted = $false
+        ipRanges = @(
+            @{
+                "@odata.type" = "#microsoft.graph.iPv4CidrRange"
+                cidrAddress = "$IPAddress/32"
+            }
+        )
+    }
+
+    Update-MgIdentityConditionalAccessNamedLocation -NamedLocationId $namedLocationId -BodyParameter $params
+}
+```
 
 ## Bulk Create Entra ID Dynamic Security Groups
 
