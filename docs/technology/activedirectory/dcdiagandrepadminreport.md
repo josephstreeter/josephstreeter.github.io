@@ -1,9 +1,10 @@
 ---
 
-title:  AD Forest DCDiag and RepAdmin Report
 date:   2016-11-23 00:00:00 -0500
 categories: IT
 ---
+
+# AD Forest DCDiag and RepAdmin Report
 
 > [!WARNING]
 > This was written a long time ago and probably needs to be updated.

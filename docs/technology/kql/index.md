@@ -6,7 +6,7 @@
 
 All Sign-ins from IPs used by known bad actors
 
-```kql
+```text
 let IPAddresses = SigninLogs
 | where TimeGenerated > ago(30d)
 | where UserPrincipalName in ("user1@domain.com",
@@ -28,7 +28,7 @@ SigninLogs
 
 All messages sent to ```edu-noreply@github.com```
 
-```kql
+```text
 EmailEvents
 | where SenderMailFromAddress endswith "edu-noreply@github.com"
 | project Timestamp, SenderFromAddress, SenderMailFromAddress, RecipientEmailAddress, Subject
@@ -37,7 +37,7 @@ EmailEvents
 
 Users sending more than 700 messages in one day
 
-```kql
+```text
 EmailEvents
 | where EmailDirection == "Outbound"
 | where SenderFromAddress !startswith "mailer"
@@ -48,7 +48,7 @@ EmailEvents
 
 Number of messages sent by a user
 
-```kql
+```text
 EmailEvents
 | where RecipientEmailAddress == "salewis1@madisoncollege.edu"
 | summarize count_ = count() by SenderMailFromAddress
@@ -57,7 +57,7 @@ EmailEvents
 
 Messages sent by a list of users
 
-```kql
+```text
 EmailEvents
 | where RecipientEmailAddress in ("user1@domain.com",
 "user2@domain.com",
@@ -68,7 +68,7 @@ EmailEvents
 
 All Spam and Phishing Messages sent to a list of users
 
-```kql
+```text
 EmailEvents
 | where RecipientEmailAddress in ("user1@domain.com",
 "user2@domain.com",
@@ -81,7 +81,7 @@ EmailEvents
 
 AiTM Attack Authentication
 
-```kql
+```text
 let OfficeHomeSessionIds = 
 AADSignInEventsBeta
 | where Timestamp > ago(1d)

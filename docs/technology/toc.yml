@@ -17,9 +17,15 @@
 - name: Kusto Query Language
   href: kql/toc.yml
 
+- name: Directory Services
+- name: Active Directory
+  href: activedirectory/toc.yml
+
 - name: Networking
 - name: Unifi Networking
   href: unifi/toc.yml
+- name: Wireless
+  href: wireless/toc.yml
 
 - name: Development
 - name: Powershell
