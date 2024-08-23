@@ -6,4 +6,4 @@ categories: IT
 
 If you own an IPad or Iphone, iOS 5 now includes basic S/MIME functionality for digitally signing and encrypting messages with your PKI certificate:
 
-How to secure your e-mail under Mac OS X and iOS 5 with S/MIME(http://arstechnica.com/apple/guides/2011/10/secure-your-e-mail-under-mac-os-x-and-ios-5-with-smime.ars)
+[How to secure your e-mail under Mac OS X and iOS 5 with S/MIME](http://arstechnica.com/apple/guides/2011/10/secure-your-e-mail-under-mac-os-x-and-ios-5-with-smime.ars)

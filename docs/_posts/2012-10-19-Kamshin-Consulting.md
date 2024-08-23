@@ -6,4 +6,4 @@ categories: IT
 
 A good consultant site for many things including Active Directory and VMWare.
 
-<a href="http://www.kamshin.com/">Kamshin Consulting</a>
+[Kamshin Consulting]("http://www.kamshin.com/")

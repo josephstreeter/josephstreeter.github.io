@@ -111,8 +111,8 @@ echo -e "\e[1;32mBegin beacon flood on mon0\e[0m"
 mdk3 mon0 b -c 11 -f ssid_names
 ```
 
-- <a href="http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html" target="_blank">8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information</a>
-- <a style="text-decoration: underline;" title="airplay-ng Deauthentication" href="http://www.aircrack-ng.org/doku.php?id=deauthentication" target="_blank">aircrack-ng Deauthorize</a>
-- <a href="http://www.aircrack-ng.org/doku.php?id=airmon-ng" target="_blank">airmon-ng</a>
-- <a href="http://www.linuxcommand.org/man_pages/iwconfig8.html" target="_blank">iwconfig man page</a>
-- <a href="http://wireless.kernel.org/en/users/Documentation/iw" target="_blank">iw command info</a>
+- [8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information]("http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html" )
+- [aircrack-ng Deauthorize]("http://www.aircrack-ng.org/doku.php?id=deauthentication" )
+- [airmon-ng]("http://www.aircrack-ng.org/doku.php?id=airmon-ng" )
+- [iwconfig man page]("http://www.linuxcommand.org/man_pages/iwconfig8.html" )
+- [iw command info]("http://wireless.kernel.org/en/users/Documentation/iw" )

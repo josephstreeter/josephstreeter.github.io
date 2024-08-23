@@ -5,11 +5,6 @@ date:   2015-11-27 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 This script creates Host A records for a list of hosts.
 
 ```powershell
@@ -19,11 +14,13 @@ $Zone = "domain.tld"
 
 foreach ($record in $records)
 {
-$Name = $record.split(",")[0]
-$Ip = $record.split(",")[1]
+    $Name = $record.split(",")[0]
+    $Ip = $record.split(",")[1]
 
-Add-DnsServerResourceRecordA -ComputerName $DNSServer -ZoneName $Zone -Name $Name -IPv4Address $Ip -PassThru
+    Add-DnsServerResourceRecordA `
+        -ComputerName $DNSServer `
+        -ZoneName $Zone `
+        -Name $Name `
+        -IPv4Address $Ip
 }
 ```
-
-

@@ -8,6 +8,5 @@ If you install RSAT in Windows 7 the Active Directory PowerShell modules are ava
 
 In order to use the AD PowerShell modules you will have to install the Active Directory Web Services (Windows Server 2008 R2 Domain Controllers) or the Active Directory Management Gateway Service (Windows Server 2008 SP2, Windows Server 2003, Windows Server 2003 R2).
 
-<a href="http://www.mikepfeiffer.net">Mike Pfeiffer's Blog</a> has instructions on how to make this happen:
-<a href="http://www.mikepfeiffer.net/2010/01/how-to-install-the-active-directory-module-for-windows-powershell/">How to Install the Active Directory Module for Windows PowerShell
-</a>
+[Mike Pfeiffer's Blog]("http://www.mikepfeiffer.net") has instructions on how to make this happen:
+[How to Install the Active Directory Module for Windows PowerShell]("http://www.mikepfeiffer.net/2010/01/how-to-install-the-active-directory-module-for-windows-powershell/")

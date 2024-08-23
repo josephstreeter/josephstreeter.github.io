@@ -8,4 +8,4 @@ Good reading for those security types.
 
 From their website. "The purpose of the United States Government Configuration Baseline (USGCB) initiative is to create security configuration baselines for Information Technology products widely deployed across the federal agencies. The USGCB baseline evolved from the Federal Desktop Core Configuration mandate. The USGCB is a Federal government-wide initiative that provides guidance to agencies on what should be done to improve and maintain an effective configuration settings focusing primarily on security."
 
-<a href="http://usgcb.nist.gov/">The United States Government Configuration Baseline (USGCB)</a>
+[The United States Government Configuration Baseline (USGCB)]("http://usgcb.nist.gov/")

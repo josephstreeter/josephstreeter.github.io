@@ -5,41 +5,37 @@ date:   2016-03-14 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 This PowerShell script will give you a report for a server's storage usage. It will give you a status of "Green", "Amber", or "Red" for each drive.
+
 ```powershell
 $StorageReport = @()
 $date = get-date -uformat "%Y-%m-%d"
-$Drives = Get-WmiObject -Class Win32_LogicalDisk | ? {$_.drivetype -eq 3} | select DeviceID,Size,Freespace,drivetype,VolumeName
+$Drives = Get-WmiObject -Class Win32_LogicalDisk | ? {$_.drivetype -eq 3} | select-object DeviceID,Size,Freespace,drivetype,VolumeName
 
 foreach ($Drive in $Drives)
 {
-if ($Drive.freespace)
-{
-$PercentFree = "{0:N2}" -f (($drive.freespace / $drive.size) * 100)
-$Size = "{0:N2}" -f (($drive.size / 1024 / 1024 / 1024))
-$Freespace = "{0:N2}" -f (($drive.freespace / 1024 / 1024 / 1024))
-switch ($PercentFree)
-{
-{$_ -gt 20} {$Status="Green"}
-{($_ -lt 20)-and($_ -gt 10)} {$Status="Amber"}
-{$_ -lt 10} {$Status="Red"}
-Default {$Status="Unknown"}
-}
+    if ($Drive.freespace)
+    {
+        $PercentFree = "{0:N2}" -f (($drive.freespace / $drive.size) * 100)
+        $Size = "{0:N2}" -f (($drive.size / 1024 / 1024 / 1024))
+        $Freespace = "{0:N2}" -f (($drive.freespace / 1024 / 1024 / 1024))
+        switch ($PercentFree)
+        {
+            {$_ -gt 20} {$Status="Green"}
+            {($_ -lt 20)-and($_ -gt 10)} {$Status="Amber"}
+            {$_ -lt 10} {$Status="Red"}
+            Default {$Status="Unknown"}
+        }
 
-$StorageReport += New-object PSObject -Property @{
-"Drive" = $drive.DeviceID
-"DriveName" = $drive.volumeName
-"Freespace" = $Freespace
-"Size" = $Size
-"PercentFree" = $PercentFree + "%"
-"Status" = $Status
-}
-}
+        $StorageReport += New-object PSObject -Property @{
+            "Drive" = $drive.DeviceID
+            "DriveName" = $drive.volumeName
+            "Freespace" = $Freespace
+            "Size" = $Size
+            "PercentFree" = $PercentFree + "%"
+            "Status" = $Status
+        }
+    }
 }
 
 $StorageReport | ft Drive,DriveName,Size,FreeSpace,PercentFree,status -AutoSize

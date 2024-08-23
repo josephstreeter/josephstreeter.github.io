@@ -12,5 +12,7 @@
   href: resolvingconflicts.md
 - name: Resolving Errors
   href: resolvingerrors.md
+- name: Stash
+  href: stash.md
 - name: SSH
   href: ssh.md

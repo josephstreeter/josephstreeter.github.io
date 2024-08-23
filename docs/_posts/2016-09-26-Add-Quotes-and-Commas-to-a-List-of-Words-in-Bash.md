@@ -5,15 +5,11 @@ date:   2016-09-26 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
 You have a file with a list of items and you need to put them all in quotes. All but the last line needs to have a comma at the end.
 
 Here is the list:
-```powershell
+
+```text
 $ cat testfile.txt
 apple
 pear
@@ -22,17 +18,17 @@ orange
 ```
 
 Use sed to make the change:
-```powershell
+
+```bash
 sed -i 's/^/"/; $!s/$/",/; $s/$/"/' testfile.txt
 ```
 
 Here is the list after:
-```powershell
+
+```text
 $ cat testfile.txt
 "apple",
 "pear",
 "grape",
 "orange"
 ```
-
-

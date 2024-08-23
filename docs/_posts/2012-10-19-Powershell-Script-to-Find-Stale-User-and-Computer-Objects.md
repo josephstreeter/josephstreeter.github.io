@@ -39,8 +39,8 @@ $Users = GET-QADUSER -SizeLimit 0 -IncludedProperties LastLogonTimeStamp | where
 
 foreach ($User in $Users)
 {
-$x = $x + 1
-$User
+    $x = $x + 1
+    $User
 }
 ""
 "" + $x + " users have not logged in for " + $NumberDays + " days."

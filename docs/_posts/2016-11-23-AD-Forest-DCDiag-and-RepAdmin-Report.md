@@ -5,22 +5,14 @@ date:   2016-11-23 00:00:00 -0500
 categories: IT
 ---
 
-
-
-
-
-
-Two earlier posts, <a href=http://www.joseph-streeter.com/?p=1237>EASY TO READ DCDIAG REPORT</a> and <a href=http://www.joseph-streeter.com/?p=1234>EASY TO READ REPADMIN RESULTS</a>, included scripts for displaying the high level results of DCDiag and RepAdmin. I had since combined the two and made some tweaks, but it never really seemed right.
+Two earlier posts, [EASY TO READ DCDIAG REPORT](http://www.joseph-streeter.com/?p=1237) and [EASY TO READ REPADMIN RESULTS](http://www.joseph-streeter.com/?p=1234), included scripts for displaying the high level results of DCDiag and RepAdmin. I had since combined the two and made some tweaks, but it never really seemed right.
 
 I've finally gotten around to making it presentable and more functional. It now displays all of the DCDiag tests and their results in two separate tables rather than just a few of the tests that I'd selected. It also accurately displays the server name for each set of tests. The previous versions would only create reports for a single domain, but now, since I work in a multi domain forest these days, it will grab the DCs in all domains in the forest.
 
 The RepAdmin results are now broken up by domain controller and sorted by context. This makes it a little easier to read and track issues.
 
 ```powershell
-# http://www.anilerduran.com/index.php/2013/how-to-parse-dcdiag-output-with-powershell/
-# Functions
-
-Function Get-ForestDomainControllers
+Function Get-ForestDomainControllers()
 {
     $Results=@()
     foreach ($domain in (Get-ADForest).domains )
