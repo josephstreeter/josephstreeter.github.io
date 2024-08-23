@@ -1,5 +1,6 @@
 - name: PowerShell
   href: index.md
+- name: Basics
 - name: Variables
   href: variables.md
 - name: Collections
@@ -10,31 +11,36 @@
   href: conditions.md
 - name: Loops
   href: loops.md
+- name: Advanced
 - name: Functions
   href: functions.md
 - name: Error Handling
   href: errorhandling.md
 - name: Output Streams
   href: outputstreams.md
+- name: Scripts
+  href: scripts.md
+- name: Powershell Runspaces
+  href: powershellrunspaces.md
+- name: Remote Execution
+  href: remoteexecution.md
+- name: Module Development
 - name: Modules
   href: modules.md
 - name: Module Development
   href: moduledev.md
 - name: Module Reposiitoy
   href: modulerepo.md
-- name: Powershell Runspaces
-  href: powershellrunspaces.md
-- name: Remot Execution
-  href: remoteexecution.md
-- name: Scripts
-  href: scripts.md
-- name: Active Directory
-  href: activedirectory.md
-- name: Entra ID
-  href: entraid.md
-- name: Security
-  href: security.md
 - name: Tips and Tricks
   href: tipsandtricks.md
 - name: Troubleshooting
   href: troubleshooting.md
+- name: Examples
+- name: Active Directory
+  href: activedirectory.md
+- name: Entra ID
+  href: entraid.md
+- name: Exchange
+  href: exchange.md
+- name: Security
+  href: security.md
