@@ -23,27 +23,43 @@ Set up an Outlook profile for a shared mailbox
 2. Click the Windows Logo start button in the bottom left, type Control Panel and click on this in the search results.
 
 3. Click on ***Mail***.
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge1.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge1.png)
+
 4. Click ***Show Profiles***.
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge2.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge2.png)
+
 5. Check the radio button for “***Prompt for a profile to be used***”
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge3.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge3.png)
+
 6. Click ***Add***.
 
 7. Enter a descriptive name for the secondary profile (Use the Shared Mailbox Name)
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge4.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge4.png)
+
 8. Click ***Ok***.
 
 9. Select ***Manual Setup*** and ***Next***.
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge5.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge5.png)
+
 10. Leave ***Microsoft 365*** checked and enter the email address of your shared mailbox and click ***Next***.
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge6.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge6.png)
+
 11. Uncheck ***Set up Outlook Mobile on my phone, too*** if it is checked.
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge7.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge7.png)
+
 12. Click ***Finish***.
 
 13. Make sure the prompt for a profile to use is selected and “Ok.”
-    ![alt](technology/exchange/sharedmailboxmailmerge/mailmerge8.png)
+
+    ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge8.png)
+
 14. Now that the setup is complete, you will be prompted for which profile to use when you open Outlook.
 
 ## Tips and best practices
