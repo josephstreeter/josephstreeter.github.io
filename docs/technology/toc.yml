@@ -17,9 +17,11 @@
 - name: Kusto Query Language
   href: kql/toc.yml
 
-- name: Directory Services
+- name: Enterprise Services
 - name: Active Directory
   href: activedirectory/toc.yml
+- name: Exchange
+  href: exchange/toc.yml
 
 - name: Networking
 - name: Unifi Networking

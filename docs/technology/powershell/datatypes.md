@@ -143,20 +143,41 @@ Many collection classes are defined as part of the System.Collections or System.
 
 Arrays are collections of items of the same or different types stored in a single variable. In PowerShell, arrays are of the type [array]. They are useful for storing lists of data, such as numbers, strings, or objects. They also provide various methods for accessing, adding, and manipulating elements.
 
+```powershell
+$ArrayList = @()
+```
+
 #### Array List
 
 ```powershell
 $ArrayList = [System.Collections.ArrayList]@()
+
+$Object = [PSCustomObject]@{
+    GivenName = "John"
+    Surname = "Smith"
+}
+
+$ArrayList.Add($Object)
 ```
 
 #### Generic List
 
 ```powershell
-$list = [System.Collections.List[sting]]@()
+$List = [System.Collections.List[string]]@()
+
+$String = "String"
+$ArrayList.Add($String)
 ```
 
 ```powershell
-$list = [System.Collections.List[object]]@()
+$List = [System.Collections.List[object]]@()
+
+$Object = [PSCustomObject]@{
+    GivenName = "John"
+    Surname = "Smith"
+}
+
+$List.Add($Object)
 ```
 
 Methods:
@@ -200,7 +221,10 @@ New-Object -TypeName PSCustomObject
 ```
 
 ```powershell
-
+$Object = [PSCustomObject]@{
+    GivenName = "John"
+    Surname = "Smith"
+}
 ```
 
 ## Check Data Type
