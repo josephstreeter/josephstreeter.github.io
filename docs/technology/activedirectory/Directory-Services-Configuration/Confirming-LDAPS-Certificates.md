@@ -1,11 +1,5 @@
 # Confirming LDAPS Certificates
 
-Created: 2023-09-11 09:39:06 -0500
-
-Modified: 2023-09-11 09:49:26 -0500
-
----
-
 The following bash script will validate the SSL certificates on each Domain Controller. Script must be run on a host with openssl installed.
 
 ```bash

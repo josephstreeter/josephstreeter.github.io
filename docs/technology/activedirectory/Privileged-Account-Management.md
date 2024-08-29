@@ -12,14 +12,14 @@ All sensitive user and group objects will be stored in a tightly controlled Orga
 
 The following Access Control List will be applied to the Sensitive Objects OU:
 
-| Type  | Name              | Access        | Applies To                        |
-|-------|-------------------|---------------|-----------------------------------|
-| Allow | Enterprise Admins | Full Control  | This object and all child objects |
-| Allow | Domain Admins     | Full Control  | This object and all child objects |
-| Allow | Administrators    | Full Control  | This object and all child objects |
-| Allow | Pre–Windows2000 Compatible Access | List Contents, Read All Properties, Read Permissions | User and InetOrgPerson objects |
-| Allow | Enterprise Domain Controllers | List Contents, Read All Properties, Read Permissions | This object only |
-| Allow | Enterprise Domain Controllers | Read All Properties | User, group, and computer objects |
+| Type  | Name                              | Access                                               | Applies To                        |
+|-------|-----------------------------------|------------------------------------------------------|-----------------------------------|
+| Allow | Enterprise Admins                 | Full Control                                         | This object and all child objects |
+| Allow | Domain Admins                     | Full Control                                         | This object and all child objects |
+| Allow | Administrators                    | Full Control                                         | This object and all child objects |
+| Allow | Pre–Windows2000 Compatible Access | List Contents, Read All Properties, Read Permissions | User and InetOrgPerson objects    |
+| Allow | Enterprise Domain Controllers     | List Contents, Read All Properties, Read Permissions | This object only                  |
+| Allow | Enterprise Domain Controllers     | Read All Properties                                  | User, group, and computer objects |
 
 The following Sensitive administrator groups are to be relocated to the Groups OU within the controlled OU:
 
@@ -29,7 +29,9 @@ The following Sensitive administrator groups are to be relocated to the Groups O
 - Any groups that are nested in the previous groups.
 - Any groups that are nested in the Administrators, Server Operators, Backup Operators, or Account Operators groups.
 
-Note: The Administrators, Server Operators, Backup Operators, or Account Operators groups cannot be moved from their default locations. However, these built-in groups have additional protections by default and do not require additional security measures.
+> [!Note]
+> The Administrators, Server Operators, Backup Operators, or Account Operators groups cannot be moved from their default locations. However, these built-in groups have additional protections by default and
+do not require additional security measures.
 
 Move all user accounts that are members of the sensitive administrators groups to the Users OU within the controlled OU.
 
@@ -37,15 +39,15 @@ Move all user accounts that are members of the sensitive administrators groups t
 
 Auditing is required in order to detect and track changes to sensitive user and group objects. The following auditing configuration will be applied to the Service Admins OU:
 
-|**Type**| **Name** | **Access**            | **Applies To**                    |
-|--------|----------|-----------------------|-----------------------------------|
-| All    | Everyone | Write All Properties  | This object and all child objects |
-| All    | Everyone | Delete                | This object and all child objects |
-| All    | Everyone | Delete Subtree        | This object and all child objects |
-| All    | Everyone | Modify Permissions    | This object and all child objects |
-| All    | Everyone | Modify Owner          | This object and all child objects |
-| All    | Everyone | All Validated Writes  | This object and all child objects |
-| All    | Everyone | All Extended Rights   | This object and all child objects |
+|**Type**| **Name** | **Access**               | **Applies To**                    |
+|--------|----------|--------------------------|-----------------------------------|
+| All    | Everyone | Write All Properties     | This object and all child objects |
+| All    | Everyone | Delete                   | This object and all child objects |
+| All    | Everyone | Delete Subtree           | This object and all child objects |
+| All    | Everyone | Modify Permissions       | This object and all child objects |
+| All    | Everyone | Modify Owner             | This object and all child objects |
+| All    | Everyone | All Validated Writes     | This object and all child objects |
+| All    | Everyone | All Extended Rights      | This object and all child objects |
 | All    | Everyone | Create All Child Objects | This object and all child objects |
 | All    | Everyone | Delete All Child Objects | This object and all child objects |
 
@@ -65,15 +67,15 @@ There are service accounts and shared accounts that are members of highly privil
 
 Membership in the following Windows security groups assigns a high level of privilege for AD functions: Domain Admins, Enterprise Admins, Schema Admins, and Incoming Forest Trust Builders. When a large number of users are members of highly privileged groups, the risk from unintended updates or compromised accounts is significantly increased.
 
-| **Group Name** | **Default Location** | **Description** |
-|----------------|----------------------|--------------------------------------------------|
-| Enterprise Admins | Users container | This group is automatically added to the Administrators group in every domain in the forest, providing complete access to the configuration of all domain controllers. |
-| Schema Admins | Users container | This group has full administrative access to the Active Directory schema. |
-| Administrators | Built-in container | This group has complete control over all domain controllers and all directory content stored in the domain, and it can change the membership of all administrative groups in the domain. It is the most powerful service administrative group. |
-| Domain Admins | Users container | This group is automatically added to the corresponding Administrators group in every domain in the forest. It has complete control over all domain controllers and all directory content stored in the domain and it can modify the membership of all administrative accounts in the domain. |
-| Server Operators | Built-in container | By default, this built-in group has no members. It can perform maintenance tasks, such as backup and restore, on domain controllers. |
-| Account Operators | Built-in container | By default, this built-in group has no members. It can create and manage users and groups in the domain, but it cannot manage service administrator accounts. As a best practice, do not add members to this group, and do not use it for any delegated administration. |
-| Backup Operators | Built-in container | By default, this built-in group has no members. It can perform backup and restore operations on domain controllers. |
+| **Group Name**                 | **Default Location** | **Description**                                  |
+|--------------------------------|----------------------|--------------------------------------------------|
+| Enterprise Admins              | Users container | This group is automatically added to the Administrators group in every domain in the forest, providing complete access to the configuration of all domain controllers. |
+| Schema Admins                  | Users container | This group has full administrative access to the Active Directory schema. |
+| Administrators                 | Built-in container | This group has complete control over all domain controllers and all directory content stored in the domain, and it can change the membership of all administrative groups in the domain. It is the most powerful service administrative group. |
+| Domain Admins                  | Users container | This group is automatically added to the corresponding Administrators group in every domain in the forest. It has complete control over all domain controllers and all directory content stored in the domain and it can modify the membership of all administrative accounts in the domain. |
+| Server Operators               | Built-in container | By default, this built-in group has no members. It can perform maintenance tasks, such as backup and restore, on domain controllers. |
+| Account Operators              | Built-in container | By default, this built-in group has no members. It can create and manage users and groups in the domain, but it cannot manage service administrator accounts. As a best practice, do not add members to this group, and do not use it for any delegated administration. |
+| Backup Operators               | Built-in container | By default, this built-in group has no members. It can perform backup and restore operations on domain controllers. |
 | Incoming Forest Trust Builders | Built-in container | By default, this built-in group has no members.It can create incoming, one-way trusts to this forest |
 
 Administrators will maintain separate accounts for privileged and non-privileged level access. At no time should the privileged account be used for routine activities (i.e. web surfing or checking email). An administrator's privileged account will have only the rights that the administrator needs to accomplish assigned duties.
@@ -100,6 +102,8 @@ Group membership will be enforced by a Restrictive Groups policy applied to the 
 
 Group Policy settings will be used to enforce the appropriate membership of the highly privileged groups.
 
-## Computer ConfigurationWindows SettingsSecurity SettingsRestricted Groups
+```text
+Computer -> Configuration -> Windows Settings -> Security Settings -> Restricted Groups
+```
 
 Highly Privileged groups will be added to the policy. The policy is then linked to the Domain Controllers OU. If a security context, such as a user or security group, is added to this group, without first being added to this policy object, it is automatically removed and an ID 637 event is logged in the Security log.

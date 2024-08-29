@@ -1,22 +1,8 @@
-# Monitoring and Logging
+# Monitoring and Auditing
 
-Created: 2019-05-13 11:30:29 -0500
+## Monitoring
 
-Modified: 2019-05-13 11:32:12 -0500
-
----
-
-Monitoring and Auditing
-
-Auditing
-
-All Active Directory related logs should be sent to Splunk as the organization's centralized logging facility.
-
-Monitoring
-
-## Performance Counter Graphing
-
-SCOM Management Packs
+### Performance Counter Graphing
 
 Security System-Wide Statistics
 
@@ -41,28 +27,32 @@ Available Disk Space
 - SYSVOL/Database volume
 - Logs volume
 
-Diagnostic Logging
+## Auditing
 
-[Garbage collection diagnostic logging is configured for "minimal" on three of the domain controllers.]{.mark}
+All Active Directory related logs should be sent to SEIM as the centralized logging facility.
 
-[Diagnostic logging should be configured the same across all domain controllers by turning on Garbage Collection logging on the remaining DCs.]{.mark}
+### Diagnostic Logging
 
-## Services to Monitor
+Garbage collection diagnostic logging is configured for "minimal" on three of the domain controllers.
+
+Diagnostic logging should be configured the same across all domain controllers by turning on Garbage Collection logging on the remaining DCs.
+
+## Service Monitoring
 
 The following services are critical to the operation of Active Directory and should be closely monitored.
 
-| **Service** | **Description** |
-|------------------------|------------------------------------------------|
-| COM+ Event System | Used for components that are based on the Component Object Model (COM) |
-| Remote Procedure Call (RPC) | Used to perform Remote Procedure Calls (RPCs) for COM and DCOM services |
-| Active Directory Domain Services (AD DS) | The service under which Active Directory runs |
-| DNS Client | The client component of DNS |
-| DNS Server | The server component of DNS |
-| DFS Replication | Performs SYSVOL replication between Domain Controllers (Replaces FRS) |
-| Intersite Messaging | Allows DCs to send and receive messages with DCs in other sites |
-| Kerberos Key Distribution Center | The AS and TGT that assigns Kerberos tickets |
-| Security Accounts Manager | Used for local accounts on the Domain Controller and without it some services may not start |
-| Server | Provides host services for the DC (File sharing, print sharing, and named-pipe sharing) |
-| Workstation | Used to establish client-side SMB connections |
-| Windows Time | Used to synchronize time throughout the domain |
-| Netlogon | Maintains secure connections for authentication and DNS registration |
+| **Service**                              | **Description**                                                                             |
+|------------------------------------------|---------------------------------------------------------------------------------------------|
+| COM+ Event System                        | Used for components that are based on the Component Object Model (COM)                      |
+| Remote Procedure Call (RPC)              | Used to perform Remote Procedure Calls (RPCs) for COM and DCOM services                     |
+| Active Directory Domain Services (AD DS) | The service under which Active Directory runs                                               |
+| DNS Client                               | The client component of DNS                                                                 |
+| DNS Server                               | The server component of DNS                                                                 |
+| DFS Replication                          | Performs SYSVOL replication between Domain Controllers (Replaces FRS)                       |
+| Intersite Messaging                      | Allows DCs to send and receive messages with DCs in other sites                             |
+| Kerberos Key Distribution Center         | The AS and TGT that assigns Kerberos tickets                                                |
+| Security Accounts Manager                | Used for local accounts on the Domain Controller and without it some services may not start |
+| Server                                   | Provides host services for the DC (File sharing, print sharing, and named-pipe sharing)     |
+| Workstation                              | Used to establish client-side SMB connections                                               |
+| Windows Time                             | Used to synchronize time throughout the domain                                              |
+| Netlogon                                 | Maintains secure connections for authentication and DNS registration                        |

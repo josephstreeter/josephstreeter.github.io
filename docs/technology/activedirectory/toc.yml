@@ -1,7 +1,17 @@
 - name: Security Clean-up
   href: Security-Cleanup/toc.yml
+- name: Forests and Domains
+  href: Forests-and-Domains.md
+- name: FSMO Role Holders
+  href: FSMO-Role-Holders.md
+- name: Global Catalogs
+  href: Global-Catalogs.md
+- name: Domain Controllers
+  href: Domain-Controllers.md
 - name: Directory Services Configuration
   href: Directory-Services-Configuration/toc.yml
+- name: Directory Services Configuration
+  href: Directory-Services-Configurat.md
 - name: Forest Trusts
   href: Forest-Trusts/toc.yml
 - name: Maintenance Troubleshooting
@@ -12,22 +22,18 @@
   href: Acceptable-Use-Policy.md
 - name: Delegation
   href: Delegation.md
-- name: Directory Services Configurat
-  href: Directory-Services-Configurat.md
 - name: Disaster Recovery
   href: Disaster-Recovery.md
-- name: Domain Controllers
-  href: Domain-Controllers.md
 - name: Environments
   href: Environments.md
-- name: Forest Trusts
-  href: Forest-Trusts.md
-- name: Forests and Domains
-  href: Forests-and-Domains.md
-- name: FSMO Role Holders
-  href: FSMO-Role-Holders.md
-- name: Global Catalogs
-  href: Global-Catalogs.md
+- name: Organizational Units
+  href: Organizational-Units.md
+- name: User Objects
+  href: User-Objects.md
+- name: Privileged Account Management
+  href: Privileged-Account-Management.md
+- name: Sites and Subnets
+  href: Sites-and-Subnets.md
 - name: Group Objects
   href: Group-Objects.md
 - name: Group Policy
@@ -36,21 +42,7 @@
   href: Maintenance-Troubleshooting.md
 - name: Monitoring and Logging
   href: Monitoring-and-Logging.md
-- name: Operations
-  href: Operations.md
-- name: Organizational Units
-  href: Organizational-Units.md
-- name: Privileged Account Management
-  href: Privileged-Account-Management.md
-- name: Sites and Subnets
-  href: Sites-and-Subnets.md
-- name: Time Service
+- name: Windows Time Service
   href: Time-Service.md
-- name: Troubleshooting
-  href: Troubleshooting.md
-- name: User Objects
-  href: User-Objects.md
-- name: Windows Time Service in VMware
-  href: windowstimeservicevmware.md
 - name: DCDiag and Repadmin Report
   href: dcdiagandrepadminreport.md

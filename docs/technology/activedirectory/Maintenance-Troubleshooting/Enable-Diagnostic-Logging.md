@@ -1,18 +1,14 @@
 # Enable Diagnostic Logging
 
-Created: 2015-03-20 09:10:45 -0500
+## Summary
 
-Modified: 2022-08-23 14:14:45 -0500
-
----
-
-**Keywords:** Active Directory debugging logging LDAP NTDS AD
-
-Summary: Turn on diagnostic logging for AD DS
+Turn on diagnostic logging for AD DS
 
 Diagnostic logging for domain controllers is managed in the following registry location:
 
+```console
 HKLMSYSTEMCurrentControlSetServicesNTDSDiagnostics
+```
 
 Logging can be configured by modifying these REG_DWORD entries:
 
@@ -41,7 +37,7 @@ Logging can be configured by modifying these REG_DWORD entries:
 - 23 DS RPC Server
 - 24 DS Schema
 
-**Diagnostic Logging Levels**
+## Diagnostic Logging Levels
 
 The values below are used to configure the level of diagnostic logging provided by the host:
 
@@ -53,41 +49,48 @@ The values below are used to configure the level of diagnostic logging provided 
 | 4 | Verbose |  |
 | 5 | Internal | This level logs all events, including debug strings and configuration changes. A complete log of the service is recorded. Use this setting when you have traced the problem to a particular category of a small set of categories |
 
-**View Current Logging Levels**
+## View Current Logging Levels
 
 $Reg = "HKLM:SYSTEMCurrentControlSetServicesNTDSDiagnostics"
 Get-ItemProperty -Path $Reg
 
-**Configure with PowerShell**
+## Configure with PowerShell
 
 Use the following PowerShell example to configure logging levels:
 
+```powershell
 $Reg = "HKLM:SYSTEMCurrentControlSetServicesNTDSDiagnostics"
 Set-ItemProperty -Path $Reg -Name <service> -Type DWORD -Value <value>
+```
 
-**Netlogon Logging**
+## Netlogon Logging
 
 After enabling Netlogon logging the activity will be logged to %windir%debugnetlogon.log. Depending on the amount of activity you may want to increase the size of this log from the default 20 MB. When the file reaches 20 MB, it is renamed to Netlogon.bak, and a new Netlogon.log file is created.
 
 The size of the Netlogon.log file can be increased by changing the MaximumLogFileSize registry entry. This registry entry does not exist by default.
 
-**Configure log size with PowerShell:**
+### Configure log size with PowerShell
 
+```powershell
 $Reg = "HKLM: SYSTEMCurrentControlSetServicesNetlogonParameters"
 New-ItemProperty -Path -Name MaximumLogFileSize -Type DWORD -Value <log-size>
+```
 
-**Configure log size with Group Policy:**
+### Configure log size with Group Policy
 
-Computer ConfigurationAdministrative TemplatesSystemNet LogonMaximum Log File Size
+```text
+Computer Configuration -> Administrative Templates -> SystemNet Logon -> Maximum Log File Size
+```
 
-**Turn on NetLogon Logging**
+### Turn on NetLogon Logging - Command Line
 
-**Command Line:**
-
+```cmd
 nltest /dbflag:0x2080ffff
+```
 
-**Powershell:**
+### Turn on NetLogon Logging - PowerShell
 
+```Powershell
 $Reg = "HKLM:SYSTEMCurrentControlSetServicesNetlogonParametersÂÂÃ‚Â"
 New-ItemProperty -Path -Name DBFlag -Type DWORD -Value 545325055
 
@@ -95,16 +98,19 @@ $Reg = "HKLM:SYSTEMCurrentControlSetServicesNetlogonParameters"
 Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 545325055
 
 Restart-Service netlogon
+```
 
-**Turn off NetLogon Logging**
+### Turn off NetLogon Logging - Command Line
 
-**Command Line:**
-
+```cmd
 nltest /dbflag:0x0
+```
 
-**PowerShell:**
+### Turn off NetLogon Logging - PowerShell
 
+```powershell
 $Reg = "HKLM:SYSTEMCurrentControlSetServicesNetlogonParameters"
 Set-ItemProperty -Path $Reg -Name DBFlag -Type DWORD -Value 0
 
-Restart-Service netlogon </log-size>
+Restart-Service netlogon
+```

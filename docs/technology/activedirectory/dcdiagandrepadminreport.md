@@ -1,9 +1,3 @@
----
-
-date:   2016-11-23 00:00:00 -0500
-categories: IT
----
-
 # AD Forest DCDiag and RepAdmin Report
 
 > [!WARNING]

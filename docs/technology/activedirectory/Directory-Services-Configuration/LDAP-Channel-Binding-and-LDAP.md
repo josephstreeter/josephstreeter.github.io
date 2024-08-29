@@ -1,32 +1,26 @@
 # LDAP Channel Binding and LDAP Signing requirement
 
-Created: 2019-11-14 09:56:32 -0600
-
-Modified: 2022-08-22 14:44:51 -0500
-
----
-
-**2020 LDAP channel binding and LDAP signing requirement for Windows**
+## 2020 LDAP channel binding and LDAP signing requirement for Windows
 
 Applies to: Windows 10, version 1903Windows 10, version 1809Windows Server 2019, all versionsWindows 10, version 1803Windows 10, version 1709Windows 10, version 1703Windows 10, version 1607Windows Server 2016Windows 10Windows 8.1Windows Server 2012 R2Windows Server 2012Windows 7 Service Pack 1Windows Server 2008 R2 Service Pack 1Windows Server 2008 Service Pack 2 [Less](https://support.microsoft.com/)
 
-**Summary**
+## Summary
 
 [LDAP channel binding](https://support.microsoft.com/en-us/help/4034879) and[LDAP signing](https://support.microsoft.com/en-us/help/935834) provide ways to increase the security of network communications between an Active Directory Domain Services (AD DS) or an Active Directory Lightweight Directory Services (AD LDS)and its clients. There is a vulerability in the default configuration for Lightweight Directory Access Protocol (LDAP) channel bindingand LDAP signing and may expose Active directory domain controllers to elevation of privilege vulnerabilities. MicrosoftSecurity Advisory [ADV190023](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV190023)addressthe issue by recommending the administrators enable LDAP channel binding and LDAP signing on Active Directory Domain Controllers.This hardening must be done manually until the release of the security update that will enable these settings by default.
 
 Microsoft intends to release a security update on Windows Update to enable LDAP channel binding and LDAP signing hardening changes and anticipate this update will be available inmid-January 2020.
 
-**Why this change is needed**
+## Why this change is needed
 
 Microsoft recommends administrators make the hardening changes described in[ADV190023](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV190023)because when using default settings, an elevation of privilege vulnerability exists in Microsoft Windows that could allow a man-in-the-middle attacker to successfully forward an authentication request to a Windows LDAP server, such as a system running AD DS or AD LDS, which has not configured to require signing or sealing on incoming connections.The security of a directory server can be significantly improved by configuring the server to reject Simple Authentication and Security Layer (SASL) LDAP binds that do not request signing (integrity verification) or to reject LDAP simple binds that are performed on a clear text (non-SSL/TLS-encrypted) connection. SASLs may include protocols such as the Negotiate, Kerberos, NTLM, and Digest protocols. Unsigned network traffic is susceptible to replay attacks in which an intruder intercepts the authentication attempt and the issuance of a ticket. The intruder can reuse the ticket to impersonate the legitimate user. Additionally, unsigned network traffic is susceptible to man-in-the-middle attacks in which an intruder captures packets between the client and the server, changes the packets, and then forwards them to the server. If this occurs on an LDAP server, an attacker can cause a server to make decisions that are based on forged requests from the LDAP client.
 
-**Recommended actions**
+## Recommended actions
 
 We strongly advise administrators to enable LDAP channel binding and LDAP signing between now and mid-January 2020 to find and fix any operating systems, applications or intermediate devicecompatibility issues in their environment. If any compatibility issue is found, administrators will need to contact the manufacturer ofthat particular OS, application or devicefor support.
 
 **Important** AnyOS version, applicationand intermediate devicethat performs a man-in-the-middle inspection of LDAP traffic are most likely to be impacted by this hardening change.
 
-**Security update schedule**
+## Security update schedule
 
 Microsoft is targeting the following schedule to enable LDAP channel binding and LDAP signing support.Please note that the timeline below is subject to change. We will update this page as the process begins and as needed.
 
@@ -83,21 +77,17 @@ Microsoft is targeting the following schedule to enable LDAP channel binding and
 </tbody>
 </table>
 
-**Frequently Ask Questions**
+## Frequently Ask Questions
 
 [Why is there a delay between the release of the Security Advisory and the release of the security update for Windows which will set LDAP channel binding to a more secure default setting?](https://support.microsoft.com/)
 
 Based on feedback Microsoft received, customers preferred we release the update after the 2019 holidays. Many administrators restrict configuration changes during the holiday season. Administrators will also need time to test these configuration changes and adjust their environment as needed to support it. This release schedule is intended to provide lead-time to prepare for this change.
 
-*From <<https://support.microsoft.com/en-us/help/4520412/2020-ldap-channel-binding-and-ldap-signing-requirement-for-windows>>*
+*From <<https://support.microsoft.com/en-us/help/4520412/2020-ldap-channel-binding-and-ldap-signing-requirement-for-windows>>
 
-*********************************************************************************************************************************
+## ADV190023 | Microsoft Guidance for Enabling LDAP Channel Binding and LDAP Signing
 
-*********************************************************************************************************************************
-
-**ADV190023 | Microsoft Guidance for Enabling LDAP Channel Binding and LDAP Signing**
-
-**Security Advisory**
+Security Advisory
 
 Published: 08/13/2019 | Last Updated : 09/09/2019
 
@@ -113,13 +103,13 @@ On this page
 - [Disclaimer](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV190023#ID0ECJAC)
 - [Revisions](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/ADV190023#ID0EHJAC)
 
-**Executive Summary**
+### Executive Summary
 
 [LDAP channel binding](https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry) and [LDAP signing](https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008) provide ways to increase the security for communications between LDAP clients and Active Directory domain controllers. A set of unsafe default configurations for LDAP channel binding and LDAP signing exist on Active Directory Domain Controllers that let LDAP clients communicate with them without enforcing LDAP channel binding and LDAP signing. This can open Active directory domain controllers to elevation of privilege vulnerabilities.
 
 This advisory addresses the issue by recommending a new set of safe default configurations for LDAP channel binding and LDAP signing on Active Directory Domain Controllers that supersedes the original unsafe configuration.
 
-**Recommended Actions**
+### Recommended Actions
 
 In an upcoming release in early 2020, Microsoft will provide a Windows update that by default will change the LDAP channel binding and LDAP signing to more secure configurations. When the update is available, customers will be notified via a revision to this advisory. If you wish to be notified when the update is released, we recommend that you register for the security notifications mailer to be alerted of content changes to this advisory. See [Microsoft Technical Security Notifications](https://technet.microsoft.com/en-us/security/dd252948). In the meantime, we strongly advise customers to take the following steps at the earliest opportunity:
 
@@ -132,7 +122,7 @@ See the following Microsoft Knowledge Base articles for guidance on how to enabl
 - [LDAP channel binding](https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry)
 - [LDAP signing](https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008)
 
-**FAQ**
+### FAQ
 
 **1. Why did Microsoft delay the release of the update which sets LDAP channel binding to a more secure default setting?**
 
@@ -141,29 +131,29 @@ Based on feedback Microsoft received, customers preferred that we release the up
 | **Product** | **Platform** | **Article** | **Download** | **Impact** | **Severity** | **Supersedence** |
 |----------|-----------|---------|------------|---------|----------|-------------|
 
-**Security Updates**
+### Security Updates
 
 To determine the support life cycle for your software version or edition, see the [Microsoft Support Lifecycle](https://support.microsoft.com/en-us/lifecycle).
 
-**Mitigations**
+### Mitigations
 
 Microsoft has not identified any [mitigating factors](https://technet.microsoft.com/library/security/dn848375.aspx#Mitigation) for this vulnerability.
 
-**Workarounds**
+### Workarounds
 
 Microsoft has not identified any [workarounds](https://technet.microsoft.com/library/security/dn848375.aspx#Workaround) for this vulnerability.
 
-**Acknowledgements**
+### Acknowledgements
 
 Microsoft recognizes the efforts of those in the security community who help us protect customers through coordinated vulnerability disclosure.
 
 See [acknowledgements](https://portal.msrc.microsoft.com/en-us/security-guidance/acknowledgments) for more information.
 
-**Disclaimer**
+### Disclaimer
 
 The information provided in the Microsoft Knowledge Base is provided "as is" without warranty of any kind. Microsoft disclaims all warranties, either express or implied, including the warranties of merchantability and fitness for a particular purpose. In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever including direct, indirect, incidental, consequential, loss of business profits or special damages, even if Microsoft Corporation or its suppliers have been advised of the possibility of such damages. Some states do not allow the exclusion or limitation of liability for consequential or incidental damages so the foregoing limitation may not apply.
 
-**Revisions**
+### Revisions
 
 | **Version** | **Date** | **Description** |
 |---------|-----------|-----------------------------------------------------|
@@ -176,15 +166,15 @@ The information provided in the Microsoft Knowledge Base is provided "as is" wit
 
 *********************************************************************************************************************************
 
-**How to enable LDAP signing in Windows Server 2008**
+### How to enable LDAP signing in Windows Server 2008
 
 Applies to: Windows Server 2008 Datacenter without Hyper-VWindows Server 2008 Enterprise without Hyper-VWindows Server 2008 for Itanium-Based Systems [More](https://support.microsoft.com/)
 
-**RAPID PUBLISHING**
+### RAPID PUBLISHING
 
 RAPID PUBLISHING ARTICLES PROVIDE INFORMATION IN RESPONSE TO EMERGING OR UNIQUE TOPICS AND MAY BE UPDATED AS NEW INFORMATION BECOMES AVAILABLE.
 
-**INTRODUCTION**
+### INTRODUCTION
 
 The security of a directory server can be significantly improved by configuring the server to reject Simple Authentication and Security Layer (SASL) LDAP binds that do not request signing (integrity verification) or to reject LDAP simple binds that are performed on a clear text (non-SSL/TLS-encrypted) connection. SASLs may include protocols such as the Negotiate, Kerberos, NTLM, and Digest protocols.
 
@@ -192,9 +182,9 @@ Unsigned network traffic is susceptible to replay attacks in which an intruder i
 
 This article describes how to configure your directory server to protect it from such attacks.
 
-**More Information**
+### More Information
 
-**How to discover clients that do not use the "Require signing" option**
+### How to discover clients that do not use the "Require signing" option
 
 Clients that rely on unsigned SASL (Negotiate, Kerberos, NTLM, or Digest) LDAP binds or on LDAP simple binds over a non-SSL/TLS connection stop working after you make this configuration change. To help identify these clients, the directory server logs a summary event 2887 one time every 24 hours to indicate how many such binds occurred. We recommend that you configure these clients not to use such binds. After no such events are observed for an extended period, we recommend that you configure the server to reject such binds.
 
@@ -204,11 +194,11 @@ If you must have more information to identify such clients, you can configure th
 
 If the directory server is configured to reject unsigned SASL LDAP binds or LDAP simple binds over a non-SSL/TLS connection, the directory server will log a summary event 2888 one time every 24 hours when such bind attempts occur.
 
-**How to configure the directory to require LDAP server signing**
+### How to configure the directory to require LDAP server signing
 
-**Using Group Policy**
+### Using Group Policy
 
-**How to set the server LDAP signing requirement**
+### How to set the server LDAP signing requirement
 
 - Click **Start**, click **Run**, type mmc.exe, and then click **OK**.
 - On the **File** menu, click **Add/Remove Snap-in**.
@@ -222,7 +212,7 @@ If the directory server is configured to reject unsigned SASL LDAP binds or LDAP
 - In the **Domain controller: LDAP server signing requirements Properties** dialog box, enable **Define this policy setting**, click to select **Require signing** in the **Define this policy setting** drop-down list, and then click **OK**.
 - In the **Confirm Setting Change** dialog box, click **Yes**.
 
-**How to set the client LDAP signing requirement through local computer policy**
+### How to set the client LDAP signing requirement through local computer policy
 
 - Click **Start**, click **Run**, type mmc.exe, and then click **OK**.
 - On the **File** menu, click **Add/Remove Snap-in**.
@@ -234,7 +224,7 @@ If the directory server is configured to reject unsigned SASL LDAP binds or LDAP
 - In the **Network security: LDAP client signing requirements Properties** dialog box, click to select **Require signing** in the drop-down list, and then click **OK**.
 - In the **Confirm Setting Change** dialog box, click **Yes**.
 
-**How to set the client LDAP signing requirement through a domain Group Policy Object**
+### How to set the client LDAP signing requirement through a domain Group Policy Object
 
 - Click **Start**, click **Run**, type **mmc.exe**, and then click **OK**.
 - On the **File** menu, click **Add/Remove Snap-in**.
@@ -252,22 +242,22 @@ For more information, click the following article number to view the article in 
 
 [823659](https://support.microsoft.com/en-us/help/823659) Client, service, and program incompatibilities that may occur when you modify security settings and user rights assignments
 
-**How to use registry keys**
+### How to use registry keys
 
 To have us change the registry keys for you, go to the "[Fix it for me](https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008#fixitformealways)" section. If you prefer to change the registry keys yourself, go to the "[Let me fix it myself](https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008#letmefixitmyselfalways)" section.
 
-**Fix it for me**
+### Fix it for me
 
 To fix this problem automatically, click the **Fix it** button or link, click **Run** in the **File Download** dialog box, and then follow the steps in the Fix it wizard.
 
-Notes
+### Notes
 
 - This wizard may be in English only. However, the automatic fix also works for other language versions of Windows.
 - If you are not using the computer that has the problem, save the Fix it solution to a flash drive or a CD, and then run it on the computer that has the problem.
 
 Then, go to the "[Did this fix the problem?](https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008#fixedalways)" section.
 
-**Let me fix it myself**
+### Let me fix it myself
 
 Important This section, method, or task contains steps that tell you how to modify the registry. However, serious problems might occur if you modify the registry incorrectly. Therefore, make sure that you follow these steps carefully. For added protection, back up the registry before you modify it. Then, you can restore the registry if a problem occurs. For more information about how to back up and restore the registry, click the following article number to view the article in the Microsoft Knowledge Base:
 
@@ -287,11 +277,13 @@ Important This section, method, or task contains steps that tell you how to modi
 
 By default, for Active Directory Lightweight Directory Services (AD LDS), the registry key is not available. Therefore, you must create a LDAPServerIntegrity registry entry of the REG_DWORD type under the following registry subkey:
 
-**HKEY_LOCAL_MACHINESYSTEMCurrentControlSetServices<InstanceName>Parameters**
+```text
+HKEY_LOCAL_MACHINESYSTEMCurrentControlSetServices<InstanceName>Parameters
+```
 
-Note The placeholder <InstanceName> represents the name of the AD LDS instance that you want to change.
+Note The placeholder ```<InstanceName>``` represents the name of the AD LDS instance that you want to change.
 
-**How to verify configuration changes**
+**How to verify configuration changes
 
 - Click **Start**, click **Run**, type ldp.exe, and then click **OK**.
 - Under the **Connection** menu, click **Connect**.
@@ -306,20 +298,17 @@ Note The placeholder <InstanceName> represents the name of the AD LDS instance t
 if you receive the following error message, you successfully configured your directory server:
 
 Ldap_simple_bind_s() failed: Strong Authentication Required
+*From <<https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008>>
 
-*From <<https://support.microsoft.com/en-us/help/935834/how-to-enable-ldap-signing-in-windows-server-2008>>*
-
-******************************************************************************************************************************************************************************************************************************************************************
-
-**Use the LdapEnforceChannelBinding registry entry to make LDAP authentication over SSL/TLS more secure**
+**Use the LdapEnforceChannelBinding registry entry to make LDAP authentication over SSL/TLS more secure
 
 Applies to: Windows Server 2016 DatacenterWindows Server 2016 EssentialsWindows Server 2016 Standard [More](https://support.microsoft.com/)
 
-**Summary**
+**Summary
 
 [CVE-2017-8563](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2017-8563) introduces a registry setting that administrators can use to help make LDAP authentication over SSL/TLS more secure.
 
-**More Information**
+**More Information
 
 **Important** This section, method, or task contains steps that tell you how to modify the registry. However, serious problems might occur if you modify the registry incorrectly. Therefore, make sure that you follow these steps carefully. For added protection, back up the registry before you modify it. Then, you can restore the registry if a problem occurs. For more information about how to back up and restore the registry, click the following article number to view the article in the Microsoft Knowledge Base:
 
@@ -334,7 +323,7 @@ To help make LDAP authentication over SSLTLS more secure, administrators can con
 - **DWORD value: 1** indicates *enabled*, when supported. All clients that are running on a version of Windows that has been updated to support channel binding tokens (CBT) must provide channel binding information to the server. Clients that are running a version of Windows that has not been updated to support CBT do not have to do so. This is an intermediate option that allows for application compatibility.
 - **DWORD value: 2** indicates *enabled, always*. All clients must provide channel binding information. The server rejects authentication requests from clients that do not do so.
 
-**Notes**
+**Notes
 
 - Before you enable this setting on a Domain Controller, clients must install the security update that is described in [CVE-2017-8563](https://portal.msrc.microsoft.com/en-us/security-guidance/advisory/CVE-2017-8563). Otherwise, compatibility issues may arise, and LDAP authentication requests over SSL/TLS that previously worked may no longer work. By default, this setting is disabled.
 - The LdapEnforceChannelBindings registry entry must be explicitly created.
@@ -348,11 +337,9 @@ Windows Server 2008 and older systems require that Microsoft Security Advisory [
 
 *From <<https://support.microsoft.com/en-us/help/4034879/how-to-add-the-ldapenforcechannelbinding-registry-entry>>*
 
-******************************************************************************************************************************************************************************************************************************************************************
+### CVE-2017-8563 | Windows Elevation of Privilege Vulnerability
 
-**CVE-2017-8563 | Windows Elevation of Privilege Vulnerability**
-
-**Security Vulnerability**
+### Security Vulnerability
 
 Published: 07/11/2017 | Last Updated : 07/13/2017
 
@@ -378,7 +365,7 @@ The update addresses this vulnerability by incorporating support for Extended Pr
 |----------|---------|--------------------|--------------------|--------------|
 | No | No | 1 - Exploitation More Likely | 1 - Exploitation More Likely | Not Applicable |
 
-**ExploitabilityAssessment**
+**ExploitabilityAssessment
 
 The following table provides an [exploitability assessment](https://technet.microsoft.com/en-us/security/cc998259.aspx) for this vulnerability at the time of original publication.
 
@@ -426,33 +413,33 @@ The following table provides an [exploitability assessment](https://technet.micr
 | Windows Server 2016 |  | [4025339](https://support.microsoft.com/help/4025339) | [Security Update](https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4025339) | Elevation of Privilege | Important | 4022715 |
 | Windows Server 2016 (Server Core installation) |  | [4025339](https://support.microsoft.com/help/4025339) | [Security Update](https://catalog.update.microsoft.com/v7/site/Search.aspx?q=KB4025339) | Elevation of Privilege | Important | 4022715 |
 
-**Security Updates**
+**Security Updates
 
 To determine the support life cycle for your software version or edition, see the [Microsoft Support Lifecycle](https://support.microsoft.com/en-us/lifecycle).
 
-**Mitigations**
+**Mitigations
 
 Microsoft has not identified any [mitigating factors](https://technet.microsoft.com/library/security/dn848375.aspx#Mitigation) for this vulnerability.
 
-**Workarounds**
+**Workarounds
 
 Microsoft has not identified any [workarounds](https://technet.microsoft.com/library/security/dn848375.aspx#Workaround) for this vulnerability.
 
-**FAQ**
+**FAQ
 
 **In addition to installing the updates for CVE-2017-8563 are there any further steps I need to carry out to be protected from this CVE?** Yes. To make LDAP authentication over SSL/TLS more secure, administrators need to create a LdapEnforceChannelBinding registry setting on machine running AD DS or AD LDS. For more information about setting this registry key, see [Microsoft Knowledge Base article 4034879](https://support.microsoft.com/en-us/help/4034879).
 
-**Acknowledgements**
+**Acknowledgements
 
 Yaron Zinar, Eyal Karni, Roman Blachman [Preempt](https://www.preempt.com)
 
 See [acknowledgements](https://portal.msrc.microsoft.com/en-us/security-guidance/acknowledgments) for more information.
 
-**Disclaimer**
+**Disclaimer
 
 The information provided in the Microsoft Knowledge Base is provided "as is" without warranty of any kind. Microsoft disclaims all warranties, either express or implied, including the warranties of merchantability and fitness for a particular purpose. In no event shall Microsoft Corporation or its suppliers be liable for any damages whatsoever including direct, indirect, incidental, consequential, loss of business profits or special damages, even if Microsoft Corporation or its suppliers have been advised of the possibility of such damages. Some states do not allow the exclusion or limitation of liability for consequential or incidental damages so the foregoing limitation may not apply.
 
-**Revisions**
+**Revisions
 
 | **Version** | **Date** | **Description** |
 |---------|------------|----------------------------------------------------|

@@ -1,14 +1,8 @@
 # Organizational Units
 
-Created: 2019-05-12 21:37:05 -0500
-
-Modified: 2019-05-13 11:27:57 -0500
-
----
+An Organizational Unit (OU) is an Active Directory object that acts as a container for other objects. OUs have two primary purposes: application of policy and delegation of administrative tasks. Application of policy is accomplished through the linking of Group Policy Objects to the OU. Delegation of administration is accomplished by applying Access Control Lists to the OU that apply to rights and properties for the OU itself as well as objects contained in that OU.
 
 ## Organizational Unit Structure
-
-An Organizational Unit (OU) is an Active Directory object that acts as a container for other objects. OUs have two primary purposes: application of policy and delegation of administrative tasks. Application of policy is accomplished through the linking of Group Policy Objects to the OU. Delegation of administration is accomplished by applying Access Control Lists to the OU that apply to rights and properties for the OU itself as well as objects contained in that OU.
 
 There is often a tendency to create the OU structure to strictly mirror the organizational chart. In order to efficiently design the OU structure around administrative responsibility and Group Policy application the organizational data can be contained in the attributes of the user objects.
 
@@ -29,20 +23,19 @@ The OU structure design will consist of several top-level OUs that will contain 
 
 The top-level OUs will consist of the following:
 
-- ENT -- This OU will contain user and group objects that are considered "highly privileged" or could lead to elevating other objects to "highly privileged."
-- MC -- This OU will contain all other Madison College managed leaf objects
+- ENT - This OU will contain user and group objects that are considered "highly privileged" or could lead to elevating other objects to "highly privileged."
+- MC - This OU will contain all other managed and unmanaged leaf objects
 
 Second level sub-OUs will include:
 
 - ENT
   - Groups
-  - Sensitive Objects
   - Users
 - MC
-  - Managed Objects -- Contains OU, User and Group objects managed through the IdM system
-  - Computers -- Contains OU and computer objects associated with desktops, notebooks, tablets, etc
-  - Servers -- Contains OU and computer objects associated with servers
-  - Users -- Contains OU and user objects that are created outside of the IdM system
-  - Groups -- Contains OU and group objects that are created outside of the IdM system
+  - Managed Objects - Contains OU, User and Group objects managed through the IdM system
+  - Computers - Contains OU and computer objects associated with desktops, notebooks, tablets, etc
+  - Servers - Contains OU and computer objects associated with servers
+  - Users - Contains OU and user objects that are created outside of the IdM system
+  - Groups - Contains OU and group objects that are created outside of the IdM system
 
-![](media/Active-Directory_Organizational-Units-image1.png){width="1.9791666666666667in" height="6.541666666666667in"}
+![image](media/Active-Directory_Organizational-Units-image1.png){width="1.9791666666666667in" height="6.541666666666667in"}

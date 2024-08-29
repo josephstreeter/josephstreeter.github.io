@@ -1,11 +1,5 @@
 # Delegation
 
-Created: 2019-05-12 21:50:22 -0500
-
-Modified: 2019-05-13 11:27:48 -0500
-
----
-
 ## Security descriptors
 
 Access control permissions are assigned to shared objects and Active Directory objects to control how different users can use each object. A shared object, or shared resource, is an object that is intended to be used over a network by one or more users and includes files, printers, folders, and services. Both shared objects and Active Directory objects store access control permissions in security descriptors.

@@ -1,35 +1,36 @@
 # User Objects
 
-Created: 2019-05-13 11:13:18 -0500
+User object are split into two general categories
 
-Modified: 2019-05-13 11:14:06 -0500
-
----
+- Person
+- Non-Person
 
 ## Person Accounts
 
-Types of Person Accounts:
+A Person account is a user object that is created explicitly to provide a security context that is directly mapped to the identity of a real person that has some form of association with the organization.
 
-- Network ID (NetID)
+Person accounts are further separated into two categories:
+
+- Network ID
 - Privileged
 
-## Network ID
+### Network ID
 
-A Person account is a user object that is created explicitly to provide a security context that is directly mapped to the identity of a real person that has some form of association with the organization. The use of Network ID accounts will be limited to non-privileged user activities such as using email clients, accessing file shares, office suites, and web browsers. Network ID accounts will not be granted administrative privileges on hosts or used to authenticate services or applications to Active Directory.
+The use of Network ID accounts will be limited to non-privileged user activities such as using email clients, accessing file shares, office suites, and web browsers. Network ID accounts will not be granted administrative privileges on hosts or used to authenticate services or applications to Active Directory.
 
-Person accounts will be created and managed by the IdM System for all Students, Faculty, Staff, and Contractor/Consultants.
+Person accounts are typically created and managed by the an Identity and Access Management System (IdMS) for all Students, Faculty, Staff, and Contractor/Consultants.Entitlements are assigned to Network IDs for the purpose of completing daily work.
 
-## Privileged Accounts
+### Privileged Accounts
 
 Privileged accounts are created for the purpose of assigning rights and permissions required for administration of resources owned by the organization. Each Privileged Account must be mapped directly to a NetID. All users that are granted privileged access must have a separate account for performing administration tasks of hosts and systems. This administrative account is to be used strictly for administrative purposes. This account is NOT to be used for day-to-day (normal) business, e.g. e-mail accounts are not to be tied to this account. All administrators will use their NetID account to logon to their workstations and use the RunAs command to connect to administrative applications, such as Active Directory Users and Computers.
 
-Privileged accounts will be created by the Identity and Access Management Team. Privileged accounts will be assigned rights by resource owners.
+Privileged accounts may be created and managed by the IdMS or manually by security staff.
 
 ## Non-Person Accounts
 
 A non-person account is auser object created to represent a service, a group of people, or anonymous access.These non-person accounts will not be used as person accounts for individual users.
 
-## Service Accounts
+### Service Accounts
 
 A Service account is a user account that is created explicitly to provide a security context for services running on a server. Service accounts will be created in the following manner:
 
@@ -42,10 +43,10 @@ A Service account is a user account that is created explicitly to provide a secu
 - Service accounts will only be assigned the permissions required to run the service.
 - Service accounts will have complex passwords that are maintained in a secure location that is accessible to the appropriate administrators.
 
-## Resource
+### Resource Accounts
 
 - A Resource account is a user account that is created explicitly to provide a security context.... Resource accounts will be created in the following manner:
 
-## Organizational
+### Organizational
 
 - An organizational account is a user account that is created explicitly to provide a security context.... Organizational accounts will be created in the following manner:

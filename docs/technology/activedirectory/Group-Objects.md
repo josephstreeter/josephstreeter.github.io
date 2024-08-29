@@ -1,34 +1,32 @@
 # Group Objects
 
-Created: 2019-05-13 11:14:22 -0500
-
-Modified: 2020-07-15 07:47:24 -0500
-
----
-
-Groups will be nested within the guidelines of this document in order to prevent redundancies and circular nesting.
-
 Group objects will be created and managed by the Identity and Access Management Team.
 
-Groups Types and Scope
+## Groups Types and Scope
 
-- Type -- Active Directory supports two classes of groups; Distribution and Security.
-  - Distribution groups are used for mail distribution.
-  - Security groups are security principals for use in granting or denying rights to resources and filtering the application of Group Policy Objects.
-- Scope -- Active Directory supports four group scopes:
-  - Local
-  - Domain Local -- May have users, computers, other domain local groups, global groups and universal groups as members from any domain in the forest or from trusted domains in other forests
-  - Global -- May have users, computers, and other global groups from within the same domain as members
-  - Universal -- May have users, computers, global groups, and universal groups from anywhere in the forest or from trusted forests
+Type - Active Directory supports two classes of groups; Distribution and Security.
 
-Nesting
+- Distribution groups are used for mail distribution.
+- Security groups are security principals for use in granting or denying rights to resources and filtering the application of Group Policy Objects.
+
+Scope - Active Directory supports four group scopes:
+
+- Local
+- Domain Local - May have users, computers, other domain local groups, global groups and universal groups as members from any domain in the forest or from trusted domains in other forests
+- Global - May have users, computers, and other global groups from within the same domain as members
+- Universal - May have users, computers, global groups, and universal groups from anywhere in the forest or from trusted forests
+
+## Nesting
 
 Groups can be nested to increase the effective number of members and ease administration overhead. However, nesting in a large organization can quickly get out of control. A lack of standardization and governance can lead to redundancies and circular nesting.
+
+> [!NOTE]
+> Groups will be nested within the guidelines of this document in order to prevent redundancies and circular nesting.
 
 - Universal group membership will consist of user accounts and computer accounts from any domain.
 - Global group membership will consist of Universal and Global groups from any domain.
 - Domain Local and Local group membership will consist of Universal and Global groups from any domain. They may also have other Domain Local groups from the same domain as members.
-- All groups will be named with a three to five letter code for the department followed by a short description of the group separated by spaces (e.g. <dept> <description>).
+- All groups will be named with a three to five letter code for the department followed by a short description of the group separated by spaces (e.g. ```<dept> <description>```).
 
 For standardization and performance, the following rules will be followed while using security groups in an Active Directory forest:
 
@@ -46,6 +44,8 @@ When assigning rights and permissions resources never assign permissions to indi
 - Access control permissions -- Any object (files, folders, mailboxes, directory object, etc) that has an Access Control List (ACL) can be given permissions such as Read, Write, Full Control, or Modify.
 
 It is recommended that when creating and managing security groups you follow the Role Based Access Control (RBAC) model. The RBAC model lays out a multi-level strategy involving individual users, groups, and resources that lends itself to attestation and self-documentation. The pneumonic AGDLP explains the implementation of RBAC in Active Directory.
+
+## AGDLP
 
 AGDLP stands for "Accounts go in Global groups, global groups go in Domain Local groups, and local groups are assigned Permissions"
 

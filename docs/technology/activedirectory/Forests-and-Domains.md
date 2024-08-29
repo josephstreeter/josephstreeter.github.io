@@ -1,10 +1,6 @@
 # Forests and Domains
 
-Created: 2019-05-13 11:34:34 -0500
-
-Modified: 2019-05-13 11:37:46 -0500
-
----
+Active Directory is primarily organized by forests and domains. In most cases a single forest and a single domain are necessary.
 
 ## Forest Structure
 
@@ -24,7 +20,6 @@ A single forest environment is simple to create, manage and maintain. The cost o
 ### Setting up Empty Root Domain -- Microsoft research Academic Computing Report
 
 - Each domain incurs a number of additional costs, both in terms of duplicated hardware and software, but also additional administrative work. Many of the costs are hidden:*
-
 - System administrators must manage extra complexity. For instance, the effort required to move a student between two departmental domains is significantly greater than between two organizational units (OUs), especially if the departments have different IT infrastructures or procedures.
 - Duplicated hardware and personnel resources are required, as every departmental domain must provide redundancy, 24/7 support, fault tolerance, backup solutions, etc.
 - Multiple domain controllers for every subdomain are required at sites.
@@ -58,37 +53,45 @@ Additional domains will be created only in the following cases:
 - Department or organization that cannot work within the policies that are domain wide
 - Separate DNS name is required and multiple name records (split DNS) is not acceptable
 
-*"Politics is the number one reason organizations tend to end up with multiple domains, not because of valid technical or security considerations" --Jason Fossen SANS.org*
+```text
+"Politics is the number one reason organizations tend to end up with multiple domains, not because of valid technical or security considerations" 
+--Jason Fossen SANS.org
+```
 
 ### The following is from a Microsoft Whitepaper called "Setting up an Empty Root Domain"
 
+```text
 (Pg 10)
+The empty root domain is not suitable for all situations. In particular, if departments are amenable to working together, and dividing responsibility and control using organizational units, a single domain model may be preferred.
+```
 
-*The empty root domain is not suitable for all situations. In particular, if departments are amenable to working together, and dividing responsibility and control using organizational units, a single domain model may be preferred.*
-
+```text
 (Pg 11)
 
-*Almost all of the administrative delegation, separation and protection that can be done using an empty root domain can also be done under the single domain model using organizational units.*
+Almost all of the administrative delegation, separation and protection that can be done using an empty root domain can also be done under the single domain model using organizational units.
 
-- *Reduced hardware and software costs to setup and operate a single domain compared to multiple domains. Multiple domains require needless duplication of resources in each domain.*
-- *Increased flexibility for future changes. OUs can be created, changed and moved more easily than domains.*
-- *Increased flexibility to support roaming user populations*
-- *Reduced effort to administer policies. Group policy, security settings and access control do not flow automatically between domains in a tree. In particular, group policy objects (GPOs) cannot be applied across domain boundaries. In a single domain, managing policies is much easier.*
-- *Security principals can be moved between departments more easily. Moving between OUs is trivial, while moving between domains is not. To move a user between two domains requires cooperation between domain administrators and may require administrators to move settings and data manually.*
+- Reduced hardware and software costs to setup and operate a single domain compared to multiple domains. Multiple domains require needless duplication of resources in each domain.
+- Increased flexibility for future changes. OUs can be created, changed and moved more easily than domains.
+- Increased flexibility to support roaming user populations
+- Reduced effort to administer policies. Group policy, security settings and access control do not flow automatically between domains in a tree. In particular, group policy objects (GPOs) cannot be applied across domain boundaries. In a single domain, managing policies is much easier.
+- Security principals can be moved between departments more easily. Moving between OUs is trivial, while moving between domains is not. To move a user between two domains requires cooperation between domain administrators and may require administrators to move settings and data manually.
 
-*The simplicity of the single domain model is compelling and should always be given serious consideration. In general, political and not technical decisions cause organizations not to use the single domain model.*
+The simplicity of the single domain model is compelling and should always be given serious consideration. In general, political and not technical decisions cause organizations not to use the single domain model.
+```
 
+```text
 (Pg 19)
 
-*Subdomains should not be created without good reason. Each domain added to the forest or tree results in additional administrative workload and required computer resources. Some of the extra costs associated with domains include:*
+Subdomains should not be created without good reason. Each domain added to the forest or tree results in additional administrative workload and required computer resources. Some of the extra costs associated with domains include:
 
-- ***Additional domain controllers are required** - Each domain requires at least two domain controllers, and the administrative staff to support them.*
-- ***24/7 availability -** Departments setting up subdomains must provide hardware and administrators to provide 24/7availability. Problems in the subdomain can have forest wide consequences so must be fixed promptly.*
-- ***Secure domain controllers** -Domain controllers must be physically secured and administrator accounts properly restricted and managed. A security breach on a domain controller can jeopardize the security of the forest.*
+- Additional domain controllers are required - Each domain requires at least two domain controllers, and the administrative staff to support them.
+- 24/7 availability - Departments setting up subdomains must provide hardware and administrators to provide 24/7availability. Problems in the subdomain can have forest wide consequences so must be fixed promptly.
+- Secure domain controllers -Domain controllers must be physically secured and administrator accounts properly restricted and managed. A security breach on a domain controller can jeopardize the security of the forest.
 
-*...almost all decentralization that can be done with domains could also be done with OUs in a single domain, at far lower cost.*
+...almost all decentralization that can be done with domains could also be done with OUs in a single domain, at far lower cost.
+```
 
-Domain Names
+## Domain Names
 
 Two names are associated with each domain, DNS and NetBIOS. The DNS name for each domain make a unique reference to each domain. The DNS name should be a sub domain of a domain name registered to the organization. NetBIOS names will have to be unique within a forest and are most often seen and used by users when authenticating to a particular domain.
 

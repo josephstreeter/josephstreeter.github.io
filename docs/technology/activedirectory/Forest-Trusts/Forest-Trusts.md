@@ -1,11 +1,5 @@
 # Forest Trusts
 
-Created: 2015-03-20 09:38:35 -0500
-
-Modified: 2015-03-20 09:40:41 -0500
-
----
-
 ## Summary
 
 The Campus Active Directory Service allows participating departments to take advantage of centralized NetID-based authentication and authorization while allowing for delegated administration of local resources. As we move towards centralizing our directory services, trusts will be important to the migration process as well as providing continuity of operations during the cleanup. The existence of external forest trusts will be vital to sharing enterprise resources with departments and organizations that fall out of scope of Campus Active Directory and require more than the federation of web applications.
