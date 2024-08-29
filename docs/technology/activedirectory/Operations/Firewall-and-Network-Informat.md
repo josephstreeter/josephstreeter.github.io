@@ -1,16 +1,10 @@
 # Firewall and Network Information
 
-Created: 2015-03-20 09:30:41 -0500
+## Summary
 
-Modified: 2015-03-20 09:31:51 -0500
+Firewalls should be configured to allow traffic to and from the Campus Active Directory domain controllers. Body:
 
----
-
-**Keywords:** campus active directory ad microsoft ad.wisc.edu adtest.wisc.edu firewall port rule rules exception ip address hostname
-
-**Summary:** Firewalls should be configured to allow traffic to and from the Campus Active Directory domain controllers. Body:
-
-**Domain Controller Information**
+## Domain Controller Information
 
 The Campus Active directory has two domains: ad.wisc.edu and adtest.wisc.edu. Each domain has three domain controllers. The domain controller IP addresses for each domain are:
 
@@ -83,7 +77,7 @@ The Campus Active directory has two domains: ad.wisc.edu and adtest.wisc.edu. Ea
 </tbody>
 </table>
 
-**Common Ports Used by Active Directory**
+## Common Ports Used by Active Directory
 
 Active Directory makes use of several ports, so it is easier to allow all traffic from the domain controllers, which should not pose a significant security risk (especially considering that the service can only be accessed via the campus network). However, if you want to restrict communication to specific ports, here is a list of commonly used ports in Active Directory:
 
@@ -103,6 +97,6 @@ Active Directory makes use of several ports, so it is easier to allow all traffi
 | Domain Name Service (DNS)                | 53/TCP, 53/UDP   |
 | AD Web Service                           | 9389/TCP         |
 
-**Network Connectivity**
+## Network Connectivity
 
 The Campus Active Directory service can only be accessed within the campus network or the [WiscVPN](http://www.doit.wisc.edu/network/vpn/) service. Exceptions to this rule cannot be made.

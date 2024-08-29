@@ -1,14 +1,6 @@
 # Connecting to Windows File Shares
 
-Created: 2015-03-20 09:28:46 -0500
-
-Modified: 2015-03-20 09:30:23 -0500
-
----
-
-**Keywords:** SMB windows file share server Summary: The following instructions explain how to connect to Windows file shares. Body:
-
-**Microsoft Windows 8**
+## Microsoft Windows 8
 
 Graphical User Interface
 
@@ -35,7 +27,7 @@ PowerShell
 - From PowerShell the following command willcreate a persistent drive mapping using alternate credentials
   - New-PSDrive â€"Name â€œKâ€ â€"PSProvider FileSystem â€"Root â€œdeptfs-server-01shareâ€ â€"Persist -Credential $(Get-Credential)
 
-**Apple Mac (10.7 and later)**
+## Apple Mac (10.7 and later)
 
 Use the Connect To Server feature of the Finder:
 
@@ -45,7 +37,7 @@ Use the Connect To Server feature of the Finder:
   - smb://deptfs-server-01.dept.wisc.edu/share
 - Enter username (<netid@wisc.edu>) and password if prompted
 
-**Linux**
+## Linux
 
 - The Linux host must be configured for Kerberos authentication prior to executing the following command (Directions [here](file:///C:/Users/jstreeter/OneDrive/Documents/AD%20Docs/CADS%20Documents/KB%20Docs/page.php?id=38436)[)](mailto:netid@doit.wisc.edu)
   - mount -t cifs -o user=<netid@ad.wisc.edu> //deptfs-server-01/share share

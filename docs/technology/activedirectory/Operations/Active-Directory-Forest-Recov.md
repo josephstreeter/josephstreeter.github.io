@@ -1,13 +1,5 @@
 # Active Directory Forest Recovery
 
-Created: 2015-03-20 09:32:28 -0500
-
-Modified: 2018-12-31 15:11:31 -0600
-
----
-
-**Keywords:** Campus Active Directory Forest Recovery Summary: This document outlines the procedures for recovering an Active Directory Forest from complete failure. Body:
-
 In order to perform a full server recovery it is important that the drive configuration matches that of the server the backup was taken from. Each disk that is used in the restore must be the same size or larger than the disks used on the server that the image was created from.
 
 For the purpose of this guide the host name of the domain controller being restored is CADSDC-CSSC-01.ad.wisc.edu. In the event of an actual restoration the host name may be different.
@@ -16,7 +8,7 @@ For the purpose of this guide the host name of the domain controller being resto
 
 **Note:** All Campus Active Directory Domain Controllers are configured to use User Access Control. In order to save time and effort during the restore process it is recommended that administrator conducting the restore open an elevated cmd or PowerShell session and run all commands from there. This will limit the number of times that the administrator has to enter his/her credentials into the UAC prompt. Where possible the commands to launch the necessary tools will be provided by this guide. The administrator should be familiar with the commands listed in the **Commands** section of this document and their uses.
 
-**Performing the Full System Backup**
+## Performing the Full System Backup
 
 The procedures that are outlined in this document are written for restoration from a backup image created using the Windows Server Backup feature that is included with the Windows Server 2008 R2 operating system. While backups are currently being created using IBM Tivoli Storage Manager these steps have not been tested using backup images created by TSM.
 
@@ -24,20 +16,18 @@ Because if issues like USN roll-back, Domain Controllers will not be restored fr
 
 The Windows Server Backup process will be conducted daily on the Domain Controller that holds the Primary Domain Controller Emulator role. The system image and data required for the recovery will be stored on a remote server. The location of the system image and data is listed in the Restoration Date Information section of this document.
 
-****
-
-**Restoration Data Information**
+## Restoration Data Information
 
 | **DC Name**    | **FSMO**       | **VM (Y/N)** | **Site** | **IP Address** |
 |----------------|----------------|--------------|----------|----------------|
-| CADSDC-CSSC-01 | RID/PDC        | Y            | CSSC     |               |
-| CADSDC-CSSC-02 | Schema/Naming  | Y            | CSSC     |               |
-| CADSDC-CSSC-03 | Infrastructure | Y            | CSSC     |               |
-| CADSDC-WARF-01 |               | Y            | WARF     |               |
-| CADSDC-WARF-02 |               | Y            | WARF     |               |
-| CADSDC-WARF-03 |               | Y            | WARF     |               |
+| CADSDC-CSSC-01 | RID/PDC        | Y            | CSSC     |                |
+| CADSDC-CSSC-02 | Schema/Naming  | Y            | CSSC     |                |
+| CADSDC-CSSC-03 | Infrastructure | Y            | CSSC     |                |
+| CADSDC-WARF-01 |                | Y            | WARF     |                |
+| CADSDC-WARF-02 |                | Y            | WARF     |                |
+| CADSDC-WARF-03 |                | Y            | WARF     |                |
 
-****
+---
 
 | **UNC Path to Image** | [supernova.ad.wisc.edubackupimage](file://supernova.ad.wisc.edu/backup/image) |
 |--------------------------|----------------------------------------------|

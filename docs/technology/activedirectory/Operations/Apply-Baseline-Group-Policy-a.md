@@ -1,14 +1,8 @@
 # Apply Baseline Group Policy and Security Settings to Windows Hosts
 
-Created: 2015-03-20 09:23:29 -0500
+## Summary
 
-Modified: 2015-03-20 09:24:49 -0500
-
----
-
-**Keywords:** Local Group Policy Object Baseline Security Policies
-
-**Summary:** This process will allow administrators to create a baseline for the local Group Policy Object and Security Policies.
+This process will allow administrators to create a baseline for the local Group Policy Object and Security Policies.
 
 This process may be used for standalone hosts or hosts joined to Active Directory. Many administrators will copy the registry.pol file from machine to machine. This method is not supported by Microsoft and will overwrite any policies already set.
 

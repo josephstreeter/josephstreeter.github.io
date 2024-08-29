@@ -1,16 +1,10 @@
 # Security Settings Applied for InCommon Silver Compliance
 
-Created: 2015-03-20 10:03:33 -0500
+## Summary
 
-Modified: 2015-03-20 10:04:51 -0500
+The following settings have been applied to Campus Active Directory in order to secure credential secrets in a way that is compliant with InCommon Silver.
 
----
-
-**Keywords:** Campus Active Directory Security InCommon InC Silver
-
-**Summary:** The following settings have been applied to Campus Active Directory in order to secure credential secrets in a way that is compliant with InCommon Silver.
-
-**4.2.3.4 Stored Authentication Secrets**
+## 4.2.3.4 Stored Authentication Secrets
 
 Authentication Secrets shall not be stored as plaintext. Access to encrypted stored Secrets and to decrypted copies shall be protected by discretionary access controls that limit access to administrators and applications that require access (see also §4.2.5.6).
 
@@ -24,7 +18,7 @@ Three alternative methods may be used to protect the stored Secret:
 
 - "Network security: Do not store LAN Manager hash value on next password change" - Enabled
 
-**4.2.3.5 Protected Authentication Secrets**
+## 4.2.3.5 Protected Authentication Secrets
 
 1. Any Credential Store containing Authentication Secrets used by the IdP (or the IdP's Verifier) is subject to the operational constraints in §4.2.3.4 and §4.2.8 (that is, the same constraints as IdMS Operations). When Authentication Secrets are sent from one Credential Store to another Credential Store (for example in an account provisioning operation) Protected Channels must be used.
 
@@ -35,14 +29,14 @@ Three alternative methods may be used to protect the stored Secret:
 - "Domain Controller: LDAP Server signing requirements" - Enabled
 - "Network security: LDAP client signing requirements" - Enabled
 
-**4.2.5.1 Resist Replay Attack**
+## 4.2.5.1 Resist Replay Attack
 
 The authentication process must ensure that it is impractical to achieve successful authentication by recording and replaying a previous authentication message.
 
 - "Domain Controller: LDAP Server signing requirements" - Enabled
 - "Network security: LDAP client signing requirements" - Enabled
 
-**4.2.5.2 Resist Eavesdropper Attack**
+## 4.2.5.2 Resist Eavesdropper Attack
 
 The authentication protocol must resist an eavesdropper attack. Any eavesdropper who records all the messages passing between a Subject and a Verifier or relying party must find that it is impractical to learn the Authentication Secret or to otherwise obtain information that would allow the eavesdropper to impersonate the Subject.
 
@@ -50,14 +44,14 @@ The authentication protocol must resist an eavesdropper attack. Any eavesdropper
 - "Network security: LDAP client signing requirements" - Enabled
 - "Network security: LAN Manager authentication level - Send NTLMv2 response only. Refuse LM & NTLM
 
-**4.2.5.3 Secure communication**
+## 4.2.5.3 Secure communication
 
 Industry standard cryptographic operations are required between Subject and IdP in order to ensure use of a Protected Channel to communicate.
 
 - "Domain Controller: LDAP Server signing requirements" - Enabled
 - "Network security: LDAP client signing requirements" - Enabled
 
-**Additional Tasks**
+## Additional Tasks
 
 RADIUS clients must use PEAP-MS-CHAPv2 and not only MS-CHAPv2
 
@@ -65,7 +59,7 @@ IDS to detect NTLMv1 authentication and LDAP clear binds
 
 Enable auditing to detect SASL binds that do not require signing and connections that are not SSL/TLS encrypted
 
-**Potential Impact:**
+## Potential Impact
 
 Network security: Do not store LAN Manager hash value on next password change
 
@@ -86,7 +80,7 @@ Network security: LAN Manager authentication level
 - Windows NT will require NT4 Service Pack 6a
 - Systems using SAMBA must be version 3.0 or higher
 
-**References**
+## References
 
 Client, service, and program incompatibilities that may occur when you modify security settings and user rights assignments
 
