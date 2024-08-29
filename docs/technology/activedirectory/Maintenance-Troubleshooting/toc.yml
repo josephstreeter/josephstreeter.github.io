@@ -1,0 +1,6 @@
+- name: Compact NTDS Database
+  href: Compact-NTDS-Database.md
+- name: Enable Diagnostic Logging
+  href: Enable-Diagnostic-Logging.md
+- name: Reset DSRM Password
+  href: Reset-DSRM-Password.md
