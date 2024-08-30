@@ -1,0 +1,8 @@
+- name: Active Directory
+  href: activedirectory.md
+- name: Entra ID
+  href: entraid.md
+- name: Exchange
+  href: exchange.md
+- name: Security
+  href: security.md
