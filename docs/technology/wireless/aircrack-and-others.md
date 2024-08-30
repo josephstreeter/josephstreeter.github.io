@@ -1,9 +1,3 @@
----
-title:  Wireless Fun with Aircrack and Others
-date:   2012-11-05 00:00:00 -0500
-categories: IT
----
-
 # Aircrack and Other Wireless Tools
 
 A short list of some things you can do with wireless on a linux box. Have fun.
@@ -68,8 +62,11 @@ mdk3 mon0 d -b blacklist (deauth everything listed in file)
 
 d - deauthorization mode
 w - whitelist
-b - blacklist```
+b - blacklist
+```
+
 ## Broadcast Network Names with MDK3
+
 ```bash
 airmon-ng start wlan0
 mdk3 mon0 b -c 11 -f ssid_names
