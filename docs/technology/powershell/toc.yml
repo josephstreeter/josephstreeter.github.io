@@ -36,11 +36,4 @@
 - name: Troubleshooting
   href: troubleshooting.md
 - name: Examples
-- name: Active Directory
-  href: activedirectory.md
-- name: Entra ID
-  href: entraid.md
-- name: Exchange
-  href: exchange.md
-- name: Security
-  href: security.md
+  href: examples/toc.yml
