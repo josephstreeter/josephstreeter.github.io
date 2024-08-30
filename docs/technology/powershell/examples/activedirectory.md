@@ -1,6 +1,10 @@
 # Active Directory
 
-Remove ACE from a list of object's ACL for a security principal
+## Table of Contents
+
+- [Remove ACE for a Security Principal from an Object's ACL](#remove-ace-for-a-security-principal-from-an-objects-acl)
+
+## Remove ACE for a Security Principal from an Object's ACL
 
 ```powershell
 function Remove-ADObjectACE()
@@ -43,3 +47,5 @@ foreach ($ADObject in $ADObjects)
     Remove-ADObjectACE -ADObject $ADObject -SecPrincipal $SecPrincipal -ErrorAction Stop
 }
 ```
+
+[Top](#table-of-contents)

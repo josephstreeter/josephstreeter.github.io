@@ -150,6 +150,10 @@ $ArrayList = @()
 #### Array List
 
 ```powershell
+$ArrayList = New-Object System.Collections.ArrayList
+```
+
+```powershell
 $ArrayList = [System.Collections.ArrayList]@()
 
 $Object = [PSCustomObject]@{

@@ -8,6 +8,8 @@ Some PowerShell for managing Entra ID, Conditional Access, Identity Protection, 
 - [Bulk Create Entra ID Dynamic Security Groups](#bulk-create-entra-id-dynamic-security-groups)
 - [View Entra ID Custom Extensions](#view-entra-id-custom-extensions)
 
+[Top](#table-of-contents)
+
 ## Add IP Addresses to Conditional Access Named Location
 
 ```powershell
@@ -48,6 +50,8 @@ foreach ($IPAddress in $IPAddresses)
 }
 ```
 
+[Top](#table-of-contents)
+
 ## Bulk Create Entra ID Dynamic Security Groups
 
 ```powershell
@@ -84,6 +88,7 @@ foreach ($Grp in $Grps)
    New-MgGroup -BodyParameter $GroupParam
 }
 ```
+[Top](#table-of-contents)
 
 ## View Entra ID Custom Extensions
 
@@ -126,3 +131,5 @@ Get-MgUser -All -filter "extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeStat
 ```
 
 [Directory Extensions to Customize Data Stored for Entra ID Objects](https://practical365.com/directory-extensions-entra-d/)
+
+[Top](#table-of-contents)
