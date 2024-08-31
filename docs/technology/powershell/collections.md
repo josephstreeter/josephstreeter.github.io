@@ -1,6 +1,6 @@
 # Collections
 
-A collection is basically a set of individual items. Those items could be strings, integers, other collections, or almost anything.
+A collection is basically a set of individual items. Those items could be strings, integers, objects, other collections, or almost anything.
 
 ## Collections in PowerShell
 

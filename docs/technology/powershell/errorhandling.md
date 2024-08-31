@@ -12,12 +12,16 @@ Terminating errors, known as exceptions, terminate the execution process. Non-te
 
 The following ErrorAction options available with the $ErrorActionPreference and -ErrorAction parameters:
 
-- Continue: Writes the error to the pipeline and continues executing the command or script. This is the default behavior in PowerShell.
-- Ignore: Suppresses error messages and continues executing the command. The errors are never written to the error stream.
-- Inquire: Pauses the execution of the command and asks the user how to proceed. Cannot be set globally with the $ErrorActionPreference variable.
-- SilentlyContinue: Suppresses error messages and continues executing the command. The errors are still written to the error stream, which you can query with the $Error automatic variable.
-- Stop: Displays the error and stops executing the command. This option also generates an ActionPreferenceStopException object to the error stream.
-- Suspend: Suspends a workflow that can later be resumed. The Suspend option is only available to workflows.
+- **Continue:** Writes the error to the pipeline and continues executing the command or script. This is the default behavior in PowerShell.
+- **Ignore:** Suppresses error messages and continues executing the command. The errors are never written to the error stream.
+- **Inquire:** Pauses the execution of the command and asks the user how to proceed. Cannot be set globally with the $ErrorActionPreference variable.
+- **SilentlyContinue:** Suppresses error messages and continues executing the command. The errors are still written to the error stream, which you can query with the $Error automatic variable.
+- **Stop:** Displays the error and stops executing the command. This option also generates an ActionPreferenceStopException object to the error stream.
+- **Suspend:** Suspends a workflow that can later be resumed. The Suspend option is only available to workflows.
+
+## Error Action Preference
+
+Error Action Preference
 
 ## Throw
 
@@ -29,7 +33,18 @@ Trap
 
 ## Try/Catch/Finally
 
-Try/Catch/Finally
+Try/Catch
+
+```powershell
+try
+{
+    Get-ADUser JMSmith -ErrorAction Stop
+}
+catch
+{
+    Write-Error -Message $_.Exception.Message
+}
+```
 
 ## References
 
