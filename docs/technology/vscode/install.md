@@ -1,6 +1,5 @@
 # Installation
 
----
 The following steps will install and configure VS Code with the primary intended purpose of working with PowerShell.
 
 ## Install VS Code
@@ -29,6 +28,7 @@ Debian/Ubuntu
 sudo apt update && sudo apt upgrade -y
 sudo apt install ....
 ```
+
 ---
 
 ## Install Git

@@ -1,18 +1,16 @@
 # Visual Studio Code Configuration
 
-## Overview
-
 The overall intent of this document is to configure VS Code for use as a PowerShell development tool. The configuration will focus on PowerShell and other technologies that may be used in conjunction with PowerShell.
 
 ## Install Extensions
 
 VS Code is designed to be very extensible. THere are a few Extensions that we will install to make it possible to develop PowerShell code.
 
-### PowerShell Extension
+**PowerShell Extension** - The Microsoft PowerShell extension for Visual Studio Code (VS Code) provides rich language support and capabilities such as syntax completions, definition tracking, and linting for PowerShell. The extension should work anywhere VS Code itself and PowerShell Core 7.2 or higher is supported.
 
-### GitHub Copilot
+The PowerShell extension can be installed from within VS Code by opening the Extensions view with keyboard shortcut ```Ctrl+Shift+X```, typing PowerShell, and selecting the PowerShell extension:
 
-GitHub Copilot is a subscription service that provides the capability to leverage AI to assist in writing code.
+**GitHub Copilot** - GitHub Copilot is a subscription service that provides the capability to leverage AI to assist in writing code.
 
 ## Configure Extension Preferences
 
