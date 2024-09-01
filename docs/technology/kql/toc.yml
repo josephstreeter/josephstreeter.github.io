@@ -1,2 +1,4 @@
 - name: KQL
   href: index.md
+- name: Examples
+  href: examples.md

@@ -229,7 +229,7 @@ $subs=Get-UnifiedGroupLinks -Identity $GrpName -LinkType Subscribers | select -E
 Compare-Object -ReferenceObject $mems -DifferenceObject $subs
 ```
 
-The following code will subscribe all members of the group that are not currently subscribed. 
+The following code will subscribe all members of the group that are not currently subscribed.
 
 ```powershell
 $GrpName = "GroupName"
