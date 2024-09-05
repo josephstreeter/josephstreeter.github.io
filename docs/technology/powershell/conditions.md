@@ -48,8 +48,9 @@ else
 ## Switch
 
 ```powershell
-$color = "red"
-switch ($color) 
+$Color = "red"
+
+switch ($CSolor) 
 {
     "red" { Write-Host "The color is red." }
     "blue" { Write-Host "The color is blue." }

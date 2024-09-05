@@ -43,11 +43,10 @@ When error action is set to ```Inquire```, the code execution stops and a descri
 ```powershell
 Action to take for this exception:
 Attempted to divide by zero.
-[C] Continue  [I] Silent Continue  [B] Break  [S] Suspend  [?] Help (default is
-"C"):
+[C] Continue  [I] Silent Continue  [B] Break  [S] Suspend  [?] Help (default is "C"):
 ```
 
-To set the $ErrorActionPreference, issue the following command:
+To set the ```$ErrorActionPreference```, issue the following command:
 
 ```powershell
 $ErrorActionPreference = "SilentlyContinue"
@@ -55,7 +54,7 @@ $ErrorActionPreference = "SilentlyContinue"
 
 ## Throw
 
-The throw command creates a terminating error. Throw can be used to stop the processing of a command, function, or script.
+When the throw command is called, it creates a terminating error. Throw can be used to stop the processing of a command, function, or script.
 
 The throw command used in a script block of an if statement to in a catch block of a try-catch statement to end a process that has experienced an error.
 
@@ -80,6 +79,19 @@ Trap
 ## Try/Catch/Finally
 
 Try/Catch
+
+```powershell
+try
+{
+    Get-ADUser JMSmith -ErrorAction Stop
+}
+catch
+{
+    Write-Error -Message $_.Exception.Message
+}
+```
+
+Try/Catch/Finally
 
 ```powershell
 try
