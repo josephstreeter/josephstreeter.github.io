@@ -103,8 +103,6 @@ jobs:
 
 A table of contents (TOC) defines the structure of a set of documents.
 
-## YAML TOC
-
 To add a TOC, create a file named `toc.yml` in the root of the 'doc' directory. Here's the structure for a simple YAML TOC:
 
 ```yaml
@@ -228,3 +226,11 @@ _toc.yml_:
 ## Customize the Site
 
 - **Change Site Icon**: -- insert text --
+
+## References
+
+- [Doc-as-Code: Metadata Format Specification](https://hellosnow.github.io/docfx/spec/metadata_format_spec.html)
+- [DocFX Flavored Markdown](https://hellosnow.github.io/docfx/spec/docfx_flavored_markdown.html)
+- [DocFx - Quick Start](https://dotnet.github.io/docfx/index.html)
+- [DocFx - Basic Concepts](https://dotnet.github.io/docfx/docs/basic-concepts.html)
+- [DocFx - Markdown](https://dotnet.github.io/docfx/docs/markdown.html?tabs=linux%2Cdotnet)

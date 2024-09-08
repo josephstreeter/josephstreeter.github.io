@@ -19,7 +19,7 @@ This serves as my personal knowledge base. An online notebook of sorts for infor
 
 ### Photography
 
-The basics for: 
+The basics for:
 
 - Camera settings
 - Composition
