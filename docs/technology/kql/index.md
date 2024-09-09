@@ -22,3 +22,9 @@ The three types of user query statements are:
   - Defining constants outside of the query body for readability.
   - Defining a variable once and using it multiple times within a query.
 - **Set** - Not actually part of the Kusto Query Language. It is used to set a request property for the duration of the query.
+
+## mv-expand
+
+- [mv-expand Operator](https://learn.microsoft.com/en-us/kusto/query/mv-expand-operator?view=microsoft-fabric)
+- [MV-Expand - Fun with KQL](https://arcanecode.com/2022/11/21/fun-with-kql-mv-expand/)
+- [text](https://ninoburini.wordpress.com/2020/03/22/split-an-array-into-multiple-rows-in-kusto-azure-data-explorer-with-mv-expand/)
