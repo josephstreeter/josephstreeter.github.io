@@ -16,6 +16,8 @@
   href: sql/toc.yml
 - name: Kusto Query Language
   href: kql/toc.yml
+- name: Nginx
+  href: nginx/nginx.md
 
 - name: Enterprise Services
 - name: Active Directory

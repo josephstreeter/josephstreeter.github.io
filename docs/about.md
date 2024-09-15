@@ -23,7 +23,7 @@ I am no longer a working as a photographer. I will occasionally take the cameras
 ### Military Service
 
 ---
-I served 16 years in the Wisconsin Army National Guard as an Infantryman. All but the last several months of my career were spent in the 32D Infantry Brigade Combat Team. 
+I served 16 years in the Wisconsin Army National Guard as an Infantryman. All but the last several months of my career were spent in the 32D Infantry Brigade Combat Team.
 
 ![osuit](/images/about/28462_398606182195_5041118_n.jpg "image")
 

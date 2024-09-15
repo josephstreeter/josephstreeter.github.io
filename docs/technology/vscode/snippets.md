@@ -2,7 +2,7 @@
 
 Snippets are a way to save templates for pieces of code that you use often. It can be a complex one-liner or an entire function.
 
-The snippets are saved in VS Code and can be inserted by pressing ```Ctrl + .``` and selecting the appropriate option from the list. You can filter the list of snippets by typing the name of the snippet you wish to use. 
+The snippets are saved in VS Code and can be inserted by pressing ```Ctrl + .``` and selecting the appropriate option from the list. You can filter the list of snippets by typing the name of the snippet you wish to use.
 
 ## Knowledgebase Articles
 
