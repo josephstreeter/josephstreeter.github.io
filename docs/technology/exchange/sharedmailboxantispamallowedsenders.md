@@ -2,7 +2,7 @@
 
 ## Introduction
 
-If a relaxed Anti-Spam policy is required for Shared Mailboxes, they can be added to the Allowed Senders list on the Default policy.
+If a relaxed inbound Anti-Spam policy is required for Shared Mailboxes, they can be added to the Allowed Senders list on the Default policy.
 
 ## Process description
 
