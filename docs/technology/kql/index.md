@@ -23,8 +23,29 @@ The three types of user query statements are:
   - Defining a variable once and using it multiple times within a query.
 - **Set** - Not actually part of the Kusto Query Language. It is used to set a request property for the duration of the query.
 
+## Parse JSON into Columns
+
+```kql
+extend SPF_ = parse_json(AuthenticationDetails).SPF
+```
+
+Example:
+
+```kql
+EmailEvents
+| where RecipientEmailAddress endswith "gmail.com"
+| extend SPF_ = parse_json(AuthenticationDetails).SPF
+| extend DKIM_ = parse_json(AuthenticationDetails).DKIM
+| extend DMARC_ = parse_json(AuthenticationDetails).DMARC
+| project Timestamp, RecipientEmailAddress, SenderFromAddress, SenderIPv4, SenderIPv6, SPF_, DMARC_, DKIM_, LatestDeliveryAction
+```
+
 ## mv-expand
 
 - [mv-expand Operator](https://learn.microsoft.com/en-us/kusto/query/mv-expand-operator?view=microsoft-fabric)
 - [MV-Expand - Fun with KQL](https://arcanecode.com/2022/11/21/fun-with-kql-mv-expand/)
 - [text](https://ninoburini.wordpress.com/2020/03/22/split-an-array-into-multiple-rows-in-kusto-azure-data-explorer-with-mv-expand/)
+
+## References
+
+[https://rodtrent.substack.com/p/must-learn-kql-part-13-the-extend](https://rodtrent.substack.com/p/must-learn-kql-part-13-the-extend)
