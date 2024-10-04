@@ -4,6 +4,8 @@ Pipelines can be used to deploy scripts managed in Azure DevOps to Servers where
 
 ## Agent Install
 
+[https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/windows-agent?view=azure-devops](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/windows-agent?view=azure-devops)
+
 ## Pipeline
 
 The following pipeline contains the following variables configured:
@@ -12,6 +14,12 @@ The following pipeline contains the following variables configured:
 - "Destination Directory" - The directory path where the script files will be deployed.
 
 ```yml
+trigger:
+  batch: true
+  branches:
+    include:
+    - main
+
 stages:
 - stage: Deploy
   displayName: 'Deploy'
