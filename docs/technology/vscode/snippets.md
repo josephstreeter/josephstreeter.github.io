@@ -4,14 +4,13 @@ Snippets are a way to save templates for pieces of code that you use often. It c
 
 The snippets are saved in VS Code and can be inserted by pressing ```Ctrl + .``` and selecting the appropriate option from the list. You can filter the list of snippets by typing the name of the snippet you wish to use.
 
-## Knowledgebase Articles
+## Configuring Snippets
 
-The following snippets are templaces for knowledgebase articles in Markdown. There are four types of articles listed:
+1. Click ```File``` -> ```Preferecences``` -> ```Configure Snippets```
+2. Select the language for the snippets you would like to configure.
+3. Add snippets to the file that is opened in the editor.
 
-- Troubleshooting
-- Service Description
-- Process
-- Frequently Asked Questions
+The file will look something like the text below. Add your snippets inside of the provided brackets.
 
 ```json
 {
@@ -28,7 +27,95 @@ The following snippets are templaces for knowledgebase articles in Markdown. The
     //  ],
     //  "description": "Log output to console"
     // }
+}
+```
 
+## Common Administrative Snippets
+
+- On-Prem Exchange Connection
+- SQL Server Connection
+- Random Password Generation
+
+```json
+"Exchange On-Prem Connection": {
+        "prefix": "Snip-ExchangeOnlineConnection",
+        "body": [
+            "function Connect-ExchangeOnPrem()",
+            "{",
+            "\t[CmdletBinding()]",
+            "\tParam",
+            "\t(",
+            "\t\t[Parameter(Mandatory=$$true)][string]$$Server",
+            "\t)",
+            "\t$$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri $$('https://{0}' -f $$Server) -Credential $$UserCredential -Authentication Basic -AllowRedirection",
+            "\tImport-PSSession $$Session -DisableNameChecking",
+            "}"
+        ],
+        "description": "Connect to Exchange On-Prem"
+    },
+    "SQL Server Connection":{
+        "prefix": "Snip-MSSQLConnection",
+        "body": [
+            "function Invoke-SQLQuery()",
+            "{",
+            "\t[CmdletBinding()]",
+            "\tParam",
+            "\t(",
+            "\t\t[Parameter(Mandatory=$$true)][string]$$instance,",
+            "\t\t[Parameter(Mandatory=$$true)][string]$$database,",
+            "\t\t[Parameter(Mandatory=$$true)][string]$$query",
+            "\t)",
+            "\ttry",
+            "\t{",
+            "\t\t$$Results = Invoke-Sqlcmd -ServerInstance $instance -Database $database -Query $query -TrustServerCertificate -ErrorAction stop",
+            "\t\tReturn $$Results",
+            "\t}",
+            "\tcatch",
+            "\t{",
+            "\tWrite-Host _.Exception.Message",
+            "\t}",
+            "}"
+            ],
+        "description": "Connect to MS SQL"
+    },
+    "Password Generation": {
+        "prefix": "Snip-PasswordGeneration",
+        "body": [
+            "Function New-RandomPassword()",
+            "{",
+            "\t[CmdletBinding()]",
+            "\tparam(",
+            "\t\t[Parameter(Mandatory=\\$true)][int]\\$LowerCase,",
+            "\t\t[Parameter(Mandatory=\\$true)][int]\\$UpperCase,",
+            "\t\t[Parameter(Mandatory=\\$true)][int]\\$Numbers,",
+            "\t\t[Parameter(Mandatory=\\$true)][int]\\$SpecialChar",
+            "\t)",
+            "",
+            "\t$$pw = [char[]]'abcdefghiklmnoprstuvwxyz' | Get-Random -Count \\$LowerCase",
+            "\t$$pw += [char[]]'ABCDEFGHKLMNOPRSTUVWXYZ' | Get-Random -Count \\$UpperCase",
+            "\t$$pw += [char[]]'1234567890' | Get-Random -Count \\$Numbers",
+            "\t$$pw += [char[]]'!$?_-' | Get-Random -Count \\$SpecialChar",
+            "\t$$pw=(\\$pw | Get-Random -Count \\$pw.length) -join ''",
+            "\t$$SecString=ConvertTo-SecureString –String \\$pw –AsPlainText –Force",
+            "\t$$results = [PSCustomObject] @{Password=\\$pw;SecureString=\\$SecString}",
+            "",
+            "\treturn $$Results",
+            "}"
+        ],
+        "description": "Connect to Exchange On-Prem"
+    }
+```
+
+## Knowledgebase Articles
+
+The following snippets are templaces for knowledgebase articles in Markdown. There are four types of articles listed:
+
+- Troubleshooting
+- Service Description
+- Process
+- Frequently Asked Questions
+
+```json
     "KB Troubleshooting Article": {
         "prefix": "KB Troubleshooting Article",
         "body": [
