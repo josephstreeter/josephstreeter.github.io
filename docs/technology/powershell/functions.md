@@ -15,7 +15,15 @@ get-verb | sort verb
 
 ## Advanced Functions
 
+### Output Type
+
+```powershell
+[OutputType([bool])]
+```
+
 ### Parameters
+
+### Common Parameters
 
 ### Making a Parameter Mandatory
 
