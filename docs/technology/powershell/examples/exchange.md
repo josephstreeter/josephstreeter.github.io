@@ -1,6 +1,6 @@
 # Exchange
 
-## Table of Contects
+Table of Contents
 
 - [Search Mailbox Audit Logs](#search-mailbox-audit-logs)
 - [Restore Recoverable Mail Items](#restore-recoverable-mail-items)

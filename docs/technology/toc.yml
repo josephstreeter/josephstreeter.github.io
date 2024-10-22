@@ -40,8 +40,6 @@
   href: windows-terminal/toc.yml
 - name: Git
   href: git/toc.yml
-- name: Windows Terminal
-  href: windows-terminal/toc.yml
 - name: DocFX
   href: docfx/toc.yml
 
