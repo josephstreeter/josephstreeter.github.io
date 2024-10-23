@@ -15,10 +15,43 @@ get-verb | sort verb
 
 ## Advanced Functions
 
+```powershell
+function Get-Something()
+{
+    [CmdletBinding()]
+    [OutputType([string])] # <- Makes sure that a string is returned by the function
+    Param
+    (
+        [Parameter(Mantetory=$true)][string]$Name,
+        [Parameter(ValueFromPipeline)][ValidateSet('Day','Hour','Minute')][string[]]$Value
+    )
+
+    $Results = "This is a string"
+
+    Return $Results
+}
+```
+
 ### Output Type
 
 ```powershell
 [OutputType([bool])]
+```
+
+```powershell
+function Get-Something()
+{
+    [CmdletBinding()]
+    [OutputType([string])] # <- Makes sure that a string is returned by the function
+    Param
+    (
+        [Parameter(Mantetory=$true)][string]$Name
+    )
+
+    $Results = "This is a string"
+
+    Return $Results
+}
 ```
 
 ### Parameters

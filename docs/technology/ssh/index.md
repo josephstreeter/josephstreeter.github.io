@@ -12,7 +12,7 @@ SSH is primarily known for providing remote termial access to a host for adminis
 
 ### Server Configuration
 
-#### Execute Graphical Applications Remotely
+Execute Graphical Applications Remotely
 
 Enabling X11 Forwarding and Agent Forwarding will allow a user to execute a graphical application on the remote host.
 
@@ -23,15 +23,22 @@ ForwardX11 yes
 
 ### Client Configuration
 
-#### SSH Configuration File
+SSH Configuration File
 
-> Configuration for different hosts
+A configuration file can be used to configure the SSH client for different hosts without having to provide the settings each time the command is executed.
 
 ```text
-
+Host vs-ssh.visualstudio.com
+    HostName vs-ssh.visualstudio.com
+    IdentityFile ~/.ssh/id_rsa_ado
+    HostkeyAlgorithms +ssh-rsa
+    PubkeyAcceptedAlgorithms +ssh-rsa
+    IdentitiesOnly yes
 ```
 
 ## Authentiction
+
+Authentication can be satisfied by providing a password or by using cryptographic keys. Using a password is pretty self-explanatory, but leveraging keys can be a little but more complicated.
 
 ### SSH Keys
 
@@ -42,12 +49,12 @@ The user then uses the private key (Identity) to authenticate to that resource. 
 SSH keys may be used to interactivly access a host or service or can be used to privide authorization and authentication to automated processes.
 This is typically accomplised by creating a key pair without a password.
 
-#### Host Keys
+### Host Keys
 
 Host keys represent a server's identity and are used by the client to authenticate that server's identity.
 The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to expliicitly accept it.
 
-```bash
+```console
 $ ssh -t git@ssh.github.com
 The authenticity of host 'ssh.github.com (140.82.114.36)' can't be established.
 ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
@@ -72,19 +79,19 @@ RSA host key for pong has changed and you have requested strict checking.
 Host key verification failed.
 ```
 
-#### Change Host Key
+### Change Host Key
 
 Follow these steps to regenerate OpenSSH Host Keys
 
 - Delete old ssh host keys
 
-```bash
+```console
 rm /etc/ssh/ssh_host_*
 ```
 
 - Reconfigure OpenSSH Server
 
-```bash
+```console
 dpkg-reconfigure openssh-server
 ```
 
@@ -94,13 +101,13 @@ dpkg-reconfigure openssh-server
 
 Enter the following command to generate a new SSH key pair
 
-```bash
+```console
 ssh-keygen -t ed25519 -C "alias@example.com"
 ```
 
 or the following for legacy systems
 
-```bash
+```console
 ssh-keygen -t ed25519 -C "your_email@example.com"
 ```
 
@@ -116,7 +123,7 @@ Warning: Permanently added 'ssh.github.com' (ED25519) to the list of known hosts
 
 A specific key can be specified in the SSH command.
 
-```bash
+```console
 ssh -i ~/.ssh/id_rsa_host username@host.domain.com
 ```
 
@@ -124,7 +131,7 @@ ssh -i ~/.ssh/id_rsa_host username@host.domain.com
 
 If you are having trouble logging into a host or a service you can confirm that the fingerprint of your public key matches what was uploaded.
 
-```bash
+```console
 ssh-keygen -l -E md5 -f ~/.ssh/id_rsa_ado.pub
 ```
 
@@ -132,7 +139,7 @@ ssh-keygen -l -E md5 -f ~/.ssh/id_rsa_ado.pub
 
 The following command will test authentiction to a specific host.
 
-```bash
+```console
 ssh -T git@ssh.github.com
 ```
 
