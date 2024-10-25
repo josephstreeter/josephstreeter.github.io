@@ -40,6 +40,9 @@ function New-Employee()
     .PARAMETER DateOfBirth
     Person's date of birth.
 
+    .PARAMETER EmployeeType
+    Employee Type. Acceptable values are "PartTime", "FullTime", "Contractor."
+
     .INPUTS
     None. You cannot pipe objects to this function.
 
