@@ -15,18 +15,99 @@ get-verb | sort verb
 
 ## Advanced Functions
 
+[Learn - About_Functions_Advanced_Parameters](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters)
+
 ```powershell
-function Get-Something()
+function New-Employee()
 {
+    <#
+    .Synopsis
+    Creates a new employee
+
+    .DESCRIPTION
+    This function creates a new employee. It really just returns the information
+    as an example of an Advanced Function.
+
+    .PARAMETER FirstName
+    Person's legal given name.
+    
+    .PARAMETER LastName
+    Person's legal surname.
+
+    .PARAMETER Initial
+    Person's legal middle initial.
+
+    .PARAMETER DateOfBirth
+    Person's date of birth.
+
+    .INPUTS
+    None. You cannot pipe objects to this function.
+
+    .OUTPUTS
+    PSObject containing the new employee's information.
+
+    .EXAMPLE
+    New-Employee -FirstName Jon -LastName Dutton -Initial J -DateOfBirth 1957-10-12
+
+    .EXAMPLE
+    New-Employee -GivenName Jon -Surname Dutton -DoB J -DateOfBirth 1957-10-12
+
+    .EXAMPLE
+    New-Employee -FirstName Jon -LastName Dutton -DateOfBirth 1957-10-12
+
+    .LINK
+    http://www.company.com/PowerShell/Employee.html
+    #>
+
     [CmdletBinding()]
-    [OutputType([string])] # <- Makes sure that a string is returned by the function
+    [OutputType([HashTable])] # <- Makes sure that a hashtable is returned by the function
     Param
     (
-        [Parameter(Mantetory=$true)][string]$Name,
-        [Parameter(ValueFromPipeline)][ValidateSet('Day','Hour','Minute')][string[]]$Value
+        [Parameter(Mandatory=$true, Position=0)]
+        [Alias("GivenName")]
+        [string]$FirstName,
+        
+        [Parameter(Mandatory=$true, Position=1)]
+        [Alias("Surname")]
+        [string]$LastName,
+        
+        [Parameter(Mandatory=$false, Position=2)]
+        [Alias("MiddleName","MI")]
+        [ValidateLength(0,2)]
+        [string]$Initial,
+        
+        [Parameter(Mandatory=$true)]
+        [datetime]$DateOfBirth,
+        
+        [Parameter(Mandatory=$false,ValueFromPipeline)]
+        [ValidateSet('FullTime','PArtTime','Contractor')]
+        [string]$EmployeeType
     )
 
-    $Results = "This is a string"
+    Try
+    {
+        $Results = @{
+            FirstName = $FirstName
+            LastName = $LastName
+            DateOfBirth = $DateOfBirth
+            EmployeeType = $EmployeeType
+            UserID = ("{0}{1}" -f $FirstName.Substring(0,1),$LastName)
+        }
+
+        if ($Initial)
+        {
+            $Results.Add("Initial", $Initial)
+            $Results.Add("DisplayName", ("{0}, {1} {2}" -f $LastName, $FirstName, $Initial))
+        }
+        else
+        {
+            $Results.Add("DisplayName", ("{0}, {1}" -f $LastName, $FirstName))
+        }
+    }
+    Catch
+    {
+        Write-Error ("Error creating new employee: {0}" -f $_.Exception.Message)
+    }
 
     Return $Results
 }
