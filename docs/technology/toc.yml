@@ -6,6 +6,8 @@
   href: homelab/toc.yml
 - name: Secure Shell
   href: ssh/toc.yml
+- name: Regular Expressions
+  href: regex/toc.yml
 - name: Docker
   href: docker/toc.yml
 - name: Terraform
