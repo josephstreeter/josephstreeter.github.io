@@ -10,7 +10,7 @@ openssl s_client -showcerts -verify 5 -connect 10.39.0.127:636 < /dev/null | awk
 for cert in *.pem; do openssl verify -show_chain $cert ; done
 ```
 
-Example output 
+Example output
 
 > [!NOTE]
 > The "verification failed" is due to the CA being self-signed.
