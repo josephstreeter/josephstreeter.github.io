@@ -157,7 +157,7 @@ Booleans represent true or false values for logical operations and control flow.
 
 ### DateTime
 
-Dates represent date and time values. In PowerShell, dates are of the type ```[datetime]```, which provides various methods and properties for manipulating date and time data.
+Dates represent date and time values. In PowerShell, dates are of the type ```[datetime]```, which provides various methods and properties for manipulating date and time data. DateTime is a .NET ```System.DateTime``` object. The DateTime object can be formated many different ways to meet your needs. You can return the specific parts of the DateTime object, such as the year, month, hour, day, or seconds, and format the output any way that you want.
 
 ```powershell
 Get-Date
@@ -213,7 +213,7 @@ Sunday, October 13, 2024 12:00:00 AM
 2024-10-13
 ```
 
-Measure the difference between dates and times.
+Measure the difference between dates and times by subtracting one DateTime from another.
 
 ```powershell
 (get-date 2024-12-25) - (get-Date)
@@ -234,6 +234,28 @@ TotalHours        : 762.317037081056
 TotalMinutes      : 45739.0222248633
 TotalSeconds      : 2744341.3334918
 TotalMilliseconds : 2744341333.4918
+```
+
+TimeSpans can also be used todefine a measurement of time between two DateTime objects.
+
+```powershell
+$TimeSpan = New-TimeSpan -Start (Get-Date) -End (Get-Date "2024-12-25")
+```
+
+Output
+
+```text
+Days              : 31
+Hours             : 17
+Minutes           : 46
+Seconds           : 7
+Milliseconds      : 868
+Ticks             : 27423678684757
+TotalDays         : 31.7403688480984
+TotalHours        : 761.768852354361
+TotalMinutes      : 45706.1311412617
+TotalSeconds      : 2742367.8684757
+TotalMilliseconds : 2742367868.4757
 ```
 
 ```powershell
@@ -270,6 +292,20 @@ Output
 
 ```text
 01/16/2023
+```
+
+Calculate the number of days in a month
+
+```powershell
+[DateTime]::DaysInMonth(2025,2)
+[DateTime]::DaysInMonth(2024,2)
+```
+
+Output
+
+```text
+28
+29
 ```
 
 ### Custom Objects
