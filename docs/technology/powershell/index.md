@@ -157,7 +157,120 @@ Booleans represent true or false values for logical operations and control flow.
 
 ### DateTime
 
-Dates represent date and time values. In PowerShell, dates are of the type [datetime], which provides various methods and properties for manipulating date and time data.
+Dates represent date and time values. In PowerShell, dates are of the type ```[datetime]```, which provides various methods and properties for manipulating date and time data.
+
+```powershell
+Get-Date
+```
+
+Output
+
+```text
+Saturday, November 23, 2024 5:31:32 AM
+```
+
+Calculate a date 13 days from now (November 23, 2024)
+
+```powershell
+(get-date).AddDays(13)
+```
+
+Output
+
+```text
+Friday, December 6, 2024 5:32:43 AM
+```
+
+Format the date.
+```yy``` = 2 digit year
+```yyyy``` = 4 digit year
+``MM`` = Month
+``dd`` = Day
+```mm``` = Minutes
+```ss``` = Seconds
+
+```powershell
+(get-date).ToString("yyyy-MM-dd")
+```
+
+Output
+
+```text
+2024-11-23
+```
+
+Specify a date
+
+```powershell
+(get-date 2024-10-13)
+(get-date 2024-10-13).ToString("yyyy-MM-dd")
+```
+
+Output
+
+```text
+Sunday, October 13, 2024 12:00:00 AM
+2024-10-13
+```
+
+Measure the difference between dates and times.
+
+```powershell
+(get-date 2024-12-25) - (get-Date)
+
+```
+
+Output
+
+```text
+Days              : 31
+Hours             : 18
+Minutes           : 19
+Seconds           : 1
+Milliseconds      : 333
+Ticks             : 27443413334918
+TotalDays         : 31.7632098783773
+TotalHours        : 762.317037081056
+TotalMinutes      : 45739.0222248633
+TotalSeconds      : 2744341.3334918
+TotalMilliseconds : 2744341333.4918
+```
+
+```powershell
+$diff = (get-date 2024-12-25) - (get-Date)
+Write-Output ("{0} days until Christmas!" -f $diff.Days)
+```
+
+Output
+
+```text
+31 days until Christmas!
+```
+
+Convert DateTime to Universal Time.
+
+```powershell
+(Get-Date).ToUniversalTime().ToString('yyyy-MM-dd:hh-mm-ss')
+```
+
+Output
+
+```text
+2024-11-23:11-53-23
+```
+
+The DateTime accelerator can be used instead of the ```Get-Date``` CmdLet.
+
+```powershell
+$date = [DateTime]"2023-01-16 12:00:00 AM"
+$date.ToString("MM/dd/yyyy")
+```
+
+Output
+
+```text
+01/16/2023
+```
 
 ### Custom Objects
 
@@ -192,7 +305,7 @@ IsPublic IsSerial Name     BaseType
 True     True     Int32    System.ValueType
 ```
 
-### Type Excellerators
+### Type Accelerators
 
 The most common DataTypes (type accelerators) used in PowerShell are listed below.
 
@@ -243,7 +356,7 @@ Arrays are collections of items of the same or different types stored in a singl
 $Array = @()
 ```
 
-## Array List
+### Array List
 
 ```powershell
 $ArrayList = New-Object System.Collections.ArrayList
@@ -324,11 +437,11 @@ $GenaricListTime = Measure-Command `
 Write-Output ("Array: {0}ms ArrayList: {1}ms Generic List: {2}ms" -f $ArrayTime.Milliseconds, $ArrayListTime.Milliseconds, $GenaricListTime.Milliseconds)
 ```
 
-## Hashtable
+### Hashtable
 
 Hash tables are collections of key-value pairs, similar to dictionaries in other programming languages. In PowerShell, hash tables are of the type [hashtable]. Hash tables store data that can be quickly accessed via a unique key. They are useful for configuring settings, mapping data, and storing structured information.
 
-## References
+### Collections References
 
 - [Building Arrays and Collections in PowerShell](https://vexx32.github.io/2020/02/15/Building-Arrays-Collections/)
 - [PowerShell One-Liners: Collections, Hashtables, Arrays and Strings](https://www.red-gate.com/simple-talk/sysadmin/powershell/powershell-one-liners-collections-hashtables-arrays-and-strings/)
