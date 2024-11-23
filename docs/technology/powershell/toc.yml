@@ -1,5 +1,5 @@
 - name: PowerShell
-  href: indexmd
+  href: index.md
 - name: Advanced
 - name: Functions
   href: functions.md
