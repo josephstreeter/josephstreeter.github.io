@@ -4,7 +4,7 @@ This page will try to outline some simple things to try in troubleshooting issue
 
 ## Visual Studio Code or Microsoft Graph Related
 
-It is not uncommon to have issues with Microsoft Graph in Visual Studio Code. These problems are often frustrating and make little sense. A good idicatator is that what you're seeing isn't matching what Microsoft has in its documentation. 
+It is not uncommon to have issues with Microsoft Graph in Visual Studio Code. These problems are often frustrating and make little sense. A good idicatator is that what versions of VS Code, the PowerShell extension and PowerShell itself are not all in the latest version. Sometimes specific modules, such as the Microsoft.Graph module, may need to be updated in order to resolve issues.
 
 1. Make sure that you are using the latest version of the following components
     - Visual Studio Code

@@ -1,23 +1,8 @@
 - name: PowerShell
-  href: index.md
-- name: Basics
-- name: Variables
-  href: variables.md
-- name: Collections
-  href: collections.md
-- name: Data Types
-  href: datatypes.md
-- name: Conditions
-  href: conditions.md
-- name: Loops
-  href: loops.md
+  href: powershell.md
 - name: Advanced
 - name: Functions
   href: functions.md
-- name: Error Handling
-  href: errorhandling.md
-- name: Output Streams
-  href: outputstreams.md
 - name: Scripts
   href: scripts.md
 - name: Powershell Runspaces
@@ -31,6 +16,8 @@
   href: moduledev.md
 - name: Module Reposiitoy
   href: modulerepo.md
+- name: Transfer Data
+  href: transferdata.md
 - name: Tips and Tricks
   href: tipsandtricks.md
 - name: Troubleshooting

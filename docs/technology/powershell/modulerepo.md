@@ -6,7 +6,7 @@
 
 BaGet is...
 
-The following Docker Compose file can be used to run BaGet. 
+The following Docker Compose file can be used to run BaGet.
 
 ```yaml
 version: '3.7'
