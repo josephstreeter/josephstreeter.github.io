@@ -325,7 +325,7 @@ $Object = [PSCustomObject]@{
 
 ### Check Data Type
 
-n PowerShell, you can determine the data type of a variable by using the GetType() method. This method provides detailed information about the variable type, such as its name and base type. Here’s how you can use it:
+In PowerShell, you can determine the data type of a variable by using the GetType() method. This method provides detailed information about the variable type, such as its name and base type. Here’s how you can use it:
 
 ```powershell
 $x = 10
