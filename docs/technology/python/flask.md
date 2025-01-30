@@ -50,14 +50,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 
 app = Flask(__name__)
-app.debug = True
-migrate = Migrate(app, db)
-
 # adding configuration for using a sqlite database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.debug = True
 
 # Creating an SQLAlchemy instance
 db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
+
 
 # Models
 class User(db.Model):
@@ -101,12 +102,19 @@ flask db upgrade
 Update the application configuration (app.py) with the following functions for CRUD activities
 
 ```python
-# function to list users
+# function to index page
 @app.route('/')
 def index():
     users = User.query.all()
     print(users)
-    return render_template('index.html', users=users)
+    return render_template('index.html')
+
+# function to list users
+@app.route('/list')
+def list():
+    users = User.query.all()
+    print(users)
+    return render_template('list.html', users=users)
 
 # function to new user
 @app.route('/add', methods=["GET","POST"])
@@ -126,9 +134,9 @@ def profile():
             p = User(firstname=firstname, lastname=lastname, initial=initial, username=username, email=email, dateofbirth=dateofbirth)
             db.session.add(p)
             db.session.commit()
-            return redirect('/')
+            return redirect('/list')
         else:
-            return redirect('/')
+            return redirect('/list')
 
 # function to update user
 @app.route('/update/<int:id>', methods=["GET","POST"])
@@ -144,7 +152,7 @@ def update(id):
         user.email = request.form.get("email")
         user.dateofbirth = request.form.get("dateofbirth")
         db.session.commit()
-        return redirect('/')
+        return redirect('/list')
 
 # function to delete user
 @app.route('/delete/<int:id>', methods=["GET","POST"])
@@ -156,7 +164,7 @@ def delete(id):
         data = User.query.get(id)
         db.session.delete(data)
         db.session.commit()
-        return redirect('/')
+        return redirect('/list')
 ```
 
 ## Create Views
@@ -197,40 +205,43 @@ Update base.html contents. This template contains the Bootstrap CSS and javascri
 </html>
 ```
 
-Update index.html
+Update list.html
 
 ```html
-<div class="container text-left">
-    <a href="/add">Add User</a>
-</div>
-<div class="container text-center">
-    <div class="row">
-        <table class="table">
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Initial</th>
-                <th>User Name</th>
-                <th>Email</th>
-                <th>dateofbirth</th>
-            </tr>
-            {% for user in users %}
+{% extends "base.html" %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+    <div class="container text-center">
+        <div class="row">
+            <table class="table">
                 <tr>
-                    <td>{{ user.firstname }}</td>
-                    <td>{{ user.lastname }}</td>
-                    <td>{{ user.initial }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.dateofbirth }}</td>
-                    <td>
-                        <a href="/edit/{{ user.id }}">Edit</a>
-                        <a href="/delete/{{ user.id }}">Delete</a>
-                    </td>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Initial</th>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>dateofbirth</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.initial }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.dateofbirth }}</td>
+                        <td>
+                            <a href="/update/{{ user.id }}">Edit</a>
+                            <a href="/delete/{{ user.id }}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
+{% endblock %}
 ```
 
 Update add.html
@@ -277,7 +288,7 @@ Update add.html
 {% endblock %}
 ```
 
-Update edit.html
+Update Update.html
 
 ```html
 {% extends "base.html"%}
@@ -292,7 +303,7 @@ Update edit.html
         <input type="text" name="username" value="{{ user.username }}">
         <input type="email" name="email" value="{{ user.email }}">
         <input type="text" name="dateofbirth" value="{{ user.dateofbirth }}">
-        <input type="submit" value="Edit">
+        <input type="submit" value="Update">
     </form>
 {% endblock %}
 ```
