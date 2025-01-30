@@ -21,7 +21,7 @@ source ./project/bin/activate
 Install required packages.
 
 ```bash
-pip install flask-sqlalchamy
+pip install flask-sqlalchemy
 pip install Flask-Migrate
 ```
 
@@ -35,7 +35,7 @@ touch ./templates/index.html
 touch ./templates/list.html
 touch ./templates/details.html
 touch ./templates/add.html
-touch ./demplates/update.html
+touch ./templates/update.html
 touch ./templates/delete.html
 ```
 
@@ -81,8 +81,11 @@ Create the database.
 ```bash
 python
 
-from app import db
-db.create_all()
+from app import db, app
+with app.app_context():
+    db.create_all()
+
+# Exit Python back to bash
 ```
 
 Create migrations.
@@ -112,12 +115,12 @@ def profile():
     if request.method == "GET":
         return render_template('add.html')
     else:
-        user.firstname = request.form.get("firstname")
-        user.lastname = request.form.get("lastname")
-        user.initial = request.form.get("initial")
-        user.username = request.form.get("username")
-        user.email = request.form.get("email")
-        user.dateofbirth = request.form.get("dateofbirth")
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        initial = request.form.get("initial")
+        username = request.form.get("username")
+        email = request.form.get("email")
+        dateofbirth = request.form.get("dateofbirth")
 
         if username != '' and email != '':
             p = User(firstname=firstname, lastname=lastname, initial=initial, username=username, email=email, dateofbirth=dateofbirth)
@@ -128,8 +131,8 @@ def profile():
             return redirect('/')
 
 # function to update user
-@app.route('/edit/<int:id>', methods=["GET","POST"])
-def edit(id):
+@app.route('/update/<int:id>', methods=["GET","POST"])
+def update(id):
     user = User.query.get(id)
     if request.method == "GET":
         return render_template('edit.html', user=user)
@@ -157,6 +160,42 @@ def delete(id):
 ```
 
 ## Create Views
+
+Update base.html contents. This template contains the Bootstrap CSS and javascript for styling
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
+```
 
 Update index.html
 
@@ -205,13 +244,33 @@ Update add.html
     <div class="container text-left">
         <div class="row">
             <form action="/add" method="post">
-                <input type="text" name="firstname" placeholder="First name">
-                <input type="text" name="lastname" placeholder="Last name">
-                <input type="text" name="initial" placeholder="Middle Initial">
-                <input type="text" name="username" placeholder="Username">
-                <input type="email" name="email" placeholder="Email">
-                <input type="text" name="dateofbirth" placeholder="Date of Birth">
-                <input type="submit" value="Add">
+                <div class="mb-3">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="firstname" placeholder="First name">
+                </div>
+                <div class="mb-3">
+                    <label for="lastname"  class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" placeholder="Last name">
+                </div>
+                <div class="mb-3">
+                    <label for="initial" class="form-label">Initial</label>
+                    <input type="text" class="form-control" name="initial" placeholder="Middle Initial">
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" name="username" placeholder="Username">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="mb-3">
+                    <label for="dateofbirth" class="form-label">Date of Birth</label>
+                    <input type="text" class="form-control" name="dateofbirth" placeholder="Date of Birth">
+                </div>
+                <div class="mb-3">
+                    <input type="submit" value="Add">
+                </div>
             </form>
         </div>
     </div>
@@ -223,16 +282,16 @@ Update edit.html
 ```html
 {% extends "base.html"%}
 
-{% block title %}Edit{% endblock %}
+{% block title %}Update{% endblock %}
 
 {% block content %}
-    <form action="/edit/{{ user.id }}" method="post">
-        <input type="text" name="firstname" placeholder="First name">
-            <input type="text" name="lastname" value="{{ user.username }}">
-            <input type="text" name="initial" value="{{ user.username }}">
-            <input type="text" name="username" value="{{ user.username }}">
-            <input type="email" name="email" value="{{ user.username }}">
-            <input type="text" name="dateofbirth" value="{{ user.username }}">
+    <form action="/update/{{ user.id }}" method="post">
+        <input type="text" name="firstname" value="{{ user.firstname }}">
+        <input type="text" name="lastname" value="{{ user.lastname }}">
+        <input type="text" name="initial" value="{{ user.initial }}">
+        <input type="text" name="username" value="{{ user.username }}">
+        <input type="email" name="email" value="{{ user.email }}">
+        <input type="text" name="dateofbirth" value="{{ user.dateofbirth }}">
         <input type="submit" value="Edit">
     </form>
 {% endblock %}
@@ -249,11 +308,12 @@ Update delete.html
     <div class="container text-left">
         <div class="row">
             <form action="/delete/{{ user.id }}" method="post">
-                <input type="text" name="lastname" value="{{ user.username }}" readonly>
-                <input type="text" name="initial" value="{{ user.username }}" readonly>
+                <input type="text" name="firstname" value="{{ user.firstname }}" readonly>
+                <input type="text" name="lastname" value="{{ user.lastname }}" readonly>
+                <input type="text" name="initial" value="{{ user.initial }}" readonly>
                 <input type="text" name="username" value="{{ user.username }}" readonly>
-                <input type="email" name="email" value="{{ user.username }}" readonly>
-                <input type="text" name="dateofbirth" value="{{ user.username }}" readonly>
+                <input type="email" name="email" value="{{ user.email }}" readonly>
+                <input type="text" name="dateofbirth" value="{{ user.dateofbirth }}" readonly>
                 <input type="submit" value="Delete">
             </form>
         </div>
