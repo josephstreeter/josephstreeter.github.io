@@ -8,9 +8,7 @@ SSH was created to replace insecure administrative protocols like telnet. SSH us
 
 SSH is primarily known for providing remote termial access to a host for administration. SSH can also be used to create seocure tunnels and to transfer files.
 
-## SSH Configuration
-
-### Server Configuration
+## Server Configuration
 
 Execute Graphical Applications Remotely
 
@@ -21,7 +19,7 @@ ForwardAgent yes
 ForwardX11 yes
 ```
 
-### Client Configuration
+## Client Configuration
 
 SSH Configuration File
 
@@ -40,7 +38,7 @@ Host vs-ssh.visualstudio.com
 
 Authentication can be satisfied by providing a password or by using cryptographic keys. Using a password is pretty self-explanatory, but leveraging keys can be a little but more complicated.
 
-### SSH Keys
+## SSH Keys
 
 SSH Keys are asymetric cryprographic keys, or key pairs, that are used for authorization and authentication.
 A key pair consists of a private key (Identification key) and a public key (Authorization key). The owner of a key pair is authorized access to a resource by installing that user's public key (Authorization) on that resource.
@@ -49,7 +47,7 @@ The user then uses the private key (Identity) to authenticate to that resource. 
 SSH keys may be used to interactivly access a host or service or can be used to privide authorization and authentication to automated processes.
 This is typically accomplised by creating a key pair without a password.
 
-### Host Keys
+## Host Keys
 
 Host keys represent a server's identity and are used by the client to authenticate that server's identity.
 The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to expliicitly accept it.
@@ -79,7 +77,7 @@ RSA host key for pong has changed and you have requested strict checking.
 Host key verification failed.
 ```
 
-### Change Host Key
+## Change Host Key
 
 Follow these steps to regenerate OpenSSH Host Keys
 
@@ -97,7 +95,7 @@ dpkg-reconfigure openssh-server
 
 - Update ssh client(s) ~/.ssh/known_hosts files with the new hash
 
-### SSH Key pair Creation
+## SSH Key pair Creation
 
 Enter the following command to generate a new SSH key pair
 
@@ -119,7 +117,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added 'ssh.github.com' (ED25519) to the list of known hosts.
 ```
 
-### Authenticate with a Specific Key
+## Authenticate with a Specific Key
 
 A specific key can be specified in the SSH command.
 
@@ -127,7 +125,7 @@ A specific key can be specified in the SSH command.
 ssh -i ~/.ssh/id_rsa_host username@host.domain.com
 ```
 
-### Compare Public Key Fingerprint
+## Compare Public Key Fingerprint
 
 If you are having trouble logging into a host or a service you can confirm that the fingerprint of your public key matches what was uploaded.
 
