@@ -4,6 +4,8 @@ Put the "investment quote" here.
 
 - [How to Run a PowerShell Script? A Comprehensive Guide!](https://www.sharepointdiary.com/2023/08/how-to-run-powershell-script.html)
 
+---
+
 ## Variables
 
 [https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables?view=powershell-7.4](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_variables?view=powershell-7.4)
@@ -21,6 +23,8 @@ $count = 1024             # Sets the variable to another int
 $count = "256"            # Converts the string to an int
 $count = "String"         # Throws an error "Cannot convert value "String" to type "System.Int32". Error: "Input string was not in a correct format."
 ```
+
+---
 
 ## Data Types
 
@@ -371,6 +375,8 @@ The most common DataTypes (type accelerators) used in PowerShell are listed belo
 - [PowerShell One-Liners: Collections, Hashtables, Arrays and Strings](https://www.red-gate.com/simple-talk/sysadmin/powershell/powershell-one-liners-collections-hashtables-arrays-and-strings/)
 - [Everything you wanted to know about arrays](https://learn.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.4)
 
+---
+
 ## Collections
 
 A collection is basically a set of individual items. Those items could be strings, integers, objects, other collections, or almost anything.
@@ -483,6 +489,8 @@ Hash tables are collections of key-value pairs, similar to dictionaries in other
 - [PowerShell One-Liners: Collections, Hashtables, Arrays and Strings](https://www.red-gate.com/simple-talk/sysadmin/powershell/powershell-one-liners-collections-hashtables-arrays-and-strings/)
 - [Everything you wanted to know about arrays](https://learn.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-arrays?view=powershell-7.4)
 
+---
+
 ## Conditions
 
 ### If Statement
@@ -543,6 +551,8 @@ switch ($CSolor)
     default { Write-Host "The color is not red, blue, or green." }
 }
 ```
+
+---
 
 ## Loops
 
