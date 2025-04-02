@@ -4,16 +4,16 @@
 - name: System Administation
 - name: Home Lab
   href: homelab/toc.yml
-- name: Secure Shell
-  href: ssh/toc.yml
-- name: Regular Expressions
-  href: regex/toc.yml
 - name: Docker
   href: docker/toc.yml
 - name: Terraform
   href: terraform/toc.yml
 - name: Ansible
   href: ansible/toc.yml
+- name: Grafana
+  href: grafana/toc.yml
+- name: Secure Shell
+  href: ssh/toc.yml
 - name: SQL
   href: sql/toc.yml
 - name: Kusto Query Language
@@ -46,6 +46,8 @@
   href: git/toc.yml
 - name: DocFX
   href: docfx/toc.yml
+- name: Regular Expressions
+  href: regex/toc.yml
 
 - name: Home Automation
 - name: Home Assistant
