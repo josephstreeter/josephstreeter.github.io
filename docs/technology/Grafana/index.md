@@ -114,19 +114,26 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+echo "Create directory, user and group for node_exporter"
 groupadd -f node_exporter
 useradd -g node_exporter --no-create-home --shell /bin/false node_exporter
 mkdir /etc/node_exporter
 chown node_exporter:node_exporter /etc/node_exporter
 
+echo "Download node_exporter to /tmp"
+pushd /tmp
 wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
+popd
 
+echo "Extract and rename node_exporter folder"
 tar -zxvf node_exporter-1.9.0.linux-amd64.tar.gz
 mv node_exporter-1.9.0.linux-amd64 node_exporter
 
+echo "Copy binary to /usr/bin and set owner"
 cp node_exporter/node_exporter /usr/bin/
 chown node_exporter:node_exporter /usr/bin/node_exporter
 
+echo "Create systemd service file"
 cat << EOF >> /usr/lib/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
@@ -145,10 +152,15 @@ ExecStart=/usr/bin/node_exporter --web.listen-address=:9100
 WantedBy=multi-user.target
 EOF
 
+echo "Set owner of node_exporter service file"
 chmod 664 /usr/lib/systemd/system/node_exporter.service
+
+echo "Restart and enable node_exporter"
 systemctl daemon-reload
 systemctl start node_exporter
 systemctl enable node_exporter.service
+
+echo "finished!"
 ```
 
 ## Add Node Exporter to Prometheus
