@@ -6,7 +6,7 @@ This page will cover using Grafana and Prometheus to monitor a home network.
 
 Prometheus is....
 
-## Node Exporter
+### Node Exporter
 
 Install Node Exporter on Linux. The Node Exporter will export system related stats.
 
@@ -107,27 +107,48 @@ rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-files
 Complete script to install and configure Node Exporter
 
 ```bash
-sudo groupadd -f node_exporter
-sudo useradd -g node_exporter --no-create-home --shell /bin/false node_exporter
-sudo mkdir /etc/node_exporter
-sudo chown node_exporter:node_exporter /etc/node_exporter
+#!/bin/bash
+
+if [ "$(id -u)" != "0" ]; then
+   echo "This script must be run as root or with sudo" 1>&2
+   exit 1
+fi
+
+groupadd -f node_exporter
+useradd -g node_exporter --no-create-home --shell /bin/false node_exporter
+mkdir /etc/node_exporter
+chown node_exporter:node_exporter /etc/node_exporter
 
 wget https://github.com/prometheus/node_exporter/releases/download/v1.9.0/node_exporter-1.9.0.linux-amd64.tar.gz
 
 tar -zxvf node_exporter-1.9.0.linux-amd64.tar.gz
 mv node_exporter-1.9.0.linux-amd64 node_exporter
 
-sudo cp node_exporter/node_exporter /usr/bin/
-sudo chown node_exporter:node_exporter /usr/bin/node_exporter
+cp node_exporter/node_exporter /usr/bin/
+chown node_exporter:node_exporter /usr/bin/node_exporter
 
-## TODO: Replace with code to add text to the the node_exporter.service file
-sudo vi /usr/lib/systemd/system/node_exporter.service
-###########################################################################
+cat << EOF >> /usr/lib/systemd/system/node_exporter.service
+[Unit]
+Description=Node Exporter
+Documentation=https://prometheus.io/docs/guides/node-exporter/
+Wants=network-online.target
+After=network-online.target
 
-sudo chmod 664 /usr/lib/systemd/system/node_exporter.service
-sudo systemctl daemon-reload
-sudo systemctl start node_exporter
-sudo systemctl enable node_exporter.service
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+Restart=on-failure
+ExecStart=/usr/bin/node_exporter --web.listen-address=:9100
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+chmod 664 /usr/lib/systemd/system/node_exporter.service
+systemctl daemon-reload
+systemctl start node_exporter
+systemctl enable node_exporter.service
 ```
 
 ## Add Node Exporter to Prometheus
@@ -143,3 +164,47 @@ Add the following to the Prometheus configuration file.
 ```
 
 Restart Prometheus to use the new config.
+
+### Container Advisor (cAdvisor)
+
+cAdvisor (short for Container Advisor) analyzes and exposes resource usage and performance data from running containers. cAdvisor exposes Prometheus metrics out of the box. 
+
+Docker Compose
+
+Add the following information to your Docker Compose file under "services."
+
+```yaml
+cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    ports:
+    - 8080:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+```
+
+Checking Metrics
+
+Once all the services are up we can open the Dashboard. 
+
+http://localhost:8080
+
+Take a look at the metrics being produced in Prometheus metrics format
+
+http://localhost:8080/metrics
+
+Configure Prometheus
+
+Configure Prometheus to scrape metrics from cAdvisor. Add the following to the prometheus.yml configuration file.
+
+```yaml
+scrape_configs:
+- job_name: cadvisor
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - cadvisor:8080
+```
