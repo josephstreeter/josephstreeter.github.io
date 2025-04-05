@@ -61,3 +61,44 @@ sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/
 ```
 
 Afterward, reboot your server, log out of the Proxmox web GUI, clear your browser cache, and then log back in.
+
+## Qemu Guest Agent Setup
+
+1. Enable Qemu Guest Agent
+    - In the Proxmox web interface, select your VM.
+    - Go to "Hardware" > "Add" > "QEMU Guest Agent".
+    - Start the VM if it's not already running.
+
+2. Qemu Guest Agent Install
+
+    Debian/Ubuntu
+
+    ```bash
+    apt update
+    apt install qemu-guest-agent
+    ```
+
+3. Enable and Start the Qemu Agent
+
+    ```bash
+    systemctl enable qemu-guest-agent
+    systemctl start qemu-guest-agent
+    ```
+
+4. Verify Installation
+
+    To verify that the QEMU Guest Agent is running:
+
+    ```bash
+    systemctl status qemu-guest-agent
+    ```
+
+Complete script to install, enable, and start the Qemu guest agent.
+
+```bash
+apt update
+apt install qemu-guest-agent
+
+systemctl enable qemu-guest-agent
+systemctl start qemu-guest-agent
+```
