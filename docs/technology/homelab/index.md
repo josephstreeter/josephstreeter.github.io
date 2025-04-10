@@ -107,7 +107,9 @@ A three node K8S cluster deployed with Teraform and configured with Ansible.
 
 Teraform files:
 
-```hcl
+The ```providers.tf``` file consists of only one provider. Telmate/proxmox 3.0.1-rc7 at the time of this writing.
+
+```text
 # providers.tf
 
 terraform {
@@ -118,10 +120,7 @@ terraform {
     }
   }
 }
-```
 
-```hcl
-# main.tf
 
 provider "proxmox" {
   pm_api_url          = var.proxmox_api_url
@@ -129,6 +128,14 @@ provider "proxmox" {
   pm_api_token_secret = var.proxmox_api_token_secret
   pm_tls_insecure     = true
 }
+```
+
+The ```main.tf``` file contains only one resource, ```proxmox_vm_qemu```. The number of VMs created can be controlled by changing the ```count``` property.
+
+The size of the disk specified in the resource MUST be the same size or larger then the disk configured on the template. If not, a new disk will be created and the cloned disk will be "unused." This will cause the VM to be unable to boot.
+
+```text
+# main.tf
 
 resource "proxmox_vm_qemu" "cloudinit-example" {
   count       = 3
@@ -187,7 +194,9 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
 }
 ```
 
-```hcl
+The ```output.tf``` file displays the IP addresses assigned to the VMs.
+
+```text
 # output.tf
 
 output "cloudinit-example" {
@@ -196,7 +205,9 @@ output "cloudinit-example" {
 }
 ```
 
-```hcl
+The ```variables.tf``` file defines all of the variables used in the template.
+
+```text
 #variables.tf
 
 variable "proxmox_api_url" {
@@ -253,7 +264,9 @@ variable "storage" {
 }
 ```
 
-```hcl
+The ```terraform.tfvars``` file provides values to the variables that are used within the template. This file should not be included in source control in order to protect the information.
+
+```text
 # terraform.tfvars
 
 proxmox_api_url          = "https://<host or ip>:8006/api2/json"
@@ -270,6 +283,10 @@ storage                  = "local-lvm"
 
 ## Ansible
 
+Once the VMs for the K8S nodes are deployed, they are configured as a K8S cluster by Ansible. The cluster, as configured here, will consist of one Master and three Workers.
+
+The ```ansible_user``` should match the ```ciuser``` configured in the VM template.
+
 ```text
 # hosts
 
@@ -283,8 +300,10 @@ worker2 ansible_host=192.168.127.23
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_ssh_extra_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
-ansible_user=hades
+ansible_user=<user>
 ```
+
+The ```kube-depends.yml``` file is used to configure all of the nodes and install the required packages.
 
 ```yaml
 # kube-depends.yml
@@ -442,6 +461,8 @@ ansible_user=hades
 
 ```
 
+The ```master.yml``` file is used to configure the node identified as the Master and configure the cluster.
+
 ```yaml
 # master.yml
 
@@ -506,6 +527,8 @@ ansible_user=hades
         creates: pod_network_setup.log
 ```
 
+The ```workers.yml``` file is used to configure the Worker nodes and add them to the cluster.
+
 ```yaml
 # workers.yml
 
@@ -535,11 +558,3 @@ ansible_user=hades
         creates: node_joined.log
 
 ```
-
-- Proxmox
-- Docker
-- Terraform
-- Ansible
-- Grafana
-- Bind9
-- OwnCloud
