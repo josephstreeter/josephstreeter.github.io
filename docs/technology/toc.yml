@@ -4,6 +4,8 @@
 - name: System Administation
 - name: Home Lab
   href: homelab/toc.yml
+- name: Proxmox
+  href: proxmox/toc.yml
 - name: Docker
   href: docker/toc.yml
 - name: Terraform

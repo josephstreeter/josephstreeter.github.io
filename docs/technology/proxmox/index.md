@@ -41,6 +41,28 @@ Similarly, disable the enterprise repository for Ceph by commenting out these li
 vi /etc/apt/sources.list.d/ceph.list
 ```
 
+Comment out this line:
+
+```bash
+# deb https://enterprise.proxmox.com/debian/ceph-quincy bookworm enterprise
+```
+
+The following script will execute the above tasks in one step.
+
+```bash
+echo "Configure the 'non-subscription' repositories for pve and ceph...."
+echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" | tee -a /etc/apt/sources.list
+echo "deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription" | tee -a /etc/apt/sources.list
+
+echo "Disable the Enterprise repositories for pve and ceph...."
+sed -i '/^deb/s/^/# /' /etc/apt/sources.list.d/pve-enterprise.list
+sed -i '/^deb/s/^/# /' /etc/apt/sources.list.d/ceph.list
+
+echo "Disable the subscription pop-up...."
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+systemctl restart pveproxy.service
+```
+
 ### VLAN Configuration
 
 After your server reboots, you can configure VLAN support in the Proxmox web UI:
@@ -62,7 +84,36 @@ sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/
 
 Afterward, reboot your server, log out of the Proxmox web GUI, clear your browser cache, and then log back in.
 
-## Qemu Guest Agent Setup
+## Virtual Machine Setup
+
+There are a number of different ways to create a template in Proxmox that can then be deployed using Terraform or CLI (qm).
+
+### Create Cloud-Init Clone
+
+The following script will download the Cloud-Init image and create a VM template from it.
+
+```bash
+VMID=9000
+TEMPLATENAME="debian12-cloudinit"
+TEMPLATEURL="https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
+FILE="debian-12-genericcloud-amd64.qcow2"
+
+pushd /root/
+if [ -f $FILE ]; then
+   echo "Image ($FILE) exists."
+else
+   echo "image ($FILE) does not exist. Downloading...."
+   wget $TEMPLATEURL
+fi
+popd
+
+qm create $VMID --name $TEMPLATENAME
+qm create $VMID --name $TEMPLATENAME
+qm set $VMID --scsi0 local-lvm:0,import-from=/root/$file
+qm template $VMID
+```
+
+### Qemu Guest Agent Setup
 
 1. Enable Qemu Guest Agent
     - In the Proxmox web interface, select your VM.

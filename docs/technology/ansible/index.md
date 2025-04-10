@@ -71,6 +71,8 @@ sudo useradd -m ansi
 sudo password ansi
 ```
 
+<https://serversforhackers.com/c/create-user-in-ansible>
+
 Copy SSH Key
 
 ```bash
