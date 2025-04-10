@@ -179,7 +179,7 @@ Restart Prometheus to use the new config.
 
 ### Container Advisor (cAdvisor)
 
-cAdvisor (short for Container Advisor) analyzes and exposes resource usage and performance data from running containers. cAdvisor exposes Prometheus metrics out of the box. 
+cAdvisor (short for Container Advisor) analyzes and exposes resource usage and performance data from running containers. cAdvisor exposes Prometheus metrics out of the box.
 
 Docker Compose
 
@@ -200,7 +200,7 @@ cadvisor:
 
 Checking Metrics
 
-Once all the services are up we can open the Dashboard. 
+Once all the services are up we can open the Dashboard.
 
 ```text
 http://localhost:8080
