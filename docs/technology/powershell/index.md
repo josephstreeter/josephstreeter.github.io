@@ -556,7 +556,19 @@ switch ($CSolor)
 
 ## Loops
 
+Loops iterate through collections and repeat tasks until a condition is met.
+
+The different types of loops:
+
+- For loop
+- Foreach loop
+- While loop
+- Do while loop
+- Do until loop
+
 ### For Loop
+
+For loops run as long as the specified condition evaluates as ```$true``` and terminates when the condition evaluates as ```$false```.
 
 ```powershell
 for ($var = 1; $var -le 5 -and $var -ne 3; $var++) 
@@ -565,22 +577,54 @@ for ($var = 1; $var -le 5 -and $var -ne 3; $var++)
 }
 ```
 
+The first component, ```$var = 1```, represents one or more command that are run prior to the loop. This component typically sets an integer variable that is a starting point for the loop.
+
+The second component, ```$var -le 5```, is the condition that resolves to a boolean value, either ```$true``` or ```$false```. The loop will continue to run as long as this condition evaluates to ```$true```. This component typically evaluates the integer set in the first component against the specified value.
+
+The thrid component, ```$var++```, executes each time the loop repeats. This commponent typically increments or decrements the variable in the first component.
+
 ### Foreach Loop
 
-```powershell
-$collection = 1..15
+foreach loops iterate though a collection of items and executes commands on each item.
 
-foreach ($item in $collection) 
+The foreach loop comes in several differnt forms:
+
+- Foreach Statement
+- Foreach Cmdlet
+- Foreach Method
+
+The foreach statement. In the example below, ```$Items``` is a collection of integers. As the foreach loop iterages through them, it initializes ```$Item``` before executing the code in the statement. It is good practice to name the collection and item variables for the type of items contained in them. Note that the collection and item variables are named the same, but collection variable is plural and the item variable is singular.
+
+The foreach statement more easily read than the others and is faster than pipelining to the Foreach-Object cmdlet.
+
+```powershell
+$Items = 1..15
+
+foreach ($Item in $Items) 
 {
-    Write-Output The value of Item is: $item
+    Write-Output The value of Item is: $Item
 }
 ```
+
+In the below example, the collection is created within the foreach statement by the ```(Get-Service | Select-Object -First 5)``` code.
 
 ```powershell
 foreach ($service in (Get-Service | Select-Object -First 5)) 
 {
-    Write-Output "Service name is: $service.name and status is $service.status"
+    Write-Output ("Service name is: {0} and status is {1}" -f $service.name, $service.status)
 }
+```
+
+```powershell
+$Animals = "Bear", "Lion", "Monkey", "Deer"
+
+$Animals | Foreach-Object {Write-Output $_}
+```
+
+A method called foreach can be called on collections. This can be a fast way to iterate through a collection if just listing the contents. Much more than simple listing of items and readability of the code can suffer.
+
+```powershell
+(Get-Service).ForEach({$_.name})
 ```
 
 ### While Loop and Do Loop
@@ -596,14 +640,26 @@ while ($var -le 5)
 }
 ```
 
-Do Loop
+Do While Loop
 
 ```Powershell
+$a = 0
 do {
-  if ($x[$a] -lt 0) { continue }
-  Write-Host $x[$a]
+  Write-Output $a
+  $a++
 }
-while (++$a -lt 10)
+while ($a -lt 10)
+```
+
+Do Until Loop
+
+```Powershell
+$a = 0
+do {
+  Write-Output $a
+  $a++
+}
+Until ($a -gt 10)
 ```
 
 ## Output Streams
