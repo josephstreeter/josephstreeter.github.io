@@ -377,6 +377,46 @@ The most common DataTypes (type accelerators) used in PowerShell are listed belo
 
 ---
 
+## Comparisons
+
+Comparison operators let you compare values or finding values that match specified patterns.
+
+PowerShell includes the following comparison operators:
+
+| Equality                                  |              |               |               |
+|-------------------------------------------|--------------|---------------|---------------|
+| equals                                    | -eq          | -ieq          | -ceq          |
+| not equals                                | -ne          | -ine          | -cne          |
+| greater than                              | -gt          | -igt          | -cgt          |
+| greater than or equal                     | -ge          | -ige          | -cge          |
+| less than                                 | -lt          | -ilt          | -clt          |
+| less than or equal                        | -le          | -ile          | -cle          |
+
+| Matching                                  |              |               |               |
+|-------------------------------------------|--------------|---------------|---------------|
+| string matches wildcard pattern           | -like        | -ilike        | -clike        |
+| string doesn't match wildcard pattern     | -notlike     | -inotlike     | -cnotlike     |
+| string matches regex pattern              | -match       | -imatch       | -cmatch       |
+| string doesn't match regex pattern        | -notmatch    | -inotmatch    | -cnotmatch    |
+
+| Replacement                               |              |               |               |
+|-------------------------------------------|--------------|---------------|---------------|
+| replaces strings matching a regex pattern | -replace     | -ireplace     | -creplace     |
+
+| Containment                               |              |               |               |
+|-------------------------------------------|--------------|---------------|---------------|
+| collection contains a value               | -contains    | -icontains    | -ccontains    |
+| collection doesn't contain a value        | -notcontains | -inotcontains | -cnotcontains |
+| value is in a collection-in               | -iin         | -cin          |               |
+| value isn't in a collection               | -notin       | -inotin       | -cnotin       |
+
+| Type                                      |              |
+|-------------------------------------------|--------------|
+| both objects are the same type            | -is          |
+| the objects aren't the same type          | -isnot       |
+
+<https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-7.5>
+
 ## Collections
 
 A collection is basically a set of individual items. Those items could be strings, integers, objects, other collections, or almost anything.
@@ -491,69 +531,6 @@ Hash tables are collections of key-value pairs, similar to dictionaries in other
 
 ---
 
-## Conditions
-
-### If Statement
-
-```powershell
-if (condition1) 
-{
-   # code to execute if condition1 is true
-}
-```
-
-### If Else Statement
-
-```powershell
-if (condition1) 
-{
-   # code to execute if condition1 is true
-}
-else 
-{
-   # code to execute if all conditions are false
-}
-```
-
-### If ElseIf Statement
-
-```powershell
-if (condition1) 
-{
-   # code to execute if condition1 is true
-}
-elseif (condition2) 
-{
-   # code to execute if condition2 is true
-}
-else 
-{
-   # code to execute if all conditions are false
-}
-```
-
-### If Else Finally
-
-```powershell
-
-```
-
-### Switch
-
-```powershell
-$Color = "red"
-
-switch ($CSolor) 
-{
-    "red" { Write-Host "The color is red." }
-    "blue" { Write-Host "The color is blue." }
-    "green" { Write-Host "The color is green." }
-    default { Write-Host "The color is not red, blue, or green." }
-}
-```
-
----
-
 ## Loops
 
 Loops iterate through collections and repeat tasks until a condition is met.
@@ -627,9 +604,9 @@ A method called foreach can be called on collections. This can be a fast way to 
 (Get-Service).ForEach({$_.name})
 ```
 
-### While Loop and Do Loop
+### While, Do-Until, Do-While Loops
 
-While Loop
+While Loop will only execute the code block if the condition is true.
 
 ```powershell
 $var = 1
@@ -640,27 +617,102 @@ while ($var -le 5)
 }
 ```
 
-Do While Loop
+Do-While and Do-Until Loops
+
+Writing each of the loops only varies slightly in the use of the words ```while``` and ```until```. The difference between the two comes down to how the condition of the loop is evaluated.
+
+The Do-Until loop will execute the code as long as the condition is ```$false```.
 
 ```Powershell
 $a = 0
-do {
+do 
+{
+  Write-Output $a
+  $a++
+}
+Until ($a -gt 10)
+```
+
+The Do-While loop will execute the block of code as long as the condition resolves to ```$true```.
+
+```Powershell
+$a = 0
+do 
+{
   Write-Output $a
   $a++
 }
 while ($a -lt 10)
 ```
 
-Do Until Loop
+## Conditional Statements
 
-```Powershell
-$a = 0
-do {
-  Write-Output $a
-  $a++
+Conditional statements allow the code to make logic-based decisions to determine which code gets run. The ```if``` and ```switch``` statements are used to make those logic-based decisions.
+
+### If Statement
+
+The ```if``` statement evaluates a condition and executes the code if the condition evaluates to ```true```.
+
+```powershell
+$condition = $true
+if (condition) 
+{
+   Write-Output "The condition is true"
 }
-Until ($a -gt 10)
 ```
+
+### If Else Statement
+
+```powershell
+$condition = $true
+if (condition) 
+{
+   Write-Output "The condition is true"
+}
+else 
+{
+   Write-Output "The condition is false"
+}
+```
+
+### If ElseIf Statement
+
+```powershell
+if (condition1) 
+{
+   # code to execute if condition1 is true
+}
+elseif (condition2) 
+{
+   # code to execute if condition2 is true
+}
+else 
+{
+   # code to execute if all conditions are false
+}
+```
+
+### If Else Finally
+
+```powershell
+
+```
+
+### Switch
+
+```powershell
+$Color = "red"
+
+switch ($CSolor) 
+{
+    "red" { Write-Host "The color is red." }
+    "blue" { Write-Host "The color is blue." }
+    "green" { Write-Host "The color is green." }
+    default { Write-Host "The color is not red, blue, or green." }
+}
+```
+
+---
 
 ## Output Streams
 
