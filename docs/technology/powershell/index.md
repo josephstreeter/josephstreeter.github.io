@@ -115,7 +115,7 @@ $sum = $positiveInt + $negativeInt
 Write-Output $sum
 ```
 
-Output
+Output:
 
 ```text
 9
@@ -692,24 +692,26 @@ else
 }
 ```
 
-### If Else Finally
-
-```powershell
-
-```
-
 ### Switch
+
+The switch statement is used for controlling the execution flow of the script. A switch can typically be used where a long list if ```elseif``` statements might be used. The switch statement provides a variable and a list of possible values. If the value matches the variable, then its scriptblock is executed.
 
 ```powershell
 $Color = "red"
 
-switch ($CSolor) 
+switch ($Color) 
 {
     "red" { Write-Host "The color is red." }
     "blue" { Write-Host "The color is blue." }
     "green" { Write-Host "The color is green." }
     default { Write-Host "The color is not red, blue, or green." }
 }
+```
+
+Output:
+
+```text
+The color is red.
 ```
 
 ---
