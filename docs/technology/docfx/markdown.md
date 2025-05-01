@@ -189,11 +189,13 @@ Markdown itself does not have the concept of a ```<div>```, but it can be done u
 
 Example:
 
+```text
 <div class="special-class" markdown="1">
 1. Item 1
 2. Item 2
 3. Item 3
 </div>
+```
 
 ## Escape characters
 

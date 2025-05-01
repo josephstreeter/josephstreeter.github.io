@@ -132,6 +132,19 @@ SigninLogs
 | distinct UserPrincipalName
 ```
 
+Users that have signed in from multiple counties in the defined timeframe.
+
+```text
+SigninLogs
+| where tostring(LocationDetails["countryOrRegion"]) != "US"
+| where tostring(LocationDetails["countryOrRegion"]) != ""
+| where not(isnull(UserPrincipalName)) and UserPrincipalName != "Unknown"
+| summarize UniqueUsers = make_set(UserPrincipalName) by IPAddress, OffendingCountry = tostring(LocationDetails["countryOrRegion"])
+| where array_length(UniqueUsers) > 1
+| project IPAddress, UniqueUsers, OffendingCountry
+| sort by OffendingCountry asc
+```
+
 ### Defender Advanced Threat Hunting
 
 #### Email Activity
