@@ -4,6 +4,8 @@ The Proxmox Virtual Environment is a complete, open-source server management pla
 
 ## Installation
 
+\<install steps>
+
 ## Post-Installation
 
 After the installation is complete, there are some configuration changes that should be performed to ensure the Proxmox server is secure.
