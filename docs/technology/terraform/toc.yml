@@ -2,3 +2,5 @@
   href: index.md
 - name: Proxmox
   href: proxmox.md
+- name: Gitignore
+  href: gitignore.md
