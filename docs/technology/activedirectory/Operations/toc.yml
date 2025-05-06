@@ -28,3 +28,5 @@
   href: Security-Settings-Applied-for.md
 - name: Use Active Directory Recycle 
   href: Use-Active-Directory-Recycle-.md
+- name: Isolate Domain Controller
+  href: Isolate-Domain-Controller.md
