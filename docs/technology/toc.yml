@@ -24,24 +24,24 @@
 - name: Monitoring
 - name: Grafana
   href: grafana/toc.yml
-- name: SQL
-  href: sql/toc.yml
 - name: Kusto Query Language
   href: kql/toc.yml
-- name: Nginx
-  href: nginx/nginx.md
 
 - name: Enterprise Services
 - name: Active Directory
   href: activedirectory/toc.yml
 - name: Exchange
   href: exchange/toc.yml
+- name: SQL
+  href: sql/toc.yml
 
 - name: Networking
 - name: Unifi Networking
   href: unifi/toc.yml
 - name: Wireless
   href: wireless/toc.yml
+- name: Nginx
+  href: nginx/nginx.md
 
 - name: Development
 - name: Powershell
