@@ -6,8 +6,8 @@ categories: IT
 
 I haven't had a chance to try this script out yet. From what I've read it's pretty handy.
 
-This is a  <a href="http://www.remothelast.altervista.org/switchSNMP.html">site</a> that looks like it was taken from a SNMP book that I've read.
-<a href="http://oss.oetiker.ch/mrtg/pub/contrib/cammer">cammer.pl</a>
+This is a  [site](http://www.remothelast.altervista.org/switchSNMP.html) that looks like it was taken from a SNMP book that I've read.
+[cammer.pl](http://oss.oetiker.ch/mrtg/pub/contrib/cammer)
 
 ```text
 cammer - list switch ports with associated IP-addresses
@@ -62,11 +62,9 @@ AUTHOR
 Tobi Oetiker E <tobi@oetiker.ch>
 ```
 
-A Tek-Tips user, PalmTest, had this to say in a <a href="http://www.tek-tips.com/viewthread.cfm?qid=1128455&page=1">post</a>:
-
+A Tek-Tips user, PalmTest, had this to say in a [post](http://www.tek-tips.com/viewthread.cfm?qid=1128455&page=1):
 
 Here is the script. Like I said, I haven't tried this yet. So, it is what it is. Don't cry to me if it doesn't work.
-```
 
 ```perl
 #! /usr/bin/perl

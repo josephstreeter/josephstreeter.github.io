@@ -14,19 +14,20 @@ $objAd = $searcher.findall()
 
 foreach ($objComp in $objAd)
 {
-	$strServerName = $objComp.properties.cn
-	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername $strServerName | where{$_.IPEnabled -eq $TRUE}
-	Foreach($strNIC in $strNICs)
-	{
-		write-host $strServerName
-		$strNIC.DNSDomain
-		$strNIC.DNSServerSearchOrder
-		write-host ""
-	}
+   $strServerName = $objComp.properties.cn
+   $strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername
+   $strServerName | where{$_.IPEnabled -eq $TRUE}
+   Foreach($strNIC in $strNICs)
+   {
+      write-host $strServerName
+      $strNIC.DNSDomain
+      $strNIC.DNSServerSearchOrder
+      write-host ""
+   }
 }
 ```
 
-This script will set the DNS suffix and DNS server entries for each interface. Just set the variables, $objName, $strDNSServers, and $strDNSName
+This script will set the DNS suffix and DNS server entries for each interface. Just set the variables, ```$objName```, ```$strDNSServers```, and ```$strDNSName```
 
 ```powershell
 $objName = "***filter-text***"
@@ -39,14 +40,14 @@ $objAd = $searcher.findall()
 
 foreach ($objComp in $objAd)
 {
-	$strServerName = $objComp.properties.cn
-	$strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername $strServerName | where{$_.IPEnabled -eq $TRUE}
+   $strServerName = $objComp.properties.cn
+   $strNICs = Get-WMIObject Win32_NetworkAdapterConfiguration -computername $strServerName | where{$_.IPEnabled -eq $TRUE}
 
-	Foreach($strNIC in $strNICs) 
-	{
-		$strNIC.SetDNSServerSearchOrder()
-		$strNIC.SetDNSServerSearchOrder($strDNSServers)
-		$strNIC.SetDNSDomain($strDNSName)
-	}
+   Foreach($strNIC in $strNICs)
+   {
+     $strNIC.SetDNSServerSearchOrder()
+     $strNIC.SetDNSServerSearchOrder($strDNSServers)
+     $strNIC.SetDNSDomain($strDNSName)
+   }
 }
 ```

@@ -1,5 +1,4 @@
 ﻿---
-
 title:  Displaying Logs in Splunk (Updated)
 date:   2012-10-18 00:00:00 -0500
 categories: IT
@@ -30,9 +29,10 @@ Here is the link for 4.2.2
 wget -O splunk-4.2.2-101277-linux-2.6-amd64.deb 'http://www.splunk.com/index.php/download_track?file=4.2.2/splunk/linux/splunk-4.2.2-101277-linux-2.6-amd64.deb&ac=&wget=true&name=wget&typed=releases'
 ```
 
-Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at http://your.server.ip.address:8000 Simple, no?
+Accept the E.U.L.A. and your install is complete. The pretty web UI is now waiting for you at <http://your.server.ip.address:8000> Simple, no?
 
 ## UPGRADING SPLUNK
+
 Stop the old version, download the new version and extract it in the same folder. Start Splunk back up and it will recognize the upgrade.
 
 ```console
@@ -48,7 +48,7 @@ This step will vary, depending on your needs. I still recommend a few settings f
 
 Listen for logs on port 514:
 Most devices and many apps (including syslog) use port 514 for sending log info. You'll want Splunk to be listening.
-navigate to your Splunk web UI (http://your.server.ip.address:8000)
+navigate to your Splunk web UI (<http://your.server.ip.address:8000>)
 click "Admin"
 click "Data Inputs"
 click "Network Ports"
@@ -83,7 +83,7 @@ Add the following line to /etc/hosts (NOTE: Use tabs, spaces won't work.)
 Code:
 
 ```text
-ip.address.of.splunkserver			 splunkserver
+ip.address.of.splunkserver    splunkserver
 ```
 
 Where splunkserver is the name of your Splunk server. Now, add the following lines to /etc/syslog.conf:
