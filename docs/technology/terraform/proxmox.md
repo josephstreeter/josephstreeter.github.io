@@ -14,7 +14,7 @@ provider "proxmox" {
   pm_tls_insecure     = true                          # Set to true if using self-signed certificates
 }
 
-resource "proxmox_vm_qemu" "cloudinit-example" {
+resource "proxmox_vm_qemu" "cloudinit-k8s" {
   vmid        = 100
   name        = "K8S-01"
   target_node = "FR-TST-01"
