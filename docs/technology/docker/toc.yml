@@ -2,3 +2,5 @@
   href: index.md
 - name: Docker Compose
   href: dockercompose.md
+- name: Formatting
+  href: formatting.md
