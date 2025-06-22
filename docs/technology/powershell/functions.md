@@ -1,19 +1,48 @@
 # Functions
 
+Functions in PowerShell allow you to group code into reusable blocks, making scripts easier to read, maintain, and test. Functions can accept parameters, return values, and support advanced features such as parameter validation and pipeline input.
+
 - [PowerShell Functions: A Comprehensive Beginner’s Guide](https://www.sharepointdiary.com/2021/11/powershell-function.html)
 - [PowerShell Function Parameters: A Beginner’s Guide](https://www.sharepointdiary.com/2021/02/powershell-function-parameters.html)
 
 ## Difference Between a Function and a Cmdlet
 
+| Feature         | Function                          | Cmdlet                        |
+|-----------------|-----------------------------------|-------------------------------|
+| Implementation  | Written in PowerShell script      | Written in .NET (C#, VB.NET)  |
+| Performance     | Slightly slower                   | Faster                        |
+| Extensibility   | Easy to create and modify         | Requires compilation          |
+| Naming          | Verb-Noun                         | Verb-Noun                     |
+| Access to Common Parameters | Yes                   | Yes                           |
+
 ## Building a Function
 
 ### Verb-Noun Naming
 
+PowerShell uses a Verb-Noun naming convention for functions and cmdlets to promote consistency and discoverability. Always use an approved verb for your function name. You can see the list of approved verbs with:
+
 ```powershell
-get-verb | sort verb
+Get-Verb | Sort-Object Verb
+```
+
+- [Approved Verbs for PowerShell Commands](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.4)
+
+## Basic Function Example
+
+A simple function groups code for reuse. Here’s a basic example:
+
+```powershell
+function Get-Greeting {
+    param($Name)
+    "Hello, $Name!"
+}
+
+Get-Greeting -Name "Alice"
 ```
 
 ## Advanced Functions
+
+An **advanced function** in PowerShell is a function that uses the `[CmdletBinding()]` attribute and parameter attributes to provide features similar to compiled cmdlets. Advanced functions support common parameters (like `-Verbose` and `-ErrorAction`), parameter validation, pipeline input, parameter sets, and more. This allows you to write powerful, flexible, and robust functions using only PowerShell
 
 [Learn - About_Functions_Advanced_Parameters](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters)
 
@@ -147,6 +176,8 @@ function Get-Something()
 ### Providing a Default Value
 
 ### Parameter Validation
+
+Parameter validation attributes help ensure that input to your function meets specific requirements. These attributes can check for value ranges, patterns, allowed values, null or empty values, and more. This helps catch errors early and makes your functions more robust.
 
 - **ValidateCount** - Specifies the minimum and maximum number of arguments that a parameter can accept.
 
@@ -324,6 +355,64 @@ function Get-Something()
 
 [General Common Parameters - Microsoft Learn](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/common-parameter-names?view=powershell-7.4)
 
-### Accepting Pipeline Input
+## Accepting Pipeline Input
+
+Functions can accept input from the pipeline, allowing you to process data passed from other commands. To enable this, use the `ValueFromPipeline` or `ValueFromPipelineByPropertyName` parameter attributes.
+
+```powershell
+function Show-Item {
+    param(
+        [Parameter(ValueFromPipeline)]
+        [string]$Name
+    )
+    process {
+        Write-Host "Item: $Name"
+    }
+}
+
+"Apple","Banana" | Show-Item
+```
 
 ## Begin, Process, End Blocks
+
+Advanced functions can use `begin`, `process`, and `end` blocks to handle pipeline input efficiently:
+
+- **begin**: Runs once before any pipeline input is processed (setup).
+- **process**: Runs once for each item received from the pipeline (main processing).
+- **end**: Runs once after all pipeline input has been processed (cleanup).
+
+Example:
+
+```powershell
+function ConvertTo-Upper {
+    [CmdletBinding()]
+    param (
+        [Parameter(ValueFromPipeline)]
+        [string[]]$InputString
+    )
+
+    begin {
+        # This block runs once at the start
+        Write-Host "Starting conversion to uppercase..."
+    }
+
+    process {
+        # This block runs for each item in the pipeline
+        $UpperString = $InputString.ToUpper()
+        Write-Host "Converted: $UpperString"
+    }
+
+    end {
+        # This block runs once at the end
+        Write-Host "Conversion complete."
+    }
+}
+
+"hello", "world" | ConvertTo-Upper
+```
+
+## References
+
+- [about_Functions - Microsoft Learn](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions)
+- [about_Functions_Advanced - Microsoft Learn](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced)
+- [about_Functions_Advanced_Parameters - Microsoft Learn](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters)

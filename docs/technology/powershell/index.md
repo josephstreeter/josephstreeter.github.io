@@ -26,6 +26,51 @@ $count = "String"         # Throws an error "Cannot convert value "String" to ty
 
 ---
 
+## Comments and Documentation
+
+Comments are used to explain code and make scripts easier to understand and maintain. PowerShell supports both single-line and multi-line comments.
+
+**Single-line comment:**
+
+```powershell
+# This is a single-line comment
+Write-Output "Hello, World!" # This is an inline comment
+```
+
+**Multi-line comment:**
+
+```powershell
+<#
+This is a
+multi-line comment.
+It can span several lines.
+#>
+```
+
+**Comment-based help for functions:**
+
+You can add special comments before a function to provide help information.
+
+```powershell
+<#
+.SYNOPSIS
+    Gets a friendly greeting.
+.DESCRIPTION
+    This function returns a greeting for the specified name.
+.PARAMETER Name
+    The name of the person to greet.
+.EXAMPLE
+    Get-Greeting -Name "Alice"
+#>
+function Get-Greeting 
+{
+    param($Name)
+    "Hello, $Name!"
+}
+```
+
+---
+
 ## Data Types
 
 What are data types?
@@ -94,7 +139,20 @@ MetadataError: Cannot convert value "AB" to type "System.Char". Error: "String m
 
 ### Byte
 
-A byte is...
+A byte is an 8-bit unsigned integer with a range of 0 to 255. Useful for binary data.
+
+```powershell
+[byte]$b = 255
+$b.GetType()
+```
+
+Output:
+
+```text
+IsPublic IsSerial Name          BaseType
+-------- -------- ----          --------
+True     True     Byte          System.ValueType
+```
 
 ### Numeric Type
 
@@ -131,7 +189,18 @@ Decimals are used for high-precision arithmetic, especially useful in financial 
 
 ### Single
 
-A single....
+A single is a 32-bit floating point number, less precise than a double.
+
+```powershell
+[single]$single = 3.14
+$single.GetType()
+```
+
+```output
+IsPublic IsSerial Name                                     BaseType
+-------- -------- ----                                     --------
+True     True     Single                                   System.ValueType
+```
 
 ### Float and Double
 
@@ -349,7 +418,7 @@ True     True     Int32    System.ValueType
 
 The most common DataTypes (type accelerators) used in PowerShell are listed below.
 
-|Excellerator | Description                                   |
+|Accelerator | Description                                   |
 |-------------|-----------------------------------------------|
 | [string]    | Fixed-length string of Unicode characters     |
 | [char]      | A Unicode 16-bit character                    |
@@ -428,7 +497,7 @@ Typical collections in PowerShell are:
 - Array
 - Array List
 - Generic List
-- Hastable (Dictionaries)
+- Hashtable (Dictionaries)
 
 ### Arrays
 
@@ -558,7 +627,7 @@ The first component, ```$var = 1```, represents one or more command that are run
 
 The second component, ```$var -le 5```, is the condition that resolves to a boolean value, either ```$true``` or ```$false```. The loop will continue to run as long as this condition evaluates to ```$true```. This component typically evaluates the integer set in the first component against the specified value.
 
-The thrid component, ```$var++```, executes each time the loop repeats. This commponent typically increments or decrements the variable in the first component.
+The third component, ```$var++```, executes each time the loop repeats. This commponent typically increments or decrements the variable in the first component.
 
 ### Foreach Loop
 
@@ -718,19 +787,75 @@ The color is red.
 
 ## Output Streams
 
-### Write-Debug
-
-### Write-Error
+PowerShell provides several output stream cmdlets that allow scripts to send different types of messages or data to the console, logs, or other commands in the pipeline. Each cmdlet writes to a specific stream, such as standard output, error, warning, verbose, debug, or information. Using these cmdlets helps organize script output, making it easier to display, capture, or troubleshoot messages according to their purpose and
 
 ### Write-Host
 
-### Write-Information
+Displays output directly to the console. Use for messages that do not need to be captured or redirected.
+
+```powershell
+Write-Host "This is a message to the console."
+```
+
+---
 
 ### Write-Output
 
-### Write-Verbose
+Sends objects to the next command in the pipeline or to the console if it is the last command. Preferred for script output.
+
+```powershell
+Write-Output "This is standard output."
+```
+
+---
+
+### Write-Error
+
+Writes an error message to the error stream. Use for reporting errors.
+
+```powershell
+Write-Error "An error has occurred."
+```
+
+---
 
 ### Write-Warning
+
+Writes a warning message to the warning stream. Warnings are displayed in yellow by default.
+
+```powershell
+Write-Warning "This is a warning message."
+```
+
+---
+
+### Write-Verbose
+
+Writes detailed information, typically used for debugging or providing additional context. Only shown if `$VerbosePreference` is set to `Continue` or `-Verbose` is used.
+
+```powershell
+Write-Verbose "This is a verbose message."
+```
+
+---
+
+### Write-Debug
+
+Writes debug messages to the debug stream. Only shown if `$DebugPreference` is set to `Continue` or `-Debug` is used.
+
+```powershell
+Write-Debug "This is a debug message."
+```
+
+---
+
+### Write-Information
+
+Writes informational messages to the information stream. Can be selectively displayed or suppressed.
+
+```powershell
+Write-Information "This is an informational message."
+```
 
 ### Output Stream References
 
@@ -850,3 +975,5 @@ catch
 ### Error Handling References
 
 - ["Everything you wanted to know about Exceptions"](https://learn.microsoft.com/en-us/powershell/scripting/learn/deep-dives/everything-about-exceptions?view=powershell-7.4)
+
+---
