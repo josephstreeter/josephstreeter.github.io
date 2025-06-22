@@ -1,10 +1,12 @@
 # Regular Expressions
 
-There isn't going to be much here other than some examples.
+This page provides practical regular expression (regex) examples for common text manipulation tasks. Explanations and sample input/output are included for clarity.
 
 ## Examples
 
-**Remove dots from email alias**:
+### Remove Dots and Aliases from Email Addresses
+
+This regex removes dots from the local part of an email address and strips out any alias (the `+something` part):
 
 ```text
 (\.(?=[^@]*?@)|\+[^@]*?(?=@))

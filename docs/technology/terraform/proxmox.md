@@ -1,10 +1,12 @@
 # Terraform Proxmox
 
-## Kubernettes
+## Kubernetes
 
-Terraform template for creating a three node Kubernetes cluster.
+Terraform template for creating a three-node Kubernetes cluster on Proxmox.
 
-Main.tf
+---
+
+### `main.tf`
 
 ```terraform
 provider "proxmox" {
@@ -63,14 +65,16 @@ resource "proxmox_vm_qemu" "cloudinit-k8s" {
   }
 
   network {
-    id = 0
+    id     = 0
     bridge = "vmbr0"
     model  = "virtio"
   }
 }
 ```
 
-providers.tf
+---
+
+### `providers.tf`
 
 ```terraform
 terraform {
@@ -83,27 +87,29 @@ terraform {
 }
 ```
 
-varables.tf
+---
+
+### `variables.tf`
 
 ```terraform
 variable "proxmox_api_url" {
   type        = string
   description = "URL of the Proxmox API"
-  default = "https://192.168.127.113:8006/api2/json"
+df  default     = "https://192.168.127.113:8006/api2/json"
 }
 
 variable "proxmox_api_token_id" {
   type        = string
   description = "Proxmox API token ID"
   sensitive   = true
-  default = "terraform-prov@pve!terraform_id"
+  default     = "terraform-prov@pve!terraform_id"
 }
 
 variable "proxmox_api_token_secret" {
   type        = string
   description = "Proxmox API token secret"
   sensitive   = true
-  default = "969c6faaa-dd13-4903-8c42-8868b516a6d8"
+  default     = "969c6faaa-dd13-4903-8c42-8868b516a6d8"
 }
 
 variable "proxmox_host" {
@@ -113,7 +119,9 @@ variable "proxmox_host" {
 }
 ```
 
-terraform.tfvars
+---
+
+### `terraform.tfvars`
 
 ```terraform
 proxmox_api_url          = "https://<hostname>:8006/api2/json"
@@ -121,3 +129,9 @@ proxmox_api_token_id     = "<user>@pve!<api_id>"
 proxmox_api_token_secret = "<secret>"
 proxmox_host             = "<Proxmox Node>"
 ```
+
+---
+
+**Note:**  
+- Never commit real secrets or sensitive values to version control. Use environment variables or secret managers for production.
+- Adjust VM and network settings as needed

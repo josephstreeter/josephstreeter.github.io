@@ -4,7 +4,7 @@ The Proxmox Virtual Environment is a complete, open-source server management pla
 
 ## Installation
 
-\<install steps>
+<install steps>
 
 ## Post-Installation
 
@@ -71,7 +71,7 @@ After your server reboots, you can configure VLAN support in the Proxmox web UI:
 
 - Select server.
 - Go to “Network” in the menu.
-- Select the Linux bridge (vmbro#).
+- Select the Linux bridge (vmbr0).
 - Click “Edit” at the top of the window.
 - Check the box that says “VLAN aware.”
 - Press “OK.”
@@ -104,41 +104,38 @@ pushd /root/
 if [ -f $FILE ]; then
    echo "Image ($FILE) exists."
 else
-   echo "image ($FILE) does not exist. Downloading...."
+   echo "Image ($FILE) does not exist. Downloading...."
    wget $TEMPLATEURL
 fi
 popd
 
 qm create $VMID --name $TEMPLATENAME
-qm create $VMID --name $TEMPLATENAME
-qm set $VMID --scsi0 local-lvm:0,import-from=/root/$file
+qm set $VMID --scsi0 local-lvm:0,import-from=/root/$FILE
 qm template $VMID
 ```
 
-### Qemu Guest Agent Setup
+### QEMU Guest Agent Setup
 
-1. Enable Qemu Guest Agent
+1. Enable QEMU Guest Agent:
     - In the Proxmox web interface, select your VM.
     - Go to "Hardware" > "Add" > "QEMU Guest Agent".
     - Start the VM if it's not already running.
 
-2. Qemu Guest Agent Install
-
-    Debian/Ubuntu
+2. Install QEMU Guest Agent (Debian/Ubuntu):
 
     ```bash
     apt update
     apt install qemu-guest-agent
     ```
 
-3. Enable and Start the Qemu Agent
+3. Enable and Start the QEMU Agent:
 
     ```bash
     systemctl enable qemu-guest-agent
     systemctl start qemu-guest-agent
     ```
 
-4. Verify Installation
+4. Verify Installation:
 
     To verify that the QEMU Guest Agent is running:
 
@@ -146,12 +143,11 @@ qm template $VMID
     systemctl status qemu-guest-agent
     ```
 
-Complete script to install, enable, and start the Qemu guest agent.
+Complete script to install, enable, and start the QEMU guest agent:
 
 ```bash
 apt update
 apt install qemu-guest-agent
-
 systemctl enable qemu-guest-agent
 systemctl start qemu-guest-agent
 ```

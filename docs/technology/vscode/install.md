@@ -77,11 +77,11 @@ sudo apt install ....
 
 - [How to use winget to install VSCode with custom options? · microsoft/winget-cli · Discussion #1798 · GitHub](https://github.com/microsoft/winget-cli/discussions/1798)
 
-```text
-You can use the --override argument on winget install to replace the arguments winget uses with ones you want yourself. Unfortunately, you'll probably have to do some googling or run the installer with /? to get all possible arguments.
-
-To install VSCode with those options selected, run winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,     addcontextmenufiles,addcontextmenufolders"'
-```
+    > You can use the --override argument on winget install to replace the arguments winget uses with ones you want yourself. Unfortunately, you'll probably have to do some googling or run the installer with /? to get all possible arguments.
+    >
+    > To install VSCode with those options selected, run:
+    >
+    > `winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"'`
 
 - [Installing PowerShell on Ubuntu](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.5)
 - [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux)
