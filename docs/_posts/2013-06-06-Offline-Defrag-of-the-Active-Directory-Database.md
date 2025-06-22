@@ -27,7 +27,7 @@ In the following example we will perform an offline defrag on a Domain Controlle
 
 1. Create a temporary directory for the storage of the compacted database. For example, D:\NTDS-Backup. Make sure that the drive you are using for the copy of the database will have enough space for the operation.
 
-2. Open a command promptt and enter the NTDSUtil command followed by these commands:
+2. Open a command prompt and enter the NTDSUtil command followed by these commands:
 ```powershellfiles
 info
 compact D:\NTDS-Backup```

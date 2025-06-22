@@ -21,7 +21,7 @@ $SMTPClient.Credentials = New-Object System.Net.NetworkCredential("username", "p
 $SMTPClient.Send($EmailFrom, $EmailTo, $Subject, $Body)
 ```
 
-The following code can be used if you have the Send-MailMessage available to you. This script will send a message if the disk space on C: falls below 125GB. This one will promptt for credentials, but the hash could easily be stored in a file. Not totally secure, but slightly better than keeping it in plain text.
+The following code can be used if you have the Send-MailMessage available to you. This script will send a message if the disk space on C: falls below 125GB. This one will prompt for credentials, but the hash could easily be stored in a file. Not totally secure, but slightly better than keeping it in plain text.
 
 ```powershell
 $HostName = (Get-WmiObject -Class win32_computersystem).name

@@ -62,7 +62,7 @@ To verify that the Kerberos Key Distribution Center (KDC) certificate is availab
 1.Log on to a computer within your domain.
 2.Click Start, point to All Programs, click Accessories, right-click Command Prompt, and then click Run as administrator.
 3.If the User Account Control dialog box appears, confirm that the action it displays is what you want, and then click Continue.
-4.At the command promptt, type certutil -dcinfo verify, and then press ENTER.
+4.At the command prompt, type certutil -dcinfo verify, and then press ENTER.
 5.If you receive a successful verification, the Kerberos KDC certificate is installed and operating correctly.
 ```
 

@@ -15,9 +15,9 @@ Graphical User Interface
 
 Command Line
 
-- From a command promptt the following command willcreate a persistent drive mapping
+- From a command prompt the following command willcreate a persistent drive mapping
   - net use K: [deptfs-server-01share](file://deptfs-server-01/share) /persistent:yes
-- From a command promptt the following command willcreate a persistent drive mapping using alternate credentials
+- From a command prompt the following command willcreate a persistent drive mapping using alternate credentials
   - net use K: [deptfs-server-01share](file://deptfs-server-01/share) /persistent:yes /user:netid@wisc.edu
 
 PowerShell
@@ -35,7 +35,7 @@ Use the Connect To Server feature of the Finder:
 - EnterIP address or DNS name of the file server
   - smb://10.0.1.1/share
   - smb://deptfs-server-01.dept.wisc.edu/share
-- Enter username (<netid@wisc.edu>) and password if promptted
+- Enter username (<netid@wisc.edu>) and password if prompted
 
 ## Linux
 

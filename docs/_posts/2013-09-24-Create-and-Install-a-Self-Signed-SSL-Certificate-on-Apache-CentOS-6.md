@@ -24,7 +24,7 @@ Create the certificate
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/httpd/ssl/apache.key -out /etc/httpd/ssl/apache.crt
 ```
 
-Enter the appropriate information when promptted
+Enter the appropriate information when prompted
 
 ```text
 Country Name (2 letter code) [AU]:US

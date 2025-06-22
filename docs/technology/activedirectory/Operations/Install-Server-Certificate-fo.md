@@ -48,7 +48,7 @@ OID=1.3.6.1.5.5.7.3.1 ; this is for Server Authentication / Token Signing
 ```
 
 - Save the "request.inf" file to the root of "C:".
-- Open an elevated command promptt and change directory to "C:".
+- Open an elevated command prompt and change directory to "C:".
 - Run the following command:"
 
 ```cmd
@@ -80,7 +80,7 @@ When downloaded the file ends with .crt however if you open it you will notice t
 
 ## Install the Certificate
 
-- Open an elevated command promptt and change directory to "C:".
+- Open an elevated command prompt and change directory to "C:".
 - Run the following command:
 
 ```cmd
@@ -103,19 +103,19 @@ The domain controller will log Event ID 2887 each every 24 hours that will provi
 
 To enable diagnostic logging for LDAP Interface Events:
 
-- Open an elevated command promptt
+- Open an elevated command prompt
 - Enter the following command
     Reg Add HKLMSYSTEMCurrentControlSetServicesNTDSDiagnostics /v "16 LDAP Interface Events" /t REG_DWORD /d 2
 
-- When promptted to overwrite, type "Y" and press ENTER
+- When prompted to overwrite, type "Y" and press ENTER
 
 To disable the diagnostic logging for LDAP Interface Events:
 
-- Open an elevated command promptt
+- Open an elevated command prompt
 - Enter the following command
     Reg Add HKLMSYSTEMCurrentControlSetServicesNTDSDiagnostics /v "16 LDAP Interface Events" /t REG_DWORD /d 0
 
-- When promptted to overwrite, type "Y" and press ENTER
+- When prompted to overwrite, type "Y" and press ENTER
 
 ## Additional Steps for Domain Controllers that require multiple server certificates
 
@@ -134,7 +134,7 @@ Loading the requested server certificate into the NTDS/Personal certificate stor
 
 When exporting the certificate:
 
-- When promptted, select "Yes, export the private key"
+- When prompted, select "Yes, export the private key"
 - Select the "Personal Information Exchange - PKCS #12(.pfx)" format
 - Do not select "Include all certificates in the certificate path" or "Delete the private key if the export is successful"
 - Select "Export all extended properties"

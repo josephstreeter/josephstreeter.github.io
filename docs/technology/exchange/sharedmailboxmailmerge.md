@@ -56,11 +56,11 @@ Set up an Outlook profile for a shared mailbox
 
 12. Click ***Finish***.
 
-13. Make sure the promptt for a profile to use is selected and “Ok.”
+13. Make sure the prompt for a profile to use is selected and “Ok.”
 
     ![alt](/images/technology/exchange/sharedmailboxmailmerge/mailmerge8.png)
 
-14. Now that the setup is complete, you will be promptted for which profile to use when you open Outlook.
+14. Now that the setup is complete, you will be prompted for which profile to use when you open Outlook.
 
 ## Tips and best practices
 
@@ -72,8 +72,8 @@ None
 
 ## Additional information
 
-Once you are done sending the message you can remove the profile you created or keep it for the next time. You can configure Outlook to use only your profile instead of promptting you.
+Once you are done sending the message you can remove the profile you created or keep it for the next time. You can configure Outlook to use only your profile instead of prompting you.
 
 ## Disclaimer
 
-You must follow the steps exactly. If you are promptted for credentials, you must enter **YOUR** username and **YOUR** password. It is important that you provide **YOUE** credentials.
+You must follow the steps exactly. If you are prompted for credentials, you must enter **YOUR** username and **YOUR** password. It is important that you provide **YOUE** credentials.

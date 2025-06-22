@@ -24,19 +24,19 @@ Certutil.exe is a command-line utility for managing a Windows CA. In Windows Ser
 
 Adding
 
-- Open Certificate Manager by clicking **Start** button, typing **certmgr.msc** into the **Search** box, and then pressing **Enter**. If you are promptted for an administrator password or confirmation, type the password or provide confirmation
+- Open Certificate Manager by clicking **Start** button, typing **certmgr.msc** into the **Search** box, and then pressing **Enter**. If you are prompted for an administrator password or confirmation, type the password or provide confirmation
 - Click the **Personal** folder (for a personal certificate which is most likely what you have), click the **Action** menu, point to **All Tasks**, and then click **Import**
 - Follow the wizard to import your certificate to the specified folder you selected in the preceding step
 
 Deleting
 
-- Open up the cmd promptt by clicking **Start**, then in the search bar right above the Start button enter **cmd.exe** and hit enter
-- Can use MMC gui or certutil.exe utility to get to the Certificate Store by entering the below command in the cmd promptt or look for the mmc plugin in you installed applications.
+- Open up the cmd prompt by clicking **Start**, then in the search bar right above the Start button enter **cmd.exe** and hit enter
+- Can use MMC gui or certutil.exe utility to get to the Certificate Store by entering the below command in the cmd prompt or look for the mmc plugin in you installed applications.
   - certutil -viewstore -enterprise NTAuth
 
 NTAuth is an Active Directory directory service object that is located in the Configuration container of the forest
 
-- To Verify NTAuth enter the following in cmd promptt: certutil -verifystore -enterprise NTAuth
+- To Verify NTAuth enter the following in cmd prompt: certutil -verifystore -enterprise NTAuth
 - To Delete the Certificate enter the command
     certutil -delstore -enterprise -user My **certificate_name**
     or in the MMC find your certificate and either click the delete button or right click the certificate and select the delete option.
