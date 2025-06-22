@@ -46,16 +46,19 @@ By default, OpenSSH only allows connecting to remote forwarded ports from the se
 ```text
 GatewayPorts no
 ```
+
 This prevents connecting to forwarded ports from outside the server computer.
 
 ```text
 GatewayPorts yes
 ```
+
 This allows anyone to connect to the forwarded ports. If the server is on the public Internet, anyone on the Internet can connect to the port.
 
 ```text
 GatewayPorts clientspecified
 ```
+
 This means that the client can specify an IP address from which connections to the port are allowed. The syntax for this is:
 
 ```bash
