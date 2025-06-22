@@ -1,18 +1,16 @@
 # Secure Shell - SSH
 
-Secure Shell Protocol, or SSH, is a remote administration protocol that allows users to securly access a remote system for tasks such as adminstration and file copy.
+Secure Shell Protocol, or SSH, is a remote administration protocol that allows users to securely access a remote system for tasks such as administration and file copy.
 
-SSH was created to replace insecure administrative protocols like telnet. SSH uses cryptographic techniques to autheticate users and ensure that communications between hosts are encrypted. User authentication in SSH can be performed using username and password or cryptographic key pairs.
+SSH was created to replace insecure administrative protocols like telnet. SSH uses cryptographic techniques to authenticate users and ensure that communications between hosts are encrypted. User authentication in SSH can be performed using username and password or cryptographic key pairs.
 
 ## Uses for SSH
 
-SSH is primarily known for providing remote termial access to a host for administration. SSH can also be used to create seocure tunnels and to transfer files.
+SSH is primarily known for providing remote terminal access to a host for administration. SSH can also be used to create secure tunnels and to transfer files.
 
 ## Server Configuration
 
-Execute Graphical Applications Remotely
-
-Enabling X11 Forwarding and Agent Forwarding will allow a user to execute a graphical application on the remote host.
+To execute graphical applications remotely, enable X11 Forwarding and Agent Forwarding. This allows a user to execute a graphical application on the remote host.
 
 ```text
 ForwardAgent yes
@@ -20,8 +18,6 @@ ForwardX11 yes
 ```
 
 ## Client Configuration
-
-SSH Configuration File
 
 A configuration file can be used to configure the SSH client for different hosts without having to provide the settings each time the command is executed.
 
@@ -34,23 +30,23 @@ Host vs-ssh.visualstudio.com
     IdentitiesOnly yes
 ```
 
-## Authentiction
+## Authentication
 
-Authentication can be satisfied by providing a password or by using cryptographic keys. Using a password is pretty self-explanatory, but leveraging keys can be a little but more complicated.
+Authentication can be satisfied by providing a password or by using cryptographic keys. Using a password is self-explanatory, but leveraging keys can be a little more complicated.
 
 ## SSH Keys
 
-SSH Keys are asymetric cryprographic keys, or key pairs, that are used for authorization and authentication.
-A key pair consists of a private key (Identification key) and a public key (Authorization key). The owner of a key pair is authorized access to a resource by installing that user's public key (Authorization) on that resource.
-The user then uses the private key (Identity) to authenticate to that resource. The private key is protected by a passowrd or passphrase that only the owner knows. A users private key's are to be protected the same as passwords.
+SSH keys are asymmetric cryptographic keys, or key pairs, that are used for authorization and authentication.
+A key pair consists of a private key (identification key) and a public key (authorization key). The owner of a key pair is authorized access to a resource by installing that user's public key (authorization) on that resource.
+The user then uses the private key (identity) to authenticate to that resource. The private key is protected by a password or passphrase that only the owner knows. A user's private keys are to be protected the same as passwords.
 
-SSH keys may be used to interactivly access a host or service or can be used to privide authorization and authentication to automated processes.
-This is typically accomplised by creating a key pair without a password.
+SSH keys may be used to interactively access a host or service or can be used to provide authorization and authentication to automated processes.
+This is typically accomplished by creating a key pair without a password.
 
 ## Host Keys
 
 Host keys represent a server's identity and are used by the client to authenticate that server's identity.
-The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to expliicitly accept it.
+The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to explicitly accept it.
 
 ```console
 $ ssh -t git@ssh.github.com
@@ -59,7 +55,7 @@ ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 ```
 
-If the host key stored in 'known_hosts' does not match the one presented to the client by the server the client will promp the usuer, asking if the user wants to continue.
+If the host key stored in `known_hosts` does not match the one presented to the client by the server, the client will prompt the user, asking if the user wants to continue.
 
 ```text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -71,7 +67,7 @@ It is also possible that a host key has just been changed.
 The fingerprint for the RSA key sent by the remote host is
 6e:45:f9:a8:af:38:3d:a1:a5:c7:76:1d:02:f8:77:00.
 Please contact your system administrator.
-Add correct host key in /home/hostname /.ssh/known_hosts to get rid of this message.
+Add correct host key in /home/hostname/.ssh/known_hosts to get rid of this message.
 Offending RSA key in /var/lib/sss/pubconf/known_hosts:4
 RSA host key for pong has changed and you have requested strict checking.
 Host key verification failed.
@@ -79,34 +75,34 @@ Host key verification failed.
 
 ## Change Host Key
 
-Follow these steps to regenerate OpenSSH Host Keys
+Follow these steps to regenerate OpenSSH Host Keys:
 
-- Delete old ssh host keys
+- Delete old ssh host keys:
 
-```console
-rm /etc/ssh/ssh_host_*
-```
+    ```console
+    rm /etc/ssh/ssh_host_*
+    ```
 
-- Reconfigure OpenSSH Server
+- Reconfigure OpenSSH Server:
 
-```console
-dpkg-reconfigure openssh-server
-```
+    ```console
+    dpkg-reconfigure openssh-server
+    ```
 
-- Update ssh client(s) ~/.ssh/known_hosts files with the new hash
+- Update ssh client(s) `~/.ssh/known_hosts` files with the new hash.
 
-## SSH Key pair Creation
+## SSH Key Pair Creation
 
-Enter the following command to generate a new SSH key pair
+Enter the following command to generate a new SSH key pair:
 
 ```console
 ssh-keygen -t ed25519 -C "alias@example.com"
 ```
 
-or the following for legacy systems
+Or the following for legacy systems:
 
 ```console
-ssh-keygen -t ed25519 -C "your_email@example.com"
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
 ```text
@@ -127,7 +123,7 @@ ssh -i ~/.ssh/id_rsa_host username@host.domain.com
 
 ## Compare Public Key Fingerprint
 
-If you are having trouble logging into a host or a service you can confirm that the fingerprint of your public key matches what was uploaded.
+If you are having trouble logging into a host or a service, you can confirm that the fingerprint of your public key matches what was uploaded.
 
 ```console
 ssh-keygen -l -E md5 -f ~/.ssh/id_rsa_ado.pub
@@ -135,7 +131,7 @@ ssh-keygen -l -E md5 -f ~/.ssh/id_rsa_ado.pub
 
 ## Test Authentication
 
-The following command will test authentiction to a specific host.
+The following command will test authentication to a specific host.
 
 ```console
 ssh -T git@ssh.github.com
