@@ -7,7 +7,7 @@ categories: IT
 
 Disk manager won't let you do it. Here's how you make it happen in Windows without a 3rd party application.
 
-1. Open an elevated command prompt.
+1. Open an elevated command promptt.
 2. Run diskpart
 3. list disk
 

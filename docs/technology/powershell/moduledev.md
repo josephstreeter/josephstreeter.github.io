@@ -58,7 +58,7 @@ The module scaffolding is created by executing the following command:
 Invoke-Plaster -TemplatePath 'C:\path\to\templates\PlasterTemplate'
 ```
 
-The Invoke-Plaster cmdlet will show a number of prompts to which the details of the module can be selected.
+The Invoke-Plaster cmdlet will show a number of promptts to which the details of the module can be selected.
 
 Stucco Parameters:
 
@@ -75,7 +75,7 @@ Stucco Parameters:
 - devcontainer (Use VSCode Dev Container support?)
 - CICD (Include CI/CD support)
 
-Another method is to provide the answers to those prompts to the cmdlet at the time of execution. The parameters can easily be splatted as seen below:
+Another method is to provide the answers to those promptts to the cmdlet at the time of execution. The parameters can easily be splatted as seen below:
 
 ```powershell
 $Params = @{

@@ -79,7 +79,7 @@ Apply_LGPO_Delta.exe inputfile0 [inputfile1 ...] [/log LogFile] [/error ErrorLog
 
 ***/boot*** Reboots the computer when done.
 
-This utility is not a console app, so you won't see a console window appear, and if you start it from a CMD prompt, it will run in the background â€“ CMD won't wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with "start /wait".
+This utility is not a console app, so you won't see a console window appear, and if you start it from a CMD promptt, it will run in the background â€“ CMD won't wait for it to complete. You can check in TaskMgr to see when it completes. If you want CMD to wait for Apply_LGPO_Delta to complete, run the utility with "start /wait".
 
 Usage is demonstrated in the SampleUsage.cmd batch file that comes with Apply_LGPO_Delta.
 

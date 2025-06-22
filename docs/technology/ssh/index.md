@@ -46,7 +46,7 @@ This is typically accomplished by creating a key pair without a password.
 ## Host Keys
 
 Host keys represent a server's identity and are used by the client to authenticate that server's identity.
-The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to explicitly accept it.
+The first time a client accesses a server, the client will promptt the user, displaying a hash of the server's host key and asking the user to explicitly accept it.
 
 ```console
 $ ssh -t git@ssh.github.com
@@ -55,7 +55,7 @@ ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 ```
 
-If the host key stored in `known_hosts` does not match the one presented to the client by the server, the client will prompt the user, asking if the user wants to continue.
+If the host key stored in `known_hosts` does not match the one presented to the client by the server, the client will promptt the user, asking if the user wants to continue.
 
 ```text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

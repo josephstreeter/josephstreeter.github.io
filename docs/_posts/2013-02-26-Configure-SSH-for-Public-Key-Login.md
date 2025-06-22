@@ -12,7 +12,7 @@ Some quick notes on creating and using a key pair for SSH logon.
 ssh-keygen -t rsa -b 2048
 ```
 
-2. Enter a passphrase when prompted. If you do not want a password so that you can use this key pair for automating logons just press Enter twice.
+2. Enter a passphrase when promptted. If you do not want a password so that you can use this key pair for automating logons just press Enter twice.
 
 3. Copy the public key from the client to the server
 

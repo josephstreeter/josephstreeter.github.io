@@ -4,9 +4,9 @@ In order to perform a full server recovery it is important that the drive config
 
 For the purpose of this guide the host name of the domain controller being restored is CADSDC-CSSC-01.ad.wisc.edu. In the event of an actual restoration the host name may be different.
 
-**Important:** Following the Full Restore from Image stage Windows will prompt for a restart after login. It is extremely important that the host is NOT restarted until you are told to do so by this guide. Continue to select Restart Later until instructed to reboot the server. Failure to do so will cause the restore to fail.
+**Important:** Following the Full Restore from Image stage Windows will promptt for a restart after login. It is extremely important that the host is NOT restarted until you are told to do so by this guide. Continue to select Restart Later until instructed to reboot the server. Failure to do so will cause the restore to fail.
 
-**Note:** All Campus Active Directory Domain Controllers are configured to use User Access Control. In order to save time and effort during the restore process it is recommended that administrator conducting the restore open an elevated cmd or PowerShell session and run all commands from there. This will limit the number of times that the administrator has to enter his/her credentials into the UAC prompt. Where possible the commands to launch the necessary tools will be provided by this guide. The administrator should be familiar with the commands listed in the **Commands** section of this document and their uses.
+**Note:** All Campus Active Directory Domain Controllers are configured to use User Access Control. In order to save time and effort during the restore process it is recommended that administrator conducting the restore open an elevated cmd or PowerShell session and run all commands from there. This will limit the number of times that the administrator has to enter his/her credentials into the UAC promptt. Where possible the commands to launch the necessary tools will be provided by this guide. The administrator should be familiar with the commands listed in the **Commands** section of this document and their uses.
 
 ## Performing the Full System Backup
 
@@ -104,7 +104,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>9.</td>
-<td><p>When prompted to continue click <strong>Yes</strong>.</p>
+<td><p>When promptted to continue click <strong>Yes</strong>.</p>
 <p></p></td>
 <td><p></p>
 <p></p></td>
@@ -118,7 +118,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>11.</td>
-<td><p>When the restore is complete you will be prompted to restart or the server will automatically restart when the timeout ends.</p>
+<td><p>When the restore is complete you will be promptted to restart or the server will automatically restart when the timeout ends.</p>
 <p></p></td>
 <td><p>(NEED SCREEN CAPTURE FOR THIS)</p>
 <p></p></td>
@@ -251,29 +251,29 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>2.</td>
-<td>At an elevated? PowerShell prompt, type the command <strong>ntdsutil</strong> and then press <strong>ENTER.</strong></td>
+<td>At an elevated? PowerShell promptt, type the command <strong>ntdsutil</strong> and then press <strong>ENTER.</strong></td>
 <td></td>
 </tr>
 <tr>
 <td>3.</td>
-<td>At the <strong>ntdsutil</strong> prompt type <strong>roles</strong> and press <strong>ENTER.</strong></td>
+<td>At the <strong>ntdsutil</strong> promptt type <strong>roles</strong> and press <strong>ENTER.</strong></td>
 <td><p></p>
 <p></p></td>
 </tr>
 <tr>
 <td>4.</td>
-<td>At the <strong>FSMO maintenance:</strong> prompt, type <strong>Connections</strong> and then press <strong>ENTER.</strong></td>
+<td>At the <strong>FSMO maintenance:</strong> promptt, type <strong>Connections</strong> and then press <strong>ENTER.</strong></td>
 <td><p></p>
 <p></p></td>
 </tr>
 <tr>
 <td>5.</td>
-<td>At the <strong>server connections:</strong> prompt, type <strong>Connect to server &lt;server-name&gt;</strong> and then press <strong>ENTER.</strong></td>
+<td>At the <strong>server connections:</strong> promptt, type <strong>Connect to server &lt;server-name&gt;</strong> and then press <strong>ENTER.</strong></td>
 <td></td>
 </tr>
 <tr>
 <td>6.</td>
-<td>At the <strong>server connections:</strong> prompt, type <strong>Quit</strong> and then press <strong>ENTER</strong> to return to the <strong>FSMO maintenance</strong> prompt<strong>.</strong></td>
+<td>At the <strong>server connections:</strong> promptt, type <strong>Quit</strong> and then press <strong>ENTER</strong> to return to the <strong>FSMO maintenance</strong> promptt<strong>.</strong></td>
 <td></td>
 </tr>
 <tr>
@@ -388,7 +388,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>1.</td>
-<td><p>From an elevated PowerShell prompt open <strong>ADSIEdit</strong> by entering the <strong>adsiedit.msc</strong> command.</p>
+<td><p>From an elevated PowerShell promptt open <strong>ADSIEdit</strong> by entering the <strong>adsiedit.msc</strong> command.</p>
 <p>Right-click <strong>ADSI</strong> Edit and click <strong>Connect.</strong></p>
 <p><strong></strong></p>
 <p>Connect to the <strong>Default Naming Context</strong></p></td>
@@ -420,7 +420,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>1.</td>
-<td>At an elevated PowerShell prompt enter the <strong>netdom resetpwd /server:&lt;<em>domain-controller-name</em>&gt; /ud:administrator /pd:*</strong> command twice.</td>
+<td>At an elevated PowerShell promptt enter the <strong>netdom resetpwd /server:&lt;<em>domain-controller-name</em>&gt; /ud:administrator /pd:*</strong> command twice.</td>
 <td><p><strong>Example:</strong></p>
 <p>netdom resetpwd /server:cadsdc-cssc-01 /ud:administrator /pd:*</p>
 <p></p>
@@ -450,7 +450,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>3.</td>
-<td>From an elevated PowerShell prompt reset your Password by running the <strong>net user administrator &lt;New-Password&gt; /domain</strong>.</td>
+<td>From an elevated PowerShell promptt reset your Password by running the <strong>net user administrator &lt;New-Password&gt; /domain</strong>.</td>
 <td><p>net user administrator C0mpl3xP@ssW0rd_! /domain</p>
 <p></p>
 <p></p></td>
@@ -462,7 +462,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>5.</td>
-<td>Reboot when prompted to do so.</td>
+<td>Reboot when promptted to do so.</td>
 <td></td>
 </tr>
 <tr>
@@ -475,7 +475,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>1.</td>
-<td>At an elevated PowerShell prompt enter <strong>netdom query trusts</strong> to view a list of configured trusts.</td>
+<td>At an elevated PowerShell promptt enter <strong>netdom query trusts</strong> to view a list of configured trusts.</td>
 <td></td>
 </tr>
 <tr>
@@ -507,7 +507,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>1.</td>
-<td>Remove the Global Catalog from the restored Domain Controller by running the <strong>Repadmin /options &lt;<em>domain-controller-name</em>&gt; -is_gc</strong> command from an elevated PowerShell prompt.</td>
+<td>Remove the Global Catalog from the restored Domain Controller by running the <strong>Repadmin /options &lt;<em>domain-controller-name</em>&gt; -is_gc</strong> command from an elevated PowerShell promptt.</td>
 <td><p><strong>Example:</strong></p>
 <p>Repadmin /options cadsdc-cssc-01 -is_gc</p>
 <p></p>
@@ -521,7 +521,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>3.</td>
-<td>Add the Global Catalog from the restored Domain Controller by running the <strong>Repadmin /options &lt;<em>domain-controller-name</em>&gt; +is_gc</strong> command from an elevated PowerShell prompt.</td>
+<td>Add the Global Catalog from the restored Domain Controller by running the <strong>Repadmin /options &lt;<em>domain-controller-name</em>&gt; +is_gc</strong> command from an elevated PowerShell promptt.</td>
 <td><p><strong>Example:</strong></p>
 <p>Repadmin /options cadsdc-cssc-01 +is_gc</p>
 <p></p></td>
@@ -557,7 +557,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>2.</td>
-<td>If the Windows Time service is not configured correctly, stop the W32Time service by running the <strong>stop-service w32time</strong> command from an elevated PowerShell prompt</td>
+<td>If the Windows Time service is not configured correctly, stop the W32Time service by running the <strong>stop-service w32time</strong> command from an elevated PowerShell promptt</td>
 <td></td>
 </tr>
 <tr>
@@ -570,7 +570,7 @@ The Windows Server Backup process will be conducted daily on the Domain Controll
 </tr>
 <tr>
 <td>4.</td>
-<td>Start the W32Time service by running the <strong>start-service w32time</strong> command from an elevated PowerShell prompt</td>
+<td>Start the W32Time service by running the <strong>start-service w32time</strong> command from an elevated PowerShell promptt</td>
 <td><p></p>
 <p></p></td>
 </tr>

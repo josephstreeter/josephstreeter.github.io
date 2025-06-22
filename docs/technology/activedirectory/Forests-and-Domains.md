@@ -85,7 +85,7 @@ The simplicity of the single domain model is compelling and should always be giv
 Subdomains should not be created without good reason. Each domain added to the forest or tree results in additional administrative workload and required computer resources. Some of the extra costs associated with domains include:
 
 - Additional domain controllers are required - Each domain requires at least two domain controllers, and the administrative staff to support them.
-- 24/7 availability - Departments setting up subdomains must provide hardware and administrators to provide 24/7availability. Problems in the subdomain can have forest wide consequences so must be fixed promptly.
+- 24/7 availability - Departments setting up subdomains must provide hardware and administrators to provide 24/7availability. Problems in the subdomain can have forest wide consequences so must be fixed prompttly.
 - Secure domain controllers -Domain controllers must be physically secured and administrator accounts properly restricted and managed. A security breach on a domain controller can jeopardize the security of the forest.
 
 ...almost all decentralization that can be done with domains could also be done with OUs in a single domain, at far lower cost.

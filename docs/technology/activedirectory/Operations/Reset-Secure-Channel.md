@@ -22,7 +22,7 @@ In order to use the netdom tool you must have Remote Server Administration Tools
 To reset the computer's password:
 
 - Log into the affected client with a local account with administrative privileges
-- Open an elevated PowerShell or Command prompt
+- Open an elevated PowerShell or Command promptt
 - Run the Netdom command
     netdom.exe resetpwd /s:CADSDC-CSSC-01.ad.wisc.edu /ud:adjsmith-ou /pd:*
 
@@ -33,7 +33,7 @@ To reset the computer's password:
 ## PowerShell v2 - Test-ComputerSecureChannel
 
 - Log into the affected client with a local account with administrative privileges
-- Open an elevated PowerShell prompt
+- Open an elevated PowerShell promptt
 - Load the Active Directory PowerShell module
     *Import-Module activedirectory*
 
@@ -51,7 +51,7 @@ To reset the computer's password:
 ## PowerShell v3 or higher - Reset-MachineAccountPassword
 
 - Log into the affected client with a local account with administrative privileges
-- Open an elevated PowerShell prompt
+- Open an elevated PowerShell promptt
 - Load the Active Directory PowerShell module
     *Import-Module activedirectory*
 

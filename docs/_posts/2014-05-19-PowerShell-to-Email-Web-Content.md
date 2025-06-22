@@ -29,7 +29,7 @@ $Page = "http://www.site.com/daily_links.html"
 $Div_Class = "main_content"
 ```
 
-To do this I used the Invoke-Webrequest cmdlet. In this case I was prompted to accept a cookie every time the script ran preventing it from being non-interactive. To get around this I had to add the "-UseBasicParsing" switch. Then I use the Select-String cmdlet to parse out the HTML <div> that contains the links.
+To do this I used the Invoke-Webrequest cmdlet. In this case I was promptted to accept a cookie every time the script ran preventing it from being non-interactive. To get around this I had to add the "-UseBasicParsing" switch. Then I use the Select-String cmdlet to parse out the HTML <div> that contains the links.
 
 ```powershell
 $Site = Invoke-WebRequest $Page -UseBasicParsing

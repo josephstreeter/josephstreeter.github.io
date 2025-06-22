@@ -23,9 +23,9 @@ Set-ItemProperty -Path $Reg -Name "6 Garbage Collection" -Type DWORD -Value 1
 ### Compact (Offline Defragmentation)
 
 1. Prepare for Compacting: Create a folder named "compact" in D:NTDS.
-2. Open an elevated PowerShell prompt Stop the AD DS Service by typing *"stop-service ntds -force"*
+2. Open an elevated PowerShell promptt Stop the AD DS Service by typing *"stop-service ntds -force"*
 3. Begin Compacting: Enter the command *"ntdsutil"*
-4. At the ntdsutil prompt, type *"activate instance ntds"* and press *"ENTER"*
+4. At the ntdsutil promptt, type *"activate instance ntds"* and press *"ENTER"*
 5. Type *"files"* and press *"ENTER"*
 6. To begin compacting the database type *compact to "d:NTDScompact*"
 7. If compacting completed with errors perform an integrity check (See Perform Integrity Check bellow)
@@ -33,7 +33,7 @@ Set-ItemProperty -Path $Reg -Name "6 Garbage Collection" -Type DWORD -Value 1
 9. Copy the compacted database file from *"D:NTDScompact"* to *"D:NTDS"* by typing *"copy D:NTDScompactndts.dit D:NTDSndts.dit"*
 10. Delete all existing log files in *"L:Logs"* by typing *"del L:Logs*.logs"*
 11. Perform Integrity Check: Enter the command *"ntdsutil"*
-12. At the ntdsutil prompt, type *"activate instance ntds"* and press *"ENTER"*
+12. At the ntdsutil promptt, type *"activate instance ntds"* and press *"ENTER"*
 13. Type *"files"* and press *"ENTER"*
 14. To begin the integrity check, type *integrity*
 

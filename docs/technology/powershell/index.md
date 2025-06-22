@@ -906,7 +906,7 @@ The available values are most of the same ones availble for the ErrorAction para
 - Stop
 - Inquire
 
-When error action is set to ```Inquire```, the code execution stops and a description is presented to the user. The user is also prompted for what to do next.
+When error action is set to ```Inquire```, the code execution stops and a description is presented to the user. The user is also promptted for what to do next.
 
 ```powershell
 Action to take for this exception:
