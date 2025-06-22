@@ -82,3 +82,6 @@ You can use the --override argument on winget install to replace the arguments w
 
 To install VSCode with those options selected, run winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,     addcontextmenufiles,addcontextmenufolders"'
 ```
+
+- [Installing PowerShell on Ubuntu](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.5)
+- [Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux)
