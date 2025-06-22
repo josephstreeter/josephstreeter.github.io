@@ -2,11 +2,11 @@
 
 ## Concept
 
-Below is simplified example of a workflow.
+Below is a simplified example of a workflow.
 
-A working tree is created by initializing a directory (git init) or by cloing an exiting repository (git clone "path/to/repository"). Work is then done with the files in the working tree to create a feature or resolve a bug.
+A working tree is created by initializing a directory (`git init`) or by cloning an existing repository (`git clone "path/to/repository"`). Work is then done with the files in the working tree to create a feature or resolve a bug.
 
-At a signigicant point in the work, add your changes to the ***index*** (git add "file name"). Once all of the changes to create the feature or resolve the bug added to the ***index***, the changes are commited to the repository (git commit -m "commit message").
+At a significant point in the work, add your changes to the **index** (`git add <file name>`). Once all of the changes to create the feature or resolve the bug are added to the **index**, the changes are committed to the repository (`git commit -m "commit message"`).
 
 ```mermaid
 flowchart LR
@@ -15,39 +15,37 @@ A(git) -->|make changes| B(git add) -->|make changes| C(git add) -->|resolved bu
 
 ## Workflow
 
-Generally, the workflow follows the following steps:
+Generally, the workflow follows these steps:
 
-- Get the latest copy of main/master
+1. **Get the latest copy of main/master:**
 
-```bash
-git pull 
-```
+    ```bash
+    git pull
+    ```
 
-- Create an issue/feature branch and switch to that branch
+2. **Create and switch to a feature branch:**
 
-```bash
-git branch <name>
-git switch <name>
-```
+    ```bash
+    git branch <branch-name>
+    git switch <branch-name>
+    ```
 
-- Make whatever changes you intend to make. Stage changes an make commits as needed.
+3. **Make changes, stage, and commit:**
 
-```bash
-git add *
-git commit -m "<message describing change>"
-```
+    ```bash
+    git add .
+    git commit -m "<message describing change>"
+    ```
 
-- Push changes to the origin branch. You must create the origin branch if it doesn't already exist.
+4. **Push changes to the remote branch (create it if needed):**
 
-```bash
-git push
+    ```bash
+    git push
+    # or
+    git push --set-upstream origin <branch-name>
+    ```
 
-# or
-
-git push --set-upstream origin
-```
-
-- Create a Pull Request in GitHub or ADO. Approval of this PR will merge the changes with main/master.
+5. **Create a Pull Request in GitHub or Azure DevOps. Approval will merge the changes into main/master.**
 
 ```mermaid
 gitGraph
@@ -68,8 +66,8 @@ gitGraph
 ### Alias
 
 ```bash
-git config –global alias.stash ‘stash --all’
-git config –global alias.bb !script.sh
+git config --global alias.stash 'stash --all'
+git config --global alias.bb '!script.sh'
 ```
 
 ### Logs
@@ -91,10 +89,10 @@ git diff --word-diff
 ```bash
 git commit -m "Commit message"
 git commit -a -m "Commit message"
-git --amend 
+git commit --amend
 ```
 
-Createing commits signed by GPG
+Creating commits signed by GPG:
 
 ```bash
 git config gpg.format ssh
@@ -110,52 +108,61 @@ git maintenance start
 ### Recover lost commit
 
 ```bash
-git reflog * copy the commit hash before the action that deleted
-git branch <branch name> <commit hash>  * branch name = new branch name, commit hash = past commit hash from previous step
+git reflog  # copy the commit hash before the action that deleted it
+git branch <new-branch-name> <commit-hash>
 ```
 
 ### Recover lost branch
 
 ```bash
-git reflog * copy the commit hash before the action that deleted
-git branch <branch name> <commit hash>  * branch name = branch name that was deleted, commit hash = past commit hash from previous step
+git reflog  # copy the commit hash before the action that deleted it
+git branch <branch-name> <commit-hash>
 ```
 
 ### Workflow Summary
 
 ```bash
 git clone <repo>
-git branch <branch name>
-git switch <branch name>
-<do stuff>
-git add *
-git commit -m “<commit message>”
-git push --set-upsteam origin <branch name>
+git branch <branch-name>
+git switch <branch-name>
+# make changes
+git add .
+git commit -m "<commit message>"
+git push --set-upstream origin <branch-name>
 git switch main
-git merge <branch name>
+git merge <branch-name>
 ```
 
 ## References
 
-[The gitflow workflow - in less than 5 mins](https://www.youtube.com/watch?v=1SXpE08hvGs)
-[Learn Git Rebase in 6 minutes // explained with live animations!](https://youtu.be/f1wnYdLEpgI?si=SXW3BsP7Yqn_AIEd)
-[Git MERGE vs REBASE: The Definitive Guide](https://youtu.be/zOnwgxiC0OA?si=lgOj1H4bT9dzbK5j)
-[Resolve Git MERGE CONFLICTS: The Definitive Guide](https://youtu.be/Sqsz1-o7nXk?si=acwzXMaLEvkYE-do)
+- [The gitflow workflow - in less than 5 mins](https://www.youtube.com/watch?v=1SXpE08hvGs)
+- [Learn Git Rebase in 6 minutes // explained with live animations!](https://youtu.be/f1wnYdLEpgI?si=SXW3BsP7Yqn_AIEd)
+- [Git MERGE vs REBASE: The Definitive Guide](https://youtu.be/zOnwgxiC0OA?si=lgOj1H4bT9dzbK5j)
+- [Resolve Git MERGE CONFLICTS: The Definitive Guide](https://youtu.be/Sqsz1-o7nXk?si=acwzXMaLEvkYE-do)
 
 ## Notes
 
 ### Workflow path and getting out of trouble
 
-```text
-git branch feature > git switch feature > (make changes) > git add * > git commit -m 'commit message' > git push > git switch main > git merge feature
-```
+**Typical feature branch workflow:**
 
 ```text
-# if merge confict 
--> (edit confict file) -> git add * -> git commit -m 'commit message'
+git branch feature > git switch feature > (make changes) > git add . > git commit -m 'commit message' > git push > git switch main > git merge feature
 ```
 
+**If you have a merge conflict:**
+
 ```text
-if divergent branch error
--> git switch feature -> git rebase main -> git switch main -> git merge feature
+# Edit the conflicted file(s)
+git add .
+git commit -m 'resolve merge conflict'
+```
+
+**If you get a divergent branch error:**
+
+```text
+git switch feature
+git rebase main
+git switch main
+git merge feature
 ```
