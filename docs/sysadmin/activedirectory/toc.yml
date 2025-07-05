@@ -1,3 +1,5 @@
+- name: Active Directory
+  href: index.md
 - name: Security Clean-up
   href: Security-Cleanup/toc.yml
 - name: Forests and Domains

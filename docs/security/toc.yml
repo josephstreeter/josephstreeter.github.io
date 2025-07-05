@@ -1,0 +1,6 @@
+- name: Security
+  href: security/index.md
+- name: PGP
+  href: security/pgp.md
+- name: Wireless
+  href: security/wireless.md

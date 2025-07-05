@@ -1,5 +1,5 @@
-- name: Install
-  href: install.md
+- name: Visual Studio Code
+  href: index.md
 - name: Configure
   href: configure.md
 - name: Tipa and Tricks

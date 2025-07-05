@@ -1,10 +1,29 @@
-- name: Technology
-  href: docs/technology/index.md
-- name: Photography
-  href: docs/photography/index.md
-- name: Cooking
-  href: docs/cooking/index.md
+- name: System Administration
+  href: docs/sysadmin/toc.yml
+
+- name: Containers
+  href: docs/containers/toc.yml
+
+- name: Development
+  href: docs/development/toc.yml
+  
+- name: Security
+  href: docs/security/toc.yml
+
+- name: Home Assistant
+  href: docs/homeassistant/toc.yml
+
+- name: Secure Shell
+  href: docs/ssh/toc.yml
+
+- name: Radio
+  href: docs/radio/toc.yml
+
+- name: Cuddleback
+  href: docs/cuddeback/toc.yml
+
 - name: Blog
   href: docs/_posts/
+
 - name: About Me
   href: docs/about.md

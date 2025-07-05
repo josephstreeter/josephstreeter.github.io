@@ -1,0 +1,16 @@
+- name: Azure DevOps
+  href: azuredevops/index.md
+- name: docfx
+  href: docfx/index.md
+- name: Git
+  href: git/index.md
+- name: PowerShell
+  href: powershell/index.md
+- name: Python
+  href: python/index.md
+- name: Regex
+  href: regex/index.md
+- name: Visual Studio Code
+  href: vscode/index.md
+- name: Windows Terminal
+  href: windows-terminal/index.md
