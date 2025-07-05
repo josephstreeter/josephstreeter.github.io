@@ -1,2 +1,5 @@
 - name: Kubernetes
   href: index.md
+  items:
+  - name: Monitoring and Logging
+    href: monitoring.md
