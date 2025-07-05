@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-01-20"
 ---
 
-# Development Tools
+## Development Tools
 
 This section covers essential development tools and workflows for modern software development, including version control, code editing, containerization, and automation.
 

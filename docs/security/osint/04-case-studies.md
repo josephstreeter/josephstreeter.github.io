@@ -7,7 +7,7 @@ difficulty: "advanced"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Case Studies and Real-World Applications
+## OSINT Case Studies and Real-World Applications
 
 This section presents real-world case studies and practical applications of OSINT techniques across various domains, demonstrating how open source intelligence gathering can be applied to solve complex investigation challenges.
 
@@ -219,7 +219,7 @@ curl -X GET "https://api.securitytrails.com/v1/history/malicious-domain.com/dns/
 - Spear-phishing targets included specific employees with financial system access
 - Social engineering content showed detailed company knowledge
 
-### Outcome and Lessons Learned
+### Outcome and Lessons Learned (Case Study 3)
 
 The investigation revealed a sophisticated Advanced Persistent Threat (APT) group with specific interest in financial sector intelligence. The company implemented enhanced email security, employee training, and threat hunting capabilities based on the IOCs identified.
 
@@ -236,14 +236,14 @@ The investigation revealed a sophisticated Advanced Persistent Threat (APT) grou
 
 A technology startup discovered that a competitor had released a product with remarkably similar features to their proprietary software, despite having no apparent access to their development process. The company needed to determine if intellectual property theft had occurred.
 
-### Investigation Objectives
+### Investigation Objectives (Case Study 4)
 
 - Identify potential information leakage sources
 - Analyze competitor's development timeline
 - Assess employee movement between companies
 - Gather evidence for potential legal action
 
-### OSINT Techniques Applied
+### OSINT Techniques Applied (Case Study 4)
 
 **Employee Movement Analysis:**
 
@@ -272,7 +272,7 @@ Research Methodology:
 - **Alumni network investigation**: Educational institution connections
 - **Collaborative project identification**: Open source contributions
 
-### Key Findings
+### Key Findings (Case Study 4)
 
 **Personnel Movement Pattern:**
 
@@ -295,7 +295,7 @@ Research Methodology:
 - Industry forum posts contained specific technical insights not publicly available
 - Professional network analysis revealed ongoing professional relationships
 
-### Outcome and Lessons Learned
+### Outcome and Lessons Learned (Case Study 4)
 
 The investigation provided sufficient evidence to support legal action for trade secret theft. The startup successfully negotiated a licensing agreement and implemented enhanced employee confidentiality measures.
 
@@ -312,14 +312,14 @@ The investigation provided sufficient evidence to support legal action for trade
 
 During a local election campaign, social media platforms were flooded with coordinated posts containing misleading information about candidates. Election officials needed to understand the scope and origin of the disinformation campaign.
 
-### Investigation Objectives
+### Investigation Objectives (Case Study 5)
 
 - Identify coordinated inauthentic behavior patterns
 - Trace campaign organization and funding sources
 - Assess impact on public opinion and voting behavior
 - Develop countermeasures and public awareness strategies
 
-### OSINT Techniques Applied
+### OSINT Techniques Applied (Case Study 5)
 
 **Social Media Forensics:**
 
@@ -360,7 +360,7 @@ def analyze_account_patterns(usernames):
 - **Information flow tracking**: Message propagation pathways
 - **Funding source investigation**: Ad spend and sponsor analysis
 
-### Key Findings
+### Key Findings (Case Study 5)
 
 **Coordinated Behavior Indicators:**
 
@@ -383,7 +383,7 @@ def analyze_account_patterns(usernames):
 - Engagement patterns suggested partial automation with human oversight
 - Timeline correlated with traditional campaign advertising cycles
 
-### Outcome and Lessons Learned
+### Outcome and Lessons Learned (Case Study 5)
 
 The investigation results were provided to election officials and social media platforms, leading to account suspensions and increased monitoring. Public awareness campaigns helped voters identify and report suspicious content.
 
@@ -400,14 +400,14 @@ The investigation results were provided to election officials and social media p
 
 A manufacturing company needed to assess the security posture of its global supply chain after several competitors experienced cyber attacks through vendor networks. The assessment required evaluating hundreds of suppliers across multiple countries.
 
-### Investigation Objectives
+### Investigation Objectives (Case Study 6)
 
 - Assess cybersecurity maturity of key suppliers
 - Identify potential threat vectors in supply chain
 - Evaluate supplier third-party relationships
 - Prioritize security improvement investments
 
-### OSINT Techniques Applied
+### OSINT Techniques Applied (Case Study 6)
 
 **Vendor Digital Footprint Analysis:**
 
@@ -436,7 +436,7 @@ Assessment Framework:
 - **Compliance certification verification**: Regulatory adherence confirmation
 - **Insurance coverage research**: Financial protection assessment
 
-### Key Findings
+### Key Findings (Case Study 6)
 
 **High-Risk Suppliers Identified:**
 
@@ -459,7 +459,7 @@ Assessment Framework:
 - Regular security awareness training documented for key vendors
 - Incident response plans publicly available for major suppliers
 
-### Outcome and Lessons Learned
+### Outcome and Lessons Learned (Case Study 6)
 
 The assessment led to a comprehensive supplier security improvement program, including mandatory cybersecurity requirements, regular assessments, and incident response coordination protocols.
 

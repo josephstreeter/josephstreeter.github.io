@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-01-20"
 ---
 
-# Install PGP/GPG Clients
+## Install PGP/GPG Clients
 
 This guide covers installation of PGP/GPG clients across different operating systems and platforms.
 
@@ -226,7 +226,7 @@ sudo zypper install gpg2 gpa kleopatra
 gpg --version
 ```
 
-### Post-Installation Setup
+### Linux Post-Installation Setup
 
 ```bash
 # Create GPG directory if it doesn't exist
@@ -246,19 +246,22 @@ gpg --list-keys
 
 **App Store**: Search for "iPGMail" or similar PGP apps
 
-#### Features:
+#### iPGMail Features
+
 - Full PGP implementation for iOS
 - Key generation and management
 - Email integration
 - File encryption/decryption
 
-#### Installation:
+#### Installation
+
 1. Open **App Store**
 2. Search for **"iPGMail"** or **"PGP"**
 3. Install your preferred PGP app
 4. Grant necessary permissions for email access
 
-#### Alternative Apps:
+#### Alternative Apps
+
 - **ProtonMail** (Built-in PGP)
 - **Canary Mail** (PGP support)
 - **GPG Keychain** (Key management only)
@@ -274,7 +277,8 @@ gpg --list-keys
 
 **Download**: [https://gpgtools.org/](https://gpgtools.org/)
 
-#### Features:
+#### GPG Suite Features
+
 - Complete GPG implementation for macOS
 - Mail.app integration
 - Keychain Access integration
@@ -319,7 +323,7 @@ sudo port install gnupg2
 sudo port install gpa
 ```
 
-### Post-Installation Setup
+### macOS Post-Installation Setup
 
 ```bash
 # Add GPG to PATH (if using Homebrew)
@@ -411,16 +415,19 @@ brew install pinentry-mac
 ### Platform-Specific Issues
 
 #### Windows
+
 - Run installer as Administrator
 - Check Windows Defender exclusions
 - Verify PATH environment variable
 
 #### Linux
+
 - Check package repository availability
 - Verify sudo permissions
 - Install development tools if building from source
 
 #### macOS
+
 - Allow apps from unidentified developers (if needed)
 - Check Gatekeeper settings
 - Verify Xcode Command Line Tools

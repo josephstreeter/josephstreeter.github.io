@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Tools and Platforms
+## OSINT Tools and Platforms
 
 This comprehensive guide covers essential tools and platforms used in Open Source Intelligence gathering, from basic search engines to specialized investigation software.
 

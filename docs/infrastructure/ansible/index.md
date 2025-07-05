@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# Ansible
+## Ansible
 
 Ansible is an open-source automation platform that simplifies configuration management, application deployment, and task automation across multiple systems. It uses a declarative language to describe system configurations and automates complex IT tasks without requiring agents on target machines.
 

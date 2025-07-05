@@ -7,7 +7,7 @@ difficulty: "reference"
 last_updated: "2025-07-05"
 ---
 
-# OSINT References and Resources
+## OSINT References and Resources
 
 This comprehensive reference section provides essential resources for OSINT practitioners, including academic sources, professional organizations, training materials, and tool collections.
 

@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# OSINT (Open Source Intelligence) Tools and Techniques
+## OSINT (Open Source Intelligence) Tools and Techniques
 
 Open Source Intelligence (OSINT) refers to the collection and analysis of information from publicly available sources. This comprehensive guide covers essential tools and techniques for ethical security research, digital forensics, and investigative work.
 

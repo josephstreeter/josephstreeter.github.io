@@ -7,7 +7,7 @@ difficulty: "reference"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Glossary and Key Terms
+## OSINT Glossary and Key Terms
 
 This comprehensive glossary provides definitions for key terms, acronyms, and concepts used in Open Source Intelligence (OSINT) practice and research.
 

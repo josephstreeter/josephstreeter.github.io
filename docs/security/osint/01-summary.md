@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Summary and Overview
+## OSINT Summary and Overview
 
 Open Source Intelligence (OSINT) is the practice of collecting, analyzing, and utilizing information that is publicly available to produce actionable intelligence. This discipline has evolved from traditional intelligence gathering methods to encompass the vast digital landscape of the modern internet.
 

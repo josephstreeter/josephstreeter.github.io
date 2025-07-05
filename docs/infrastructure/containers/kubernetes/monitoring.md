@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# Kubernetes Monitoring and Logging
+## Kubernetes Monitoring and Logging
 
 Effective monitoring and logging are essential for maintaining healthy Kubernetes clusters and applications. This guide covers comprehensive observability strategies, tools, and best practices for Kubernetes environments.
 

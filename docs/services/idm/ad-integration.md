@@ -28,12 +28,14 @@ MIM 2016 Active Directory integration supports:
 The Active Directory Management Agent (ADMA) is the primary component for AD integration.
 
 **Prerequisites:**
+
 - Domain-joined MIM Sync Service
 - Appropriate service account permissions
 - Network connectivity to target domain controllers
 - Proper DNS resolution
 
 **Service Account Requirements:**
+
 - **Minimum**: Read permissions on target OUs
 - **Full Sync**: Replicating Directory Changes permissions
 - **Password Sync**: Additional replication permissions
@@ -62,6 +64,7 @@ Example Container Configuration:
 ```
 
 **Best Practices:**
+
 - Use specific OUs rather than entire domains
 - Exclude system containers unless required
 - Consider security implications of synchronized data
@@ -71,6 +74,7 @@ Example Container Configuration:
 ### 1. User Objects
 
 **Standard Attributes:**
+
 - `sAMAccountName`: Windows logon name
 - `userPrincipalName`: Email-style logon name
 - `displayName`: Full display name
@@ -79,6 +83,7 @@ Example Container Configuration:
 - `manager`: Manager relationship
 
 **Extended Attributes:**
+
 - `employeeID`: Unique employee identifier
 - `extensionAttribute1-15`: Custom business attributes
 - `msExchMailboxGuid`: Exchange mailbox identifier
@@ -86,12 +91,14 @@ Example Container Configuration:
 ### 2. Group Objects
 
 **Group Types:**
+
 - **Security Groups**: Access control
 - **Distribution Groups**: Email distribution
 - **Universal Groups**: Cross-domain access
 - **Domain Local**: Single domain access
 
 **Group Scope Considerations:**
+
 - Global groups for users within same domain
 - Universal groups for cross-domain scenarios
 - Domain Local for resource access
@@ -99,6 +106,7 @@ Example Container Configuration:
 ### 3. Contact Objects
 
 Used for external email addresses and partner organizations:
+
 - `mail`: External email address
 - `displayName`: Contact display name
 - `company`: External organization
@@ -121,7 +129,8 @@ department → department
 
 Using rule extensions for complex transformations:
 
-**Example: UPN Generation**
+#### Example: UPN Generation
+
 ```text
 Flow Rule: Generate-UPN
 Type: Import
@@ -129,7 +138,8 @@ Source: sAMAccountName + domain suffix
 Destination: userPrincipalName
 ```
 
-**Example: Display Name Formatting**
+#### Example: Display Name Formatting
+
 ```text
 Flow Rule: Format-DisplayName
 Type: Import
@@ -143,6 +153,7 @@ Logic: "LastName, FirstName"
 Managing attributes with multiple values:
 
 **ProxyAddresses Example:**
+
 - Primary SMTP address
 - Secondary email aliases
 - Legacy Exchange addresses
@@ -152,11 +163,13 @@ Managing attributes with multiple values:
 ### 1. Forest Trust Relationships
 
 **Requirements:**
+
 - Bidirectional trust between forests
 - Proper DNS resolution
 - Cross-forest authentication
 
 **Configuration Steps:**
+
 1. Establish forest trust
 2. Create separate Management Agents per forest
 3. Configure cross-forest attribute flow
@@ -170,6 +183,7 @@ Common in Exchange resource forest scenarios:
 **Resource Forest**: Contains Exchange mailboxes
 
 **Synchronization Flow:**
+
 1. Users created in account forest
 2. Disabled users created in resource forest
 3. Security principals linked between forests
@@ -189,12 +203,14 @@ Global Address List synchronization between forests:
 ### 1. Service Account Management
 
 **Account Separation:**
+
 - Separate accounts per forest
 - Minimal required permissions
 - Regular password rotation
 - Monitoring and auditing
 
 **Permission Requirements:**
+
 ```text
 Base Permissions:
 - Read all properties
@@ -212,6 +228,7 @@ Exchange Permissions:
 ### 2. Secure LDAP Configuration
 
 **LDAPS Implementation:**
+
 - Certificate-based authentication
 - Encrypted communication
 - Certificate validation
@@ -220,12 +237,14 @@ Exchange Permissions:
 ### 3. Filtering and Scoping
 
 **Security Filtering:**
+
 - Exclude administrative accounts
 - Filter by group membership
 - Organizational unit restrictions
 - Attribute-based filtering
 
 **Example Filter:**
+
 ```text
 Exclude system accounts:
 (!sAMAccountName=krbtgt)
@@ -238,12 +257,14 @@ Exclude system accounts:
 ### 1. Password Sync Configuration
 
 **Prerequisites:**
+
 - Password Sync Agent installation
 - Appropriate permissions
 - Network connectivity
 - Registry configuration
 
 **Configuration Steps:**
+
 1. Install Password Change Notification Service
 2. Configure domain controller settings
 3. Set up filtering rules
@@ -252,6 +273,7 @@ Exclude system accounts:
 ### 2. Password History Synchronization
 
 Managing password history across systems:
+
 - Enforce consistent password policies
 - Synchronize password history
 - Handle policy conflicts
@@ -260,6 +282,7 @@ Managing password history across systems:
 ### 3. Password Reset Integration
 
 Coordinating password resets:
+
 - Self-service password reset
 - Administrative password reset
 - Temporary password handling
@@ -270,6 +293,7 @@ Coordinating password resets:
 ### 1. Exchange Attribute Synchronization
 
 **Mailbox Attributes:**
+
 - `mailNickname`: Exchange alias
 - `proxyAddresses`: Email addresses
 - `msExchMailboxGuid`: Unique mailbox ID
@@ -278,6 +302,7 @@ Coordinating password resets:
 ### 2. Distribution Group Management
 
 **Synchronization Scenarios:**
+
 - Security groups to distribution groups
 - Distribution group membership
 - Dynamic distribution groups
@@ -286,6 +311,7 @@ Coordinating password resets:
 ### 3. Exchange Online Hybrid
 
 **Considerations for Office 365:**
+
 - Azure AD Connect coordination
 - Hybrid configuration
 - Attribute precedence
@@ -297,12 +323,14 @@ Coordinating password resets:
 
 **Symptoms**: Management Agent connection failures
 **Causes**:
+
 - Network connectivity issues
 - DNS resolution problems
 - Authentication failures
 - Firewall restrictions
 
 **Resolution Steps**:
+
 1. Verify network connectivity
 2. Test DNS resolution
 3. Validate service account credentials
@@ -311,12 +339,14 @@ Coordinating password resets:
 ### 2. Synchronization Errors
 
 **Common Error Types:**
+
 - `referential-integrity-violation`
 - `attribute-value-must-be-unique`
 - `insufficient-access-rights`
 - `object-class-violation`
 
 **Diagnostic Steps**:
+
 1. Review synchronization statistics
 2. Analyze connector space objects
 3. Check metaverse objects
@@ -326,6 +356,7 @@ Coordinating password resets:
 
 **Symptoms**: Slow synchronization runs
 **Optimization Strategies**:
+
 - Implement proper filtering
 - Optimize LDAP queries
 - Use incremental synchronization
@@ -336,12 +367,14 @@ Coordinating password resets:
 ### 1. Synchronization Monitoring
 
 **Key Metrics**:
+
 - Import/Export object counts
 - Error statistics
 - Run duration
 - Performance counters
 
 **Monitoring Tools**:
+
 - Synchronization Service Manager
 - Event logs
 - Performance Monitor
@@ -350,6 +383,7 @@ Coordinating password resets:
 ### 2. Health Checks
 
 **Regular Validation**:
+
 - Connection health
 - Attribute flow accuracy
 - Object consistency
@@ -358,12 +392,14 @@ Coordinating password resets:
 ### 3. Backup and Recovery
 
 **Critical Components**:
+
 - Management Agent configuration
 - Metaverse schema
 - Run profiles
 - Service configuration
 
 **Recovery Procedures**:
+
 - Configuration export/import
 - Database restoration
 - Service account recovery
@@ -374,6 +410,7 @@ Coordinating password resets:
 ### 1. Connection Configuration
 
 **Optimal Settings**:
+
 - Connection pooling enabled
 - Appropriate timeout values
 - Load balancing across DCs
@@ -382,6 +419,7 @@ Coordinating password resets:
 ### 2. Synchronization Tuning
 
 **Best Practices**:
+
 - Implement proper filtering
 - Use incremental sync when possible
 - Optimize batch sizes
@@ -390,6 +428,7 @@ Coordinating password resets:
 ### 3. Resource Management
 
 **System Resources**:
+
 - Adequate memory allocation
 - Sufficient disk space
 - Network bandwidth planning

@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Investigation Workflow
+## OSINT Investigation Workflow
 
 This comprehensive workflow provides a systematic approach to conducting OSINT investigations. Following this structured methodology ensures thorough coverage, maintains ethical standards, and produces reliable intelligence products.
 

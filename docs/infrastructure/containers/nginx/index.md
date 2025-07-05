@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# Nginx
+## Nginx
 
 Nginx is a high-performance web server that can also function as a reverse proxy, load balancer, and HTTP cache. This guide demonstrates how to configure Nginx for reverse proxying and load balancing using Docker containers.
 
@@ -45,7 +45,6 @@ nginx-demo/
 ├── webserver2/
 ├── nginx/
 └── docker-compose.yml
-
 
 ### Create Web Content
 

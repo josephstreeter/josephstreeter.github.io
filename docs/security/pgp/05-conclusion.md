@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG Conclusion and Next Steps
+## PGP/GPG Conclusion and Next Steps
 
 This guide has covered the essential concepts and practical implementation of Pretty Good Privacy (PGP) and GNU Privacy Guard (GPG) for secure communications. This conclusion summarizes key takeaways and provides guidance for your ongoing security journey.
 
@@ -131,7 +131,7 @@ This guide has covered the essential concepts and practical implementation of Pr
 
 1. **Passphrase Security**
 
-   ```
+   ```text
    ✅ DO: Use strong, unique passphrases
    ✅ DO: Store passphrases in secure password managers
    ❌ DON'T: Use personal information or dictionary words
@@ -140,7 +140,7 @@ This guide has covered the essential concepts and practical implementation of Pr
 
 2. **Key Management**
 
-   ```
+   ```text
    ✅ DO: Verify key fingerprints through secure channels
    ✅ DO: Backup private keys securely
    ✅ DO: Set expiration dates on keys
@@ -150,7 +150,7 @@ This guide has covered the essential concepts and practical implementation of Pr
 
 3. **Operational Security**
 
-   ```
+   ```text
    ✅ DO: Use neutral subject lines
    ✅ DO: Compose messages in secure environments
    ✅ DO: Delete drafts and temporary files
@@ -230,20 +230,20 @@ This guide has covered the essential concepts and practical implementation of Pr
 
 ### Common Issues and Solutions
 
-**"No public key found"**
+#### "No public key found"
 
 ```bash
 # Import recipient's public key
 gpg --keyserver hkps://keys.openpgp.org --search-keys recipient@example.com
 ```
 
-**"Bad passphrase"**
+#### "Bad passphrase"
 
 - Check caps lock and keyboard layout
 - Try typing passphrase in text editor first
 - Restart GPG agent if persistent
 
-**"Key expired"**
+#### "Key expired"
 
 ```bash
 # Check expiration status
@@ -255,7 +255,7 @@ gpg> expire
 gpg> save
 ```
 
-**"GPG agent connection failed"**
+#### "GPG agent connection failed"
 
 ```bash
 # Restart GPG agent

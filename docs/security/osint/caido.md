@@ -7,13 +7,14 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# Enhanced Caido Usage for OSINT Investigations
+## Enhanced Caido Usage for OSINT Investigations
 
 ## Caido Overview and Setup
 
 **Caido** is a modern web security auditing platform that provides powerful capabilities for OSINT investigations through its intuitive interface and automation features.
 
 **Key Features for OSINT:**
+
 - Modern, collaborative web security testing interface
 - Advanced HTTP/HTTPS traffic interception and analysis
 - Custom scripting capabilities for automation

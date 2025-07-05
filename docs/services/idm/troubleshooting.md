@@ -55,6 +55,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 #### LDAP Connection Failures
 
 **Symptoms:**
+
 - "The server is not operational"
 - "A referral was returned from the server"
 - "The LDAP server is unavailable"
@@ -70,18 +71,21 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Diagnostic Steps:**
 
 1. **Test Network Connectivity**
+
    ```powershell
    Test-NetConnection -ComputerName dc01.contoso.com -Port 389
    Test-NetConnection -ComputerName dc01.contoso.com -Port 636
    ```
 
 2. **Verify DNS Resolution**
+
    ```powershell
    nslookup contoso.com
    nslookup _ldap._tcp.contoso.com
    ```
 
 3. **Test LDAP Binding**
+
    ```powershell
    # Use LDP.exe to test LDAP connections
    ldp.exe
@@ -97,6 +101,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 #### Database Connection Issues
 
 **Symptoms:**
+
 - "Cannot open database"
 - "Login timeout expired"
 - "A network-related or instance-specific error"
@@ -111,12 +116,14 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Diagnostic Steps:**
 
 1. **Test SQL Connectivity**
+
    ```powershell
    Test-NetConnection -ComputerName sqlserver -Port 1433
    sqlcmd -S sqlserver -E -Q "SELECT @@VERSION"
    ```
 
 2. **Verify Database Status**
+
    ```sql
    SELECT name, state_desc FROM sys.databases
    WHERE name = 'FIMSynchronizationService'
@@ -129,16 +136,19 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Common Error Types:**
 
 **`referential-integrity-violation`**
+
 - **Cause**: Referenced object doesn't exist
 - **Example**: Manager attribute points to non-existent user
 - **Resolution**: Fix referential data or implement placeholder logic
 
 **`attribute-value-must-be-unique`**
+
 - **Cause**: Duplicate values for unique attributes
 - **Example**: Multiple users with same email address
 - **Resolution**: Implement conflict resolution logic
 
 **`object-class-violation`**
+
 - **Cause**: Required attributes missing
 - **Example**: User object without sAMAccountName
 - **Resolution**: Validate source data requirements
@@ -165,14 +175,17 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Common Export Issues:**
 
 **`insufficient-access-rights`**
+
 - **Cause**: Service account lacks permissions
 - **Resolution**: Review and grant appropriate permissions
 
 **`entry-already-exists`**
+
 - **Cause**: Attempting to create existing object
 - **Resolution**: Implement proper join logic
 
 **`unwilling-to-perform`**
+
 - **Cause**: Operation violates directory policy
 - **Resolution**: Review directory policies and constraints
 
@@ -181,6 +194,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 #### Slow Synchronization
 
 **Symptoms:**
+
 - Extended run times
 - High CPU utilization
 - Memory consumption
@@ -189,6 +203,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Performance Analysis:**
 
 1. **Baseline Measurement**
+
    ```powershell
    # Monitor synchronization performance
    Get-Counter "\FIM Synchronization Service(*)\*" -Continuous
@@ -201,6 +216,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
    - Network throughput
 
 3. **Database Performance**
+
    ```sql
    -- Check for blocking processes
    SELECT * FROM sys.dm_exec_requests
@@ -244,12 +260,14 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Diagnostic Steps:**
 
 1. **Check Service Dependencies**
+
    ```powershell
    Get-Service -Name FIMSynchronizationService -DependentServices
    Get-Service -Name FIMSynchronizationService -RequiredServices
    ```
 
 2. **Review Event Logs**
+
    ```powershell
    Get-WinEvent -LogName Application | 
    Where-Object {$_.ProviderName -like "*Forefront*"} |
@@ -266,11 +284,13 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Database Corruption:**
 
 1. **Check Database Integrity**
+
    ```sql
    DBCC CHECKDB('FIMSynchronizationService')
    ```
 
 2. **Repair Procedures**
+
    ```sql
    -- For minor corruption
    DBCC CHECKDB('FIMSynchronizationService', REPAIR_REBUILD)
@@ -340,6 +360,7 @@ This comprehensive troubleshooting guide provides systematic approaches to diagn
 **Debugging Process:**
 
 1. **Review Error Messages**
+
    ```text
    Common Compilation Errors:
    - "Could not load file or assembly"
@@ -470,6 +491,7 @@ function Test-MIMSyncHealth {
 **Service Restart Procedure:**
 
 1. **Stop Synchronization Service**
+
    ```powershell
    Stop-Service -Name FIMSynchronizationService -Force
    ```
@@ -479,6 +501,7 @@ function Test-MIMSyncHealth {
    - Monitor process termination
 
 3. **Start Service**
+
    ```powershell
    Start-Service -Name FIMSynchronizationService
    ```
@@ -493,11 +516,13 @@ function Test-MIMSyncHealth {
 
 1. **Stop MIM Services**
 2. **Restore Database Backup**
+
    ```sql
    RESTORE DATABASE FIMSynchronizationService
    FROM DISK = 'C:\Backup\FIMSyncDB.bak'
    WITH REPLACE
    ```
+
 3. **Restart Services**
 4. **Validate Configuration**
 
@@ -506,6 +531,7 @@ function Test-MIMSyncHealth {
 **Management Agent Recovery:**
 
 1. **Export Current Configuration**
+
    ```xml
    <!-- Use Synchronization Service Manager -->
    <!-- Management Agents -> Export -->

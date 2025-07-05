@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Techniques and Methodologies
+## OSINT Techniques and Methodologies
 
 This section covers the fundamental techniques and methodologies used in Open Source Intelligence gathering, from basic search strategies to advanced analytical approaches.
 

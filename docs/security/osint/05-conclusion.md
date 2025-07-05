@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-07-05"
 ---
 
-# OSINT Conclusion and Future Directions
+## OSINT Conclusion and Future Directions
 
 As we conclude this comprehensive guide to Open Source Intelligence, it's important to reflect on the key insights gained and look toward the future developments that will shape the OSINT landscape.
 

@@ -7,7 +7,7 @@ difficulty: "advanced"
 last_updated: "2025-07-05"
 ---
 
-# MIM 2016 SQL Synchronization Guide
+## MIM 2016 SQL Synchronization Guide
 
 This comprehensive guide demonstrates how to use Microsoft Identity Manager 2016 Synchronization Service to synchronize a SQL table of identities to Active Directory. This implementation relies solely on rule extensions to avoid using the MIM Service and Portal, providing a lightweight and efficient synchronization solution.
 
@@ -26,17 +26,20 @@ This guide covers the complete process of setting up SQL-to-AD synchronization u
 ### System Requirements
 
 **MIM 2016 Synchronization Service:**
+
 - Windows Server 2012 R2 or later
 - .NET Framework 4.6 or later
 - Microsoft Visual Studio (for rule extension development)
 - SQL Server connectivity components
 
 **SQL Server Database:**
+
 - SQL Server 2012 or later
 - Read access to identity data tables
 - Network connectivity from MIM Sync server
 
 **Active Directory:**
+
 - Windows Server 2008 R2 domain functional level or higher
 - Service account with appropriate AD permissions
 - Target Organizational Units configured
@@ -44,11 +47,13 @@ This guide covers the complete process of setting up SQL-to-AD synchronization u
 ### Service Accounts
 
 **MIM Synchronization Service Account:**
+
 - Local logon rights on MIM server
 - SQL database read permissions
 - AD user creation/modification permissions
 
 **SQL Connection Account:**
+
 - SQL Server authentication or Windows authentication
 - SELECT permissions on identity tables
 - Optional: stored procedure execution rights
@@ -81,7 +86,7 @@ CREATE TABLE [dbo].[Identities] (
 
 ### Change Tracking Implementation
 
-**Option 1: LastModified Column (Recommended)**
+#### Option 1: LastModified Column (Recommended)
 
 ```sql
 -- Add trigger to update LastModified on changes
@@ -96,7 +101,7 @@ BEGIN
 END;
 ```
 
-**Option 2: Change Tracking (SQL Server 2008+)**
+#### Option 2: Change Tracking (SQL Server 2008+)
 
 ```sql
 -- Enable change tracking on database
@@ -243,10 +248,12 @@ Password: [ServiceAccountPassword]
 ```
 
 **Configure Directory Partitions:**
+
 - Select target domain partition
 - Configure container filters for target OUs
 
 **Object Types and Attributes:**
+
 - Select **user** object type
 - Include required attributes:
   - cn, displayName, givenName, sn
@@ -416,6 +423,7 @@ public class MAExtensible : IMVSynchronization
 **SQL to Metaverse Rule:**
 
 **Rule Configuration:**
+
 - **Name**: "In from SQL - Person"
 - **Connected System**: SQL Management Agent
 - **Connected System Object Type**: person
@@ -424,6 +432,7 @@ public class MAExtensible : IMVSynchronization
 - **Precedence**: 10
 
 **Join Criteria:**
+
 ```text
 csObjectType = "person" AND 
 mvObjectType = "person" AND
@@ -456,6 +465,7 @@ Status → isActive (Flow: IIF(csObject("Status")="Active","True","False"))
 **Metaverse to Active Directory Rule:**
 
 **Rule Configuration:**
+
 - **Name**: "Out to AD - User"
 - **Connected System**: Active Directory Management Agent
 - **Connected System Object Type**: user
@@ -464,6 +474,7 @@ Status → isActive (Flow: IIF(csObject("Status")="Active","True","False"))
 - **Precedence**: 10
 
 **Join Criteria:**
+
 ```text
 csObjectType = "user" AND 
 mvObjectType = "person" AND
@@ -1015,11 +1026,13 @@ $stats | Export-Csv -Path "C:\MIM\Reports\SyncStats.csv" -NoTypeInformation
 ### 1. Service Account Management
 
 **SQL Service Account:**
+
 - Minimum required permissions on SQL database
 - Regular password rotation policy
 - Audit account usage and access patterns
 
 **AD Service Account:**
+
 - Delegated permissions for target OUs only
 - No interactive logon rights
 - Regular access review and certification
@@ -1027,6 +1040,7 @@ $stats | Export-Csv -Path "C:\MIM\Reports\SyncStats.csv" -NoTypeInformation
 ### 2. Data Protection
 
 **Sensitive Attribute Handling:**
+
 ```csharp
 public void MapAttributesForImport(string FlowRuleName, CSEntry csentry, ref ValueCollection values)
 {
@@ -1050,6 +1064,7 @@ private string EncryptData(string data)
 ```
 
 **Audit Logging:**
+
 ```csharp
 public void MapAttributesForExport(string FlowRuleName, MVEntry mventry, ref ValueCollection values)
 {

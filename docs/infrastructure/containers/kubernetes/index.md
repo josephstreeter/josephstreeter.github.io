@@ -7,7 +7,7 @@ difficulty: "advanced"
 last_updated: "2025-01-20"
 ---
 
-# Kubernetes
+## Kubernetes
 
 Kubernetes (K8s) is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications. Originally developed by Google, it has become the de facto standard for container orchestration in production environments.
 
@@ -35,6 +35,7 @@ Kubernetes provides a platform for:
 ## Core Concepts
 
 ### Pods
+
 The smallest deployable unit in Kubernetes, containing one or more containers.
 
 ```yaml
@@ -51,6 +52,7 @@ spec:
 ```
 
 ### Services
+
 Provide stable network endpoints for accessing pods.
 
 ```yaml
@@ -68,6 +70,7 @@ spec:
 ```
 
 ### Deployments
+
 Manage replica sets and provide declarative updates for pods.
 
 ```yaml
@@ -93,6 +96,7 @@ spec:
 ```
 
 ### ConfigMaps and Secrets
+
 Manage configuration data and sensitive information.
 
 ```yaml
@@ -133,7 +137,7 @@ data:
 
 ### Cluster Architecture Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    Control Plane                        │
 ├─────────────┬─────────────┬─────────────┬──────────────┤
@@ -164,6 +168,7 @@ data:
 ### Local Development
 
 #### Minikube
+
 Single-node cluster for local development:
 
 ```bash
@@ -182,6 +187,7 @@ minikube dashboard
 ```
 
 #### Kind (Kubernetes in Docker)
+
 Multi-node clusters using Docker containers:
 
 ```bash
@@ -198,6 +204,7 @@ kind create cluster --config kind-config.yaml
 ```
 
 Kind configuration example:
+
 ```yaml
 # kind-config.yaml
 kind: Cluster
@@ -211,12 +218,14 @@ nodes:
 ### Production Clusters
 
 #### Managed Services
+
 - **Google GKE** - Google Kubernetes Engine
 - **Amazon EKS** - Elastic Kubernetes Service
 - **Azure AKS** - Azure Kubernetes Service
 - **DigitalOcean DOKS** - DigitalOcean Kubernetes
 
 #### Self-Managed
+
 - **kubeadm** - Official cluster bootstrapping tool
 - **Kubespray** - Ansible-based cluster deployment
 - **Rancher** - Complete container management platform
@@ -579,6 +588,7 @@ kubectl describe resourcequota -n <namespace>
 ### Common Issues and Solutions
 
 1. **Pod Stuck in Pending State**
+
    ```bash
    # Check node resources
    kubectl describe nodes
@@ -588,6 +598,7 @@ kubectl describe resourcequota -n <namespace>
    ```
 
 2. **Image Pull Errors**
+
    ```bash
    # Verify image exists
    docker pull <image-name>
@@ -597,6 +608,7 @@ kubectl describe resourcequota -n <namespace>
    ```
 
 3. **Service Not Accessible**
+
    ```bash
    # Check service endpoints
    kubectl get endpoints
