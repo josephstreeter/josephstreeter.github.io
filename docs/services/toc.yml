@@ -5,3 +5,5 @@
     href: activedirectory/toc.yml
   - name: Exchange
     href: exchange/toc.yml
+  - name: Identity Management
+    href: idm/toc.yml
