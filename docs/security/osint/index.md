@@ -16,7 +16,7 @@ Open Source Intelligence (OSINT) refers to the collection and analysis of inform
 
 ## Table of Contents
 
-- [Search & Discovery Tools](#search--discovery-tools)
+- [Search & Discovery Tools](#-search--discovery-tools)
 - [People & Phone Number Lookup](#people--phone-number-lookup)
 - [Username & Email Enumeration](#username--email-enumeration)
 - [Image & Location Analysis](#image--location-analysis)
@@ -40,7 +40,7 @@ Google dorking uses advanced search operators to uncover information that might 
 
 **Essential Google Dork Operators:**
 
-```
+```text
 site:example.com          # Search within specific domain
 filetype:pdf              # Find specific file types
 intitle:"index of"        # Find directory listings

@@ -245,4 +245,5 @@ The key to successful OSINT lies in understanding its principles, mastering its 
 - **[Techniques](02-techniques.md)**: Learn specific OSINT methodologies and approaches
 - **[Tools](03-tools.md)**: Explore software and platforms for OSINT collection
 - **[Case Studies](04-case-studies.md)**: Review real-world applications and examples
+- **[Investigation Workflow](08-investigation-workflow.md)**: Follow a systematic approach to target investigations
 - **[References](06-references.md)**: Access additional resources and documentation

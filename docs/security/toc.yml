@@ -7,3 +7,5 @@
     href: pgp/toc.yml
   - name: Wireless
     href: wireless/toc.yml
+  - name: OSINT
+    href: osint/toc.yml
