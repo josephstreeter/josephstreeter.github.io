@@ -13,11 +13,8 @@
 - name: Home Assistant
   href: docs/homeassistant/toc.yml
 
-- name: Secure Shell
-  href: docs/ssh/toc.yml
-
 - name: Radio
-  href: docs/radio/toc.yml
+  href: docs/radio/RTL-SDR/toc.yml
 
 - name: Cuddleback
   href: docs/cuddeback/toc.yml

@@ -19,7 +19,3 @@ Refer to following resources to learn more:
 ## Purpose
 
 There are several different areas covered on this site. Nearly all of this is just a place for me to store things I may want to reference later. If it is helpful to you, great. If not...sorry. I will gladly return twice the amount of money you paid me for access to this site (That's $0.00 for those who haven't had your coffee yet).
-
-1. Technology - Everything from my home lab to things I may use at work and all the way to my trail cameras.
-2. Photography - Basic concepts and information about photography. The kinds of things that I find myself explaining over and over again when someone asks. I sometimes struggle to find resources to give to people, so here ya go, a link to my site.
-3. Cooking - By "cooking," I really just mean the things that I do on a smoker of griddle. 

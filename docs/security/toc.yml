@@ -1,6 +1,6 @@
-- name: Security
-  href: security/index.md
+- name: Secure Shell
+  href: ssh/index.md
 - name: PGP
-  href: security/pgp.md
+  href: pgp/01-summary.md
 - name: Wireless
-  href: security/wireless.md
+  href: wireless/index.md
