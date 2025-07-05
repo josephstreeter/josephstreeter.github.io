@@ -1,6 +1,9 @@
-- name: Secure Shell
-  href: ssh/index.md
-- name: PGP
-  href: pgp/01-summary.md
-- name: Wireless
-  href: wireless/index.md
+- name: Security
+  href: index.md
+  items:
+  - name: Secure Shell
+    href: ssh/toc.yml
+  - name: PGP
+    href: pgp/toc.yml
+  - name: Wireless
+    href: wireless/toc.yml

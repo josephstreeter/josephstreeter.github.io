@@ -1,26 +1,16 @@
-- name: System Administration
-  href: docs/sysadmin/toc.yml
-
-- name: Containers
-  href: docs/containers/toc.yml
-
+- name: Enterprise Services
+  href: docs/services/index.md
+- name: Infrastructure
+  href: docs/infrastructure/index.md
+- name: Networking
+  href: docs/networking/index.md
 - name: Development
-  href: docs/development/toc.yml
-  
+  href: docs/development/index.md
 - name: Security
-  href: docs/security/toc.yml
-
-- name: Home Assistant
-  href: docs/homeassistant/toc.yml
-
-- name: Radio
-  href: docs/radio/RTL-SDR/toc.yml
-
-- name: Cuddleback
-  href: docs/cuddeback/toc.yml
-
+  href: docs/security/index.md
+- name: Misc
+  href: docs/misc/index.md
 - name: Blog
   href: docs/_posts/
-
 - name: About Me
   href: docs/about.md

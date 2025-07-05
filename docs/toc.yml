@@ -1,3 +1,10 @@
 
-- name: System Administation
-  href: ./sysadmin/index.md
+- name: Infrastructure
+  href: infrastructure/index.md
+- name: Development
+  href: development/index.md
+- name: Networking
+  href: networking/index.md
+- name: Personal
+  href: personal/index.md
+

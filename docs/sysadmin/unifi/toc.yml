@@ -1,6 +1,0 @@
-- name: Unifi Networking
-  href: index.md
-- name: 802.1x
-  href: 802.1x.md
-- name: Networks
-  href: networks.md

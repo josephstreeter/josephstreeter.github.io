@@ -1,6 +1,6 @@
-# Development Tools
+# Miscellanious
 
-This section covers development tools and workflows for software development, version control, and code editing.
+This section covers topics that do not fit elsewhere.
 
 ## Topics
 
