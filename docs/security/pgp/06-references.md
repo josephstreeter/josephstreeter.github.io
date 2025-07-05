@@ -7,7 +7,7 @@ difficulty: "reference"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG References and Resources
+## PGP/GPG References and Resources
 
 This comprehensive reference collection provides links to official documentation, tutorials, tools, and community resources for PGP/GPG encryption.
 

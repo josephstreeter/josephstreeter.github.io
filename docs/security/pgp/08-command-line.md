@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG Command Line Reference
+## PGP/GPG Command Line Reference
 
 This comprehensive guide covers essential GnuPG command-line operations for encryption, decryption, signing, and key management.
 

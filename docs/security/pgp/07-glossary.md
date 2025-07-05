@@ -7,7 +7,7 @@ difficulty: "reference"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG Glossary
+## PGP/GPG Glossary
 
 This comprehensive glossary defines key terms, concepts, and terminology related to PGP/GPG encryption and cryptography.
 

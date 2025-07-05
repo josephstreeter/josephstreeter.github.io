@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG Summary and Overview
+## PGP/GPG Summary and Overview
 
 The purpose of this information is to explain what PGP/GPG is and how to use it to secure communications. While frequently PGP is used together with other tools for anonymity, like Tor or I2P, that is not the purpose of this guide. PGP encrypted messages do not have to be sent over email. Messages can be easily sent over SMS, Facebook, or any application that will allow you to paste in the encrypted message. The message could also be contained in an encrypted file and sent as an attachment or stored in a shared file system.
 
@@ -26,7 +26,7 @@ Applications to enable the use of PGP are available for Windows, Mac, Linux, and
 ## Security Considerations
 
 > [!WARNING]
-> One thing to keep in mind is that PGP cannot protect your messages from situations where the plaintext message may be captured before it is encrypted. For example, a key logger installed on the host used to create the message before it is encrypted will capture the keystrokes used when crafting the message. 
+> One thing to keep in mind is that PGP cannot protect your messages from situations where the plaintext message may be captured before it is encrypted. For example, a key logger installed on the host used to create the message before it is encrypted will capture the keystrokes used when crafting the message.
 > Do not create your messages in a service like Gmail, as the text that you entered could be saved automatically as a "draft" within your account by the service. Instead, craft the message in notepad and only paste the message into Gmail once it is encrypted.
 
 ## PGP Background

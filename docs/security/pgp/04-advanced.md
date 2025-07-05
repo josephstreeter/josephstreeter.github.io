@@ -7,7 +7,7 @@ difficulty: "advanced"
 last_updated: "2025-01-20"
 ---
 
-# Advanced PGP/GPG Security Practices
+## Advanced PGP/GPG Security Practices
 
 This guide covers advanced security techniques for PGP/GPG usage, focusing on operational security (OPSEC), metadata protection, and threat mitigation strategies.
 
