@@ -43,7 +43,7 @@ Things that just don't fit anywhere else
 ## Popular Pages
 
 - [Git Configuration](development/git/configuration.md)
-- [SSH Setup](infrastructure/ssh/)
+- [SSH Setup](security/ssh/)
 - [VS Code for PowerShell](development/vscode/)
 - [Terraform with Proxmox](infrastructure/terraform/proxmox.md)
 
