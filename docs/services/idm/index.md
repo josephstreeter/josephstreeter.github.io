@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-07-05"
 ---
 
-# Microsoft Identity Manager 2016 Synchronization Service
+## Microsoft Identity Manager 2016 Synchronization Service
 
 Microsoft Identity Manager (MIM) 2016 Synchronization Service is a powerful identity synchronization platform that enables organizations to manage and synchronize identity data across multiple disparate systems. This document provides a comprehensive high-level overview of the service, its architecture, capabilities, and use cases.
 
