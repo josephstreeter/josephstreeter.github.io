@@ -1,85 +1,496 @@
-# Security Group Management Recommendation
+---
+title: "Active Directory Security Group Management Guide"
+description: "Comprehensive guide for implementing RBAC and AGDLP strategy in Active Directory environments"
+tags: ["active-directory", "security-groups", "rbac", "agdlp", "access-control", "permissions"]
+category: "security"
+subcategory: "identity-management"
+difficulty: "intermediate"
+last_updated: "2025-07-05"
+applies_to: ["Active Directory", "Windows Server 2016+", "Azure AD", "Hybrid Identity"]
+---
 
-## Summary
+## Overview
 
-This document will cover the recommended creation and usage of Security Groups within Campus Active Directory. The creation of distribution groups and mail-enabling distribution or security groups is considered out of scope. Security groups are objects that are used to organize users and other directory objects for the purpose of authorization. Groups allow for easier organization and management of authorized access to resources.
+This comprehensive guide provides detailed recommendations for creating, managing, and organizing security groups in Active Directory environments. Proper security group management is fundamental to implementing effective Role-Based Access Control (RBAC) and maintaining a secure, scalable identity infrastructure.
 
-## Purpose of this Document
+**Current Status (July 2025):** This guide reflects modern Active Directory best practices and includes guidance for hybrid and cloud-integrated environments.
 
-Campus Active Directory delegated administrators should be able to understand and use these guidelines for group management. Groups should be created and named in such a way that the purpose and scope of each group is easily recognized by other administrators. By using these AD group management rules and guidelines, a department can maintain a strong group management strategy. This will prevent the unnecessary proliferation of security groups, which leads to stale objects as well as authentication issues resulting from token bloat and circular nesting.
+## Executive Summary
 
-## Sources of Security Groups
+Security group management is a critical component of Active Directory administration that directly impacts:
 
-While delegated administrators have the ability to create their own security groups through tools provided as part of the AD service, some groups originate from external sources such as Manifest.
+- **Security posture** - Proper group organization prevents unauthorized access
+- **Administrative efficiency** - Well-designed groups reduce management overhead
+- **Compliance** - Structured access controls support audit and attestation requirements
+- **Scalability** - Strategic group design accommodates organizational growth
 
-Groups created in the Manifest service can be provisioned into Campus Active Directory for the purpose of authorizing access to Active Directory related resources. In addition, the security groups provisioned through Manifest may also be used to authorize access to services that are not bound to Active Directory (e.g. Shibboleth).
+### Key Benefits of Proper Group Management
 
-## Information About Groups
+- **Simplified access control** - Assign permissions to groups, not individual users
+- **Reduced administrative overhead** - Centralized permission management
+- **Enhanced security** - Clear separation of roles and responsibilities
+- **Improved audit capability** - Traceable access control decisions
+- **Token bloat prevention** - Optimized group nesting reduces authentication issues
 
-Group Types:
+## Active Directory Group Fundamentals
 
-Groups in Active Directory come in two distinct types: Security and Distribution.
+### Group Types
 
-- **Security groups** --- Used to assign access rights and authorize appropriate access to resources such as file shares and printers. The use of groups greatly simplifies administration because adding a user to a single group can automatically give that user access to multiple resources.
-- **Distribution groups** --- Used in conjunction with email services, such as Microsoft Exchange, to distribute email to a population of users and contacts. While distribution groups appear similar to security groups they cannot be used to authorize access to resources.
+Active Directory supports two distinct group types, each serving specific organizational purposes:
 
-Group Scope:
+| Group Type | Primary Purpose | Security Features | Common Use Cases |
+|------------|-----------------|-------------------|------------------|
+| **Security Groups** | Access control and authorization | Can be assigned permissions and user rights | File shares, applications, Exchange mailboxes |
+| **Distribution Groups** | Email distribution only | Cannot be assigned permissions | Email distribution lists, organizational communication |
 
-For security groups there are three group scopes that are available. Knowing these three group scopes and how to properly use them is an important part of an organized group management strategy.
+> **Best Practice:** Always use security groups for access control. Distribution groups should only be used for email distribution when no security permissions are required.
 
-- **Domain local groups** --- May have users, computers, other domain local groups, global groups and universal groups as members from any domain in the forest or from trusted domains in other forests
-- **Global groups** --- May have users, computers, and other global groups from within the same domain as members
-- **Universal groups** --- May have users, computers, global groups, and universal groups from anywhere in the forest or from trusted forests
+### Group Scopes
 
-## Group Management
+Understanding group scopes is essential for implementing the AGDLP strategy effectively:
 
-When assigning rights and permissions resources never assign permissions to individual users. Always assign permissions to security groups.
+| Scope | Membership Rules | Replication | Best Use Case |
+|-------|------------------|-------------|---------------|
+| **Domain Local** | Users, computers, global groups, universal groups from any trusted domain | Local domain only | Resource access permissions |
+| **Global** | Users, computers, other global groups from same domain only | Forest-wide | Role-based user collections |
+| **Universal** | Users, computers, global groups, universal groups from any domain in forest | Global Catalog (forest-wide) | Cross-domain role aggregation |
 
-- **User rights** - User rights include both privileges (such as Back Up Files and Directories) and logon rights (such as allow logon locally).
-- **Access control permissions** -- Any object (files, folders, mailboxes, directory object, etc) that has an Access Control List (ACL) can be given permissions such as Read, Write, Full Control, or Modify.
+### Group Scope Selection Guidelines
 
-It is recommended that when creating and managing security groups you follow the Role Based Access Control (RBAC) model. The RBAC model lays out a multi-level strategy involving individual users, groups, and resources that lends itself to attestation and self-documentation. The pneumonic AGDLP explains the implementation of RBAC in Active Directory.
+**Domain Local Groups:**
 
-AGDLP stands for "**[A]{.underline}**ccounts go in **[G]{.underline}**lobal groups, global groups go in **[D]{.underline}**omain **[L]{.underline}**ocal groups, and local groups are assigned **[P]{.underline}**ermissions"
+- Assign permissions and user rights directly to these groups
+- Place global and universal groups as members
+- Ideal for resource-specific access control
 
-The AGDLP strategy is based the idea of using the different group scopes at each level:
+**Global Groups:**
 
-- Global groups contain only users.
-- Domain Local groups contain only other global or universal groups. End-point permissions are assigned only to local groups. Directory permissions are assigned to domain local groups.
-- Universal groups contain only global groups.
+- Collect users with similar job functions or organizational roles
+- Nest within domain local groups for permission assignment
+- Primary building blocks for role-based access
 
-AGDLP provides maximum flexibility, scalability, and ease of administration when creating and managing security groups. The following description outlines the recommended method of using global and domain local groups.
+**Universal Groups:**
 
-- Users are placed into security groups with global scope that represents a role that all members of the group will fulfill (Help Desk, Web Admin, Manager, Financial group, local admin).
-- Create security groups with domain local scope and assign them permissions to access a resource (File, folder, mailbox, directory object, etc).
-- Put the global group that was created for the role into any domain local group in the forest that is assigned permissions or rights required by those users assigned to the role.
+- Use sparingly in multi-domain environments
+- Aggregate global groups across domains
+- Consider Global Catalog replication impact
 
-## Domain Local
+## AGDLP Strategy Implementation
 
-For example, to give five users access to a particular printer, you could add all five user accounts, one at a time, to the printer permissions list. Later, if you wanted to give the same five users access to a new printer, you would again have to specify all five accounts in the permissions list for the new printer. Or, you could take advantage of groups with domain local scope.
+### Understanding AGDLP
 
-## Global
+**AGDLP** stands for "**A**ccounts go in **G**lobal groups, global groups go in **D**omain **L**ocal groups, and domain local groups are assigned **P**ermissions."
 
-Use global groups to collect users or computers that are in the same domain and share the same job, organizational role, or function. For example, "Full-time employees," "Managers," "RAS Servers" are all possible global groups. Because group members typically need to access the same resources, make these global groups members of domain local or machine local groups, which, in turn, are listed on the DACL of needed resources.
+This strategy provides:
 
-## Universal
+- **Maximum flexibility** - Easy to modify access without changing permissions
+- **Scalability** - Supports organizational growth and change
+- **Simplified administration** - Clear separation between roles and resources
+- **Enhanced security** - Principle of least privilege through role-based access
 
-If you choose to use groups with universal scope in a multi-domain environment, these groups can help you represent and consolidate groups that span domains. For example, you might use universal groups to build groups that perform a common function across an enterprise.
+### AGDLP Architecture Diagram
 
-Although few organizations will choose to implement this level of complexity, you can add user accounts to groups with global scope, nest these groups within groups having universal scope, and then make the universal group a member of a domain local (or machine local) group that has access permissions to resources. Using this strategy, any membership changes in the groups having global scope do not affect the groups with universal scope.
+```text
+Users/Computers → Global Groups → Domain Local Groups → Resources/Permissions
+    (Accounts)        (Roles)        (Permissions)        (Access)
+```
 
-Example:
+### Step-by-Step AGDLP Implementation
 
-A department administrator needs to secure a number of resources. The resources are for the finance, marketing, and sales staff. The finance and sales staff each have access to a shared folder, shared Exchange mailbox, and a printer. The marketing staff only requires read only access to the other staff's shared folders and their own printer.
+#### Step 1: Identify Roles and Resources
 
-First, the administrator creates a global security group for each role (i.e. Finance, Marketing, and Sales) in either Manifest or Active Directory. The staff's user objects are then added to the appropriate "role" group.
+**Role Analysis:**
 
-> [!Note]
-> Groups created in Manifest are available for use in services outside of Campus Active Directory while groups created in Active Directory are only available to services that directly leverage Campus Active Directory or forests that have created a trust with Campus Active Directory. Groups created in Manifest must be replicated to Campus Active Directory.
+- Finance Staff
+- Marketing Team
+- IT Administrators
+- Help Desk Technicians
+- Executive Management
 
-Then the administrator creates domain local security groups for each level of access to be allowed to each resource (i.e. Shared folder -- Full Control, Shared Folder -- Read Only, Mailbox -- Send-as, etc). These "resource" groups are then given the appropriate permissions to each of the resources. It is important that a detailed description of the resource and level of access being provided to the group.
+**Resource Analysis:**
 
-The "role" groups are then made members of the "resource" groups in order to provide the users access to those resources.
+- File shares and folders
+- Applications and databases
+- Printers and devices
+- Exchange mailboxes
+- Administrative systems
 
-> [!NOTE]
-> If a user is currently logged into a host when the group changes are made, the user will have to log out and log back in for the newly granted access to take effect.
+#### Step 2: Create Global Groups (Roles)
+
+Create global groups representing organizational roles:
+
+```powershell
+# Create role-based global groups
+New-ADGroup -Name "GG-Finance-Staff" -GroupScope Global -GroupCategory Security -Path "OU=Global Groups,DC=contoso,DC=com" -Description "Finance department staff members"
+
+New-ADGroup -Name "GG-Marketing-Team" -GroupScope Global -GroupCategory Security -Path "OU=Global Groups,DC=contoso,DC=com" -Description "Marketing team members"
+
+New-ADGroup -Name "GG-IT-Administrators" -GroupScope Global -GroupCategory Security -Path "OU=Global Groups,DC=contoso,DC=com" -Description "IT administrative staff"
+```
+
+#### Step 3: Create Domain Local Groups (Resources)
+
+Create domain local groups for specific resource access:
+
+```powershell
+# Create resource-based domain local groups
+New-ADGroup -Name "DL-Finance-Shared-FullControl" -GroupScope DomainLocal -GroupCategory Security -Path "OU=Domain Local Groups,DC=contoso,DC=com" -Description "Full control access to Finance shared folder"
+
+New-ADGroup -Name "DL-Finance-Shared-ReadOnly" -GroupScope DomainLocal -GroupCategory Security -Path "OU=Domain Local Groups,DC=contoso,DC=com" -Description "Read-only access to Finance shared folder"
+
+New-ADGroup -Name "DL-Finance-Mailbox-SendAs" -GroupScope DomainLocal -GroupCategory Security -Path "OU=Domain Local Groups,DC=contoso,DC=com" -Description "Send-as permission for Finance shared mailbox"
+```
+
+#### Step 4: Assign Users to Global Groups
+
+Add users to appropriate role-based global groups:
+
+```powershell
+# Add users to role groups
+Add-ADGroupMember -Identity "GG-Finance-Staff" -Members "jsmith","mwilson","ddavis"
+Add-ADGroupMember -Identity "GG-Marketing-Team" -Members "ajohnson","kbrown","lgarcia"
+```
+
+#### Step 5: Nest Global Groups in Domain Local Groups
+
+Add role groups to appropriate resource groups:
+
+```powershell
+# Nest role groups in resource groups
+Add-ADGroupMember -Identity "DL-Finance-Shared-FullControl" -Members "GG-Finance-Staff"
+Add-ADGroupMember -Identity "DL-Finance-Shared-ReadOnly" -Members "GG-Marketing-Team"
+```
+
+#### Step 6: Assign Permissions to Domain Local Groups
+
+Assign actual permissions to the domain local groups (typically done through GUI or specialized cmdlets).
+
+## Group Naming Conventions
+
+### Standardized Naming Schema
+
+Consistent naming conventions are essential for group management at scale. Use the following prefixes to identify group scope and purpose:
+
+| Prefix | Scope | Purpose | Example |
+|--------|-------|---------|---------|
+| **GG-** | Global | Role-based user collections | `GG-Finance-Staff` |
+| **DL-** | Domain Local | Resource access permissions | `DL-Finance-Shared-FullControl` |
+| **UG-** | Universal | Cross-domain role aggregation | `UG-Global-Managers` |
+
+### Naming Convention Examples
+
+**Role-Based Global Groups:**
+
+- `GG-[Department]-[Role]`
+- `GG-Finance-Staff`
+- `GG-IT-Administrators`
+- `GG-Marketing-Managers`
+
+**Resource-Based Domain Local Groups:**
+
+- `DL-[Resource]-[AccessLevel]`
+- `DL-Finance-Shared-FullControl`
+- `DL-Finance-Shared-ReadOnly`
+- `DL-Exchange-Mailbox-SendAs`
+
+**Administrative Groups:**
+
+- `DL-[System]-[AdminLevel]`
+- `DL-SQL-DatabaseAdmins`
+- `DL-FileServer-Operators`
+- `DL-Exchange-FullAccess`
+
+### Description Standards
+
+Always include detailed descriptions for security groups:
+
+```powershell
+# Good description examples
+New-ADGroup -Name "GG-Finance-Staff" -Description "Finance department staff - grants access to financial systems and shared resources"
+
+New-ADGroup -Name "DL-Finance-Shared-FullControl" -Description "Full control access to \\FileServer\Finance shared folder - includes read, write, modify, delete permissions"
+```
+
+## Advanced Group Management
+
+### Privileged Access Management
+
+For administrative and privileged access, implement additional security measures:
+
+#### Tier 0 (Domain/Forest Level) Groups
+
+```powershell
+# Create highly privileged groups with additional protection
+New-ADGroup -Name "DL-Tier0-DomainAdmins" -GroupScope DomainLocal -GroupCategory Security -Description "Domain administrator access - Tier 0 privileged group"
+
+# Enable AdminSDHolder protection
+$Group = Get-ADGroup "DL-Tier0-DomainAdmins"
+$Group | Set-ADObject -ProtectedFromAccidentalDeletion $true
+```
+
+#### Tier 1 (Server Level) Groups
+
+```powershell
+New-ADGroup -Name "DL-Tier1-ServerAdmins" -GroupScope DomainLocal -GroupCategory Security -Description "Server administrator access - Tier 1 privileged group"
+```
+
+#### Tier 2 (Workstation Level) Groups
+
+```powershell
+New-ADGroup -Name "DL-Tier2-WorkstationAdmins" -GroupScope DomainLocal -GroupCategory Security -Description "Workstation administrator access - Tier 2 privileged group"
+```
+
+### Token Bloat Prevention
+
+Prevent authentication token bloat by following these guidelines:
+
+**Maximum Recommended Limits:**
+
+- **User memberships:** Maximum 1,000 groups per user
+- **Nesting depth:** Maximum 5 levels of group nesting
+- **Group size:** Maximum 5,000 members per group
+
+**Best Practices:**
+
+- Use flat group structures when possible
+- Avoid circular group nesting
+- Regular cleanup of unused groups
+- Monitor token sizes using PowerShell
+
+```powershell
+# Check user's group membership count
+(Get-ADUser "username" -Properties MemberOf).MemberOf.Count
+
+# Find groups with excessive members
+Get-ADGroup -Filter * -Properties Members | Where-Object {$_.Members.Count -gt 1000}
+```
+
+## Group Lifecycle Management
+
+### Group Creation Process
+
+1. **Request and Approval**
+   - Document business justification
+   - Obtain manager approval
+   - Security team review for privileged access
+
+2. **Creation and Documentation**
+   - Follow naming conventions
+   - Add detailed descriptions
+   - Document in CMDB or group registry
+
+3. **Testing and Validation**
+   - Test access permissions
+   - Verify AGDLP implementation
+   - Validate with end users
+
+### Regular Maintenance Activities
+
+#### Monthly Tasks
+
+```powershell
+# Find empty groups
+Get-ADGroup -Filter * -Properties Members | Where-Object {$_.Members.Count -eq 0}
+
+# Find groups without descriptions
+Get-ADGroup -Filter {Description -notlike "*"} | Select-Object Name, DistinguishedName
+```
+
+#### Quarterly Access Reviews
+
+```powershell
+# Generate group membership report
+Get-ADGroup -Filter {GroupScope -eq "DomainLocal"} | ForEach-Object {
+    $GroupName = $_.Name
+    $Members = Get-ADGroupMember $_ | Select-Object Name, ObjectClass
+    [PSCustomObject]@{
+        GroupName = $GroupName
+        MemberCount = $Members.Count
+        Members = ($Members.Name -join "; ")
+    }
+} | Export-Csv -Path "GroupMembershipReport.csv" -NoTypeInformation
+```
+
+#### Annual Group Cleanup
+
+- Remove unused groups
+- Consolidate duplicate groups
+- Update group descriptions
+- Validate group nesting
+
+## Troubleshooting Common Issues
+
+### Issue: User Cannot Access Resource
+
+**Diagnostic Steps:**
+
+1. Verify user's group memberships
+2. Check group nesting chain
+3. Validate resource permissions
+4. Test with Process Monitor
+
+```powershell
+# Check user's effective group memberships
+$User = Get-ADUser "username" -Properties MemberOf
+$User.MemberOf | ForEach-Object {
+    Get-ADGroup $_ | Select-Object Name, GroupScope, GroupCategory
+}
+```
+
+### Issue: Token Bloat and Authentication Failures
+
+**Symptoms:**
+
+- Slow logon times
+- Authentication failures
+- Event ID 31 in System log
+
+**Resolution:**
+
+```powershell
+# Check token size
+whoami /groups | Measure-Object
+
+# Find groups with excessive nesting
+function Get-GroupNestingDepth {
+    param($GroupName, $Depth = 0)
+    
+    if ($Depth -gt 10) { return $Depth }
+    
+    $Group = Get-ADGroup $GroupName -Properties MemberOf
+    if ($Group.MemberOf) {
+        $MaxDepth = $Depth
+        foreach ($ParentGroup in $Group.MemberOf) {
+            $CurrentDepth = Get-GroupNestingDepth -GroupName (Get-ADGroup $ParentGroup).Name -Depth ($Depth + 1)
+            if ($CurrentDepth -gt $MaxDepth) { $MaxDepth = $CurrentDepth }
+        }
+        return $MaxDepth
+    }
+    return $Depth
+}
+```
+
+### Issue: Circular Group Membership
+
+**Prevention:**
+
+```powershell
+# Function to detect circular membership
+function Test-CircularGroupMembership {
+    param($GroupName, $Visited = @())
+    
+    if ($GroupName -in $Visited) {
+        Write-Warning "Circular membership detected: $($Visited -join ' -> ') -> $GroupName"
+        return $true
+    }
+    
+    $Visited += $GroupName
+    $Group = Get-ADGroup $GroupName -Properties Members
+    
+    foreach ($Member in $Group.Members) {
+        $MemberObject = Get-ADObject $Member
+        if ($MemberObject.ObjectClass -eq "group") {
+            if (Test-CircularGroupMembership -GroupName $MemberObject.Name -Visited $Visited) {
+                return $true
+            }
+        }
+    }
+    return $false
+}
+```
+
+## Modern Integration and Hybrid Scenarios
+
+### Azure AD Integration
+
+For hybrid environments, consider these additional practices:
+
+**Azure AD Connect Group Sync:**
+
+- Sync security groups to Azure AD
+- Use cloud-only groups for Azure resources
+- Implement writeback for Office 365 groups
+
+**Azure AD Administrative Units:**
+
+- Scope administrative permissions
+- Delegate group management
+- Implement role-based administration
+
+### Dynamic Group Membership
+
+For Azure AD Premium environments:
+
+```powershell
+# Example dynamic group rule
+$Rule = '(user.department -eq "Finance") -and (user.employeeType -eq "Employee")'
+```
+
+### Microsoft 365 Integration
+
+**Group Types Mapping:**
+
+- Security Groups → Microsoft 365 Groups
+- Distribution Groups → Exchange Distribution Lists
+- Dynamic Groups → Azure AD Dynamic Groups
+
+## Monitoring and Reporting
+
+### PowerShell Monitoring Scripts
+
+#### Group Health Check Script
+
+```powershell
+# Comprehensive group health check
+function Invoke-GroupHealthCheck {
+    Write-Host "Active Directory Group Health Check Report" -ForegroundColor Green
+    Write-Host "Generated: $(Get-Date)" -ForegroundColor Yellow
+    
+    # Empty groups
+    $EmptyGroups = Get-ADGroup -Filter * -Properties Members | Where-Object {$_.Members.Count -eq 0}
+    Write-Host "`nEmpty Groups: $($EmptyGroups.Count)" -ForegroundColor Red
+    
+    # Large groups
+    $LargeGroups = Get-ADGroup -Filter * -Properties Members | Where-Object {$_.Members.Count -gt 1000}
+    Write-Host "Large Groups (>1000 members): $($LargeGroups.Count)" -ForegroundColor Yellow
+    
+    # Groups without descriptions
+    $NoDescription = Get-ADGroup -Filter {Description -notlike "*"}
+    Write-Host "Groups without descriptions: $($NoDescription.Count)" -ForegroundColor Yellow
+    
+    # Generate detailed report
+    $Report = @{
+        EmptyGroups = $EmptyGroups | Select-Object Name, DistinguishedName
+        LargeGroups = $LargeGroups | Select-Object Name, @{Name="MemberCount";Expression={$_.Members.Count}}
+        NoDescription = $NoDescription | Select-Object Name, DistinguishedName
+    }
+    
+    return $Report
+}
+
+# Run health check
+$HealthCheck = Invoke-GroupHealthCheck
+```
+
+## References and Additional Resources
+
+### Official Documentation
+
+- [Active Directory Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory)
+- [Group Policy Management](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/)
+- [Azure AD Connect Group Sync](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sync-whatis)
+
+### Related Security Guides
+
+- [Active Directory Security Hardening](../Security/index.md)
+- [Privileged Access Management](../PAM/index.md)
+- [Identity Governance](../../identity/governance/index.md)
+
+### Tools and Utilities
+
+- **Active Directory Users and Computers** - Basic group management
+- **PowerShell Active Directory Module** - Advanced automation
+- **Active Directory Administrative Center** - Enhanced management interface
+- **Group Policy Management Console** - Group-based policy assignment
+
+This comprehensive guide provides the foundation for implementing effective security group management in modern Active Directory environments, supporting both on-premises and hybrid scenarios.

@@ -1,172 +1,599 @@
-# Domain Controllers
+---
+title: "Domain Controllers - Configuration and Security Standards"
+description: "Comprehensive guide for configuring and securing Active Directory Domain Controllers with modern best practices for enterprise environments"
+author: "Enterprise IT Documentation"
+ms.author: "itdocs"
+ms.date: "2024-01-15"
+ms.topic: "conceptual"
+ms.service: "active-directory"
+keywords: ["Active Directory", "Domain Controllers", "Security", "Configuration", "IPSec", "Replication", "Windows Server"]
+---
 
-A Domain Controller (DC) is a server that responds to authentication and authorization requests within the domain. Domain Controllers will not perform any functions other than Domain Controller and DNS Server.
+## Domain Controllers - Configuration and Security Standards
 
-## Domain Controller Configuration
+A Domain Controller (DC) is a server that responds to authentication and authorization requests within the domain. Domain Controllers should be dedicated servers that perform only domain controller and DNS server functions for optimal security and performance.
 
-Domain Controllers within Active Directory will be configured per the following guidelines.
+## Prerequisites and Planning
 
-### SYSVOL, Database, and Log File Locations
+Before deploying domain controllers, ensure the following prerequisites are met:
 
-Domain controllers should have three volumes: System (>60GB), Database (>25GB), Logs (>4GB). By locating the database files on the system drive causes the operating system to disable write caching on the System drive and increases the possibility of system file corruption in the event of a hard shutdown. For performance reasons log files should be placed on their own drive. VMware recommends that the database and log drives be placed on a separate vSCSI controller from the system drive as well.
-
-### VMware Storage Configuration
-
-| Controller | Hard Drive |
-|--------------------|----------------------|
-| vSCSI Controller 0 | Disk1 (C:) OS > 80GB |
-| vSCSI Controller 1 | Disk2 (N:) Database 25GB or greater for larger directories |
-|                    | Disk3 (L:) Log files 4GB |
-
-| Files    | Location |
-|----------|----------|
-| Database | N:NTDS   |
-| SYSVOL   | N:SYSVOL |
-| Logs     | L:Logs   |
-
-### Replication
-
-Replication over IPSec Configuration
-
-The RPC replication requires many ports to be opened in the firewall resulting in an insecure environment. To simplify this the replication traffic can be confined to static port numbers and then encrypted with IPSec.
-
-Setting Static Ports for Replication
-
-- Set static RPC port HKEY_LOCAL_MACHINESYSTEMCurrentControlSetServicesNTDSParameters DWORD TCP/IP Port = 50000
-- Set static DFSR port dfsrdiag StaticRPC /port: 50001 /Member: dc.domain.com (If no member is specified, Dfsrdiag.exe uses the local computer.)
-
-#### IPSec
-
-The Domain Controller IPSec policies should be applied to the locally to avoid potentially isolating an individual DC from replicating with the other DCs.
-
-##### IPSec Policies
-
-| Name | Description | Default Response Rule | Check for Policy Changes (minutes) | Master Key PFS | Auth and generate key every (Minutes/Sessions) | IKE Security Methods (integrity/Encryption/DH group) | Applied to: (Local or GPO name/Link Location)|
-| Domain Controllers | Domain Controller IPSec Policy| Off | 180 | N | 480 / 0 |3DES/SHA1/Med(2)/3DES/MD5/Med(2)/DES/SHA1/Low(1)/DES/MD5/Low(1) | Local Policy |
-
-**IPSec Rules:**Domain Controllers
-
-| Name      | Description                 | Mode/ (Transport or Tunnel IP) | IP Filter List | Filter Action List | Network Type | Authentication Method |
-|-----------|-----------------------------|-----------|--------------------|---------------------|-----|----------|
-| DC <-> DC | All Inter-Domain DC traffic | Transport | Domain Controllers | ESP-3DES-MD5-0-3600 | LAN | Kerberos |
-
-> [!Note]
->Using MD5 in the filter action will result in a warning message. However, HMAC-MD5 is not as vulnerable as raw MD5 and is more efficient then SHA1
-
-**IP Filter List Name:**Domain Controllers
-
-| **Name**   | **Src Address** | **Dst Address** | **Protocol** | **Src Port** | **Dst Port** | **Mirrored** |
-|------------|-----------------|-----------------|--------------|--------------|--------------|--------------|
-| DC1<-> ANY | My IP Address   | ANY             | TCP          | ANY          | 50000        |Y             |
-| DC1<-> ANY | My IP Address   | ANY             | TCP          | ANY          | 50001        | Y            |
-
-**IP Filter Actions**
-
-| **Name** | **Description** | **Filter Action Behavior** | **Security Method** | **AH** | **ESP** | **Session Key Lifetimes (sessions/Seconds)** | **Accept Clear** | **Allow Fallback** | **Use PFS** |
-|------|----------|--------|-------|-----|---------|-------------|-------|-------|-----|
-| ESP-3DES-SHA1-0-3600 | Require ESP 3DES/SHA1, no inbound clear, no fallback to clear, No PFS | Negotiate Security | Custom | N/A | 3DES/SHA1 | 0 / 3600 | N | N | N |
-| ESP-3DES-MD5-0-3600 | Require ESP 3DES/MD5, no inbound clear, no fallback to clear, No PFS | Negotiate Security | Custom | N/A | 3DES/MD5 | 0 / 3600 | N | N | N |
-
-Firewall
-
-**Firewall Configuration**
-
-| **Service**                              | **Port/protocol** | **Notes** |
-|------------------------------------------|-------------------|-----------|
-| RPC endpoint mapper                      | 135/TCP, 135/UDP  |           |
-| NetBIOS name service                     | 137/TCP, 137/UDP  | Not used  |
-| NetBIOS datagram service                 | 138/UDP           | Not used  |
-| NetBIOS session service                  | 139/TCP           | Not used  |
-| RPC dynamic assignment                   | 1024-65535/TCP    |           |
-| IKE, Internet Key Exchange               | 500/UDP           |           |
-| IPSec over TCP                           | 4500/TCP          |           |
-| IPSec ESP, Encapsulated Security Payload | IP protocol 50    |           |
-| IPSec AH, Authenticated Header           | IP protocol 51    | Not used  |
-| SMB over IP (Microsoft-DS)               | 445/TCP, 445/UDP  |           |
-| LDAP                                     | 389/TCP           |           |
-| LDAP ping                                | 389/UDP           | Not used  |
-| LDAP over SSL                            | 636/TCP           |           |
-| Global catalog LDAP                      | 3268/TCP          |           |
-| Global catalog LDAP over SSL             | 3269/TCP          |           |
-| Kerberos                                 | 88/TCP, 88/UDP    | Configure Kerberos to use TCP only and block UDP |
-| Kpassd                                   | 464/TCP, 464/UDP  |           |
-| Domain Name Service (DNS)                | 53/TCP, 53/UDP    |           |
-| Remote Desktop                           | 3389/TCP          |           |
-| AD Web Service                           | 9389/TCP          |           |
-| Windows Remote Management Service(SSL)   | 5986/TCP          |           |
-
-You can configure the servers to carry Kerberos traffic inside IPSec. Regardless of authentication mode, Kerberos between domain controllers is still required.
-
-IPSec will not work through network address translation (NAT) devices. IPSec uses IP addresses when computing packet checksums, IPSec packets whose source addresses were altered by NAT are discarded when they arrive at the destination
+- **Hardware Requirements**: Minimum 4 CPU cores, 8GB RAM, sufficient storage for OS, database, and logs
+- **Network Configuration**: Static IP addresses, proper DNS configuration, network connectivity to other DCs
+- **Operating System**: Supported Windows Server version (2019, 2022) with latest updates
+- **Security Planning**: Certificate infrastructure, IPSec policies, firewall rules
+- **Backup Strategy**: System state backup procedures and recovery plans
 
 ## Domain Controller Configuration Standards
 
-- Servers will be installed with a currently supported Operating System with all the latest Service Packs and patches applied
-- Servers will have antivirus installed with the most current definitions
-- Domain Controller computer objects are automatically created in the root of the "Domain Controllers" OU and will not be moved
-- Domain Controllers should not be multi-homed
-- Client DNS settings: Primary DNS entry will be itself and secondary DNS entry will be another DNS server
-- Domain suffixes will be added to network interfaces for each domain in the forest.
-- A scheduled task will perform a daily System State Backup
-- Appropriate security templates and Group Policy will be applied locally
+Domain Controllers within Active Directory should be configured per the following guidelines.
 
-## Local Security Policies
+### Storage Configuration Recommendations
 
-The following security settings will be implemented to improve the security of Active Directory
+For physical and virtualized environments, domain controllers should have separate volumes optimized for different workloads:
 
-### LDAP Server/Client Signing Requirements**
+- **System Volume**: >80GB for OS and applications
+- **Database Volume**: >25GB for NTDS database (larger for extensive directories)
+- **Log Volume**: >4GB for transaction logs
 
-[All domain controllers will be configured to require signed and sealed LDAPS.]{.mark}
+Separating database files from the system drive prevents the operating system from disabling write caching on the system drive and reduces the risk of system file corruption during unexpected shutdowns. For optimal performance, log files should be placed on dedicated storage with appropriate IOPS capabilities.
 
-[Currently all domain controllers are configured to negotiate LDAP signing for client and domain controller settings. This can expose protected data and possibly credentials to an attacker. The transition to requiring signed and sealed LDAP will require reconfiguration of all Windows and non-Windows clients that bind to Active Directory for AuthN/Z or directory information. Some older equipment, namely devices like multi-function printers, may not be capable of this configuration.]{.mark}
+#### Physical Server Storage Layout
 
-### LAN Manager Authentication Level**
+| Volume | Purpose | Recommended Size | Performance Requirements |
+|--------|---------|------------------|-------------------------|
+| C: | Operating System | 80GB+ | Standard performance |
+| D: | NTDS Database | 25GB+ | High IOPS, fast reads |
+| E: | Log Files | 4GB+ | High IOPS, fast writes |
 
-[All domain controllers are configured to eliminate LM and NTLM and instead rely on NTMLv2 and Kerberos as the only authentication mechanisms.]{.mark}
+#### Virtual Machine Storage Configuration
 
-[Currently all domain controllers are configured for "Send NTLM response only." The NTLM protocol is not considered adequately secure. Eliminating NTLM may affect some older appliances and devices that may not be capable of utilizing the newer protocols.]{.mark}
+For VMware environments, follow these guidelines:
 
-### Do not store LAN Manager Hash value on next password change**
+| Controller | Virtual Disk | Purpose | Size |
+|------------|-------------|---------|------|
+| SCSI 0:0 | System Drive (C:) | OS and Applications | 80GB+ |
+| SCSI 1:0 | Database Drive (D:) | NTDS Database | 25GB+ |
+| SCSI 1:1 | Log Drive (E:) | Transaction Logs | 4GB+ |
 
-[All domain controllers are configured with the "Do not store LAN Manager Hash value on next password change" setting enabled.]{.mark}
+**File Location Mapping:**
 
-[Currently all domain controllers have this setting configured, no further changes are required.]{.mark}
+| Component | Recommended Location |
+|-----------|---------------------|
+| NTDS Database | D:\NTDS |
+| SYSVOL | D:\SYSVOL |
+| Transaction Logs | E:\Logs |
 
-### Domain Controller Network Interfaces
+> [!TIP]
+> For cloud environments (Azure, AWS), use premium storage tiers for database and log volumes to ensure adequate IOPS and low latency.
 
-[IPv6 is not currently in use. The protocol should be removed from the interfaces.]{.mark}
+### Active Directory Replication
 
-[DNS Server entries for each domain controller should point to itself as the primary (Not 127.0.0.1) and to another domain controller located in the same site for the secondary.]{.mark}
+#### Secure Replication over IPSec
 
-[The DNS search suffix entries should]{.mark} include all domains and sub domains that a client host may need to resolve an unqualified domain name for. Domains that only include internet accessible hosts should not be included in the DNS Search Suffix list.
+Modern Active Directory environments should implement secure replication between domain controllers. RPC replication traditionally requires many ports to be opened in firewalls, creating potential security vulnerabilities. To enhance security, configure replication to use static ports and encrypt traffic with IPSec.
 
-### Windows Update Schedule
+##### Configuring Static Ports for Replication
 
-Configured to download and install with reboots scheduled so that domain controllers do not all reboot on the same day.
+Use PowerShell to configure static ports for AD replication services:
 
-### User Rights Assignments
+```powershell
+# Configure static RPC port for Active Directory
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "TCP/IP Port" -Value 50000 -Type DWord
 
-[Configured in accordance with the Center for Internet Security Baseline where possible. In the interim these policies should be checked to ensure they do not contain inappropriate users/groups or entries that display only as a SID]{.mark}
+# Configure static DFSR port
+dfsrdiag StaticRPC /port:50001 /Member:$env:COMPUTERNAME
 
-### Domain Controller Interactive Login
+# Restart services to apply changes
+Restart-Service NTDS -Force
+Restart-Service DFSR -Force
+```
 
-*[This right should be granted only to highly privileged accounts that are associated with a specific individual. Currently domain controllers allow Generic users accounts and ISUR login]{.mark}*
+##### Alternative: Windows Server 2022 Secure RPC
 
-### Roles other than AD DS and DNS
+For Windows Server 2022 and later, consider using the built-in secure RPC authentication instead of IPSec:
 
-```<Check>```
+```powershell
+# Enable secure RPC for AD replication
+Set-ADReplicationSite -Identity "Default-First-Site-Name" -ManagedBy "Domain Admins" -EncryptionMethod AES256
+```
 
-### Static Ports
+#### IPSec Configuration for Legacy Environments
 
-[Static ports are configured for DFSR, RPC, and Netlogon services wherever that traffic must traverse a firewall.]{.mark}
+> [!WARNING]
+> IPSec policies should be applied locally to avoid potentially isolating domain controllers from replication. Test thoroughly in a non-production environment before implementation.
 
-[Currently no static ports are configured for DFSR, RPC, or Netlogon services. No further action is required unless it is determined that creating IPSec rules for the purposes of simplifying firewall rules is necessary.]{.mark}
+##### IPSec Policy Configuration
 
-## Remote Management
+**Main Policy Settings:**
 
-### Remote Desktop Configuration
+| Setting | Value | Purpose |
+|---------|-------|---------|
+| Policy Name | Domain Controllers | Identifies the IPSec policy |
+| Default Response Rule | Disabled | Prevents unintended blocking |
+| Check for Policy Changes | 180 minutes | Policy refresh interval |
+| Master Key PFS | Disabled | Performance optimization |
+| Key Regeneration | 480 minutes / 0 sessions | Security vs performance balance |
+| IKE Security Methods | AES256/SHA256/DH Group 14 | Modern cryptographic standards |
 
-### WinRM configuration
+**IPSec Rules Configuration:**
 
-- Require SSL
-- Create/install certificate
+| Rule Name | Description | Mode | IP Filter List | Filter Action | Authentication |
+|-----------|-------------|------|----------------|---------------|----------------|
+| DC Replication | Inter-DC replication traffic | Transport | DC_Replication_Ports | ESP-AES256-SHA256 | Kerberos |
+
+**IP Filter List Configuration:**
+
+| Filter Name | Source | Destination | Protocol | Source Port | Destination Port | Mirrored |
+|-------------|--------|-------------|----------|-------------|-----------------|----------|
+| AD_RPC | My IP | Any | TCP | Any | 50000 | Yes |
+| DFSR | My IP | Any | TCP | Any | 50001 | Yes |
+| DNS | My IP | Any | TCP/UDP | Any | 53 | Yes |
+| Kerberos | My IP | Any | TCP/UDP | Any | 88 | Yes |
+| LDAP | My IP | Any | TCP | Any | 389 | Yes |
+| LDAPS | My IP | Any | TCP | Any | 636 | Yes |
+| Global Catalog | My IP | Any | TCP | Any | 3268 | Yes |
+
+##### IPSec Filter Actions
+
+| Action Name | Description | Security Method | Encryption | Authentication | Session Lifetime |
+|-------------|-------------|-----------------|------------|----------------|------------------|
+| ESP-AES256-SHA256 | Require AES256 encryption with SHA256 authentication | Custom ESP | AES256 | SHA256 | 3600 seconds |
+
+> [!NOTE]
+> Modern implementations should use AES256 and SHA256 instead of legacy 3DES and MD5/SHA1 for better security.
+
+### Firewall Configuration
+
+Modern domain controllers require specific network ports for proper operation. The following table provides comprehensive port requirements for domain controller services:
+
+#### Required Ports for Domain Controller Services
+
+| Service | Port/Protocol | Direction | Purpose | Security Notes |
+|---------|---------------|-----------|---------|----------------|
+| RPC Endpoint Mapper | 135/TCP | Inbound | Service discovery | Required for all RPC operations |
+| RPC Dynamic (Legacy) | 1024-65535/TCP | Inbound | Dynamic RPC endpoints | Use static ports instead |
+| RPC Static (Recommended) | 50000/TCP | Inbound | AD replication | Configured via registry |
+| DFSR Static | 50001/TCP | Inbound | SYSVOL replication | Configured via dfsrdiag |
+| Kerberos | 88/TCP, 88/UDP | Bidirectional | Authentication | Configure TCP-only for security |
+| Kerberos Password Change | 464/TCP, 464/UDP | Bidirectional | Password changes | Required for domain operations |
+| LDAP | 389/TCP | Inbound | Directory queries | Consider LDAPS instead |
+| LDAPS (Secure) | 636/TCP | Inbound | Encrypted directory queries | Preferred over LDAP |
+| Global Catalog | 3268/TCP | Inbound | Forest-wide queries | Required for multi-domain forests |
+| Global Catalog SSL | 3269/TCP | Inbound | Encrypted GC queries | Preferred for security |
+| AD Web Services | 9389/TCP | Inbound | PowerShell AD module | Required for modern management |
+| SMB | 445/TCP | Inbound | File sharing (SYSVOL, NETLOGON) | Block legacy NetBIOS ports |
+| DNS | 53/TCP, 53/UDP | Bidirectional | Name resolution | Critical for AD operation |
+| WinRM | 5985/TCP | Inbound | Remote management | Use HTTPS (5986) in production |
+| WinRM HTTPS | 5986/TCP | Inbound | Secure remote management | Preferred for production |
+| Remote Desktop | 3389/TCP | Inbound | Remote administration | Restrict to admin networks |
+| NetBIOS Name Service | 137/TCP, 137/UDP | Block | Legacy name resolution | Not used in modern AD |
+| NetBIOS Datagram | 138/UDP | Block | Legacy service | Not used in modern AD |
+| NetBIOS Session | 139/TCP | Block | Legacy file sharing | Use SMB (445) instead |
+| IKE | 500/UDP | Bidirectional | IPSec key exchange | For encrypted replication |
+| IPSec NAT-T | 4500/UDP | Bidirectional | IPSec through NAT | When NAT devices present |
+| ESP | IP Protocol 50 | Bidirectional | IPSec data encryption | Required for IPSec traffic |
+
+#### Firewall Rule Examples
+
+**Windows Firewall with Advanced Security:**
+
+```powershell
+# Enable required inbound rules for domain controller
+New-NetFirewallRule -DisplayName "Domain Controller - LDAPS" -Direction Inbound -Protocol TCP -LocalPort 636 -Action Allow -Profile Domain
+New-NetFirewallRule -DisplayName "Domain Controller - Global Catalog SSL" -Direction Inbound -Protocol TCP -LocalPort 3269 -Action Allow -Profile Domain
+New-NetFirewallRule -DisplayName "Domain Controller - AD Replication" -Direction Inbound -Protocol TCP -LocalPort 50000 -Action Allow -Profile Domain
+New-NetFirewallRule -DisplayName "Domain Controller - DFSR" -Direction Inbound -Protocol TCP -LocalPort 50001 -Action Allow -Profile Domain
+
+# Block legacy NetBIOS ports
+New-NetFirewallRule -DisplayName "Block NetBIOS Name Service" -Direction Inbound -Protocol TCP -LocalPort 137 -Action Block
+New-NetFirewallRule -DisplayName "Block NetBIOS Datagram" -Direction Inbound -Protocol UDP -LocalPort 138 -Action Block
+New-NetFirewallRule -DisplayName "Block NetBIOS Session" -Direction Inbound -Protocol TCP -LocalPort 139 -Action Block
+```
+
+**Third-Party Firewall Configuration:**
+
+For enterprise firewalls (Palo Alto, Fortinet, etc.), create application-based rules when possible:
+
+```text
+# Example firewall rules (generic syntax)
+allow tcp from domain-controllers to domain-controllers port 50000   # AD Replication
+allow tcp from domain-controllers to domain-controllers port 50001   # DFSR
+allow tcp from domain-controllers to domain-controllers port 636     # LDAPS
+allow tcp from domain-controllers to domain-controllers port 3269    # GC SSL
+allow udp from domain-controllers to domain-controllers port 88      # Kerberos
+allow tcp/udp from clients to domain-controllers port 53             # DNS
+```
+
+> [!WARNING]
+> IPSec does not work through Network Address Translation (NAT) devices. IPSec uses IP addresses when computing packet checksums, and packets whose source addresses are altered by NAT are discarded at the destination.
+
+> [!TIP]
+> Configure Kerberos to use TCP-only and block UDP to improve security and reduce potential attack vectors. This can be configured via Group Policy.
+
+## Security Configuration Standards
+
+### Basic Security Requirements
+
+- Servers must be installed with a currently supported Operating System with all the latest Service Packs and patches applied
+- Servers must have enterprise antivirus installed with current definitions and real-time protection enabled
+- Domain Controller computer objects are automatically created in the root of the "Domain Controllers" OU and should not be moved
+- Domain Controllers should not be multi-homed (multiple network interfaces should be avoided)
+- DNS settings: Primary DNS entry should point to itself, secondary DNS entry should point to another domain controller in the same site
+- Domain suffixes should be added to network interfaces for each domain in the forest
+- A scheduled task should perform daily System State backups with retention policies
+- Enterprise security templates and Group Policies must be applied consistently
+
+### Backup and Recovery Requirements
+
+```powershell
+# Create daily system state backup task
+$BackupAction = New-ScheduledTaskAction -Execute "wbadmin.exe" -Argument "start systemstatebackup -backupTarget:E:\Backups -quiet"
+$BackupTrigger = New-ScheduledTaskTrigger -Daily -At "2:00 AM"
+$BackupSettings = New-ScheduledTaskSettingsSet -RunOnlyIfNetworkAvailable -StartWhenAvailable
+Register-ScheduledTask -TaskName "Daily System State Backup" -Action $BackupAction -Trigger $BackupTrigger -Settings $BackupSettings -RunLevel Highest
+```
+
+## Advanced Security Policies
+
+The following security settings implement modern security best practices for Active Directory domain controllers.
+
+### LDAP Signing and Encryption Requirements
+
+**Requirement**: All domain controllers must be configured to require signed and encrypted LDAP communications.
+
+**Implementation**:
+
+```powershell
+# Configure LDAP server signing requirements
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "LDAPServerIntegrity" -Value 2 -Type DWord
+
+# Configure LDAP client signing requirements  
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\ldap" -Name "LDAPClientIntegrity" -Value 2 -Type DWord
+
+# Restart NTDS service to apply changes
+Restart-Service NTDS -Force
+```
+
+**Impact Considerations**:
+
+- All LDAP clients must support signing and encryption
+- Legacy devices (printers, appliances) may require reconfiguration or replacement
+- Test thoroughly before implementing in production
+
+### Authentication Protocol Security
+
+**Requirement**: Eliminate legacy authentication protocols and enforce modern secure authentication.
+
+**LAN Manager Authentication Level Configuration**:
+
+```powershell
+# Set authentication level to NTLMv2 and Kerberos only
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "LmCompatibilityLevel" -Value 5 -Type DWord
+
+# Disable LM hash storage
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "NoLMHash" -Value 1 -Type DWord
+```
+
+**Authentication Levels Explained**:
+
+- Level 5: Send NTLMv2 response only, refuse LM and NTLM
+- This eliminates weak LM and NTLM protocols while maintaining compatibility
+
+**Legacy Protocol Elimination**:
+
+```powershell
+# Disable SMBv1 (security risk)
+Set-SmbServerConfiguration -EnableSMB1Protocol $false -Force
+
+# Configure Kerberos to use AES encryption
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters" -Name "SupportedEncryptionTypes" -Value 24 -Type DWord
+```
+
+### Network Interface Security
+
+**IPv6 Configuration**:
+
+- Evaluate IPv6 requirements for your environment
+- If not using IPv6, disable it properly (not just unbind)
+- Consider IPv6 for future-proofing and security features
+
+```powershell
+# Properly disable IPv6 if not in use (requires reboot)
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents" -Value 0xFF -Type DWord
+
+# Configure DNS settings programmatically
+$adapter = Get-NetAdapter | Where-Object {$_.Status -eq "Up"}
+Set-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -ServerAddresses "127.0.0.1","<Secondary_DC_IP>"
+```
+
+**DNS Search Suffix Configuration**:
+
+```powershell
+# Configure DNS suffixes for domain resolution
+$suffixes = @("contoso.com", "subdomain.contoso.com", "partners.contoso.com")
+Set-DnsClientGlobalSetting -SuffixSearchList $suffixes
+```
+
+### Update Management
+
+**Windows Update Configuration**:
+
+```powershell
+# Configure Windows Update to prevent simultaneous reboots
+$updateConfig = @{
+    "AUOptions" = 4  # Download and schedule install
+    "ScheduledInstallDay" = 1  # Sunday = 1, Monday = 2, etc.
+    "ScheduledInstallTime" = 3  # 3 AM
+    "RescheduleWaitTime" = 60  # Reschedule failed installs after 60 minutes
+}
+
+foreach ($setting in $updateConfig.GetEnumerator()) {
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name $setting.Key -Value $setting.Value -Type DWord
+}
+```
+
+### User Rights Assignment Security
+
+**Critical User Rights Configuration**:
+
+```powershell
+# Configure critical user rights (requires Security Policy module)
+Import-Module SecurityPolicy
+
+# Allow logon as a service (for service accounts only)
+Grant-UserRight -Account "NT SERVICE\*" -Right "SeServiceLogonRight"
+
+# Deny interactive logon to service accounts
+Revoke-UserRight -Account "Domain Users" -Right "SeInteractiveLogonRight"
+Grant-UserRight -Account "Domain Admins" -Right "SeInteractiveLogonRight"
+
+# Backup and restore privileges
+Grant-UserRight -Account "Backup Operators" -Right "SeBackupPrivilege"
+Grant-UserRight -Account "Backup Operators" -Right "SeRestorePrivilege"
+```
+
+**Security Baseline Compliance**:
+
+Follow industry security baselines:
+
+- CIS (Center for Internet Security) Controls
+- Microsoft Security Compliance Toolkit
+- DISA STIG (Defense Information Systems Agency)
+
+```powershell
+# Download and apply Microsoft Security Baseline
+# This should be done through Group Policy in production
+Invoke-WebRequest -Uri "https://www.microsoft.com/en-us/download/details.aspx?id=55319" -OutFile "SecurityBaseline.zip"
+```
+
+### Role Separation and Least Privilege
+
+**Domain Controller Role Restrictions**:
+
+- Domain controllers should only run AD DS and DNS services
+- No additional server roles (file server, print server, web server, etc.)
+- Dedicated service accounts for each service
+- Regular audit of installed software and services
+
+```powershell
+# Audit installed server roles and features
+Get-WindowsFeature | Where-Object {$_.InstallState -eq "Installed"} | Select-Object Name, DisplayName
+
+# Remove unnecessary features (example)
+Remove-WindowsFeature -Name "Web-Server" -Remove
+```
+
+### Static Port Configuration
+
+**RPC and DFSR Static Ports**:
+
+```powershell
+# Configure static ports for RPC and DFSR
+function Set-ADStaticPorts {
+    param(
+        [int]$RPCPort = 50000,
+        [int]$DFSRPort = 50001
+    )
+    
+    # Set RPC static port
+    Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "TCP/IP Port" -Value $RPCPort -Type DWord
+    
+    # Set DFSR static port
+    dfsrdiag StaticRPC /port:$DFSRPort /Member:$env:COMPUTERNAME
+    
+    # Restart services
+    Restart-Service NTDS -Force
+    Restart-Service DFSR -Force
+    
+    Write-Output "Static ports configured: RPC=$RPCPort, DFSR=$DFSRPort"
+}
+
+# Apply static port configuration
+Set-ADStaticPorts
+```
+
+## Remote Management Security
+
+### Secure Remote Desktop Configuration
+
+**Enhanced RDP Security**:
+
+```powershell
+# Configure secure RDP settings
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "SecurityLayer" -Value 2
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "UserAuthentication" -Value 1
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" -Name "fEnableWinStation" -Value 1
+
+# Enable RDP firewall rule for domain networks only
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop" -Profile Domain
+Disable-NetFirewallRule -DisplayGroup "Remote Desktop" -Profile Public,Private
+```
+
+### Windows Remote Management (WinRM) Configuration
+
+**Secure WinRM Setup**:
+
+```powershell
+# Configure WinRM for HTTPS
+# First, ensure a proper SSL certificate is installed
+$cert = Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object {$_.Subject -like "*$env:COMPUTERNAME*"}
+
+if ($cert) {
+    # Configure HTTPS listener
+    winrm create winrm/config/Listener?Address=*+Transport=HTTPS @{Hostname="$env:COMPUTERNAME"; CertificateThumbprint="$($cert.Thumbprint)"}
+    
+    # Configure WinRM service
+    Set-WSManInstance -ResourceURI winrm/config/service -ValueSet @{
+        MaxConcurrentOperationsPerUser = "100"
+        MaxConnections = "25"
+        AllowUnencrypted = "false"
+        Auth = @{
+            Basic = "false"
+            Kerberos = "true"
+            Negotiate = "true"
+            Certificate = "true"
+            CredSSP = "false"
+        }
+    }
+    
+    # Start and configure WinRM service
+    Start-Service WinRM
+    Set-Service WinRM -StartupType Automatic
+    
+    Write-Output "WinRM configured for secure HTTPS access"
+} else {
+    Write-Warning "No suitable SSL certificate found. Install a certificate first."
+}
+```
+
+## Monitoring and Compliance
+
+### Security Monitoring
+
+**Event Log Configuration**:
+
+```powershell
+# Configure security event log size and retention
+wevtutil sl Security /ms:1073741824  # 1GB max size
+wevtutil sl Security /rt:false       # Archive when full
+
+# Enable advanced audit policies
+auditpol /set /category:"Account Logon" /success:enable /failure:enable
+auditpol /set /category:"Logon/Logoff" /success:enable /failure:enable
+auditpol /set /category:"Directory Service Access" /success:enable /failure:enable
+```
+
+### Compliance Verification
+
+**Regular Security Audits**:
+
+```powershell
+# Create security audit script
+function Invoke-DCSecurityAudit {
+    $report = @()
+    
+    # Check LDAP signing configuration
+    $ldapSigning = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "LDAPServerIntegrity" -ErrorAction SilentlyContinue
+    $report += [PSCustomObject]@{
+        Check = "LDAP Signing"
+        Status = if ($ldapSigning.LDAPServerIntegrity -eq 2) { "Compliant" } else { "Non-Compliant" }
+        Value = $ldapSigning.LDAPServerIntegrity
+    }
+    
+    # Check LM Hash storage
+    $lmHash = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "NoLMHash" -ErrorAction SilentlyContinue
+    $report += [PSCustomObject]@{
+        Check = "LM Hash Disabled"
+        Status = if ($lmHash.NoLMHash -eq 1) { "Compliant" } else { "Non-Compliant" }
+        Value = $lmHash.NoLMHash
+    }
+    
+    # Check authentication level
+    $authLevel = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "LmCompatibilityLevel" -ErrorAction SilentlyContinue
+    $report += [PSCustomObject]@{
+        Check = "Authentication Level"
+        Status = if ($authLevel.LmCompatibilityLevel -ge 5) { "Compliant" } else { "Non-Compliant" }
+        Value = $authLevel.LmCompatibilityLevel
+    }
+    
+    return $report
+}
+
+# Run security audit
+Invoke-DCSecurityAudit | Format-Table -AutoSize
+```
+
+## Troubleshooting and Verification
+
+### Common Issues and Solutions
+
+**LDAP Signing Issues**:
+
+- **Problem**: Clients cannot authenticate after enabling LDAP signing
+- **Solution**: Update client LDAP libraries or configure client-side signing
+- **Verification**: Use `ldp.exe` to test LDAP connectivity with signing
+
+**Authentication Protocol Issues**:
+
+- **Problem**: Legacy applications fail after disabling NTLM
+- **Solution**: Identify applications using NTLM and update or configure for Kerberos
+- **Tools**: Use `netsh trace` and Event Viewer to identify NTLM usage
+
+**Static Port Configuration**:
+
+- **Problem**: Replication fails after configuring static ports
+- **Solution**: Verify firewall rules allow the configured ports
+- **Verification**: Use `portqry` to test port connectivity
+
+### Verification Commands
+
+```powershell
+# Verify AD replication health
+repadmin /replsummary
+repadmin /showrepl
+
+# Test LDAP connectivity with signing
+ldp.exe  # Use GUI to test LDAP bind with signing required
+
+# Verify Kerberos functionality
+klist tickets
+nltest /sc_verify:domain.com
+
+# Check static port configuration
+netstat -an | findstr :50000
+netstat -an | findstr :50001
+```
+
+### Performance Monitoring
+
+```powershell
+# Key performance counters for domain controllers
+$counters = @(
+    "\NTDS\DRA Inbound Values (DNs only)/sec"
+    "\NTDS\DRA Outbound Values (DNs only)/sec"
+    "\NTDS\LDAP Searches/sec"
+    "\NTDS\LDAP Successful Binds/sec"
+    "\Database ==> Instances(lsass/NTDSA)\Database Cache % Hit"
+)
+
+# Collect performance data
+Get-Counter -Counter $counters -SampleInterval 5 -MaxSamples 12
+```
+
+## Best Practices Summary
+
+1. **Security First**: Implement defense-in-depth with multiple security layers
+2. **Regular Updates**: Maintain current patch levels and security updates
+3. **Monitoring**: Implement comprehensive logging and monitoring
+4. **Testing**: Test all changes in non-production environments first
+5. **Documentation**: Maintain current documentation of configurations and procedures
+6. **Backup**: Ensure reliable backup and recovery procedures
+7. **Compliance**: Regular audits against security baselines
+8. **Segregation**: Keep domain controllers dedicated to AD DS and DNS only
+
+## Additional Resources
+
+- [Microsoft Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
+- [CIS Controls for Active Directory](https://www.cisecurity.org/controls/)
+- [Active Directory Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/)
+- [DISA STIG for Windows Server](https://public.cyber.mil/stigs/)
