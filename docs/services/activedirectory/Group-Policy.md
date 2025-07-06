@@ -11,7 +11,7 @@ ms.subservice: "group-policy"
 keywords: ["Group Policy", "GPO", "Active Directory", "Security", "Configuration", "PowerShell", "Automation"]
 ---
 
-# Group Policy Management Guide
+## Group Policy Management Guide
 
 This comprehensive guide provides enterprise-level guidance for designing, implementing, and managing Active Directory Group Policy Objects (GPOs) with modern security practices, automation techniques, and performance optimization strategies.
 

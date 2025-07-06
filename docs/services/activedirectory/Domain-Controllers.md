@@ -207,6 +207,8 @@ allow tcp/udp from clients to domain-controllers port 53             # DNS
 > [!WARNING]
 > IPSec does not work through Network Address Translation (NAT) devices. IPSec uses IP addresses when computing packet checksums, and packets whose source addresses are altered by NAT are discarded at the destination.
 
+---
+
 > [!TIP]
 > Configure Kerberos to use TCP-only and block UDP to improve security and reduce potential attack vectors. This can be configured via Group Policy.
 

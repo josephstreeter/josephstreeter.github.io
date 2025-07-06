@@ -11,7 +11,7 @@ ms.subservice: "monitoring"
 keywords: ["Active Directory", "Monitoring", "Logging", "SIEM", "Performance", "Security", "Auditing", "PowerShell", "Automation"]
 ---
 
-# Active Directory Monitoring and Logging Guide
+## Active Directory Monitoring and Logging Guide
 
 This comprehensive guide provides enterprise-level monitoring, logging, and auditing strategies for Active Directory environments with modern security practices, automation techniques, and integration with enterprise monitoring solutions.
 

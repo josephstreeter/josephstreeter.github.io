@@ -11,7 +11,7 @@ ms.subservice: "domain-services"
 keywords: ["Active Directory", "Forest", "Domain", "Design", "Architecture", "Security", "PowerShell"]
 ---
 
-# Active Directory Forests and Domains Design Guide
+## Active Directory Forests and Domains Design Guide
 
 Active Directory forests and domains form the foundational structure of enterprise identity management. This guide provides comprehensive guidance for designing, implementing, and managing Active Directory forest and domain architecture with modern security practices and automation.
 

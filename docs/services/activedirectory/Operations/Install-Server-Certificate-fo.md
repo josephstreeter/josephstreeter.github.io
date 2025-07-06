@@ -9,7 +9,7 @@ ms.subservice: certificates
 keywords: active directory, ldaps, ssl, tls, certificates, domain controller, security
 ---
 
-# Install Server Certificate for Domain Controllers
+## Install Server Certificate for Domain Controllers
 
 ## Overview
 
@@ -293,7 +293,7 @@ If multiple certificates exist, ensure the correct certificate is used for LDAPS
 2. **Import to NTDS Personal Store:**
 
    Since PowerShell cannot directly manage the NTDS Personal store, use the Certificates MMC:
-   
+
    - Run `mmc.exe`
    - Add **Certificates** snap-in
    - Select **Service account** → **Local computer** → **Active Directory Domain Services**

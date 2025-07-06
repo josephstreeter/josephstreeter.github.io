@@ -11,7 +11,7 @@ ms.subservice: "domain-services"
 keywords: ["Active Directory", "Groups", "Security", "AGDLP", "RBAC", "PowerShell", "Management"]
 ---
 
-# Active Directory Group Objects Management Guide
+## Active Directory Group Objects Management Guide
 
 This guide provides comprehensive guidance for managing Active Directory group objects, including group types, scopes, nesting strategies, security best practices, and automation techniques for enterprise environments.
 
