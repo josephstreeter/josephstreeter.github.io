@@ -13,6 +13,8 @@ This section covers the fundamental techniques and methodologies used in Open So
 
 ## Search Engine Intelligence (SEINT)
 
+Search Engine Intelligence (SEINT) focuses on leveraging search engines to collect, filter, and analyze publicly available information. This section introduces core SEINT concepts, including the use of advanced search operators, cross-platform strategies, and effective keyword development. It also covers Boolean logic application and methodologies for maximizing the relevance and accuracy of search results, forming the foundation for efficient OSINT investigations.
+
 ### Advanced Search Operators
 
 **Google Dorking Techniques:**
@@ -55,6 +57,8 @@ Wildcards: Variable terms (cyber*)
 ```
 
 ## Social Media Intelligence (SOCMINT)
+
+Social Media Intelligence (SOCMINT) involves the systematic collection and analysis of information from social networking platforms. This section explores methodologies for extracting actionable intelligence from platforms such as Facebook, Twitter/X, LinkedIn, and Instagram. It covers techniques for identifying user activity, mapping connections, and verifying content authenticity. Emphasis is placed on cross-platform correlation, username enumeration, and content verification to ensure comprehensive and accurate intelligence gathering from social media sources.
 
 ### Platform-Specific Techniques
 
@@ -110,6 +114,8 @@ Wildcards: Variable terms (cyber*)
 
 ## Technical Intelligence (TECHINT)
 
+Technical Intelligence (TECHINT) focuses on the collection and analysis of information related to technological infrastructure, digital assets, and networked systems. This section outlines methodologies for identifying and profiling domains, mapping network infrastructure, and assessing application security. It covers techniques such as domain and DNS analysis, subdomain discovery, technology fingerprinting, and vulnerability intelligence, providing a foundation for understanding the technical landscape of a target and supporting broader OSINT investigations.
+
 ### Network Reconnaissance
 
 **Domain Analysis:**
@@ -157,6 +163,8 @@ Security tools: WAF, DDoS protection
 
 ## Human Intelligence (HUMINT) Sources
 
+This section explores Human Intelligence (HUMINT) sources within the context of OSINT investigations. It outlines methods for gathering information from individuals, professional networks, and public records. The focus is on leveraging employment history, academic background, government and commercial databases to enrich intelligence profiles. Emphasis is placed on ethical considerations, verification of information, and integrating HUMINT with other intelligence disciplines for comprehensive analysis.
+
 ### Professional Networks
 
 **Employment History:**
@@ -195,6 +203,8 @@ Security tools: WAF, DDoS protection
 
 ## Geospatial Intelligence (GEOINT)
 
+Geospatial Intelligence (GEOINT) involves the collection, analysis, and interpretation of data related to physical locations and geographic features. This section details methodologies for leveraging satellite imagery, aerial photography, and ground-level data to extract actionable intelligence. It covers techniques for analyzing spatial patterns, verifying locations, and integrating geospatial data with other OSINT sources. Emphasis is placed on the use of mapping tools, imagery comparison, and validation processes to enhance situational awareness and support investigative objectives.
+
 ### Satellite Imagery Analysis
 
 **Historical Comparison:**
@@ -232,6 +242,8 @@ Security tools: WAF, DDoS protection
 - **Surrounding context**: Neighborhood analysis
 
 ## Data Analysis Techniques
+
+This section introduces core data analysis techniques essential for transforming raw OSINT data into actionable intelligence. It covers methods for data cleaning, normalization, and structuring, as well as approaches for identifying trends, anomalies, and relationships within large datasets. Emphasis is placed on the use of visualization tools, statistical analysis, and correlation techniques to enhance understanding and support informed decision-making throughout the intelligence process.
 
 ### Pattern Recognition
 
@@ -312,6 +324,8 @@ Bias: Perspective, agenda, objectivity
 
 ## Automation and Tool Integration
 
+This section explores the integration of automation and specialized tools into the OSINT workflow. It highlights how leveraging APIs, scripting, and automated platforms can streamline data collection, enhance analysis, and improve efficiency in intelligence gathering. Key topics include the use of social media and search engine APIs, web scraping best practices, and the application of machine learning and natural language processing for advanced data analysis. The section emphasizes the importance of responsible automation, tool selection, and maintaining data integrity throughout the OSINT process.
+
 ### Data Collection Automation
 
 **API Integration:**
@@ -357,6 +371,8 @@ combined_results = aggregate_api_results()
 
 ## Ethical Considerations and Best Practices
 
+This section addresses the ethical responsibilities and best practices essential for conducting OSINT investigations. It outlines the importance of legal compliance, including adherence to local and international laws, data protection regulations, and platform terms of service. The section also emphasizes the need for thorough documentation, source attribution, and maintaining the integrity of collected information. Operational security measures are discussed to protect both investigators and targets, highlighting strategies for anonymity, data security, and minimizing potential harm. By following these guidelines, practitioners can ensure their OSINT activities are conducted responsibly, ethically, and in accordance with professional standards.
+
 ### Legal Compliance
 
 **Jurisdictional Awareness:**
@@ -394,6 +410,8 @@ combined_results = aggregate_api_results()
 - **Responsible disclosure**: Appropriate reporting
 
 ## Quality Assurance and Reporting
+
+This section focuses on ensuring the accuracy, reliability, and clarity of OSINT findings through systematic quality assurance and effective reporting. It outlines methods for evaluating information sources, assessing credibility, and structuring intelligence reports for maximum impact. Emphasis is placed on using standardized reliability and credibility scales, documenting analytical processes, and presenting findings in a clear, actionable format. By following these practices, practitioners can enhance the trustworthiness and usefulness of their OSINT outputs.
 
 ### Information Evaluation
 

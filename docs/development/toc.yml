@@ -3,6 +3,8 @@
   items:
   - name: Azure DevOps
     href: azuredevops/toc.yml
+  - name: Documentation as Code
+    href: das/toc.yml
   - name: docfx
     href: docfx/toc.yml
   - name: Git

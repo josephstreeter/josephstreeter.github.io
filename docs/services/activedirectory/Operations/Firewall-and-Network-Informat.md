@@ -9,7 +9,7 @@ ms.subservice: networking
 keywords: active directory, firewall, network, ports, security, domain controllers, infrastructure
 ---
 
-# Active Directory Firewall and Network Configuration
+## Active Directory Firewall and Network Configuration
 
 ## Overview
 

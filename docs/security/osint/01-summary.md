@@ -28,6 +28,8 @@ Open Source Intelligence (OSINT) is the practice of collecting, analyzing, and u
 
 ## Core OSINT Principles
 
+This section introduces the foundational principles that guide ethical and effective OSINT practice. It explains the importance of relying solely on publicly available information, adhering to legal and ethical standards, and rigorously verifying and validating collected data. By understanding these core principles, practitioners can ensure their intelligence activities are responsible, credible, and compliant with relevant laws and guidelines.
+
 ### 1. Public Information Only
 
 OSINT strictly uses information that is:
@@ -55,6 +57,8 @@ Information must be:
 - Properly documented and attributed
 
 ## OSINT Applications
+
+This section provides an overview of the diverse applications of OSINT across various fields. It highlights how open source intelligence is leveraged in security research, corporate investigations, law enforcement, journalism, and academic research. By illustrating real-world use cases, this section demonstrates the practical value and broad impact of OSINT in addressing different intelligence needs and supporting informed decision-making.
 
 ### Security Research
 
@@ -85,6 +89,8 @@ Information must be:
 - **Human rights documentation**
 
 ## The OSINT Process
+
+This section outlines the typical OSINT process, breaking down each phase from initial planning to final dissemination. Understanding these steps helps practitioners approach intelligence gathering in a structured, repeatable, and ethical manner.
 
 ### 1. Planning and Direction
 
@@ -122,6 +128,8 @@ Information must be:
 - Update collection requirements
 
 ## Types of OSINT Sources
+
+This section introduces the main categories of OSINT sources, highlighting the diverse types of publicly available information leveraged in intelligence gathering. It outlines the distinctions between human, technical, geospatial, and signals intelligence sources, providing examples of each to illustrate the breadth of data accessible through open channels.
 
 ### Human Intelligence (HUMINT) Sources
 
@@ -163,6 +171,8 @@ Information must be:
 
 ## Challenges in OSINT
 
+This section explores the primary challenges faced in OSINT operations. It highlights issues such as managing large volumes of data, technical obstacles in data processing and automation, and the complex legal and ethical landscape that practitioners must navigate. Understanding these challenges is essential for effective and responsible OSINT practice.
+
 ### Information Overload
 
 - **Volume**: Massive amounts of available data
@@ -185,6 +195,8 @@ Information must be:
 - **Data protection**: GDPR and similar regulations
 
 ## Modern OSINT Landscape
+
+This section provides an overview of the current state of OSINT, emphasizing how technological advancements and the digital transformation have reshaped the field. It discusses the impact of new data sources, the integration of emerging technologies such as artificial intelligence and machine learning, and highlights future trends that are likely to influence OSINT practices. Readers will gain insight into how the modern landscape presents both new opportunities and challenges for open source intelligence gathering.
 
 ### Digital Transformation Impact
 
@@ -210,6 +222,8 @@ The explosion of digital information has transformed OSINT:
 - **Privacy-preserving techniques**: Ethical data collection
 
 ## Getting Started with OSINT
+
+This section introduces newcomers to the foundational steps for beginning an OSINT journey. It outlines the essential skills required for effective open source intelligence work, highlights basic tools that facilitate research and verification, and provides a suggested learning path to build proficiency. Whether you are a security professional, journalist, or enthusiast, this guide helps you understand where to start, what to focus on, and how to develop your OSINT capabilities in a structured and ethical manner.S
 
 ### Essential Skills
 
