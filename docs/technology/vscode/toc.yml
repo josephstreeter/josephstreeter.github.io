@@ -1,6 +1,0 @@
-- name: Install
-  href: install.md
-- name: Configure
-  href: configure.md
-- name: Tipa and Tricks
-  href: tipsandtricks.md

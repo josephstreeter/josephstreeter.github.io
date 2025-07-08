@@ -1,0 +1,13 @@
+- name: VS Code and Copilot for Documentation
+  href: index.md
+  items:
+  - name: Setup and Configuration
+    href: setup.md
+  - name: Copilot Usage Guide
+    href: copilot-usage.md
+  - name: Productivity Features
+    href: productivity.md
+  - name: Collaboration Workflows
+    href: collaboration.md
+  - name: Troubleshooting Guide
+    href: troubleshooting.md

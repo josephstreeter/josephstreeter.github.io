@@ -1,10 +1,10 @@
-- name: introduction
-  href: introduction.md
-- name: getting started
-  href: getting-started.md
-- name: Technology
-  href: technology/index.md
-- name: Photography
-  href: photography/index.md
-- name: Cooking
-  href: cooking/index.md
+
+- name: Infrastructure
+  href: infrastructure/index.md
+- name: Development
+  href: development/index.md
+- name: Networking
+  href: networking/index.md
+- name: Personal
+  href: personal/index.md
+

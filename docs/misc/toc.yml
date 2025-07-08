@@ -1,0 +1,9 @@
+- name: Miscellaneous
+  href: index.md
+  items:
+  - name: RTL-SDR
+    href: rtl-sdr/toc.yml
+  - name: Cuddeback
+    href: cuddeback/toc.yml
+  - name: Home Assistant
+    href: homeassistant/toc.yml

@@ -1,0 +1,23 @@
+- name: Infrastructure
+  href: index.md
+  items:
+  - name: Ansible
+    href: ansible/toc.yml
+  - name: Grafana
+    href: grafana/toc.yml
+  - name: Prometheus
+    href: prometheus/toc.yml
+  - name: Home Lab
+    href: homelab/toc.yml
+  - name: KQL
+    href: kql/toc.yml
+  - name: Linux
+    href: linux/toc.yml
+  - name: Proxmox
+    href: proxmox/toc.yml
+  - name: SQL Server
+    href: sql/toc.yml
+  - name: Windows
+    href: windows/toc.yml
+  - name: Terraform
+    href: terraform/toc.yml

@@ -1,31 +1,54 @@
-# Knowledge Base
+# Technical Documentation
 
-This serves as my personal knowledge base. An online notebook of sorts for information I would like to store for later use.  
+Welcome to my personal technical documentation site. This contains guides, configurations, and best practices for various technologies I work with.
 
-## Topics
+## Quick Navigation
 
-### Technology
+### 🏗️ [Enterprise Services](services/)
 
-- PowerShell
-- Docker
-- Secure Shell
-- Git
-- SQL
-- Unifi Networking
-- Home Lab
-- Home Assistant
-- Terraform
-- Ansible
+Administration of Enterprise Services
 
-### Photography
+- Active Directory, Exchange
 
-The basics for:
+### 🛠️ [Development](development/)
 
-- Camera settings
-- Composition
-- Tips and tricks
+Tools and workflows for software development
 
-### Cooking
+- Git, VS Code, Regular Expressions
 
-- Propane Griddle
-- Pellet Smoker
+### 🏗️ [Infrastructure](infrastructure/)
+
+Server management and infrastructure as code
+
+- Terraform, Proxmox, SSH
+
+### 🌐 [Networking](networking/)
+
+Network configuration and management
+
+- Unifi network equipment
+
+### 📸 [Personal](personal/)
+
+Hobbies and personal interests
+
+- Photography
+
+### 🌐 [Miscellatious](misc/)
+
+Things that just don't fit anywhere else
+
+- Home Assistant, Cuddeback cameras
+
+## Popular Pages
+
+- [Git Configuration](development/git/configuration.md)
+- [SSH Setup](security/ssh/)
+- [VS Code for PowerShell](development/vscode/)
+- [Terraform with Proxmox](infrastructure/terraform/proxmox.md)
+
+## Recent Updates
+
+- Updated SSH documentation with improved examples
+- Added Terraform best practices
+- Expanded VS Code snippets collection

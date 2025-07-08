@@ -1,0 +1,11 @@
+- name: Security
+  href: index.md
+  items:
+  - name: Secure Shell
+    href: ssh/toc.yml
+  - name: PGP
+    href: pgp/toc.yml
+  - name: Wireless
+    href: wireless/toc.yml
+  - name: OSINT
+    href: osint/toc.yml
