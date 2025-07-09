@@ -4,5 +4,5 @@
   href: dockercompose.md
 - name: Monitoring and Logging
   href: monitoring.md
-- name: Formating
-  href: formating.md
+- name: Formatting
+  href: formatting.md

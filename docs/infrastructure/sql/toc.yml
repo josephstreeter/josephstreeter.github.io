@@ -2,3 +2,5 @@
   href: index.md
 - name: SQL Queries
   href: sqlqueries.md
+- name: SQL Server Security
+  href: security.md

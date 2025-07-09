@@ -7,7 +7,7 @@ difficulty: "beginner"
 last_updated: "2025-01-20"
 ---
 
-# Docker Command Formatting
+## Docker Command Formatting
 
 Docker provides powerful formatting options for customizing command output using Go template syntax. This allows you to display only the information you need in a clean, readable format.
 

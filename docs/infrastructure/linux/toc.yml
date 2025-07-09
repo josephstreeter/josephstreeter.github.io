@@ -1,2 +1,7 @@
 - name: Linux
   href: index.md
+  items:
+  - name: Server Administration
+    href: server.md
+  - name: Desktop Environment
+    href: desktop.md

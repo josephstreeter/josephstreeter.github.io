@@ -1,2 +1,7 @@
 - name: Windows Server
   href: index.md
+  items:
+  - name: Security
+    href: security.md
+  - name: Configuration Management
+    href: configuration-management.md

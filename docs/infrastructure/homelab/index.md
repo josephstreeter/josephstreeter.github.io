@@ -1,10 +1,69 @@
-# Home Lab
+---
+title: Home Lab Infrastructure
+description: Complete guide to setting up a home lab infrastructure with Proxmox, Kubernetes, Terraform, and Ansible for learning and development.
+author: Joseph Streeter
+ms.author: jstreeter
+ms.date: 07/08/2025
+ms.topic: article
+ms.service: homelab
+keywords: homelab, Proxmox, Kubernetes, Terraform, Ansible, virtualization, containers, infrastructure as code
+uid: docs.infrastructure.homelab.index
+---
 
-## Proxmox
+This document outlines the complete setup of a home lab infrastructure designed for learning and development. The lab consists of a Proxmox virtualization cluster, Kubernetes container orchestration, and infrastructure automation using Terraform and Ansible.
 
-Proxmox makes of the base of the lab. Three compact PCs with Proxmox 8.3 installed and configured as a cluster. The following helper scripts help set up Proxmox.
+## Overview
 
-The pve_setup.sh script:
+The home lab architecture includes:
+
+- **Proxmox VE**: Three-node hypervisor cluster for virtualization
+- **Kubernetes**: Container orchestration with one master and multiple worker nodes
+- **Terraform**: Infrastructure as Code for VM provisioning
+- **Ansible**: Configuration management and automation
+- **Cloud-init**: Automated VM initialization and configuration
+
+> [!NOTE]
+> This setup is designed for learning and development purposes. For production environments, additional security hardening and high availability considerations would be required.
+
+## Architecture
+
+```mermaid
+graph TB
+    subgraph "Proxmox Cluster"
+        PVE1[Proxmox Node 1]
+        PVE2[Proxmox Node 2]
+        PVE3[Proxmox Node 3]
+    end
+    
+    subgraph "Kubernetes Cluster"
+        Master[K8s Master]
+        Worker1[K8s Worker 1]
+        Worker2[K8s Worker 2]
+    end
+    
+    TF[Terraform] --> PVE1
+    TF --> PVE2
+    TF --> PVE3
+    
+    PVE1 --> Master
+    PVE2 --> Worker1
+    PVE3 --> Worker2
+    
+    Ansible --> Master
+    Ansible --> Worker1
+    Ansible --> Worker2
+```
+
+## Proxmox Virtual Environment
+
+Proxmox VE forms the foundation of the lab, providing a robust virtualization platform. The setup consists of three compact PCs with Proxmox VE 8.3 installed and configured as a cluster.
+
+> [!TIP]
+> The following helper scripts automate the initial Proxmox setup and configuration. Run these scripts on each node after the initial Proxmox installation.
+
+### Initial Setup Script
+
+The `pve_setup.sh` script configures the Proxmox environment:
 
 - Sets the non-enterprise apt repositories for pve and ceph
 - Removes the enterprise repositories for pve and ceph
@@ -52,31 +111,45 @@ apt update && apt install terraform -y
 popd
 ```
 
-The pve_terraform_setup.sh script:
+### Terraform Setup Script
 
-- Creates a role for terraform to clone VMs from templates
-- Creates a user to authenticate Terraform
-- Adds Terraform user to the new role
-- Applies role to the root
-- Creates API token for the user
+The `pve_terraform_setup.sh` script creates the necessary Terraform user and permissions:
+
+- Creates a role for Terraform with appropriate permissions
+- Creates a user for Terraform authentication
+- Assigns the user to the role with root-level access
+- Generates an API token for authentication
+
+> [!IMPORTANT]
+> Replace `<password>` with a secure password for the Terraform user.
 
 ```bash
 # pve_terraform_setup.sh
 
+# Create role with necessary permissions for Terraform
 pveum role add TerraformProv -privs "Datastore.AllocateSpace Datastore.AllocateTemplate Datastore.Audit Pool.Allocate Sys.Audit Sys.Console Sys.Modify VM.Allocate VM.Audit VM.Clone VM.Config.CDROM VM.Config.Cloudinit VM.Config.CPU VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Migrate VM.Monitor VM.PowerMgmt SDN.Use"
 
+# Create user for Terraform
 pveum user add terraform-prov@pve --password "<password>"
+
+# Apply role to user at root level
 pveum aclmod / -user terraform-prov@pve -role TerraformProv
 
-
+# Create API token for the user
 pveum user token add terraform-prov@pve terraform
 ```
 
-The pve_template_create.sh script:
+### Template Creation Script
 
-- Downloads the cloud image if it doesn't exist
-- Creates a VM using the cloud image
-- Converts the VM to a template
+The `pve_template_create.sh` script downloads a cloud image and creates a VM template:
+
+- Downloads the Debian 12 cloud image if not present
+- Creates a VM with the specified configuration
+- Configures the VM with cloud-init support
+- Converts the VM to a template for cloning
+
+> [!WARNING]
+> This script contains a duplicate `qm create` command that should be removed. The corrected version is shown below.
 
 ```bash
 # pve_template_create.sh
@@ -86,30 +159,53 @@ TEMPLATENAME="debian12-cloudinit"
 TEMPLATEURL="https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
 FILE="debian-12-genericcloud-amd64.qcow2"
 
+# Download cloud image if it doesn't exist
 pushd /root/
-if [ -f $FILE ]; then
+if [ -f "$FILE" ]; then
    echo "Image ($FILE) exists."
 else
-   echo "image ($FILE) does not exist. Downloading...."
-   wget $TEMPLATEURL
+   echo "Image ($FILE) does not exist. Downloading..."
+   wget "$TEMPLATEURL"
 fi
 popd
 
-qm create $VMID --name $TEMPLATENAME
-qm create $VMID --name $TEMPLATENAME
-qm set $VMID --scsi0 local-lvm:0,import-from=/root/$file
-qm template $VMID
+# Create VM from cloud image
+qm create "$VMID" --name "$TEMPLATENAME" --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
+qm set "$VMID" --scsi0 local-lvm:0,import-from=/root/"$FILE"
+qm set "$VMID" --ide2 local-lvm:cloudinit
+qm set "$VMID" --boot order=scsi0
+qm set "$VMID" --serial0 socket --vga serial0
+qm set "$VMID" --agent enabled=1
+
+# Convert to template
+qm template "$VMID"
 ```
 
-## Kubernetes
+## Kubernetes Cluster Deployment
 
-A three node K8S cluster deployed with Teraform and configured with Ansible.
+The Kubernetes cluster is deployed using Terraform for infrastructure provisioning and Ansible for configuration management. The cluster consists of one master node and multiple worker nodes.
 
-Teraform files:
+### Prerequisites
 
-The ```providers.tf``` file consists of only one provider. Telmate/proxmox 3.0.1-rc7 at the time of this writing.
+Before deploying the cluster, ensure:
 
-```text
+1. Proxmox cluster is configured and running
+2. Terraform user and API token are created
+3. Cloud-init template is available
+4. Ansible is installed on the control machine
+
+### Terraform Configuration
+
+The Terraform configuration consists of several files that define the infrastructure.
+
+> [!TIP]
+> The Terraform configuration uses version 3.0.1-rc7 of the Telmate Proxmox provider. Check for newer versions when implementing.
+
+#### Provider Configuration
+
+The `providers.tf` file defines the Proxmox provider:
+
+```hcl
 # providers.tf
 
 terraform {
@@ -121,7 +217,6 @@ terraform {
   }
 }
 
-
 provider "proxmox" {
   pm_api_url          = var.proxmox_api_url
   pm_api_token_id     = var.proxmox_api_token_id
@@ -130,14 +225,17 @@ provider "proxmox" {
 }
 ```
 
-The ```main.tf``` file contains only one resource, ```proxmox_vm_qemu```. The number of VMs created can be controlled by changing the ```count``` property.
+#### Main Resource Configuration
 
-The size of the disk specified in the resource MUST be the same size or larger then the disk configured on the template. If not, a new disk will be created and the cloned disk will be "unused." This will cause the VM to be unable to boot.
+The `main.tf` file defines the VM resources. The `count` parameter controls the number of VMs created.
 
-```text
+> [!IMPORTANT]
+> The disk size specified in the resource must be equal to or larger than the disk configured in the template. If smaller, a new disk will be created and the cloned disk will be marked as "unused," preventing the VM from booting.
+
+```hcl
 # main.tf
 
-resource "proxmox_vm_qemu" "cloudinit-example" {
+resource "proxmox_vm_qemu" "kubernetes_nodes" {
   count       = 3
   name        = "k8s-node-${count.index + 1}"
   target_node = var.proxmox_host
@@ -145,14 +243,14 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
   agent       = 1
   cores       = 2
   memory      = 4096
-  boot        = "order=scsi0" # has to be the same as the OS disk of the template
-  clone       = var.template_name # The name of the template
+  boot        = "order=scsi0"
+  clone       = var.template_name
   scsihw      = "virtio-scsi-single"
   vm_state    = "running"
   automatic_reboot = true
 
   # Cloud-Init configuration
-  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml" # /var/lib/vz/snippets/qemu-guest-agent.yml
+  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
   ciupgrade  = true
   nameserver = "192.168.127.1 8.8.8.8"
   ipconfig0  = "ip=192.168.127.2${count.index + 1}/24,gw=192.168.127.1,ip6=dhcp"
@@ -161,23 +259,22 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
   cipassword = var.password
   sshkeys    = var.ssh_key
 
-  # Most cloud-init images require a serial device for their display
+  # Serial console for cloud-init images
   serial {
     id = 0
   }
 
+  # Disk configuration
   disks {
     scsi {
       scsi0 {
-        # We have to specify the disk from our template, else Terraform will think it's not supposed to be there
         disk {
           storage = var.storage
-          size    = "3G" # The size of the disk should be at least as big as the disk in the template. If it's smaller, the disk will be recreated
+          size    = "20G"  # Increased for Kubernetes requirements
         }
       }
     }
     ide {
-      # Some images require a cloud-init disk on the IDE controller, others on the SCSI or SATA controller
       ide1 {
         cloudinit {
           storage = var.storage
@@ -186,6 +283,7 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
     }
   }
 
+  # Network configuration
   network {
     id = 0
     bridge = "vmbr0"
@@ -194,33 +292,45 @@ resource "proxmox_vm_qemu" "cloudinit-example" {
 }
 ```
 
-The ```output.tf``` file displays the IP addresses assigned to the VMs.
+#### Output Configuration
 
-```text
+The `output.tf` file displays the assigned IP addresses:
+
+```hcl
 # output.tf
 
-output "cloudinit-example" {
-  value = proxmox_vm_qemu.cloudinit-example[*].ipconfig0
-  description = "IP addresses assigned to the K8s nodes"
+output "kubernetes_node_ips" {
+  value = proxmox_vm_qemu.kubernetes_nodes[*].ipconfig0
+  description = "IP addresses assigned to the Kubernetes nodes"
+}
+
+output "kubernetes_node_names" {
+  value = proxmox_vm_qemu.kubernetes_nodes[*].name
+  description = "Names of the Kubernetes nodes"
 }
 ```
 
-The ```variables.tf``` file defines all of the variables used in the template.
+#### Variable Definitions
 
-```text
-#variables.tf
+The `variables.tf` file defines all variables used in the configuration:
+
+> [!NOTE]
+> The template name comment mentions Ubuntu 24.04, but the actual template is Debian 12. This has been corrected in the description.
+
+```hcl
+# variables.tf
 
 variable "proxmox_api_url" {
   type        = string
   description = "URL of the Proxmox API"
-  default = "https://192.168.127.113:8006/api2/json"
+  default     = "https://192.168.127.113:8006/api2/json"
 }
 
 variable "proxmox_api_token_id" {
   type        = string
   description = "Proxmox API token ID"
   sensitive   = true
-  default = "terraform-prov@pve!terraform_id"
+  default     = "terraform-prov@pve!terraform"
 }
 
 variable "proxmox_api_token_secret" {
@@ -231,14 +341,14 @@ variable "proxmox_api_token_secret" {
 
 variable "proxmox_host" {
   type        = string
-  default     = "FR-VH-01"  # Replace with your Proxmox node name
+  default     = "FR-VH-01"
   description = "Target Proxmox node for VM deployment"
 }
 
 variable "template_name" {
   type        = string
-  default     = "debian12-cloudinit"  # Replace with your Ubuntu 24.04 template name
-  description = "Name of the cloud-init template"
+  default     = "debian12-cloudinit"
+  description = "Name of the Debian 12 cloud-init template"
 }
 
 variable "ssh_key" {
@@ -248,46 +358,80 @@ variable "ssh_key" {
 
 variable "ciuser" {
   type        = string
-  description = "Local user for cloud-init configuration"
-  default     = "ubuntu"  # Replace with your desired username
+  description = "Cloud-init user for VM configuration"
+  default     = "debian"
 }
 
 variable "password" {
   type        = string
-  description = "local user password for VM access"
+  description = "Password for the cloud-init user"
+  sensitive   = true
 }
 
 variable "storage" {
   type        = string
-  default     = "local-zfs"
-  description = "Name of the Proxmox storage for VM disks"
+  default     = "local-lvm"
+  description = "Proxmox storage pool for VM disks"
 }
 ```
 
-The ```terraform.tfvars``` file provides values to the variables that are used within the template. This file should not be included in source control in order to protect the information.
+#### Variable Values
 
-```text
+The `terraform.tfvars` file provides values for the variables:
+
+> [!WARNING]
+> This file contains sensitive information and should never be committed to version control. Add it to your `.gitignore` file.
+
+```hcl
 # terraform.tfvars
 
-proxmox_api_url          = "https://<host or ip>:8006/api2/json"
-proxmox_api_token_id     = "<token id>" 
-proxmox_api_token_secret = "<token secret>"
-proxmox_host             = "<host>"
-template_name            = "<template name>"
-ciuser                   = "<username>"
-password                 = "<password>"
-ssh_key                  = "<ssh key>"
+proxmox_api_url          = "https://<proxmox-host-ip>:8006/api2/json"
+proxmox_api_token_id     = "terraform-prov@pve!terraform"
+proxmox_api_token_secret = "<your-token-secret>"
+proxmox_host             = "<proxmox-node-name>"
+template_name            = "debian12-cloudinit"
+ciuser                   = "debian"
+password                 = "<secure-password>"
+ssh_key                  = "<your-ssh-public-key>"
 storage                  = "local-lvm"
-
 ```
 
-## Ansible
+### Deployment Commands
 
-Once the VMs for the K8S nodes are deployed, they are configured as a K8S cluster by Ansible. The cluster, as configured here, will consist of one Master and three Workers.
+To deploy the infrastructure:
 
-The ```ansible_user``` should match the ```ciuser``` configured in the VM template.
+```bash
+# Initialize Terraform
+terraform init
 
-```text
+# Plan the deployment
+terraform plan
+
+# Apply the configuration
+terraform apply
+
+# Destroy the infrastructure (when needed)
+terraform destroy
+```
+
+## Ansible Configuration Management
+
+Once the VMs are deployed, Ansible configures them as a Kubernetes cluster. The configuration includes one master node and multiple worker nodes.
+
+### Ansible Prerequisites
+
+- Ansible installed on the control machine
+- SSH access to all nodes
+- Python 3 installed on target nodes
+
+### Inventory Configuration
+
+The `hosts` file defines the cluster topology:
+
+> [!TIP]
+> The `ansible_user` should match the `ciuser` configured in the Terraform variables.
+
+```ini
 # hosts
 
 [master]
@@ -303,7 +447,9 @@ ansible_ssh_extra_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/n
 ansible_user=<user>
 ```
 
-The ```kube-depends.yml``` file is used to configure all of the nodes and install the required packages.
+### Node Dependencies
+
+The `kube-depends.yml` playbook installs and configures prerequisites on all nodes:
 
 ```yaml
 # kube-depends.yml
@@ -500,12 +646,12 @@ The ```master.yml``` file is used to configure the node identified as the Master
     - name: initialize the cluster (this could take some time)
       shell: kubeadm init --config /etc/kubernetes/kubeadm-config.yaml >> cluster_initialized.log
       args:
-        chdir: /home/hades
+        chdir: /home/{{ ansible_user }}
         creates: cluster_initialized.log
 
     - name: create .kube directory
       become: yes
-      become_user: hades
+      become_user: "{{ ansible_user }}"
       file:
         path: $HOME/.kube
         state: directory
@@ -514,27 +660,31 @@ The ```master.yml``` file is used to configure the node identified as the Master
     - name: copy admin.conf to user's kube config
       copy:
         src: /etc/kubernetes/admin.conf
-        dest: /home/hades/.kube/config
+        dest: /home/{{ ansible_user }}/.kube/config
         remote_src: yes
-        owner: hades
+        owner: "{{ ansible_user }}"
 
     - name: install Pod network
       become: yes
-      become_user: hades
+      become_user: "{{ ansible_user }}"
       shell: kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml >> pod_network_setup.log
       args:
         chdir: $HOME
         creates: pod_network_setup.log
 ```
 
-The ```workers.yml``` file is used to configure the Worker nodes and add them to the cluster.
+### Worker Node Configuration
+
+The `workers.yml` playbook configures worker nodes and joins them to the cluster:
+
+> [!NOTE]
+> This playbook first retrieves the join command from the master node, then executes it on all worker nodes.
 
 ```yaml
 # workers.yml
 
 - hosts: master
   become: yes
-  #gather_facts: false
   tasks:
     - name: get join command
       shell: kubeadm token create --print-join-command
@@ -543,7 +693,6 @@ The ```workers.yml``` file is used to configure the Worker nodes and add them to
     - name: set join command
       set_fact:
         join_command: "{{ join_command_raw.stdout_lines[0] }}"
-
 
 - hosts: workers
   become: yes
@@ -554,7 +703,97 @@ The ```workers.yml``` file is used to configure the Worker nodes and add them to
     - name: join cluster
       shell: "{{ hostvars['master1'].join_command }} >> node_joined.log"
       args:
-        chdir: /home/hades
+        chdir: /home/{{ ansible_user }}
         creates: node_joined.log
-
 ```
+
+### Deployment Workflow
+
+Execute the playbooks in the following order:
+
+```bash
+# 1. Install dependencies on all nodes
+ansible-playbook -i hosts kube-depends.yml
+
+# 2. Configure the master node
+ansible-playbook -i hosts master.yml
+
+# 3. Configure worker nodes and join them to the cluster
+ansible-playbook -i hosts workers.yml
+```
+
+## Cluster Verification
+
+After deployment, verify the cluster is functioning correctly:
+
+```bash
+# Check cluster status
+kubectl get nodes
+
+# Check system pods
+kubectl get pods --all-namespaces
+
+# Check cluster info
+kubectl cluster-info
+```
+
+## Troubleshooting
+
+### Common Issues
+
+> [!WARNING]
+> If you encounter issues during deployment, check the following common problems:
+
+#### Terraform Issues
+
+- **Authentication errors**: Verify API token and permissions
+- **Template not found**: Ensure the cloud-init template exists
+- **Disk size errors**: Check that disk size matches or exceeds template size
+
+#### Ansible Issues
+
+- **SSH connection failures**: Verify SSH keys and connectivity
+- **Permission errors**: Ensure the ansible_user has sudo privileges
+- **Kubernetes version compatibility**: Check that all components use compatible versions
+
+#### Kubernetes Issues
+
+- **Nodes not joining**: Check network connectivity and firewall rules
+- **Pods not starting**: Verify container runtime and CNI configuration
+- **DNS resolution**: Ensure CoreDNS is running properly
+
+### Useful Commands
+
+```bash
+# Terraform troubleshooting
+terraform plan -detailed-exitcode
+terraform state list
+terraform state show <resource>
+
+# Ansible troubleshooting
+ansible-playbook -i hosts playbook.yml --check
+ansible-playbook -i hosts playbook.yml -vvv
+
+# Kubernetes troubleshooting
+kubectl describe nodes
+kubectl logs -n kube-system <pod-name>
+journalctl -u kubelet
+```
+
+## Next Steps
+
+Once the cluster is operational, consider these enhancements:
+
+1. **Storage**: Configure persistent storage with Longhorn or Rook
+2. **Ingress**: Set up ingress controller (Traefik or NGINX)
+3. **Monitoring**: Deploy Prometheus and Grafana
+4. **Security**: Implement network policies and RBAC
+5. **Backup**: Set up etcd backup and restore procedures
+
+## Resources
+
+- [Proxmox VE Documentation](https://pve.proxmox.com/wiki/Main_Page)
+- [Terraform Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)
+- [Kubernetes Documentation](https://kubernetes.io/docs/)
+- [Ansible Documentation](https://docs.ansible.com/)
+- [Cloud-init Documentation](https://cloudinit.readthedocs.io/)
