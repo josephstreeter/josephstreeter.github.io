@@ -1,10 +1,10 @@
 ---
-title: "SSH Configuration"
-description: "Complete guide to SSH setup and configuration"
-tags: ["security", "networking", "authentication"]
+title: "Ansible Configuration Management"
+description: "Complete guide to Ansible setup, playbooks, and automation for infrastructure management"
+tags: ["automation", "configuration-management", "devops", "ansible"]
 category: "infrastructure"
 difficulty: "intermediate"
-last_updated: "2025-01-20"
+last_updated: "2025-07-08"
 ---
 
 ## Ansible
