@@ -1,121 +1,264 @@
-# Snippets
+---
+title: "VS Code Snippets for PowerShell Development"
+description: "Comprehensive collection of Visual Studio Code snippets for PowerShell administration, automation, and development tasks."
+author: "Joseph Streeter"
+ms.date: "2024-01-15"
+ms.topic: "reference"
+ms.service: "vscode"
+keywords: ["Visual Studio Code", "VS Code", "PowerShell", "snippets", "templates", "automation"]
+---
 
-Snippets are a way to save templates for pieces of code that you use often. It can be a complex one-liner or an entire function.
+## VS Code Snippets for PowerShell
 
-The snippets are saved in VS Code and can be inserted by pressing `Ctrl + .` and selecting the appropriate option from the list. You can filter the list of snippets by typing the name of the snippet you wish to use.
+Snippets are reusable code templates that accelerate development by providing instant access to commonly used code patterns. This guide covers creating, configuring, and using snippets effectively in VS Code for PowerShell development.
 
-## Configuring Snippets
+---
 
-1. Click `File` → `Preferences` → `Configure Snippets`.
-2. Select the language for the snippets you would like to configure.
-3. Add snippets to the file that is opened in the editor.
+## Understanding Snippets
 
-The file will look something like the text below. Add your snippets inside of the provided brackets.
+Snippets provide instant access to code templates through trigger words. They support:
+
+- **Tab stops** (`$1`, `$2`) for cursor positioning
+- **Placeholders** (`${1:defaultText}`) with default values
+- **Variables** for dynamic content insertion
+- **Multi-cursor editing** for linked placeholders
+
+### Accessing Snippets
+
+**Methods to insert snippets:**
+
+1. **IntelliSense**: Type the prefix and select from suggestions
+2. **Quick Actions**: Press `Ctrl+.` and select from snippet menu
+3. **Command Palette**: `Ctrl+Shift+P` → "Insert Snippet"
+
+---
+
+## Configuring Custom Snippets
+
+### Access Snippet Configuration
+
+1. **Open Command Palette**: `Ctrl+Shift+P`
+2. **Type**: "Configure User Snippets"
+3. **Select**: Language (e.g., "powershell.json") or "New Global Snippets file"
+4. **Edit**: Add custom snippets to the JSON file
+
+### Snippet File Structure
+
+### JSON Format and Structure
+
+Snippets are defined in JSON format with the following structure:
 
 ```json
 {
-    // Place your snippets for markdown here. Each snippet is defined under a snippet name and has a prefix, body and 
-    // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
-    // same ids are connected.
-    // Example:
-    // "Print to console": {
-    //  "prefix": "log",
-    //  "body": [
-    //      "console.log('$1');",
-    //      "$2"
-    //  ],
-    //  "description": "Log output to console"
-    // }
-}
-```
-
-## Common Administrative Snippets
-
-- On-Prem Exchange Connection
-- SQL Server Connection
-- Random Password Generation
-
-```json
-{
-    "Exchange On-Prem Connection": {
-        "prefix": "Snip-ExchangeOnlineConnection",
+    "Snippet Name": {
+        "prefix": "trigger-word",
         "body": [
-            "function Connect-ExchangeOnPrem()",
-            "{",
-            "\t[CmdletBinding()]",
-            "\tParam",
-            "\t(",
-            "\t\t[Parameter(Mandatory=$$true)][string]$$Server",
-            "\t)",
-            "\t$$Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri $$('https://{0}' -f $$Server) -Credential $$UserCredential -Authentication Basic -AllowRedirection",
-            "\tImport-PSSession $$Session -DisableNameChecking",
-            "}"
+            "Line 1 of code",
+            "Line 2 with ${1:placeholder}",
+            "Line 3 with $2"
         ],
-        "description": "Connect to Exchange On-Prem"
-    },
-    "SQL Server Connection": {
-        "prefix": "Snip-MSSQLConnection",
-        "body": [
-            "function Invoke-SQLQuery()",
-            "{",
-            "\t[CmdletBinding()]",
-            "\tParam",
-            "\t(",
-            "\t\t[Parameter(Mandatory=$$true)][string]$$instance,",
-            "\t\t[Parameter(Mandatory=$$true)][string]$$database,",
-            "\t\t[Parameter(Mandatory=$$true)][string]$$query",
-            "\t)",
-            "\ttry",
-            "\t{",
-            "\t\t$$Results = Invoke-Sqlcmd -ServerInstance $instance -Database $database -Query $query -TrustServerCertificate -ErrorAction stop",
-            "\t\tReturn $$Results",
-            "\t}",
-            "\tcatch",
-            "\t{",
-            "\t\tWrite-Host $_.Exception.Message",
-            "\t}",
-            "}"
-        ],
-        "description": "Connect to MS SQL"
-    },
-    "Password Generation": {
-        "prefix": "Snip-PasswordGeneration",
-        "body": [
-            "Function New-RandomPassword()",
-            "{",
-            "\t[CmdletBinding()]",
-            "\tparam(",
-            "\t\t[Parameter(Mandatory=\\$true)][int]\\$LowerCase,",
-            "\t\t[Parameter(Mandatory=\\$true)][int]\\$UpperCase,",
-            "\t\t[Parameter(Mandatory=\\$true)][int]\\$Numbers,",
-            "\t\t[Parameter(Mandatory=\\$true)][int]\\$SpecialChar",
-            "\t)",
-            "",
-            "\t$$pw = [char[]]'abcdefghiklmnoprstuvwxyz' | Get-Random -Count \\$LowerCase",
-            "\t$$pw += [char[]]'ABCDEFGHKLMNOPRSTUVWXYZ' | Get-Random -Count \\$UpperCase",
-            "\t$$pw += [char[]]'1234567890' | Get-Random -Count \\$Numbers",
-            "\t$$pw += [char[]]'!$?_-' | Get-Random -Count \\$SpecialChar",
-            "\t$$pw=(\\$pw | Get-Random -Count \\$pw.length) -join ''",
-            "\t$$SecString=ConvertTo-SecureString –String \\$pw –AsPlainText –Force",
-            "\t$$results = [PSCustomObject] @{Password=\\$pw;SecureString=\\$SecString}",
-            "",
-            "\treturn $$results",
-            "}"
-        ],
-        "description": "Generate a random password"
+        "description": "Description shown in IntelliSense"
     }
 }
 ```
 
-## Knowledgebase Articles
+**Key Elements:**
 
-The following snippets are templates for knowledgebase articles in Markdown. There are four types of articles listed:
+- **prefix**: Trigger word(s) that activate the snippet
+- **body**: Array of strings representing code lines
+- **description**: Optional description for IntelliSense
+- **scope**: Optional language restriction
 
-- Troubleshooting
-- Service Description
-- Process
-- Frequently Asked Questions
+---
+
+## PowerShell Administrative Snippets
+
+The following snippets provide common administrative functions for PowerShell development:
+
+### Core Function Templates
+
+#### Advanced PowerShell Function
+
+```json
+{
+    "Advanced PowerShell Function": {
+        "prefix": "func-advanced",
+        "body": [
+            "function ${1:FunctionName} {",
+            "\t[CmdletBinding()]",
+            "\tparam (",
+            "\t\t[Parameter(Mandatory=\\$true, ValueFromPipeline=\\$true)]",
+            "\t\t[string]\\$${2:ParameterName}",
+            "\t)",
+            "\t",
+            "\tbegin {",
+            "\t\tWrite-Verbose \"Starting ${1:FunctionName}\"",
+            "\t\t${3:# Begin block code}",
+            "\t}",
+            "\t",
+            "\tprocess {",
+            "\t\ttry {",
+            "\t\t\t${4:# Process block code}",
+            "\t\t}",
+            "\t\tcatch {",
+            "\t\t\tWrite-Error \\$_.Exception.Message",
+            "\t\t}",
+            "\t}",
+            "\t",
+            "\tend {",
+            "\t\tWrite-Verbose \"Completed ${1:FunctionName}\"",
+            "\t\t${5:# End block code}",
+            "\t}",
+            "}"
+        ],
+        "description": "Advanced PowerShell function with error handling"
+    }
+}
+```
+
+### Connection Snippets
+
+#### Exchange Online Connection
+
+```json
+{
+    "Exchange Online Connection": {
+        "prefix": "connect-exchange",
+        "body": [
+            "function Connect-ExchangeOnline {",
+            "\t[CmdletBinding()]",
+            "\tparam (",
+            "\t\t[Parameter(Mandatory=\\$true)]",
+            "\t\t[string]\\$UserPrincipalName",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[string]\\$Organization",
+            "\t\t[switch]\\$ShowProgress",
+            "\t)",
+            "\t",
+            "\ttry {",
+            "\t\t\\$connectParams = @{",
+            "\t\t\tUserPrincipalName = \\$UserPrincipalName",
+            "\t\t\tShowProgress = \\$ShowProgress",
+            "\t\t}",
+            "\t\t",
+            "\t\tif (\\$Organization) {",
+            "\t\t\t\\$connectParams.Organization = \\$Organization",
+            "\t\t}",
+            "\t\t",
+            "\t\tConnect-ExchangeOnline @connectParams",
+            "\t\tWrite-Host \"Successfully connected to Exchange Online\" -ForegroundColor Green",
+            "\t}",
+            "\tcatch {",
+            "\t\tWrite-Error \"Failed to connect to Exchange Online: \\$_\"",
+            "\t}",
+            "}"
+        ],
+        "description": "Connect to Exchange Online with error handling"
+    }
+}
+```
+
+#### SQL Server Connection
+
+```json
+{
+    "SQL Server Connection": {
+        "prefix": "sql-query",
+        "body": [
+            "function Invoke-SQLQuery {",
+            "\t[CmdletBinding()]",
+            "\tparam (",
+            "\t\t[Parameter(Mandatory=\\$true)]",
+            "\t\t[string]\\$ServerInstance,",
+            "\t\t[Parameter(Mandatory=\\$true)]",
+            "\t\t[string]\\$Database,",
+            "\t\t[Parameter(Mandatory=\\$true)]",
+            "\t\t[string]\\$Query,",
+            "\t\t[switch]\\$TrustServerCertificate",
+            "\t)",
+            "\t",
+            "\ttry {",
+            "\t\t\\$params = @{",
+            "\t\t\tServerInstance = \\$ServerInstance",
+            "\t\t\tDatabase = \\$Database",
+            "\t\t\tQuery = \\$Query",
+            "\t\t\tErrorAction = 'Stop'",
+            "\t\t}",
+            "\t\t",
+            "\t\tif (\\$TrustServerCertificate) {",
+            "\t\t\t\\$params.TrustServerCertificate = \\$true",
+            "\t\t}",
+            "\t\t",
+            "\t\t\\$results = Invoke-Sqlcmd @params",
+            "\t\treturn \\$results",
+            "\t}",
+            "\tcatch {",
+            "\t\tWrite-Error \"SQL Query failed: \\$_\"",
+            "\t}",
+            "}"
+        ],
+        "description": "Enhanced SQL Server query function"
+    }
+}
+```
+
+### Utility Snippets
+
+#### Password Generation
+
+```json
+{
+    "Password Generation": {
+        "prefix": "new-password",
+        "body": [
+            "function New-RandomPassword {",
+            "\t[CmdletBinding()]",
+            "\tparam (",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[int]\\$Length = 12,",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[int]\\$LowerCase = 3,",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[int]\\$UpperCase = 3,",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[int]\\$Numbers = 3,",
+            "\t\t[Parameter(Mandatory=\\$false)]",
+            "\t\t[int]\\$SpecialChar = 3,",
+            "\t\t[switch]\\$AsSecureString",
+            "\t)",
+            "\t",
+            "\ttry {",
+            "\t\t\\$chars = @()",
+            "\t\t\\$chars += [char[]]'abcdefghijklmnopqrstuvwxyz' | Get-Random -Count \\$LowerCase",
+            "\t\t\\$chars += [char[]]'ABCDEFGHIJKLMNOPQRSTUVWXYZ' | Get-Random -Count \\$UpperCase",
+            "\t\t\\$chars += [char[]]'0123456789' | Get-Random -Count \\$Numbers",
+            "\t\t\\$chars += [char[]]'!@#\\$%^&*' | Get-Random -Count \\$SpecialChar",
+            "\t\t",
+            "\t\t\\$password = (\\$chars | Get-Random -Count \\$chars.Length) -join ''",
+            "\t\t",
+            "\t\tif (\\$AsSecureString) {",
+            "\t\t\treturn ConvertTo-SecureString -String \\$password -AsPlainText -Force",
+            "\t\t} else {",
+            "\t\t\treturn \\$password",
+            "\t\t}",
+            "\t}",
+            "\tcatch {",
+            "\t\tWrite-Error \"Failed to generate password: \\$_\"",
+            "\t}",
+            "}"
+        ],
+        "description": "Generate secure random password"
+    }
+}
+```
+
+---
+
+## Documentation Templates
+
+The following snippets provide templates for various types of documentation articles:
+
+### Knowledge Base Articles
 
 ```json
 {
@@ -301,3 +444,94 @@ The following snippets are templates for knowledgebase articles in Markdown. The
     }
 }
 ```
+
+---
+
+## Best Practices for Snippet Creation
+
+### Naming Conventions
+
+- **Use descriptive names**: Make snippet names clear and self-explanatory
+- **Consistent prefixes**: Use consistent prefixes for related snippets (e.g., `connect-`, `new-`, `get-`)
+- **Avoid conflicts**: Check for existing snippet prefixes to avoid conflicts
+
+### Content Guidelines
+
+- **Include error handling**: Always add try-catch blocks for robust code
+- **Use proper formatting**: Follow PowerShell style guidelines
+- **Add parameter validation**: Include proper parameter attributes
+- **Document functionality**: Provide clear descriptions for each snippet
+
+### Tab Stops and Placeholders
+
+- **Logical order**: Number tab stops in the order users will fill them
+- **Meaningful defaults**: Provide sensible default values in placeholders
+- **Connected placeholders**: Use same numbers for related values
+
+---
+
+## Advanced Snippet Features
+
+### Variables
+
+VS Code supports several built-in variables in snippets:
+
+| Variable | Description |
+|----------|-------------|
+| `$TM_SELECTED_TEXT` | Currently selected text |
+| `$TM_CURRENT_LINE` | Current line content |
+| `$TM_CURRENT_WORD` | Current word under cursor |
+| `$TM_LINE_INDEX` | Zero-based line number |
+| `$TM_LINE_NUMBER` | One-based line number |
+| `$TM_FILENAME` | Current filename |
+| `$TM_FILENAME_BASE` | Filename without extension |
+| `$TM_DIRECTORY` | Directory of current file |
+| `$TM_FILEPATH` | Full file path |
+| `$WORKSPACE_NAME` | Workspace name |
+| `$WORKSPACE_FOLDER` | Workspace folder path |
+
+### Date and Time Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `$CURRENT_YEAR` | Current year | 2024 |
+| `$CURRENT_MONTH` | Current month | 07 |
+| `$CURRENT_DATE` | Current date | 15 |
+| `$CURRENT_HOUR` | Current hour | 14 |
+| `$CURRENT_MINUTE` | Current minute | 30 |
+| `$CURRENT_SECOND` | Current second | 45 |
+
+---
+
+## References and Additional Resources
+
+### Official Documentation
+
+- **[VS Code Snippets Documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets)** - Complete guide to creating and using snippets
+- **[TextMate Snippet Syntax](https://manual.macromates.com/en/snippets)** - Detailed syntax reference for advanced features
+- **[VS Code Variables Reference](https://code.visualstudio.com/docs/editor/variables-reference)** - Complete list of available variables
+- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)** - Official PowerShell documentation
+
+### Snippet Tools and Generators
+
+- **[Snippet Generator](https://snippet-generator.app/)** - Online tool for creating VS Code snippets
+- **[Snippets Manager Extension](https://marketplace.visualstudio.com/items?itemName=zjffun.snippetsmanager)** - VS Code extension for managing snippets
+- **[PowerShell Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell)** - Includes built-in PowerShell snippets
+
+### Community Resources
+
+- **[Awesome VS Code](https://github.com/viatsko/awesome-vscode)** - Curated list of VS Code resources
+- **[PowerShell Community](https://github.com/PowerShell/PowerShell)** - PowerShell GitHub repository
+- **[r/PowerShell](https://www.reddit.com/r/PowerShell/)** - PowerShell community discussions
+- **[PowerShell.org](https://powershell.org/)** - PowerShell community hub
+
+### Best Practices and Style Guides
+
+- **[PowerShell Best Practices](https://github.com/PoshCode/PowerShellPracticeAndStyle)** - Community style guide
+- **[PSScriptAnalyzer Rules](https://github.com/PowerShell/PSScriptAnalyzer/tree/master/RuleDocumentation)** - Code analysis rules
+- **[The PowerShell Best Practices and Style Guide](https://poshcode.gitbook.io/powershell-practice-and-style/)** - Comprehensive style guide
+- **[Microsoft PowerShell Coding Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines)** - Official development guidelines
+
+---
+
+Last updated: {{ site.time | date: "%Y-%m-%d" }}
