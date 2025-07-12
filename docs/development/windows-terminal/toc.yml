@@ -1,2 +1,11 @@
 - name: Windows Terminal
   href: index.md
+  items:
+  - name: Overview
+    href: index.md
+  - name: Configuration & Customization
+    href: configuration.md
+  - name: Productivity Features
+    href: productivity.md
+  - name: Troubleshooting
+    href: troubleshooting.md
