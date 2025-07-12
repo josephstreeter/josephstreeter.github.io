@@ -1,4 +1,4 @@
-- name: Secure Shell
+- name: Overview
   href: index.md
 - name: Forwarding
   href: SSHForwarding.md

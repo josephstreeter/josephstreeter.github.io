@@ -1,71 +1,70 @@
-- name: Documentation as Code
+- name: Overview
   href: index.md
+- name: Quick Reference
+  href: quick-reference.md
+- name: FAQ
+  href: faq.md
+- name: Glossary
+  href: glossary.md
+- name: Setup and Configuration
+  href: setup/index.md
   items:
-  - name: Quick Reference
-    href: quick-reference.md
-  - name: FAQ
-    href: faq.md
-  - name: Glossary
-    href: glossary.md
+  - name: Azure DevOps Setup
+    href: setup/azure-devops.md
+  - name: DocFX Configuration
+    href: setup/docfx-configuration.md
+  - name: Azure App Service Setup
+    href: setup/azure-app-service.md
+  - name: CI/CD Pipeline Setup
+    href: setup/cicd-pipeline.md
+- name: VS Code and Copilot
+  href: vscode/index.md
+  items:
   - name: Setup and Configuration
-    href: setup/index.md
-    items:
-    - name: Azure DevOps Setup
-      href: setup/azure-devops.md
-    - name: DocFX Configuration
-      href: setup/docfx-configuration.md
-    - name: Azure App Service Setup
-      href: setup/azure-app-service.md
-    - name: CI/CD Pipeline Setup
-      href: setup/cicd-pipeline.md
-  - name: VS Code and Copilot
-    href: vscode/index.md
-    items:
-    - name: Setup and Configuration
-      href: vscode/setup.md
-    - name: Copilot Usage Guide
-      href: vscode/copilot-usage.md
-    - name: Productivity Features
-      href: vscode/productivity.md
-    - name: Collaboration Workflows
-      href: vscode/collaboration.md
-    - name: Troubleshooting Guide
-      href: vscode/troubleshooting.md
-  - name: Content Strategy
-    href: content/index.md
-    items:
-    - name: Content Migration
-      href: content/migration.md
-    - name: Style Guide
-      href: content/style-guide.md
-    - name: Templates
-      href: content/templates.md
-  - name: Development Workflow
-    href: development/index.md
-    items:
-    - name: Local Development
-      href: development/local-development.md
-    - name: Collaboration Process
-      href: development/collaboration.md
-    - name: Quality Assurance
-      href: development/quality-assurance.md
-  - name: Deployment and Operations
-    href: deployment/index.md
-    items:
-    - name: Monitoring
-      href: deployment/monitoring.md
-    - name: Analytics
-      href: deployment/analytics.md
-    - name: Maintenance
-      href: deployment/maintenance.md
-  - name: Advanced Topics
-    href: advanced/index.md
-    items:
-    - name: Custom Themes
-      href: advanced/custom-themes.md
-    - name: Team Training
-      href: advanced/team-training.md
-    - name: Performance Optimization
-      href: advanced/performance.md
-    - name: Security Best Practices
-      href: advanced/security.md
+    href: vscode/setup.md
+  - name: Copilot Usage Guide
+    href: vscode/copilot-usage.md
+  - name: Productivity Features
+    href: vscode/productivity.md
+  - name: Collaboration Workflows
+    href: vscode/collaboration.md
+  - name: Troubleshooting Guide
+    href: vscode/troubleshooting.md
+- name: Content Strategy
+  href: content/index.md
+  items:
+  - name: Content Migration
+    href: content/migration.md
+  - name: Style Guide
+    href: content/style-guide.md
+  - name: Templates
+    href: content/templates.md
+- name: Development Workflow
+  href: development/index.md
+  items:
+  - name: Local Development
+    href: development/local-development.md
+  - name: Collaboration Process
+    href: development/collaboration.md
+  - name: Quality Assurance
+    href: development/quality-assurance.md
+- name: Deployment and Operations
+  href: deployment/index.md
+  items:
+  - name: Monitoring
+    href: deployment/monitoring.md
+  - name: Analytics
+    href: deployment/analytics.md
+  - name: Maintenance
+    href: deployment/maintenance.md
+- name: Advanced Topics
+  href: advanced/index.md
+  items:
+  - name: Custom Themes
+    href: advanced/custom-themes.md
+  - name: Team Training
+    href: advanced/team-training.md
+  - name: Performance Optimization
+    href: advanced/performance.md
+  - name: Security Best Practices
+    href: advanced/security.md
