@@ -3,3 +3,5 @@
   items:
   - name: Photography
     href: photography/toc.yml
+  - name: Vehicles
+    href: vehicles/toc.yml
