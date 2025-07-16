@@ -164,8 +164,8 @@ Below is a summary table of key PIDs for the 2014 Ram 2500/3500 Cummins. These c
 
 ## Citations
 
-[^1]: Cummins Inc. (2023). "Aftertreatment Systems Operation and Maintenance Guide," *Bulletin 5467657*.
-[^2]: Ram Trucks. (2014). "2014 Ram 3500 Cummins Owner's Manual," pp. 412-415.
-[^3]: Diesel Technology Forum. (2023). "Diesel Aftertreatment System Reliability Analysis," Technical Paper Series.
-[^4]: American Petroleum Institute. (2022). "Diesel Exhaust Fluid Quality Standards," *API Certification*.
-[^5]: SAE International. (2020). "Diagnostic Trouble Codes (DTC) J1939 Standards," J1939DA_202010.
+- [^1]: Cummins Inc. (2023). "Aftertreatment Systems Operation and Maintenance Guide," *Bulletin 5467657*.
+- [^2]: Ram Trucks. (2014). "2014 Ram 3500 Cummins Owner's Manual," pp. 412-415.
+- [^3]: Diesel Technology Forum. (2023). "Diesel Aftertreatment System Reliability Analysis," Technical Paper Series.
+- [^4]: American Petroleum Institute. (2022). "Diesel Exhaust Fluid Quality Standards," *API Certification*.
+- [^5]: SAE International. (2020). "Diagnostic Trouble Codes (DTC) J1939 Standards," J1939DA_202010.
