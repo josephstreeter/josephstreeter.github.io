@@ -1,6 +1,6 @@
 - name: Docker
-  href: docker/index.md
+  href: docker/toc.yml
 - name: Kubernetes
-  href: kubernetes/index.md
+  href: kubernetes/toc.yml
 - name: Nginx
-  href: nginx/index.md
+  href: nginx/toc.yml

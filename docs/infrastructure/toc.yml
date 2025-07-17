@@ -7,6 +7,8 @@
     href: windows/index.md
   - name: Proxmox
     href: proxmox/index.md
+  - name: Containers
+    href: containers/toc.yml
   - name: Ansible
     href: ansible/index.md
   - name: Terraform

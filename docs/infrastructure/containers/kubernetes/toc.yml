@@ -1,4 +1,4 @@
-- name: Kubernetes
+- name: Overview
   href: index.md
   items:
   - name: Monitoring and Logging
