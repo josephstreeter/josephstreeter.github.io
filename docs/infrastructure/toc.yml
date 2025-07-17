@@ -1,23 +1,23 @@
 - name: Infrastructure
   href: index.md
   items:
-  - name: Ansible
-    href: ansible/toc.yml
-  - name: Grafana
-    href: grafana/toc.yml
-  - name: Prometheus
-    href: prometheus/toc.yml
-  - name: Home Lab
-    href: homelab/toc.yml
-  - name: KQL
-    href: kql/toc.yml
   - name: Linux
-    href: linux/toc.yml
-  - name: Proxmox
-    href: proxmox/toc.yml
-  - name: SQL Server
-    href: sql/toc.yml
+    href: linux/index.md
   - name: Windows
-    href: windows/toc.yml
+    href: windows/index.md
+  - name: Proxmox
+    href: proxmox/index.md
+  - name: Ansible
+    href: ansible/index.md
   - name: Terraform
-    href: terraform/toc.yml
+    href: terraform/index.md
+  - name: Grafana
+    href: grafana/index.md
+  - name: Prometheus
+    href: prometheus/index.md
+  - name: Home Lab
+    href: homelab/index.md
+  - name: SQL Server
+    href: sql/index.md
+  - name: KQL
+    href: kql/index.md

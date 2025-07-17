@@ -1,33 +1,20 @@
-# Automation
+# Introduction to Azure DevOps
 
-CLI snippets to manage different aspects of Azure DevOps.
+Azure DevOps is a comprehensive suite of development tools and cloud services from Microsoft designed to support the entire software development lifecycle. It enables teams to plan, build, test, deliver, and monitor applications efficiently, whether you are working on-premises, in the cloud, or in a hybrid environment.
 
-## Export Iterations
+## Key Features
 
-```powershell
-$Org = "https://dev.azure.com/MC-SEC-IAM" 
-$Project = "Sandbox"
+- **Azure Repos:** Unlimited, cloud-hosted private Git repositories for source control.
+- **Azure Pipelines:** Continuous integration and continuous delivery (CI/CD) for building, testing, and deploying applications to any platform or cloud.
+- **Azure Boards:** Agile planning tools for tracking work, issues, and progress with Kanban boards, backlogs, and dashboards.
+- **Azure Test Plans:** Manual and exploratory testing tools to improve code quality.
+- **Azure Artifacts:** Integrated package management for Maven, npm, NuGet, and Python packages.
 
-$Iterations = az boards iteration project list --org $Org --project $Project
+## Benefits
 
-$Sprints = ($Iterations | convertfrom-json).children | select name, @{n="FinishDate";e={$_.attributes.finishdate}}, @{n="StartDate";e={$_.attributes.startdate}}
-```
+- Streamlines collaboration between development, operations, and QA teams.
+- Supports a wide range of programming languages, platforms, and deployment targets.
+- Integrates with popular tools and services, including GitHub, Slack, and more.
+- Scalable for small teams and large enterprises alike.
 
-## Create Interations
-
-Create iterations for the project
-
-```powershell
-$Project = "Sandbox"
-
-foreach ($Sprint in $Sprints)
-{
-    az boards iteration project create --name $Sprint.Name --finish-date $Sprint.finishdate --start-date $Sprint.startdate --project $Project --path "\$Project\iteration"
-}
-```
-
-Add project iterations to a team.
-
-```powershell
-$iterations | convertfrom-json | select -ExpandProperty Children | % {az boards iteration team add --id $_.identifier --team "sandbox team" --org $org --project $project}
-```
+Azure DevOps empowers organizations to deliver software faster, with higher quality, and with greater visibility into every stage of the development process.

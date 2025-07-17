@@ -2,20 +2,20 @@
   href: index.md
   items:
   - name: Azure DevOps
-    href: azuredevops/toc.yml
+    href: azuredevops/index.md
   - name: Documentation as Code
-    href: das/toc.yml
+    href: das/index.md
   - name: docfx
-    href: docfx/toc.yml
+    href: docfx/index.md
   - name: Git
-    href: git/toc.yml
+    href: git/index.md
   - name: PowerShell
-    href: powershell/toc.yml
+    href: powershell/index.md
   - name: Python
-    href: python/toc.yml
+    href: python/index.md
   - name: Regex
-    href: regex/toc.yml
+    href: regex/index.md
   - name: Visual Studio Code
-    href: vscode/toc.yml
+    href: vscode/index.md
   - name: Windows Terminal
-    href: windows-terminal/toc.yml
+    href: windows-terminal/index.md

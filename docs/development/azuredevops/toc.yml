@@ -1,2 +1,14 @@
-- name: Azure DevOps
+- name: Introduction
   href: index.md
+- name: Getting Started
+  href: getting-started.md
+- name: Using Azure Repos
+  href: repos.md
+- name: Setting Up Azure Pipelines
+  href: pipelines.md
+- name: Managing Work with Azure Boards
+  href: boards.md
+- name: Testing with Azure Test Plans
+  href: testplans.md
+- name: Managing Packages with Azure Artifacts
+  href: artifacts.md
