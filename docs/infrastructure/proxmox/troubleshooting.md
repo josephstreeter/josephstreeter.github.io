@@ -1,6 +1,6 @@
 ---
-title: "Proxmox Docker Repository Troubleshooting"
-description: "How to resolve the 'does not have a Release file' error when installing Docker on Proxmox (Debian Bookworm)."
+title: "Proxmox Troubleshooting"
+description: "How to resolve some common Proxmox issues (Debian Bookworm)."
 author: "Joseph Streeter"
 ms.date: "2025-07-17"
 ms.topic: "troubleshooting"
