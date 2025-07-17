@@ -1,2 +1,4 @@
 - name: Proxmox
   href: index.md
+- name: Proxmox Docker Repository Troubleshooting
+  href: troubleshooting.md

@@ -10,7 +10,7 @@ keywords: ["Proxmox", "Docker", "Debian", "Bookworm", "Repository", "Troubleshoo
 
 ## Troubleshooting
 
-## Error: The repository 'https://download.docker.com/linux/ubuntu bookworm Release' does not have a Release file.
+## Error: The repository '<https://download.docker.com/linux/ubuntu> bookworm Release' does not have a Release file
 
 If you attempt to install Docker on Proxmox using the official Docker package manager steps, you may encounter this error.
 
