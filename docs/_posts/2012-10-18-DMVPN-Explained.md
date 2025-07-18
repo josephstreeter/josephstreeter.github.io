@@ -9,4 +9,4 @@ categories: IT
 
 This is a good explanation of DMVPN technology.
 
-[DMVPN Explained](http://blog.ine.com/2008/08/02/dmvpn-explained/)
+[DMVPN Explained](http://blog.ine.com/2008/08/02/dmvpn-explained/index.md)

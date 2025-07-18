@@ -794,6 +794,6 @@ Once the cluster is operational, consider these enhancements:
 
 - [Proxmox VE Documentation](https://pve.proxmox.com/wiki/Main_Page)
 - [Terraform Proxmox Provider](https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)
-- [Kubernetes Documentation](https://kubernetes.io/docs/)
-- [Ansible Documentation](https://docs.ansible.com/)
-- [Cloud-init Documentation](https://cloudinit.readthedocs.io/)
+- [Kubernetes Documentation](https://kubernetes.io/docs/index.md)
+- [Ansible Documentation](https://docs.ansible.com/index.md)
+- [Cloud-init Documentation](https://cloudinit.readthedocs.io/index.md)

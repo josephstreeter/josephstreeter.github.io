@@ -16,21 +16,21 @@ Open Source Intelligence (OSINT) refers to the collection and analysis of inform
 
 ## Table of Contents
 
-- [Search & Discovery Tools](#-search--discovery-tools)
+- [Search & Discovery Tools](#search-and-discovery-tools)
 - [People & Phone Number Lookup](#people--phone-number-lookup)
-- [Username & Email Enumeration](#username--email-enumeration)
-- [Image & Location Analysis](#image--location-analysis)
-- [Vehicle & VIN Lookup](#vehicle--vin-lookup)
-- [Metadata Extraction](#metadata-extraction)
-- [Breach Data & Credential Leaks](#breach-data--credential-leaks)
-- [Automation & API Tools](#automation--api-tools)
-- [Domain & DNS Intelligence](#domain--dns-intelligence)
+- [Username & Email Enumeration](#username-and-email-enumeration)
+- [Image & Location Analysis](#image-and-location-analysis)
+- [Vehicle & VIN Lookup](#vehicle-and-vin-lookup)
+- [Metadata Extraction](#-metadata-extraction)
+- [Breach Data & Credential Leaks](#breach-data-and-credential-leaks)
+- [Automation & API Tools](#automation-and-api-tools)
+- [Domain & DNS Intelligence](#-domain--dns-intelligence)
 - [Legal and Ethical Considerations](#legal-and-ethical-considerations)
 - [Best Practices](#best-practices)
 
 ---
 
-## 🔎 Search & Discovery Tools
+## Search and Discovery Tools
 
 Search engines are the foundation of OSINT investigations. Each search engine has unique algorithms, indexes, and capabilities that can reveal different information about your target.
 
@@ -129,7 +129,7 @@ location.country: US
 
 ---
 
-## 🧑‍💻 People & Phone Number Lookup
+## People & Phone Number Lookup
 
 People search engines aggregate public records, social media, and other sources to create comprehensive profiles.
 
@@ -211,7 +211,7 @@ def lookup_number(phone_number):
 
 ---
 
-## 🧬 Username & Email Enumeration
+## Username and Email Enumeration
 
 Username and email enumeration helps map digital footprints across multiple platforms and services.
 
@@ -325,7 +325,7 @@ holehe --only-used target@example.com
 
 ---
 
-## 🖼️ Image & Location Analysis
+## Image and Location Analysis
 
 Visual intelligence gathering involves analyzing images, satellite data, and location information to extract actionable intelligence.
 
@@ -443,7 +443,7 @@ Search Methods:
 
 ---
 
-## 🚗 Vehicle & VIN Lookup
+## Vehicle and VIN Lookup
 
 Vehicle intelligence gathering provides ownership history, technical specifications, and registration data.
 
@@ -672,7 +672,7 @@ pip install exifread Pillow
 
 ---
 
-## 🔐 Breach Data & Credential Leaks
+## Breach Data and Credential Leaks
 
 Breach data analysis helps identify compromised accounts and security vulnerabilities while respecting legal and ethical boundaries.
 
@@ -760,7 +760,7 @@ def analyze_password_patterns(breach_data):
 
 ---
 
-## ⚙️ Automation & API Tools
+## Automation and API Tools
 
 Automation tools enable efficient large-scale OSINT operations and systematic data collection.
 

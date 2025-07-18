@@ -92,5 +92,5 @@ If successful, you should see a welcome message from the service.
 ## References
 
 - [GitHub: Connecting to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
-- [GitLab: SSH Keys](https://docs.gitlab.com/ee/ssh/)
+- [GitLab: SSH Keys](https://docs.gitlab.com/ee/ssh/index.md)
 - [Azure DevOps: SSH Keys](https://docs.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=azure-devops)

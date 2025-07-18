@@ -275,7 +275,7 @@ gpg --list-keys
 
 ### GPG Suite
 
-**Download**: [https://gpgtools.org/](https://gpgtools.org/)
+**Download**: [https://gpgtools.org/](https://gpgtools.org/index.md)
 
 #### GPG Suite Features
 

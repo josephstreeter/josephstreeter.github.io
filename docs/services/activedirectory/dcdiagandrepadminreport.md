@@ -1006,5 +1006,5 @@ function Get-MultiForestHealth {
 - [DCDiag Command Reference](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc731968(v=ws.11))
 - [RepAdmin Command Reference](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770963(v=ws.11))
 - [Active Directory Replication](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts)
-- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/activedirectory/)
+- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/activedirectory/index.md)
 - [AD DS Troubleshooting](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/troubleshoot/troubleshooting-active-directory-domain-services)

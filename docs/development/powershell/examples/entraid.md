@@ -134,7 +134,7 @@ Filter users based on extension attribute value:
 Get-MgUser -All -filter "extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeStatus eq 'A'" -Property Id,Mail,UserPrincipalName,DisplayName, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeNumber, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeType, extension_70b265ce78f3470882d0d4b4ff62c8ba_msDS_cloudExtensionAttribute2, extension_70b265ce78f3470882d0d4b4ff62c8ba_msDS_cloudExtensionAttribute1, extension_70b265ce78f3470882d0d4b4ff62c8ba_lockoutDuration, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeID, extension_70b265ce78f3470882d0d4b4ff62c8ba_isManager, extension_70b265ce78f3470882d0d4b4ff62c8ba_contractEndDate, extension_70b265ce78f3470882d0d4b4ff62c8ba_costCenter, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeEndDate, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeStartDate, extension_70b265ce78f3470882d0d4b4ff62c8ba_employeeSubType
 ```
 
-[Directory Extensions to Customize Data Stored for Entra ID Objects](https://practical365.com/directory-extensions-entra-d/)
+[Directory Extensions to Customize Data Stored for Entra ID Objects](https://practical365.com/directory-extensions-entra-d/index.md)
 
 [Top](#table-of-contents)
 

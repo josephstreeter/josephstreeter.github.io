@@ -865,7 +865,7 @@ After setting up CI/CD pipelines:
 
 ## Additional Resources
 
-- [Azure Pipelines Documentation](https://docs.microsoft.com/en-us/azure/devops/pipelines/)
+- [Azure Pipelines Documentation](https://docs.microsoft.com/en-us/azure/devops/pipelines/index.md)
 - [YAML Schema Reference](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema)
 - [Pipeline Templates](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/templates)
 - [Deployment Strategies](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/deployment-jobs)

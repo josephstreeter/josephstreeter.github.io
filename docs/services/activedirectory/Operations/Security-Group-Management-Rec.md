@@ -477,14 +477,14 @@ $HealthCheck = Invoke-GroupHealthCheck
 ### Official Documentation
 
 - [Active Directory Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory)
-- [Group Policy Management](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/)
+- [Group Policy Management](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/index.md)
 - [Azure AD Connect Group Sync](https://docs.microsoft.com/en-us/azure/active-directory/hybrid/how-to-connect-sync-whatis)
 
 ### Related Security Guides
 
 - [Active Directory Security Hardening](../Security/index.md)
 - [Privileged Access Management](../PAM/index.md)
-- [Identity Governance](../../identity/governance/index.md)
+- [Identity Governance](../../idm/governance/index.md)
 
 ### Tools and Utilities
 

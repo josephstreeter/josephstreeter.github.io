@@ -701,7 +701,7 @@ git fsck --lost-found         # Find orphaned content
 
 - [VS Code Documentation](https://code.visualstudio.com/docs)
 - [GitHub Copilot Documentation](https://docs.github.com/copilot)
-- [DocFX Documentation](https://dotnet.github.io/docfx/)
+- [DocFX Documentation](https://dotnet.github.io/docfx/index.md)
 
 #### Community Forums
 

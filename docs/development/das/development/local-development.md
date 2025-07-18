@@ -742,7 +742,7 @@ After setting up your local development environment:
 - [Visual Studio Code Documentation](https://code.visualstudio.com/docs)
 - [DocFX Getting Started](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html)
 - [Git Documentation](https://git-scm.com/doc)
-- [Node.js Documentation](https://nodejs.org/en/docs/)
+- [Node.js Documentation](https://nodejs.org/en/docs/index.md)
 
 ---
 

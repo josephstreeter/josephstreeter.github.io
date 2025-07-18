@@ -130,7 +130,7 @@ To monitor the most relevant PIDs for your 2014 Ram 2500 Cummins, follow these s
 
 ## References and Additional Resources
 
-- **[DashCommand App](https://www.palmerperformance.com/products/dashcommand/)**
+- **[DashCommand App](https://www.palmerperformance.com/products/dashcommand/index.md)**
 - **[OBD-II PID Reference](https://en.wikipedia.org/wiki/OBD-II_PIDs)**
 - **[Cummins Service Manuals](https://www.cummins.com/support/manuals)**
-- **[Diesel Truck Forums](https://www.cumminsforum.com/)**
+- **[Diesel Truck Forums](https://www.cumminsforum.com/index.md)**

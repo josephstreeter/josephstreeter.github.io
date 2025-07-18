@@ -501,7 +501,7 @@ After establishing your development workflow:
 - [Git Workflow Documentation](https://git-scm.com/docs/gitworkflows)
 - [Code Review Best Practices](https://github.com/google/eng-practices/blob/master/review/README.md)
 - [Documentation Style Guides](https://developers.google.com/style)
-- [Agile Documentation Practices](https://agilemanifesto.org/)
+- [Agile Documentation Practices](https://agilemanifesto.org/index.md)
 
 ---
 

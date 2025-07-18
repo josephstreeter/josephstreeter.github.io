@@ -435,19 +435,19 @@ Linux servers excel at:
 ### Official Documentation
 
 - [Ubuntu Documentation](https://ubuntu.com/server/docs)
-- [Debian Administrator's Handbook](https://debian-handbook.info/)
-- [The Linux Documentation Project](https://tldp.org/)
+- [Debian Administrator's Handbook](https://debian-handbook.info/index.md)
+- [The Linux Documentation Project](https://tldp.org/index.md)
 
 ### Community Resources
 
-- [Ask Ubuntu](https://askubuntu.com/)
-- [Debian Forums](https://forums.debian.net/)
-- [Ubuntu Forums](https://ubuntuforums.org/)
+- [Ask Ubuntu](https://askubuntu.com/index.md)
+- [Debian Forums](https://forums.debian.net/index.md)
+- [Ubuntu Forums](https://ubuntuforums.org/index.md)
 - [Reddit r/linux](https://reddit.com/r/linux)
 
 ### Training and Certification
 
-- [Linux Professional Institute (LPI)](https://www.lpi.org/)
+- [Linux Professional Institute (LPI)](https://www.lpi.org/index.md)
 - [CompTIA Linux+](https://www.comptia.org/certifications/linux)
 - [Red Hat Certified System Administrator (RHCSA)](https://www.redhat.com/en/services/certification/rhcsa)
 

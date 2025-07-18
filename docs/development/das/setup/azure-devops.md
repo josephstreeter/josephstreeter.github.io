@@ -465,10 +465,10 @@ After completing Azure DevOps setup:
 
 ## Additional Resources
 
-- [Azure DevOps Git Documentation](https://docs.microsoft.com/en-us/azure/devops/repos/git/)
+- [Azure DevOps Git Documentation](https://docs.microsoft.com/en-us/azure/devops/repos/git/index.md)
 - [Branch Policies Reference](https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies)
 - [Pull Request Best Practices](https://docs.microsoft.com/en-us/azure/devops/repos/git/pull-requests)
-- [Azure DevOps Security Guide](https://docs.microsoft.com/en-us/azure/devops/organizations/security/)
+- [Azure DevOps Security Guide](https://docs.microsoft.com/en-us/azure/devops/organizations/security/index.md)
 
 ---
 

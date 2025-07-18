@@ -228,8 +228,8 @@ Implementation of the security requirements in the trusting forest are the respo
 
 ## References
 
-- [Center for Internet Security](http://www.cisecurity.org/)
-- [Campus Active Directory Service Request](https://cads.ad.wisc.edu/)
+- [Center for Internet Security](http://www.cisecurity.org/index.md)
+- [Campus Active Directory Service Request](https://cads.ad.wisc.edu/index.md)
 - Campus Active Directory Domain Controller Security Settings
 - [Client, service, and program issues can occur if you change security settings and user rights assignments (MS TechNet)](http://support.microsoft.com/kb/823659)
 - [Domain and Forest Trusts Technical Reference (MS TechNet)](http://technet.microsoft.com/en-us/library/cc738955(v=ws.10).aspx)

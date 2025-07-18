@@ -156,11 +156,11 @@ Below is a summary table of key PIDs for the 2014 Ram 2500/3500 Cummins. These c
 
 - **[Cummins Service Manuals](https://www.cummins.com/support/manuals)** - Official documentation for Cummins engines
 - **[OBD-II PID Reference](https://en.wikipedia.org/wiki/OBD-II_PIDs)** - Comprehensive list of standard OBD-II PIDs
-- **[Diesel Truck Forums](https://www.cumminsforum.com/)** - Community knowledge base for Cummins owners
+- **[Diesel Truck Forums](https://www.cumminsforum.com/index.md)** - Community knowledge base for Cummins owners
 - **[EPA Emissions Regulations](https://www.epa.gov/emission-standards-reference-guide/epa-emission-standards-reference-guide)** - Federal emissions standards guide
 - **[Ram Truck Owner's Manuals](https://www.mopar.com/en-us/my-vehicle/owners-manual.html)** - Official documentation for Ram vehicles
-- **[TruckingDiesel.com](https://truckingdiesel.com/diagnostic-trouble-codes/)** - DTC code lookup and explanations
-- **[OBDLink Tools](https://www.obdlink.com/products/)** - Professional OBD-II hardware and software
+- **[TruckingDiesel.com](https://truckingdiesel.com/diagnostic-trouble-codes/index.md)** - DTC code lookup and explanations
+- **[OBDLink Tools](https://www.obdlink.com/products/index.md)** - Professional OBD-II hardware and software
 
 ## Citations
 

@@ -905,4 +905,4 @@ function Enable-GCAuditing {
 - [Microsoft Global Catalog Documentation](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/planning-global-catalog-server-placement)
 - [Active Directory Replication Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/troubleshoot/troubleshooting-active-directory-replication-problems)
 - [LDAP Performance Optimization](https://docs.microsoft.com/en-us/windows/win32/ad/performance-considerations)
-- [Active Directory Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/)
+- [Active Directory Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/index.md)

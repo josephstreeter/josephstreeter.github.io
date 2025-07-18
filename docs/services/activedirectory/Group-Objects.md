@@ -1086,16 +1086,16 @@ function Start-GroupMaintenance {
 
 - [Active Directory Groups Overview](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups)
 - [Best Practices for Securing Active Directory](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory)
-- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/)
+- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/index.md)
 
 ### Security Frameworks
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [CIS Controls](https://www.cisecurity.org/controls/)
+- [CIS Controls](https://www.cisecurity.org/controls/index.md)
 - [Microsoft Security Baselines](https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-security-baselines)
 
 ### Tools and Utilities
 
 - [AD Security Groups Analyzer](https://github.com/canix1/ADACLScanner)
-- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/)
+- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/index.md)
 - [Microsoft Assessment and Planning Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=7826)

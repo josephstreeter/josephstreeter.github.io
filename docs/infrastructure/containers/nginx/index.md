@@ -798,10 +798,10 @@ http {
 
 ## Resources
 
-- [Nginx Documentation](http://nginx.org/en/docs/)
+- [Nginx Documentation](http://nginx.org/en/docs/index.md)
 - [Nginx Load Balancing](http://nginx.org/en/docs/http/load_balancing.html)
 - [Nginx Reverse Proxy](http://nginx.org/en/docs/http/ngx_http_proxy_module.html)
 - [Nginx SSL Configuration](http://nginx.org/en/docs/http/configuring_https_servers.html)
-- [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/)
+- [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/index.md)
 
 This comprehensive guide provides everything needed to implement Nginx as a reverse proxy and load balancer in containerized environments.

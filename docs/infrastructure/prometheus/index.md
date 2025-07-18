@@ -470,16 +470,16 @@ prometheus_notifications_total
 
 ## Next Steps
 
-- Learn advanced [PromQL functions and operators](https://prometheus.io/docs/prometheus/latest/querying/functions/)
-- Explore [Grafana dashboard creation](https://grafana.com/docs/grafana/latest/dashboards/)
-- Study [alerting best practices](https://prometheus.io/docs/practices/alerting/)
-- Set up [high availability Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)
+- Learn advanced [PromQL functions and operators](https://prometheus.io/docs/prometheus/latest/querying/functions/index.md)
+- Explore [Grafana dashboard creation](https://grafana.com/docs/grafana/latest/dashboards/index.md)
+- Study [alerting best practices](https://prometheus.io/docs/practices/alerting/index.md)
+- Set up [high availability Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/index.md)
 
 ## Related Resources
 
-- [Prometheus Official Documentation](https://prometheus.io/docs/)
-- [PromQL Tutorial](https://prometheus.io/docs/prometheus/latest/querying/basics/)
-- [Grafana Documentation](https://grafana.com/docs/)
-- [Exporters and Integrations](https://prometheus.io/docs/instrumenting/exporters/)
+- [Prometheus Official Documentation](https://prometheus.io/docs/index.md)
+- [PromQL Tutorial](https://prometheus.io/docs/prometheus/latest/querying/basics/index.md)
+- [Grafana Documentation](https://grafana.com/docs/index.md)
+- [Exporters and Integrations](https://prometheus.io/docs/instrumenting/exporters/index.md)
 - [Prometheus Operator for Kubernetes](https://github.com/prometheus-operator/prometheus-operator)
-- [Best Practices Guide](https://prometheus.io/docs/practices/naming/)
+- [Best Practices Guide](https://prometheus.io/docs/practices/naming/index.md)

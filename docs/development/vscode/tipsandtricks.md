@@ -533,14 +533,14 @@ git config --global core.autocrlf input # Linux/Mac
 
 ### PowerShell Resources
 
-- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)** - Official PowerShell documentation
+- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/index.md)** - Official PowerShell documentation
 - **[PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer)** - PowerShell code analysis tool
 - **[PowerShell Best Practices](https://github.com/PoshCode/PowerShellPracticeAndStyle)** - Community style guide
 
 ### Community Resources
 
 - **[VS Code Blog](https://code.visualstudio.com/blogs)** - Latest features and updates
-- **[r/vscode](https://www.reddit.com/r/vscode/)** - VS Code community on Reddit
+- **[r/vscode](https://www.reddit.com/r/vscode/index.md)** - VS Code community on Reddit
 - **[Stack Overflow - VS Code](https://stackoverflow.com/questions/tagged/visual-studio-code)** - Q&A and troubleshooting
 - **[VS Code GitHub](https://github.com/microsoft/vscode)** - Report issues and feature requests
 
@@ -552,7 +552,7 @@ git config --global core.autocrlf input # Linux/Mac
 ### Learning Resources
 
 - **[Learn VS Code](https://code.visualstudio.com/learn)** - Interactive tutorials
-- **[PowerShell Learning Path](https://learn.microsoft.com/en-us/training/paths/powershell/)** - Microsoft Learn courses
+- **[PowerShell Learning Path](https://learn.microsoft.com/en-us/training/paths/powershell/index.md)** - Microsoft Learn courses
 - **[Git Learning Resources](https://git-scm.com/doc)** - Git documentation and tutorials
 
 ---

@@ -806,7 +806,7 @@ Get-ReplicationMetrics
 
 - [Active Directory Security Best Practices](../Security/index.md)
 - [Group Policy Management](../GroupPolicy/index.md)
-- [Identity Governance](../../identity/governance/index.md)
+- [Identity Governance](../../idm/governance/index.md)
 
 ### Tools and Utilities
 

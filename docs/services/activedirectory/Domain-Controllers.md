@@ -596,6 +596,6 @@ Get-Counter -Counter $counters -SampleInterval 5 -MaxSamples 12
 ## Additional Resources
 
 - [Microsoft Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
-- [CIS Controls for Active Directory](https://www.cisecurity.org/controls/)
-- [Active Directory Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/)
-- [DISA STIG for Windows Server](https://public.cyber.mil/stigs/)
+- [CIS Controls for Active Directory](https://www.cisecurity.org/controls/index.md)
+- [Active Directory Security Best Practices](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/index.md)
+- [DISA STIG for Windows Server](https://public.cyber.mil/stigs/index.md)

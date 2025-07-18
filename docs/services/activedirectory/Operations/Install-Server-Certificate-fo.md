@@ -566,7 +566,7 @@ if ($Chain.ChainStatus.Count -eq 0) {
 
 ### PowerShell Certificate Management
 
-- [Microsoft Learn: PKI PowerShell Cmdlets](https://learn.microsoft.com/en-us/powershell/module/pki/)
+- [Microsoft Learn: PKI PowerShell Cmdlets](https://learn.microsoft.com/en-us/powershell/module/pki/index.md)
 - [Microsoft Learn: Certificate Provider](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/about/about_certificate_provider)
 
 ### Security and Compliance

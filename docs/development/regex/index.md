@@ -73,4 +73,4 @@ Replace with (with a space after the comma, not shown):
 ```
 
 > This is a work in progress
-> [https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/](https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/)
+> [https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/](https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/index.md)

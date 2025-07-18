@@ -18,15 +18,15 @@ This comprehensive reference collection provides links to official documentation
 - **[RFC 4880 - OpenPGP Message Format](https://tools.ietf.org/html/rfc4880)** - The official OpenPGP specification
 - **[RFC 6637 - Elliptic Curve Cryptography (ECC) in OpenPGP](https://tools.ietf.org/html/rfc6637)** - ECC support in OpenPGP
 - **[RFC 3156 - MIME Security with OpenPGP](https://tools.ietf.org/html/rfc3156)** - Email integration standards
-- **[OpenPGP Working Group](https://datatracker.ietf.org/wg/openpgp/about/)** - IETF working group for OpenPGP standards
+- **[OpenPGP Working Group](https://datatracker.ietf.org/wg/openpgp/about/index.md)** - IETF working group for OpenPGP standards
 
 ### GnuPG Official Resources
 
-- **[GnuPG Official Website](https://gnupg.org/)** - Primary resource for GNU Privacy Guard
-- **[GnuPG Documentation](https://gnupg.org/documentation/)** - Complete official documentation
+- **[GnuPG Official Website](https://gnupg.org/index.md)** - Primary resource for GNU Privacy Guard
+- **[GnuPG Documentation](https://gnupg.org/documentation/index.md)** - Complete official documentation
 - **[GnuPG FAQ](https://gnupg.org/faq/gnupg-faq.html)** - Frequently asked questions
 - **[GnuPG Mailing Lists](https://gnupg.org/mailing-lists.html)** - Community support and discussion
-- **[GnuPG Source Code](https://git.gnupg.org/)** - Official source code repository
+- **[GnuPG Source Code](https://git.gnupg.org/index.md)** - Official source code repository
 
 ## Installation and Setup Guides
 
@@ -34,13 +34,13 @@ This comprehensive reference collection provides links to official documentation
 
 **Windows:**
 
-- **[GPG4Win Official Site](https://www.gpg4win.org/)** - Complete Windows PGP solution
+- **[GPG4Win Official Site](https://www.gpg4win.org/index.md)** - Complete Windows PGP solution
 - **[GPG4Win Documentation](https://www.gpg4win.org/documentation.html)** - Official installation and usage guides
 - **[Kleopatra User Guide](https://docs.kde.org/stable5/en/kleopatra/kleopatra/index.html)** - Certificate manager documentation
 
 **macOS:**
 
-- **[GPG Suite](https://gpgtools.org/)** - macOS PGP integration
+- **[GPG Suite](https://gpgtools.org/index.md)** - macOS PGP integration
 - **[GPG Suite Support](https://gpgtools.tenderapp.com/kb)** - Installation and troubleshooting guides
 - **[Homebrew GnuPG](https://formulae.brew.sh/formula/gnupg)** - Command-line installation
 
@@ -55,9 +55,9 @@ This comprehensive reference collection provides links to official documentation
 ### Beginner Tutorials
 
 - **[Electronic Frontier Foundation - Surveillance Self-Defense](https://ssd.eff.org/en/module/how-use-pgp-linux)** - Comprehensive privacy guide
-- **[Security in a Box - PGP Guide](https://securityinabox.org/en/tools/pgp/linux/)** - Step-by-step tutorials
+- **[Security in a Box - PGP Guide](https://securityinabox.org/en/tools/pgp/linux/index.md)** - Step-by-step tutorials
 - **[ProPublica Security Training](https://www.propublica.org/nerds/a-guide-to-getting-started-with-pgp)** - Journalist-focused PGP guide
-- **[PrivacyTools.io PGP Guide](https://privacytools.io/software/real-time-communication/)** - Modern privacy-focused recommendations
+- **[PrivacyTools.io PGP Guide](https://privacytools.io/software/real-time-communication/index.md)** - Modern privacy-focused recommendations
 
 ### Advanced Tutorials
 
@@ -77,45 +77,45 @@ This comprehensive reference collection provides links to official documentation
 
 **Graphical Interfaces:**
 
-- **[Kleopatra](https://apps.kde.org/kleopatra/)** - KDE certificate manager (Windows/Linux)
+- **[Kleopatra](https://apps.kde.org/kleopatra/index.md)** - KDE certificate manager (Windows/Linux)
 - **[GNU Privacy Assistant (GPA)](https://gnupg.org/related_software/gpa/index.html)** - Cross-platform graphical frontend
 - **[Seahorse](https://wiki.gnome.org/Apps/Seahorse)** - GNOME keyring manager
-- **[GPGTools](https://gpgtools.org/)** - macOS Mail.app integration
+- **[GPGTools](https://gpgtools.org/index.md)** - macOS Mail.app integration
 
 **Email Clients with PGP Support:**
 
-- **[Thunderbird](https://www.thunderbird.net/)** - Built-in OpenPGP support
-- **[Claws Mail](https://www.claws-mail.org/)** - Lightweight with PGP plugin
-- **[Mutt](http://www.mutt.org/)** - Command-line email client with GPG integration
+- **[Thunderbird](https://www.thunderbird.net/index.md)** - Built-in OpenPGP support
+- **[Claws Mail](https://www.claws-mail.org/index.md)** - Lightweight with PGP plugin
+- **[Mutt](http://www.mutt.org/index.md)** - Command-line email client with GPG integration
 - **[Evolution](https://wiki.gnome.org/Apps/Evolution)** - GNOME email client with PGP support
 
 ### Mobile Applications
 
 **iOS:**
 
-- **[ProtonMail](https://protonmail.com/)** - Built-in PGP encryption
-- **[Canary Mail](https://canarymail.io/)** - PGP-enabled email client
-- **[iPGMail](https://ipgmail.com/)** - Dedicated PGP app for iOS
+- **[ProtonMail](https://protonmail.com/index.md)** - Built-in PGP encryption
+- **[Canary Mail](https://canarymail.io/index.md)** - PGP-enabled email client
+- **[iPGMail](https://ipgmail.com/index.md)** - Dedicated PGP app for iOS
 
 **Android:**
 
-- **[OpenKeychain](https://www.openkeychain.org/)** - Open-source PGP implementation
-- **[K-9 Mail](https://k9mail.app/)** - Email client with OpenKeychain integration
-- **[ProtonMail](https://protonmail.com/)** - Cross-platform encrypted email
+- **[OpenKeychain](https://www.openkeychain.org/index.md)** - Open-source PGP implementation
+- **[K-9 Mail](https://k9mail.app/index.md)** - Email client with OpenKeychain integration
+- **[ProtonMail](https://protonmail.com/index.md)** - Cross-platform encrypted email
 
 ### Web-Based Tools
 
 **Key Servers:**
 
-- **[keys.openpgp.org](https://keys.openpgp.org/)** - Modern, privacy-focused keyserver
-- **[keyserver.ubuntu.com](https://keyserver.ubuntu.com/)** - Ubuntu keyserver
-- **[pgp.mit.edu](https://pgp.mit.edu/)** - MIT PGP keyserver (legacy)
+- **[keys.openpgp.org](https://keys.openpgp.org/index.md)** - Modern, privacy-focused keyserver
+- **[keyserver.ubuntu.com](https://keyserver.ubuntu.com/index.md)** - Ubuntu keyserver
+- **[pgp.mit.edu](https://pgp.mit.edu/index.md)** - MIT PGP keyserver (legacy)
 
 **Online PGP Tools:**
 
-- **[OpenPGP.js](https://openpgpjs.org/)** - JavaScript OpenPGP implementation
-- **[Mailvelope](https://www.mailvelope.com/)** - Browser extension for webmail
-- **[FlowCrypt](https://flowcrypt.com/)** - Gmail encryption extension
+- **[OpenPGP.js](https://openpgpjs.org/index.md)** - JavaScript OpenPGP implementation
+- **[Mailvelope](https://www.mailvelope.com/index.md)** - Browser extension for webmail
+- **[FlowCrypt](https://flowcrypt.com/index.md)** - Gmail encryption extension
 
 ## Security Research and Analysis
 
@@ -129,12 +129,12 @@ This comprehensive reference collection provides links to official documentation
 
 - **[GnuPG Security Audit](https://www.gnupg.org/blog/20141216-gnupg-gets-security-audit.html)** - Independent security assessment
 - **[Cure53 GnuPG Audit](https://cure53.de/pentest-report_gnupg.pdf)** - Detailed security audit report
-- **[RFC 4880bis Draft](https://datatracker.ietf.org/doc/draft-ietf-openpgp-rfc4880bis/)** - Updated OpenPGP specification
+- **[RFC 4880bis Draft](https://datatracker.ietf.org/doc/draft-ietf-openpgp-rfc4880bis/index.md)** - Updated OpenPGP specification
 
 ### Vulnerability Research
 
-- **[EFAIL Attack](https://efail.de/)** - Email encryption vulnerability disclosure
-- **[ROBOT Attack](https://robotattack.org/)** - RSA implementation vulnerabilities
+- **[EFAIL Attack](https://efail.de/index.md)** - Email encryption vulnerability disclosure
+- **[ROBOT Attack](https://robotattack.org/index.md)** - RSA implementation vulnerabilities
 - **[CVE Database - OpenPGP](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=openpgp)** - Known vulnerabilities
 
 ## Community Resources
@@ -142,31 +142,31 @@ This comprehensive reference collection provides links to official documentation
 ### Forums and Discussion
 
 - **[GnuPG Users Mailing List](https://lists.gnupg.org/mailman/listinfo/gnupg-users)** - Primary support community
-- **[r/GnuPG](https://www.reddit.com/r/GnuPG/)** - Reddit community for GnuPG users
+- **[r/GnuPG](https://www.reddit.com/r/GnuPG/index.md)** - Reddit community for GnuPG users
 - **[Stack Overflow - PGP Questions](https://stackoverflow.com/questions/tagged/pgp)** - Programming and technical questions
-- **[Cryptography Stack Exchange](https://crypto.stackexchange.com/)** - Academic cryptography discussion
+- **[Cryptography Stack Exchange](https://crypto.stackexchange.com/index.md)** - Academic cryptography discussion
 
 ### Professional Organizations
 
-- **[Internet Engineering Task Force (IETF)](https://www.ietf.org/)** - Internet standards organization
-- **[International Association for Cryptologic Research (IACR)](https://www.iacr.org/)** - Cryptography research organization
-- **[Electronic Frontier Foundation (EFF)](https://www.eff.org/)** - Digital rights advocacy
+- **[Internet Engineering Task Force (IETF)](https://www.ietf.org/index.md)** - Internet standards organization
+- **[International Association for Cryptologic Research (IACR)](https://www.iacr.org/index.md)** - Cryptography research organization
+- **[Electronic Frontier Foundation (EFF)](https://www.eff.org/index.md)** - Digital rights advocacy
 
 ## Alternative Solutions
 
 ### Modern Messaging Systems
 
-- **[Signal](https://signal.org/)** - Modern secure messaging with forward secrecy
-- **[Session](https://getsession.org/)** - Anonymous messaging over Tor
-- **[Element/Matrix](https://element.io/)** - Federated secure messaging
-- **[Keybase](https://keybase.io/)** - Identity verification and secure communication
+- **[Signal](https://signal.org/index.md)** - Modern secure messaging with forward secrecy
+- **[Session](https://getsession.org/index.md)** - Anonymous messaging over Tor
+- **[Element/Matrix](https://element.io/index.md)** - Federated secure messaging
+- **[Keybase](https://keybase.io/index.md)** - Identity verification and secure communication
 
 ### File Encryption Alternatives
 
-- **[AxCrypt](https://www.axcrypt.net/)** - File encryption software
-- **[7-Zip](https://www.7-zip.org/)** - Archive encryption capabilities
-- **[VeraCrypt](https://www.veracrypt.fr/)** - Full disk encryption
-- **[Age Encryption](https://age-encryption.org/)** - Modern alternative to PGP for files
+- **[AxCrypt](https://www.axcrypt.net/index.md)** - File encryption software
+- **[7-Zip](https://www.7-zip.org/index.md)** - Archive encryption capabilities
+- **[VeraCrypt](https://www.veracrypt.fr/index.md)** - Full disk encryption
+- **[Age Encryption](https://age-encryption.org/index.md)** - Modern alternative to PGP for files
 
 ## Standards and Compliance
 
@@ -174,13 +174,13 @@ This comprehensive reference collection provides links to official documentation
 
 - **[NIST Special Publication 800-57](https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final)** - Key management recommendations
 - **[FIPS 140-2](https://csrc.nist.gov/publications/detail/fips/140/2/final)** - Cryptographic module standards
-- **[Common Criteria](https://www.commoncriteriaportal.org/)** - Security evaluation criteria
+- **[Common Criteria](https://www.commoncriteriaportal.org/index.md)** - Security evaluation criteria
 
 ### Compliance Frameworks
 
-- **[GDPR](https://gdpr-info.eu/)** - European data protection regulation
-- **[HIPAA](https://www.hhs.gov/hipaa/)** - Healthcare data protection (US)
-- **[SOX](https://www.sarbanes-oxley-101.com/)** - Financial data protection (US)
+- **[GDPR](https://gdpr-info.eu/index.md)** - European data protection regulation
+- **[HIPAA](https://www.hhs.gov/hipaa/index.md)** - Healthcare data protection (US)
+- **[SOX](https://www.sarbanes-oxley-101.com/index.md)** - Financial data protection (US)
 
 ## Books and Publications
 
@@ -203,13 +203,13 @@ This comprehensive reference collection provides links to official documentation
 
 - **[Coursera - Cryptography](https://www.coursera.org/learn/crypto)** - Stanford University cryptography course
 - **[edX - Introduction to Cryptography](https://www.edx.org/course/introduction-to-cryptography)** - MIT cryptography fundamentals
-- **[CryptoPals Challenges](https://cryptopals.com/)** - Hands-on cryptography exercises
+- **[CryptoPals Challenges](https://cryptopals.com/index.md)** - Hands-on cryptography exercises
 
 ### Professional Certification
 
 - **[CISSP](https://www.isc2.org/Certifications/CISSP)** - Information systems security professional
 - **[GCIH](https://www.giac.org/certification/certified-incident-handler-gcih)** - Incident handling certification
-- **[CEH](https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/)** - Ethical hacking certification
+- **[CEH](https://www.eccouncil.org/programs/certified-ethical-hacker-ceh/index.md)** - Ethical hacking certification
 
 ## Historical References
 
@@ -217,7 +217,7 @@ This comprehensive reference collection provides links to official documentation
 
 - **[PGP Timeline](https://www.philzimmermann.com/EN/background/index.html)** - Phil Zimmermann's original documentation
 - **[The GNU Privacy Handbook](https://gnupg.org/gph/en/manual.html)** - Classic GnuPG documentation
-- **[PGP Source Code Publication](https://www.oreilly.com/library/view/pgp-source-code/9781565920989/)** - Historical source code publication
+- **[PGP Source Code Publication](https://www.oreilly.com/library/view/pgp-source-code/9781565920989/index.md)** - Historical source code publication
 
 ### Legal and Political Context
 

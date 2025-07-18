@@ -780,10 +780,10 @@ After setting up Azure App Service:
 
 ## Additional Resources
 
-- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/)
+- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/index.md)
 - [App Service Security](https://docs.microsoft.com/en-us/azure/app-service/security-recommendations)
 - [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
-- [Azure CDN Documentation](https://docs.microsoft.com/en-us/azure/cdn/)
+- [Azure CDN Documentation](https://docs.microsoft.com/en-us/azure/cdn/index.md)
 
 ---
 

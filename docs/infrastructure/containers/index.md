@@ -15,124 +15,124 @@ This section covers essential development tools and workflows for modern softwar
 
 ### Version Control & Collaboration
 
-- [Git](git/) - Distributed version control system
-- [GitHub](github/) - Git hosting and collaboration platform
-- [GitLab](gitlab/) - DevOps platform with integrated CI/CD
+- [Git](git/index.md) - Distributed version control system
+- [GitHub](github/index.md) - Git hosting and collaboration platform
+- [GitLab](gitlab/index.md) - DevOps platform with integrated CI/CD
 
 ### Code Editors & IDEs
 
-- [Visual Studio Code](vscode/) - Lightweight, extensible code editor
-- [Vim/Neovim](vim/) - Terminal-based text editor
-- [JetBrains IDEs](jetbrains/) - Professional development environments
+- [Visual Studio Code](vscode/index.md) - Lightweight, extensible code editor
+- [Vim/Neovim](vim/index.md) - Terminal-based text editor
+- [JetBrains IDEs](jetbrains/index.md) - Professional development environments
 
 ### Text Processing & Utilities
 
-- [Regular Expressions](regex/) - Pattern matching and text processing
-- [Markdown](markdown/) - Lightweight markup language
-- [YAML](yaml/) - Human-readable data serialization
+- [Regular Expressions](regex/index.md) - Pattern matching and text processing
+- [Markdown](markdown/index.md) - Lightweight markup language
+- [YAML](yaml/index.md) - Human-readable data serialization
 
 ## Containerization & Orchestration
 
 ### Container Technologies
 
-- [Docker](../containers/docker/) - Container platform and runtime
-- [Docker Compose](../containers/docker/dockercompose/) - Multi-container applications
-- [Podman](podman/) - Daemonless container engine
+- [Docker](../containers/docker/index.md) - Container platform and runtime
+- [Docker Compose](../containers/docker/dockercompose/index.md) - Multi-container applications
+- [Podman](podman/index.md) - Daemonless container engine
 
 ### Container Orchestration
 
-- [Kubernetes](../containers/kubernetes/) - Container orchestration platform
-- [Docker Swarm](docker-swarm/) - Native Docker clustering
+- [Kubernetes](../containers/kubernetes/index.md) - Container orchestration platform
+- [Docker Swarm](docker-swarm/index.md) - Native Docker clustering
 
 ## Build Tools & Package Managers
 
 ### JavaScript/Node.js
 
-- [npm](npm/) - Node.js package manager
-- [Yarn](yarn/) - Fast, reliable package manager
-- [pnpm](pnpm/) - Efficient package manager
+- [npm](npm/index.md) - Node.js package manager
+- [Yarn](yarn/index.md) - Fast, reliable package manager
+- [pnpm](pnpm/index.md) - Efficient package manager
 
 ### Python
 
-- [pip](pip/) - Python package installer
-- [Poetry](poetry/) - Python dependency management
-- [Conda](conda/) - Package and environment manager
+- [pip](pip/index.md) - Python package installer
+- [Poetry](poetry/index.md) - Python dependency management
+- [Conda](conda/index.md) - Package and environment manager
 
 ### General Build Tools
 
-- [Make](make/) - Build automation tool
-- [Gradle](gradle/) - Build automation system
-- [Maven](maven/) - Project management tool
+- [Make](make/index.md) - Build automation tool
+- [Gradle](gradle/index.md) - Build automation system
+- [Maven](maven/index.md) - Project management tool
 
 ## Testing & Quality Assurance
 
 ### Testing Frameworks
 
-- [Jest](jest/) - JavaScript testing framework
-- [Pytest](pytest/) - Python testing framework
-- [JUnit](junit/) - Java testing framework
+- [Jest](jest/index.md) - JavaScript testing framework
+- [Pytest](pytest/index.md) - Python testing framework
+- [JUnit](junit/index.md) - Java testing framework
 
 ### Code Quality
 
-- [ESLint](eslint/) - JavaScript linting utility
-- [Prettier](prettier/) - Code formatting tool
-- [SonarQube](sonarqube/) - Code quality platform
+- [ESLint](eslint/index.md) - JavaScript linting utility
+- [Prettier](prettier/index.md) - Code formatting tool
+- [SonarQube](sonarqube/index.md) - Code quality platform
 
 ## CI/CD & Automation
 
 ### Continuous Integration
 
-- [GitHub Actions](github-actions/) - Workflow automation platform
-- [Jenkins](jenkins/) - Automation server
-- [GitLab CI/CD](gitlab-ci/) - Integrated CI/CD platform
+- [GitHub Actions](github-actions/index.md) - Workflow automation platform
+- [Jenkins](jenkins/index.md) - Automation server
+- [GitLab CI/CD](gitlab-ci/index.md) - Integrated CI/CD platform
 
 ### Infrastructure as Code
 
-- [Terraform](terraform/) - Infrastructure provisioning
-- [Ansible](../ansible/) - Configuration management
-- [Pulumi](pulumi/) - Modern infrastructure as code
+- [Terraform](terraform/index.md) - Infrastructure provisioning
+- [Ansible](../ansible/index.md) - Configuration management
+- [Pulumi](pulumi/index.md) - Modern infrastructure as code
 
 ## Monitoring & Observability
 
 ### Application Monitoring
 
-- [Prometheus](prometheus/) - Monitoring and alerting toolkit
-- [Grafana](grafana/) - Analytics and monitoring platform
-- [Jaeger](jaeger/) - Distributed tracing system
+- [Prometheus](prometheus/index.md) - Monitoring and alerting toolkit
+- [Grafana](grafana/index.md) - Analytics and monitoring platform
+- [Jaeger](jaeger/index.md) - Distributed tracing system
 
 ### Logging
 
-- [ELK Stack](elk-stack/) - Elasticsearch, Logstash, and Kibana
-- [Fluentd](fluentd/) - Data collector for unified logging
-- [Loki](loki/) - Log aggregation system
+- [ELK Stack](elk-stack/index.md) - Elasticsearch, Logstash, and Kibana
+- [Fluentd](fluentd/index.md) - Data collector for unified logging
+- [Loki](loki/index.md) - Log aggregation system
 
 ## Database Tools
 
 ### Database Management
 
-- [PostgreSQL](postgresql/) - Advanced open-source database
-- [MySQL](mysql/) - Popular relational database
-- [Redis](redis/) - In-memory data structure store
+- [PostgreSQL](postgresql/index.md) - Advanced open-source database
+- [MySQL](mysql/index.md) - Popular relational database
+- [Redis](redis/index.md) - In-memory data structure store
 
 ### Database GUIs & Utilities
 
-- [DBeaver](dbeaver/) - Universal database tool
-- [pgAdmin](pgadmin/) - PostgreSQL administration tool
-- [MongoDB Compass](mongodb-compass/) - MongoDB GUI
+- [DBeaver](dbeaver/index.md) - Universal database tool
+- [pgAdmin](pgadmin/index.md) - PostgreSQL administration tool
+- [MongoDB Compass](mongodb-compass/index.md) - MongoDB GUI
 
 ## Security Tools
 
 ### Vulnerability Scanning
 
-- [OWASP ZAP](owasp-zap/) - Security testing proxy
-- [Snyk](snyk/) - Vulnerability scanning platform
-- [Trivy](trivy/) - Container vulnerability scanner
+- [OWASP ZAP](owasp-zap/index.md) - Security testing proxy
+- [Snyk](snyk/index.md) - Vulnerability scanning platform
+- [Trivy](trivy/index.md) - Container vulnerability scanner
 
 ### Secret Management
 
-- [HashiCorp Vault](vault/) - Secret management platform
-- [SOPS](sops/) - Simple and flexible secret management
-- [Sealed Secrets](sealed-secrets/) - Kubernetes secret encryption
+- [HashiCorp Vault](vault/index.md) - Secret management platform
+- [SOPS](sops/index.md) - Simple and flexible secret management
+- [Sealed Secrets](sealed-secrets/index.md) - Kubernetes secret encryption
 
 ## Getting Started
 
@@ -140,10 +140,10 @@ This section covers essential development tools and workflows for modern softwar
 
 If you're new to development, start with these fundamentals:
 
-1. **[Git basics](git/)** - Learn version control
-2. **[VS Code setup](vscode/)** - Configure your development environment
-3. **[Docker fundamentals](../containers/docker/)** - Understand containerization
-4. **[Basic terminal commands](terminal/)** - Command line proficiency
+1. **[Git basics](git/index.md)** - Learn version control
+2. **[VS Code setup](vscode/index.md)** - Configure your development environment
+3. **[Docker fundamentals](../containers/docker/index.md)** - Understand containerization
+4. **[Basic terminal commands](terminal/index.md)** - Command line proficiency
 
 ### Essential Workflow
 
@@ -307,15 +307,15 @@ sed -i 's/old/new/g' file.txt
 
 ### Documentation
 
-- [MDN Web Docs](https://developer.mozilla.org/) - Web development reference
-- [DevDocs](https://devdocs.io/) - API documentation browser
-- [Stack Overflow](https://stackoverflow.com/) - Programming Q&A
+- [MDN Web Docs](https://developer.mozilla.org/index.md) - Web development reference
+- [DevDocs](https://devdocs.io/index.md) - API documentation browser
+- [Stack Overflow](https://stackoverflow.com/index.md) - Programming Q&A
 
 ### Practice Platforms
 
-- [GitHub](https://github.com/) - Code hosting and collaboration
-- [CodePen](https://codepen.io/) - Frontend playground
-- [Replit](https://replit.com/) - Online IDE
+- [GitHub](https://github.com/index.md) - Code hosting and collaboration
+- [CodePen](https://codepen.io/index.md) - Frontend playground
+- [Replit](https://replit.com/index.md) - Online IDE
 
 ### Books and Tutorials
 

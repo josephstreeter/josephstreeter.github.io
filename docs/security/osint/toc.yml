@@ -14,3 +14,5 @@
   href: 07-glossary.md
 - name: Investigation Workflow
   href: 08-investigation-workflow.md
+- name: Caido for OSINT
+  href: caido.md

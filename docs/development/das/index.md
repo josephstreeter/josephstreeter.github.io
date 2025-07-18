@@ -250,10 +250,10 @@ Ready to implement Documentation as Code? Start with these detailed guides:
 
 ## Additional Resources
 
-- [DocFX Official Documentation](https://dotnet.github.io/docfx/)
-- [Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/)
-- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/)
-- [Markdown Guide](https://www.markdownguide.org/)
+- [DocFX Official Documentation](https://dotnet.github.io/docfx/index.md)
+- [Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/index.md)
+- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/index.md)
+- [Markdown Guide](https://www.markdownguide.org/index.md)
 - [Documentation Style Guides](https://github.com/Microsoft/vscode-docs-authoring)
 
 ---

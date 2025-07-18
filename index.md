@@ -8,37 +8,37 @@ Welcome to my personal technical documentation site. This contains guides, confi
 
 ## Quick Navigation
 
-### 🏗️ [Enterprise Services](docs/services/)
+### 🏗️ [Enterprise Services](docs/services/index.md)
 
 Administration of Enterprise Services
 
 - Active Directory, Exchange
 
-### 🛠️ [Development](docs/development/)
+### 🛠️ [Development](docs/development/index.md)
 
 Tools and workflows for software development
 
 - Git, VS Code, Regular Expressions
 
-### 🏗️ [Infrastructure](docs/infrastructure/)
+### 🏗️ [Infrastructure](docs/infrastructure/index.md)
 
 Server management and infrastructure as code
 
 - Terraform, Proxmox, SSH
 
-### 🌐 [Networking](docs/networking/)
+### 🌐 [Networking](docs/networking/index.md)
 
 Network configuration and management
 
 - Unifi network equipment
 
-### 📸 [Personal](docs/personal/)
+### 📸 [Personal](docs/personal/index.md)
 
 Hobbies and personal interests
 
 - Photography
 
-### 🌐 [Miscellatious](docs/misc/)
+### 🌐 [Miscellatious](docs/misc/index.md)
 
 Things that just don't fit anywhere else
 
@@ -47,8 +47,8 @@ Things that just don't fit anywhere else
 ## Popular Pages
 
 - [Git Configuration](docs/development/git/configuration.md)
-- [SSH Setup](docs/security/ssh/)
-- [VS Code for PowerShell](docs/development/vscode/)
+- [SSH Setup](docs/security/ssh/index.md)
+- [VS Code for PowerShell](docs/development/vscode/index.md)
 - [Terraform with Proxmox](docs/infrastructure/terraform/proxmox.md)
 
 ## Recent Updates
@@ -63,8 +63,8 @@ Written in markdown and served up with docfx and hosted on GitHub Pages. The sit
 
 Refer to following resources to learn more:
 
-- [Github Pages](https://pages.github.com/)
-- [Markdown](http://daringfireball.net/projects/markdown/)
+- [Github Pages](https://pages.github.com/index.md)
+- [Markdown](http://daringfireball.net/projects/markdown/index.md)
 - [Into to DocFX - Microsoft Learn](https://learn.microsoft.com/en-us/shows/on-dotnet/intro-to-docfx)
 - [DocFX - Github](https://github.com/dotnet/docfx)
 - [DocFX](https://dotnet.github.io/docfx/docs/basic-concepts.html)

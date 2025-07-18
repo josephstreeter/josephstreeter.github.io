@@ -424,9 +424,9 @@ If isolation causes critical service failures:
 
 ### PowerShell Resources
 
-- [Active Directory PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/activedirectory/)
-- [DNS Client PowerShell Commands](https://learn.microsoft.com/en-us/powershell/module/dnsclient/)
-- [Group Policy PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/grouppolicy/)
+- [Active Directory PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/activedirectory/index.md)
+- [DNS Client PowerShell Commands](https://learn.microsoft.com/en-us/powershell/module/dnsclient/index.md)
+- [Group Policy PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/grouppolicy/index.md)
 
 ## Conclusion
 

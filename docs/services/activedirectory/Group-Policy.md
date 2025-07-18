@@ -1495,12 +1495,12 @@ function Get-CloudMigrationReport {
 
 ### Security Frameworks
 
-- [CIS Controls](https://www.cisecurity.org/controls/)
+- [CIS Controls](https://www.cisecurity.org/controls/index.md)
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [DISA STIGs](https://public.cyber.mil/stigs/)
+- [DISA STIGs](https://public.cyber.mil/stigs/index.md)
 
 ### Tools and Utilities
 
 - [Local Group Policy Object Utility (LGPO)](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 - [Group Policy Central Store](https://docs.microsoft.com/en-us/troubleshoot/windows-client/group-policy/create-and-manage-central-store)
-- [PolicyAnalyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/)
+- [PolicyAnalyzer](https://blogs.technet.microsoft.com/secguide/2016/01/22/new-tool-policy-analyzer/index.md)

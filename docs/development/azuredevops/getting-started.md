@@ -4,7 +4,7 @@ This guide will walk you through the basics of setting up and using Azure DevOps
 
 ## 1. Creating an Azure DevOps Organization
 
-1. Go to [dev.azure.com](https://dev.azure.com/).
+1. Go to [dev.azure.com](https://dev.azure.com/index.md).
 2. Sign in with your Microsoft account.
 3. Click **New organization** and follow the prompts to set up your organization and first project.
 

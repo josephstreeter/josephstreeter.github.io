@@ -267,15 +267,15 @@ gpgconf --launch gpg-agent
 
 ### Official Documentation
 
-- **GnuPG Manual** - [https://gnupg.org/documentation/](https://gnupg.org/documentation/)
+- **GnuPG Manual** - [https://gnupg.org/documentation/](https://gnupg.org/documentation/index.md)
 - **OpenPGP Standard** - [RFC 4880](https://tools.ietf.org/html/rfc4880)
 - **GPG4Win Documentation** - [https://www.gpg4win.org/documentation.html](https://www.gpg4win.org/documentation.html)
 
 ### Security Research
 
-- **EFF Surveillance Self-Defense** - [https://ssd.eff.org/](https://ssd.eff.org/)
-- **Security in Context** - [https://securityinabox.org/](https://securityinabox.org/)
-- **NIST Cryptographic Standards** - [https://csrc.nist.gov/](https://csrc.nist.gov/)
+- **EFF Surveillance Self-Defense** - [https://ssd.eff.org/](https://ssd.eff.org/index.md)
+- **Security in Context** - [https://securityinabox.org/](https://securityinabox.org/index.md)
+- **NIST Cryptographic Standards** - [https://csrc.nist.gov/](https://csrc.nist.gov/index.md)
 
 ### Community Resources
 

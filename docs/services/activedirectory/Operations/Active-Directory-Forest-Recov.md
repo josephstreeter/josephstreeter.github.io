@@ -1242,7 +1242,7 @@ Resolve-ForestRecoveryIssues
 
 - [Active Directory Security Best Practices](../Security/index.md)
 - [Backup and Recovery Procedures](../Backup/index.md)
-- [Disaster Recovery Planning](../../infrastructure/disaster-recovery/index.md)
+- [Disaster Recovery Planning](../disaster-recovery/index.md)
 
 ### Tools and Utilities
 

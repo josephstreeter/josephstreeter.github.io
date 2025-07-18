@@ -143,7 +143,7 @@ Python 3 is the current and actively developed version:
 
 #### Method 1: Official Installer (Windows)
 
-1. Visit [python.org/downloads](https://www.python.org/downloads/)
+1. Visit [python.org/downloads](https://www.python.org/downloads/index.md)
 2. Download the latest Python 3.x installer
 3. Run installer and check "Add Python to PATH"
 4. Verify installation:
@@ -174,7 +174,7 @@ winget install Python.Python.3.12
 
 #### Method 1: Official Installer (macOS)
 
-1. Download from [python.org](https://www.python.org/downloads/macos/)
+1. Download from [python.org](https://www.python.org/downloads/macos/index.md)
 2. Run the `.pkg` installer
 3. Verify installation:
 
@@ -569,9 +569,9 @@ def calculate_area(length: float, width: float) -> float:
 
 ### Official Documentation
 
-- **Python.org** - [https://docs.python.org/](https://docs.python.org/)
-- **Python Tutorial** - [https://docs.python.org/3/tutorial/](https://docs.python.org/3/tutorial/)
-- **Python Standard Library** - [https://docs.python.org/3/library/](https://docs.python.org/3/library/)
+- **Python.org** - [https://docs.python.org/](https://docs.python.org/index.md)
+- **Python Tutorial** - [https://docs.python.org/3/tutorial/](https://docs.python.org/3/tutorial/index.md)
+- **Python Standard Library** - [https://docs.python.org/3/library/](https://docs.python.org/3/library/index.md)
 
 ### Interactive Learning
 

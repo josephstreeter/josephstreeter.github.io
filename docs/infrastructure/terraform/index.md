@@ -499,10 +499,10 @@ az account list
 
 ## Related Resources
 
-- [Terraform Registry](https://registry.terraform.io/) - Find providers and modules
+- [Terraform Registry](https://registry.terraform.io/index.md) - Find providers and modules
 - [Terraform Best Practices](https://www.terraform.io/docs/configuration/style.html)
 - [HashiCorp Learn](https://learn.hashicorp.com/terraform) - Interactive tutorials
 - [Terraform Azure Provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)
 - [Azure Terraform Examples](https://github.com/hashicorp/terraform-provider-azurerm/tree/main/examples)
-- [Azure CLI Documentation](https://docs.microsoft.com/en-us/cli/azure/)
-- [Azure Resource Manager Templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/)
+- [Azure CLI Documentation](https://docs.microsoft.com/en-us/cli/azure/index.md)
+- [Azure Resource Manager Templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/index.md)

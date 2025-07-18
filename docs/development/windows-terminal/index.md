@@ -596,7 +596,7 @@ Copy-Item "$env:USERPROFILE\Desktop\wt-settings-backup.json" "$settingsPath\sett
 
 #### Official Resources
 
-- [Windows Terminal Documentation](https://docs.microsoft.com/en-us/windows/terminal/)
+- [Windows Terminal Documentation](https://docs.microsoft.com/en-us/windows/terminal/index.md)
 - [GitHub Repository](https://github.com/microsoft/terminal)
 - [Community Discord](https://discord.gg/terminal)
 
@@ -619,7 +619,7 @@ wt --validate-settings
 
 #### Creating Custom Color Schemes
 
-Use online tools like [Windows Terminal Themes](https://windowsterminalthemes.dev/) to generate custom themes.
+Use online tools like [Windows Terminal Themes](https://windowsterminalthemes.dev/index.md) to generate custom themes.
 
 #### PowerShell Modules for Enhanced Experience
 
@@ -675,4 +675,4 @@ Set Windows Terminal as the default terminal application:
 
 ---
 
-*This comprehensive guide covers the essential aspects of Windows Terminal. For the latest features and updates, refer to the [official documentation](https://docs.microsoft.com/en-us/windows/terminal/) and [GitHub repository](https://github.com/microsoft/terminal).*
+*This comprehensive guide covers the essential aspects of Windows Terminal. For the latest features and updates, refer to the [official documentation](https://docs.microsoft.com/en-us/windows/terminal/index.md) and [GitHub repository](https://github.com/microsoft/terminal).*

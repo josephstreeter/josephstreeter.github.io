@@ -470,13 +470,13 @@ The implementation of network access control should follow organizational securi
 ### Network Security Resources
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [CIS Controls](https://www.cisecurity.org/controls/)
+- [CIS Controls](https://www.cisecurity.org/controls/index.md)
 - [Zero Trust Architecture (NIST SP 800-207)](https://csrc.nist.gov/publications/detail/sp/800-207/final)
 
 ### PowerShell and Automation
 
-- [Microsoft Learn: Windows Firewall PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/netsecurity/)
-- [Microsoft Learn: Network Adapter PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/netadapter/)
+- [Microsoft Learn: Windows Firewall PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/netsecurity/index.md)
+- [Microsoft Learn: Network Adapter PowerShell Module](https://learn.microsoft.com/en-us/powershell/module/netadapter/index.md)
 
 ## Conclusion
 

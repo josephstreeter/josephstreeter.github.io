@@ -260,8 +260,8 @@ Automate documentation creation:
 
 Helpful resources include:
 
-- **DocFX Documentation**: [https://dotnet.github.io/docfx/](https://dotnet.github.io/docfx/)
-- **Azure DevOps Docs**: [https://docs.microsoft.com/en-us/azure/devops/](https://docs.microsoft.com/en-us/azure/devops/)
+- **DocFX Documentation**: [https://dotnet.github.io/docfx/](https://dotnet.github.io/docfx/index.md)
+- **Azure DevOps Docs**: [https://docs.microsoft.com/en-us/azure/devops/](https://docs.microsoft.com/en-us/azure/devops/index.md)
 - **DocFX GitHub Issues**: [https://github.com/dotnet/docfx/issues](https://github.com/dotnet/docfx/issues)
 - **Stack Overflow**: Search for DocFX and Azure DevOps questions
 - **Microsoft Tech Community**: Azure and documentation forums

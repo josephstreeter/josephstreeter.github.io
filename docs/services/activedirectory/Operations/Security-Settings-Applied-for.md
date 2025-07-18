@@ -319,7 +319,7 @@ Monitor these Windows Event Logs for compliance verification:
 
 ### Official Documentation
 
-- [InCommon Silver Documentation](https://incommon.org/federation/silver/)
+- [InCommon Silver Documentation](https://incommon.org/federation/silver/index.md)
 - [NIST SP 800-63B: Authentication and Lifecycle Management](https://pages.nist.gov/800-63-3/sp800-63b.html)
 - [Microsoft LDAP Signing Requirements](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/enable-ldap-signing-in-windows-server)
 
@@ -327,7 +327,7 @@ Monitor these Windows Event Logs for compliance verification:
 
 - [LDAP Channel Binding and LDAP Signing Implementation](../Directory-Services-Configuration/LDAP-Channel-Binding-and-LDAP.md)
 - [Active Directory Security Best Practices](../Security/index.md)
-- [Identity Provider Security Configuration](../../identity/index.md)
+- [Identity Provider Security Configuration](../../idm/index.md)
 
 ### Support Resources
 

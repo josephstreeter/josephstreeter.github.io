@@ -6,6 +6,6 @@ categories: IT
 
 Using these instructions I got PIA to work!
 
-[Cacti from apt-get repositories and PIA to use weathermap](http://www.smithjon.com/words/tag/linux-cacti-weathermap-ubuntu-10-10-debian-squeeze/)
+[Cacti from apt-get repositories and PIA to use weathermap](http://www.smithjon.com/words/tag/linux-cacti-weathermap-ubuntu-10-10-debian-squeeze/index.md)
 
 The first installation, a test environment went really smooth. Of course the production box wasn't nearly as fun. Stangely enoough I had to comment out the plugins from the global.php file for them to work. Beats me....

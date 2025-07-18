@@ -582,6 +582,6 @@ GRANT SELECT, INSERT, UPDATE ON dbo.Employees TO AppUser
 ## Related Resources
 
 - [T-SQL Language Reference](https://docs.microsoft.com/en-us/sql/t-sql/language-reference)
-- [SQL Server Documentation](https://docs.microsoft.com/en-us/sql/sql-server/)
+- [SQL Server Documentation](https://docs.microsoft.com/en-us/sql/sql-server/index.md)
 - [Query Performance Tuning](https://docs.microsoft.com/en-us/sql/relational-databases/performance/query-performance-tuning)
 - [Database Engine Programming](https://docs.microsoft.com/en-us/sql/relational-databases/database-engine-developer-documentation)

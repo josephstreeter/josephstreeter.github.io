@@ -789,11 +789,11 @@ function Initialize-PKIIntegration {
 ### Security Frameworks
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [CIS Controls](https://www.cisecurity.org/controls/)
+- [CIS Controls](https://www.cisecurity.org/controls/index.md)
 - [Microsoft Security Compliance Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=55319)
 
 ### Tools and Utilities
 
 - [Active Directory Administrative Center](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/adac/active-directory-administrative-center)
-- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/)
+- [PowerShell Active Directory Module](https://docs.microsoft.com/en-us/powershell/module/addsadministration/index.md)
 - [Microsoft Assessment and Planning Toolkit](https://www.microsoft.com/en-us/download/details.aspx?id=7826)

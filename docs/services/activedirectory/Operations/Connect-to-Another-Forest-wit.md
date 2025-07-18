@@ -348,7 +348,7 @@ Register-ScheduledTask -TaskName "CrossForestSync" -Action $action -Trigger $tri
 
 ## References
 
-- [Active Directory PowerShell Module Documentation](https://docs.microsoft.com/en-us/powershell/module/activedirectory/)
+- [Active Directory PowerShell Module Documentation](https://docs.microsoft.com/en-us/powershell/module/activedirectory/index.md)
 - [New-PSDrive Cmdlet Reference](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive)
 - [Active Directory Forest Trusts](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/forest-design-models)
 - [PowerShell Security Best Practices](https://docs.microsoft.com/en-us/powershell/scripting/security/powershell-security-best-practices)

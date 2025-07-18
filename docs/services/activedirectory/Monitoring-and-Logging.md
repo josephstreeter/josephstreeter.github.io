@@ -1907,14 +1907,14 @@ function Monitor-HybridADHealth {
 ### Security Frameworks
 
 - [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
-- [CIS Controls](https://www.cisecurity.org/controls/)
-- [SANS Active Directory Security](https://www.sans.org/white-papers/1966/)
+- [CIS Controls](https://www.cisecurity.org/controls/index.md)
+- [SANS Active Directory Security](https://www.sans.org/white-papers/1966/index.md)
 
 ### Monitoring Tools
 
-- [System Center Operations Manager (SCOM)](https://docs.microsoft.com/en-us/system-center/scom/)
-- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/)
-- [Splunk for Active Directory](https://splunkbase.splunk.com/app/1151/)
+- [System Center Operations Manager (SCOM)](https://docs.microsoft.com/en-us/system-center/scom/index.md)
+- [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/index.md)
+- [Splunk for Active Directory](https://splunkbase.splunk.com/app/1151/index.md)
 
 ---
 

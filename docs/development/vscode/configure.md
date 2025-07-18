@@ -333,8 +333,8 @@ Create a `.vscode/launch.json` file for debugging:
 
 - **[PowerShell Community](https://github.com/PowerShell/PowerShell)** - PowerShell GitHub repository
 - **[VS Code PowerShell Issues](https://github.com/PowerShell/vscode-powershell/issues)** - Extension support and issues
-- **[r/PowerShell](https://www.reddit.com/r/PowerShell/)** - PowerShell community on Reddit
-- **[PowerShell.org](https://powershell.org/)** - PowerShell community hub
+- **[r/PowerShell](https://www.reddit.com/r/PowerShell/index.md)** - PowerShell community on Reddit
+- **[PowerShell.org](https://powershell.org/index.md)** - PowerShell community hub
 
 ---
 

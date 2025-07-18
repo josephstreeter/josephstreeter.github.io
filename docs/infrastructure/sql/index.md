@@ -509,9 +509,9 @@ ORDER BY DatabaseName, type_desc;
 
 ### Official Documentation
 
-- [SQL Server Documentation](https://docs.microsoft.com/en-us/sql/sql-server/)
-- [T-SQL Reference](https://docs.microsoft.com/en-us/sql/t-sql/)
-- [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/)
+- [SQL Server Documentation](https://docs.microsoft.com/en-us/sql/sql-server/index.md)
+- [T-SQL Reference](https://docs.microsoft.com/en-us/sql/t-sql/index.md)
+- [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/index.md)
 
 ### Training and Certification
 

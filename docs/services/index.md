@@ -1,12 +1,12 @@
 # Enterprise Services
 
-This section covers Enterprise Service topics such as Active Directory and Exchnage.
+This section covers Enterprise Service topics such as Active Directory and Exchange.
 
 ## Topics
 
-- [Containers](containers/) - Docker and Kubernetes
-- [Home Lab](homelab/) - Home lab notes
-- [Proxmox](proxmox/) - Managing Proxmox for a home lab environment
+- [Active Directory](activedirectory/index.md) - Directory services
+- [Exchange](exchange/index.md) - Email services
+- [Identity Management](idm/index.md) - Identity management solutions
 
 ## Getting Started
 

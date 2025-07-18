@@ -629,10 +629,10 @@ kubectl describe resourcequota -n <namespace>
 
 ## Additional Resources
 
-- **Official Documentation**: [kubernetes.io](https://kubernetes.io/docs/)
+- **Official Documentation**: [kubernetes.io](https://kubernetes.io/docs/index.md)
 - **Interactive Tutorial**: [katacoda.com](https://katacoda.com/courses/kubernetes)
-- **Practice Platform**: [Play with Kubernetes](https://labs.play-with-k8s.com/)
-- **Community**: [CNCF Slack](https://slack.cncf.io/)
-- **Training**: [Certified Kubernetes Administrator (CKA)](https://www.cncf.io/certification/cka/)
+- **Practice Platform**: [Play with Kubernetes](https://labs.play-with-k8s.com/index.md)
+- **Community**: [CNCF Slack](https://slack.cncf.io/index.md)
+- **Training**: [Certified Kubernetes Administrator (CKA)](https://www.cncf.io/certification/cka/index.md)
 
 This guide provides a solid foundation for understanding and working with Kubernetes. Start with local development using Minikube or Kind, then progress to more complex deployments as you gain experience.

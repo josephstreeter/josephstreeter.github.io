@@ -1,13 +1,6 @@
-- name: Microsoft Identity Manager 2016
+- name: Identity Management Overview
   href: index.md
-  items:
-  - name: SQL Synchronization Guide
-    href: sql-sync-guide.md
-  - name: Rule Extensions Development
-    href: rule-extensions.md
-  - name: Active Directory Integration
-    href: ad-integration.md
-  - name: Troubleshooting Guide
-    href: troubleshooting.md
-  - name: Performance Tuning
-    href: performance-tuning.md
+- name: Microsoft Identity Manager
+  href: mim/toc.yml
+- name: Identity Governance
+  href: governance/index.md

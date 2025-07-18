@@ -1433,19 +1433,19 @@ For hybrid environments, integrate on-premises PAM with Azure AD PIM:
 
 - [Privileged Access Management for Active Directory Domain Services](https://docs.microsoft.com/en-us/microsoft-identity-manager/pam/privileged-identity-management-for-active-directory-domain-services)
 - [Securing Privileged Access](https://docs.microsoft.com/en-us/security/compass/overview)
-- [Azure AD Privileged Identity Management](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/)
+- [Azure AD Privileged Identity Management](https://docs.microsoft.com/en-us/azure/active-directory/privileged-identity-management/index.md)
 
 ### Security Frameworks
 
 - [NIST Special Publication 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final)
-- [CIS Controls for Privileged Account Management](https://www.cisecurity.org/controls/)
-- [SANS Privileged Account Management](https://www.sans.org/white-papers/1566/)
+- [CIS Controls for Privileged Account Management](https://www.cisecurity.org/controls/index.md)
+- [SANS Privileged Account Management](https://www.sans.org/white-papers/1566/index.md)
 
 ### Tools and Solutions
 
-- [Microsoft Identity Manager (MIM)](https://docs.microsoft.com/en-us/microsoft-identity-manager/)
-- [CyberArk Privileged Access Security](https://www.cyberark.com/)
-- [BeyondTrust Privileged Access Management](https://www.beyondtrust.com/)
+- [Microsoft Identity Manager (MIM)](https://docs.microsoft.com/en-us/microsoft-identity-manager/index.md)
+- [CyberArk Privileged Access Security](https://www.cyberark.com/index.md)
+- [BeyondTrust Privileged Access Management](https://www.beyondtrust.com/index.md)
 
 ---
 

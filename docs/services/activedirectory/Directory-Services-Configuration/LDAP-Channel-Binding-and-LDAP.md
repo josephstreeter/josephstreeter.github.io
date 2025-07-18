@@ -231,7 +231,7 @@ try {
 
 ## Frequently Asked Questions
 
-[Why is there a delay between the release of the Security Advisory and the release of the security update for Windows which will set LDAP channel binding to a more secure default setting?](https://support.microsoft.com/)
+[Why is there a delay between the release of the Security Advisory and the release of the security update for Windows which will set LDAP channel binding to a more secure default setting?](https://support.microsoft.com/index.md)
 
 Based on feedback Microsoft received, customers preferred we release the update after the 2019 holidays. Many administrators restrict configuration changes during the holiday season. Administrators will also need time to test these configuration changes and adjust their environment as needed to support it. This release schedule is intended to provide lead-time to prepare for this change.
 
@@ -320,7 +320,7 @@ The information provided in the Microsoft Knowledge Base is provided "as is" wit
 
 ### How to enable LDAP signing in Windows Server 2008
 
-Applies to: Windows Server 2008 Datacenter without Hyper-V, Windows Server 2008 Enterprise without Hyper-V, Windows Server 2008 for Itanium-Based Systems [Additional Information](https://support.microsoft.com/)
+Applies to: Windows Server 2008 Datacenter without Hyper-V, Windows Server 2008 Enterprise without Hyper-V, Windows Server 2008 for Itanium-Based Systems [Additional Information](https://support.microsoft.com/index.md)
 
 ### RAPID PUBLISHING
 
@@ -454,7 +454,7 @@ Ldap_simple_bind_s() failed: Strong Authentication Required
 
 **Use the LdapEnforceChannelBinding registry entry to make LDAP authentication over SSL/TLS more secure
 
-Applies to: Windows Server 2016 Datacenter, Windows Server 2016 Essentials, Windows Server 2016 Standard [Additional Information](https://support.microsoft.com/)
+Applies to: Windows Server 2016 Datacenter, Windows Server 2016 Essentials, Windows Server 2016 Standard [Additional Information](https://support.microsoft.com/index.md)
 
 **Summary
 

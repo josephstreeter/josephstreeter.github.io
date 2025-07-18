@@ -439,21 +439,21 @@ rtl_fm -g 40 ...  # Instead of automatic gain
 
 ### Official Documentation
 
-- [RTL-SDR Official Site](https://www.rtl-sdr.com/)
+- [RTL-SDR Official Site](https://www.rtl-sdr.com/index.md)
 - [Osmocom RTL-SDR](https://osmocom.org/projects/rtl-sdr/wiki)
 - [RTL-SDR Quick Start Guide](https://ranous.files.wordpress.com/2016/03/rtl-sdr4linux_quickstartv10-16.pdf)
 
 ### Community Resources
 
-- [RTL-SDR Reddit](https://www.reddit.com/r/RTLSDR/)
+- [RTL-SDR Reddit](https://www.reddit.com/r/RTLSDR/index.md)
 - [RTL-SDR Discord](https://discord.gg/rtlsdr)
 - [GitHub RTL-SDR](https://github.com/osmocom/rtl-sdr)
 
 ### Software Tools
 
 - [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus)
-- [CubicSDR](https://cubicsdr.com/)
-- [SDR#](https://airspy.com/download/) (Windows)
+- [CubicSDR](https://cubicsdr.com/index.md)
+- [SDR#](https://airspy.com/download/index.md) (Windows)
 
 ## Conclusion
 

@@ -1,5 +1,5 @@
 ---
-title: Grafana and Prometheus Monitoring
+title: Grafana and Prometheus Monitoring - Clean Version
 description: Comprehensive guide to setting up Grafana and Prometheus for home network monitoring with various exporters and data sources.
 author: Joseph Streeter
 ms.author: jstreeter
@@ -7,7 +7,7 @@ ms.date: 07/08/2025
 ms.topic: article
 ms.service: monitoring
 keywords: Grafana, Prometheus, monitoring, home network, node exporter, cAdvisor, UniFi
-uid: docs.infrastructure.grafana.index
+uid: docs.infrastructure.grafana.index_clean
 ---
 
 This comprehensive guide covers setting up Grafana and Prometheus to monitor a home network, including system metrics, container monitoring, and network device monitoring.
@@ -552,13 +552,10 @@ receivers:
 
 1. **Node Exporter Full** (ID: 1860)
    - System metrics, CPU, memory, disk, network
-   
 2. **Docker Container & Host Metrics** (ID: 10619)
    - Container resource usage and performance
-   
 3. **UniFi Poller** (ID: 11315)
    - UniFi network device metrics
-   
 4. **Blackbox Exporter** (ID: 13659)
    - Network connectivity and response times
 

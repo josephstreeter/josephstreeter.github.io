@@ -644,7 +644,7 @@ After configuring DocFX:
 
 ## Additional Resources
 
-- [DocFX Official Documentation](https://dotnet.github.io/docfx/)
+- [DocFX Official Documentation](https://dotnet.github.io/docfx/index.md)
 - [DocFX Template Reference](https://dotnet.github.io/docfx/tutorial/intro_template.html)
 - [Markdown Extensions](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html)
 - [Custom Plugin Development](https://dotnet.github.io/docfx/tutorial/howto_build_your_own_type_of_documentation_with_plugin.html)

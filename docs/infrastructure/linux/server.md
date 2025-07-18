@@ -719,8 +719,8 @@ sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 ### Documentation
 
 - [Ubuntu Server Guide](https://ubuntu.com/server/docs)
-- [Debian Administrator's Handbook](https://debian-handbook.info/)
-- [Linux System Administrator's Guide](https://tldp.org/LDP/sag/html/)
+- [Debian Administrator's Handbook](https://debian-handbook.info/index.md)
+- [Linux System Administrator's Guide](https://tldp.org/LDP/sag/html/index.md)
 
 ### Tools
 

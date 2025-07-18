@@ -8,7 +8,7 @@ This should be a fun experiment.
 
 First I found this article:
 
-- [Debian join windows domain](http://zeldor.biz/2010/12/debian-join-windows-domain/)
+- [Debian join windows domain](http://zeldor.biz/2010/12/debian-join-windows-domain/index.md)
 
 I had a problem with the following error:
 

@@ -654,9 +654,9 @@ WHERE type IN ('S', 'U') AND is_disabled = 0;
 
 ### Compliance Resources
 
-- [Microsoft Compliance Center](https://compliance.microsoft.com/)
-- [SQL Server Compliance Documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/compliance/)
-- [Azure Trust Center](https://azure.microsoft.com/en-us/trust-center/)
+- [Microsoft Compliance Center](https://compliance.microsoft.com/index.md)
+- [SQL Server Compliance Documentation](https://docs.microsoft.com/en-us/sql/relational-databases/security/compliance/index.md)
+- [Azure Trust Center](https://azure.microsoft.com/en-us/trust-center/index.md)
 
 ## Conclusion
 

@@ -10,6 +10,6 @@ We are also planning the use of VRF-Lite in order to carry some other networks, 
 
 [Shared IPsec with DMVPN and VRF-Lite](http://www.networking-forum.com/blog/?p=1110)
 
-[Intro to VRF lite](http://packetlife.net/blog/2009/apr/30/intro-vrf-lite/)
+[Intro to VRF lite](http://packetlife.net/blog/2009/apr/30/intro-vrf-lite/index.md)
 
 [Using VRF-Lite, EIGRP, and Static Routes](http://www.netcraftsmen.net/component/content/article/68-network-infrastructure/681-using-vrf-lite-eigrp-and-static-routes.html)

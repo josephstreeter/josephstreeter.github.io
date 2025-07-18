@@ -264,10 +264,10 @@ Once setup is complete:
 
 ## Additional Resources
 
-- [Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/)
+- [Azure DevOps Documentation](https://docs.microsoft.com/en-us/azure/devops/index.md)
 - [DocFX Getting Started Guide](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html)
-- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/)
-- [Azure CLI Reference](https://docs.microsoft.com/en-us/cli/azure/)
+- [Azure App Service Documentation](https://docs.microsoft.com/en-us/azure/app-service/index.md)
+- [Azure CLI Reference](https://docs.microsoft.com/en-us/cli/azure/index.md)
 
 ---
 

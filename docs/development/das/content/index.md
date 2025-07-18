@@ -784,7 +784,7 @@ After developing your content strategy:
 - [Content Strategy for the Web](https://gathercontent.com/content-strategy-guide)
 - [Information Architecture Best Practices](https://www.usability.gov/what-and-why/information-architecture.html)
 - [Technical Writing Style Guides](https://developers.google.com/style)
-- [Content Governance Framework](https://contentmarketinginstitute.com/2018/04/content-governance-framework/)
+- [Content Governance Framework](https://contentmarketinginstitute.com/2018/04/content-governance-framework/index.md)
 
 ---
 

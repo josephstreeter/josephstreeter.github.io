@@ -118,7 +118,7 @@ choco install git
 
 #### Method 3: Manual Download
 
-Download from [Git for Windows](https://gitforwindows.org/) and run the installer.
+Download from [Git for Windows](https://gitforwindows.org/index.md) and run the installer.
 
 ### [Linux](#tab/gitlinux)
 
@@ -328,14 +328,14 @@ After completing the installation:
 ### Official Documentation
 
 - **[Visual Studio Code Documentation](https://code.visualstudio.com/docs)** - Comprehensive VS Code documentation
-- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)** - Official PowerShell documentation by Microsoft
+- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/index.md)** - Official PowerShell documentation by Microsoft
 - **[Git Documentation](https://git-scm.com/doc)** - Official Git documentation and tutorials
 
 ### Installation Guides
 
 - **[VS Code on Linux](https://code.visualstudio.com/docs/setup/linux)** - Official Linux installation guide
 - **[Installing PowerShell on Ubuntu](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.5)** - Microsoft's Ubuntu installation guide
-- **[Git for Windows](https://gitforwindows.org/)** - Git installation for Windows systems
+- **[Git for Windows](https://gitforwindows.org/index.md)** - Git installation for Windows systems
 
 ### PowerShell Extension Resources
 
@@ -345,15 +345,15 @@ After completing the installation:
 
 ### Package Managers
 
-- **[WinGet Documentation](https://learn.microsoft.com/en-us/windows/package-manager/winget/)** - Windows Package Manager guide
-- **[Chocolatey](https://chocolatey.org/)** - Package manager for Windows
+- **[WinGet Documentation](https://learn.microsoft.com/en-us/windows/package-manager/winget/index.md)** - Windows Package Manager guide
+- **[Chocolatey](https://chocolatey.org/index.md)** - Package manager for Windows
 - **[Snap Store](https://snapcraft.io/store)** - Universal Linux packages
 
 ### Community Resources
 
 - **[VS Code Tips and Tricks](https://code.visualstudio.com/docs/getstarted/tips-and-tricks)** - Productivity tips
 - **[PowerShell Community](https://github.com/PowerShell/PowerShell)** - PowerShell GitHub repository
-- **[r/PowerShell](https://www.reddit.com/r/PowerShell/)** - PowerShell community on Reddit
+- **[r/PowerShell](https://www.reddit.com/r/PowerShell/index.md)** - PowerShell community on Reddit
 
 ### Advanced Configuration
 

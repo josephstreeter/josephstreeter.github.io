@@ -620,7 +620,7 @@ Copy-Item "$backupPath\LocalState\settings.json" "$settingsPath\settings.json"
 
 ### Official Resources
 
-- [Windows Terminal Documentation](https://docs.microsoft.com/en-us/windows/terminal/)
+- [Windows Terminal Documentation](https://docs.microsoft.com/en-us/windows/terminal/index.md)
 - [GitHub Issues](https://github.com/microsoft/terminal/issues)
 - [Community Discord](https://discord.gg/terminal)
 

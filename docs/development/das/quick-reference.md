@@ -318,13 +318,13 @@ curl -X GET "https://api.example.com/resource/123" \
 
 ### Documentation Tools
 
-- **DocFX**: [https://dotnet.github.io/docfx/](https://dotnet.github.io/docfx/)
-- **Markdown Guide**: [https://www.markdownguide.org/](https://www.markdownguide.org/)
-- **Azure DevOps**: [https://docs.microsoft.com/en-us/azure/devops/](https://docs.microsoft.com/en-us/azure/devops/)
+- **DocFX**: [https://dotnet.github.io/docfx/](https://dotnet.github.io/docfx/index.md)
+- **Markdown Guide**: [https://www.markdownguide.org/](https://www.markdownguide.org/index.md)
+- **Azure DevOps**: [https://docs.microsoft.com/en-us/azure/devops/](https://docs.microsoft.com/en-us/azure/devops/index.md)
 
 ### Style Guides
 
-- **Microsoft Writing Style Guide**: [https://docs.microsoft.com/en-us/style-guide/](https://docs.microsoft.com/en-us/style-guide/)
+- **Microsoft Writing Style Guide**: [https://docs.microsoft.com/en-us/style-guide/](https://docs.microsoft.com/en-us/style-guide/index.md)
 - **Google Developer Documentation Style Guide**: [https://developers.google.com/style](https://developers.google.com/style)
 
 ### Community Resources

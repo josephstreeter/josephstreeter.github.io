@@ -98,8 +98,8 @@ correlation_matrix = df[['ENGINE_LOAD', 'EGT', 'NOX_SENSOR_1', 'DEF_DOSING_RATE'
 
 ## References and Additional Resources
 
-- **[python-OBD Documentation](https://python-obd.readthedocs.io/en/latest/)**
-- **[PyPI python-OBD package](https://pypi.org/project/obd/)**
+- **[python-OBD Documentation](https://python-obd.readthedocs.io/en/latest/index.md)**
+- **[PyPI python-OBD package](https://pypi.org/project/obd/index.md)**
 - **[OBD-II PID Reference](https://en.wikipedia.org/wiki/OBD-II_PIDs)**
 - **[Cummins Service Manuals](https://www.cummins.com/support/manuals)**
-- **[Diesel Truck Forums](https://www.cumminsforum.com/)**
+- **[Diesel Truck Forums](https://www.cumminsforum.com/index.md)**

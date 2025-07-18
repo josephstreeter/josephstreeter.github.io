@@ -72,8 +72,8 @@ The `mv-expand` operator expands multi-value dynamic arrays or property bags int
 **Reference Links:**
 
 - [mv-expand Operator - Microsoft Documentation](https://learn.microsoft.com/en-us/kusto/query/mv-expand-operator?view=microsoft-fabric)
-- [MV-Expand - Fun with KQL](https://arcanecode.com/2022/11/21/fun-with-kql-mv-expand/)
-- [Split an Array into Multiple Rows in Kusto](https://ninoburini.wordpress.com/2020/03/22/split-an-array-into-multiple-rows-in-kusto-azure-data-explorer-with-mv-expand/)
+- [MV-Expand - Fun with KQL](https://arcanecode.com/2022/11/21/fun-with-kql-mv-expand/index.md)
+- [Split an Array into Multiple Rows in Kusto](https://ninoburini.wordpress.com/2020/03/22/split-an-array-into-multiple-rows-in-kusto-azure-data-explorer-with-mv-expand/index.md)
 
 ## Examples
 
@@ -266,12 +266,12 @@ AADSignInEventsBeta
 
 ## Next Steps
 
-- Learn more about [KQL functions and operators](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/functions/)
+- Learn more about [KQL functions and operators](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/functions/index.md)
 - Explore [advanced KQL techniques](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorials/learn-common-operators)
 - Practice with [KQL tutorials](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial)
 
 ## References
 
 - [Must Learn KQL Part 13: The Extend Operator](https://rodtrent.substack.com/p/must-learn-kql-part-13-the-extend)
-- [Kusto Query Language (KQL) Overview - Microsoft Documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/)
+- [Kusto Query Language (KQL) Overview - Microsoft Documentation](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/index.md)
 - [KQL Quick Reference](https://docs.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)

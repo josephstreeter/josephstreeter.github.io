@@ -6,8 +6,8 @@ categories: IT
 
 More info on QoS to help make sure the traffic you need to get through gets though. This one puts time limits on the policies. I find QoS to be so cool.
 
-- [Networkers-Online](http://www.networkers-online.com/blog/)
-- [Limiting non-business related applications during work hours](http://www.networkers-online.com/blog/2008/07/limiting-non-business-related-applications-during-work-hours/)
+- [Networkers-Online](http://www.networkers-online.com/blog/index.md)
+- [Limiting non-business related applications during work hours](http://www.networkers-online.com/blog/2008/07/limiting-non-business-related-applications-during-work-hours/index.md)
 
 
 In this post we will explore how to limit or even stop your employees from using applications that are not related to the business during work hours.

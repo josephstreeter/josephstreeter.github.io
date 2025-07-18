@@ -510,11 +510,11 @@ VS Code supports several built-in variables in snippets:
 - **[VS Code Snippets Documentation](https://code.visualstudio.com/docs/editor/userdefinedsnippets)** - Complete guide to creating and using snippets
 - **[TextMate Snippet Syntax](https://manual.macromates.com/en/snippets)** - Detailed syntax reference for advanced features
 - **[VS Code Variables Reference](https://code.visualstudio.com/docs/editor/variables-reference)** - Complete list of available variables
-- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)** - Official PowerShell documentation
+- **[PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/index.md)** - Official PowerShell documentation
 
 ### Snippet Tools and Generators
 
-- **[Snippet Generator](https://snippet-generator.app/)** - Online tool for creating VS Code snippets
+- **[Snippet Generator](https://snippet-generator.app/index.md)** - Online tool for creating VS Code snippets
 - **[Snippets Manager Extension](https://marketplace.visualstudio.com/items?itemName=zjffun.snippetsmanager)** - VS Code extension for managing snippets
 - **[PowerShell Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.PowerShell)** - Includes built-in PowerShell snippets
 
@@ -522,14 +522,14 @@ VS Code supports several built-in variables in snippets:
 
 - **[Awesome VS Code](https://github.com/viatsko/awesome-vscode)** - Curated list of VS Code resources
 - **[PowerShell Community](https://github.com/PowerShell/PowerShell)** - PowerShell GitHub repository
-- **[r/PowerShell](https://www.reddit.com/r/PowerShell/)** - PowerShell community discussions
-- **[PowerShell.org](https://powershell.org/)** - PowerShell community hub
+- **[r/PowerShell](https://www.reddit.com/r/PowerShell/index.md)** - PowerShell community discussions
+- **[PowerShell.org](https://powershell.org/index.md)** - PowerShell community hub
 
 ### Best Practices and Style Guides
 
 - **[PowerShell Best Practices](https://github.com/PoshCode/PowerShellPracticeAndStyle)** - Community style guide
 - **[PSScriptAnalyzer Rules](https://github.com/PowerShell/PSScriptAnalyzer/tree/master/RuleDocumentation)** - Code analysis rules
-- **[The PowerShell Best Practices and Style Guide](https://poshcode.gitbook.io/powershell-practice-and-style/)** - Comprehensive style guide
+- **[The PowerShell Best Practices and Style Guide](https://poshcode.gitbook.io/powershell-practice-and-style/index.md)** - Comprehensive style guide
 - **[Microsoft PowerShell Coding Guidelines](https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/strongly-encouraged-development-guidelines)** - Official development guidelines
 
 ---
