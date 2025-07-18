@@ -1,5 +1,5 @@
 - name: Summary
-  href: 01-summary.md
+  href: index.md
 - name: Usage
   href: 02-usage.md
 - name: Install Clients
@@ -14,11 +14,11 @@
   href: 07-best-practices.md
 - name: Command Line Usage
   href: 08-command-line.md
-- name: Advanced Usage
+- name: Glossary
+  href: 09-glossary.md
+- name: Advanced Security
   href: 04-advanced.md
 - name: Conclusion
   href: 05-conclusion.md
 - name: References
   href: 06-references.md
-- name: Glossary
-  href: 09-glossary.md
