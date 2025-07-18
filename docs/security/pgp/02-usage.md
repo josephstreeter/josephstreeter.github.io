@@ -7,7 +7,7 @@ difficulty: "intermediate"
 last_updated: "2025-01-20"
 ---
 
-# PGP/GPG Usage Guide
+## PGP/GPG Usage Guide
 
 This comprehensive guide covers practical usage of PGP/GPG across different platforms and applications, including key creation, encryption, decryption, and key management.
 
@@ -38,7 +38,8 @@ Kleopatra is the recommended tool for Windows as it supports 4096-bit RSA keys.
    - Click **Next**
 
 3. **Enter Personal Information**
-   ```
+
+   ```text
    Name: Your Name (or pseudonym for anonymity)
    Email: your.email@example.com (or anonymous email)
    Comment: Optional description
@@ -82,11 +83,13 @@ GNU Privacy Assistant provides an alternative interface for key creation.
    - Click **Keys** → **New Key** (or Ctrl+N)
 
 3. **Enter Key Information**
-   ```
+
+   ```text
    Name: Your chosen identity
    Email: your.email@example.com
    Comment: Optional description
    ```
+
    > [!NOTE]
    > For anonymity, use pseudonyms and non-traceable email addresses
 
@@ -672,19 +675,21 @@ gpg --output revoke.asc --gen-revoke your.email@example.com
 
 ### Common Issues
 
-**Error: "No public key"**
+#### Error: "No public key"
+
 ```bash
 # Solution: Import recipient's public key
 gpg --keyserver hkps://keys.openpgp.org --search-keys recipient@example.com
 ```
 
-**Error: "Bad passphrase"**
+#### Error: "Bad passphrase"
 
 - Verify caps lock status
 - Try typing passphrase in text editor first
 - Check for special character issues
 
-**Error: "Key expired"**
+#### Error: "Key expired"
+
 ```bash
 # Check key expiration
 gpg --list-keys
@@ -693,7 +698,8 @@ gpg --list-keys
 gpg --edit-key your.email@example.com
 ```
 
-**GPG Agent Issues**
+#### GPG Agent Issues
+
 ```bash
 # Restart GPG agent
 gpgconf --kill gpg-agent
