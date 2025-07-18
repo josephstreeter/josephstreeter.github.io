@@ -1,5 +1,6 @@
 - name: Networking
   href: index.md
-- name: Unifi
-  href: unifi/index.md
-
+- name: Troubleshooting Guide
+  href: troubleshooting.md
+- name: UniFi Network
+  href: unifi/toc.yml

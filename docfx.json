@@ -40,7 +40,13 @@
       "_appName": "Crusader Two-One",
       "_appTitle": "Crusader Two-One",
       "_enableSearch": true,
+      "_enableNewTab": true,
+      "_gitContribute": {
+        "repo": "https://github.com/josephstreeter/josephstreeter.github.io",
+        "branch": "main"
+      },
       "pdf": true
-    }
+    },
+    "postProcessors": ["ExtractSearchIndex"]
   }
 }

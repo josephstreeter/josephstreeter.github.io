@@ -27,7 +27,7 @@ Setting up an efficient development environment is crucial for productivity and 
 
 2. **Configure Your Environment**:
    - Set up Git with your identity:
-   
+
      ```bash
      git config --global user.name "Your Name"
      git config --global user.email "your.email@example.com"
