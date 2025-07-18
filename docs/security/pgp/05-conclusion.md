@@ -407,7 +407,7 @@ Take the first step. Generate your keys. Start the conversation. The future of p
 
 ## Related Documentation
 
-- **[PGP Overview](01-summary.md)** - Introduction to PGP concepts and capabilities
+- **[PGP Overview](index.md)** - Introduction to PGP concepts and capabilities
 - **[Usage Guide](02-usage.md)** - Practical tutorials for daily PGP operations  
 - **[Installation Guide](03-install-clients.md)** - Platform-specific setup instructions
 - **[Advanced Security](04-advanced.md)** - Advanced techniques and operational security

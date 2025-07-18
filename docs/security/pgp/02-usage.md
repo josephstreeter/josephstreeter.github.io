@@ -16,7 +16,7 @@ This comprehensive guide covers practical usage of PGP/GPG across different plat
 Before following this guide, ensure you have:
 
 - PGP/GPG software installed ([Installation Guide](03-install-clients.md))
-- Basic understanding of PGP concepts ([PGP Overview](01-summary.md))
+- Basic understanding of PGP concepts ([PGP Overview](index.md))
 - Administrative access (for some operations)
 
 ---

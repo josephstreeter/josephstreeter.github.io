@@ -340,7 +340,7 @@ This comprehensive glossary defines key terms, concepts, and terminology related
 
 For more detailed information about these terms and concepts, refer to:
 
-- **[PGP Overview](01-summary.md)** - Introduction to core concepts
+- **[PGP Overview](index.md)** - Introduction to core concepts
 - **[Usage Guide](02-usage.md)** - Practical implementation
 - **[Advanced Security](04-advanced.md)** - Advanced cryptographic concepts
 - **[References](06-references.md)** - Additional resources and documentation
