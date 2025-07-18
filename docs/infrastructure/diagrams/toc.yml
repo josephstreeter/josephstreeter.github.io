@@ -1,0 +1,4 @@
+- name: Basic Cloud Infrastructure
+  href: basic-cloud-infra.md
+- name: HA Cloud Infrastructure
+  href: ha-cloud-infra.md
