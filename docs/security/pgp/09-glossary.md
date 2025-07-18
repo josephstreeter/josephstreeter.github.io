@@ -342,7 +342,7 @@ For more detailed information about these terms and concepts, refer to:
 
 - **[PGP Overview](index.md)** - Introduction to core concepts
 - **[Usage Guide](02-usage.md)** - Practical implementation
-- **[Advanced Security](04-advanced.md)** - Advanced cryptographic concepts
-- **[References](06-references.md)** - Additional resources and documentation
+- **[Advanced Security](10-advanced.md)** - Advanced cryptographic concepts
+- **[References](12-references.md)** - Additional resources and documentation
 
 This glossary is regularly updated to reflect current terminology and practices in the PGP/GPG ecosystem.

@@ -364,7 +364,7 @@ This guide provides foundational knowledge for PGP/GPG usage. For practical impl
 1. **[Installation Guide](03-install-clients.md)** - Set up PGP software
 2. **[Key Management](04-key-management.md)** - Create and manage keypairs
 3. **[Encryption Tutorial](05-encryption.md)** - Hands-on encryption practice
-4. **[Advanced Features](04-advanced.md)** - Advanced PGP functionality
+4. **[Advanced Features](10-advanced.md)** - Advanced PGP functionality
 
 ## Conclusion
 

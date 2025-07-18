@@ -5,6 +5,9 @@
     href: ssh/toc.yml
   - name: PGP
     href: pgp/toc.yml
+    items:
+    - name: Diagrams
+      href: pgp/diagrams/toc.yml
   - name: Wireless
     href: wireless/toc.yml
   - name: OSINT

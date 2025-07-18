@@ -644,4 +644,4 @@ gpg --keyid-format LONG --list-keys
 gpg --encrypt --recipient 0xABCD1234 file.txt
 ```
 
-This command-line reference provides comprehensive coverage of GnuPG operations. For GUI alternatives, see our [Usage Guide](02-usage.md), and for advanced security practices, consult the [Advanced Security Guide](04-advanced.md).
+This command-line reference provides comprehensive coverage of GnuPG operations. For GUI alternatives, see our [Usage Guide](02-usage.md), and for advanced security practices, consult the [Advanced Security Guide](10-advanced.md).
