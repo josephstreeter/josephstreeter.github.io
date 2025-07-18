@@ -12,10 +12,10 @@
   href: docs/misc/index.md
 - name: Personal
   href: docs/personal/index.md
-- name: API
+- name: API Reference
   href: api/
   homepage: api/index.md
 - name: Blog
   href: docs/_posts/
-- name: About Me
+- name: About
   href: docs/about.md

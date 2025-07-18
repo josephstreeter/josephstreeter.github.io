@@ -2,5 +2,7 @@
   href: index.md
 - name: Troubleshooting Guide
   href: troubleshooting.md
+- name: Diagrams
+  href: diagrams/toc.yml
 - name: UniFi Network
   href: unifi/toc.yml
