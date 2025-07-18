@@ -1,10 +1,21 @@
 
+- name: Enterprise Services
+  href: services/index.md
 - name: Infrastructure
   href: infrastructure/index.md
-- name: Development
-  href: development/index.md
 - name: Networking
   href: networking/index.md
+- name: Development
+  href: development/index.md
+- name: Security
+  href: security/index.md
+- name: Misc
+  href: misc/index.md
 - name: Personal
   href: personal/index.md
-
+- name: API Reference
+  href: ../api/
+- name: Blog
+  href: _posts/
+- name: About
+  href: about.md
