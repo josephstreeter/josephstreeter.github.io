@@ -263,9 +263,9 @@ gpg --import --verbose keyfile.asc
 
 This guide provides foundational knowledge for PGP/GPG usage. For practical implementation:
 
-1. **[Installation Guide](02-installation.md)** - Set up PGP software
-2. **[Key Management](03-key-management.md)** - Create and manage keypairs
-3. **[Encryption Tutorial](04-encryption.md)** - Hands-on encryption practice
+1. **[Installation Guide](03-install-clients.md)** - Set up PGP software
+2. **[Key Management](04-key-management.md)** - Create and manage keypairs
+3. **[Encryption Tutorial](05-encryption.md)** - Hands-on encryption practice
 4. **[Advanced Features](05-advanced.md)** - Advanced PGP functionality
 
 ## Conclusion

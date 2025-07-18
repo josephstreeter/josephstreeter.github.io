@@ -1,14 +1,24 @@
 - name: Summary
   href: 01-summary.md
-- name: Install Clients
-  href: 03-install-clients.md
 - name: Usage
   href: 02-usage.md
-- name: Advanced
+- name: Install Clients
+  href: 03-install-clients.md
+- name: Key Management
+  href: 04-key-management.md
+- name: Encryption
+  href: 05-encryption.md
+- name: Email Integration
+  href: 06-email-integration.md
+- name: Best Practices
+  href: 07-best-practices.md
+- name: Command Line Usage
+  href: 08-command-line.md
+- name: Advanced Usage
   href: 04-advanced.md
 - name: Conclusion
   href: 05-conclusion.md
 - name: References
   href: 06-references.md
 - name: Glossary
-  href: 07-glossary.md
+  href: 09-glossary.md

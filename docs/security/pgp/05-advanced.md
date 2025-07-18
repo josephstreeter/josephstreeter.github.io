@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Advanced PGP
+## Advanced PGP
 
 This is a placeholder for Advanced PGP content.
 
