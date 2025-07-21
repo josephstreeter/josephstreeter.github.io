@@ -1,24 +1,5 @@
 ---
-title: "PowerS```power```powerSet a parameter default value based on conditions using a script block:
-
-```powershell
-$PSDefaultParameterValues = @{"<CmdletName>:<ParameterName>" = {<ScriptBlock>}}
-```
-
-Use the Add() method to add preferences to an existing hash table.
-
-```powershell
-$PSDefaultParameterValues.Add({"<CmdletName>:<ParameterName>", "<DefaultValue>"})
-```ll
-$PSDefaultParameterValues = @{"<CmdletName>:<ParameterName>" = {<ScriptBlock>}}
-```faultParameterValues = @{
-	"<CmdletName>:<ParameterName1>" = "<DefaultValue>"
-	"<CmdletName>:<ParameterName2>" = "<DefaultValue>"
-	"<CmdletName>:<ParameterName3>" = "<DefaultValue>"
-	"<CmdletName>:<ParameterName4>" = "<DefaultValue>"
-}
-```PSDefaultParameterValues = @{"<CmdletName>:<ParameterName>" = "<DefaultValue>"}
-```l Tips and Tricks"
+title: Tips and Tricks"
 description: "Collection of practical PowerShell tips, tricks, and advanced techniques to improve productivity and solve common challenges"
 tags: ["powershell", "tips", "tricks", "productivity", "advanced", "techniques"]
 category: "development"
