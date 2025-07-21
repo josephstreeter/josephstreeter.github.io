@@ -1,19 +1,13 @@
+# Disaster Recovery
+
+Created: 2019-05-12 21:57:12 -0500
+
+Modified: 2019-05-12 21:58:30 -0500
+
 ---
-title: "AD Disaster Recovery"
-description: "Documentation for AD Disaster Recovery"
-author: "Joseph Streeter"
-ms.date: "2025-07-18"
-ms.topic: "article"
----
 
-# AD Disaster Recovery
+Domain Controller Backup
 
-This is a placeholder for AD Disaster Recovery content.
+Group Policy Backup
 
-## Overview
-
-Content will be added here soon.
-
-## Topics
-
-Add topics here.
+Forest Recovery
