@@ -1,0 +1,17 @@
+- name: Photo Gallery
+  href: index.md
+  items:
+  - name: Portrait Gallery
+    href: portrait-gallery.md
+  - name: Landscape Gallery
+    href: landscape-gallery.md
+  - name: Street Photography Gallery
+    href: street-gallery.md
+  - name: Macro Gallery
+    href: macro-gallery.md
+  - name: Black and White Gallery
+    href: bw-gallery.md
+  - name: Travel Photography
+    href: travel-gallery.md
+  - name: Behind the Scenes
+    href: behind-scenes.md

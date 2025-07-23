@@ -1,0 +1,19 @@
+- name: Photography Tips
+  href: index.md
+  items:
+  - name: Composition Techniques
+    href: composition-techniques.md
+  - name: Lighting Fundamentals
+    href: lighting-fundamentals.md
+  - name: Portrait Photography
+    href: portrait-photography.md
+  - name: Landscape Photography
+    href: landscape-photography.md
+  - name: Street Photography
+    href: street-photography.md
+  - name: Macro Photography
+    href: macro-photography.md
+  - name: Low Light Photography
+    href: low-light-photography.md
+  - name: Action Photography
+    href: action-photography.md
