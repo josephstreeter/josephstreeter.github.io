@@ -1,5 +1,7 @@
 - name: Diesel Truck Troubleshooting Guide
   href: truck.md
+- name: Edge CTS3 Dashboard Configuration
+  href: edge_ct3_guide.md
 - name: Python OBD-II Data Analysis
   href: python-obd-guide.md
 - name: DashCommand App Guide

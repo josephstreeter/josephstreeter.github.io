@@ -1,6 +1,14 @@
-# Edge CTS3 Dashboard Designs for 2014 RAM 3500 (6.7L Cummins)
+---
+uid: edge-cts3-guide
+title: Edge CTS3 Dashboard Designs for 2014 RAM 3500 (6.7L Cummins)
+description: Comprehensive guide for configuring Edge CTS3 dashboard monitor with detailed gauge layouts, diagnostics, and monitoring parameters for 2014 RAM 3500 with 6.7L Cummins engine
+author: Joseph Streeter
+ms.date: 2025-01-26
+ms.topic: article
+ms.custom: personal-vehicles
+---
 
-**Goal:** Monitor Fuel and DEF C### CTS3 Diagnostic Features
+**Goal:** Monitor Fuel and DEF Consumption, Engine Health, and Emissions System Performance
 
 The Edge CTS3 provides several diagnostic capabilities specifically relevant to the 2014 RAM 3500 Cummins:
 
