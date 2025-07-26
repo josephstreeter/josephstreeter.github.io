@@ -39,33 +39,15 @@ graph TD
 
 ## Gallery Collections
 
-### 👤 [Portrait Gallery](portrait-gallery.md)
+Coming soon! This gallery will showcase various photography collections including:
 
-A showcase of portrait photography including environmental portraits, studio work, and candid captures with detailed lighting and posing insights.
-
-### 🏔️ [Landscape Gallery](landscape-gallery.md)
-
-Stunning landscape photography from various locations, featuring golden hour shots, long exposures, and dramatic natural scenes.
-
-### 🚶 [Street Photography Gallery](street-gallery.md)
-
-Authentic moments captured in urban environments, showcasing storytelling through candid photography and human interaction.
-
-### 🔍 [Macro Gallery](macro-gallery.md)
-
-Close-up photography revealing the intricate details of small subjects, from insects to textures and abstract compositions.
-
-### ⚫ [Black and White Gallery](bw-gallery.md)
-
-Monochrome photography emphasizing composition, contrast, and emotional impact without the distraction of color.
-
-### ✈️ [Travel Photography](travel-gallery.md)
-
-Images from various destinations capturing cultures, landscapes, and experiences from around the world.
-
-### 🎬 [Behind the Scenes](behind-scenes.md)
-
-A look at the creative process, setup shots, and the story behind how specific images were created.
+- **Portrait Gallery** - Environmental portraits, studio work, and candid captures
+- **Landscape Gallery** - Stunning natural scenes and golden hour photography
+- **Street Photography** - Authentic urban moments and human stories
+- **Macro Gallery** - Close-up details and intricate compositions
+- **Black and White Gallery** - Monochrome photography emphasizing composition
+- **Travel Photography** - Cultural and landscape images from around the world
+- **Behind the Scenes** - Creative process and setup documentation
 
 ## Gallery Features
 

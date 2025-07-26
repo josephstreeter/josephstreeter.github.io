@@ -1,17 +1,2 @@
 - name: Photo Editing
   href: index.md
-  items:
-  - name: RAW Processing
-    href: raw-processing.md
-  - name: Lightroom Basics
-    href: lightroom-basics.md
-  - name: Photoshop Essentials
-    href: photoshop-essentials.md
-  - name: Color Grading
-    href: color-grading.md
-  - name: Retouching Techniques
-    href: retouching-techniques.md
-  - name: Alternative Software
-    href: alternative-software.md
-  - name: Export and Output
-    href: export-output.md

@@ -38,35 +38,18 @@ graph TD
 
 ## Essential Photography Techniques
 
-### 🎨 [Composition Techniques](composition-techniques.md)
+## Photography Techniques
 
-Learn the fundamental rules of visual composition and when to break them for creative impact.
+Coming soon! This section will cover essential photography techniques including:
 
-### 💡 [Lighting Fundamentals](lighting-fundamentals.md)
-
-Master the art of working with light - the most crucial element in photography.
-
-### 👤 [Portrait Photography](portrait-photography.md)
-
-Techniques for capturing compelling portraits, from posing to lighting to expression.
-
-### 🏔️ [Landscape Photography](landscape-photography.md)
-
-Create stunning landscape images with proper planning, composition, and technique.
-
-### 🚶 [Street Photography](street-photography.md)
-
-Develop skills for capturing authentic moments and stories in urban environments.
-
-### 🔍 [Macro Photography](macro-photography.md)
-
-Explore the fascinating world of close-up photography and small subject capture.
-
-### 🌙 [Low Light Photography](low-light-photography.md)
-
-Master challenging lighting conditions and create dramatic images after dark.
-
-### ⚡ [Action Photography](action-photography.md)
+- **Composition Techniques** - Fundamental rules of visual composition and creative breaking
+- **Lighting Fundamentals** - Working with natural and artificial light sources
+- **Portrait Photography** - Capturing compelling portraits with proper posing and lighting
+- **Landscape Photography** - Creating stunning landscape images with planning and technique
+- **Street Photography** - Authentic moment capture and urban storytelling
+- **Macro Photography** - Close-up photography and small subject techniques
+- **Low Light Photography** - Mastering challenging lighting conditions
+- **Action Photography** - Capturing movement and dynamic scenes
 
 Freeze or blur motion to create dynamic images of moving subjects.
 

@@ -1,5 +1,11 @@
 - name: Overview
   href: index.md
   items:
+  - name: Projects for Beginners
+    href: projects_for_beginers.md
+  - name: ArgoCD - GitOps for Kubernetes
+    href: argocd.md
+  - name: Helm - Package Manager for Kubernetes
+    href: helm.md
   - name: Monitoring and Logging
     href: monitoring.md
