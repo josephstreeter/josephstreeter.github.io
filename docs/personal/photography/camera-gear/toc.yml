@@ -1,0 +1,15 @@
+- name: Camera Gear
+  href: index.md
+  items:
+  - name: Camera Bodies
+    href: camera-bodies.md
+  - name: Lenses
+    href: lenses.md
+  - name: Tripods and Supports
+    href: tripods-supports.md
+  - name: Filters
+    href: filters.md
+  - name: Accessories
+    href: accessories.md
+  - name: Budget Recommendations
+    href: budget-recommendations.md
