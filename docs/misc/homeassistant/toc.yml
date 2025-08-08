@@ -3,10 +3,18 @@
 - name: Automations
   href: automations.md
 - name: Deployment
-  href: deployment.md
+  items:
+    - name: Complete Stack
+      href: deployment/index.md
+    - name: Home Assistant
+      href: deployment/homeassistant.md
+    - name: Mosquitto MQTT
+      href: deployment/mosquitto.md
+    - name: Zigbee2MQTT
+      href: deployment/zigbee2mqtt.md
 - name: Groups
   href: groups.md
-- name: Guidlines
+- name: Guidelines
   href: guidlines.md
 - name: Sensors
   href: sensors.md

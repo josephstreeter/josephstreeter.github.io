@@ -1,102 +1,88 @@
-# Cuddeback
+# Cuddeback Trail Cameras
 
-Cuddeback cameras
+Complete guide for Cuddeback trail cameras, including setup, configuration, and firmware management.
 
-## Cuddelink
+## CuddeLink Network System
 
-## Interface
+CuddeLink is Cuddeback's wireless camera network system that allows multiple cameras to communicate and share images through a mesh network.
 
-The interface consists of an LCD, four keys, and six LEDs.
+## Camera Interface
 
-- The LCD is the display for the interface.
-- The four keys allow the user to interact with the device.
-  - **MODE**
-  - **MORE**
-  - **UP**
-  - **DOWN**
-- The six LEDs, located above the LCD, are an indicator for which mode is currently active.
-  - **CLOCK** - Displays and allows for setting the date and time.
-  - **TEST** - Enables testing and diagnostic features.
-  - **COMMANDS** - Access to commands to control the device.
-  - **SETTINGS** - Setting device parameters.
-  - **ARM** - Enables the camera to function as configured.
-  - **OFF** - Turns off the camera.
+The camera interface provides intuitive control through a combination of display, buttons, and indicator lights.
 
-## Firmware Update
+### Display and Controls
 
-How to retrieve firmware updates:
+- **LCD Display** - Primary interface for viewing settings and status information
+- **Control Buttons** - Four buttons for navigation and configuration:
+  - **MODE** - Cycle through different operating modes
+  - **MORE** - Navigate through menu options
+  - **UP** - Increase values or confirm selections
+  - **DOWN** - Decrease values or navigate backwards
 
-1. Visit our website and check if new firmware is available. Visit
-Cuddeback.com/update and follow onscreen instructions.
-2. Register your camera at cuddeback.com/register and opt-in to
-our email announcements. We will email you new firmware
-when it is available.
+### Status Indicator LEDs
 
-Loading firmware onto your Cuddeback camera:
+Six LEDs above the LCD indicate the current operating mode:
 
-1. Copy the firmware file to your SD card.
-2. Insert the SD card into your Cuddeback camera.
-3. Press ```MODE``` until ```COMMANDS``` LED is on.
-4. Press ```MORE``` until ```LOAD F/W``` is displayed.
-5. Press UP to begin. ```CONFIRM``` will be displayed. Press UP to
-confirm.
-6. DO NOT REMOVE THE SD CARD until the clock time is
-displayed.
-7. The LCD display will display ```BUSY``` and the LEDs will illuminate.
-When finished the time will be displayed and you can remove
-the SD card.
-8. You can use the same SD card to update all your Cuddeback
-cameras.
+| LED | Mode | Description |
+|-----|------|-------------|
+| **CLOCK** | Date/Time | Display and set date and time |
+| **TEST** | Testing | Enable diagnostic and testing features |
+| **COMMANDS** | Commands | Access device control commands |
+| **SETTINGS** | Configuration | Adjust camera parameters and settings |
+| **ARM** | Active | Camera is armed and operational |
+| **OFF** | Disabled | Camera is turned off |
 
-### Setup
+## Getting Started
 
-### [Home](#tab/setuphome)
+### Basic Setup
 
-Configure REMOTE cameras:
+1. **Insert Batteries** - Use fresh alkaline or lithium batteries
+2. **Insert SD Card** - Format SD card (FAT32) before first use
+3. **Set Date and Time** - Press `MODE` until `CLOCK` LED illuminates
+4. **Configure Basic Settings** - Set photo resolution, delay, and sensitivity
+5. **Test Camera** - Press `MODE` until `TEST` LED illuminates and take test photos
 
-> [!IMPORTANT]
-> Set up the home camera in a central location that is easily accessible.
+### Important Notes
 
-1. Insert SD card.
-2. Set the camera settings (date, time, delays, etc.). You must set the date and time on the Home camera.
-3. Press ```Mode``` button until ```COMMMANDS``` is displayed
-4. Press the ```MORE``` button until ```CL MENU``` is displayed.
-5. Press the ```Up-Arrow``` button twice to confirm.
-6. The first setting displayed is ```CL MODE```. Leave this setting as ```HOME```.
-7. Press the ```MORE``` button to display ```CL LOC```. press the ```Up-Arrow``` or ```Down-Arrow``` buttons to set a unique number for the camera. It is recommended to set the location for the home camera to ```001```
-8. Press the ```MORE``` button twice to display ```CL CHAN```. Set the channel to a number between ```1``` and ```16```.
+- Always set date and time on HOME cameras before network setup
+- Use lithium batteries in cold weather for extended life
+- Format SD cards regularly to prevent errors
+- Keep firmware updated for optimal performance
 
-    > [!IMPORTANT]
-    > Make note of the channel set for the home camera.
-    > All of the remote cameras must be set to the same channel as the home camera.
-9. Press the ```MODE``` button until the display shows ```ARMING```.
+## Quick Reference
 
-### [Remote](#tab/setupremote)
+### Button Navigation
 
-Configure REMOTE cameras:
+| Current Mode | Press MODE | Result |
+|--------------|------------|--------|
+| Any Mode | `MODE` | Cycle to next mode |
+| Any Mode | `MORE` | Navigate menu options |
+| Menu Options | `UP` | Increase value/confirm |
+| Menu Options | `DOWN` | Decrease value/go back |
 
-> [!IMPORTANT]
-> Set up each remote camera near the home camera or a remote camera that has already been configured.
-> This helps ensure that you have a link established prior to moving the camera to a new location.
+### LED Status Guide
 
-1. Insert SD card.
-2. Set the camera settings (date, time, delays, etc.). You must set the date and time on the Home camera.
-3. Press ```MODE``` button until ```COMMMANDS``` is displayed
-4. Press the ```MORE``` button until ```LINK MENU``` is displayed.
-5. Press the ```Up-Arrow``` button to activate the ```LINK MODE``` menu.
-6. Press the ```Up-Arrow``` button to change ```HOME``` to ```REMOTE```.
-    > [!WARNING]
-    > A camera set to ```REPEATER``` will transimitt images from one device to another, but will not take images.
-7. Press the ```MORE``` button to display ```LINK ID``` and then press the ```Up-Arrow``` or ```Down-Arrow``` buttons to set a unique number for the camera.
-8. Press the ```MORE``` button to display ```LINK CHANNEL``` and then press the ```Up-Arrow``` to set the first number and the ```Down-Arrow``` button to set the second number to match the channel set on the home camera.
-9. Press the ```MORE``` button to display ```LINK COUNT``` menue. Leave this setting at the default of 250.
-10. Press the ```MORE``` button to display ```LINK LEVEL```. The display will show four lines, ```----```. Wait for a signal level to be displayed (```99 GOOD```).
+- **Solid LED** - Current active mode
+- **Flashing LED** - Camera is busy or in menu
+- **No LEDs** - Camera is off or battery dead
 
-    > [!WARNING]
-    > If you do not get a signal within 3 or 4 minutes or signal is less than 15, move closer to the HOME
-    > camera or another Remote camera.
+## Documentation Sections
 
-11. Begin moving the camera towards the location where it will be placed. If the signal drops to less that 20 along the way, a closer location should be selected.
-12. Deploy the camera and press the ```MODE``` button until the display shows ```ARMING```.
+### [Firmware Updates](firmware.md)
 
----
+Keep your cameras updated with the latest firmware for optimal performance and new features.
+
+### [CuddeLink Network Setup](cuddelink-setup.md)
+
+Complete guide for configuring HOME and REMOTE cameras in a CuddeLink network.
+
+### [Troubleshooting](troubleshooting.md)
+
+Comprehensive troubleshooting guide for hardware, software, and network issues.
+
+## Additional Resources
+
+- **Cuddeback Website** - [cuddeback.com](https://cuddeback.com)
+- **Firmware Updates** - [cuddeback.com/update](https://cuddeback.com/update)
+- **Camera Registration** - [cuddeback.com/register](https://cuddeback.com/register)
+- **Support Contact** - Check website for current contact information

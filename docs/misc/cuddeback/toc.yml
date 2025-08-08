@@ -1,2 +1,8 @@
-- name: Cuddeback
+- name: Cuddeback Trail Cameras
   href: index.md
+- name: Firmware Updates
+  href: firmware.md
+- name: CuddeLink Network Setup
+  href: cuddelink-setup.md
+- name: Troubleshooting
+  href: troubleshooting.md
