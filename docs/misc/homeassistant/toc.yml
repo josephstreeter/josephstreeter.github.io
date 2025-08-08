@@ -20,3 +20,21 @@
   href: sensors.md
 - name: Templates
   href: templates.md
+- name: Zigbee2MQTT
+  items:
+    - name: Overview
+      href: zigbee2mqtt/index.md
+    - name: Installation
+      href: zigbee2mqtt/installation.md
+    - name: Configuration
+      href: zigbee2mqtt/configuration.md
+    - name: Device Management
+      href: zigbee2mqtt/device-management.md
+    - name: Monitoring & Maintenance
+      href: zigbee2mqtt/monitoring.md
+    - name: Troubleshooting
+      href: zigbee2mqtt/troubleshooting.md
+    - name: Home Assistant Integration
+      href: zigbee2mqtt/integration.md
+    - name: Advanced Topics
+      href: zigbee2mqtt/advanced.md
