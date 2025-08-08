@@ -23,6 +23,10 @@ UniFi offers a comprehensive suite of networking products that can be centrally 
 
 ## Getting Started with UniFi
 
+### Quick Start
+
+For a comprehensive step-by-step setup guide, see the [Complete Setup Guide](setup-guide.md) which covers everything from initial installation to advanced optimization.
+
 ### Initial Setup
 
 1. **Controller Installation**

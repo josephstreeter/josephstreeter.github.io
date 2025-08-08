@@ -1,6 +1,8 @@
 - name: Overview
   href: index.md
   items:
+  - name: Complete Setup Guide
+    href: setup-guide.md
   - name: 802.1x
     href: 802.1x.md
   - name: VLANs

@@ -1,12 +1,22 @@
 - name: Home Assistant
-  href: homeassistant/index.md
-- name: Configuration
-  href: homeassistant/configuration.md
-- name: Automations
-  href: homeassistant/automations.md
-- name: Deployment (HA)
-  href: homeassistant/deployment.md
-- name: Deployment
+  items:
+    - name: Overview
+      href: homeassistant/index.md
+    - name: Configuration
+      href: homeassistant/configuration.md
+    - name: Automations
+      href: homeassistant/automations.md
+    - name: Groups
+      href: homeassistant/groups.md
+    - name: Guidelines
+      href: homeassistant/guidlines.md
+    - name: Sensors
+      href: homeassistant/sensors.md
+    - name: Templates
+      href: homeassistant/templates.md
+    - name: Deployment
+      href: homeassistant/deployment.md
+- name: Deployment Stack
   items:
     - name: Complete Stack
       href: deployment/index.md
@@ -16,16 +26,10 @@
       href: deployment/mosquitto.md
     - name: Zigbee2MQTT
       href: deployment/zigbee2mqtt.md
-- name: Groups
-  href: homeassistant/groups.md
-- name: Guidelines
-  href: homeassistant/guidlines.md
-- name: Sensors
-  href: homeassistant/sensors.md
-- name: Templates
-  href: homeassistant/templates.md
 - name: Mosquitto MQTT
-  href: mosquitto/index.md
+  items:
+    - name: Overview
+      href: mosquitto/index.md
 - name: Zigbee2MQTT
   items:
     - name: Overview
