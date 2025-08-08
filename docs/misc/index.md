@@ -6,7 +6,7 @@ This section covers useful tools, techniques, and references that don't fit neat
 
 - [RTL-SDR](rtl-sdr/index.md) - Software-defined radio tools and applications
 - [Cuddeback](cuddeback/index.md) - Wildlife camera setup and management
-- [Home Assistant](homeassistant/index.md) - Smart home automation platform
+- [Home Assistant](homeassistant/homeassistant/index.md) - Smart home automation platform
 
 ## Overview
 
@@ -26,8 +26,8 @@ This section contains specialized topics that cross the boundaries between techn
    - Data collection techniques
 
 3. **Home Assistant**: Comprehensive home automation covering:
-   - [Configuration and setup](homeassistant/configuration.md)
-   - [Sensor integration](homeassistant/sensors.md)
-   - [Automation rules](homeassistant/automations.md)
-   - [Template creation](homeassistant/templates.md)
-   - [Docker deployment](homeassistant/deployment.md)
+   - [Configuration and setup](homeassistant/homeassistant/configuration.md)
+   - [Sensor integration](homeassistant/homeassistant/sensors.md)
+   - [Automation rules](homeassistant/homeassistant/automations.md)
+   - [Template creation](homeassistant/homeassistant/templates.md)
+   - [Docker deployment](homeassistant/homeassistant/deployment.md)
