@@ -16,6 +16,8 @@
       href: homeassistant/templates.md
     - name: Deployment
       href: homeassistant/deployment.md
+    - name: Naming Convention
+      href: homeassistant/homeassistant/nameconvention.md
 - name: Deployment Stack
   items:
     - name: Complete Stack
