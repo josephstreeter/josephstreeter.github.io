@@ -244,6 +244,7 @@ When possible, configure automated linting to enforce:
 
 ### Code Review Requirements
 All PowerShell code must be reviewed for:
+- Allman formating
 - Adherence to naming conventions
 - Proper error handling implementation
 - Security best practices compliance
@@ -268,7 +269,6 @@ Before submitting PowerShell code, verify:
 ## Resources
 
 - [PowerShell Documentation](https://learn.microsoft.com/en-us/powershell/)
-- [Repository PowerShell Guide](docs/development/powershell/index.md)
 - [PowerShell Best Practices](https://poshcode.gitbook.io/powershell-practice-and-style/)
 - [PSScriptAnalyzer Rules](https://learn.microsoft.com/en-us/powershell/utility-modules/psscriptanalyzer/rules/readme)
 

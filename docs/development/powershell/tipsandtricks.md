@@ -1,15 +1,35 @@
 ---
-title: Tips and Tricks"
+title: "PowerShell Tips and Tricks"
 description: "Collection of practical PowerShell tips, tricks, and advanced techniques to improve productivity and solve common challenges"
 tags: ["powershell", "tips", "tricks", "productivity", "advanced", "techniques"]
 category: "development"
 difficulty: "intermediate-to-advanced"
-last_updated: "2025-07-21"
+last_updated: "2025-08-20"
 ---
+
+## Table of Contents
+
+- [Default Parameter Values](#default-parameter-values)
+- [Environment and Path Management](#environment-and-path-management)
+- [Dynamic Object Creation](#dynamic-object-creation)
+- [Performance Optimization](#performance-optimization)
+- [Error Handling Best Practices](#error-handling-best-practices)
+- [Advanced Function Development](#advanced-function-development)
+- [Pipeline Techniques](#pipeline-techniques)
+- [Debugging and Troubleshooting](#debugging-and-troubleshooting)
+- [PowerShell Profiles](#powershell-profiles)
+- [Module Management](#module-management)
+- [Security Best Practices](#security-best-practices)
+- [Cross-Platform Considerations](#cross-platform-considerations)
+- [References](#references)
+
+## Overview
 
 This comprehensive collection of PowerShell tips and tricks covers practical techniques, productivity enhancements, and solutions to common challenges encountered in PowerShell development and administration. These techniques have been tested in real-world scenarios and can significantly improve your PowerShell workflow.
 
-## Setting Default Parameter Values
+For foundational PowerShell concepts, see the [main PowerShell documentation](index.md).
+
+## Default Parameter Values
 
 Use the $PSDefaultParameterValues preference variable to set custom default values for cmdlets and advanced functions that you frequently use. The parameters and the default values are stored as a hash table.
 
@@ -219,7 +239,7 @@ Add-ToPath -Directory "C:\Tools\MyApp" -Scope User
 
 ---
 
-## Dynamic PSCustomObject Creation
+## Dynamic Object Creation
 
 This section demonstrates creating custom objects dynamically from various data sources, which is a common requirement in PowerShell development.
 
@@ -569,10 +589,535 @@ function ConvertTo-Base64
 
 ---
 
-## References and Additional Resources
+## Debugging and Troubleshooting
+
+### Interactive Debugging
+
+```powershell
+# Set breakpoints in scripts
+Set-PSBreakpoint -Script "C:\Scripts\MyScript.ps1" -Line 25
+
+# Set conditional breakpoints
+Set-PSBreakpoint -Script "C:\Scripts\MyScript.ps1" -Line 25 -Condition '$counter -gt 10'
+
+# Set variable breakpoints
+Set-PSBreakpoint -Variable "ImportantVariable" -Mode Write
+
+# Debug with custom actions
+Set-PSBreakpoint -Script "C:\Scripts\MyScript.ps1" -Line 25 -Action {
+    Write-Host "Counter value: $counter" -ForegroundColor Yellow
+}
+```
+
+### Tracing Command Execution
+
+```powershell
+# Trace cmdlet discovery
+Trace-Command -Name CommandDiscovery -Expression { Get-Process } -PSHost
+
+# Trace parameter binding
+Trace-Command -Name ParameterBinding -Expression { Get-ChildItem -Path C:\ -Recurse } -PSHost
+
+# Trace multiple categories
+Trace-Command -Name CommandDiscovery, ParameterBinding -Expression { 
+    Get-Service | Where-Object Status -eq "Running" 
+} -PSHost
+```
+
+### Performance Analysis
+
+```powershell
+# Measure script execution time
+Measure-Command -Expression {
+    Get-ChildItem -Path C:\ -Recurse -ErrorAction SilentlyContinue
+}
+
+# Profile function performance
+function Test-Performance 
+{
+    param([int]$Iterations = 1000)
+    
+    $Results = @{}
+    
+    # Test Array += operator
+    $Results['Array'] = Measure-Command {
+        $Array = @()
+        1..$Iterations | ForEach-Object { $Array += $_ }
+    }
+    
+    # Test ArrayList
+    $Results['ArrayList'] = Measure-Command {
+        $ArrayList = [System.Collections.ArrayList]@()
+        1..$Iterations | ForEach-Object { $ArrayList.Add($_) | Out-Null }
+    }
+    
+    # Test Generic List
+    $Results['GenericList'] = Measure-Command {
+        $List = [System.Collections.Generic.List[int]]@()
+        1..$Iterations | ForEach-Object { $List.Add($_) }
+    }
+    
+    return $Results
+}
+
+# Run performance comparison
+$PerfResults = Test-Performance -Iterations 5000
+$PerfResults | Format-Table -AutoSize
+```
+
+---
+
+## PowerShell Profiles
+
+### Profile Types and Locations
+
+```powershell
+# Display all profile paths
+$profile | Get-Member -MemberType NoteProperty | ForEach-Object {
+    [PSCustomObject]@{
+        Profile = $_.Name
+        Path = $profile.($_.Name)
+        Exists = Test-Path $profile.($_.Name)
+    }
+} | Format-Table -AutoSize
+
+# Create profile if it doesn't exist
+if (-not (Test-Path $profile.CurrentUserCurrentHost)) 
+{
+    New-Item -Path $profile.CurrentUserCurrentHost -ItemType File -Force
+    Write-Host "Created profile: $($profile.CurrentUserCurrentHost)" -ForegroundColor Green
+}
+```
+
+### Essential Profile Functions
+
+```powershell
+# Add to your PowerShell profile
+
+# Quick navigation functions
+function Set-LocationToProfile { Set-Location (Split-Path $profile.CurrentUserCurrentHost) }
+function Set-LocationToModules { Set-Location ($env:PSModulePath -split ';')[0] }
+Set-Alias -Name prof -Value Set-LocationToProfile
+Set-Alias -Name psmod -Value Set-LocationToModules
+
+# Enhanced directory listing
+function Get-DirectoryInfo 
+{
+    param([string]$Path = ".")
+    
+    Get-ChildItem -Path $Path -Force | ForEach-Object {
+        [PSCustomObject]@{
+            Name = $_.Name
+            Type = if ($_.PSIsContainer) { "Directory" } else { "File" }
+            Size = if (-not $_.PSIsContainer) { "{0:N2} KB" -f ($_.Length / 1KB) } else { "" }
+            LastWrite = $_.LastWriteTime.ToString("yyyy-MM-dd HH:mm")
+            Hidden = $_.Attributes -match "Hidden"
+        }
+    } | Format-Table -AutoSize
+}
+Set-Alias -Name ll -Value Get-DirectoryInfo
+
+# Quick module reload
+function Import-ModuleForce 
+{
+    param([string]$ModuleName)
+    Remove-Module $ModuleName -Force -ErrorAction SilentlyContinue
+    Import-Module $ModuleName -Force
+}
+Set-Alias -Name reimport -Value Import-ModuleForce
+
+# System information shortcuts
+function Get-SystemLoad 
+{
+    Get-Counter -Counter "\Processor(_Total)\% Processor Time", "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 1 |
+        Select-Object -ExpandProperty CounterSamples |
+        ForEach-Object {
+            [PSCustomObject]@{
+                Counter = $_.Path
+                Value = [Math]::Round($_.CookedValue, 2)
+                Timestamp = $_.Timestamp
+            }
+        }
+}
+
+# Enhanced prompt with git status
+function prompt 
+{
+    $Location = Get-Location
+    $GitBranch = ""
+    
+    if (Get-Command git -ErrorAction SilentlyContinue) 
+    {
+        try 
+        {
+            $GitStatus = git status --porcelain 2>$null
+            $Branch = git branch --show-current 2>$null
+            if ($Branch) 
+            {
+                $Changes = if ($GitStatus) { "*" } else { "" }
+                $GitBranch = " [$Branch$Changes]"
+            }
+        }
+        catch { }
+    }
+    
+    Write-Host "PS " -NoNewline -ForegroundColor Green
+    Write-Host $Location -NoNewline -ForegroundColor Blue  
+    Write-Host $GitBranch -NoNewline -ForegroundColor Yellow
+    Write-Host ">" -NoNewline -ForegroundColor Green
+    return " "
+}
+```
+
+---
+
+## Module Management
+
+### Module Discovery and Installation
+
+```powershell
+# Find modules by capability
+Find-Module -Tag "ActiveDirectory", "Exchange" | Select-Object Name, Description, Version
+
+# Install modules with dependency checking
+function Install-ModuleWithDependencies 
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$ModuleName,
+        
+        [string]$Repository = "PSGallery"
+    )
+    
+    try 
+    {
+        $Module = Find-Module -Name $ModuleName -Repository $Repository -ErrorAction Stop
+        Write-Host "Installing module: $($Module.Name) v$($Module.Version)" -ForegroundColor Green
+        
+        # Check for dependencies
+        if ($Module.Dependencies) 
+        {
+            Write-Host "Dependencies found:" -ForegroundColor Yellow
+            $Module.Dependencies | ForEach-Object {
+                Write-Host "  - $($_.Name) (>= $($_.MinimumVersion))" -ForegroundColor Gray
+            }
+        }
+        
+        Install-Module -Name $ModuleName -Repository $Repository -Scope CurrentUser -Force
+        Write-Host "Module installed successfully!" -ForegroundColor Green
+        
+        # Import and verify
+        Import-Module $ModuleName -Force
+        $ImportedModule = Get-Module $ModuleName
+        Write-Host "Imported $($ImportedModule.ExportedCommands.Count) commands" -ForegroundColor Cyan
+    }
+    catch 
+    {
+        Write-Error "Failed to install module '$ModuleName': $($_.Exception.Message)"
+    }
+}
+```
+
+### Module Development Helpers
+
+```powershell
+# Quick module manifest creation
+function New-QuickModuleManifest 
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$ModuleName,
+        
+        [string]$Path = ".",
+        [string]$Author = $env:USERNAME,
+        [string]$Description = "PowerShell module"
+    )
+    
+    $ManifestPath = Join-Path $Path "$ModuleName.psd1"
+    
+    $ManifestParams = @{
+        Path = $ManifestPath
+        RootModule = "$ModuleName.psm1"
+        ModuleVersion = "1.0.0"
+        GUID = [System.Guid]::NewGuid().ToString()
+        Author = $Author
+        Description = $Description
+        PowerShellVersion = "5.1"
+        FunctionsToExport = @()
+        CmdletsToExport = @()
+        VariablesToExport = @()
+        AliasesToExport = @()
+    }
+    
+    New-ModuleManifest @ManifestParams
+    Write-Host "Created module manifest: $ManifestPath" -ForegroundColor Green
+}
+
+# Module testing helper
+function Test-ModuleQuick 
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$ModulePath
+    )
+    
+    try 
+    {
+        # Test manifest
+        $Manifest = Test-ModuleManifest -Path $ModulePath -ErrorAction Stop
+        Write-Host "✓ Manifest validation passed" -ForegroundColor Green
+        
+        # Test import
+        Import-Module $ModulePath -Force -ErrorAction Stop
+        Write-Host "✓ Module import successful" -ForegroundColor Green
+        
+        # Display exported functions
+        $Module = Get-Module (Split-Path $ModulePath -LeafBase)
+        Write-Host "Exported Functions: $($Module.ExportedFunctions.Count)" -ForegroundColor Cyan
+        $Module.ExportedFunctions.Keys | ForEach-Object {
+            Write-Host "  - $_" -ForegroundColor Gray
+        }
+        
+        Remove-Module $Module.Name -Force
+    }
+    catch 
+    {
+        Write-Error "Module test failed: $($_.Exception.Message)"
+    }
+}
+```
+
+---
+
+## Security Best Practices
+
+### Secure Credential Handling
+
+```powershell
+# Never store passwords in plain text
+# Bad:
+# $Password = "MyPassword123"
+
+# Good - prompt for credentials
+$Credential = Get-Credential -Message "Enter your credentials"
+
+# Good - use secure strings
+$SecurePassword = Read-Host -AsSecureString -Prompt "Enter password"
+$Credential = New-Object System.Management.Automation.PSCredential("username", $SecurePassword)
+
+# Convert secure string back to plain text (when absolutely necessary)
+function ConvertFrom-SecureStringToPlainText 
+{
+    param([System.Security.SecureString]$SecureString)
+    
+    try 
+    {
+        $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+        return [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($BSTR)
+    }
+    finally 
+    {
+        if ($BSTR) 
+        {
+            [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($BSTR)
+        }
+    }
+}
+```
+
+### Input Validation and Sanitization
+
+```powershell
+function Invoke-SafeCommand 
+{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory)]
+        [ValidatePattern('^[a-zA-Z0-9\-_\.]+$')]  # Only allow alphanumeric and safe characters
+        [string]$ComputerName,
+        
+        [Parameter(Mandatory)]
+        [ValidateSet('Get-Service', 'Get-Process', 'Get-EventLog')]  # Whitelist allowed commands
+        [string]$Command,
+        
+        [Parameter()]
+        [ValidateScript({
+            # Custom validation for parameters
+            $_ -match '^[a-zA-Z0-9\s\-]+$' -and $_.Length -le 100
+        })]
+        [string]$Parameters
+    )
+    
+    # Construct and execute safe command
+    $FullCommand = "$Command"
+    if ($Parameters) 
+    {
+        $FullCommand += " $Parameters"
+    }
+    
+    Write-Verbose "Executing: $FullCommand on $ComputerName"
+    
+    try 
+    {
+        Invoke-Command -ComputerName $ComputerName -ScriptBlock {
+            param($Cmd, $Params)
+            Invoke-Expression "$Cmd $Params"
+        } -ArgumentList $Command, $Parameters -ErrorAction Stop
+    }
+    catch 
+    {
+        Write-Error "Command execution failed: $($_.Exception.Message)"
+    }
+}
+```
+
+### Execution Policy Management
+
+```powershell
+# Check current execution policy
+Get-ExecutionPolicy -List
+
+# Set execution policy safely
+function Set-ExecutionPolicyScoped 
+{
+    param(
+        [Parameter(Mandatory)]
+        [Microsoft.PowerShell.ExecutionPolicy]$ExecutionPolicy,
+        
+        [Microsoft.PowerShell.ExecutionPolicyScope]$Scope = "CurrentUser"
+    )
+    
+    $CurrentPolicy = Get-ExecutionPolicy -Scope $Scope
+    
+    if ($CurrentPolicy -ne $ExecutionPolicy) 
+    {
+        Write-Host "Changing execution policy from $CurrentPolicy to $ExecutionPolicy for scope $Scope" -ForegroundColor Yellow
+        Set-ExecutionPolicy -ExecutionPolicy $ExecutionPolicy -Scope $Scope -Force
+        Write-Host "Execution policy updated successfully" -ForegroundColor Green
+    }
+    else 
+    {
+        Write-Host "Execution policy already set to $ExecutionPolicy for scope $Scope" -ForegroundColor Green
+    }
+}
+
+# Usage
+Set-ExecutionPolicyScoped -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+---
+
+## Cross-Platform Considerations
+
+### Platform Detection
+
+```powershell
+function Get-PlatformInfo 
+{
+    [PSCustomObject]@{
+        IsWindows = [System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform([System.Runtime.InteropServices.OSPlatform]::Windows)
+        IsLinux = [System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform([System.Runtime.InteropServices.OSPlatform]::Linux)
+        IsMacOS = [System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform([System.Runtime.InteropServices.OSPlatform]::OSX)
+        PowerShellVersion = $PSVersionTable.PSVersion.ToString()
+        Architecture = [System.Runtime.InteropServices.RuntimeInformation]::ProcessArchitecture.ToString()
+        OSDescription = [System.Runtime.InteropServices.RuntimeInformation]::OSDescription
+    }
+}
+
+# Platform-specific code execution
+$Platform = Get-PlatformInfo
+
+if ($Platform.IsWindows) 
+{
+    # Windows-specific code
+    Get-WmiObject -Class Win32_ComputerSystem
+}
+elseif ($Platform.IsLinux) 
+{
+    # Linux-specific code
+    Get-Content /proc/version
+}
+elseif ($Platform.IsMacOS) 
+{
+    # macOS-specific code
+    system_profiler SPHardwareDataType
+}
+```
+
+### Cross-Platform File Operations
+
+```powershell
+function New-CrossPlatformPath 
+{
+    param([string[]]$Path)
+    
+    # Use Join-Path for cross-platform compatibility
+    $Result = $Path[0]
+    for ($i = 1; $i -lt $Path.Length; $i++) 
+    {
+        $Result = Join-Path -Path $Result -ChildPath $Path[$i]
+    }
+    
+    return $Result
+}
+
+# Platform-agnostic temporary directory
+function Get-TempDirectory 
+{
+    if ($IsWindows -or $env:OS -eq "Windows_NT") 
+    {
+        return $env:TEMP
+    }
+    else 
+    {
+        return "/tmp"
+    }
+}
+
+# Cross-platform environment variable access
+function Get-EnvironmentVariable 
+{
+    param(
+        [Parameter(Mandatory)]
+        [string]$Name,
+        
+        [string]$Default = ""
+    )
+    
+    $Value = [System.Environment]::GetEnvironmentVariable($Name)
+    return if ($Value) { $Value } else { $Default }
+}
+```
+
+---
+
+## References
+
+### Official Documentation
 
 - [PowerShell Best Practices and Style Guide](https://github.com/PoshCode/PowerShellPracticeAndStyle)
 - [about_Parameters_Default_Values](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_parameters_default_values?view=powershell-7.4)
 - [about_Advanced_Functions](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced?view=powershell-7.4)
 - [about_Error_Handling](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.4)
 - [PowerShell Performance Best Practices](https://learn.microsoft.com/en-us/powershell/scripting/dev-cross-plat/performance/script-authoring-considerations?view=powershell-7.4)
+
+### Related Documentation
+
+For comprehensive PowerShell learning resources, see:
+
+- [PowerShell Development Guide](index.md) - Main documentation hub
+- [PowerShell Functions](functions.md) - Function development best practices  
+- [PowerShell Modules](moduledev.md) - Module development guide
+- [PowerShell Scripts](scripts.md) - Script development standards
+- [PowerShell Troubleshooting](troubleshooting.md) - Debugging and problem-solving
+
+### Community Resources
+
+- [PowerShell Community GitHub](https://github.com/PowerShell/PowerShell)
+- [PowerShell Gallery](https://www.powershellgallery.com/)
+- [Reddit PowerShell Community](https://www.reddit.com/r/PowerShell/)
+- [PowerShell.org](https://powershell.org/)
+
+---
+
+*This document provides practical tips and techniques for PowerShell development and administration. For foundational concepts and comprehensive guides, refer to the main [PowerShell documentation](index.md).*
