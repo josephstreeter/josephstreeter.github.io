@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Python Data Science
+## Python Data Science
 
 This is a placeholder for Python Data Science content.
 

@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Python Package Management
+## Python Package Management
 
 This is a placeholder for Python Package Management content.
 

@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Python Best Practices
+## Python Best Practices
 
 This is a placeholder for Python Best Practices content.
 
