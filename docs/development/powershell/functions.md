@@ -1,6 +1,18 @@
 # Functions
 
-Functions in PowerShell allow you to group code into reusable blocks, making scripts easier to read, maintain, and test. Functions can accept parameters, return values, and support advanced features such as parameter validation and pipeline input.
+Functions in PowerShell allow you to group code into reusable blocks, making scripts easier to read, maintain, and test. Functions can accept parameters, return values, and support advanced features such as parameter validation and pipeline input. A simple function groups code for reuse.
+
+Here's a basic example:
+
+```powershell
+function Get-Greeting
+{
+    param($Name)
+    "Hello, $Name!"
+}
+
+Get-Greeting -Name "Alice"
+```
 
 - [PowerShell Functions: A Comprehensive Beginner’s Guide](https://www.sharepointdiary.com/2021/11/powershell-function.html)
 - [PowerShell Function Parameters: A Beginner’s Guide](https://www.sharepointdiary.com/2021/02/powershell-function-parameters.html)
@@ -158,7 +170,7 @@ function Get-Something()
     [OutputType([string])] # <- Makes sure that a string is returned by the function
     Param
     (
-        [Parameter(Mantetory=$true)][string]$Name
+        [Parameter(Mandatory=$true)][string]$Name
     )
 
     $Results = "This is a string"
@@ -182,7 +194,8 @@ Parameter validation attributes help ensure that input to your function meets sp
 - **ValidateCount** - Specifies the minimum and maximum number of arguments that a parameter can accept.
 
     ```powershell
-    Function Test-Validation {
+    Function Test-Validation
+    {
         [cmdletbinding()]
         Param
         (
@@ -243,7 +256,8 @@ Parameter validation attributes help ensure that input to your function meets sp
     Function Test-Validation 
     {
         [cmdletbinding()]
-        Param(
+        Param
+        (
             [parameter(ValueFromPipeline)][ValidateRange(16,21)][int[]]$Value
         )
 
@@ -273,7 +287,8 @@ Parameter validation attributes help ensure that input to your function meets sp
     Function Test-Validation 
     {
         [cmdletbinding()]
-        Param(
+        Param
+        (
             [parameter(ValueFromPipeline)][ValidateSet('Day','Hour','Minute')][string[]]$Value
         )
         
@@ -306,7 +321,7 @@ Parameter validation attributes help ensure that input to your function meets sp
 
         Process 
         {
-            $Item
+            $Value
         }
     }
 
@@ -328,12 +343,12 @@ Parameter validation attributes help ensure that input to your function meets sp
         [cmdletbinding()]
         Param
         (
-            [parameter(ValueFromPipeline)][ValidateNotNull()][string]$Value
+            [parameter(ValueFromPipeline)][ValidateNotNullOrEmpty()][string]$Value
         )
 
         Process 
         {
-            $Item
+            $Value
         }
     }
 
@@ -360,12 +375,15 @@ Parameter validation attributes help ensure that input to your function meets sp
 Functions can accept input from the pipeline, allowing you to process data passed from other commands. To enable this, use the `ValueFromPipeline` or `ValueFromPipelineByPropertyName` parameter attributes.
 
 ```powershell
-function Show-Item {
-    param(
+function Show-Item
+{
+    param
+    (
         [Parameter(ValueFromPipeline)]
         [string]$Name
     )
-    process {
+    process
+    {
         Write-Host "Item: $Name"
     }
 }
@@ -384,25 +402,30 @@ Advanced functions can use `begin`, `process`, and `end` blocks to handle pipeli
 Example:
 
 ```powershell
-function ConvertTo-Upper {
+function ConvertTo-Upper
+{
     [CmdletBinding()]
-    param (
+    param 
+    (
         [Parameter(ValueFromPipeline)]
         [string[]]$InputString
     )
 
-    begin {
+    begin
+    {
         # This block runs once at the start
         Write-Host "Starting conversion to uppercase..."
     }
 
-    process {
+    process
+    {
         # This block runs for each item in the pipeline
         $UpperString = $InputString.ToUpper()
         Write-Host "Converted: $UpperString"
     }
 
-    end {
+    end
+    {
         # This block runs once at the end
         Write-Host "Conversion complete."
     }
