@@ -160,7 +160,7 @@ Create New Office 365 Group
 New-UnifiedGroup `
     -DisplayName  "MC-OG-Group-Name" `
     -Alias  "MC-OG-Group-Name" `
-           -EmailAddresses  "MC-OG-Group-Name@madisoncollege.edu" `
+    -EmailAddresses  "MC-OG-Group-Name@madisoncollege.edu" `
     -AccessType Private
 ```
 

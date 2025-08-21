@@ -1,13 +1,13 @@
 ---
-title: "Maven"
-description: "Maven documentation"
+title: "Authentik"
+description: "Authentik documentation"
 category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Maven
+## Authentik
 
-This is a placeholder page for Maven documentation.
+This is a placeholder page for Authentik documentation.
 
 ## Overview
 

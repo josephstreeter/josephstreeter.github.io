@@ -1,13 +1,13 @@
 ---
-title: "Podman"
-description: "Podman documentation"
+title: "Wazuh"
+description: "Wazuh documentation"
 category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Podman
+## Wazuh
 
-This is a placeholder page for Podman documentation.
+This is a placeholder page for Wazuh documentation.
 
 ## Overview
 

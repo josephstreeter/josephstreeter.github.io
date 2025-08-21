@@ -5,7 +5,7 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Mysql
+## Mysql
 
 This is a placeholder page for Mysql documentation.
 

@@ -5,7 +5,7 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Gitlab
+## Gitlab
 
 This is a placeholder page for Gitlab documentation.
 

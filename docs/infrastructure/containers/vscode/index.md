@@ -5,7 +5,7 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Vscode
+## Vscode
 
 This is a placeholder page for Vscode documentation.
 

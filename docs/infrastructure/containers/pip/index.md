@@ -5,7 +5,7 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Pip
+## Pip
 
 This is a placeholder page for Pip documentation.
 
