@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Docker Quickstart
+## Docker Quickstart
 
 This is a placeholder for Docker Quickstart content.
 

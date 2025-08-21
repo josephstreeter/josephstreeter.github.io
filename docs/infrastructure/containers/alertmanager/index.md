@@ -1,13 +1,13 @@
 ---
-title: "Git"
-description: "Git documentation"
+title: "Alertmanager"
+description: "Alertmanager documentation"
 category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-## Git
+## Alertmanager
 
-This is a placeholder page for Git documentation.
+This is a placeholder page for Alertmanager documentation.
 
 ## Overview
 

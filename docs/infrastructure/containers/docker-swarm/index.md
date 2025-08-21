@@ -5,7 +5,7 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Docker Swarm
+## Docker Swarm
 
 This is a placeholder page for Docker Swarm documentation.
 
