@@ -354,7 +354,7 @@ automation:
 
 ### Template Error Prevention
 
-```yaml
+```jinga2
 # Always include default values
 {{ states('sensor.temperature') | float(0) }}
 {{ state_attr('climate.thermostat', 'current_temperature') | float(20) }}
@@ -402,7 +402,7 @@ automation:
 
 ### Template Efficiency
 
-```yaml
+```jinja2
 # ❌ Inefficient: Multiple state calls
 {{ states('sensor.temp1') | float + states('sensor.temp2') | float + states('sensor.temp3') | float }}
 

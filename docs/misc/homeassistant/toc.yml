@@ -8,6 +8,8 @@
       href: homeassistant/automations.md
     - name: Groups
       href: homeassistant/groups.md
+    - name: Dynamic Groups
+      href: homeassistant/dynamicgroups.md
     - name: Guidelines
       href: homeassistant/guidlines.md
     - name: Sensors

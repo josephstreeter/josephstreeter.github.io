@@ -47,26 +47,57 @@ sensor manual: !include_dir_merge_list sensors/
 
 Group related configuration in packages:
 
+**Packages** allow you to organize related Home Assistant configuration into logical units within a single file. This is particularly useful for grouping all entities, automations, and scripts related to a specific system or room. Unlike split configuration, which separates by entity type, packages organize by functionality or purpose.
+
+**Benefits of Package Configuration:**
+
+- **Logical Organization**: Keep all components of a feature together
+- **Easy Management**: Enable/disable entire systems by commenting out one line
+- **Modular Design**: Share packages between installations
+- **Reduced Complexity**: Avoid searching across multiple files for related configurations
+
+**Package Structure:**
+Each package file contains a top-level key (the package name) with all related entities nested underneath. You can include any Home Assistant configuration domain within a package.
+
+**Configuration Steps:**
+
+1. Create a `packages` directory in your config folder
+2. Add the packages include to your `configuration.yaml`
+3. Create individual package files for each system
+
 ```yaml
-# packages/security.yaml
-security:
+# configuration.yaml - Enable packages
+homeassistant:
+  packages: !include_dir_named packages
+```
+
+```yaml
+# packages/security.yaml - Complete security system package
+security_system:
+  # Input helpers for system control
   input_boolean:
     security_system:
       name: "Security System"
       initial: false
       icon: mdi:security
     
-  automation:
-    - alias: "Security Arm Away"
-      trigger:
-        - platform: state
-          entity_id: input_boolean.security_system
-          to: "on"
-      action:
-        - service: alarm_control_panel.alarm_arm_away
-          target:
-            entity_id: alarm_control_panel.home
-    
+    vacation_mode:
+      name: "Vacation Mode"
+      initial: false
+      icon: mdi:airplane
+  
+  input_select:
+    security_mode:
+      name: "Security Mode"
+      options:
+        - "Home"
+        - "Away" 
+        - "Night"
+        - "Vacation"
+      initial: "Home"
+      icon: mdi:shield-home
+
+  # Template sensors for status reporting
   sensor:
     - platform: template
       sensors:
@@ -74,11 +105,213 @@ security:
           friendly_name: "Security Status"
           value_template: >
             {% if is_state('input_boolean.security_system', 'on') %}
-              Armed
+              {% if is_state('input_select.security_mode', 'Away') %}
+                Armed Away
+              {% elif is_state('input_select.security_mode', 'Night') %}
+                Armed Night
+              {% elif is_state('input_select.security_mode', 'Vacation') %}
+                Armed Vacation
+              {% else %}
+                Armed Home
+              {% endif %}
             {% else %}
               Disarmed
             {% endif %}
+          icon_template: >
+            {% if is_state('input_boolean.security_system', 'on') %}
+              mdi:shield-check
+            {% else %}
+              mdi:shield-off
+            {% endif %}
+        
+        open_doors_windows:
+          friendly_name: "Open Doors & Windows"
+          value_template: >
+            {{ states.binary_sensor 
+               | selectattr('attributes.device_class', 'in', ['door', 'window'])
+               | selectattr('state', 'eq', 'on')
+               | list | count }}
+          unit_of_measurement: "open"
+
+  # Automation for security system
+  automation:
+    - alias: "Security Arm Away"
+      description: "Arm security system when mode changes to Away"
+      trigger:
+        - platform: state
+          entity_id: input_select.security_mode
+          to: "Away"
+        - platform: state
+          entity_id: input_boolean.security_system
+          to: "on"
+      condition:
+        - condition: state
+          entity_id: input_boolean.security_system
+          state: "on"
+        - condition: state
+          entity_id: input_select.security_mode
+          state: "Away"
+      action:
+        - service: alarm_control_panel.alarm_arm_away
+          target:
+            entity_id: alarm_control_panel.home
+        - service: notify.mobile_app_phone
+          data:
+            title: "Security System"
+            message: "Security system armed in Away mode"
+
+    - alias: "Security Breach Alert"
+      description: "Send alert when security breach detected"
+      trigger:
+        - platform: state
+          entity_id: group.all_doors_windows
+          to: "on"
+      condition:
+        - condition: state
+          entity_id: input_boolean.security_system
+          state: "on"
+      action:
+        - service: notify.mobile_app_phone
+          data:
+            title: "🚨 Security Alert"
+            message: "Door or window opened while security system is armed!"
+            data:
+              actions:
+                - action: "DISARM_SECURITY"
+                  title: "Disarm System"
+                - action: "VIEW_CAMERAS"
+                  title: "View Cameras"
+
+  # Scripts for common actions
+  script:
+    arm_away_sequence:
+      alias: "Arm Security Away Sequence"
+      description: "Complete sequence to arm security system for away mode"
+      sequence:
+        - service: input_select.select_option
+          target:
+            entity_id: input_select.security_mode
+          data:
+            option: "Away"
+        - service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.security_system
+        - service: light.turn_off
+          target:
+            entity_id: group.all_lights
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.main_thermostat
+          data:
+            temperature: 65
+        - service: lock.lock
+          target:
+            entity_id: group.all_locks
+
+    disarm_security:
+      alias: "Disarm Security System"
+      description: "Disarm security system and restore home mode"
+      sequence:
+        - service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.security_system
+        - service: input_select.select_option
+          target:
+            entity_id: input_select.security_mode
+          data:
+            option: "Home"
+        - service: notify.mobile_app_phone
+          data:
+            title: "Security System"
+            message: "Security system disarmed"
+
+  # Groups for easier management
+  group:
+    security_controls:
+      name: "Security Controls"
+      entities:
+        - input_boolean.security_system
+        - input_select.security_mode
+        - input_boolean.vacation_mode
+        - sensor.security_status
+        - sensor.open_doors_windows
+
+  # Binary sensor for overall security status
+  binary_sensor:
+    - platform: template
+      sensors:
+        security_breach:
+          friendly_name: "Security Breach"
+          device_class: safety
+          value_template: >
+            {{ is_state('input_boolean.security_system', 'on') and 
+               states('sensor.open_doors_windows') | int > 0 }}
 ```
+
+**Additional Package Examples:**
+
+```yaml
+# packages/climate.yaml - Climate control package
+climate_control:
+  input_number:
+    target_temperature:
+      name: "Target Temperature"
+      min: 60
+      max: 80
+      step: 1
+      unit_of_measurement: "°F"
+      icon: mdi:thermometer
+
+  automation:
+    - alias: "Climate Schedule Morning"
+      trigger:
+        - platform: time
+          at: "06:00:00"
+      action:
+        - service: climate.set_temperature
+          target:
+            entity_id: climate.main_thermostat
+          data:
+            temperature: "{{ states('input_number.target_temperature') | int }}"
+```
+
+```yaml
+# packages/lighting.yaml - Lighting automation package  
+lighting_system:
+  input_boolean:
+    auto_lights:
+      name: "Automatic Lights"
+      initial: true
+      icon: mdi:lightbulb-auto
+
+  automation:
+    - alias: "Motion Activated Lights"
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.motion_hallway
+          to: "on"
+      condition:
+        - condition: state
+          entity_id: input_boolean.auto_lights
+          state: "on"
+        - condition: sun
+          after: sunset
+      action:
+        - service: light.turn_on
+          target:
+            entity_id: light.hallway
+          data:
+            brightness: 128
+```
+
+**Package Management Tips:**
+
+- Use descriptive package names that reflect their purpose
+- Include all related entities in a single package file
+- Comment your packages thoroughly for future reference
+- Test packages in isolation by temporarily disabling others
+- Use consistent naming conventions across all packages
+- Consider creating packages for: rooms, systems, seasonal automations, and device types
 
 ### Database Configuration
 
