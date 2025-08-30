@@ -18,29 +18,7 @@
   - name: Grafana
     href: grafana/index.md
   - name: Prometheus
-    href: prometheus/index.md
-  - name: Home Lab
-    href: homelab/index.md
-  - name: SQL Server
-    href: sql/index.md
-  - name: KQL
-    href: kql/index.md
-  - name: Linux
-    href: linux/index.md
-  - name: Windows
-    href: windows/index.md
-  - name: Proxmox
-    href: proxmox/index.md
-  - name: Containers
-    href: containers/toc.yml
-  - name: Ansible
-    href: ansible/index.md
-  - name: Terraform
-    href: terraform/index.md
-  - name: Grafana
-    href: grafana/index.md
-  - name: Prometheus
-    href: prometheus/index.md
+    href: containers/prometheus/index.md
   - name: Home Lab
     href: homelab/index.md
   - name: SQL Server

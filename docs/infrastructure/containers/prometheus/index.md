@@ -1,30 +1,14 @@
 ---
-title: "Prometheus"
-description: "Comprehensive guide to Prometheus monitoring system for containerized environments, metrics collection, and observability"
-category: "infrastructure"
-tags: ["containers", "monitoring", "metrics", "prometheus", "observability", "alerting", "scraping"]
+title: "Prometheus Monitoring System"
+description: "Complete guide to Prometheus, an open-source monitoring and alerting system designed for reliability and scalability in modern cloud-native and containerized environments"
+author: "josephstreeter"
+ms.date: "2025-08-30"
+ms.topic: "how-to-guide"
+ms.service: "prometheus"
+keywords: ["Prometheus", "monitoring", "alerting", "metrics", "observability", "time series", "containers", "kubernetes", "docker", "grafana", "promql"]
 ---
 
-## Prometheus
-
-Prometheus is an open-source monitoring and alerting toolkit originally built at SoundCloud. It is now a standalone open source project and maintained independently of any company. Prometheus excels at collecting, storing, and querying time-series data, making it the de facto standard for monitoring containerized applications and infrastructure.
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Key Features](#key-features)
-- [Architecture](#architecture)
-- [Installation and Deployment](#installation-and-deployment)
-- [Configuration](#configuration)
-- [Service Discovery](#service-discovery)
-- [PromQL Query Language](#promql-query-language)
-- [Alerting](#alerting)
-- [Storage](#storage)
-- [Security](#security)
-- [Container Monitoring](#container-monitoring)
-- [Best Practices](#best-practices)
-- [Troubleshooting](#troubleshooting)
-- [Resources](#resources)
+Prometheus is an open-source monitoring and alerting system originally developed by SoundCloud in 2012 and is now a graduated project of the Cloud Native Computing Foundation (CNCF). It has become the de facto standard for monitoring cloud-native applications, containerized workloads, and distributed systems in dynamic environments.
 
 ## Overview
 
@@ -39,6 +23,15 @@ Prometheus fundamentally changes how you approach monitoring by using a pull-bas
 - **Jobs**: Collections of targets with the same purpose
 - **Instances**: Individual endpoints of a job
 
+### Key Characteristics
+
+- **Pull-based model**: Prometheus scrapes metrics from HTTP endpoints
+- **Time-series data**: All data is stored as time-series with timestamps
+- **PromQL**: Powerful functional query language for data analysis
+- **Multi-dimensional data**: Metrics can have multiple labels for flexible querying
+- **No dependencies**: Single binary with local storage
+- **Service discovery**: Automatic discovery of monitoring targets
+
 ### When to Use Prometheus
 
 Prometheus is ideal for:
@@ -48,6 +41,62 @@ Prometheus is ideal for:
 - **Infrastructure Monitoring**: System metrics, network performance, storage usage
 - **Application Monitoring**: Custom metrics, business KPIs, performance indicators
 - **Real-time Alerting**: Proactive notifications based on metric thresholds
+
+## Data Model and Metric Types
+
+### Data Model
+
+Prometheus stores all data as time-series, identified by:
+
+- **Metric name**: Describes the feature being measured
+- **Labels**: Key-value pairs for multi-dimensional data
+- **Timestamp**: When the measurement was taken
+- **Value**: The numeric measurement
+
+Example metric:
+
+```text
+http_requests_total{method="GET", handler="/api/users", status="200"} 1027
+```
+
+### Metric Types
+
+#### Counter
+
+Cumulative metric that only increases (or resets to zero):
+
+```text
+http_requests_total
+process_cpu_seconds_total
+```
+
+#### Gauge
+
+Metric that can go up and down:
+
+```text
+memory_usage_bytes
+cpu_temperature_celsius
+active_connections
+```
+
+#### Histogram
+
+Samples observations and counts them in configurable buckets:
+
+```text
+http_request_duration_seconds
+response_size_bytes
+```
+
+#### Summary
+
+Similar to histogram but calculates quantiles over a sliding time window:
+
+```text
+request_duration_seconds{quantile="0.5"}
+request_duration_seconds{quantile="0.9"}
+```
 
 ## Key Features
 
@@ -101,6 +150,18 @@ Prometheus is ideal for:
 └─────────────────┘    └─────────────────┘
 ```
 
+#### Component Descriptions
+
+**Prometheus Server**: The main component that scrapes and stores time-series data, and serves queries via PromQL.
+
+**Client Libraries**: Libraries for instrumenting application code in various programming languages (Go, Java, Python, .NET, etc.).
+
+**Pushgateway**: Allows ephemeral and batch jobs to push metrics to Prometheus.
+
+**Exporters**: Third-party tools that export metrics from existing systems (databases, hardware, messaging systems, etc.).
+
+**Alertmanager**: Handles alerts sent by Prometheus server and routes them to various notification channels.
+
 ### Prometheus Server Components
 
 - **Retrieval**: Scrapes metrics from configured targets
@@ -119,6 +180,25 @@ Prometheus is ideal for:
 6. **Querying**: Serves queries via API or web interface
 
 ## Installation and Deployment
+
+### Binary Installation
+
+```bash
+# Download and extract Prometheus binary
+wget https://github.com/prometheus/prometheus/releases/download/v2.45.0/prometheus-2.45.0.linux-amd64.tar.gz
+tar xvfz prometheus-*.tar.gz
+cd prometheus-*
+
+# Run Prometheus with default configuration
+./prometheus --config.file=prometheus.yml
+
+# Run with custom configuration and storage options
+./prometheus \
+  --config.file=/path/to/prometheus.yml \
+  --storage.tsdb.path=/path/to/data \
+  --storage.tsdb.retention.time=30d \
+  --web.enable-lifecycle
+```
 
 ### Docker Container
 
@@ -590,26 +670,70 @@ scrape_configs:
 
 ## PromQL Query Language
 
+PromQL is a functional query language that allows you to select and aggregate time-series data in real-time. It's designed specifically for monitoring use cases.
+
 ### Basic Queries
 
 ```promql
 # Simple metric selection
-cpu_usage_seconds_total
+http_requests_total
 
 # Filter by labels
-cpu_usage_seconds_total{job="node-exporter"}
+http_requests_total{method="GET"}
 
 # Multiple label filters
-cpu_usage_seconds_total{job="node-exporter", mode="idle"}
+http_requests_total{method="GET", status="200"}
 
 # Regular expression matching
-cpu_usage_seconds_total{mode=~"idle|system"}
+http_requests_total{handler=~"/api/.*"}
 
-# Negative matching
-cpu_usage_seconds_total{mode!="idle"}
+# Negative matching  
+http_requests_total{status!="200"}
+
+# Time range selection
+cpu_usage_seconds_total[5m]
+```
+
+### Rate and Range Queries
+
+```promql
+# Rate of requests per second over 5 minutes
+rate(http_requests_total[5m])
+
+# Average CPU usage over 10 minutes
+avg_over_time(cpu_usage_percent[10m])
+
+# 95th percentile response time
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+
+# Increase function (total increase over time range)
+increase(http_requests_total[1h])
+
+# Delta function (difference between first and last values)
+delta(memory_usage_bytes[10m])
 ```
 
 ### Time Series Functions
+
+```promql
+# Rate function (per-second rate)
+rate(cpu_usage_seconds_total[5m])
+
+# Average CPU usage over 10 minutes
+avg_over_time(cpu_usage_percent[10m])
+
+# 95th percentile response time
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+
+# Increase function (total increase over time range)
+increase(http_requests_total[1h])
+
+# Delta function (difference between first and last values)
+delta(memory_usage_bytes[10m])
+
+# Derivative function (per-second derivative)
+deriv(disk_usage_bytes[5m])
+```
 
 ```promql
 # Rate function (per-second rate)
@@ -1428,3 +1552,198 @@ tail -f /var/log/prometheus.log | grep -E "(storage|tsdb)"
 - [Best Practices](https://prometheus.io/docs/practices/naming/)
 - [Query Examples](https://prometheus.io/docs/prometheus/latest/querying/examples/)
 - [Alerting Rules Examples](https://awesome-prometheus-alerts.grep.to/)
+
+## Application Monitoring
+
+Instrument your applications to expose custom metrics for comprehensive monitoring.
+
+### Go Application Example
+
+```go
+package main
+
+import (
+    "net/http"
+    "github.com/prometheus/client_golang/prometheus"
+    "github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+var (
+    httpRequestsTotal = prometheus.NewCounterVec(
+        prometheus.CounterOpts{
+            Name: "http_requests_total",
+            Help: "Total number of HTTP requests",
+        },
+        []string{"method", "endpoint", "status"},
+    )
+    
+    httpRequestDuration = prometheus.NewHistogramVec(
+        prometheus.HistogramOpts{
+            Name:    "http_request_duration_seconds",
+            Help:    "Duration of HTTP requests in seconds",
+            Buckets: prometheus.DefBuckets,
+        },
+        []string{"method", "endpoint"},
+    )
+)
+
+func init() {
+    prometheus.MustRegister(httpRequestsTotal)
+    prometheus.MustRegister(httpRequestDuration)
+}
+
+func instrumentedHandler(w http.ResponseWriter, r *http.Request) {
+    timer := prometheus.NewTimer(httpRequestDuration.WithLabelValues(r.Method, r.URL.Path))
+    defer timer.ObserveDuration()
+    
+    // Your application logic here
+    w.WriteHeader(http.StatusOK)
+    
+    httpRequestsTotal.WithLabelValues(r.Method, r.URL.Path, "200").Inc()
+}
+
+func main() {
+    http.Handle("/metrics", promhttp.Handler())
+    http.HandleFunc("/", instrumentedHandler)
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+### Key Application Metrics
+
+- **Request rate**: `http_requests_total`
+- **Request duration**: `http_request_duration_seconds`
+- **Active connections**: `active_connections`
+- **Queue depth**: `queue_depth`
+- **Business metrics**: Custom counters/gauges for domain-specific events
+
+## Integration with Grafana
+
+> [!IMPORTANT]
+> While Prometheus provides basic graphing capabilities, Grafana is the preferred tool for creating rich, interactive dashboards.
+
+### Setting up Grafana with Prometheus
+
+```bash
+# Run Grafana with Docker
+docker run -d -p 3000:3000 --name grafana grafana/grafana
+
+# Or with Docker Compose
+version: '3'
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
+```
+
+### Adding Prometheus as Data Source
+
+1. Access Grafana at `http://localhost:3000` (admin/admin)
+2. Go to **Configuration → Data Sources**
+3. Click **Add data source** and select **Prometheus**
+4. Set URL to `http://prometheus:9090` (or your Prometheus URL)
+5. Click **Save & Test**
+
+### Sample Dashboard Queries
+
+```promql
+# CPU Usage Panel
+100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+
+# Memory Usage Panel
+(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+
+# Request Rate Panel
+rate(http_requests_total[5m])
+
+# Response Time Percentiles
+histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.50, rate(http_request_duration_seconds_bucket[5m]))
+```
+
+## Advanced Monitoring Patterns
+
+### Recording Rules for Performance
+
+```yaml
+# /etc/prometheus/rules/recording.yml
+groups:
+  - name: performance_rules
+    interval: 30s
+    rules:
+      - record: node:cpu_utilization:rate5m
+        expr: 100 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+      
+      - record: node:memory_utilization:ratio
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes))
+      
+      - record: instance:request_rate:rate5m
+        expr: rate(http_requests_total[5m])
+```
+
+### Metric Naming Best Practices
+
+> [!TIP]
+> Follow Prometheus naming conventions for consistency and clarity across your monitoring infrastructure.
+
+**Naming Guidelines:**
+
+- Use snake_case: `http_requests_total`
+- Include units in the name: `process_cpu_seconds_total`
+- Use descriptive, unambiguous names: `database_connection_pool_size`
+- End counters with `_total`: `api_requests_total`
+- End gauges with descriptive units: `memory_usage_bytes`
+
+**Examples:**
+
+```promql
+# Good naming
+http_requests_total{method="GET", status="200"}
+database_connections_active
+memory_usage_bytes
+disk_write_bytes_total
+
+# Avoid these patterns
+requests  # Too generic, missing _total
+db_conn   # Abbreviated, unclear
+mem       # Too short, no units
+```
+
+### Monitoring Prometheus Self-Health
+
+Essential self-monitoring queries:
+
+```promql
+# Prometheus health
+prometheus_config_last_reload_successful
+prometheus_tsdb_reloads_total
+prometheus_build_info
+
+# Performance metrics
+rate(prometheus_http_requests_total[5m])
+prometheus_tsdb_head_samples_appended_total
+prometheus_tsdb_compaction_duration_seconds
+
+# Storage metrics
+prometheus_tsdb_symbol_table_size_bytes
+prometheus_tsdb_head_series
+prometheus_tsdb_retention_limit_bytes
+```
+
+## Related Resources
+
+- [Prometheus Official Documentation](https://prometheus.io/docs/)
+- [PromQL Tutorial and Examples](https://prometheus.io/docs/prometheus/latest/querying/basics/)
+- [Grafana Documentation](https://grafana.com/docs/)
+- [Prometheus Exporters Directory](https://prometheus.io/docs/instrumenting/exporters/)
+- [Prometheus Operator for Kubernetes](https://github.com/prometheus-operator/prometheus-operator)
+- [Awesome Prometheus Alerts](https://awesome-prometheus-alerts.grep.to/)
+- [Prometheus Best Practices Guide](https://prometheus.io/docs/practices/naming/)

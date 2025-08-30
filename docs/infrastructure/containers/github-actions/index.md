@@ -15,6 +15,7 @@ GitHub Actions is a powerful CI/CD and automation platform integrated directly i
 - [Container Workflows](#container-workflows)
 - [Docker Integration](#docker-integration)
 - [Kubernetes Deployment](#kubernetes-deployment)
+- [Self-Hosted Runners](#self-hosted-runners)
 - [Security and Secrets](#security-and-secrets)
 - [Matrix Strategies](#matrix-strategies)
 - [Conditional Workflows](#conditional-workflows)
@@ -674,6 +675,826 @@ jobs:
         git diff --staged --quiet || git commit -m "Update image to ${{ github.sha }}"
         git push
 ```
+
+## Self-Hosted Runners
+
+Self-hosted runners provide complete control over the compute environment for GitHub Actions workflows. They're essential for organizations requiring specific hardware, software, security compliance, or when GitHub-hosted runners don't meet performance or connectivity requirements.
+
+### Self-Hosted Runners Overview
+
+Self-hosted runners are applications that run on your infrastructure and execute jobs from GitHub Actions workflows. They offer:
+
+- **Custom Hardware**: Use specific CPU architectures, GPUs, or high-memory configurations
+- **Network Access**: Connect to internal systems, databases, and private resources
+- **Software Control**: Install custom tools, drivers, and dependencies
+- **Compliance**: Meet security and regulatory requirements
+- **Cost Optimization**: Leverage existing infrastructure or spot instances
+- **Performance**: Optimize for specific workload requirements
+
+### Architecture
+
+```text
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      Self-Hosted Runner Architecture                       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
+│  │   GitHub    │───►│   Runner    │───►│    Jobs     │───►│   Actions   │  │
+│  │             │    │             │    │             │    │             │  │
+│  │ • Queue     │    │ • Polling   │    │ • Checkout  │    │ • Custom    │  │
+│  │ • Dispatch  │    │ • Download  │    │ • Build     │    │ • Third-    │  │
+│  │ • Results   │    │ • Execute   │    │ • Test      │    │   party     │  │
+│  │             │    │ • Upload    │    │ • Deploy    │    │             │  │
+│  └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Installation Methods
+
+#### Manual Installation (Linux)
+
+```bash
+# Create a folder for the runner
+mkdir actions-runner && cd actions-runner
+
+# Download the latest runner package
+curl -o actions-runner-linux-x64-2.311.0.tar.gz -L \
+  https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz
+
+# Optional: Validate the hash
+echo "29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz" | shasum -a 256 -c
+
+# Extract the installer
+tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz
+
+# Create the runner and start the configuration experience
+./config.sh --url https://github.com/your-org/your-repo --token YOUR_TOKEN
+
+# Run the runner
+./run.sh
+```
+
+#### Docker Installation
+
+```dockerfile
+# Dockerfile for self-hosted runner
+FROM ubuntu:22.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    jq \
+    libicu70 \
+    sudo \
+    docker.io \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create runner user
+RUN useradd -m -s /bin/bash runner && \
+    usermod -aG sudo runner && \
+    echo "runner ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Install runner
+WORKDIR /actions-runner
+RUN curl -o actions-runner-linux-x64.tar.gz -L \
+    https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz && \
+    tar xzf ./actions-runner-linux-x64.tar.gz && \
+    rm actions-runner-linux-x64.tar.gz && \
+    chown -R runner:runner /actions-runner
+
+USER runner
+
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN sudo chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+```
+
+```bash
+#!/bin/bash
+# entrypoint.sh
+
+set -e
+
+# Configure runner
+./config.sh \
+    --name "${RUNNER_NAME:-$(hostname)}" \
+    --token "${RUNNER_TOKEN}" \
+    --url "${RUNNER_URL}" \
+    --work "${RUNNER_WORK_DIRECTORY:-/tmp}" \
+    --labels "${RUNNER_LABELS:-default}" \
+    --unattended \
+    --replace
+
+# Start runner
+./run.sh
+```
+
+```yaml
+# docker-compose.yml for self-hosted runners
+version: '3.8'
+
+services:
+  github-runner-1:
+    build: .
+    environment:
+      RUNNER_NAME: "docker-runner-1"
+      RUNNER_TOKEN: "${GITHUB_TOKEN}"
+      RUNNER_URL: "https://github.com/your-org/your-repo"
+      RUNNER_LABELS: "docker,linux,self-hosted"
+      RUNNER_WORK_DIRECTORY: "/tmp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - runner1_data:/tmp
+    restart: unless-stopped
+
+  github-runner-2:
+    build: .
+    environment:
+      RUNNER_NAME: "docker-runner-2"
+      RUNNER_TOKEN: "${GITHUB_TOKEN}"
+      RUNNER_URL: "https://github.com/your-org/your-repo"
+      RUNNER_LABELS: "docker,linux,self-hosted"
+      RUNNER_WORK_DIRECTORY: "/tmp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - runner2_data:/tmp
+    restart: unless-stopped
+
+volumes:
+  runner1_data:
+  runner2_data:
+```
+
+#### Kubernetes Runner Deployment
+
+```yaml
+# runner-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-runner
+  namespace: github-actions
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: github-runner
+  template:
+    metadata:
+      labels:
+        app: github-runner
+    spec:
+      containers:
+      - name: runner
+        image: your-registry/github-runner:latest
+        env:
+        - name: RUNNER_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-runner-secret
+              key: token
+        - name: RUNNER_URL
+          value: "https://github.com/your-org/your-repo"
+        - name: RUNNER_LABELS
+          value: "kubernetes,self-hosted,linux"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+        - name: runner-temp
+          mountPath: /tmp
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
+      - name: runner-temp
+        emptyDir: {}
+      serviceAccountName: github-runner-sa
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-runner-secret
+  namespace: github-actions
+type: Opaque
+data:
+  token: <base64-encoded-token>
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: github-runner-sa
+  namespace: github-actions
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: github-runner-role
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: github-runner-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: github-runner-role
+subjects:
+- kind: ServiceAccount
+  name: github-runner-sa
+  namespace: github-actions
+```
+
+#### Auto-Scaling Runner Setup (ARC - Actions Runner Controller)
+
+```bash
+# Install Actions Runner Controller
+helm repo add actions-runner-controller https://actions-runner-controller.github.io/actions-runner-controller
+helm upgrade --install --wait actions-runner-controller actions-runner-controller/actions-runner-controller \
+  --namespace actions-runner-system \
+  --create-namespace \
+  --set=authSecret.create=true \
+  --set=authSecret.github_token="YOUR_PAT_TOKEN"
+```
+
+```yaml
+# runner-deployment-autoscaling.yaml
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: github-runner-deployment
+spec:
+  replicas: 2
+  template:
+    spec:
+      repository: your-org/your-repo
+      labels:
+        - linux
+        - kubernetes
+        - autoscaling
+      resources:
+        limits:
+          cpu: "2.0"
+          memory: "4Gi"
+        requests:
+          cpu: "100m"
+          memory: "128Mi"
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      tolerations:
+      - key: "runner"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: github-runner-autoscaler
+spec:
+  scaleTargetRef:
+    name: github-runner-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
+    repositoryNames:
+    - your-org/your-repo
+  - type: PercentageRunnersBusy
+    scaleUpThreshold: '0.75'
+    scaleDownThreshold: '0.25'
+    scaleUpFactor: '2'
+    scaleDownFactor: '0.5'
+```
+
+### Configuration and Management
+
+#### Runner Registration
+
+```bash
+# Configure runner with specific settings
+./config.sh \
+    --url https://github.com/your-org/your-repo \
+    --token YOUR_REGISTRATION_TOKEN \
+    --name "my-custom-runner" \
+    --labels "linux,docker,gpu,custom" \
+    --work "/opt/actions-runner/_work" \
+    --unattended \
+    --replace
+
+# For organization-level runners
+./config.sh \
+    --url https://github.com/your-org \
+    --token YOUR_ORG_TOKEN \
+    --name "org-runner-1" \
+    --labels "linux,docker,production" \
+    --runnergroup "Production Runners" \
+    --unattended
+```
+
+#### Service Installation (Linux)
+
+```bash
+# Install as systemd service
+sudo ./svc.sh install
+
+# Start the service
+sudo ./svc.sh start
+
+# Check service status
+sudo ./svc.sh status
+
+# Stop the service
+sudo ./svc.sh stop
+
+# Uninstall the service
+sudo ./svc.sh uninstall
+```
+
+```ini
+# Custom systemd service file: /etc/systemd/system/actions-runner.service
+[Unit]
+Description=GitHub Actions Runner
+After=network.target
+
+[Service]
+ExecStart=/opt/actions-runner/run.sh
+User=runner
+WorkingDirectory=/opt/actions-runner
+KillMode=process
+Restart=always
+RestartSec=15
+TimeoutStopSec=30
+
+# Environment variables
+Environment=DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+Environment=RUNNER_ALLOW_RUNASROOT=0
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/actions-runner
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Using Self-Hosted Runners in Workflows
+
+#### Basic Usage
+
+```yaml
+name: Self-Hosted Runner Example
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: self-hosted  # Use any available self-hosted runner
+    steps:
+      - uses: actions/checkout@v4
+      - name: Show runner info
+        run: |
+          echo "Runner name: $RUNNER_NAME"
+          echo "Runner OS: $RUNNER_OS"
+          echo "Working directory: $GITHUB_WORKSPACE"
+          uname -a
+
+  build-with-labels:
+    runs-on: [self-hosted, linux, docker]  # Specific labels
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with Docker
+        run: |
+          docker build -t myapp:$GITHUB_SHA .
+          docker run --rm myapp:$GITHUB_SHA
+```
+
+#### Advanced Runner Selection
+
+```yaml
+name: Advanced Runner Usage
+on:
+  workflow_dispatch:
+    inputs:
+      runner_type:
+        description: 'Runner type'
+        required: true
+        default: 'standard'
+        type: choice
+        options:
+        - standard
+        - gpu
+        - high-memory
+
+jobs:
+  select-runner:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "[self-hosted, gpu]", "[self-hosted, high-memory]"]')[github.event.inputs.runner_type == 'standard' && 0 || github.event.inputs.runner_type == 'gpu' && 1 || 2] }}
+    steps:
+      - name: Show selected runner
+        run: echo "Running on ${{ runner.os }} with labels ${{ runner.labels }}"
+
+  matrix-runners:
+    strategy:
+      matrix:
+        runner: 
+          - [self-hosted, linux, docker]
+          - [self-hosted, linux, gpu]
+          - [self-hosted, windows, powershell]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Platform-specific build
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            echo "Linux build commands"
+            if [[ "${{ join(matrix.runner, ',') }}" == *"gpu"* ]]; then
+              nvidia-smi
+            fi
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo "Windows build commands"
+          fi
+        shell: bash
+
+  conditional-runner:
+    runs-on: ${{ github.event_name == 'push' && '[self-hosted, production]' || '[self-hosted, development]' }}
+    steps:
+      - name: Environment-aware deployment
+        run: |
+          if [[ "${{ join(runner.labels, ',') }}" == *"production"* ]]; then
+            echo "Production deployment"
+          else
+            echo "Development deployment"
+          fi
+```
+
+### Monitoring and Maintenance
+
+#### Health Monitoring Script
+
+```bash
+#!/bin/bash
+# monitor-runners.sh
+
+# Configuration
+RUNNER_DIR="/opt/actions-runner"
+LOG_FILE="/var/log/github-runner-monitor.log"
+WEBHOOK_URL="https://your-monitoring-service.com/webhook"
+
+# Function to log messages
+log_message() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
+}
+
+# Check runner process
+check_runner_process() {
+    if pgrep -f "Runner.Listener" > /dev/null; then
+        log_message "INFO: Runner process is running"
+        return 0
+    else
+        log_message "ERROR: Runner process is not running"
+        return 1
+    fi
+}
+
+# Check disk space
+check_disk_space() {
+    local usage=$(df "$RUNNER_DIR" | tail -1 | awk '{print $5}' | sed 's/%//')
+    if [ "$usage" -gt 85 ]; then
+        log_message "WARNING: Disk usage is ${usage}% in $RUNNER_DIR"
+        # Cleanup old work directories
+        find "$RUNNER_DIR/_work" -type d -mtime +7 -exec rm -rf {} + 2>/dev/null
+        return 1
+    else
+        log_message "INFO: Disk usage is ${usage}%"
+        return 0
+    fi
+}
+
+# Check memory usage
+check_memory() {
+    local mem_usage=$(free | grep '^Mem:' | awk '{printf "%.0f", $3/$2 * 100}')
+    if [ "$mem_usage" -gt 90 ]; then
+        log_message "WARNING: Memory usage is ${mem_usage}%"
+        return 1
+    else
+        log_message "INFO: Memory usage is ${mem_usage}%"
+        return 0
+    fi
+}
+
+# Restart runner if needed
+restart_runner() {
+    log_message "INFO: Attempting to restart runner service"
+    sudo systemctl restart actions-runner
+    sleep 10
+    if check_runner_process; then
+        log_message "INFO: Runner service restarted successfully"
+        # Send success notification
+        curl -X POST "$WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d '{"text":"GitHub Runner restarted successfully","level":"info"}'
+    else
+        log_message "ERROR: Failed to restart runner service"
+        # Send error notification
+        curl -X POST "$WEBHOOK_URL" \
+            -H "Content-Type: application/json" \
+            -d '{"text":"GitHub Runner restart failed","level":"error"}'
+    fi
+}
+
+# Main monitoring loop
+main() {
+    log_message "INFO: Starting runner health check"
+    
+    local errors=0
+    
+    if ! check_runner_process; then
+        ((errors++))
+    fi
+    
+    if ! check_disk_space; then
+        ((errors++))
+    fi
+    
+    if ! check_memory; then
+        ((errors++))
+    fi
+    
+    if [ "$errors" -gt 0 ]; then
+        log_message "WARNING: Found $errors issues"
+        if ! check_runner_process; then
+            restart_runner
+        fi
+    else
+        log_message "INFO: All checks passed"
+    fi
+}
+
+# Run main function
+main
+```
+
+```bash
+# Add to crontab for regular monitoring
+# crontab -e
+*/5 * * * * /opt/scripts/monitor-runners.sh
+```
+
+#### Log Analysis and Alerting
+
+```yaml
+# log-analysis.yml - GitHub Actions workflow for log analysis
+name: Runner Log Analysis
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:
+
+jobs:
+  analyze-logs:
+    runs-on: [self-hosted, monitor]
+    steps:
+      - name: Analyze runner logs
+        run: |
+          LOG_DIR="/var/log/github-runner"
+          ALERT_THRESHOLD=10
+          
+          # Count errors in the last 6 hours
+          ERROR_COUNT=$(find $LOG_DIR -name "*.log" -mtime -0.25 | xargs grep -c "ERROR" | awk -F: '{sum += $2} END {print sum}')
+          
+          echo "Errors found: $ERROR_COUNT"
+          
+          if [ "$ERROR_COUNT" -gt "$ALERT_THRESHOLD" ]; then
+            echo "::error::High error count detected: $ERROR_COUNT errors"
+            # Send alert to monitoring system
+            curl -X POST "${{ secrets.MONITORING_WEBHOOK }}" \
+              -H "Content-Type: application/json" \
+              -d "{\"alert\":\"GitHub Runner Errors\",\"count\":$ERROR_COUNT,\"threshold\":$ALERT_THRESHOLD}"
+          fi
+
+      - name: Check runner performance
+        run: |
+          # Analyze job completion times
+          PERF_LOG="/var/log/github-runner-performance.log"
+          
+          # Get average job completion time from last 24 hours
+          AVG_TIME=$(grep "Job completed" $PERF_LOG | \
+            awk -v date="$(date -d '24 hours ago' '+%Y-%m-%d')" '$0 > date' | \
+            grep -o '[0-9]*s' | sed 's/s//' | \
+            awk '{sum+=$1; count++} END {print sum/count}')
+          
+          echo "Average job completion time: ${AVG_TIME}s"
+          
+          if [ "$(echo "$AVG_TIME > 300" | bc)" -eq 1 ]; then
+            echo "::warning::Job completion time is slower than expected: ${AVG_TIME}s"
+          fi
+```
+
+### Security Best Practices
+
+#### Runner Security Configuration
+
+```bash
+#!/bin/bash
+# secure-runner.sh - Security hardening script
+
+# Create dedicated user for runner
+sudo useradd -m -s /bin/bash github-runner
+sudo usermod -aG docker github-runner
+
+# Set up restricted permissions
+sudo mkdir -p /opt/actions-runner
+sudo chown github-runner:github-runner /opt/actions-runner
+sudo chmod 750 /opt/actions-runner
+
+# Configure sudoers for limited privileges
+sudo tee /etc/sudoers.d/github-runner << EOF
+github-runner ALL=(ALL) NOPASSWD: /usr/bin/docker, /usr/bin/systemctl restart docker
+Defaults:github-runner !requiretty
+EOF
+
+# Set up network restrictions (iptables)
+sudo iptables -A OUTPUT -p tcp --dport 443 -d github.com -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 443 -d api.github.com -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 443 -d objects.githubusercontent.com -j ACCEPT
+# Add more rules as needed for your specific requirements
+
+# Configure AppArmor profile (Ubuntu/Debian)
+sudo tee /etc/apparmor.d/github-runner << EOF
+#include <tunables/global>
+
+/opt/actions-runner/Runner.Listener {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  
+  /opt/actions-runner/** r,
+  /opt/actions-runner/bin/* ix,
+  /tmp/** rw,
+  /proc/sys/kernel/random/uuid r,
+  
+  # Allow network access to GitHub
+  network tcp,
+  network udp,
+  
+  # Deny access to sensitive files
+  deny /etc/shadow r,
+  deny /root/** rw,
+  deny /home/*/.ssh/** rw,
+}
+EOF
+
+sudo apparmor_parser -r /etc/apparmor.d/github-runner
+```
+
+#### Secrets and Environment Variables
+
+```yaml
+# secure-workflow.yml
+name: Secure Self-Hosted Workflow
+on: [push]
+
+jobs:
+  secure-build:
+    runs-on: [self-hosted, production, secure]
+    env:
+      # Use runner-level environment variables for non-sensitive config
+      BUILD_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Configure environment
+        run: |
+          # Never log sensitive information
+          echo "Build environment: $BUILD_ENV"
+          echo "Runner labels: ${{ join(runner.labels, ', ') }}"
+        
+      - name: Access secrets securely
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          # Use secrets without exposing them
+          # Don't use 'set -x' or echo secrets
+          ./deploy.sh --db-password="$DB_PASSWORD" --api-key="$API_KEY"
+        
+      - name: Cleanup sensitive data
+        if: always()
+        run: |
+          # Clean up any temporary files that might contain secrets
+          find /tmp -name "*.tmp" -user $(whoami) -delete
+          # Clear environment variables
+          unset DB_PASSWORD API_KEY
+```
+
+### Troubleshooting Common Issues
+
+#### Connection Issues
+
+```bash
+# Test GitHub connectivity
+curl -I https://api.github.com
+
+# Check DNS resolution
+nslookup github.com
+nslookup api.github.com
+
+# Test runner registration endpoint
+curl -H "Authorization: token YOUR_TOKEN" \
+  https://api.github.com/repos/OWNER/REPO/actions/runners/registration-token
+```
+
+#### Performance Issues
+
+```bash
+# Monitor system resources during job execution
+#!/bin/bash
+# performance-monitor.sh
+
+LOG_FILE="/var/log/runner-performance.log"
+
+while true; do
+    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+    CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | sed 's/%us,//')
+    MEM_USAGE=$(free | grep Mem | awk '{printf "%.2f", $3/$2 * 100}')
+    DISK_USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
+    
+    # Check if runner is active
+    if pgrep -f "Runner.Worker" > /dev/null; then
+        STATUS="ACTIVE"
+    else
+        STATUS="IDLE"
+    fi
+    
+    echo "$TIMESTAMP,$STATUS,$CPU_USAGE,$MEM_USAGE,$DISK_USAGE" >> "$LOG_FILE"
+    
+    sleep 30
+done
+```
+
+#### Debugging Failed Jobs
+
+```bash
+# Enhanced logging configuration
+# Add to ~/.bashrc for the runner user
+export ACTIONS_RUNNER_PRINT_LOG_TO_STDOUT=1
+export RUNNER_DEBUG=1
+
+# Log job execution details
+mkdir -p /var/log/github-runner/jobs
+export ACTIONS_STEP_DEBUG=true
+```
+
+### Self-Hosted Runner Best Practices
+
+1. **Resource Management**
+   - Monitor CPU, memory, and disk usage
+   - Implement automatic cleanup of work directories
+   - Use appropriate instance sizes for workloads
+   - Set resource limits in containerized environments
+
+2. **Security**
+   - Use dedicated service accounts with minimal permissions
+   - Implement network restrictions
+   - Regularly update runner software and dependencies
+   - Use secrets management for sensitive data
+   - Enable audit logging
+
+3. **Scalability**
+   - Implement auto-scaling based on queue depth
+   - Use runner groups for workload isolation
+   - Distribute runners across availability zones
+   - Consider ephemeral runners for security
+
+4. **Monitoring**
+   - Set up health checks and alerts
+   - Monitor job completion times and success rates
+   - Track resource utilization trends
+   - Implement log aggregation and analysis
+
+5. **Maintenance**
+   - Regular security updates
+   - Backup runner configurations
+   - Document runner-specific setup and dependencies
+   - Test disaster recovery procedures
 
 ## Security and Secrets
 
