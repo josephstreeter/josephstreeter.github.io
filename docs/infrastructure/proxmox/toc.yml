@@ -1,4 +1,6 @@
 - name: Proxmox
   href: index.md
+- name: Proxmox VE Cluster Management
+  href: cluster.md
 - name: Proxmox Docker Repository Troubleshooting
   href: troubleshooting.md
