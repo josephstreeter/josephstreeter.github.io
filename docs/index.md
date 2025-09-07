@@ -42,4 +42,38 @@ This documentation aims to:
 - **Code Samples**: Copy and modify examples for your own use cases
 - **Visual Guides**: Follow diagrams and screenshots for complex procedures
 
+## Contributing & Feedback
+
+This documentation site is continuously evolving, and your contributions are welcome! Whether you've found an error, have suggestions for improvements, or want to contribute new content, here's how you can help:
+
+### Opening Issues
+
+If you encounter any problems or have suggestions:
+
+1. **Visit the GitHub Repository**: [josephstreeter.github.io](https://github.com/josephstreeter/josephstreeter.github.io)
+2. **Check Existing Issues**: Browse the [Issues tab](https://github.com/josephstreeter/josephstreeter.github.io/issues) to see if your concern has already been reported
+3. **Create a New Issue**: Click "New Issue" and choose the appropriate template:
+   - **Bug Report**: For errors, broken links, or incorrect information
+   - **Feature Request**: For new documentation topics or site improvements
+   - **Content Update**: For outdated information or missing details
+
+### Contributing Content
+
+Want to contribute documentation or improvements?
+
+1. **Fork the Repository**: Create your own copy of the repository
+2. **Create a Branch**: Make your changes in a feature branch
+3. **Follow the Style Guide**: Maintain consistency with existing documentation
+4. **Submit a Pull Request**: Describe your changes and their benefits
+
+### Content Guidelines
+
+When contributing, please:
+
+- **Use Clear Headings**: Organize content with descriptive section headers
+- **Include Code Examples**: Provide practical, working examples
+- **Add Context**: Explain not just "how" but "why" when relevant
+- **Test Instructions**: Verify that procedures work as documented
+- **Keep It Current**: Ensure information reflects current best practices
+
 I hope you find this documentation helpful. If you have questions or suggestions, please feel free to reach out.
