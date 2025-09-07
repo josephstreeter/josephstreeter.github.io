@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Working with Docker Containers
+## Working with Docker Containers
 
 This is a placeholder for Working with Docker Containers content.
 
