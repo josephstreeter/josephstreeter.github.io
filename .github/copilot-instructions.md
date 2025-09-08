@@ -7,6 +7,7 @@ When generating, reviewing, or modifying PowerShell code in this repository, str
 ## Code Style and Formatting Requirements
 
 ### Indentation and Spacing
+- **Use allman formatting** for all PowerShell code
 - **Place open braces on the next line** for functions and control structures
 - **Use tabs for indentation**
 - **Add space around operators**: `$a -eq $b` not `$a-eq$b`
