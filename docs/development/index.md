@@ -1,4 +1,12 @@
-# Development Tools
+---
+title: "Development Tools"
+description: "Comprehensive development tools and workflows documentation covering software development, version control, code editing, and documentation"
+tags: ["development", "tools", "git", "vscode", "powershell", "python", "azure-devops", "docfx"]
+category: "development"
+difficulty: "intermediate"
+last_updated: "2025-01-14"
+author: "Joseph Streeter"
+---
 
 This section covers development tools and workflows for software development, version control, code editing, and documentation.
 

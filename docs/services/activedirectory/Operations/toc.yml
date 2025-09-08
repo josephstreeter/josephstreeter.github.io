@@ -1,32 +1,30 @@
-- name: Active Directory Forest Recov
-  href: Active-Directory-Forest-Recov.md
-- name: Apply Baseline Group Policy a
-  href: Apply-Baseline-Group-Policy-a.md
+- name: Active Directory Forest Recovery
+  href: active-directory-forest-recovery.md
+- name: Apply Baseline Group Policy and Security Template
+  href: apply-baseline-group-policy-and-security-template.md
 - name: Certificate Management
-  href: Certificate-Management.md
-- name: Connect to Another Forest wit
-  href: Connect-to-Another-Forest-wit.md
-- name: Connecting to Windows File Sh
-  href: Connecting-to-Windows-File-Sh.md
-- name: Firewall and Network Informat
-  href: Firewall-and-Network-Informat.md
-- name: Install Server Certificate fo
-  href: Install-Server-Certificate-fo.md
+  href: certificate-management.md
+- name: Connect to Another Forest with Trust
+  href: connect-to-another-forest-with-trust.md
+- name: Connecting to Windows File Shares
+  href: connecting-to-windows-file-shares.md
+- name: Firewall and Network Information
+  href: firewall-and-network-information.md
+- name: Install Server Certificate for LDAPS
+  href: install-server-certificate-for-ldaps.md
 - name: Isolate Domain Controller
-  href: Isolate-Domain-Controller.md
+  href: isolate-domain-controller.md
 - name: Linux Authentication
-  href: Linux-Authentication.md
+  href: linux-authentication.md
 - name: Remove Account Expiration
-  href: Remove-Account-Expiration.md
+  href: remove-account-expiration.md
 - name: Reset Secure Channel
-  href: Reset-Secure-Channel.md
+  href: reset-secure-channel.md
 - name: Schema Extension Script
-  href: Schema-Extension-Script.md
-- name: Security Group Management Rec
-  href: Security-Group-Management-Rec.md
-- name: Security Settings Applied for
-  href: Security-Settings-Applied-for.md
-- name: Use Active Directory Recycle 
-  href: Use-Active-Directory-Recycle-.md
-- name: Isolate Domain Controller
-  href: Isolate-Domain-Controller.md
+  href: schema-extension-script.md
+- name: Security Group Management Recommendations
+  href: security-group-management-recommendations.md
+- name: Security Settings Applied for Domain Controllers
+  href: security-settings-applied-for-domain-controllers.md
+- name: Use Active Directory Recycle Bin
+  href: use-active-directory-recycle-bin.md

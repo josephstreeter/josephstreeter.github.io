@@ -1,4 +1,4 @@
 - name: Confirming LDAPS Certificates
-  href: Confirming-LDAPS-Certificates.md
-- name: LDAP Channel Binding and LDAP
-  href: LDAP-Channel-Binding-and-LDAP.md
+  href: confirming-ldaps-certificates.md
+- name: LDAP Channel Binding and LDAP Signing
+  href: ldap-channel-binding-and-ldap-signing.md

@@ -31,7 +31,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Container lifecycle management and best practices
   - Multi-stage builds and optimization techniques
 
-- **[Docker Compose](docker-compose/index.md)** - Multi-container application orchestration
+- **[Docker Compose](docker/dockercompose/index.md)** - Multi-container application orchestration
   - Service definitions and networking
   - Volume management and persistence
   - Development and production configurations
@@ -187,7 +187,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Database Management Tools
 
-- **[DBeaver](dbeaver/index.md)** - Universal database management platform
+- **DBeaver** - Universal database management platform
   - Container-based deployment options
   - Multi-database connectivity and management
   - Team collaboration features
@@ -273,7 +273,7 @@ If you're new to containerization, follow this learning path:
    - Configure container development extensions
    - Create your first containerized application
 
-3. **[Multi-Container Applications](docker-compose/index.md)** - Orchestrate multiple services
+3. **[Multi-Container Applications](docker/dockercompose/index.md)** - Orchestrate multiple services
    - Learn Docker Compose basics
    - Define services, networks, and volumes
    - Manage application stacks

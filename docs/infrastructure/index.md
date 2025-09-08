@@ -1,4 +1,12 @@
-# Infrastructure
+---
+title: "Infrastructure"
+description: "Comprehensive infrastructure documentation covering virtualization, containers, operating systems, monitoring, automation, and disaster recovery"
+tags: ["infrastructure", "virtualization", "containers", "operating-systems", "monitoring", "automation", "disaster-recovery"]
+category: "infrastructure"
+difficulty: "intermediate"
+last_updated: "2025-01-14"
+author: "Joseph Streeter"
+---
 
 This section covers infrastructure topics including virtualization, containers, operating systems, monitoring, automation, and disaster recovery. Whether you're building a home lab, managing enterprise infrastructure, or exploring cloud architectures, you'll find comprehensive guides and best practices here.
 
@@ -141,7 +149,7 @@ flowchart TB
 - [Home Lab](homelab/index.md) - Home lab notes and setup guides
 - [KQL](kql/index.md) - Kusto Query Language for log analysis
 - [Linux](linux/index.md) - Linux system administration and configuration
-- [Prometheus](prometheus/index.md) - Metrics collection and monitoring
+- **Prometheus** - Metrics collection and monitoring
 - [Proxmox](proxmox/index.md) - Managing Proxmox for a home lab environment
 - [SQL](sql/index.md) - Database administration and SQL queries
 - [Terraform](terraform/index.md) - Infrastructure as Code with Terraform
@@ -160,7 +168,7 @@ Perfect for learning and experimentation in a home environment:
 1. Start with [Home Lab](homelab/index.md) setup and planning
 2. Install [Proxmox](proxmox/index.md) for virtualization
 3. Deploy [Containers](containers/index.md) for application hosting
-4. Set up monitoring with [Prometheus](prometheus/index.md) and [Grafana](grafana/index.md)
+4. Set up monitoring with Prometheus and Grafana
 5. Automate deployments with [Ansible](ansible/index.md)
 
 #### 🏢 **Enterprise Infrastructure**
@@ -169,7 +177,7 @@ For production environments and enterprise deployments:
 
 1. Plan [Disaster Recovery](disaster-recovery/index.md) strategies
 2. Implement [Infrastructure as Code](terraform/index.md) with Terraform
-3. Set up comprehensive monitoring with [Prometheus](prometheus/index.md) and [Grafana](grafana/index.md)
+3. Set up comprehensive monitoring with Prometheus and Grafana
 4. Master [Linux](linux/index.md) and [Windows](windows/index.md) administration
 5. Analyze logs and metrics with [KQL](kql/index.md)
 
@@ -187,8 +195,8 @@ For modern application deployment and container orchestration:
 
 Focus on observability, automation, and operations:
 
-1. Deploy [Prometheus](prometheus/index.md) for metrics collection
-2. Create dashboards with [Grafana](grafana/index.md)
+1. Deploy Prometheus for metrics collection
+2. Create dashboards with Grafana
 3. Query logs effectively with [KQL](kql/index.md)
 4. Automate operations with [Ansible](ansible/index.md)
 5. Plan for [Disaster Recovery](disaster-recovery/index.md)
@@ -290,7 +298,7 @@ docker-compose up -d
 2. **Virtualization**: Set up [Proxmox](proxmox/index.md) or learn [Containers](containers/index.md)
 3. **Automation**: Implement [Ansible](ansible/index.md) for configuration management
 4. **Infrastructure as Code**: Master [Terraform](terraform/index.md) for reproducible deployments
-5. **Monitoring**: Deploy [Prometheus](prometheus/index.md) and [Grafana](grafana/index.md)
+5. **Monitoring**: Deploy Prometheus and Grafana
 6. **Advanced Topics**: Explore [KQL](kql/index.md) for log analysis and [Disaster Recovery](disaster-recovery/index.md)
 
 ### Community and Support

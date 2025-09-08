@@ -3,17 +3,15 @@
 - name: Security Clean-up
   href: Security-Cleanup/toc.yml
 - name: Forests and Domains
-  href: Forests-and-Domains.md
+  href: forests-and-domains.md
 - name: FSMO Role Holders
-  href: FSMO-Role-Holders.md
+  href: fsmo-role-holders.md
 - name: Global Catalogs
-  href: Global-Catalogs.md
+  href: global-catalogs.md
 - name: Domain Controllers
   href: Domain-Controllers.md
 - name: Directory Services Configuration
   href: Directory-Services-Configuration/toc.yml
-- name: Directory Services Configuration
-  href: Directory-Services-Configurat.md
 - name: Forest Trusts
   href: Forest-Trusts/toc.yml
 - name: Maintenance Troubleshooting
@@ -21,30 +19,30 @@
 - name: Operations
   href: Operations/toc.yml
 - name: Acceptable Use Policy
-  href: Acceptable-Use-Policy.md
+  href: acceptable-use-policy.md
 - name: Delegation
   href: Delegation.md
 - name: Disaster Recovery
-  href: Disaster-Recovery.md
+  href: disaster-recovery.md
 - name: Environments
-  href: Environments.md
+  href: environments.md
 - name: Organizational Units
-  href: Organizational-Units.md
+  href: organizational-units.md
 - name: User Objects
-  href: User-Objects.md
+  href: user-objects.md
 - name: Privileged Account Management
-  href: Privileged-Account-Management.md
+  href: privileged-account-management.md
 - name: Sites and Subnets
-  href: Sites-and-Subnets.md
+  href: sites-and-subnets.md
 - name: Group Objects
-  href: Group-Objects.md
+  href: group-objects.md
 - name: Group Policy
-  href: Group-Policy.md
+  href: group-policy.md
 - name: Maintenance Troubleshooting
-  href: Maintenance-Troubleshooting.md
+  href: maintenance-troubleshooting.md
 - name: Monitoring and Logging
-  href: Monitoring-and-Logging.md
+  href: monitoring-and-logging.md
 - name: Windows Time Service
-  href: Time-Service.md
+  href: time-service.md
 - name: DCDiag and Repadmin Report
-  href: dcdiagandrepadminreport.md
+  href: dcdiag-and-repadmin-report.md

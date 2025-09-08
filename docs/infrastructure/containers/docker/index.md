@@ -211,4 +211,4 @@ If you get "permission denied" errors:
 
 - [Docker Quickstart Tutorial](quickstart.md)
 - [Working with Docker Containers](containers.md)
-- [Docker Compose for Multi-Container Applications](compose.md)
+- [Docker Compose for Multi-Container Applications](dockercompose.md)

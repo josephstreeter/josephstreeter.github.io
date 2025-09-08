@@ -1,4 +1,12 @@
-# Networking
+---
+title: "Networking"
+description: "Comprehensive networking documentation covering concepts, protocols, configuration guides, and troubleshooting for various networking equipment and software"
+tags: ["networking", "protocols", "configuration", "troubleshooting", "osi-model", "tcp-ip", "network-fundamentals"]
+category: "networking"
+difficulty: "intermediate"
+last_updated: "2025-01-14"
+author: "Joseph Streeter"
+---
 
 This section covers networking concepts, protocols, configuration guides, and troubleshooting for various networking equipment and software.
 
