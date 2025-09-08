@@ -24,7 +24,7 @@ Docker Compose is a tool for defining and running multi-container Docker applica
 - [Production Considerations](#production-considerations)
 - [Monitoring and Logging](#monitoring-and-logging)
 - [Security Best Practices](#security-best-practices)
-- [Common Patterns](#common-patterns)
+- [Common Patterns](#templates)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
 - [Resources](#resources)
@@ -1269,7 +1269,9 @@ echo "secret-api-key" | docker secret create myapp_api_key -
 docker stack deploy -c docker-compose.yml myapp
 ```
 
-## Common Patterns
+## Common Patterns {#templates}
+
+Docker Compose templates for common application architectures and development scenarios:
 
 ### Full-Stack Application
 
