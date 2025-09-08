@@ -60,7 +60,9 @@ git clone -b feature-branch https://github.com/user/repository.git
 git clone --depth 1 https://github.com/user/repository.git
 ```
 
-### Core Workflow Commands {#essential-commands}
+## Essential-commands
+
+### Core Workflow Commands
 
 Git's power comes from its comprehensive command set. Here are the essential commands every developer should master:
 

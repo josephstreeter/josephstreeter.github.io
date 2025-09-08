@@ -121,7 +121,7 @@ Get-ChildItem
 Get-Help Get-Process
 ```
 
-#### Essential Cmdlets {#common-cmdlets}
+#### Common Cmdlets
 
 PowerShell cmdlets follow a consistent Verb-Noun naming convention. Here are the most commonly used cmdlets:
 
