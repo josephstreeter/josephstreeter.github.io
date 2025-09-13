@@ -121,23 +121,58 @@ Get-ChildItem
 Get-Help Get-Process
 ```
 
-#### Essential Cmdlets
+#### Common Cmdlets
+
+PowerShell cmdlets follow a consistent Verb-Noun naming convention. Here are the most commonly used cmdlets:
 
 ```powershell
+# File and directory operations
+Get-ChildItem                         # List files/directories (alias: ls, dir)
+Set-Location                          # Change directory (alias: cd)
+New-Item                              # Create files/directories
+Copy-Item                             # Copy files/directories
+Move-Item                             # Move/rename files/directories
+Remove-Item                           # Delete files/directories
+
 # System information
-Get-ComputerInfo
+Get-ComputerInfo                      # System details
+Get-Process                           # Running processes (alias: ps)
+Get-Service                           # System services
+Get-EventLog                          # Event logs
+Get-WmiObject                         # WMI information
 
-# Running processes
-Get-Process
+# Network operations
+Get-NetAdapter                        # Network adapters
+Test-NetConnection                    # Network connectivity
+Invoke-WebRequest                     # HTTP requests (alias: wget, curl)
+Invoke-RestMethod                     # REST API calls
 
-# Services
-Get-Service
+# Text and data processing
+Select-String                         # Search text patterns
+Sort-Object                           # Sort objects
+Group-Object                          # Group objects
+Measure-Object                        # Count/measure objects
+Where-Object                          # Filter objects (alias: ?)
+ForEach-Object                        # Process each object (alias: %)
 
-# Event logs
-Get-EventLog -LogName System -Newest 10
+# Variable and object manipulation
+Get-Variable                          # List variables
+Set-Variable                          # Set variable values
+Get-Member                            # Object properties/methods
+Select-Object                         # Select specific properties
+Format-Table                          # Format as table
+Format-List                           # Format as list
 
-# Network configuration
-Get-NetAdapter
+# Module management
+Get-Module                            # List loaded modules
+Import-Module                         # Load modules
+Install-Module                        # Install from PowerShell Gallery
+Update-Module                         # Update modules
+
+# Help system
+Get-Help                              # Command help
+Get-Command                           # Find commands
+Update-Help                           # Update help files
 ```
 
 ### PowerShell ISE vs Visual Studio Code

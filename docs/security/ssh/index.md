@@ -142,3 +142,110 @@ In the case of source control services, you may get the following error. This is
 ```text
 remote: Shell access is not supported.
 ```
+
+## Quick Reference
+
+### Essential SSH Commands
+
+```bash
+# Connect to remote host
+ssh username@hostname
+
+# Connect with specific port
+ssh -p 2222 username@hostname
+
+# Connect with specific key
+ssh -i ~/.ssh/id_rsa username@hostname
+
+# Copy files to remote host
+scp file.txt username@hostname:/path/to/destination/
+
+# Copy files from remote host
+scp username@hostname:/path/to/file.txt ./local/path/
+
+# Sync directories
+rsync -avz local/directory/ username@hostname:/remote/directory/
+```
+
+### Key Management
+
+```bash
+# Generate new SSH key
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Add key to SSH agent
+ssh-add ~/.ssh/id_ed25519
+
+# List loaded keys
+ssh-add -l
+
+# Copy public key to remote host
+ssh-copy-id username@hostname
+
+# Test SSH connection
+ssh -T username@hostname
+```
+
+### SSH Configuration
+
+```bash
+# Edit SSH client config
+nano ~/.ssh/config
+
+# Check SSH configuration
+ssh -F ~/.ssh/config -T username@hostname
+
+# Generate host key fingerprint
+ssh-keygen -l -f /etc/ssh/ssh_host_ed25519_key.pub
+```
+
+## Configuration
+
+### Client Configuration (~/.ssh/config)
+
+```text
+# Global settings
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    
+# Specific host configuration
+Host myserver
+    HostName server.example.com
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/id_rsa_myserver
+    
+# Jump host configuration
+Host target
+    HostName 192.168.1.100
+    User user
+    ProxyJump jumphost
+    
+# GitHub configuration
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_github
+```
+
+### Server Configuration (/etc/ssh/sshd_config)
+
+```text
+# Security settings
+Port 2222
+Protocol 2
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+X11Forwarding no
+
+# Authentication settings
+MaxAuthTries 3
+LoginGraceTime 30
+MaxStartups 5
+
+# Logging
+LogLevel INFO
+SyslogFacility AUTH
+```

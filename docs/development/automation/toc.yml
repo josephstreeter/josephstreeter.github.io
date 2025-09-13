@@ -1,0 +1,4 @@
+name: Automation
+items:
+  - name: CI/CD Pipelines
+    href: ci-cd/index.md

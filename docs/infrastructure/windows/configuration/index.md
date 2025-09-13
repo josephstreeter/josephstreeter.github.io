@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Windows Configuration
+## Windows Configuration
 
 This is a placeholder for Windows Configuration content.
 

@@ -12,7 +12,7 @@ ms.date: 2025-08-25
 - [Overview](#overview)
 - [Before You Begin](#before-you-begin)
 - [How It Works](#how-it-works-the-three-step-process)
-- [Step-by-Step Instructions](#example-and-step-by-step-instructions-️)
+- [Step-by-Step Instructions](#example-and-step-by-step-instructions)
 - [Alternative Examples](#alternative-dynamic-group-examples)
 - [Validation and Testing](#validation-and-testing)
 - [Troubleshooting](#troubleshooting)
@@ -81,7 +81,7 @@ When Home Assistant restarts, the automation runs again, the template sensor re-
 
 **Centralized Control**: The dynamic group acts as a single entity, allowing you to use it in automations, scripts, and dashboards just like a regular group.
 
-## Example and Step-by-Step Instructions 🛠️
+## Example and Step-by-Step Instructions
 
 Here is a complete, working example of how to create a dynamic group of all your doors and windows.
 

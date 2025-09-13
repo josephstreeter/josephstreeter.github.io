@@ -60,44 +60,115 @@ git clone -b feature-branch https://github.com/user/repository.git
 git clone --depth 1 https://github.com/user/repository.git
 ```
 
+## Essential-commands
+
 ### Core Workflow Commands
 
-#### Checking Repository Status
+Git's power comes from its comprehensive command set. Here are the essential commands every developer should master:
+
+#### Repository Operations
 
 ```bash
-# Show working tree status
-git status
+# Initialize and clone
+git init                              # Initialize new repository
+git clone <url>                       # Clone remote repository
+git clone --depth 1 <url>            # Shallow clone (recent history only)
 
-# Concise status output
-git status --short
-
-# Show status with branch tracking information
-git status --branch
+# Remote repository management
+git remote -v                         # List remote repositories
+git remote add origin <url>           # Add remote repository
+git remote set-url origin <url>       # Change remote URL
 ```
 
-#### Staging Changes
+#### File Operations
 
 ```bash
-# Stage specific file
-git add filename.txt
+# Staging changes
+git add <file>                        # Stage specific file
+git add .                             # Stage all changes
+git add -A                            # Stage all changes (including deletions)
+git add -p                            # Interactive staging
 
-# Stage all changes in current directory
-git add .
+# Committing changes
+git commit -m "message"               # Commit with message
+git commit -a -m "message"            # Stage and commit tracked files
+git commit --amend                    # Modify last commit
 
-# Stage all tracked files
-git add -u
-
-# Interactive staging (selective change staging)
-git add -p
+# File status and differences
+git status                            # Show working tree status
+git diff                              # Show unstaged changes
+git diff --staged                     # Show staged changes
+git diff HEAD~1                       # Compare with previous commit
 ```
 
-#### Creating Commits
+#### Branch Management
 
 ```bash
-# Commit staged changes with message
-git commit -m "Add user authentication feature"
+# Branch operations
+git branch                            # List local branches
+git branch -a                         # List all branches (local + remote)
+git branch <name>                     # Create new branch
+git checkout <branch>                 # Switch to branch
+git checkout -b <branch>              # Create and switch to branch
+git switch <branch>                   # Modern way to switch branches
+git branch -d <branch>                # Delete merged branch
+git branch -D <branch>                # Force delete branch
 
-# Commit all tracked changes (skip staging)
+# Merging and rebasing
+git merge <branch>                    # Merge branch into current
+git rebase <branch>                   # Rebase current branch onto another
+git cherry-pick <commit>              # Apply specific commit
+```
+
+#### History and Inspection
+
+```bash
+# Viewing history
+git log                               # Show commit history
+git log --oneline                     # Compact log format
+git log --graph                       # Show branch graph
+git log -p                            # Show patches (diffs)
+git log --since="2 weeks ago"         # Filter by date
+
+# Examining changes
+git show <commit>                     # Show commit details
+git blame <file>                      # Show line-by-line authorship
+git grep <pattern>                    # Search repository content
+```
+
+#### Synchronization
+
+```bash
+# Fetching and pulling
+git fetch                             # Download remote changes
+git pull                              # Fetch and merge remote changes
+git pull --rebase                     # Fetch and rebase local changes
+
+# Pushing changes
+git push                              # Push to default remote
+git push origin <branch>              # Push specific branch
+git push --set-upstream origin <branch> # Push and set tracking
+git push --force-with-lease           # Safe force push
+```
+
+#### Undoing Changes
+
+```bash
+# Working directory changes
+git checkout -- <file>                # Discard file changes
+git restore <file>                    # Modern way to discard changes
+git clean -fd                         # Remove untracked files/directories
+
+# Staging area changes
+git reset <file>                      # Unstage file
+git restore --staged <file>           # Modern way to unstage
+
+# Commit history changes
+git reset --soft HEAD~1               # Undo commit, keep changes staged
+git reset --mixed HEAD~1              # Undo commit and staging
+git reset --hard HEAD~1               # Undo commit, discard changes
+git revert <commit>                   # Create commit that undoes changes
+
 git commit -a -m "Update documentation"
 
 # Amend last commit (add changes or update message)
@@ -105,6 +176,14 @@ git commit --amend
 
 # Create signed commit
 git commit -S -m "Secure feature implementation"
+
+
+# Amend last commit (add changes or update message)
+git commit --amend
+
+# Create signed commit
+git commit -S -m "Secure feature implementation"
+
 ```
 
 ## Professional Git Workflows
@@ -163,7 +242,7 @@ gitGraph
 
 ## Advanced Git Operations
 
-### Branch Management
+### Advanced Branch Management
 
 #### Branch Operations
 
@@ -201,7 +280,7 @@ git switch -c local-branch origin/remote-branch
 git push -u origin feature/new-feature
 ```
 
-### History and Inspection
+### Advanced History and Inspection
 
 #### Viewing Commit History
 

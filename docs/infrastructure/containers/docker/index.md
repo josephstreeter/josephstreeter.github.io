@@ -211,4 +211,83 @@ If you get "permission denied" errors:
 
 - [Docker Quickstart Tutorial](quickstart.md)
 - [Working with Docker Containers](containers.md)
-- [Docker Compose for Multi-Container Applications](compose.md)
+- [Docker Compose for Multi-Container Applications](dockercompose.md)
+
+## Quick Reference
+
+### Essential Docker Commands
+
+```bash
+# Container management
+docker run <image>                    # Run a container
+docker ps                            # List running containers
+docker ps -a                         # List all containers
+docker stop <container>              # Stop a container
+docker start <container>             # Start a stopped container
+docker restart <container>           # Restart a container
+docker rm <container>                # Remove a container
+docker exec -it <container> bash     # Execute command in container
+
+# Image management
+docker images                        # List images
+docker pull <image>                  # Pull image from registry
+docker build -t <name> .             # Build image from Dockerfile
+docker rmi <image>                   # Remove image
+docker tag <image> <new-name>        # Tag an image
+
+# System management
+docker info                          # Display system information
+docker version                       # Show Docker version
+docker system prune                  # Remove unused data
+docker logs <container>              # View container logs
+```
+
+### Common Docker Run Options
+
+```bash
+# Background execution
+docker run -d <image>
+
+# Port mapping
+docker run -p 8080:80 <image>
+
+# Volume mounting
+docker run -v /host/path:/container/path <image>
+
+# Environment variables
+docker run -e VAR_NAME=value <image>
+
+# Interactive terminal
+docker run -it <image> /bin/bash
+
+# Remove container on exit
+docker run --rm <image>
+
+# Set container name
+docker run --name my-container <image>
+
+# Limit resources
+docker run --memory=512m --cpus=1 <image>
+```
+
+### Docker Compose Quick Commands
+
+```bash
+# Start services
+docker-compose up
+
+# Start in background
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs
+
+# Rebuild images
+docker-compose up --build
+
+# Scale services
+docker-compose up --scale web=3
+```

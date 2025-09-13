@@ -3,6 +3,8 @@
   items:
   - name: Active Directory
     href: activedirectory/toc.yml
+  - name: Group Policy
+    href: grouppolicy/index.md
   - name: Exchange
     href: exchange/toc.yml
   - name: Identity Management
