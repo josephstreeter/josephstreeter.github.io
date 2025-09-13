@@ -1,6 +1,8 @@
 - name: Development
   href: index.md
   items:
+  - name: Automation
+    href: automation/index.md
   - name: Azure DevOps
     href: azuredevops/index.md
   - name: Documentation as Code
