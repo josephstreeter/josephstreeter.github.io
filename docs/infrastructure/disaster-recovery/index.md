@@ -28,14 +28,14 @@ Process that identifies and evaluates the potential effects of interruptions to 
 
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
-│                    Disaster Recovery Framework                   │
+│                    Disaster Recovery Framework                  │
 ├─────────────────────────────────────────────────────────────────┤
-│  1. Risk Assessment     │ Identify threats and vulnerabilities   │
-│  2. Business Impact     │ Analyze critical business functions    │
-│  3. Recovery Strategy   │ Define recovery approaches             │
-│  4. Plan Development    │ Create detailed recovery procedures    │
-│  5. Testing & Training  │ Validate and rehearse recovery plans   │
-│  6. Maintenance         │ Keep plans current and effective       │
+│  1. Risk Assessment     │ Identify threats and vulnerabilities  │
+│  2. Business Impact     │ Analyze critical business functions   │
+│  3. Recovery Strategy   │ Define recovery approaches            │
+│  4. Plan Development    │ Create detailed recovery procedures   │
+│  5. Testing & Training  │ Validate and rehearse recovery plans  │
+│  6. Maintenance         │ Keep plans current and effective      │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -343,10 +343,10 @@ listen stats
 
 ## Related Topics
 
-- [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [Windows Security](~/docs/security/windows/index.md)
-- [Network Security](~/docs/security/networking/index.md)
+- [Infrastructure Monitoring](../monitoring/index.md)
+- [Container Security](../containers/security/index.md)
+- [Windows Security](../windows/security/index.md)
+- [Network Security](../networking/security/index.md)
 
 ## Topics
 

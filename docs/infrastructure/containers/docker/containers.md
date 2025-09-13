@@ -685,10 +685,9 @@ docker run --rm \
 
 ## Related Topics
 
-- [Docker Quickstart](quickstart.md)
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [Container Orchestration](~/docs/infrastructure/containers/orchestration/index.md)
-- [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
+- [Container Security](../security/index.md)
+- [Container Orchestration](../orchestration/index.md)
+- [Infrastructure Monitoring](../../monitoring/index.md)
 
 ## Topics
 

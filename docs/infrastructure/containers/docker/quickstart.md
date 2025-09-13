@@ -523,9 +523,9 @@ After completing this quickstart:
 ## Related Topics
 
 - [Working with Docker Containers](containers.md)
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [Container Orchestration](~/docs/infrastructure/containers/orchestration/index.md)
-- [DevOps Best Practices](~/docs/development/devops/index.md)
+- [Container Security](../security/index.md)
+- [Container Orchestration](../orchestration/index.md)
+- [DevOps Best Practices](../../../development/devops/index.md)
 
 ## Topics
 

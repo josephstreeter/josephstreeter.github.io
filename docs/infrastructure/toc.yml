@@ -3,10 +3,29 @@
   items:
   - name: Diagrams
     href: diagrams/toc.yml
+  - name: Security
+    href: security/index.md
+    items:
+    - name: Identity and Access Management
+      href: security/iam/index.md
+    - name: Compliance and Auditing
+      href: security/compliance/index.md
+  - name: Networking
+    href: networking/index.md
+    items:
+    - name: Security
+      href: networking/security/index.md
+  - name: Monitoring
+    href: monitoring/index.md
+  - name: Disaster Recovery
+    href: disaster-recovery/index.md
   - name: Linux
     href: linux/index.md
   - name: Windows
     href: windows/index.md
+    items:
+    - name: Security
+      href: windows/security/index.md
   - name: Proxmox
     href: proxmox/index.md
   - name: Containers

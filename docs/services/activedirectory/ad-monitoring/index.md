@@ -38,11 +38,11 @@ Active Directory monitoring is essential for maintaining a healthy, secure, and 
 │                AD Monitoring Architecture                       │
 ├─────────────────────────────────────────────────────────────────┤
 │  Monitoring Layer    │ Components                               │
-│  ├─ Infrastructure   │ CPU, Memory, Disk, Network              │
-│  ├─ Services         │ NTDS, DNS, KDC, Global Catalog          │
-│  ├─ Applications     │ Authentication, Replication, LDAP       │
-│  ├─ Security         │ Event Logs, Audit Policies, Threats     │
-│  └─ Business         │ User Experience, Service Availability   │
+│  ├─ Infrastructure   │ CPU, Memory, Disk, Network               │
+│  ├─ Services         │ NTDS, DNS, KDC, Global Catalog           │
+│  ├─ Applications     │ Authentication, Replication, LDAP        │
+│  ├─ Security         │ Event Logs, Audit Policies, Threats      │
+│  └─ Business         │ User Experience, Service Availability    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -993,9 +993,9 @@ function New-ADDailyHealthReport
 
 ## Related Topics
 
-- [Active Directory Security](~/docs/services/activedirectory/Security/index.md)
-- [Group Policy Management](~/docs/services/activedirectory/GroupPolicy/index.md)
-- [Domain Controllers](~/docs/services/activedirectory/DomainControllers/index.md)
+- [Active Directory Security](../Security/index.md)
+- [Group Policy Management](../GroupPolicy/index.md)
+- [Domain Controllers](../DomainControllers/index.md)
 - [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
 
 ## Topics

@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# AD Security Best Practices
+## AD Security Best Practices
 
 This is a placeholder for AD Security Best Practices content.
 

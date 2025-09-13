@@ -795,7 +795,7 @@ spec:
 
 ## Related Topics
 
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [Docker Quickstart](~/docs/infrastructure/containers/docker/quickstart.md)
-- [Working with Docker Containers](~/docs/infrastructure/containers/docker/containers.md)
-- [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
+- [Container Security](../security/index.md)
+- [Docker Quickstart](../docker/quickstart.md)
+- [Working with Docker Containers](../docker/containers.md)
+- [Infrastructure Monitoring](../../monitoring/index.md)

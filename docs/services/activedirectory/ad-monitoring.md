@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# AD Monitoring
+## AD Monitoring
 
 This is a placeholder for AD Monitoring content.
 

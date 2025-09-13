@@ -992,7 +992,7 @@ spec:
 
 ## Related Topics
 
-- [Container Orchestration](~/docs/infrastructure/containers/orchestration/index.md)
-- [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [CI/CD Automation](~/docs/development/automation/index.md)
+- [Container Orchestration](../../infrastructure/containers/orchestration/index.md)
+- [Infrastructure Monitoring](../../infrastructure/monitoring/index.md)
+- [Container Security](../../infrastructure/containers/security/index.md)
+- [CI/CD Automation](../automation/index.md)

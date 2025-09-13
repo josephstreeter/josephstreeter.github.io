@@ -1040,7 +1040,7 @@ scenarios:
 
 ## Related Topics
 
-- [DevOps Best Practices](~/docs/development/devops/index.md)
-- [Container Orchestration](~/docs/infrastructure/containers/orchestration/index.md)
-- [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
-- [Container Security](~/docs/infrastructure/containers/security/index.md)
+- [DevOps Best Practices](../devops/index.md)
+- [Container Orchestration](../../infrastructure/containers/orchestration/index.md)
+- [Infrastructure Monitoring](../../infrastructure/monitoring/index.md)
+- [Container Security](../../infrastructure/containers/security/index.md)

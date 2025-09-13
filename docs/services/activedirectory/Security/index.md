@@ -1092,8 +1092,8 @@ function Set-ADAdvancedAuditPolicy
 
 ## Related Topics
 
-- [Active Directory Monitoring](~/docs/services/activedirectory/ad-monitoring/index.md)
-- [Group Policy Management](~/docs/services/activedirectory/GroupPolicy/index.md)
-- [Privileged Access Management](~/docs/services/activedirectory/PrivilegedAccess/index.md)
-- [Infrastructure Security](~/docs/infrastructure/security/index.md)
-- [Windows Security](~/docs/infrastructure/windows/security/index.md)
+- [Active Directory Monitoring](../ad-monitoring/index.md)
+- [Group Policy Management](../GroupPolicy/index.md)
+- [Privileged Access Management](../PrivilegedAccess/index.md)
+- [Infrastructure Security](../../../infrastructure/security/index.md)
+- [Windows Security](../../../infrastructure/windows/security/index.md)

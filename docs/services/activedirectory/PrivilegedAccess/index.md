@@ -840,8 +840,8 @@ function Get-PrivilegedAccountRiskAssessment {
 
 ## Related Topics
 
-- [Active Directory Security](~/docs/services/activedirectory/Security/index.md)
-- [Active Directory Monitoring](~/docs/services/activedirectory/ad-monitoring/index.md)
-- [Group Policy Management](~/docs/services/activedirectory/GroupPolicy/index.md)
-- [Infrastructure Security](~/docs/infrastructure/security/index.md)
-- [Identity and Access Management](~/docs/infrastructure/security/iam/index.md)
+- [Active Directory Security](../Security/index.md)
+- [Active Directory Monitoring](../ad-monitoring/index.md)
+- [Group Policy Management](../GroupPolicy/index.md)
+- [Infrastructure Security](../../../infrastructure/security/index.md)
+- [Identity and Access Management](../../../infrastructure/security/iam/index.md)
