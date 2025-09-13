@@ -1,6 +1,8 @@
 - name: Linux
   href: index.md
   items:
+  - name: SystemD Service Management
+    href: systemd.md
   - name: Server Administration
     href: server.md
   - name: Desktop Environment
