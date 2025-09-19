@@ -181,11 +181,98 @@ function Get-Something()
 
 ### Parameters
 
+Parameters allow functions to accept input from users. They are defined within a `param()` block and can include various attributes for validation, mandatory requirements, and pipeline input.
+
+```powershell
+function Get-UserInfo
+{
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [string]$Username,
+        
+        [Parameter(Mandatory=$false)]
+        [string]$Domain = $env:USERDOMAIN
+    )
+    
+    "User: $Username in domain: $Domain"
+}
+```
+
 ### Common Parameters
+
+Common parameters are automatically available to advanced functions when you use the `[CmdletBinding()]` attribute. These include parameters like `-Verbose`, `-Debug`, `-ErrorAction`, `-WarningAction`, and others that provide consistent behavior across PowerShell cmdlets and functions.
+
+```powershell
+function Write-LogMessage
+{
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [string]$Message
+    )
+    
+    Write-Verbose "Processing log message"
+    Write-Output "LOG: $Message"
+}
+
+# Common parameters are now available
+Write-LogMessage -Message "Test" -Verbose
+```
 
 ### Making a Parameter Mandatory
 
+Use the `Mandatory=$true` attribute to require users to provide a value for a parameter. PowerShell will prompt for the value if it's not provided.
+
+```powershell
+function Connect-ToServer
+{
+    param
+    (
+        [Parameter(Mandatory=$true)]
+        [string]$ServerName,
+        
+        [Parameter(Mandatory=$true)]
+        [System.Management.Automation.PSCredential]$Credential
+    )
+    
+    "Connecting to $ServerName with credentials for $($Credential.UserName)"
+}
+
+# PowerShell will prompt for missing mandatory parameters
+Connect-ToServer
+```
+
 ### Providing a Default Value
+
+Default values are assigned when a parameter is not provided by the user. You can set defaults in several ways:
+
+```powershell
+function Get-SystemInfo
+{
+    param
+    (
+        # Method 1: Direct assignment
+        [string]$ComputerName = $env:COMPUTERNAME,
+        
+        # Method 2: Using DefaultParameterSetName
+        [Parameter()]
+        [int]$TimeoutSeconds = 30,
+        
+        # Method 3: Using environment variables
+        [string]$Domain = $env:USERDNSDOMAIN
+    )
+    
+    "Computer: $ComputerName, Domain: $Domain, Timeout: $TimeoutSeconds seconds"
+}
+
+# Uses default values
+Get-SystemInfo
+
+# Override defaults
+Get-SystemInfo -ComputerName "Server01" -TimeoutSeconds 60
+```
 
 ### Parameter Validation
 
