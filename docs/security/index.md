@@ -12,9 +12,10 @@ This section covers a range of security topics including encryption, secure comm
 
 ## Topics
 
-- [PGP Encryption](pgp/index.md) - Secure communications with Pretty Good Privacy
 - [SSH](ssh/index.md) - Secure Shell configuration and best practices
+- [Certificates](certificates/index.md) - Certificate management and PKI fundamentals
 - [OSINT](osint/index.md) - Open Source Intelligence techniques and tools
+- [PGP Encryption](pgp/index.md) - Secure communications with Pretty Good Privacy
 - [Wireless Security](wireless/index.md) - Security practices for wireless networks
 
 ## Getting Started
