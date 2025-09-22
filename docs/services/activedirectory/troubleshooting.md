@@ -1146,7 +1146,7 @@ function New-AuthoritativeRestorePlan {
 
 - **[Getting Started](getting-started.md)** - AD fundamentals and basic setup
 - **[Domain Controllers](domain-controllers.md)** - DC deployment and management
-- **[Delegation](delegation.md)** - Permission delegation and security
+- **[Delegation](Delegation.md)** - Permission delegation and security
 - **[Operations](Operations/index.md)** - Day-to-day AD administration
 - **[Security Best Practices](security-best-practices.md)** - AD security hardening
 

@@ -44,7 +44,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
 - **[Directory Services Configuration](directory-services-configuration.md)** - Service settings
 - **[Group Policy](group-policy.md)** - Centralized configuration management
-- **[Delegation](delegation.md)** - Administrative permissions
+- **[Delegation](Delegation.md)** - Administrative permissions
 
 ### ⚙️ **Operations and Maintenance**
 
