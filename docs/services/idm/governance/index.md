@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Identity Governance
+## Identity Governance
 
 This is a placeholder for Identity Governance content.
 
