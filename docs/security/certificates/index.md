@@ -354,10 +354,10 @@ function Test-CertificateValidity
 
 ## Related Topics
 
-- [PKI Infrastructure](../pki/index.md)
-- [SSL/TLS Configuration](../ssl-tls/index.md)
-- [Security Automation](../automation/index.md)
-- [Compliance Management](../compliance/index.md)
+- [Security Overview](../index.md)
+- [PGP Encryption](../pgp/index.md)
+- [SSH Security](../ssh/index.md)
+- [OSINT Resources](../osint/index.md)
 
 ## Additional Resources
 
