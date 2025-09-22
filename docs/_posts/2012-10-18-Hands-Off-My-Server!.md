@@ -76,4 +76,4 @@ Install Intel NIC drivers
 ## References
 
 - [https://blog.dhampir.no/content/the-intel-82579v-on-hyper-v-server-2016](https://blog.dhampir.no/content/the-intel-82579v-on-hyper-v-server-2016)
-- [https://blog.citrix24.com/install-windows-server-2016-core-intel-nuc/](https://blog.citrix24.com/install-windows-server-2016-core-intel-nuc/index.md)
+- [https://blog.citrix24.com/install-windows-server-2016-core-intel-nuc/](https://blog.citrix24.com/install-windows-server-2016-core-intel-nuc/)

@@ -45,7 +45,7 @@
         "repo": "https://github.com/josephstreeter/josephstreeter.github.io",
         "branch": "main"
       },
-      "pdf": true
+      "pdf": false
     },
     "postProcessors": ["ExtractSearchIndex"]
   }

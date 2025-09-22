@@ -1,0 +1,7 @@
+- name: Certificates
+  href: index.md
+  items:
+  - name: OpenSSL Guide
+    href: openssl.md
+  - name: Self-Signed Certificates
+    href: self-signed.md

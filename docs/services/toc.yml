@@ -3,9 +3,13 @@
   items:
   - name: Active Directory
     href: activedirectory/toc.yml
-  - name: Group Policy
-    href: grouppolicy/index.md
+  - name: DHCP Services
+    href: dhcp/toc.yml
+  - name: DNS Services
+    href: dns/toc.yml
   - name: Exchange
     href: exchange/toc.yml
+  - name: Group Policy
+    href: grouppolicy/index.md
   - name: Identity Management
     href: idm/toc.yml
