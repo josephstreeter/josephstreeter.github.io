@@ -14,3 +14,7 @@
     href: wireless/toc.yml
   - name: OSINT
     href: osint/toc.yml
+  - name: Networking
+    href: networking/index.md
+  - name: Windows
+    href: windows/index.md
