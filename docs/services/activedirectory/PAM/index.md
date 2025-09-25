@@ -6,13 +6,9 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# Privileged Access Management
-
-This is a placeholder for Privileged Access Management content.
-
 ## Overview
 
-Content will be added here soon.
+This is a placeholder for Privileged Access Management content.
 
 ## Topics
 
