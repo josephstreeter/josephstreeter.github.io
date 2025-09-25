@@ -1,61 +1,140 @@
-# Secure Shell - SSH
+---
+title: Secure Shell (SSH) - Comprehensive Guide
+description: A comprehensive guide to SSH protocol, configuration, security best practices, and advanced usage scenarios
+author: josephstreeter
+ms.author: josephstreeter
+ms.date: 2025-09-22
+ms.topic: conceptual
+ms.service: security
+---
 
-Secure Shell Protocol, or SSH, is a remote administration protocol that allows users to securely access a remote system for tasks such as administration and file copy.
+Secure Shell (SSH) is a cryptographic network protocol that provides secure communication over an unsecured network. It enables users to securely access remote systems, execute commands, transfer files, and tunnel other network services. SSH was designed as a replacement for insecure protocols like Telnet, rlogin, and FTP, which transmit data (including authentication credentials) in plaintext.
 
-SSH was created to replace insecure administrative protocols like telnet. SSH uses cryptographic techniques to authenticate users and ensure that communications between hosts are encrypted. User authentication in SSH can be performed using username and password or cryptographic key pairs.
+## Key Features and Benefits
 
-## Uses for SSH
+- **Strong Encryption**: All communications are encrypted using industry-standard algorithms
+- **Robust Authentication**: Supports various authentication methods including passwords and public key cryptography
+- **Data Integrity**: Ensures transferred data remains unaltered during transit
+- **Port Forwarding**: Allows tunneling of network services through the encrypted connection
+- **SFTP Capability**: Secure alternative to FTP for file transfers
+- **Cross-Platform Support**: Available on virtually all operating systems
 
-SSH is primarily known for providing remote terminal access to a host for administration. SSH can also be used to create secure tunnels and to transfer files.
+## SSH Protocol Versions
 
-## Server Configuration
+- **SSH-1**: Original version, now deprecated due to security vulnerabilities
+- **SSH-2**: Current standard with improved security, features multiple cryptographic layers:
+  - Transport Layer: Handles initial connection, encryption, and server authentication
+  - Authentication Layer: Manages user authentication methods
+  - Connection Layer: Handles SSH channels within a single connection
 
-To execute graphical applications remotely, enable X11 Forwarding and Agent Forwarding. This allows a user to execute a graphical application on the remote host.
+## Common Use Cases
 
-```text
-ForwardAgent yes
-ForwardX11 yes
-```
+SSH is used for various purposes in modern computing environments:
 
-## Client Configuration
+- **Remote Administration**: Securely manage servers and network devices
+- **Secure File Transfers**: Move files between systems using SCP or SFTP
+- **Tunneling and Port Forwarding**: Create secure channels for other applications
+- **Automated Operations**: Enable secure connections for scripts and automation tools
+- **Git Operations**: Authenticate to remote repositories securely
+- **Database Access**: Secure connections to remote database systems
+- **Container and Cloud Management**: Securely access cloud infrastructure and containers
 
-A configuration file can be used to configure the SSH client for different hosts without having to provide the settings each time the command is executed.
+## Authentication Methods
 
-```text
-Host vs-ssh.visualstudio.com
-    HostName vs-ssh.visualstudio.com
-    IdentityFile ~/.ssh/id_rsa_ado
-    HostkeyAlgorithms +ssh-rsa
-    PubkeyAcceptedAlgorithms +ssh-rsa
-    IdentitiesOnly yes
-```
+SSH supports multiple authentication methods, with the most common being:
 
-## Authentication
+### Password Authentication
 
-Authentication can be satisfied by providing a password or by using cryptographic keys. Using a password is self-explanatory, but leveraging keys can be a little more complicated.
+The simplest form of authentication where users provide their credentials interactively. While convenient, it's vulnerable to brute force attacks and is generally less secure than key-based authentication.
 
-## SSH Keys
+### Public Key Authentication
 
-SSH keys are asymmetric cryptographic keys, or key pairs, that are used for authorization and authentication.
-A key pair consists of a private key (identification key) and a public key (authorization key). The owner of a key pair is authorized access to a resource by installing that user's public key (authorization) on that resource.
-The user then uses the private key (identity) to authenticate to that resource. The private key is protected by a password or passphrase that only the owner knows. A user's private keys are to be protected the same as passwords.
+A more secure method using asymmetric cryptography with a public-private key pair:
 
-SSH keys may be used to interactively access a host or service or can be used to provide authorization and authentication to automated processes.
-This is typically accomplished by creating a key pair without a password.
+- **Private Key**: Kept secret by the user, protected with an optional passphrase
+- **Public Key**: Distributed to servers the user needs to access
 
-## Host Keys
+The authentication process works as follows:
 
-Host keys represent a server's identity and are used by the client to authenticate that server's identity.
-The first time a client accesses a server, the client will prompt the user, displaying a hash of the server's host key and asking the user to explicitly accept it.
+1. Client sends the public key identifier to the server
+2. Server checks if the public key is authorized
+3. Server generates a challenge encrypted with the public key
+4. Client decrypts the challenge using the private key
+5. Client responds to the server with the decrypted information
+6. Server verifies the response and grants access if correct
+
+### SSH Keys
+
+SSH keys are asymmetric cryptographic keys that provide a more secure alternative to password-based authentication. A key pair consists of:
+
+- **Private Key (Identification Key)**: Must be kept secure, optionally protected by a passphrase
+- **Public Key (Authorization Key)**: Can be shared and placed on servers you need to access
+
+#### SSH Key Types
+
+Modern SSH implementations support several key types:
+
+| Key Type | Description | Recommended Size | Notes |
+|----------|-------------|------------------|-------|
+| ED25519 | Edwards-curve Digital Signature Algorithm | 256-bit | Recommended for modern systems, excellent security with small key size |
+| RSA | Rivest-Shamir-Adleman | 3072 or 4096-bit | Widely compatible, good for legacy systems |
+| ECDSA | Elliptic Curve Digital Signature Algorithm | 256, 384, or 521-bit | Good alternative, but less widely used than ED25519 or RSA |
+
+#### SSH Key Pair Creation
+
+Generate a new modern SSH key pair (recommended for current systems):
 
 ```console
-$ ssh -t git@ssh.github.com
-The authenticity of host 'ssh.github.com (140.82.114.36)' can't be established.
-ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
-Are you sure you want to continue connecting (yes/no/[fingerprint])?
+ssh-keygen -t ed25519 -C "user@example.com"
 ```
 
-If the host key stored in `known_hosts` does not match the one presented to the client by the server, the client will prompt the user, asking if the user wants to continue.
+For legacy system compatibility, use RSA with at least 3072 bits:
+
+```console
+ssh-keygen -t rsa -b 4096 -C "user@example.com"
+```
+
+During key generation, you'll be prompted to:
+
+1. Specify a file location (default is usually fine)
+2. Create an optional passphrase (highly recommended for additional security)
+
+#### Key Management
+
+```bash
+# List your existing keys
+ls -la ~/.ssh/
+
+# Add key to SSH agent (avoids typing passphrase repeatedly)
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# List keys loaded in the agent
+ssh-add -l
+
+# Copy public key to remote server
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@remote-host
+
+# Remove a key from the agent
+ssh-add -d ~/.ssh/id_ed25519
+```
+
+### Host Keys
+
+Host keys establish the server's identity and protect against man-in-the-middle attacks. Each SSH server has its own set of host keys.
+
+When a client connects to a server for the first time, the server presents its host key. The client displays the key's fingerprint and asks for confirmation:
+
+```console
+$ ssh -t user@example.com
+The authenticity of host 'example.com (192.168.1.10)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+After confirming, the host key is stored in the `~/.ssh/known_hosts` file. On subsequent connections, the client verifies the server's identity against this stored key.
+
+If the host key changes, you'll see a warning:
 
 ```text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -64,83 +143,289 @@ If the host key stored in `known_hosts` does not match the one presented to the 
 IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 Someone could be eavesdropping on you right now (man-in-the-middle attack)!
 It is also possible that a host key has just been changed.
-The fingerprint for the RSA key sent by the remote host is
-6e:45:f9:a8:af:38:3d:a1:a5:c7:76:1d:02:f8:77:00.
-Please contact your system administrator.
-Add correct host key in /home/hostname/.ssh/known_hosts to get rid of this message.
-Offending RSA key in /var/lib/sss/pubconf/known_hosts:4
-RSA host key for pong has changed and you have requested strict checking.
-Host key verification failed.
 ```
 
-## Change Host Key
+This could indicate:
 
-Follow these steps to regenerate OpenSSH Host Keys:
+- A legitimate server reconfiguration or OS reinstallation
+- A DNS spoofing attack
+- A man-in-the-middle attack
 
-- Delete old ssh host keys:
+#### Managing Host Keys
 
-    ```console
-    rm /etc/ssh/ssh_host_*
-    ```
+To update a changed host key:
 
-- Reconfigure OpenSSH Server:
+```bash
+# Remove the old key for a specific host
+ssh-keygen -R hostname
 
-    ```console
-    dpkg-reconfigure openssh-server
-    ```
+# Or edit the known_hosts file directly
+nano ~/.ssh/known_hosts
+```
 
-- Update ssh client(s) `~/.ssh/known_hosts` files with the new hash.
+#### Regenerating Server Host Keys
 
-## SSH Key Pair Creation
-
-Enter the following command to generate a new SSH key pair:
+If you're administering an SSH server and need to regenerate host keys:
 
 ```console
-ssh-keygen -t ed25519 -C "alias@example.com"
+# Debian/Ubuntu
+sudo rm /etc/ssh/ssh_host_*
+sudo dpkg-reconfigure openssh-server
+
+# RHEL/CentOS
+sudo rm /etc/ssh/ssh_host_*
+sudo ssh-keygen -A
+sudo systemctl restart sshd
 ```
 
-Or the following for legacy systems:
+## Client Configuration
 
-```console
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-```
+SSH client behavior can be customized through the `~/.ssh/config` file, which allows defining host-specific settings.
+
+### Basic Configuration Structure
 
 ```text
-The authenticity of host 'ssh.github.com (140.82.113.35)' can't be established.
-ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added 'ssh.github.com' (ED25519) to the list of known hosts.
+# Default settings for all hosts
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    
+# Specific host configuration
+Host myserver
+    HostName server.example.com
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/id_rsa_myserver
 ```
 
-## Authenticate with a Specific Key
+### Common Client Configuration Options
 
-A specific key can be specified in the SSH command.
+| Option | Description | Example |
+|--------|-------------|---------|
+| HostName | Real hostname to connect to | `HostName 192.168.1.100` |
+| User | Username to login as | `User admin` |
+| Port | Port to connect to | `Port 2222` |
+| IdentityFile | Private key file to use | `IdentityFile ~/.ssh/id_rsa` |
+| ForwardAgent | Enable SSH agent forwarding | `ForwardAgent yes` |
+| ForwardX11 | Enable X11 forwarding | `ForwardX11 yes` |
+| ServerAliveInterval | Seconds between keepalive packets | `ServerAliveInterval 60` |
+| ProxyJump | Use a jump host | `ProxyJump jumphost` |
+| StrictHostKeyChecking | Host key verification behavior | `StrictHostKeyChecking yes` |
+| IdentitiesOnly | Only use specified keys | `IdentitiesOnly yes` |
 
-```console
-ssh -i ~/.ssh/id_rsa_host username@host.domain.com
-```
+### Advanced Configuration Examples
 
-## Compare Public Key Fingerprint
-
-If you are having trouble logging into a host or a service, you can confirm that the fingerprint of your public key matches what was uploaded.
-
-```console
-ssh-keygen -l -E md5 -f ~/.ssh/id_rsa_ado.pub
-```
-
-## Test Authentication
-
-The following command will test authentication to a specific host.
-
-```console
-ssh -T git@ssh.github.com
-```
-
-In the case of source control services, you may get the following error. This is simply because the service is not intended for shell access and is completely normal.
+#### Jump Host Configuration
 
 ```text
-remote: Shell access is not supported.
+# Jump through bastion host to reach internal servers
+Host internal-server
+    HostName 10.0.0.5
+    User admin
+    ProxyJump bastion.example.com
+```
+
+#### Multiple GitHub Accounts
+
+```text
+# Personal GitHub account
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_github_personal
+    
+# Work GitHub account
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_github_work
+```
+
+#### X11 Forwarding for GUI Applications
+
+```text
+Host dev-server
+    HostName dev.example.com
+    User developer
+    ForwardX11 yes
+    ForwardX11Trusted yes
+```
+
+## Server Configuration
+
+The SSH server configuration is typically found in `/etc/ssh/sshd_config`. Here are some important security-focused settings:
+
+```text
+# Basic Settings
+Port 22
+Protocol 2
+ListenAddress 0.0.0.0
+
+# Authentication
+PermitRootLogin no
+MaxAuthTries 3
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+UsePAM yes
+
+# Security
+X11Forwarding no
+AllowTcpForwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+```
+
+### Security Best Practices for SSH Servers
+
+1. **Disable Root Login**:
+
+   ```text
+   PermitRootLogin no
+   ```
+
+2. **Use Key Authentication Only**:
+
+   ```text
+   PasswordAuthentication no
+   ```
+
+3. **Limit User Access**:
+
+   ```text
+   AllowUsers user1 user2
+   ```
+
+4. **Change Default Port** (obscurity, not security):
+
+   ```text
+   Port 2222
+   ```
+
+5. **Implement Fail2Ban** to protect against brute force attacks
+
+6. **Enable Two-Factor Authentication** for additional security
+
+7. **Disable Unused Features**:
+
+   ```text
+   X11Forwarding no
+   AllowAgentForwarding no
+   ```
+
+8. **Tighten Cryptographic Settings**:
+
+   ```text
+   Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+   MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+   KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group16-sha512
+   ```
+
+## Advanced SSH Techniques
+
+### Port Forwarding
+
+SSH can tunnel other services through its encrypted connection:
+
+#### Local Port Forwarding
+
+Makes a remote service appear as if it's running locally:
+
+```bash
+# Access remote MySQL server as if it were on localhost
+ssh -L 3306:localhost:3306 user@remote-server
+```
+
+#### Remote Port Forwarding
+
+Makes a local service accessible from the remote machine:
+
+```bash
+# Share local web server with remote machine
+ssh -R 8080:localhost:80 user@remote-server
+```
+
+#### Dynamic Port Forwarding (SOCKS Proxy)
+
+Creates a SOCKS proxy for routing traffic:
+
+```bash
+# Create a SOCKS proxy on port 1080
+ssh -D 1080 user@remote-server
+```
+
+### SSH Agent Forwarding
+
+Allows you to use your local SSH keys on a remote server:
+
+```bash
+# Enable agent forwarding for a single connection
+ssh -A user@remote-server
+
+# Or in config file
+Host remote-server
+    ForwardAgent yes
+```
+
+**Security Note**: Only use agent forwarding with trusted servers, as it gives the remote system access to your local SSH agent.
+
+### Certificate-Based Authentication
+
+For environments with many servers, SSH certificates provide a more scalable alternative to managing authorized_keys files:
+
+```bash
+# Create a certificate authority
+ssh-keygen -t ed25519 -f ssh_ca
+
+# Sign a user's public key
+ssh-keygen -s ssh_ca -I user_id -n username id_ed25519.pub
+
+# Configure server to trust the CA
+TrustedUserCAKeys /etc/ssh/ca.pub
+```
+
+## Troubleshooting SSH Connections
+
+### Common Issues and Solutions
+
+1. **Connection Refused**
+   - Verify SSH service is running
+   - Check firewall settings
+   - Confirm correct hostname and port
+
+2. **Permission Denied**
+   - Verify username and credentials
+   - Check key permissions (private key should be 600)
+   - Ensure public key is properly added to authorized_keys
+
+3. **Host Key Verification Failed**
+   - If legitimate host key change: `ssh-keygen -R hostname`
+   - If unexpected, investigate potential security issues
+
+4. **Slow Connection**
+   - Check DNS settings (UseDNS no)
+   - Review GSSAPI authentication settings
+   - Test with verbose output: `ssh -vvv user@host`
+
+### Debugging Commands
+
+```bash
+# Test SSH connection with verbose output
+ssh -vvv user@hostname
+
+# Check SSH key permissions
+ls -la ~/.ssh/
+
+# Verify public key fingerprint
+ssh-keygen -l -f ~/.ssh/id_ed25519.pub
+
+# Test specific authentication method
+ssh -o PreferredAuthentications=publickey user@hostname
+
+# Check if server allows password authentication
+ssh -o PreferredAuthentications=password user@hostname
 ```
 
 ## Quick Reference
@@ -155,7 +440,7 @@ ssh username@hostname
 ssh -p 2222 username@hostname
 
 # Connect with specific key
-ssh -i ~/.ssh/id_rsa username@hostname
+ssh -i ~/.ssh/id_ed25519 username@hostname
 
 # Copy files to remote host
 scp file.txt username@hostname:/path/to/destination/
@@ -165,75 +450,38 @@ scp username@hostname:/path/to/file.txt ./local/path/
 
 # Sync directories
 rsync -avz local/directory/ username@hostname:/remote/directory/
+
+# Mount remote filesystem locally (requires SSHFS)
+sshfs username@hostname:/remote/path /local/mount/point
 ```
 
-### Key Management
+### SSH Configuration Examples
 
-```bash
-# Generate new SSH key
-ssh-keygen -t ed25519 -C "your_email@example.com"
-
-# Add key to SSH agent
-ssh-add ~/.ssh/id_ed25519
-
-# List loaded keys
-ssh-add -l
-
-# Copy public key to remote host
-ssh-copy-id username@hostname
-
-# Test SSH connection
-ssh -T username@hostname
-```
-
-### SSH Configuration
-
-```bash
-# Edit SSH client config
-nano ~/.ssh/config
-
-# Check SSH configuration
-ssh -F ~/.ssh/config -T username@hostname
-
-# Generate host key fingerprint
-ssh-keygen -l -f /etc/ssh/ssh_host_ed25519_key.pub
-```
-
-## Configuration
-
-### Client Configuration (~/.ssh/config)
+**Client Config (~/.ssh/config)**:
 
 ```text
-# Global settings
-Host *
-    ServerAliveInterval 60
-    ServerAliveCountMax 3
-    
-# Specific host configuration
-Host myserver
-    HostName server.example.com
-    User admin
-    Port 2222
-    IdentityFile ~/.ssh/id_rsa_myserver
-    
-# Jump host configuration
-Host target
-    HostName 192.168.1.100
-    User user
-    ProxyJump jumphost
-    
-# GitHub configuration
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/id_rsa_github
+    IdentityFile ~/.ssh/id_github
+    IdentitiesOnly yes
+    
+Host bastion
+    HostName bastion.example.com
+    User admin
+    Port 2222
+    
+Host internal
+    HostName 10.0.0.10
+    User admin
+    ProxyJump bastion
 ```
 
-### Server Configuration (/etc/ssh/sshd_config)
+**Server Config (/etc/ssh/sshd_config)**:
 
 ```text
 # Security settings
-Port 2222
+Port 22
 Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
@@ -249,3 +497,9 @@ MaxStartups 5
 LogLevel INFO
 SyslogFacility AUTH
 ```
+
+## Additional Resources
+
+- [OpenSSH Documentation](https://www.openssh.com/)
+- [SSH Key Management Best Practices](https://www.ssh.com/academy/ssh/keygen)
+- [SSH Protocol Specification](https://datatracker.ietf.org/doc/html/rfc4251)

@@ -8,7 +8,13 @@
     items:
     - name: Diagrams
       href: pgp/diagrams/toc.yml
+  - name: Certificates
+    href: certificates/toc.yml
   - name: Wireless
     href: wireless/toc.yml
   - name: OSINT
     href: osint/toc.yml
+  - name: Networking
+    href: networking/index.md
+  - name: Windows
+    href: windows/index.md

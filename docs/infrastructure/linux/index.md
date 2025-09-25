@@ -326,6 +326,9 @@ sudo nano /etc/resolv.conf
 
 Most modern Linux distributions use systemd for service management:
 
+> [!TIP]
+> For comprehensive SystemD service management, security hardening, performance optimization, and enterprise automation, see our complete [**SystemD Service Management Guide**](systemd.md).
+
 ```bash
 # Service control
 sudo systemctl start service-name
@@ -459,5 +462,13 @@ Linux servers excel at:
 4. **Explore Package Management**: Install and manage software
 5. **Practice System Administration**: Configure services and security
 6. **Join the Community**: Participate in forums and contribute to projects
+
+## Specialized Topics
+
+For in-depth coverage of specific Linux administration topics, see our specialized guides:
+
+- **[SystemD Service Management](systemd.md)** - Complete enterprise guide to SystemD service management, security hardening, performance optimization, and automation with PowerShell integration
+- **[Server Administration](server.md)** - Advanced server configuration and management
+- **[Desktop Environment](desktop.md)** - Desktop setup and customization
 
 Linux offers powerful, flexible, and cost-effective solutions for both personal and enterprise use. Whether you're running a home server, developing applications, or managing enterprise infrastructure, Linux provides the tools and stability needed for success.

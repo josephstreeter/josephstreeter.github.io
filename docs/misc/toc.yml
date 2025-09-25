@@ -1,6 +1,8 @@
 - name: Miscellaneous
   href: index.md
   items:
+  - name: Home Lab Infrastructure
+    href: homelab/toc.yml
   - name: RTL-SDR
     href: rtl-sdr/toc.yml
   - name: Cuddeback

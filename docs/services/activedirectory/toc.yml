@@ -9,7 +9,7 @@
 - name: Global Catalogs
   href: global-catalogs.md
 - name: Domain Controllers
-  href: Domain-Controllers.md
+  href: domain-controllers.md
 - name: Directory Services Configuration
   href: Directory-Services-Configuration/toc.yml
 - name: Forest Trusts

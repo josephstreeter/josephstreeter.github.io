@@ -1,0 +1,25 @@
+- name: Home Lab Infrastructure
+  href: index.md
+  items:
+  - name: Architecture & Design
+    items:
+    - name: Overview
+      href: architecture/overview.md
+    - name: Network Topology
+      href: architecture/network-topology.md
+  - name: Physical Infrastructure
+    items:
+    - name: Hardware Requirements & Setup
+      href: hardware/requirements.md
+  - name: Core Services
+    items:
+    - name: DNS Configuration
+      href: services/dns-configuration.md
+  - name: Infrastructure as Code
+    items:
+    - name: Configuration Management
+      href: iac/configuration.md
+  - name: Monitoring & Security
+    items:
+    - name: Monitoring Stack Overview
+      href: monitoring/overview.md
