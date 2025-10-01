@@ -118,7 +118,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 - **[Identity Management](../idm/index.md)** - Broader identity solutions
 - **[Exchange](../exchange/index.md)** - Email system integration
-- **[Security](../../Security/index.md)** - Enterprise security documentation
+- **[Security](../../security/index.md)** - Enterprise security documentation
 - **[Infrastructure](../../infrastructure/index.md)** - Supporting infrastructure
 
 ---
