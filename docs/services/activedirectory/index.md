@@ -78,27 +78,27 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 ### 🎯 **For System Administrators**
 
-1. Start with [Forests and Domains](fundamentals/forests-and-domains.md) to understand AD structure
-2. Learn [Domain Controllers](fundamentals/domain-controllers.md) deployment and management
-3. Master [User Objects](objects-management/user-objects.md) and [Group Objects](objects-management/group-objects.md)
-4. Implement [Group Policy](fundamentals/group-policy.md) for configuration management
-5. Apply [Security Best Practices](security-best-practices.md)
+1. Start with [Forests and Domains](./fundamentals/forests-and-domains.md) to understand AD structure
+2. Learn [Domain Controllers](./fundamentals/domain-controllers.md) deployment and management
+3. Master [User Objects](./objects-management/user-objects.md) and [Group Objects](objects-management/group-objects.md)
+4. Implement [Group Policy](./fundamentals/group-policy.md) for configuration management
+5. Apply [Security Best Practices](./security-best-practices.md)
 
 ### 🔒 **For Security Professionals**
 
-1. Review [Security Best Practices](security-best-practices.md)
-2. Implement [Privileged Account Management](objects-management/privileged-accounts.md)
-3. Configure [LDAP Channel Binding](operations/ldap-channel-binding-and-ldap-signing.md)
-4. Set up [Monitoring and Logging](operations/monitoring-and-alerting.md)
-5. Plan [Disaster Recovery](configuration/disaster-recovery.md) procedures
+1. Review [Security Best Practices](./security-best-practices.md)
+2. Implement [Privileged Account Management](./objects-management/privileged-accounts.md)
+3. Configure [LDAP Channel Binding](./operations/ldap-channel-binding-and-ldap-signing.md)
+4. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
+5. Plan [Disaster Recovery](./configuration/disaster-recovery.md) procedures
 
 ### 🛠️ **For Operations Teams**
 
-1. Learn [Operations](operations/index.md) procedures
-2. Set up [Monitoring and Logging](operations/monitoring-and-alerting.md)
-3. Master [Maintenance Troubleshooting](operations/troubleshooting-guide.md)
-4. Implement [Certificate Management](operations/certificate-management.md)
-5. Configure [Time Service](operations/time-service.md)
+1. Learn [Operations](./operations/index.md) procedures
+2. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
+3. Master [Maintenance Troubleshooting](./operations/troubleshooting-guide.md)
+4. Implement [Certificate Management](./operations/certificate-management.md)
+5. Configure [Time Service](./operations/time-service.md)
 
 ## 🆘 **Quick Reference**
 

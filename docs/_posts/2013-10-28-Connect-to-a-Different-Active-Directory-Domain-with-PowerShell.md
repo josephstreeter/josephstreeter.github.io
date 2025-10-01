@@ -1,35 +1,7 @@
 ﻿---
-title:  Connect to a Different Active Directory Domif (-not(Get```powerif (-not(Get-PSDrive TEST))
-{
-New-PSDrive `
-â€"Name TEST `
-â€"PSProvider ActiveDirectory `
-â€"Server "dc-test-01.test.domain.com" `
-â€"Credential (Get-Credential 'TEST\jsmith-da') `
-â€"Root '//RootDSE/' `
--Scope Global
-}
-Else
-{ (-not(Get-PSDrive TEST))
-{
-New-PSDrive `
-â€"Name TEST `
-â€"PSProvider ActiveDirectory `
-â€"Server "dc-test-01.test.domain.com" `
-â€"Credential (Get-Credential 'TEST\jsmith-da') `e TEST))
-{
-New-PSDrive `
-â€"Name TEST `
-â€"PSProvider ActiveDirectory `
-â€"Server "dc-test-01.test.domain.com" `
-â€"Credential (Get-Credential 'TEST\jsmith-da') `
-â€"Root '//RootDSE/' `
--Scope Global
-}
-Else
-{
-"Drive already exists"
-}werShell
+title:  Connect to a Different Active Directory Domain with PowerShell
+author: Joseph Streeter
+layout: post
 date:   2013-10-28 00:00:00 -0500
 categories: IT
 ---
@@ -46,12 +18,12 @@ Now you can create the connection with the New-PSDrive commandlet.
 
 ```powershell
 New-PSDrive `
-â€“Name <PSDrive-Name> `
-â€“PSProvider ActiveDirectory `
-â€“Server "<Domain-Controller>" `
-â€“Credential (Get-Credential "<User-Name>") `
-â€“Root "//RootDSE/" `
--Scope Global
+    -Name <PSDrive-Name> `
+    -PSProvider ActiveDirectory `
+    -Server "<Domain-Controller>" `
+    -Credential (Get-Credential "<User-Name>") `
+    -Root "//RootDSE/" `
+    -Scope Global
 ```
 
 The new PSDrive can be used in several ways. Lets say that you have a test AD forest that you want to manage with PowerShell from a host joined to your production AD forest. The test forest has a domain controller named "dc-test-01.test.domain.com" that is providing the AD web service. The following command will create a PSDrive named "TEST" that will be connected to the "test.domain.com" domain.
@@ -60,12 +32,12 @@ If you're going to run this cmd-let from a script you will have to make sure tha
 
 ```powershell
 New-PSDrive `
-â€“Name TEST `
-â€“PSProvider ActiveDirectory `
-â€“Server "dc-test-01.test.domain.com" `
-â€“Credential (Get-Credential "TEST\jsmith-da") `
-â€“Root "//RootDSE/" `
--Scope Global
+    -Name TEST `
+    -PSProvider ActiveDirectory `
+    -Server "dc-test-01.test.domain.com" `
+    -Credential (Get-Credential "TEST\jsmith-da") `
+    -Root "//RootDSE/" `
+    -Scope Global
 ```
 
 To use this PSDrive you can "cd" to the "TEST" PSDrive and then run the Active Directory modules as normal:
@@ -86,23 +58,39 @@ The following code will check to see if the drive exists prior to attempting cre
 ```powershell
 if (-not(Get-PSDrive TEST))
 {
-New-PSDrive `
-â€“Name TEST `
-â€“PSProvider ActiveDirectory `
-â€“Server "dc-test-01.test.domain.com" `
-â€“Credential (Get-Credential 'TEST\jsmith-da') `
-â€“Root '//RootDSE/' `
--Scope Global
-}Else{
+    New-PSDrive `
+        -Name TEST `
+        -PSProvider ActiveDirectory `
+        -Server "dc-test-01.test.domain.com" `
+        -Credential (Get-Credential 'TEST\jsmith-da') `
+        -Root '//RootDSE/' `
+        -Scope Global
+}
+Else
+{
 "Drive already exists"
+}
+```
+
+```powershell
+if (-not(Get-PSDrive TEST))
+{
+    New-PSDrive `
+        -Name TEST `
+        -PSProvider ActiveDirectory `
+        -Server "dc-test-01.test.domain.com" `
+        -Credential (Get-Credential 'TEST\jsmith-da') `
+        -Root '//RootDSE/' `
+        -Scope Global
+}
+Else
+{
+    "Drive already exists"
 }
 ```
 
 ## References
 
-- <a href="http://blogs.msdn.com/b/adpowershell/archive/2009/03/11/the-drive-is-the-connection.aspx" target="_blank">Active Directory Powershell: The Drive is the connection (Active Directory Powershell Blog)</a>
-- <a href="http://technet.microsoft.com/en-us/library/ee176915.aspx" target="_blank">Using the New-PSDrive Cmdlet (TechNet)</a>
-- <a href="http://technet.microsoft.com/en-us/library/ee176856.aspx" target="_blank">Using the Get-PSDrive Cmdlet (TechNet)</a>
-
-
-
+- [Active Directory Powershell: The Drive is the connection (Active Directory Powershell Blog)](http://blogs.msdn.com/b/adpowershell/archive/2009/03/11/the-drive-is-the-connection.aspx)
+- [Using the New-PSDrive Cmdlet (TechNet)](http://technet.microsoft.com/en-us/library/ee176915.aspx)
+- [Using the Get-PSDrive Cmdlet (TechNet)](http://technet.microsoft.com/en-us/library/ee176856.aspx)
