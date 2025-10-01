@@ -1251,7 +1251,7 @@ If you have questions, contact the Identity Team at identity@company.com
 
 ## Related Topics
 
-- [Active Directory Security](../../../services/activedirectory/security/index.md)
+- [Active Directory Security](../../../services/activedirectory/Security/index.md)
 - [Privileged Access Management](../../../services/activedirectory/privileged-access/index.md)
 - [Windows Infrastructure Security](../../windows/security/index.md)
 - [Network Security](../../networking/security/index.md)

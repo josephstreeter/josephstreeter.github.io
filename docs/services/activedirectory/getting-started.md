@@ -321,9 +321,9 @@ After mastering the basics, explore:
 
 ### Advanced Administration
 
-- **[Operations](operations/index.md)** - Day-to-day administrative procedures
+- **[Operations](Operations/index.md)** - Day-to-day administrative procedures
 - **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
-- **[Monitoring and Logging](operations/monitoring-and-alerting.md)** - Health monitoring
+- **[Monitoring and Logging](Operations/monitoring-and-alerting.md)** - Health monitoring
 - **[Disaster Recovery](configuration/disaster-recovery.md)** - Backup and recovery procedures
 
 ## Related Documentation
@@ -331,7 +331,7 @@ After mastering the basics, explore:
 - **[Windows Server](../../infrastructure/windows/index.md)** - Server administration
 - **[PowerShell](../../development/powershell/index.md)** - Automation and scripting
 - **[Group Policy](fundamentals/group-policy.md)** - Policy management
-- **[Security](../../security/index.md)** - Enterprise security practices
+- **[Security](../../Security/index.md)** - Enterprise security practices
 
 ---
 

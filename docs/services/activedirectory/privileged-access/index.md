@@ -910,7 +910,7 @@ function Get-PrivilegedAccountRiskAssessment
 
 ## Related Topics
 
-- [Active Directory Security](../security/index.md)
+- [Active Directory Security](../Security/index.md)
 - [Active Directory Monitoring](../configuration/ad-monitoring.md)
 - [Group Policy Management](../fundamentals/group-policy.md)
 - [Infrastructure Security](../../../infrastructure/security/index.md)

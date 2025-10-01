@@ -103,7 +103,7 @@ Understand multi-domain search and authentication.
 
 - **🔧 [Operations](../operations/index.md)**: Day-to-day administration and monitoring
 - **🛠️ [Procedures](../procedures/index.md)**: Step-by-step administrative procedures
-- **🔒 [Security](../security/index.md)**: Security policies and best practices
+- **🔒 [Security](../Security/index.md)**: Security policies and best practices
 - **⚙️ [Configuration](../configuration/index.md)**: Advanced configuration topics
 
 ## Additional Resources

@@ -640,7 +640,7 @@ function Repair-Inheritance
 - **[Active Directory Fundamentals](../fundamentals/index.md)** - AD fundamentals and basic concepts
 - **[Domain Controllers](../fundamentals/domain-controllers.md)** - DC deployment and management  
 - **[Group Policy Management](../../grouppolicy/index.md)** - Policy-based management
-- **[Security Best Practices](../security/index.md)** - AD security hardening
+- **[Security Best Practices](../Security/index.md)** - AD security hardening
 - **[Troubleshooting Guide](../operations/troubleshooting-guide.md)** - Common AD issues and solutions
 
 ---

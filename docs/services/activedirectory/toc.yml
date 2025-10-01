@@ -7,9 +7,9 @@
 - name: Objects and Management
   href: objects-management/toc.yml
 - name: Security
-  href: security/toc.yml
+  href: Security/toc.yml
 - name: Operations
-  href: operations/toc.yml
+  href: Operations/toc.yml
 - name: Configuration
   href: configuration/toc.yml
 - name: Procedures

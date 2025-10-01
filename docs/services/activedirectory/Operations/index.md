@@ -71,7 +71,7 @@ Most operations in this section require:
 
 ## Related Sections
 
-- [Security](../security/index.md) - Security policies and procedures
+- [Security](../Security/index.md) - Security policies and procedures
 - [Configuration](../configuration/index.md) - Advanced configuration guides
 - [Procedures](../procedures/index.md) - Step-by-step administrative procedures
 - [Reference](../reference/index.md) - Quick reference materials
