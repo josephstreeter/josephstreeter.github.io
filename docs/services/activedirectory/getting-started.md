@@ -331,7 +331,7 @@ After mastering the basics, explore:
 - **[Windows Server](../../infrastructure/windows/index.md)** - Server administration
 - **[PowerShell](../../development/powershell/index.md)** - Automation and scripting
 - **[Group Policy](fundamentals/group-policy.md)** - Policy management
-- **[Security](../../Security/index.md)** - Enterprise security practices
+- **[Security](../../security/index.md)** - Enterprise security practices
 
 ---
 

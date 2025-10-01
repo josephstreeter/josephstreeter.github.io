@@ -194,7 +194,7 @@ Configuring Active Directory to handle growth and scale.
 ## Related Sections
 
 - **📖 [Fundamentals](../fundamentals/index.md)**: Core concepts needed for configuration
-- **🔧 [Operations](../operations/index.md)**: Ongoing maintenance and monitoring
+- **🔧 [Operations](../Operations/index.md)**: Ongoing maintenance and monitoring
 - **🛠️ [Procedures](../procedures/index.md)**: Step-by-step configuration procedures
 - **🔒 [Security](../Security/index.md)**: Security configuration and hardening
 

@@ -641,7 +641,7 @@ function Repair-Inheritance
 - **[Domain Controllers](../fundamentals/domain-controllers.md)** - DC deployment and management  
 - **[Group Policy Management](../../grouppolicy/index.md)** - Policy-based management
 - **[Security Best Practices](../Security/index.md)** - AD security hardening
-- **[Troubleshooting Guide](../operations/troubleshooting-guide.md)** - Common AD issues and solutions
+- **[Troubleshooting Guide](../Operations/troubleshooting-guide.md)** - Common AD issues and solutions
 
 ---
 

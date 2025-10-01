@@ -32,7 +32,7 @@ This section provides detailed, step-by-step procedures for common Active Direct
 
 ### Schema and Directory Extensions
 
-**📋 [Schema Extension Guide](../operations/apply-baseline-group-policy-and-security-template.md)**
+**📋 [Schema Extension Guide](../Operations/apply-baseline-group-policy-and-security-template.md)**
 
 Refer to our operations guide for schema-related procedures:
 
@@ -56,7 +56,7 @@ Complete procedures for integrating Linux systems with Active Directory:
 
 ### System Maintenance
 
-**🔧 [Secure Channel Reset Procedures](../operations/reset-secure-channel.md)**
+**🔧 [Secure Channel Reset Procedures](../Operations/reset-secure-channel.md)**
 
 Procedures for managing computer account secure channel relationships:
 
@@ -91,7 +91,7 @@ Active Directory database optimization and maintenance:
 - Database size optimization
 - Performance tuning procedures
 
-*See [Monitoring and Alerting](../operations/monitoring-and-alerting.md) for database health monitoring*
+*See [Monitoring and Alerting](../Operations/monitoring-and-alerting.md) for database health monitoring*
 
 - Database recovery procedures
 
@@ -158,7 +158,7 @@ Brief description of what this procedure accomplishes.
 | Reset user password | Account Management | 5 minutes | Low |
 | Unlock user account | Account Management | 2 minutes | Low |
 | Create new user account | Account Management | 15 minutes | Low |
-| Reset computer secure channel | [Secure Channel Reset](../operations/reset-secure-channel.md) | 10 minutes | Medium |
+| Reset computer secure channel | [Secure Channel Reset](../Operations/reset-secure-channel.md) | 10 minutes | Medium |
 
 ### Weekly/Monthly Maintenance
 
@@ -249,7 +249,7 @@ Special procedures for emergency situations:
 
 ## Related Sections
 
-- **🔧 [Operations](../operations/index.md)**: Ongoing maintenance and monitoring procedures
+- **🔧 [Operations](../Operations/index.md)**: Ongoing maintenance and monitoring procedures
 - **📖 [Fundamentals](../fundamentals/index.md)**: Core concepts needed for procedures
 - **⚙️ [Configuration](../configuration/index.md)**: Initial setup and configuration procedures
 - **📚 [Reference](../reference/index.md)**: Quick reference materials for procedures

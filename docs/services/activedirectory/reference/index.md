@@ -62,7 +62,7 @@ Essential performance counters for Active Directory monitoring:
 - Authentication and search performance
 - Threshold recommendations and alerting
 
-*See [Monitoring and Alerting](../operations/monitoring-and-alerting.md) for performance monitoring details*
+*See [Monitoring and Alerting](../Operations/monitoring-and-alerting.md) for performance monitoring details*
 
 ### Script Library
 
@@ -255,7 +255,7 @@ Get-ADObject "CN=ms-Exch-Schema-Version-Pt,CN=Schema,CN=Configuration,$((Get-ADR
 
 ## Related Sections
 
-- **🔧 [Operations](../operations/index.md)**: Detailed operational procedures
+- **🔧 [Operations](../Operations/index.md)**: Detailed operational procedures
 - **🛠️ [Procedures](../procedures/index.md)**: Step-by-step administrative procedures
 - **📖 [Fundamentals](../fundamentals/index.md)**: Core Active Directory concepts
 - **⚙️ [Configuration](../configuration/index.md)**: Configuration and setup guidance

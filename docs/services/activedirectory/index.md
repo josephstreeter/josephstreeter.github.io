@@ -88,17 +88,17 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 1. Review [Security Best Practices](./security-best-practices.md)
 2. Implement [Privileged Account Management](./objects-management/privileged-accounts.md)
-3. Configure [LDAP Channel Binding](./operations/ldap-channel-binding-and-ldap-signing.md)
-4. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
+3. Configure [LDAP Channel Binding](./Operations/ldap-channel-binding-and-ldap-signing.md)
+4. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
 5. Plan [Disaster Recovery](./configuration/disaster-recovery.md) procedures
 
 ### 🛠️ **For Operations Teams**
 
-1. Learn [Operations](./operations/index.md) procedures
-2. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
-3. Master [Maintenance Troubleshooting](./operations/troubleshooting-guide.md)
-4. Implement [Certificate Management](./operations/certificate-management.md)
-5. Configure [Time Service](./operations/time-service.md)
+1. Learn [Operations](./Operations/index.md) procedures
+2. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
+3. Master [Maintenance Troubleshooting](./Operations/troubleshooting-guide.md)
+4. Implement [Certificate Management](./Operations/certificate-management.md)
+5. Configure [Time Service](./Operations/time-service.md)
 
 ## 🆘 **Quick Reference**
 

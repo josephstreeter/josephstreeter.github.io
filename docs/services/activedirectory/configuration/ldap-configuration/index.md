@@ -52,5 +52,5 @@ Enhanced security through LDAP channel binding helps prevent man-in-the-middle a
 ## Related Topics
 
 - **[Security Best Practices](../../security-best-practices.md)** - LDAP security hardening
-- **[Operations](../../operations/index.md)** - Day-to-day LDAP management
-- **[Certificate Management](../../operations/certificate-management.md)** - PKI integration
+- **[Operations](../../Operations/index.md)** - Day-to-day LDAP management
+- **[Certificate Management](../../Operations/certificate-management.md)** - PKI integration
