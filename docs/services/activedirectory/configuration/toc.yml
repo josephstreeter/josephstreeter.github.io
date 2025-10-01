@@ -1,0 +1,12 @@
+- name: Active Directory Configuration
+  href: index.md
+- name: Directory Services Configuration
+  href: directory-services-configuration.md
+- name: Group Policy Management
+  href: group-policy.md
+- name: Windows Time Service
+  href: time-service.md
+- name: LDAPS Certificates
+  href: confirming-ldaps-certificates.md
+- name: LDAP Channel Binding and Signing
+  href: ldap-channel-binding-and-ldap-signing.md

@@ -75,7 +75,8 @@ $ServicesToDisable = @(
     "Spooler"
 )
 
-foreach ($Service in $ServicesToDisable) {
+foreach ($Service in $ServicesToDisable)
+{
     Stop-Service -Name $Service -Force -ErrorAction SilentlyContinue
     Set-Service -Name $Service -StartupType Disabled -ErrorAction SilentlyContinue
 }
@@ -99,7 +100,8 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" 
 ```powershell
 # Disable NetBIOS over TCP/IP
 $adapters = Get-WmiObject Win32_NetworkAdapterConfiguration | Where-Object {$_.IPEnabled -eq $true}
-foreach ($adapter in $adapters) {
+foreach ($adapter in $adapters)
+{
     $adapter.SetTcpipNetbios(2)  # 2 = Disable NetBIOS over TCP/IP
 }
 
@@ -220,12 +222,14 @@ Set-MpPreference -EnableNetworkProtection Enabled
 
 ```powershell
 # Function to detect suspicious processes
-function Get-SuspiciousProcesses {
+function Get-SuspiciousProcesses
+{
     $suspiciousProcesses = @()
     
     # Check for processes running from temp directories
     $processes = Get-Process | Where-Object {$_.Path -like "*\Temp\*" -or $_.Path -like "*\AppData\*"}
-    foreach ($process in $processes) {
+    foreach ($process in $processes)
+    {
         $suspiciousProcesses += [PSCustomObject]@{
             Name = $process.Name
             Path = $process.Path
@@ -236,10 +240,13 @@ function Get-SuspiciousProcesses {
     
     # Check for unsigned processes
     $processes = Get-Process | Where-Object {$_.Path -ne $null}
-    foreach ($process in $processes) {
-        try {
+    foreach ($process in $processes)
+    {
+        try
+        {
             $signature = Get-AuthenticodeSignature -FilePath $process.Path
-            if ($signature.Status -ne "Valid") {
+            if ($signature.Status -ne "Valid")
+            {
                 $suspiciousProcesses += [PSCustomObject]@{
                     Name = $process.Name
                     Path = $process.Path
@@ -248,7 +255,8 @@ function Get-SuspiciousProcesses {
                 }
             }
         }
-        catch {
+        catch
+        {
             # Ignore errors for system processes
         }
     }
@@ -294,7 +302,8 @@ Get-WinEvent -FilterHashtable @{LogName='Microsoft-Windows-DNS-Client/Operationa
 
 ```powershell
 # Implement CIS Critical Security Controls
-function Invoke-CISControls {
+function Invoke-CISControls
+{
     # Control 1: Inventory of Authorized and Unauthorized Devices
     Get-WmiObject -Class Win32_SystemEnclosure | Select-Object Manufacturer, Model, SerialNumber
     
@@ -318,7 +327,8 @@ Invoke-CISControls
 
 ```powershell
 # NIST Cybersecurity Framework implementation
-function Invoke-NISTFramework {
+function Invoke-NISTFramework
+{
     Write-Host "=== NIST CSF Implementation ===" -ForegroundColor Green
     
     # Identify
@@ -368,7 +378,8 @@ auditpol /get /category:*
 # Enable file system auditing on sensitive directories
 $paths = @("C:\Windows\System32", "C:\Users", "C:\Program Files")
 
-foreach ($path in $paths) {
+foreach ($path in $paths)
+{
     $acl = Get-Acl $path
     $accessRule = New-Object System.Security.AccessControl.FileSystemAuditRule(
         "Everyone",
@@ -390,7 +401,8 @@ foreach ($path in $paths) {
 
 ```powershell
 # Isolate compromised system
-function Invoke-SystemIsolation {
+function Invoke-SystemIsolation
+{
     Write-Host "Isolating system from network..." -ForegroundColor Red
     
     # Disable network adapters
@@ -413,7 +425,8 @@ function Invoke-SystemIsolation {
 
 ```powershell
 # Collect incident evidence
-function Collect-IncidentEvidence {
+function Collect-IncidentEvidence
+{
     param([string]$OutputPath = "C:\IncidentResponse")
     
     New-Item -Path $OutputPath -ItemType Directory -Force
@@ -507,7 +520,8 @@ cipher /w:C:\DeletedFiles
 
 ```powershell
 # Daily security health check
-function Invoke-DailySecurityCheck {
+function Invoke-DailySecurityCheck
+{
     $report = @{}
     
     # Check Windows Defender status
@@ -532,11 +546,13 @@ function Invoke-DailySecurityCheck {
     $report | Format-Table -AutoSize
     
     # Send alerts if issues found
-    if (-not $report.DefenderEnabled -or -not $report.FirewallEnabled) {
+    if (-not $report.DefenderEnabled -or -not $report.FirewallEnabled)
+    {
         Write-Host "ALERT: Critical security controls disabled!" -ForegroundColor Red
     }
     
-    if ($report.FailedLogonAttempts -gt 5) {
+    if ($report.FailedLogonAttempts -gt 5)
+    {
         Write-Host "WARNING: Multiple failed logon attempts detected!" -ForegroundColor Yellow
     }
 }
@@ -548,12 +564,14 @@ Invoke-DailySecurityCheck
 
 ```powershell
 # Automated Windows hardening script
-function Invoke-WindowsHardening {
+function Invoke-WindowsHardening
+{
     Write-Host "Starting Windows security hardening..." -ForegroundColor Green
     
     # Disable unnecessary services
     $servicesToDisable = @("Fax", "WSearch", "RemoteRegistry")
-    foreach ($service in $servicesToDisable) {
+    foreach ($service in $servicesToDisable)
+    {
         Set-Service -Name $service -StartupType Disabled -ErrorAction SilentlyContinue
         Write-Host "Disabled service: $service" -ForegroundColor Yellow
     }

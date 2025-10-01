@@ -505,7 +505,8 @@ stages:
               targetType: 'inline'
               script: |
                 $response = Invoke-WebRequest -Uri "https://myapp-staging.azurewebsites.net/health" -UseBasicParsing
-                if ($response.StatusCode -ne 200) {
+                if ($response.StatusCode -ne 200)
+                {
                   throw "Health check failed"
                 }
 
@@ -560,12 +561,15 @@ stages:
                   "https://myapp-production.azurewebsites.net/api/status"
                 )
                 
-                foreach ($endpoint in $endpoints) {
-                  try {
+                foreach ($endpoint in $endpoints)
+                {
+                  try
+                  {
                     $response = Invoke-WebRequest -Uri $endpoint -UseBasicParsing -TimeoutSec 30
                     Write-Host "✓ $endpoint - Status: $($response.StatusCode)"
                   }
-                  catch {
+                  catch
+                  {
                     Write-Error "✗ $endpoint - Failed: $($_.Exception.Message)"
                     throw
                   }

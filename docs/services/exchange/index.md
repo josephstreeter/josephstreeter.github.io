@@ -10,7 +10,8 @@ Microsoft Exchange Server is a mail server and calendaring server developed by M
 
 ```powershell
 # Exchange Server Prerequisites Check
-function Test-ExchangePrerequisites {
+function Test-ExchangePrerequisites
+{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -42,24 +43,30 @@ function Test-ExchangePrerequisites {
     Write-Host "Checking Exchange Prerequisites for $ServerName" -ForegroundColor Green
     
     # Check Windows Features
-    foreach ($Feature in $Prerequisites.'Windows Features') {
+    foreach ($Feature in $Prerequisites.'Windows Features')
+    {
         $FeatureState = Get-WindowsFeature -Name $Feature
-        if ($FeatureState.InstallState -eq 'Installed') {
+        if ($FeatureState.InstallState -eq 'Installed')
+        {
             Write-Host "✓ $Feature is installed" -ForegroundColor Green
-        } else {
+        }
+        else
+        {
             Write-Warning "✗ $Feature is not installed"
         }
     }
 }
 
 # Exchange Health Check
-function Get-ExchangeHealth {
+function Get-ExchangeHealth
+{
     [CmdletBinding()]
     param(
         [string[]]$Servers = (Get-ExchangeServer | Where-Object {$_.ServerRole -match "Mailbox"}).Name
     )
     
-    foreach ($Server in $Servers) {
+    foreach ($Server in $Servers)
+    {
         Write-Host "Checking Exchange Health for $Server" -ForegroundColor Cyan
         
         # Test Exchange Services
@@ -71,12 +78,17 @@ function Get-ExchangeHealth {
             'MSExchangeTransport'
         )
         
-        foreach ($Service in $Services) {
+        foreach ($Service in $Services)
+        {
             $ServiceStatus = Get-Service -Name $Service -ComputerName $Server -ErrorAction SilentlyContinue
-            if ($ServiceStatus) {
-                if ($ServiceStatus.Status -eq 'Running') {
+            if ($ServiceStatus)
+            {
+                if ($ServiceStatus.Status -eq 'Running')
+                {
                     Write-Host "✓ $Service is running" -ForegroundColor Green
-                } else {
+                }
+                else
+                {
                     Write-Warning "✗ $Service is $($ServiceStatus.Status)"
                 }
             }
@@ -84,7 +96,8 @@ function Get-ExchangeHealth {
         
         # Test Mailbox Database Status
         $Databases = Get-MailboxDatabase -Server $Server
-        foreach ($Database in $Databases) {
+        foreach ($Database in $Databases)
+        {
             $DbStatus = Get-MailboxDatabase $Database.Name -Status
             Write-Host "Database: $($Database.Name) - Mounted: $($DbStatus.Mounted)" -ForegroundColor Yellow
         }
@@ -111,40 +124,50 @@ class ExchangeDatabase {
         $this.CircularLoggingEnabled = $false
     }
     
-    [void]CreateDatabase() {
-        try {
+    [void]CreateDatabase()
+    {
+        try
+        {
             New-MailboxDatabase -Name $this.Name -Server $this.Server -EdbFilePath $this.EdbFilePath -LogFolderPath $this.LogFolderPath
             Write-Host "Database $($this.Name) created successfully" -ForegroundColor Green
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to create database: $($_.Exception.Message)"
         }
     }
     
-    [void]MountDatabase() {
-        try {
+    [void]MountDatabase()
+    {
+        try
+        {
             Mount-Database $this.Name
             Write-Host "Database $($this.Name) mounted successfully" -ForegroundColor Green
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to mount database: $($_.Exception.Message)"
         }
     }
     
-    [void]EnableCircularLogging() {
-        try {
+    [void]EnableCircularLogging()
+    {
+        try
+        {
             Set-MailboxDatabase $this.Name -CircularLoggingEnabled $true
             $this.CircularLoggingEnabled = $true
             Write-Host "Circular logging enabled for $($this.Name)" -ForegroundColor Green
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to enable circular logging: $($_.Exception.Message)"
         }
     }
 }
 
 # Database Backup Management
-function Start-ExchangeBackup {
+function Start-ExchangeBackup
+{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -156,23 +179,25 @@ function Start-ExchangeBackup {
     $BackupDate = Get-Date -Format "yyyyMMdd_HHmmss"
     $BackupFolder = Join-Path $BackupPath "Exchange_Backup_$BackupDate"
     
-    try {
+    try
+    {
         # Create backup directory
         New-Item -Path $BackupFolder -ItemType Directory -Force
-        
+
         # Suspend database copy
         Suspend-MailboxDatabaseCopy -Identity $DatabaseName -SuspendComment "Backup operation"
-        
+
         # Perform backup using Windows Server Backup
         $BackupCommand = "wbadmin start backup -backupTarget:$BackupFolder -include:$DatabaseName -quiet"
         Invoke-Expression $BackupCommand
-        
+
         # Resume database copy
         Resume-MailboxDatabaseCopy -Identity $DatabaseName
-        
+
         Write-Host "Backup completed: $BackupFolder" -ForegroundColor Green
     }
-    catch {
+    catch
+    {
         Write-Error "Backup failed: $($_.Exception.Message)"
         # Ensure database copy is resumed
         Resume-MailboxDatabaseCopy -Identity $DatabaseName -ErrorAction SilentlyContinue
@@ -186,7 +211,8 @@ function Start-ExchangeBackup {
 
 ```powershell
 # Transport Rules Management
-function New-ExchangeTransportRule {
+function New-ExchangeTransportRule
+{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -203,7 +229,8 @@ function New-ExchangeTransportRule {
         Enabled = $true
     }
     
-    if ($MessageContains) {
+    if ($MessageContains)
+    {
         $RuleParameters.Add('SubjectOrBodyContainsWords', $MessageContains)
     }
     
@@ -219,17 +246,20 @@ function New-ExchangeTransportRule {
         }
     }
     
-    try {
+    try
+    {
         New-TransportRule @RuleParameters
         Write-Host "Transport rule '$Name' created successfully" -ForegroundColor Green
     }
-    catch {
+    catch
+    {
         Write-Error "Failed to create transport rule: $($_.Exception.Message)"
     }
 }
 
 # SMTP Connector Configuration
-function New-ExchangeSMTPConnector {
+function New-ExchangeSMTPConnector
+{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -243,7 +273,8 @@ function New-ExchangeSMTPConnector {
         [bool]$ExchangeUsers = $true
     )
     
-    try {
+    try
+    {
         $ConnectorParams = @{
             Name = $Name
             Usage = 'Custom'
@@ -258,7 +289,8 @@ function New-ExchangeSMTPConnector {
         New-ReceiveConnector @ConnectorParams
         Write-Host "SMTP Connector '$Name' created successfully" -ForegroundColor Green
     }
-    catch {
+    catch
+    {
         Write-Error "Failed to create SMTP connector: $($_.Exception.Message)"
     }
 }
@@ -270,7 +302,8 @@ function New-ExchangeSMTPConnector {
 
 ```powershell
 # Exchange Security Assessment
-function Test-ExchangeSecurity {
+function Test-ExchangeSecurity
+{
     [CmdletBinding()]
     param(
         [string[]]$Servers = (Get-ExchangeServer).Name
@@ -278,7 +311,8 @@ function Test-ExchangeSecurity {
     
     $SecurityChecks = @()
     
-    foreach ($Server in $Servers) {
+    foreach ($Server in $Servers)
+    {
         Write-Host "Checking security for $Server" -ForegroundColor Cyan
         
         # Check SSL/TLS Configuration
@@ -286,10 +320,13 @@ function Test-ExchangeSecurity {
             'OWA', 'ECP', 'ActiveSync', 'OAB', 'EWS', 'MAPI', 'PowerShell'
         )
         
-        foreach ($VDir in $VirtualDirectories) {
-            try {
+        foreach ($VDir in $VirtualDirectories)
+        {
+            try
+            {
                 $VDirConfig = & "Get-$VDir`VirtualDirectory" -Server $Server
-                foreach ($Config in $VDirConfig) {
+                foreach ($Config in $VDirConfig)
+                {
                     $SecurityCheck = [PSCustomObject]@{
                         Server = $Server
                         VirtualDirectory = $VDir
@@ -301,7 +338,8 @@ function Test-ExchangeSecurity {
                     $SecurityChecks += $SecurityCheck
                 }
             }
-            catch {
+            catch
+            {
                 Write-Warning "Could not check $VDir on $Server"
             }
         }
@@ -322,7 +360,8 @@ function Test-ExchangeSecurity {
 }
 
 # Enable Exchange Security Features
-function Enable-ExchangeSecurityFeatures {
+function Enable-ExchangeSecurityFeatures
+{
     [CmdletBinding()]
     param(
         [switch]$EnableAntispam,
@@ -331,15 +370,18 @@ function Enable-ExchangeSecurityFeatures {
         [string[]]$Servers = (Get-ExchangeServer | Where-Object {$_.ServerRole -match "Mailbox"}).Name
     )
     
-    if ($EnableAntispam) {
+    if ($EnableAntispam)
+    {
         Write-Host "Enabling Anti-spam features..." -ForegroundColor Yellow
-        foreach ($Server in $Servers) {
+        foreach ($Server in $Servers)
+        {
             & "$env:ExchangeInstallPath\Scripts\Install-AntiSpamAgents.ps1"
             Restart-Service MSExchangeTransport
         }
     }
     
-    if ($EnableAuditLogging) {
+    if ($EnableAuditLogging)
+    {
         Write-Host "Enabling Audit Logging..." -ForegroundColor Yellow
         Set-AdminAuditLogConfig -AdminAuditLogEnabled $true -AdminAuditLogCmdlets * -AdminAuditLogParameters *
         
@@ -347,9 +389,11 @@ function Enable-ExchangeSecurityFeatures {
         Get-Mailbox | Set-Mailbox -AuditEnabled $true -AuditLogAgeLimit 90.00:00:00
     }
     
-    if ($EnableTLS) {
+    if ($EnableTLS)
+    {
         Write-Host "Configuring TLS..." -ForegroundColor Yellow
-        foreach ($Server in $Servers) {
+        foreach ($Server in $Servers)
+        {
             # Force TLS on receive connectors
             Get-ReceiveConnector -Server $Server | Set-ReceiveConnector -RequireTLS $true
             
@@ -366,7 +410,8 @@ function Enable-ExchangeSecurityFeatures {
 
 ```powershell
 # Connect to Exchange Online
-function Connect-ExchangeOnlineCustom {
+function Connect-ExchangeOnlineCustom
+{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)]
@@ -374,26 +419,33 @@ function Connect-ExchangeOnlineCustom {
         [switch]$UseModernAuth
     )
     
-    try {
-        if ($UseModernAuth) {
+    try
+    {
+        if ($UseModernAuth)
+        {
             Connect-ExchangeOnline -UserPrincipalName $UserPrincipalName -ShowProgress $true
-        } else {
+        }
+        else
+        {
             $Credential = Get-Credential -UserName $UserPrincipalName -Message "Enter Exchange Online credentials"
             Connect-ExchangeOnline -Credential $Credential -ShowProgress $true
         }
         Write-Host "Connected to Exchange Online successfully" -ForegroundColor Green
     }
-    catch {
+    catch
+    {
         Write-Error "Failed to connect to Exchange Online: $($_.Exception.Message)"
     }
 }
 
 # Exchange Online Health Check
-function Get-ExchangeOnlineHealth {
+function Get-ExchangeOnlineHealth
+{
     [CmdletBinding()]
     param()
     
-    try {
+    try
+    {
         Write-Host "Exchange Online Health Report" -ForegroundColor Cyan
         Write-Host "================================" -ForegroundColor Cyan
         
@@ -419,7 +471,8 @@ function Get-ExchangeOnlineHealth {
         Write-Host "Safe Attachment Policies: $($SafeAttachmentPolicies.Count)" -ForegroundColor Yellow
         Write-Host "Safe Links Policies: $($SafeLinksPolicies.Count)" -ForegroundColor Yellow
     }
-    catch {
+    catch
+    {
         Write-Error "Failed to get Exchange Online health: $($_.Exception.Message)"
     }
 }
@@ -441,31 +494,36 @@ class ExchangeMigration {
     }
     
     [void]CreateMigrationEndpoint([string]$EndpointName, [string]$ExchangeServer, [string]$Username, [securestring]$Password) {
-        try {
+        try
+        {
             $Credential = New-Object System.Management.Automation.PSCredential($Username, $Password)
             New-MigrationEndpoint -Name $EndpointName -ExchangeRemoteMove -RemoteServer $ExchangeServer -Credentials $Credential
             $this.MigrationEndpoint = $EndpointName
             Write-Host "Migration endpoint '$EndpointName' created" -ForegroundColor Green
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to create migration endpoint: $($_.Exception.Message)"
         }
     }
     
     [void]StartMigrationBatch([string]$BatchName, [string[]]$Users) {
-        try {
+        try
+        {
             $this.UserList = $Users
             New-MigrationBatch -Name $BatchName -Users $Users -TargetDeliveryDomain "$($this.TargetEnvironment).mail.onmicrosoft.com"
             Start-MigrationBatch -Identity $BatchName
             Write-Host "Migration batch '$BatchName' started for $($Users.Count) users" -ForegroundColor Green
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to start migration batch: $($_.Exception.Message)"
         }
     }
     
     [PSCustomObject]GetMigrationStatus([string]$BatchName) {
-        try {
+        try
+        {
             $BatchStatus = Get-MigrationBatch -Identity $BatchName
             $UserStatistics = Get-MigrationUser -BatchId $BatchName | Get-MigrationUserStatistics
             
@@ -478,7 +536,8 @@ class ExchangeMigration {
                 Failed = ($UserStatistics | Where-Object {$_.Status -eq 'Failed'}).Count
             }
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to get migration status: $($_.Exception.Message)"
             return $null
         }
@@ -509,14 +568,16 @@ class ExchangeMigration {
 
 ```powershell
 # Exchange Monitoring Script
-function Start-ExchangeMonitoring {
+function Start-ExchangeMonitoring
+{
     [CmdletBinding()]
     param(
         [int]$CheckIntervalMinutes = 15,
         [string]$LogPath = "C:\ExchangeLogs\Monitoring.log"
     )
     
-    while ($true) {
+    while ($true)
+    {
         $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
         
         # Check Exchange Services

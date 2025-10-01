@@ -36,7 +36,8 @@ $Warning = 125
 
 if (!($hash)) {$hash = Get-Credential}
 
-if ($DiskSpace -lt $Warning) {
+if ($DiskSpace -lt $Warning)
+{
 Send-MailMessage `
 -From $From `
 -To $To `

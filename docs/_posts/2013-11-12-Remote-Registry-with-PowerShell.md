@@ -32,7 +32,8 @@ $keys = @(
 
 $reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey("LocalMachine", $Computer)
 
-foreach ($key in $keys) {
+foreach ($key in $keys)
+{
 $key.Split(",")[0] + ":  " + $reg.OpenSubKey($key.Split(",")[1]).GetValue($key.Split(",")[2])
 }
 ```

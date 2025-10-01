@@ -157,7 +157,8 @@ class BankAccount {
     
     # Method to deposit money
     [void] Deposit([decimal]$amount) {
-        if ($amount -le 0) {
+        if ($amount -le 0)
+        {
             throw "Deposit amount must be positive"
         }
         $this.Balance += $amount
@@ -167,11 +168,13 @@ class BankAccount {
     
     # Method to withdraw money
     [bool] Withdraw([decimal]$amount) {
-        if ($amount -le 0) {
+        if ($amount -le 0)
+        {
             throw "Withdrawal amount must be positive"
         }
         
-        if ($amount -gt $this.Balance) {
+        if ($amount -gt $this.Balance)
+        {
             Write-Warning "Insufficient funds. Current balance: $($this.Balance)"
             return $false
         }
@@ -202,16 +205,19 @@ Methods that don't require an instance:
 class MathUtilities {
     # Static method for calculating factorial
     static [long] Factorial([int]$number) {
-        if ($number -lt 0) {
+        if ($number -lt 0)
+        {
             throw "Factorial is not defined for negative numbers"
         }
         
-        if ($number -eq 0 -or $number -eq 1) {
+        if ($number -eq 0 -or $number -eq 1)
+        {
             return 1
         }
         
         $result = 1
-        for ($i = 2; $i -le $number; $i++) {
+        for ($i = 2; $i -le $number; $i++)
+        {
             $result *= $i
         }
         
@@ -220,12 +226,15 @@ class MathUtilities {
     
     # Static method for checking prime numbers
     static [bool] IsPrime([int]$number) {
-        if ($number -lt 2) {
+        if ($number -lt 2)
+        {
             return $false
         }
         
-        for ($i = 2; $i -le [Math]::Sqrt($number); $i++) {
-            if ($number % $i -eq 0) {
+        for ($i = 2; $i -le [Math]::Sqrt($number); $i++)
+        {
+            if ($number % $i -eq 0)
+            {
                 return $false
             }
         }
@@ -380,7 +389,8 @@ class Temperature {
     
     # Custom setter for Celsius
     [void] set_Celsius([double]$value) {
-        if ($value -lt -273.15) {
+        if ($value -lt -273.15)
+        {
             throw "Temperature cannot be below absolute zero (-273.15°C)"
         }
         $this._celsius = $value
@@ -431,17 +441,20 @@ class Version : IComparable {
     }
     
     [int] CompareTo([object]$other) {
-        if ($other -isnot [Version]) {
+        if ($other -isnot [Version])
+        {
             throw "Can only compare to another Version object"
         }
         
         $otherVersion = [Version]$other
         
-        if ($this.Major -ne $otherVersion.Major) {
+        if ($this.Major -ne $otherVersion.Major)
+        {
             return $this.Major - $otherVersion.Major
         }
         
-        if ($this.Minor -ne $otherVersion.Minor) {
+        if ($this.Minor -ne $otherVersion.Minor)
+        {
             return $this.Minor - $otherVersion.Minor
         }
         
@@ -470,8 +483,10 @@ class ConfigurationManager {
     }
     
     [void] LoadConfiguration() {
-        if (Test-Path $this.ConfigFile) {
-            try {
+        if (Test-Path $this.ConfigFile)
+        {
+            try
+            {
                 $content = Get-Content $this.ConfigFile -Raw | ConvertFrom-Json
                 $this._settings = @{}
                 
@@ -481,29 +496,34 @@ class ConfigurationManager {
                 
                 Write-Verbose "Configuration loaded from $($this.ConfigFile)"
             }
-            catch {
+            catch
+            {
                 Write-Warning "Failed to load configuration: $($_.Exception.Message)"
                 $this._settings = @{}
             }
         }
-        else {
+        else
+        {
             Write-Warning "Configuration file not found: $($this.ConfigFile)"
             $this._settings = @{}
         }
     }
     
     [void] SaveConfiguration() {
-        try {
+        try
+        {
             $this._settings | ConvertTo-Json -Depth 3 | Set-Content $this.ConfigFile
             Write-Verbose "Configuration saved to $($this.ConfigFile)"
         }
-        catch {
+        catch
+        {
             Write-Error "Failed to save configuration: $($_.Exception.Message)"
         }
     }
     
     [object] GetSetting([string]$key, [object]$defaultValue = $null) {
-        if ($this._settings.ContainsKey($key)) {
+        if ($this._settings.ContainsKey($key))
+        {
             return $this._settings[$key]
         }
         return $defaultValue
@@ -550,13 +570,15 @@ class Logger {
         
         # Ensure log directory exists
         $logDir = Split-Path $this.LogFile -Parent
-        if (-not (Test-Path $logDir)) {
+        if (-not (Test-Path $logDir))
+        {
             New-Item -Path $logDir -ItemType Directory -Force | Out-Null
         }
     }
     
     [void] Log([LogLevel]$level, [string]$message, [string]$category = "General") {
-        if ($level -lt $this.MinimumLevel) {
+        if ($level -lt $this.MinimumLevel)
+        {
             return
         }
         
@@ -564,15 +586,18 @@ class Logger {
         $logEntry = "[$timestamp] [$level] [$category] $message"
         
         # Write to file
-        try {
+        try
+        {
             Add-Content -Path $this.LogFile -Value $logEntry
         }
-        catch {
+        catch
+        {
             Write-Warning "Failed to write to log file: $($_.Exception.Message)"
         }
         
         # Write to console if enabled
-        if ($this.ConsoleOutput) {
+        if ($this.ConsoleOutput)
+        {
             switch ($level) {
                 ([LogLevel]::Debug) { Write-Host $logEntry -ForegroundColor Gray }
                 ([LogLevel]::Information) { Write-Host $logEntry -ForegroundColor White }

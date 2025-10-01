@@ -925,7 +925,8 @@ param(
     [int]$IntervalMinutes = 5
 )
 
-while ($true) {
+while ($true)
+{
     $timestamp = Get-Date
     
     # Check MIM Sync Service status
@@ -941,7 +942,8 @@ while ($true) {
     
     # Check for sync errors
     $errors = Get-EventLog -LogName Application -Source "FIMSynchronizationService" -EntryType Error -After (Get-Date).AddMinutes(-$IntervalMinutes) -ComputerName $MIMServer
-    if ($errors) {
+    if ($errors)
+    {
         Write-Warning "$timestamp - Found $($errors.Count) sync errors in last $IntervalMinutes minutes"
     }
     
@@ -960,12 +962,14 @@ while ($true) {
 $MIMServer = "MIMSyncServer"
 $LogPath = "C:\MIM\Logs\DailySync.log"
 
-function Write-SyncLog($Message) {
+function Write-SyncLog($Message)
+{
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     "$timestamp - $Message" | Tee-Object -FilePath $LogPath -Append
 }
 
-try {
+try
+{
     Write-SyncLog "Starting daily synchronization"
     
     # SQL MA Delta Import
@@ -986,7 +990,8 @@ try {
     
     Write-SyncLog "Daily synchronization completed successfully"
 }
-catch {
+catch
+{
     Write-SyncLog "ERROR: Daily synchronization failed - $($_.Exception.Message)"
     # Send alert email
     Send-MailMessage -To "admin@company.com" -Subject "MIM Sync Error" -Body $_.Exception.Message

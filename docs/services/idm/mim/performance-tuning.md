@@ -407,7 +407,8 @@ ORDER BY wait_time_ms DESC
 **Automated Health Checks:**
 
 ```powershell
-function Get-MIMSyncPerformance {
+function Get-MIMSyncPerformance
+{
     param(
         [int]$ThresholdCPU = 80,
         [int]$ThresholdMemory = 90,

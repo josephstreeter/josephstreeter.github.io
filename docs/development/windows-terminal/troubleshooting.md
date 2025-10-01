@@ -212,10 +212,13 @@ Get-Content "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\
 
 ```powershell
 # Test JSON validity
-try {
+try
+{
     Get-Content "settings.json" | ConvertFrom-Json
     Write-Host "JSON is valid" -ForegroundColor Green
-} catch {
+}
+catch
+{
     Write-Host "JSON is invalid: $($_.Exception.Message)" -ForegroundColor Red
 }
 ```
@@ -250,15 +253,19 @@ $PROFILE
 PowerShell -NoProfile -Command "Write-Host 'PowerShell working without profile'"
 
 # Recreate profile
-if (!(Test-Path $PROFILE)) {
+if (!(Test-Path $PROFILE))
+{
     New-Item -Type File -Path $PROFILE -Force
 }
 
 # Test profile content
-try {
+try
+{
     . $PROFILE
     Write-Host "Profile loaded successfully" -ForegroundColor Green
-} catch {
+}
+catch
+{
     Write-Host "Profile error: $($_.Exception.Message)" -ForegroundColor Red
 }
 ```

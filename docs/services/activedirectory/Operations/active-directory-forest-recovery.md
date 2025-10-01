@@ -1240,9 +1240,9 @@ Resolve-ForestRecoveryIssues
 
 ### Related Internal Documentation
 
-- [Active Directory Security Best Practices](../Security/index.md)
-- [Backup and Recovery Procedures](../Backup/index.md)
-- [Disaster Recovery Planning](../disaster-recovery/index.md)
+- [Active Directory Security Best Practices](../security/index.md)
+- [Backup and Recovery Procedures](backup-and-restore.md)
+- [Disaster Recovery Planning](../configuration/disaster-recovery.md)
 
 ### Tools and Utilities
 

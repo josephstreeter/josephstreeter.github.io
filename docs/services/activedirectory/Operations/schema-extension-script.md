@@ -120,18 +120,35 @@ Import-Module ActiveDirectory -ErrorAction Stop
 
 #region Functions
 
-function Write-LogMessage {
+function Write-LogMessage
+{
     param(
         [string]$Message,
         [string]$Level = "INFO"
     )
+    
     $Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
     $LogEntry = "[$Timestamp] [$Level] $Message"
-    Write-Host $LogEntry -ForegroundColor $(if($Level -eq "ERROR"){"Red"}elseif($Level -eq "WARNING"){"Yellow"}else{"Green"})
+    
+    if ($Level -eq "ERROR")
+    {
+        $Color = "Red"
+    }
+    elseif ($Level -eq "WARNING")
+    {
+        $Color = "Yellow"
+    }
+    else
+    {
+        $Color = "Green"
+    }
+    
+    Write-Host $LogEntry -ForegroundColor $Color
     Add-Content -Path "$LogPath\SchemaExtension.log" -Value $LogEntry
 }
 
-function New-EnterpriseOID {
+function New-EnterpriseOID
+{
     <#
     .SYNOPSIS
         Generates proper enterprise OID for schema extensions
@@ -158,23 +175,27 @@ function New-EnterpriseOID {
     return $OID
 }
 
-function Test-SchemaAttribute {
+function Test-SchemaAttribute
+{
     param(
         [string]$AttributeName,
         [string]$ConfigurationNC
     )
     
-    try {
+    try
+    {
         $Attribute = Get-ADObject -Filter "Name -eq '$AttributeName'" -SearchBase "CN=Schema,$ConfigurationNC" -ErrorAction SilentlyContinue
         return ($null -ne $Attribute)
     }
-    catch {
+    catch
+    {
         Write-LogMessage "Error checking attribute $AttributeName`: $($_.Exception.Message)" "ERROR"
         return $false
     }
 }
 
-function New-AttributeDefinition {
+function New-AttributeDefinition
+{
     param(
         [string]$Name,
         [string]$AttributeSyntax,
@@ -201,7 +222,8 @@ Write-LogMessage "Domain: $DomainName" "INFO"
 Write-LogMessage "Test Mode: $TestMode" "INFO"
 
 # Validate prerequisites
-try {
+try
+{
     $Forest = Get-ADForest
     $ConfigurationNC = $Forest.PartitionsContainer
     $SchemaNC = "CN=Schema," + $Forest.PartitionsContainer
@@ -211,29 +233,35 @@ try {
     Write-LogMessage "Schema NC: $SchemaNC" "INFO"
     Write-LogMessage "Domain DN: $DomainDN" "INFO"
 }
-catch {
+catch
+{
     Write-LogMessage "Failed to connect to Active Directory: $($_.Exception.Message)" "ERROR"
     exit 1
 }
 
 # Verify Schema Admin privileges
-try {
+try
+{
     $CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent()
     $Principal = New-Object System.Security.Principal.WindowsPrincipal($CurrentUser)
     $SchemaAdmins = Get-ADGroup "Schema Admins" -Properties Members
     $CurrentUserDN = (Get-ADUser -Identity $CurrentUser.Name).DistinguishedName
     
-    if ($SchemaAdmins.Members -notcontains $CurrentUserDN) {
+    if ($SchemaAdmins.Members -notcontains $CurrentUserDN)
+    {
         Write-LogMessage "Current user is not a member of Schema Admins group" "ERROR"
-        if (-not $TestMode) {
+        if (-not $TestMode)
+        {
             exit 1
         }
     }
-    else {
+    else
+    {
         Write-LogMessage "Schema Admin privileges verified" "INFO"
     }
 }
-catch {
+catch
+{
     Write-LogMessage "Error verifying Schema Admin privileges: $($_.Exception.Message)" "WARNING"
 }
 
@@ -257,14 +285,17 @@ Write-LogMessage "Defined $($AttributeDefinitions.Count) custom attributes" "INF
 
 # Check for existing attributes
 $ExistingAttributes = @()
-foreach ($Attribute in $AttributeDefinitions) {
-    if (Test-SchemaAttribute -AttributeName $Attribute.Name -ConfigurationNC $ConfigurationNC) {
+foreach ($Attribute in $AttributeDefinitions)
+{
+    if (Test-SchemaAttribute -AttributeName $Attribute.Name -ConfigurationNC $ConfigurationNC)
+    {
         $ExistingAttributes += $Attribute.Name
         Write-LogMessage "Attribute already exists: $($Attribute.Name)" "WARNING"
     }
 }
 
-if ($ExistingAttributes.Count -gt 0 -and -not $TestMode) {
+if ($ExistingAttributes.Count -gt 0 -and -not $TestMode)
+{
     Write-LogMessage "Some attributes already exist. Use -TestMode to generate LDIF for review." "ERROR"
     exit 1
 }
@@ -277,8 +308,10 @@ $LDIFContent += "# Domain: $DomainName"
 $LDIFContent += "# Attributes: $($AttributeDefinitions.Count)"
 $LDIFContent += ""
 
-foreach ($Attribute in $AttributeDefinitions) {
-    if ($Attribute.Name -notin $ExistingAttributes) {
+foreach ($Attribute in $AttributeDefinitions)
+{
+    if ($Attribute.Name -notin $ExistingAttributes)
+    {
         $OID = New-EnterpriseOID
         
         $LDIFContent += "# Adding attribute: $($Attribute.Name)"
@@ -295,7 +328,8 @@ foreach ($Attribute in $AttributeDefinitions) {
         $LDIFContent += "adminDisplayName: $($Attribute.Name)"
         $LDIFContent += "lDAPDisplayName: $($Attribute.Name)"
         $LDIFContent += "name: $($Attribute.Name)"
-        if ($Attribute.Description) {
+        if ($Attribute.Description)
+        {
             $LDIFContent += "adminDescription: $($Attribute.Description)"
         }
         $LDIFContent += "objectCategory: CN=Attribute-Schema,$SchemaNC"
@@ -309,18 +343,22 @@ $LDIFContent | Out-File -FilePath $LDIFFileName -Encoding UTF8
 
 Write-LogMessage "LDIF file created: $LDIFFileName" "INFO"
 
-if ($TestMode) {
+if ($TestMode)
+{
     Write-LogMessage "Test mode enabled - LDIF file generated but not applied" "INFO"
     Write-LogMessage "Review the LDIF file before applying to production" "WARNING"
 }
-else {
+else
+{
     # Apply schema extensions
     Write-LogMessage "Applying schema extensions..." "INFO"
     
-    try {
+    try
+    {
         $Result = & ldifde.exe -i -f $LDIFFileName -s localhost -b "" "" -j $LogPath 2>&1
         
-        if ($LASTEXITCODE -eq 0) {
+        if ($LASTEXITCODE -eq 0)
+        {
             Write-LogMessage "Schema extension completed successfully" "INFO"
             
             # Refresh schema cache
@@ -330,12 +368,14 @@ else {
             
             Write-LogMessage "Schema cache refreshed" "INFO"
         }
-        else {
+        else
+        {
             Write-LogMessage "LDIFDE failed with exit code: $LASTEXITCODE" "ERROR"
             Write-LogMessage "Output: $($Result -join "`n")" "ERROR"
         }
     }
-    catch {
+    catch
+    {
         Write-LogMessage "Error applying schema extension: $($_.Exception.Message)" "ERROR"
     }
 }
@@ -402,7 +442,8 @@ After creating attributes, extend object classes to include the new attributes:
     This allows the attributes to be used on user objects
 #>
 
-function Add-AttributesToUserClass {
+function Add-AttributesToUserClass
+{
     param(
         [string[]]$AttributeNames,
         [string]$SchemaNC
@@ -417,7 +458,8 @@ function Add-AttributesToUserClass {
     $LDIFContent += "changetype: modify"
     $LDIFContent += "add: mayContain"
     
-    foreach ($AttributeName in $AttributeNames) {
+    foreach ($AttributeName in $AttributeNames)
+    {
         $LDIFContent += "mayContain: $AttributeName"
     }
     
@@ -430,18 +472,23 @@ function Add-AttributesToUserClass {
     
     Write-LogMessage "User class extension LDIF created: $LDIFFileName" "INFO"
     
-    if (-not $TestMode) {
-        try {
+    if (-not $TestMode)
+    {
+        try
+        {
             $Result = & ldifde.exe -i -f $LDIFFileName -s localhost -b "" "" -j $LogPath 2>&1
             
-            if ($LASTEXITCODE -eq 0) {
+            if ($LASTEXITCODE -eq 0)
+            {
                 Write-LogMessage "User object class extended successfully" "INFO"
             }
-            else {
+            else
+            {
                 Write-LogMessage "Failed to extend User object class: $($Result -join "`n")" "ERROR"
             }
         }
-        catch {
+        catch
+        {
             Write-LogMessage "Error extending User object class: $($_.Exception.Message)" "ERROR"
         }
     }
@@ -509,7 +556,8 @@ repadmin /syncall /AdeP
 ### Schema Extension Verification
 
 ```powershell
-function Test-SchemaExtensions {
+function Test-SchemaExtensions
+{
     param(
         [string[]]$AttributeNames,
         [string]$DomainName
@@ -520,21 +568,26 @@ function Test-SchemaExtensions {
     $Forest = Get-ADForest
     $SchemaNC = "CN=Schema," + $Forest.PartitionsContainer
     
-    foreach ($AttributeName in $AttributeNames) {
-        try {
+    foreach ($AttributeName in $AttributeNames)
+    {
+        try
+        {
             $Attribute = Get-ADObject -Filter "Name -eq '$AttributeName'" -SearchBase $SchemaNC -Properties *
             
-            if ($Attribute) {
+            if ($Attribute)
+            {
                 Write-Host "✓ Attribute '$AttributeName' found" -ForegroundColor Green
                 Write-Host "  OID: $($Attribute.attributeID)" -ForegroundColor Gray
                 Write-Host "  Syntax: $($Attribute.attributeSyntax)" -ForegroundColor Gray
                 Write-Host "  Single Valued: $($Attribute.isSingleValued)" -ForegroundColor Gray
             }
-            else {
+            else
+            {
                 Write-Host "✗ Attribute '$AttributeName' not found" -ForegroundColor Red
             }
         }
-        catch {
+        catch
+        {
             Write-Host "✗ Error checking attribute '$AttributeName': $($_.Exception.Message)" -ForegroundColor Red
         }
     }
@@ -550,12 +603,14 @@ Test-SchemaExtensions -AttributeNames $AttributesToVerify -DomainName "contoso.c
 
 ```powershell
 # Test setting custom attributes on user objects
-function Test-CustomAttributes {
+function Test-CustomAttributes
+{
     param(
         [string]$UserSamAccountName
     )
     
-    try {
+    try
+    {
         # Get user object
         $User = Get-ADUser -Identity $UserSamAccountName -Properties *
         
@@ -580,7 +635,8 @@ function Test-CustomAttributes {
         Write-Host "  employeeStartDate: $($UpdatedUser.employeeStartDate)" -ForegroundColor Gray
         Write-Host "  positionTime: $($UpdatedUser.positionTime)" -ForegroundColor Gray
     }
-    catch {
+    catch
+    {
         Write-Host "✗ Error testing custom attributes: $($_.Exception.Message)" -ForegroundColor Red
     }
 }
@@ -594,15 +650,18 @@ Test-CustomAttributes -UserSamAccountName "testuser"
 ### Schema Replication Monitoring
 
 ```powershell
-function Monitor-SchemaReplication {
+function Monitor-SchemaReplication
+{
     param(
         [string[]]$DomainControllers
     )
     
     Write-Host "Monitoring Schema Replication" -ForegroundColor Green
     
-    foreach ($DC in $DomainControllers) {
-        try {
+    foreach ($DC in $DomainControllers)
+    {
+        try
+        {
             Write-Host "Checking DC: $DC" -ForegroundColor Yellow
             
             # Check schema version
@@ -612,14 +671,17 @@ function Monitor-SchemaReplication {
             # Check for custom attributes
             $CustomAttr = Get-ADObject -Filter "Name -eq 'isRetired'" -SearchBase "CN=Schema,$($RootDSE.configurationNamingContext)" -Server $DC -ErrorAction SilentlyContinue
             
-            if ($CustomAttr) {
+            if ($CustomAttr)
+            {
                 Write-Host "  ✓ Custom attributes replicated" -ForegroundColor Green
             }
-            else {
+            else
+            {
                 Write-Host "  ✗ Custom attributes not yet replicated" -ForegroundColor Red
             }
         }
-        catch {
+        catch
+        {
             Write-Host "  ✗ Error checking DC $DC`: $($_.Exception.Message)" -ForegroundColor Red
         }
     }
@@ -649,10 +711,12 @@ Monitor-SchemaReplication -DomainControllers $DomainControllers
 $CurrentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent().Name
 $SchemaAdmins = Get-ADGroupMember "Schema Admins"
 
-if ($SchemaAdmins.SamAccountName -contains $CurrentUser.Split('\')[1]) {
+if ($SchemaAdmins.SamAccountName -contains $CurrentUser.Split('\')[1])
+{
     Write-Host "✓ User is Schema Admin" -ForegroundColor Green
 }
-else {
+else
+{
     Write-Host "✗ User is not Schema Admin" -ForegroundColor Red
 }
 ```
@@ -748,7 +812,8 @@ repadmin /showrepl
 # Restrict access to sensitive attributes
 $SensitiveAttributes = @("costCenter", "positionTime", "contractEndDate")
 
-foreach ($Attribute in $SensitiveAttributes) {
+foreach ($Attribute in $SensitiveAttributes)
+{
     # Set attribute security descriptor (requires advanced scripting)
     Write-Host "Consider restricting access to: $Attribute" -ForegroundColor Yellow
 }
@@ -775,10 +840,12 @@ auditpol /set /subcategory:"Directory Service Changes" /success:enable /failure:
 
 ```powershell
 # Monitor replication performance
-function Get-ReplicationMetrics {
+function Get-ReplicationMetrics
+{
     $DCs = Get-ADDomainController -Filter *
     
-    foreach ($DC in $DCs) {
+    foreach ($DC in $DCs)
+    {
         Write-Host "DC: $($DC.Name)" -ForegroundColor Green
         
         # Check replication queue
@@ -804,8 +871,8 @@ Get-ReplicationMetrics
 
 ### Related Guides
 
-- [Active Directory Security Best Practices](../Security/index.md)
-- [Group Policy Management](../GroupPolicy/index.md)
+- [Active Directory Security Best Practices](../security/index.md)
+- [Group Policy Management](../fundamentals/group-policy.md)
 - [Identity Governance](../../idm/governance/index.md)
 
 ### Tools and Utilities

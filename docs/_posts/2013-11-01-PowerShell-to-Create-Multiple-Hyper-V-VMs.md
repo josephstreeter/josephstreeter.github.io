@@ -20,7 +20,8 @@ $VHDSize = 40GB
 $VMMemory = 512MB
 $VMIso = "C:\Scripts\ISO\CentOS-6.4-x86_64-minimal.iso"
 
-foreach ($VMName in $VMNames) {
+foreach ($VMName in $VMNames)
+{
 New-VM `
 -Name $VMName `
 -MemoryStartupBytes $VMMemory `
@@ -33,13 +34,18 @@ Set-VMDvdDrive -VMName $VMName -Path $VMIso
 
 Get-VMNetworkAdapter $VMName | ? {$_.islegacy -eq $false} | Remove-VMNetworkAdapter
 
-if ($VMName -like "RT-*") {
+if ($VMName -like "RT-*")
+{
 Add-VMNetworkAdapter -VMName $VMName -SwitchName "External" -IsLegacy $true
 Add-VMNetworkAdapter -VMName $VMName -SwitchName "Network A" -IsLegacy $true
 Add-VMNetworkAdapter -VMName $VMName -SwitchName "Network B" -IsLegacy $true
-} Elseif ($VMName -like "*-A-*"){
+}
+Elseif ($VMName -like "*-A-*")
+{
 Add-VMNetworkAdapter -VMName $VMName -SwitchName "Network A" -IsLegacy $true
-} Elseif ($VMName -like "*-B-*"){
+}
+Elseif ($VMName -like "*-B-*")
+{
 Add-VMNetworkAdapter -VMName $VMName -SwitchName "Network B" -IsLegacy $true
 }
 Start-VM $VMName

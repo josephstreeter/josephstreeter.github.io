@@ -15,8 +15,10 @@ $STIG = "c:\scripts\STIGS\U_Windows_2008_R2_DC_V1R10_STIG_Manual-xccdf.xml"
 $Database = "C:\scripts\STIG.accdb"
 $Table = "WS2008R2DC"
 
-Function Read-STIG {
-Foreach ($Rule in $Rules) {
+Function Read-STIG
+{
+Foreach ($Rule in $Rules)
+{
 #"#############################"
 $discussion = ""+$Rule.rule.description+""
 $discussion = [xml] $discussion
@@ -32,59 +34,86 @@ $Global:CheckContent = $Rule.rule.fixtext."#text"
 
 $Global:VulnerabilityDiscussion = $discussion.test.VulnDiscussion
 
-If ($discussion.test.FalsePositives){
+If ($discussion.test.FalsePositives)
+{
 $Global:FalsePositives = $discussion.test.FalsePositives
-}Else{
+}
+Else
+{
 $Global:FalsePositives = "None"
 }
 
-If ($discussion.test.FalseNegatives){
+If ($discussion.test.FalseNegatives)
+{
 $Global:FalseNegatives =$discussion.test.FalseNegatives
-}Else{
+}
+Else
+{
 $Global:FalseNegatives = "None"
 }
 
 $Global:Documentable = $discussion.test.Documentable
 
-If ($discussion.test.FalseNegatives){
+If ($discussion.test.FalseNegatives)
+{
 $Global:Mitigations = $discussion.test.Mitigations
-}Else{
+}
+Else
+{
 $Global:Mitigations = "None"
 }
 
-If ($discussion.test.SeverityOverrideGuidance){
+If ($discussion.test.SeverityOverrideGuidance)
+{
 $Global:SeverityOverride = $discussion.test.SeverityOverrideGuidance
-}Else{
+}
+Else
+{
 $Global:SeverityOverride = "None"
 }
 
-If ($discussion.test.PotentialImpacts){
+If ($discussion.test.PotentialImpacts)
+{
 $Global:PotentialImpacts = $discussion.test.PotentialImpacts
-}Else{
+}
+Else
+{
 $Global:PotentialImpacts = "None"
 }
 
-If ($discussion.test.ThirdPartyTools){
+If ($discussion.test.ThirdPartyTools)
+{
 $Global:ThirdPartyTools = $discussion.test.ThirdPartyTools
-}Else{
+}
+Else
+{
 $Global:ThirdPartyTools = "None"
 }
 
-If ($discussion.test.MitigationControl){
+If ($discussion.test.MitigationControl)
+{
 $Global:MitigationControls = $discussion.test.MitigationControl
-}Else{
+}
+Else
+{
 $Global:MitigationControls = "None"
 }
 
-If ($discussion.test.Responsibility){
+If ($discussion.test.Responsibility)
+{
 $Global:Responsibility = $discussion.test.Responsibility
-}Else{
+}
+Else
+{
 $Global:Responsibility = "None"
 }
 
-If ($discussion.test.IAControls){
+If ($discussion.test.IAControls)
+{
 $Global:IAControls = $discussion.test.IAControls
-}Else{
+}
+Else
+{
 $Global:IAControls = "None"
 }
 #"Group ID: $GroupID"
@@ -114,7 +143,8 @@ Close-Database
 }
 }
 
-Function Upate-Database {
+Function Upate-Database
+{
 $rs.addnew()
 $rs.Fields.Item("GroupID").Value = $GroupID
 $rs.Fields.Item("GroupTitle").Value = $GroupTitle
@@ -134,7 +164,8 @@ $rs.Update()
 
 }
 
-Function Connect-Database {
+Function Connect-Database
+{
 # Configure database connection
 $adOpenStatic = 3
 $adLockOptimistic = 3
@@ -146,12 +177,14 @@ $Global:conn.Open("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=$Database;Persi
 $rs.Open("SELECT * FROM $Table",$conn,$adOpenStatic,$adLockOptimistic)
 }
 
-Function Close-Database {
+Function Close-Database
+{
 $rs.Close()
 $conn.Close()
 }
 
-Function Get-STIG {
+Function Get-STIG
+{
 # Get STIG info from XML
 $Global:xml = [xml] $(Get-Content $STIG)
 $Global:Rules = $xml.Benchmark.Group

@@ -1,0 +1,10 @@
+- name: Objects and Management
+  href: index.md
+- name: User Objects
+  href: user-objects.md
+- name: Group Objects
+  href: group-objects.md
+- name: Organizational Units
+  href: organizational-units.md
+- name: Privileged Account Management
+  href: privileged-accounts.md

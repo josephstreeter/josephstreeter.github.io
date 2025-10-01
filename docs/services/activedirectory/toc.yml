@@ -1,48 +1,18 @@
 - name: Active Directory
   href: index.md
-- name: Security Clean-up
-  href: Security-Cleanup/toc.yml
-- name: Forests and Domains
-  href: forests-and-domains.md
-- name: FSMO Role Holders
-  href: fsmo-role-holders.md
-- name: Global Catalogs
-  href: global-catalogs.md
-- name: Domain Controllers
-  href: domain-controllers.md
-- name: Directory Services Configuration
-  href: Directory-Services-Configuration/toc.yml
-- name: Forest Trusts
-  href: Forest-Trusts/toc.yml
-- name: Maintenance Troubleshooting
-  href: Maintenance-Troubleshooting/toc.yml
+- name: Getting Started
+  href: getting-started.md
+- name: Fundamentals
+  href: fundamentals/toc.yml
+- name: Objects and Management
+  href: objects-management/toc.yml
+- name: Security
+  href: security/toc.yml
 - name: Operations
-  href: Operations/toc.yml
-- name: Acceptable Use Policy
-  href: acceptable-use-policy.md
-- name: Delegation
-  href: Delegation.md
-- name: Disaster Recovery
-  href: disaster-recovery.md
-- name: Environments
-  href: environments.md
-- name: Organizational Units
-  href: organizational-units.md
-- name: User Objects
-  href: user-objects.md
-- name: Privileged Account Management
-  href: privileged-account-management.md
-- name: Sites and Subnets
-  href: sites-and-subnets.md
-- name: Group Objects
-  href: group-objects.md
-- name: Group Policy
-  href: group-policy.md
-- name: Maintenance Troubleshooting
-  href: maintenance-troubleshooting.md
-- name: Monitoring and Logging
-  href: monitoring-and-logging.md
-- name: Windows Time Service
-  href: time-service.md
-- name: DCDiag and Repadmin Report
-  href: dcdiag-and-repadmin-report.md
+  href: operations/toc.yml
+- name: Configuration
+  href: configuration/toc.yml
+- name: Procedures
+  href: procedures/toc.yml
+- name: Reference
+  href: reference/toc.yml

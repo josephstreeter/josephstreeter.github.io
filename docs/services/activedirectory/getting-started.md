@@ -314,23 +314,23 @@ New-GPLink -Name "Security Baseline" -Target "OU=Users,DC=company,DC=com"
 
 After mastering the basics, explore:
 
-- **[Forests and Domains](forests-and-domains.md)** - Advanced domain design
-- **[Group Policy](group-policy.md)** - Centralized configuration management
-- **[Sites and Subnets](sites-and-subnets.md)** - Multi-site deployments
-- **[Global Catalogs](global-catalogs.md)** - Directory query optimization
+- **[Forests and Domains](fundamentals/forests-and-domains.md)** - Advanced domain design
+- **[Group Policy](fundamentals/group-policy.md)** - Centralized configuration management
+- **[Sites and Subnets](fundamentals/sites-and-subnets.md)** - Multi-site deployments
+- **[Global Catalogs](fundamentals/global-catalogs.md)** - Directory query optimization
 
 ### Advanced Administration
 
-- **[Operations](Operations/index.md)** - Day-to-day administrative procedures
+- **[Operations](operations/index.md)** - Day-to-day administrative procedures
 - **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
-- **[Monitoring and Logging](monitoring-and-logging.md)** - Health monitoring
-- **[Disaster Recovery](disaster-recovery.md)** - Backup and recovery procedures
+- **[Monitoring and Logging](operations/monitoring-and-alerting.md)** - Health monitoring
+- **[Disaster Recovery](configuration/disaster-recovery.md)** - Backup and recovery procedures
 
 ## Related Documentation
 
 - **[Windows Server](../../infrastructure/windows/index.md)** - Server administration
 - **[PowerShell](../../development/powershell/index.md)** - Automation and scripting
-- **[Group Policy](group-policy.md)** - Policy management
+- **[Group Policy](fundamentals/group-policy.md)** - Policy management
 - **[Security](../../security/index.md)** - Enterprise security practices
 
 ---

@@ -161,11 +161,13 @@ class DeviceComplianceManager {
         $DeviceType = $DeviceInfo.OS
         $RequiredPolicies = $this.CompliancePolicies[$DeviceType]
         
-        foreach ($Policy in $RequiredPolicies.Keys) {
+        foreach ($Policy in $RequiredPolicies.Keys)
+        {
             $RequiredValue = $RequiredPolicies[$Policy]
             $ActualValue = $DeviceInfo[$Policy]
             
-            if ($ActualValue -ne $RequiredValue) {
+            if ($ActualValue -ne $RequiredValue)
+            {
                 Write-Warning "Device compliance failure: $Policy expected $RequiredValue, got $ActualValue"
                 return $false
             }
@@ -177,9 +179,12 @@ class DeviceComplianceManager {
     [void]EnforceCompliance([string]$DeviceId, [hashtable]$DeviceInfo) {
         $IsCompliant = $this.EvaluateDeviceCompliance($DeviceInfo)
         
-        if (-not $IsCompliant) {
+        if (-not $IsCompliant)
+        {
             $this.TriggerComplianceRemediation($DeviceId, $DeviceInfo)
-        } else {
+        }
+        else
+        {
             $this.UpdateDeviceStatus($DeviceId, "Compliant")
         }
     }
@@ -195,15 +200,18 @@ class DeviceComplianceManager {
         $Actions = @()
         
         # Add specific remediation actions based on compliance failures
-        if ($DeviceInfo.AntivirusEnabled -eq $false) {
+        if ($DeviceInfo.AntivirusEnabled -eq $false)
+        {
             $Actions += "Enable and update antivirus software"
         }
         
-        if ($DeviceInfo.EncryptionRequired -eq $false) {
+        if ($DeviceInfo.EncryptionRequired -eq $false)
+        {
             $Actions += "Enable disk encryption"
         }
         
-        if ($DeviceInfo.FirewallEnabled -eq $false) {
+        if ($DeviceInfo.FirewallEnabled -eq $false)
+        {
             $Actions += "Enable Windows Firewall"
         }
         
@@ -539,22 +547,27 @@ class ZeroTrustRiskEngine {
     }
     
     [string]DetermineAccessPolicy([double]$RiskScore) {
-        if ($RiskScore -le 0.3) {
+        if ($RiskScore -le 0.3)
+        {
             return "Allow"
         }
-        elseif ($RiskScore -le 0.6) {
+        elseif ($RiskScore -le 0.6)
+        {
             return "Allow_MFA"
         }
-        elseif ($RiskScore -le 0.8) {
+        elseif ($RiskScore -le 0.8)
+        {
             return "Challenge"
         }
-        else {
+        else
+        {
             return "Deny"
         }
     }
     
     [void]UpdateUserBaseline([string]$UserId, [hashtable]$Activity) {
-        if (-not $this.BaselineProfiles.ContainsKey($UserId)) {
+        if (-not $this.BaselineProfiles.ContainsKey($UserId))
+        {
             $this.BaselineProfiles[$UserId] = @{
                 'TypicalLocations' = @()
                 'TypicalDevices' = @()
@@ -575,7 +588,8 @@ class ZeroTrustRiskEngine {
     }
     
     [string]EvaluateBehavior([string]$UserId, [hashtable]$CurrentActivity) {
-        if (-not $this.BaselineProfiles.ContainsKey($UserId)) {
+        if (-not $this.BaselineProfiles.ContainsKey($UserId))
+        {
             return "Unknown"
         }
         
@@ -583,32 +597,39 @@ class ZeroTrustRiskEngine {
         $AnomalyScore = 0
         
         # Check location anomaly
-        if ($CurrentActivity.Location -notin $Profile.TypicalLocations) {
+        if ($CurrentActivity.Location -notin $Profile.TypicalLocations)
+        {
             $AnomalyScore += 0.3
         }
         
         # Check device anomaly
-        if ($CurrentActivity.Device -notin $Profile.TypicalDevices) {
+        if ($CurrentActivity.Device -notin $Profile.TypicalDevices)
+        {
             $AnomalyScore += 0.2
         }
         
         # Check time anomaly
-        if ($CurrentActivity.AccessTime -notin $Profile.TypicalHours) {
+        if ($CurrentActivity.AccessTime -notin $Profile.TypicalHours)
+        {
             $AnomalyScore += 0.2
         }
         
         # Check resource anomaly
-        if ($CurrentActivity.Resource -notin $Profile.TypicalResources) {
+        if ($CurrentActivity.Resource -notin $Profile.TypicalResources)
+        {
             $AnomalyScore += 0.3
         }
         
-        if ($AnomalyScore -ge 0.7) {
+        if ($AnomalyScore -ge 0.7)
+        {
             return "Anomalous"
         }
-        elseif ($AnomalyScore -ge 0.4) {
+        elseif ($AnomalyScore -ge 0.4)
+        {
             return "Suspicious"
         }
-        else {
+        else
+        {
             return "Normal"
         }
     }

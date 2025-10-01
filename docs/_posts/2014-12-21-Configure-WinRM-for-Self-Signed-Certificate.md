@@ -59,7 +59,8 @@ $cert = New-SelfSignedCertificate -DnsName $ENV:COMPUTERNAME, "$env:COMPUTERNAME
 $Config = '@{Hostname="' + $ENV:COMPUTERNAME + '";CertificateThumbprint="' + $cert.Thumbprint + '"}'
 winrm create winrm/config/listener?Address=*+TransPort=HTTPS $Config
 
-If (-Not(get-netfirewallrule "Windows Remote Management (HTTPS-In)")) {
+If (-Not(get-netfirewallrule "Windows Remote Management (HTTPS-In)"))
+{
 New-NetFirewallRule -DisplayName "Windows Remote Management (HTTPS-In)" -Name "Windows Remote Management (HTTPS-In)" -Profile Any -LocalPort 5986 -Protocol TCP
 }
 ```

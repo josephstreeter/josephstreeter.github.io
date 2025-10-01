@@ -474,7 +474,8 @@ git config --global alias.up 'pull --rebase'
 Test-Path $PROFILE
 
 # Create profile if it doesn't exist
-if (!(Test-Path $PROFILE)) {
+if (!(Test-Path $PROFILE))
+{
     New-Item -Type File -Path $PROFILE -Force
 }
 

@@ -853,17 +853,25 @@ function Get-IdentityComplianceDashboard
             $ComplianceData.AccessReviews = @{
                 ActiveCampaigns = $AccessReviewDefinitions.Count
                 RecentReviews = $RecentReviews.Count
-                CompletionRate = if ($RecentReviews.Count -gt 0) {
+                CompletionRate = if ($RecentReviews.Count -gt 0)
+                {
                     [math]::Round((($RecentReviews | Where-Object Status -eq "Completed").Count / $RecentReviews.Count) * 100, 2)
-                } else { 0 }
-                DecisionStats = if ($RecentReviews.Count -gt 0) {
+                }
+                else
+                {
+                    0
+                }
+                DecisionStats = if ($RecentReviews.Count -gt 0)
+                {
                     @{
                         TotalDecisions = ($RecentReviews | Measure-Object TotalDecisions -Sum).Sum
                         CompletedDecisions = ($RecentReviews | Measure-Object CompletedDecisions -Sum).Sum
                         ApprovedCount = ($RecentReviews | Measure-Object ApprovedCount -Sum).Sum
                         DeniedCount = ($RecentReviews | Measure-Object DeniedCount -Sum).Sum
                     }
-                } else {
+                }
+                else
+                {
                     @{
                         TotalDecisions = 0
                         CompletedDecisions = 0
@@ -884,7 +892,8 @@ function Get-IdentityComplianceDashboard
                 1 - ($ComplianceData.UserAccounts.InactiveUsers / $ComplianceData.UserAccounts.Total) 
             } else { 1 }
             AccessReviewCompletion = $ComplianceData.AccessReviews.CompletionRate / 100
-            PrivilegedAccountRatio = if ($ComplianceData.UserAccounts.Enabled -gt 0) {
+            PrivilegedAccountRatio = if ($ComplianceData.UserAccounts.Enabled -gt 0)
+            {
                 1 - ([math]::Min($ComplianceData.PrivilegedAccounts.TotalPrivilegedUsers / $ComplianceData.UserAccounts.Enabled, 0.1) / 0.1)
             } else { 1 }
         }

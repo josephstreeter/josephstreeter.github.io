@@ -1,5 +1,35 @@
 ﻿---
-title:  Connect to a Different Active Directory Domain with PowerShell
+title:  Connect to a Different Active Directory Domif (-not(Get```powerif (-not(Get-PSDrive TEST))
+{
+New-PSDrive `
+â€"Name TEST `
+â€"PSProvider ActiveDirectory `
+â€"Server "dc-test-01.test.domain.com" `
+â€"Credential (Get-Credential 'TEST\jsmith-da') `
+â€"Root '//RootDSE/' `
+-Scope Global
+}
+Else
+{ (-not(Get-PSDrive TEST))
+{
+New-PSDrive `
+â€"Name TEST `
+â€"PSProvider ActiveDirectory `
+â€"Server "dc-test-01.test.domain.com" `
+â€"Credential (Get-Credential 'TEST\jsmith-da') `e TEST))
+{
+New-PSDrive `
+â€"Name TEST `
+â€"PSProvider ActiveDirectory `
+â€"Server "dc-test-01.test.domain.com" `
+â€"Credential (Get-Credential 'TEST\jsmith-da') `
+â€"Root '//RootDSE/' `
+-Scope Global
+}
+Else
+{
+"Drive already exists"
+}werShell
 date:   2013-10-28 00:00:00 -0500
 categories: IT
 ---
@@ -54,7 +84,8 @@ PS C:\> Get-ADDomain -server "dc-test-01.test.domain.com"
 The following code will check to see if the drive exists prior to attempting creation of the new PSDrive
 
 ```powershell
-if (-not(Get-PSDrive TEST)) {
+if (-not(Get-PSDrive TEST))
+{
 New-PSDrive `
 â€“Name TEST `
 â€“PSProvider ActiveDirectory `

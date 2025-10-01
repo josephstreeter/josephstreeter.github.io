@@ -15,7 +15,8 @@ Additionally, the script will write an event to the event log if changing the pr
 ```powershell
 $CurrentProfile = netsh advfirewall Monitor show currentprofile
 
-if (-not ($CurrentProfile | Select-String $(Get-WmiObject -Class Win32_ComputerSystem).domain)) {
+if (-not ($CurrentProfile | Select-String $(Get-WmiObject -Class Win32_ComputerSystem).domain))
+{
 $NIC = Get-WmiObject -Class win32_networkadapter -ComputerName -filter "AdapterType = 'Ethernet 802.3'"
 $NIC.disable()
 $NIC.enable()

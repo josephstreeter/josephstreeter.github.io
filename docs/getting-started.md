@@ -152,7 +152,7 @@ All code examples are tested and include:
 ### Configuration Templates
 
 - **[VS Code Settings](development/vscode/configure.md#recommended-settings)**
-- **[SSH Config](security/ssh/index.md#configuration)**
+- **[SSH Config](security/ssh/index.md#client-configuration)**
 - **[Docker Compose](infrastructure/containers/docker/dockercompose/index.md#templates)**
 
 ## 📈 **What's New**

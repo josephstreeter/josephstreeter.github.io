@@ -248,7 +248,8 @@ $packages = @(
     "Microsoft.Sysinternals.ProcessExplorer"
 )
 
-foreach ($package in $packages) {
+foreach ($package in $packages)
+{
     winget install --id $package --silent
 }
 ```
@@ -302,12 +303,15 @@ $essentialPackages = @(
     "Microsoft.PowerToys"
 )
 
-foreach ($package in $essentialPackages) {
-    try {
+foreach ($package in $essentialPackages)
+{
+    try
+    {
         winget install --id $package --silent
         Write-Host "Installed: $package" -ForegroundColor Green
     }
-    catch {
+    catch
+    {
         Write-Warning "Failed to install: $package"
     }
 }
@@ -316,7 +320,8 @@ foreach ($package in $essentialPackages) {
 New-NetFirewallRule -DisplayName "Allow ICMP" -Direction Inbound -Protocol ICMPv4 -Action Allow
 
 # Join domain if specified
-if ($DomainName) {
+if ($DomainName)
+{
     Add-Computer -DomainName $DomainName -Credential (Get-Credential) -Restart
 }
 ```
@@ -334,8 +339,10 @@ param(
 $scriptBlock = {
     param($PackageList)
     
-    foreach ($package in $PackageList) {
-        try {
+    foreach ($package in $PackageList)
+    {
+        try
+        {
             $result = winget install --id $package --silent
             [PSCustomObject]@{
                 Package = $package
@@ -343,7 +350,8 @@ $scriptBlock = {
                 Message = "Installed successfully"
             }
         }
-        catch {
+        catch
+        {
             [PSCustomObject]@{
                 Package = $package
                 Status = "Failed"
@@ -389,7 +397,8 @@ $services = @(
     "TabletInputService"
 )
 
-foreach ($service in $services) {
+foreach ($service in $services)
+{
     Set-GPRegistryValue -Name $gpoName -Key "HKLM\System\CurrentControlSet\Services\$service" -ValueName "Start" -Type DWord -Value 4
 }
 
@@ -405,7 +414,8 @@ Set-GPRegistryValue -Name $gpoName -Key "HKLM\System\CurrentControlSet\Control\L
 ```powershell
 # Registry backup
 $backupPath = "C:\Backups\Registry"
-if (-not (Test-Path $backupPath)) {
+if (-not (Test-Path $backupPath))
+{
     New-Item -Path $backupPath -ItemType Directory
 }
 
@@ -430,13 +440,18 @@ $serviceConfigs = @(
     @{Name = "EventLog"; StartupType = "Automatic"; Status = "Running"}
 )
 
-foreach ($config in $serviceConfigs) {
+foreach ($config in $serviceConfigs)
+{
     $service = Get-Service -Name $config.Name -ErrorAction SilentlyContinue
-    if ($service) {
+    if ($service)
+    {
         Set-Service -Name $config.Name -StartupType $config.StartupType
-        if ($config.Status -eq "Running") {
+        if ($config.Status -eq "Running")
+        {
             Start-Service -Name $config.Name
-        } else {
+        }
+        else
+        {
             Stop-Service -Name $config.Name -Force
         }
         Write-Host "Configured service: $($config.Name)" -ForegroundColor Green
@@ -459,30 +474,38 @@ class ConfigManager {
         $this.LoadConfiguration()
     }
     
-    [void]LoadConfiguration() {
-        if (Test-Path $this.ConfigPath) {
+    [void]LoadConfiguration()
+    {
+        if (Test-Path $this.ConfigPath)
+        {
             $this.Configuration = Get-Content $this.ConfigPath | ConvertFrom-Json -AsHashtable
         }
     }
     
     [void]ApplyConfiguration() {
         # Apply services configuration
-        if ($this.Configuration.Services) {
-            foreach ($service in $this.Configuration.Services) {
+        if ($this.Configuration.Services)
+        {
+            foreach ($service in $this.Configuration.Services)
+            {
                 Set-Service -Name $service.Name -StartupType $service.StartupType
             }
         }
         
         # Apply registry settings
-        if ($this.Configuration.Registry) {
-            foreach ($reg in $this.Configuration.Registry) {
+        if ($this.Configuration.Registry)
+        {
+            foreach ($reg in $this.Configuration.Registry)
+            {
                 Set-ItemProperty -Path $reg.Path -Name $reg.Name -Value $reg.Value
             }
         }
         
         # Install software
-        if ($this.Configuration.Software) {
-            foreach ($package in $this.Configuration.Software) {
+        if ($this.Configuration.Software)
+        {
+            foreach ($package in $this.Configuration.Software)
+            {
                 winget install --id $package --silent
             }
         }
@@ -529,7 +552,8 @@ $configManager.ApplyConfiguration()
 
 ```powershell
 # System-Health-Monitor.ps1
-function Get-SystemHealth {
+function Get-SystemHealth
+{
     $health = @{
         ComputerName = $env:COMPUTERNAME
         Timestamp = Get-Date

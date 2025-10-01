@@ -17,12 +17,12 @@ Securing Active Directory is critical for enterprise infrastructure protection. 
 │                AD Security Layers                               │
 ├─────────────────────────────────────────────────────────────────┤
 │  Layer           │ Components                                   │
-│  ├─ Perimeter    │ Firewalls, Network Segmentation             │
-│  ├─ Network      │ IPsec, VLANs, Network Access Control        │
-│  ├─ Host         │ OS Hardening, AV, HIPS, Patching           │
-│  ├─ Application  │ AD Hardening, Service Accounts, GPOs       │
-│  ├─ Data         │ Encryption, Access Controls, Auditing      │
-│  └─ Physical     │ Data Center Security, Device Controls      │
+│  ├─ Perimeter    │ Firewalls, Network Segmentation              │
+│  ├─ Network      │ IPsec, VLANs, Network Access Control         │
+│  ├─ Host         │ OS Hardening, AV, HIPS, Patching             │
+│  ├─ Application  │ AD Hardening, Service Accounts, GPOs         │
+│  ├─ Data         │ Encryption, Access Controls, Auditing        │
+│  └─ Physical     │ Data Center Security, Device Controls        │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -1092,8 +1092,8 @@ function Set-ADAdvancedAuditPolicy
 
 ## Related Topics
 
-- [Active Directory Monitoring](../ad-monitoring/index.md)
-- [Group Policy Management](../GroupPolicy/index.md)
-- [Privileged Access Management](../PrivilegedAccess/index.md)
+- [Active Directory Monitoring](../configuration/ad-monitoring.md)
+- [Group Policy Management](../fundamentals/group-policy.md)
+- [Privileged Access Management](../privileged-access/index.md)
 - [Infrastructure Security](../../../infrastructure/security/index.md)
 - [Windows Security](../../../infrastructure/windows/security/index.md)

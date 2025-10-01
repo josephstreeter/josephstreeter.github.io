@@ -1,8 +1,17 @@
 ---
 title: "Productivity Features"
 description: "Master Windows Terminal productivity features including pane management, shortcuts, and workflow optimization"
-tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]
-category: "development-tools"
+tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]function Start-DevEnvironment
+{
+    param([string]$ProjectPath)
+    
+    if ($ProjectPath)
+    {
+        wt -d $ProjectPath new-tab -p "PowerShell" --title "Main"; `
+           split-pane -p "Git Bash" --title "Git"; `
+           new-tab -p "PowerShell" -c "code ." --title "Editor"
+    }
+}y: "development-tools"
 difficulty: "intermediate"
 last_updated: "2025-07-11"
 ---
@@ -188,7 +197,8 @@ wt new-tab -p "PowerShell" -d "C:\Projects\App" ; split-pane -p "Ubuntu-20.04" -
 Test-Path $PROFILE
 
 # Create profile if it doesn't exist
-if (!(Test-Path $PROFILE)) {
+if (!(Test-Path $PROFILE))
+{
     New-Item -Type File -Path $PROFILE -Force
 }
 
@@ -237,10 +247,12 @@ Set-Alias clh Clear-TerminalHistory
 
 ```powershell
 # Create startup script for project
-function Start-DevEnvironment {
+function Start-DevEnvironment
+{
     param([string]$ProjectPath)
     
-    if ($ProjectPath) {
+    if ($ProjectPath)
+    {
         wt -d $ProjectPath new-tab -p "PowerShell" --title "Main" `;
            split-pane -p "Git Bash" --title "Git" `;
            new-tab -p "PowerShell" -c "code ." --title "Editor"
