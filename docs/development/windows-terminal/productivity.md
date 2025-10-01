@@ -1,7 +1,20 @@
 ---
 title: "Productivity Features"
 description: "Master Windows Terminal productivity features including pane management, shortcuts, and workflow optimization"
-tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]function Start-DevEnvironment
+tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]
+category: "development-tools"
+difficulty: "intermediate"
+last_updated: "2025-07-11"
+---
+
+## Productivity Features
+
+Windows Terminal offers numerous productivity features designed to streamline your command-line workflows. This guide covers pane management, keyboard shortcuts, and advanced features that will significantly boost your efficiency.
+
+## Quick Development Environment Setup
+
+```powershell
+function Start-DevEnvironment
 {
     param([string]$ProjectPath)
     
@@ -11,14 +24,8 @@ tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]func
            split-pane -p "Git Bash" --title "Git"; `
            new-tab -p "PowerShell" -c "code ." --title "Editor"
     }
-}y: "development-tools"
-difficulty: "intermediate"
-last_updated: "2025-07-11"
----
-
-## Productivity Features
-
-Windows Terminal offers numerous productivity features designed to streamline your command-line workflows. This guide covers pane management, keyboard shortcuts, and advanced features that will significantly boost your efficiency.
+}
+```
 
 ## Essential Keyboard Shortcuts
 
