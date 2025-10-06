@@ -34,7 +34,7 @@ This section provides comprehensive configuration guides for Active Directory en
 
 Core Active Directory Domain Services setup and optimization.
 
-**🏗️ [Directory Services](directory-services-configuration.md)**
+**[Directory Services](directory-services-configuration.md)**
 
 - Initial domain and forest configuration
 - Multi-domain forest design and implementation
@@ -46,19 +46,15 @@ Core Active Directory Domain Services setup and optimization.
 
 Managing multiple Active Directory environments effectively.
 
-**🌍 [Environments](environments.md)**
+## Environment Configuration
 
-- Development, staging, and production environment separation
-- Environment synchronization strategies
-- Change management across environments
-- Environment-specific security policies
-- Automated environment provisioning
+Multi-environment Active Directory strategies and configurations.
 
 ### LDAP Configuration
 
 Advanced LDAP settings and secure communications setup.
 
-**📁 [LDAP Configuration](ldap-configuration/index.md)**
+**[LDAP Configuration](ldap-configuration/index.md)**
 
 - LDAP over SSL (LDAPS) certificate implementation
 - Channel binding configuration for security
@@ -193,10 +189,10 @@ Configuring Active Directory to handle growth and scale.
 
 ## Related Sections
 
-- **📖 [Fundamentals](../fundamentals/index.md)**: Core concepts needed for configuration
-- **🔧 [Operations](../Operations/index.md)**: Ongoing maintenance and monitoring
-- **🛠️ [Procedures](../procedures/index.md)**: Step-by-step configuration procedures
-- **🔒 [Security](../Security/index.md)**: Security configuration and hardening
+- **[Fundamentals](../fundamentals/index.md)**: Core concepts needed for configuration
+- **[Operations](../Operations/index.md)**: Ongoing maintenance and monitoring
+- **[Operations](../Operations/index.md)**: Comprehensive operational procedures
+- **[Security](../Security/index.md)**: Security configuration and hardening
 
 ## Quick Reference
 

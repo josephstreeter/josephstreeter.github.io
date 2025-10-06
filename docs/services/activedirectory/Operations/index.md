@@ -42,6 +42,7 @@ This section contains comprehensive operational procedures and administrative gu
 
 ### Account and Object Management
 
+- **[Active Directory Delegation](delegation.md)** - Administrative permission delegation and security
 - **[Remove Account Expiration](remove-account-expiration.md)** - Managing account expiration settings
 - **[Use Active Directory Recycle Bin](use-active-directory-recycle-bin.md)** - Recovering deleted objects
 
@@ -73,7 +74,7 @@ Most operations in this section require:
 
 - [Security](../Security/index.md) - Security policies and procedures
 - [Configuration](../configuration/index.md) - Advanced configuration guides
-- [Procedures](../procedures/index.md) - Step-by-step administrative procedures
+
 - [Reference](../reference/index.md) - Quick reference materials
 
 ---

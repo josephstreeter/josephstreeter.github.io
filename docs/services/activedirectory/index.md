@@ -8,7 +8,7 @@ ms.topic: "article"
 
 Microsoft Active Directory (AD) is a directory service that provides centralized authentication, authorization, and directory services for Windows-based networks. This comprehensive guide covers all aspects of Active Directory deployment, configuration, management, and security.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### New to Active Directory?
 
@@ -22,9 +22,9 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[Group Objects](objects-management/group-objects.md)** - Creating and managing security groups
 - **[Organizational Units](objects-management/organizational-units.md)** - Structuring your directory
 
-## 📋 Core Topics
+## Core Topics
 
-### 🏗️ **Infrastructure and Architecture**
+### **Infrastructure and Architecture**
 
 - **[Forests and Domains](fundamentals/forests-and-domains.md)** - AD hierarchical structure
 - **[Domain Controllers](fundamentals/domain-controllers.md)** - Server roles and placement
@@ -32,37 +32,37 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[FSMO Role Holders](fundamentals/fsmo-roles.md)** - Critical server roles
 - **[Sites and Subnets](fundamentals/sites-and-subnets.md)** - Network topology management
 
-### 👥 **Identity Management**
+### **Identity Management**
 
 - **[User Objects](objects-management/user-objects.md)** - User account lifecycle management
 - **[Group Objects](objects-management/group-objects.md)** - Security and distribution groups
 - **[Organizational Units](objects-management/organizational-units.md)** - Directory organization
 - **[Privileged Account Management](objects-management/privileged-accounts.md)** - Administrative account security
 
-### 🔐 **Security and Configuration**
+### **Security and Configuration**
 
 - **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
 - **[Directory Services Configuration](configuration/directory-services-configuration.md)** - Service settings
 - **[Group Policy](fundamentals/group-policy.md)** - Centralized configuration management
-- **[Delegation](procedures/delegation.md)** - Administrative permissions
+- **[Delegation](Operations/delegation.md)** - Administrative permissions
 
-### ⚙️ **Operations and Maintenance**
+### **Operations and Maintenance**
 
 - **[Operations](Operations/index.md)** - Day-to-day administrative procedures
 - **[Monitoring and Logging](Operations/monitoring-and-alerting.md)** - Health and performance tracking
 - **[Maintenance Troubleshooting](Operations/troubleshooting-guide.md)** - Issue resolution
 - **[Disaster Recovery](configuration/disaster-recovery.md)** - Backup and recovery procedures
 
-### 🕒 **Infrastructure Services**
+### **Infrastructure Services**
 
 - **[Time Service](Operations/time-service.md)** - Windows Time Service configuration
 - **[DCDiag and Repadmin Report](reference/dcdiag-and-repadmin-report.md)** - Health assessment tools
 
-### 🌍 **Environment Management**
+### **Environment Management**
 
-- **[Environments](configuration/environments.md)** - Multi-environment strategies
+- **[Configuration](configuration/index.md)** - Multi-environment strategies
 
-## 🔧 **Specialized Areas**
+## **Specialized Areas**
 
 ### Certificate Services
 
@@ -74,9 +74,9 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[LDAP Channel Binding](Operations/ldap-channel-binding-and-ldap-signing.md)** - Enhanced authentication security
 - **[Security Settings for Domain Controllers](Operations/security-settings-applied-for-domain-controllers.md)** - Hardening guidelines
 
-## 📚 **Learning Paths**
+## **Learning Paths**
 
-### 🎯 **For System Administrators**
+### **For System Administrators**
 
 1. Start with [Forests and Domains](./fundamentals/forests-and-domains.md) to understand AD structure
 2. Learn [Domain Controllers](./fundamentals/domain-controllers.md) deployment and management
@@ -84,7 +84,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 4. Implement [Group Policy](./fundamentals/group-policy.md) for configuration management
 5. Apply [Security Best Practices](./security-best-practices.md)
 
-### 🔒 **For Security Professionals**
+### **For Security Professionals**
 
 1. Review [Security Best Practices](./security-best-practices.md)
 2. Implement [Privileged Account Management](./objects-management/privileged-accounts.md)
@@ -92,7 +92,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 4. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
 5. Plan [Disaster Recovery](./configuration/disaster-recovery.md) procedures
 
-### 🛠️ **For Operations Teams**
+### **For Operations Teams**
 
 1. Learn [Operations](./Operations/index.md) procedures
 2. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
@@ -100,7 +100,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 4. Implement [Certificate Management](./Operations/certificate-management.md)
 5. Configure [Time Service](./Operations/time-service.md)
 
-## 🆘 **Quick Reference**
+## **Quick Reference**
 
 ### Emergency Procedures
 
@@ -114,7 +114,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[DCDiag and Repadmin Report](reference/dcdiag-and-repadmin-report.md)** - Automated health assessment
 - **[Monitoring and Logging](Operations/monitoring-and-alerting.md)** - Ongoing health monitoring
 
-## 🔗 **Related Documentation**
+## **Related Documentation**
 
 - **[Identity Management](../idm/index.md)** - Broader identity solutions
 - **[Exchange](../exchange/index.md)** - Email system integration
@@ -123,6 +123,6 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 ---
 
-> **💡 Pro Tip**: New to Active Directory? Start with the [Getting Started](getting-started.md) guide and work through the Administrator learning path above.
+> **Pro Tip**: New to Active Directory? Start with the [Getting Started](getting-started.md) guide and work through the Administrator learning path above.
 
 *This documentation covers Active Directory from basic concepts to advanced enterprise scenarios. Each section includes practical examples, best practices, and troubleshooting guidance.*

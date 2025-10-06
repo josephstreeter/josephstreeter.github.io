@@ -9,8 +9,6 @@ ms.subservice: networking
 keywords: active directory, firewall, network, ports, security, domain controllers, infrastructure
 ---
 
-## Active Directory Firewall and Network Configuration
-
 ## Overview
 
 Active Directory requires specific network connectivity and firewall configurations to function properly. This guide provides comprehensive information about network requirements, port configurations, security considerations, and best practices for implementing firewall rules that support Active Directory services while maintaining security.

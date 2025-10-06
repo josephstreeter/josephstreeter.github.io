@@ -25,7 +25,7 @@ This section provides quick reference materials for Active Directory administrat
 
 ### Diagnostic Tool References
 
-**🔍 [DCDiag and Repadmin Reports](dcdiag-and-repadmin-report.md)**
+**[DCDiag and Repadmin Reports](dcdiag-and-repadmin-report.md)**
 
 Comprehensive guide to interpreting diagnostic tool outputs:
 
@@ -37,7 +37,7 @@ Comprehensive guide to interpreting diagnostic tool outputs:
 
 ### Event Log Reference
 
-**📊 Event IDs and Descriptions:**
+**Event IDs and Descriptions:**
 
 Complete reference for Active Directory event IDs:
 
@@ -52,7 +52,7 @@ Complete reference for Active Directory event IDs:
 
 ### Performance Monitoring
 
-**📈 Performance Counters:**
+**Performance Counters:**
 
 Essential performance counters for Active Directory monitoring:
 
@@ -66,7 +66,7 @@ Essential performance counters for Active Directory monitoring:
 
 ### Script Library
 
-**💻 PowerShell Scripts:**
+**PowerShell Scripts:**
 
 Collection of tested PowerShell scripts for AD administration:
 
@@ -255,10 +255,10 @@ Get-ADObject "CN=ms-Exch-Schema-Version-Pt,CN=Schema,CN=Configuration,$((Get-ADR
 
 ## Related Sections
 
-- **🔧 [Operations](../Operations/index.md)**: Detailed operational procedures
-- **🛠️ [Procedures](../procedures/index.md)**: Step-by-step administrative procedures
-- **📖 [Fundamentals](../fundamentals/index.md)**: Core Active Directory concepts
-- **⚙️ [Configuration](../configuration/index.md)**: Configuration and setup guidance
+- **[Operations](../Operations/index.md)**: Detailed operational procedures
+- **[Operations](../Operations/index.md)**: Comprehensive operational procedures
+- **[Fundamentals](../fundamentals/index.md)**: Core Active Directory concepts
+- **[Configuration](../configuration/index.md)**: Configuration and setup guidance
 
 ## Additional Resources
 

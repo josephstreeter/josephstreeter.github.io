@@ -28,6 +28,8 @@
   href: apply-baseline-group-policy-and-security-template.md
 - name: Isolate Domain Controller
   href: isolate-domain-controller.md
+- name: Active Directory Delegation
+  href: delegation.md
 - name: Remove Account Expiration
   href: remove-account-expiration.md
 - name: Use Active Directory Recycle Bin

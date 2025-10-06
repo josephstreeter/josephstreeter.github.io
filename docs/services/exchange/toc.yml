@@ -1,5 +1,7 @@
 - name: Exchange
   href: index.md
+- name: Documentation
+  href: documentation/toc.yml
 - name: Send Mail-Merge from Shared Mailbox
   href: sharedmailboxmailmerge.md
 - name: Mailbox Audit Logs

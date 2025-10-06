@@ -131,7 +131,7 @@ Move-ADObject -Identity "CN=John Doe,CN=Users,DC=contoso,DC=com" -TargetPath "OU
 
 - **🔧 [Operations](../Operations/index.md)**: Monitoring and maintenance procedures
 - **🔒 [Security](../Security/index.md)**: Security policies and group policy management
-- **🛠️ [Procedures](../procedures/index.md)**: Step-by-step administrative procedures
+- **🛠️ [Operations](../Operations/index.md)**: Comprehensive operational procedures
 - **📖 [Fundamentals](../fundamentals/index.md)**: Core Active Directory concepts
 
 ## Tools and Resources
