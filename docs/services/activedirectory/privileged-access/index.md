@@ -23,11 +23,11 @@ Privileged Access Management (PAM) is a critical security control for protecting
 │                PAM Architecture                                 │
 ├─────────────────────────────────────────────────────────────────┤
 │  Layer           │ Components                                   │
-│  ├─ Governance   │ Approval Workflows, Policy Management       │
-│  ├─ Access       │ JIT Elevation, Session Broker              │
-│  ├─ Monitoring   │ Activity Logging, Behavioral Analytics     │
-│  ├─ Vaulting     │ Credential Storage, Password Rotation      │
-│  └─ Integration  │ AD, SIEM, HR Systems, ITSM                │
+│  ├─ Governance   │ Approval Workflows, Policy Management        │
+│  ├─ Access       │ JIT Elevation, Session Broker                │
+│  ├─ Monitoring   │ Activity Logging, Behavioral Analytics       │
+│  ├─ Vaulting     │ Credential Storage, Password Rotation        │
+│  └─ Integration  │ AD, SIEM, HR Systems, ITSM                   │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

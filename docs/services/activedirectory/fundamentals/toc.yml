@@ -4,6 +4,8 @@
   href: getting-started.md
 - name: Forests and Domains
   href: forests-and-domains.md
+- name: Forest Trusts
+  href: forest-trusts.md
 - name: Domain Controllers
   href: domain-controllers.md
 - name: FSMO Roles
