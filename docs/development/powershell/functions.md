@@ -254,7 +254,7 @@ function Get-SystemInfo
     param
     (
         # Method 1: Direct assignment
-        [string]$ComputerName = $env:COMPUTERNAME,
+        [string]$ComputerName = "localhost",
         
         # Method 2: Using DefaultParameterSetName
         [Parameter()]
@@ -459,7 +459,11 @@ Parameter validation attributes help ensure that input to your function meets sp
 
 ## Accepting Pipeline Input
 
-Functions can accept input from the pipeline, allowing you to process data passed from other commands. To enable this, use the `ValueFromPipeline` or `ValueFromPipelineByPropertyName` parameter attributes.
+Functions can accept input from the pipeline, allowing you to process data passed from other commands. To enable this, use the `ValueFromPipeline` or `ValueFromPipelineByPropertyName` parameter attributes. The `process` block is implemented to handle each incoming object individually.
+
+### ValueFromPipeline
+
+Functions can accept input from the pipeline using the `ValueFromPipeline` parameter attribute. This allows your function to process data passed from other commands one item at a time.
 
 ```powershell
 function Show-Item
@@ -477,6 +481,42 @@ function Show-Item
 
 "Apple","Banana" | Show-Item
 ```
+
+### ValueFromPipelineByPropertyName
+
+When using `ValueFromPipelineByPropertyName`, PowerShell matches parameter names to properties of objects passed through the pipeline. This allows you to bind specific properties from pipeline objects to function parameters by name.
+
+```powershell
+function Get-ProcessInfo
+{
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [string]$Name,
+        
+        [Parameter(ValueFromPipelineByPropertyName)]
+        [int]$Id
+    )
+    
+    process
+    {
+        Write-Output "Process: $Name (ID: $Id)"
+    }
+}
+
+# Example 1: Using Get-Process output
+Get-Process notepad | Get-ProcessInfo
+
+# Example 2: Using custom objects with matching property names
+$ProcessObjects = @(
+    [PSCustomObject]@{ Name = "Calculator"; Id = 1234 }
+    [PSCustomObject]@{ Name = "Notepad"; Id = 5678 }
+)
+$ProcessObjects | Get-ProcessInfo
+```
+
+In this example, PowerShell automatically matches the `Name` and `Id` properties from the incoming objects to the corresponding parameters in the function, even though the parameter names don't exactly match the object properties (case-insensitive matching).
 
 ## Begin, Process, End Blocks
 
