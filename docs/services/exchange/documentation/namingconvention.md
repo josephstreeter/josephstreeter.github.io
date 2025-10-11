@@ -229,15 +229,15 @@ This document establishes standardized naming conventions for all Exchange Serve
 
 ### Follow Active Directory Group Naming Convention
 
-**Reference**: Use AD group prefixes (GS-, DS-, US-) as defined in AD naming convention
+**Reference**: Use AD group prefixes (GS-, DG-, DS-, US-) as defined in AD naming convention
 
 **Exchange-Specific Examples:**
 
-- **Mail Distribution Groups**: `DS-[Purpose]-[Department/Location]`
-  - `DS-AllUsers-Organization`
-  - `DS-Department-Sales`
-  - `DS-Location-NewYorkBranch`
-  - `DS-Project-WebsiteRedesign`
+- **Mail Distribution Groups**: `DG-[Purpose]-[Department/Location]`
+  - `DG-AllUsers-Organization`
+  - `DG-Department-Sales`
+  - `DG-Location-NewYorkBranch`
+  - `DG-Project-WebsiteRedesign`
 
 - **Mail-Enabled Security Groups**: `GS-[Purpose]-[AccessLevel]`
   - `GS-Exchange-FullAccess`

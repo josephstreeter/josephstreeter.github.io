@@ -247,35 +247,25 @@ When `[FirstInitial][LastName]` exceeds 20 characters, use these truncation stra
 
 **Scope Prefixes:**
 
-- **GS**: Global Groups
-- **DS**: Domain Local Groups
-- **US**: Universal Groups
+- **GS**: Global Security Groups - Used to define a roles
+- **US**: Universal Security Groups - Used to define a roles
+- **DS**: Domain Local Security Groups - Used to define rights to a resource
 
 **Examples:**
 
 - File share access: `DS-FileShare-Finance-ReadWrite`
 - Application access: `GS-Application-Payroll-Users`
-- Administrative rights: `DS-Servers-DatabaseAdmins`
+- Administrative rights: `DS-Servers-DatabaseAdmin`
 
 ### Distribution Groups
 
-**Format**: `DS-[Purpose]-[Department]`
+**Format**: `DG-[Purpose]-[Department]`
 
 **Examples:**
 
-- Department distribution: `DS-AllUsers-HumanResources`
-- Project communication: `DS-Project-WebsiteRedesign`
-- Location-based: `DS-Location-LosAngelesOffice`
-
-### Role-Based Groups
-
-**Format**: `ROLE-[JobFunction]-[AccessLevel]`
-
-**Examples:**
-
-- IT administrators: `ROLE-ITAdmin-FullAccess`
-- Help desk staff: `ROLE-HelpDesk-Limited`
-- Database administrators: `ROLE-DBA-ReadWrite`
+- Department distribution: `DG-AllUsers-HumanResources`
+- Project communication: `DG-Project-WebsiteRedesign`
+- Location-based: `DG-Location-LosAngelesOffice`
 
 ## Group Policy Object (GPO) Naming
 
