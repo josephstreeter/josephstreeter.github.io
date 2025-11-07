@@ -176,19 +176,19 @@ Code Repository: "email-gateway-service"
 
 ### 1.3 When to Use Which
 
-| Use Case | Project Wiki | Code Wiki |
-|----------|--------------|-----------|
-| Service-specific technical documentation | | ✅ |
-| Cross-service operational procedures | ✅ | |
-| API documentation for one service | | ✅ |
-| Enterprise architecture | ✅ | |
-| Onboarding documentation | ✅ | |
-| Service catalog/index | ✅ | |
-| Code setup and development guide | | ✅ |
-| Incident response procedures | ✅ | |
-| Standards and policies | ✅ | |
-| Documentation that versions with code | | ✅ |
-| Documentation accessed by non-technical users | ✅ | |
+| Use Case                                      | Project Wiki | Code Wiki |
+|-----------------------------------------------|--------------|-----------|
+| Cross-service operational procedures          | ✅           |           |
+| Enterprise architecture                       | ✅           |           |
+| Onboarding documentation                      | ✅           |           |
+| Service catalog/index                         | ✅           |           |
+| Incident response procedures                  | ✅           |           |
+| Standards and policies                        | ✅           |           |
+| Documentation accessed by non-technical users | ✅           |           |
+| Service-specific technical documentation      |              | ✅        |
+| Code setup and development guide              |              | ✅        |
+| API documentation for one service             |              | ✅        |
+| Documentation that versions with code         |              | ✅        |
 
 #### Recommendation: Use both together
 
