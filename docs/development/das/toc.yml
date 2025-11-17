@@ -6,6 +6,13 @@
   href: faq.md
 - name: Glossary
   href: glossary.md
+- name: Azure DevOps
+  href: azuredevops/index.md
+  items:
+  - name: Document Plan
+    href: azuredevops/document_plan.md
+  - name: Requirements Template
+    href: azuredevops/requirements_template.md
 - name: Setup and Configuration
   href: setup/index.md
   items:

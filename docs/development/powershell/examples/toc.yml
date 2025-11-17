@@ -6,3 +6,5 @@
   href: exchange.md
 - name: Security
   href: security.md
+- name: Windows Event Logs
+  href: windows_events.md
