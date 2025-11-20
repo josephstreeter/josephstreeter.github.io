@@ -8,7 +8,7 @@ tags: [bind9-installation, dns-setup, linux-dns, bind-configuration]
 
 Step-by-step installation and configuration guide for BIND9 DNS Server on Linux systems.
 
-## 📦 Installation
+## Installation
 
 ### Ubuntu/Debian
 
@@ -23,7 +23,7 @@ sudo apt install bind9 bind9utils bind9-doc
 sudo dnf install bind bind-utils
 ```
 
-## ⚙️ Initial Configuration
+## Initial Configuration
 
 ### Main Configuration File
 
@@ -55,6 +55,6 @@ sudo systemctl status named
 
 ---
 
-> **💡 Pro Tip**: Always test configuration with `named-checkconf` before restarting the service to avoid service disruption.
+> **Pro Tip**: Always test configuration with `named-checkconf` before restarting the service to avoid service disruption.
 
 *Proper installation and initial configuration provide a solid foundation for BIND9 DNS services.*

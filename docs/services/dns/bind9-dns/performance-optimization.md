@@ -8,7 +8,7 @@ tags: [bind9-performance, dns-optimization, performance-tuning]
 
 Performance optimization techniques and tuning strategies for BIND9 DNS server environments.
 
-## ⚡ Performance Tuning
+## Performance Tuning
 
 ### Cache Optimization
 
@@ -35,6 +35,6 @@ options {
 
 ---
 
-> **💡 Pro Tip**: Monitor cache hit ratios and adjust cache sizes based on query patterns and available memory.
+> **Pro Tip**: Monitor cache hit ratios and adjust cache sizes based on query patterns and available memory.
 
 *Performance optimization ensures efficient DNS query processing and optimal resource utilization.*

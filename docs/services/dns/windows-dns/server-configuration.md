@@ -8,7 +8,7 @@ tags: [windows-dns, server-configuration, dns-setup, powershell, windows-server]
 
 This guide covers the complete configuration of Windows DNS Server from initial installation through advanced settings optimization for enterprise environments.
 
-## 🚀 Initial Server Setup
+## Initial Server Setup
 
 ### Installing DNS Server Role
 
@@ -36,7 +36,7 @@ Start-Service DNS
 Test-NetConnection -ComputerName localhost -Port 53 -InformationLevel Detailed
 ```
 
-## ⚙️ Core DNS Configuration
+## Core DNS Configuration
 
 ### Root Hints Configuration
 
@@ -89,7 +89,7 @@ Set-DnsServerSetting -ListeningIPAddress "192.168.1.10", "10.0.1.10"
 Set-DnsServerSetting -All -CreateFileBackedPrimaryZones $true
 ```
 
-## 🔧 Scavenging and Aging
+## Scavenging and Aging
 
 ### Enable Scavenging
 
@@ -122,7 +122,7 @@ Get-DnsServerZone | Where-Object {$_.ZoneType -eq "Primary" -and $_.IsDsIntegrat
 Get-DnsServerZone | Where-Object Aging | Select-Object ZoneName, Aging, RefreshInterval, NoRefreshInterval
 ```
 
-## 📊 Monitoring and Logging
+## Monitoring and Logging
 
 ### Enable DNS Debug Logging
 
@@ -160,7 +160,7 @@ Get-Counter -Counter $Counters -SampleInterval 10 -MaxSamples 6 |
     @{Name="QueriesPerSec";Expression={$_.CounterSamples[0].CookedValue}}
 ```
 
-## 🔐 Security Configuration
+## Security Configuration
 
 ### Secure DNS Server Settings
 
@@ -192,7 +192,7 @@ Set-DnsServerPrimaryZone -Name "contoso.com" -SecureSecondaries "SecureNs" -Seco
 Set-DnsServerPrimaryZone -Name "contoso.com" -Notify "NotifyServers" -NotifyServers "192.168.1.11", "192.168.1.12"
 ```
 
-## 🌐 Advanced Features Configuration
+## Advanced Features Configuration
 
 ### DNS Policies
 
@@ -220,7 +220,7 @@ Set-DnsServerGlobalNameZone -AlwaysQueryServer $true -Enable $true -GlobalOverLo
 Add-DnsServerResourceRecordCName -ZoneName "GlobalNames" -Name "intranet" -HostNameAlias "intranet.contoso.com"
 ```
 
-## 📈 Performance Optimization
+## Performance Optimization
 
 ### Cache Optimization
 
@@ -248,7 +248,7 @@ Set-DnsServerEDns -EnableProbes $true -CacheTimeout "00:15:00"
 Set-DnsServerSetting -MaximumUdpPacketSize 4096
 ```
 
-## 🔧 Maintenance Scripts
+## Maintenance Scripts
 
 ### Daily Health Check
 
@@ -355,7 +355,7 @@ function Backup-DnsServerConfiguration
 Backup-DnsServerConfiguration
 ```
 
-## 📚 Best Practices Summary
+## Best Practices Summary
 
 ### Configuration Guidelines
 

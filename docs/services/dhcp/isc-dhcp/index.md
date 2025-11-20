@@ -8,7 +8,7 @@ tags: [isc-dhcp, linux-dhcp, dhcp-server, dhcp-configuration, enterprise-network
 
 ISC DHCP Server is the most widely used DHCP server implementation for Unix and Linux systems, providing robust and flexible DHCP services.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -43,35 +43,35 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 
 ## 📋 Core Topics
 
-### 🛠️ **Installation & Configuration**
+### **Installation & Configuration**
 
 - [**Installation & Configuration**](installation-configuration.md) - Complete setup guide
 - Package installation and initial setup
 - Service configuration and startup
 - Basic subnet configuration
 
-### 🌐 **Subnet Management**
+### **Subnet Management**
 
 - [**Subnet Management**](subnet-management.md) - Network configuration
 - Subnet declarations and pools
 - Address range management
 - Multi-subnet configurations
 
-### ⚙️ **Advanced Configuration**
+### **Advanced Configuration**
 
 - [**Advanced Configuration**](advanced-configuration.md) - Enterprise features
 - Host reservations and classes
 - Custom DHCP options
 - Failover and clustering
 
-### 🔧 **Troubleshooting**
+### **Troubleshooting**
 
 - [**Troubleshooting**](troubleshooting.md) - Diagnostic procedures
 - Log analysis and debugging
 - Common configuration issues
 - Performance optimization
 
-## 🏗️ **Configuration Structure**
+## **Configuration Structure**
 
 ### Global Configuration
 
@@ -100,7 +100,7 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 }
 ```
 
-## 📊 **Management Commands**
+## **Management Commands**
 
 ### Service Management
 
@@ -130,7 +130,7 @@ sudo cat /var/lib/dhcp/dhcpd.leases
 sudo tail -f /var/log/syslog | grep dhcpd
 ```
 
-## 🔧 **Common Configurations**
+## **Common Configurations**
 
 ### Host Reservations
 
@@ -158,6 +158,6 @@ subnet 192.168.2.0 netmask 255.255.255.0 {
 
 ---
 
-> **💡 Pro Tip**: Always test configuration changes with `dhcpd -t -cf /etc/dhcp/dhcpd.conf` before restarting the service to avoid service disruption.
+> **Pro Tip**: Always test configuration changes with `dhcpd -t -cf /etc/dhcp/dhcpd.conf` before restarting the service to avoid service disruption.
 
 *ISC DHCP Server provides enterprise-grade DHCP services with extensive configuration flexibility for Linux environments.*

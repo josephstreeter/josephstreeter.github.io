@@ -8,7 +8,7 @@ tags: [dns-disaster-recovery, business-continuity, dns-backup, recovery-procedur
 
 Disaster recovery planning and procedures for DNS infrastructure.
 
-## 🚨 Recovery Planning
+## Recovery Planning
 
 ### Backup Strategies
 
@@ -37,7 +37,7 @@ tar -xzf dns-backup.tar.gz -C /
 systemctl restart named
 ```
 
-## 🔄 Continuity Planning
+## Continuity Planning
 
 ### Failover Scenarios
 
@@ -55,6 +55,6 @@ systemctl restart named
 
 ---
 
-> **💡 Pro Tip**: Test disaster recovery procedures regularly to ensure they work effectively when needed during actual incidents.
+> **Pro Tip**: Test disaster recovery procedures regularly to ensure they work effectively when needed during actual incidents.
 
 *Comprehensive disaster recovery planning ensures DNS service continuity during critical incidents.*

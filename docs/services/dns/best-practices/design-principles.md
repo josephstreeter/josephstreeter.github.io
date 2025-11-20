@@ -8,7 +8,7 @@ tags: [dns-design, network-architecture, enterprise-dns, dns-planning]
 
 Fundamental design principles and architecture guidelines for enterprise DNS infrastructure.
 
-## 🏗️ Architecture Principles
+## Architecture Principles
 
 ### Hierarchical Design
 
@@ -38,7 +38,7 @@ External Forwarders
 └── Cloud DNS services
 ```
 
-## 📋 Planning Guidelines
+## Planning Guidelines
 
 ### Capacity Planning
 
@@ -56,6 +56,6 @@ External Forwarders
 
 ---
 
-> **💡 Pro Tip**: Design DNS infrastructure with geographic distribution and redundancy to ensure high availability and optimal performance.
+> **Pro Tip**: Design DNS infrastructure with geographic distribution and redundancy to ensure high availability and optimal performance.
 
 *Sound design principles ensure scalable, reliable, and secure DNS infrastructure for enterprise environments.*

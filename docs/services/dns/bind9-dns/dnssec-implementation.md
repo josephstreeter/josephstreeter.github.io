@@ -8,7 +8,7 @@ tags: [bind9-dnssec, dns-security, dnssec-implementation]
 
 Complete guide to implementing DNSSEC in BIND9 for enhanced DNS security.
 
-## 🔐 DNSSEC Configuration
+## DNSSEC Configuration
 
 ### Key Generation
 
@@ -41,6 +41,6 @@ options {
 
 ---
 
-> **💡 Pro Tip**: Implement automated key rollover procedures to maintain DNSSEC security without service interruption.
+> **Pro Tip**: Implement automated key rollover procedures to maintain DNSSEC security without service interruption.
 
 *DNSSEC implementation provides cryptographic authentication and integrity protection for DNS data.*

@@ -8,7 +8,7 @@ tags: [dhcp-security, network-security, security-hardening]
 
 Essential security practices for protecting DHCP infrastructure from attacks and unauthorized access.
 
-## 🛡️ Server Security
+## Server Security
 
 ### Access Control
 
@@ -22,7 +22,7 @@ Essential security practices for protecting DHCP infrastructure from attacks and
 - Implement firewall rules (UDP ports 67/68)
 - Monitor for rogue DHCP servers
 
-## 🔍 Monitoring and Detection
+## Monitoring and Detection
 
 ### Rogue DHCP Detection
 
@@ -44,6 +44,6 @@ nmap --script broadcast-dhcp-discover
 
 ---
 
-> **💡 Pro Tip**: Implement network access control (NAC) to prevent unauthorized DHCP servers from disrupting network operations.
+> **Pro Tip**: Implement network access control (NAC) to prevent unauthorized DHCP servers from disrupting network operations.
 
 *Strong security practices protect DHCP infrastructure from common attacks and unauthorized access.*

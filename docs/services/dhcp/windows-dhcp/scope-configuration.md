@@ -8,7 +8,7 @@ tags: [windows-dhcp-scopes, dhcp-scope-configuration, ip-address-management, dhc
 
 DHCP scopes define the range of IP addresses that can be distributed to DHCP clients. This guide covers creating, configuring, and managing DHCP scopes effectively.
 
-## 🎯 Scope Overview
+## Scope Overview
 
 ### What is a DHCP Scope?
 
@@ -20,7 +20,7 @@ A DHCP scope is a consecutive range of IP addresses that a DHCP server can assig
 - **Reservations** - Static IP assignments for specific devices
 - **Exclusions** - IP addresses to exclude from assignment
 
-## 🚀 Creating DHCP Scopes
+## Creating DHCP Scopes
 
 ### Using PowerShell
 
@@ -54,7 +54,7 @@ Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -OptionId 15 -Value "contoso.co
    - Configure scope options
    - Activate the scope
 
-## ⚙️ Scope Configuration Options
+## Scope Configuration Options
 
 ### Common DHCP Options
 
@@ -81,7 +81,7 @@ Add-DhcpServerv4OptionDefinition -OptionId 252 -Name "Proxy Auto Config" -Type S
 Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -OptionId 252 -Value "http://proxy.contoso.com/proxy.pac"
 ```
 
-## 🔒 DHCP Reservations
+## DHCP Reservations
 
 ### Creating Reservations
 
@@ -114,7 +114,7 @@ Set-DhcpServerv4Reservation -IPAddress 192.168.1.50 -Name "Print-Server01-Update
 Remove-DhcpServerv4Reservation -IPAddress 192.168.1.50
 ```
 
-## 📊 Scope Management
+## Scope Management
 
 ### Monitoring Scope Utilization
 
@@ -145,7 +145,7 @@ Remove-DhcpServerv4Lease -ScopeId 192.168.1.0 -ClientId "00-15-5D-12-34-58"
 Export-DhcpServer -File "C:\DHCP-Backup\DHCPBackup.xml" -ScopeId 192.168.1.0
 ```
 
-## 🏗️ Advanced Scope Configurations
+## Advanced Scope Configurations
 
 ### Superscopes
 
@@ -197,7 +197,7 @@ Get-DhcpServerv4Lease -ScopeId 192.168.1.0 | Group-Object IPAddress | Where-Obje
 Set-DhcpServerSetting -ConflictDetectionAttempts 2
 ```
 
-## 📚 Best Practices
+## Best Practices
 
 ### Scope Design Guidelines
 
@@ -225,6 +225,6 @@ Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -OptionId 15 -Value "contoso.co
 
 ---
 
-> **💡 Pro Tip**: Monitor scope utilization regularly and plan for growth. Consider implementing 80% utilization alerts to proactively manage address space.
+> **Pro Tip**: Monitor scope utilization regularly and plan for growth. Consider implementing 80% utilization alerts to proactively manage address space.
 
 *This guide provides comprehensive coverage of DHCP scope configuration and management for Windows Server environments.*

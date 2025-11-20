@@ -8,7 +8,7 @@ tags: [windows-dns-performance, dns-monitoring, performance-optimization, dns-me
 
 Performance monitoring and optimization strategies for Windows DNS Server environments.
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 ### Key Performance Counters
 
@@ -29,7 +29,7 @@ Get-DnsServerStatistics
 Get-DnsServerCache
 ```
 
-## ⚡ Performance Optimization
+## Performance Optimization
 
 ### Cache Configuration
 
@@ -52,6 +52,6 @@ Write-Output "Responses sent: $($stats.TotalResponsesSent)"
 
 ---
 
-> **💡 Pro Tip**: Monitor DNS cache hit ratios and query response times to identify performance bottlenecks and optimization opportunities.
+> **Pro Tip**: Monitor DNS cache hit ratios and query response times to identify performance bottlenecks and optimization opportunities.
 
 *Regular performance monitoring ensures optimal DNS service delivery and user experience.*

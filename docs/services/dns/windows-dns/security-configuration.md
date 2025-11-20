@@ -8,7 +8,7 @@ tags: [windows-dns-security, dns-hardening, security-configuration, dns-protecti
 
 Security configuration and hardening guidelines for Windows DNS Server environments.
 
-## 🛡️ Security Hardening
+## Security Hardening
 
 ### Access Control
 
@@ -31,7 +31,7 @@ Enable-DnsServerSigningKeyRollover -ZoneName "contoso.com" -KeyType KeySigningKe
 Invoke-DnsServerZoneSigning -ZoneName "contoso.com"
 ```
 
-## 🔍 Monitoring and Auditing
+## Monitoring and Auditing
 
 ### Event Log Configuration
 
@@ -45,6 +45,6 @@ auditpol /set /subcategory:"Directory Service Changes" /success:enable /failure:
 
 ---
 
-> **💡 Pro Tip**: Implement DNS response rate limiting and query restrictions to protect against DNS-based attacks.
+> **Pro Tip**: Implement DNS response rate limiting and query restrictions to protect against DNS-based attacks.
 
 *Proper security configuration protects DNS infrastructure from common threats and unauthorized access.*

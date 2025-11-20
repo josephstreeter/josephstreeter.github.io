@@ -8,7 +8,7 @@ tags: [dhcp-design, network-planning, enterprise-architecture]
 
 Fundamental design principles for planning and implementing enterprise DHCP infrastructure.
 
-## 🏗️ Network Architecture
+## Network Architecture
 
 ### Hierarchical Design
 
@@ -22,7 +22,7 @@ Fundamental design principles for planning and implementing enterprise DHCP infr
 - **Failover Configuration** - Automatic failover
 - **Geographic Distribution** - Disaster recovery
 
-## 📊 Capacity Planning
+## Capacity Planning
 
 ### Address Space Management
 
@@ -42,6 +42,6 @@ Network: 192.168.0.0/16 (65,536 addresses)
 
 ---
 
-> **💡 Pro Tip**: Design DHCP infrastructure with redundancy and growth in mind to ensure long-term scalability and reliability.
+> **Pro Tip**: Design DHCP infrastructure with redundancy and growth in mind to ensure long-term scalability and reliability.
 
 *Proper design principles ensure scalable and maintainable DHCP infrastructure for enterprise environments.*
