@@ -8,7 +8,7 @@ tags: [isc-dhcp-advanced, dhcp-reservations, dhcp-classes]
 
 Advanced configuration features for ISC DHCP Server including host reservations and client classes.
 
-## 🔒 Host Reservations
+## Host Reservations
 
 ### Static IP Assignments
 
@@ -20,7 +20,7 @@ host server-01 {
 }
 ```
 
-## 📋 Client Classes
+## Client Classes
 
 ### Device Classification
 
@@ -39,6 +39,6 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 
 ---
 
-> **💡 Pro Tip**: Use client classes to apply different configurations based on device types or organizational units.
+> **Pro Tip**: Use client classes to apply different configurations based on device types or organizational units.
 
 *Advanced configuration features provide granular control over DHCP behavior and client management.*

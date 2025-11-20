@@ -8,7 +8,7 @@ tags: [dns-security, security-guidelines, dns-protection, cybersecurity]
 
 Comprehensive security guidelines and best practices for protecting DNS infrastructure.
 
-## 🛡️ Security Framework
+## Security Framework
 
 ### DNSSEC Implementation
 
@@ -34,7 +34,7 @@ options {
 };
 ```
 
-## 🔒 Protection Measures
+## Protection Measures
 
 ### DDoS Mitigation
 
@@ -57,6 +57,6 @@ grep "security" /var/log/named/security.log
 
 ---
 
-> **💡 Pro Tip**: Implement defense in depth with multiple security layers including DNSSEC, access controls, and monitoring.
+> **Pro Tip**: Implement defense in depth with multiple security layers including DNSSEC, access controls, and monitoring.
 
 *Comprehensive security measures protect DNS infrastructure from evolving cyber threats.*

@@ -8,7 +8,7 @@ tags: [isc-dhcp-installation, linux-dhcp-setup, dhcp-configuration]
 
 Complete guide for installing and configuring ISC DHCP Server on various Linux distributions.
 
-## 📦 Installation
+## Installation
 
 ### Ubuntu/Debian
 
@@ -23,7 +23,7 @@ sudo apt install isc-dhcp-server
 sudo dnf install dhcp-server
 ```
 
-## ⚙️ Initial Configuration
+## Initial Configuration
 
 ### Edit Configuration File
 
@@ -57,6 +57,6 @@ sudo systemctl start isc-dhcp-server
 
 ---
 
-> **💡 Pro Tip**: Always validate configuration with `dhcpd -t` before starting the service.
+> **Pro Tip**: Always validate configuration with `dhcpd -t` before starting the service.
 
 *This installation guide covers the essential steps for deploying ISC DHCP Server in Linux environments.*

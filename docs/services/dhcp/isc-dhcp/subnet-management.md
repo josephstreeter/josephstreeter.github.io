@@ -8,7 +8,7 @@ tags: [isc-dhcp-subnets, dhcp-pools, network-management]
 
 Comprehensive guide to managing subnets and address pools in ISC DHCP Server.
 
-## 🌐 Subnet Declarations
+## Subnet Declarations
 
 ### Basic Subnet Configuration
 
@@ -35,6 +35,6 @@ subnet 192.168.1.0 netmask 255.255.255.0 {
 
 ---
 
-> **💡 Pro Tip**: Use multiple ranges to exclude static IP addresses while maintaining continuous DHCP service.
+> **Pro Tip**: Use multiple ranges to exclude static IP addresses while maintaining continuous DHCP service.
 
 *Effective subnet management ensures optimal IP address distribution and network organization.*

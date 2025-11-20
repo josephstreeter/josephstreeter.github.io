@@ -8,7 +8,7 @@ tags: [dhcp-monitoring, maintenance-procedures, operational-excellence]
 
 Comprehensive operational procedures for monitoring and maintaining enterprise DHCP infrastructure.
 
-## 📊 Monitoring Procedures
+## Monitoring Procedures
 
 ### Daily Monitoring Tasks
 
@@ -31,7 +31,7 @@ dhcp-lease-list --lease /var/lib/dhcp/dhcpd.leases | wc -l
 - Database size and growth alerts
 - Lease assignment failure rates
 
-## 🔧 Maintenance Procedures
+## Maintenance Procedures
 
 ### Regular Maintenance Tasks
 
@@ -64,6 +64,6 @@ cp /var/lib/dhcp/dhcpd.leases /backup/dhcpd.leases.$(date +%Y%m%d)
 
 ---
 
-> **💡 Pro Tip**: Implement automated monitoring and alerting to proactively identify and resolve DHCP issues before they impact users.
+> **Pro Tip**: Implement automated monitoring and alerting to proactively identify and resolve DHCP issues before they impact users.
 
 *Regular monitoring and maintenance ensure reliable DHCP operations and prevent service disruptions.*

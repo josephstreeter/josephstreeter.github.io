@@ -24,7 +24,7 @@ This guide provides step-by-step instructions for installing and performing init
 - Plan for DHCP server placement and redundancy
 - Consider DHCP relay agent requirements
 
-## 🚀 Installation Process
+## Installation Process
 
 ### Using Server Manager
 
@@ -91,7 +91,7 @@ Set-DhcpServerv4OptionValue -ScopeId 192.168.1.0 -OptionId 6 -Value "192.168.1.1
 Set-DhcpServerv4Scope -ScopeId 192.168.1.0 -State Active
 ```
 
-## 🛡️ Security Configuration
+## Security Configuration
 
 ### DHCP Server Authorization
 
@@ -113,7 +113,7 @@ Add-ADGroupMember -Identity "DHCP Administrators" -Members "DHCPAdmin1","DHCPAdm
 Add-ADGroupMember -Identity "DHCP Users" -Members "DHCPUser1","DHCPUser2"
 ```
 
-## 📊 Verification and Testing
+## Verification and Testing
 
 ### Verify Installation
 
@@ -135,7 +135,7 @@ Get-DhcpServerv4Statistics
 3. **Verify lease assignment** in DHCP console
 4. **Test connectivity** to network resources
 
-## 🔧 Troubleshooting Common Issues
+## Troubleshooting Common Issues
 
 ### Authorization Problems
 
@@ -158,7 +158,7 @@ Get-Service DHCPServer | Select-Object -ExpandProperty ServicesDependedOn
 Restart-Service DHCPServer
 ```
 
-## 📚 Next Steps
+## Next Steps
 
 After successful installation and initial configuration:
 
@@ -168,6 +168,6 @@ After successful installation and initial configuration:
 
 ---
 
-> **💡 Pro Tip**: Always authorize DHCP servers in Active Directory environments to prevent rogue DHCP servers from disrupting network operations.
+> **Pro Tip**: Always authorize DHCP servers in Active Directory environments to prevent rogue DHCP servers from disrupting network operations.
 
 *This installation guide provides the foundation for a secure and properly configured Windows DHCP Server deployment.*

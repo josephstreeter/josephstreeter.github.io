@@ -8,7 +8,7 @@ tags: [bind9-troubleshooting, dns-diagnostics, problem-resolution]
 
 Comprehensive troubleshooting guide for diagnosing and resolving BIND9 DNS server issues.
 
-## 🔍 Diagnostic Commands
+## Diagnostic Commands
 
 ### Configuration Testing
 
@@ -33,7 +33,7 @@ journalctl -u named -f
 dig @localhost example.com
 ```
 
-## 🚨 Common Issues
+## Common Issues
 
 ### Configuration Errors
 
@@ -55,6 +55,6 @@ cat /var/named/named.stats
 
 ---
 
-> **💡 Pro Tip**: Enable query logging temporarily to troubleshoot resolution issues, but disable it in production to avoid performance impact.
+> **Pro Tip**: Enable query logging temporarily to troubleshoot resolution issues, but disable it in production to avoid performance impact.
 
 *Systematic troubleshooting procedures ensure rapid identification and resolution of DNS service issues.*

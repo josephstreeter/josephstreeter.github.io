@@ -8,7 +8,7 @@ tags: [bind9-monitoring, dns-logging, log-analysis]
 
 Monitoring and logging configuration for BIND9 DNS server environments.
 
-## 📊 Logging Configuration
+## Logging Configuration
 
 ### Log Categories
 
@@ -44,6 +44,6 @@ rndc stats
 
 ---
 
-> **💡 Pro Tip**: Configure appropriate log rotation to prevent log files from consuming excessive disk space.
+> **Pro Tip**: Configure appropriate log rotation to prevent log files from consuming excessive disk space.
 
 *Effective monitoring and logging provide visibility into DNS server operations and performance.*

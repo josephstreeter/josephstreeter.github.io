@@ -8,7 +8,7 @@ tags: [bind9-security, dns-hardening, security-configuration]
 
 Security hardening guidelines and protection measures for BIND9 DNS server environments.
 
-## 🛡️ Security Configuration
+## Security Configuration
 
 ### Access Control
 
@@ -41,6 +41,6 @@ options {
 
 ---
 
-> **💡 Pro Tip**: Implement strict access controls and rate limiting to protect against DNS abuse and attacks.
+> **Pro Tip**: Implement strict access controls and rate limiting to protect against DNS abuse and attacks.
 
 *Proper security hardening protects BIND9 infrastructure from common DNS-based threats.*
