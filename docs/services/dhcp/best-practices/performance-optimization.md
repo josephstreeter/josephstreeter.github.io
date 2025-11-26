@@ -8,7 +8,7 @@ tags: [dhcp-performance, optimization, capacity-planning]
 
 Performance optimization techniques and capacity planning for enterprise DHCP deployments.
 
-## ⚡ Performance Tuning
+## Performance Tuning
 
 ### Lease Duration Optimization
 
@@ -29,7 +29,7 @@ Set-DhcpServerDatabase -BackupInterval 60 -CleanupInterval 24
 # Regular lease file cleanup and rotation
 ```
 
-## 📊 Monitoring Metrics
+## Monitoring Metrics
 
 ### Key Performance Indicators
 
@@ -46,6 +46,6 @@ Set-DhcpServerDatabase -BackupInterval 60 -CleanupInterval 24
 
 ---
 
-> **💡 Pro Tip**: Regular performance monitoring and proactive capacity planning prevent DHCP service degradation during peak usage periods.
+> **Pro Tip**: Regular performance monitoring and proactive capacity planning prevent DHCP service degradation during peak usage periods.
 
 *Optimized DHCP performance ensures reliable IP address assignment even under high load conditions.*

@@ -2,10 +2,8 @@
   href: index.md
 - name: Getting Started
   href: getting-started.md
-- name: Documentation Process
-  href: documentation/index.md
-- name: Documentation Example
-  href: documentation/example.md
+- name: Documentation
+  href: documentation/toc.yml
 - name: Naming Convention
   href: documentation/namingconvention.md
 - name: Fundamentals

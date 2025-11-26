@@ -8,7 +8,7 @@ tags: [windows-dhcp-security, dhcp-monitoring, dhcp-troubleshooting, dhcp-best-p
 
 Securing and monitoring Windows DHCP Server is critical for network reliability and security.
 
-## 🛡️ Security Best Practices
+## Security Best Practices
 
 ### Server Authorization
 
@@ -30,7 +30,7 @@ Add-DhcpServerSecurityGroup
 Add-ADGroupMember -Identity "DHCP Administrators" -Members "User1","User2"
 ```
 
-## 📊 Monitoring and Logging
+## Monitoring and Logging
 
 ### Performance Monitoring
 
@@ -55,7 +55,7 @@ Get-WinEvent -LogName "DhcpAdminEvents" -MaxEvents 50
 Get-WinEvent -LogName "DhcpAdminEvents" | Where-Object LevelDisplayName -eq "Error"
 ```
 
-## 🔧 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -79,6 +79,6 @@ Get-Service DHCPServer | Select-Object -ExpandProperty ServicesDependedOn
 
 ---
 
-> **💡 Pro Tip**: Implement regular monitoring of DHCP scope utilization and set up alerts when scopes reach 80% capacity to prevent address exhaustion.
+> **Pro Tip**: Implement regular monitoring of DHCP scope utilization and set up alerts when scopes reach 80% capacity to prevent address exhaustion.
 
 *Proper security and monitoring ensure reliable DHCP operations in enterprise environments.*

@@ -750,11 +750,11 @@ See [Documentation Standards](/Standards/Documentation) for requirements.
 
 ## Quick Links
 
-- [Architecture](Architecture.md)
-- [Operations Runbook](Operations/Runbook.md)
-- [API Documentation](API/Overview.md)
-- [Deployment Guide](Operations/Deployment.md)
-- [Troubleshooting](Operations/Troubleshooting.md)
+- *Architecture* (*Architecture.md* - placeholder)
+- *Operations Runbook* (*Operations/Runbook.md* - placeholder)
+- *API Documentation* (*API/Overview.md* - placeholder)
+- *Deployment Guide* (*Operations/Deployment.md* - placeholder)
+- *Troubleshooting* (*Operations/Troubleshooting.md* - placeholder)
 
 ## Service Information
 
@@ -777,19 +777,19 @@ For detailed architecture documentation, see [Architecture](Architecture.md).
 ## Getting Started
 
 ### For Operators
-- [Deployment Guide](Operations/Deployment.md)
-- [Configuration Guide](Operations/Configuration.md)
-- [Monitoring Guide](Operations/Monitoring.md)
+- *Deployment Guide* (*Operations/Deployment.md* - placeholder)
+- *Configuration Guide* (*Operations/Configuration.md* - placeholder)
+- *Monitoring Guide* (*Operations/Monitoring.md* - placeholder)
 
 ### For Developers
-- [Local Development Setup](Development/Local-Setup.md)
-- [Contributing Guidelines](Development/Contributing.md)
-- [Testing Guide](Development/Testing.md)
+- *Local Development Setup* (*Development/Local-Setup.md* - placeholder)
+- *Contributing Guidelines* (*Development/Contributing.md* - placeholder)
+- *Testing Guide* (*Development/Testing.md* - placeholder)
 
 ### For Consumers/Integrators
-- [API Documentation](API/Overview.md)
-- [Integration Examples](API/Examples.md)
-- [Integration Guides](Integration/Overview.md)
+- *API Documentation* (*API/Overview.md* - placeholder)
+- *Integration Examples* (*API/Examples.md* - placeholder)
+- *Integration Guides* (*Integration/Overview.md* - placeholder)
 
 ## Support
 
@@ -877,9 +877,9 @@ Create version-specific pages:
 ```markdown
 ## Documentation Versions
 
-- [Version 2.0 (Latest)](Versions/Version-2.0.md) - Current production
-- [Version 1.5](Versions/Version-1.5.md) - Legacy production (supported until 2026)
-- [Version 1.0](Versions/Version-1.0.md) - Deprecated (unsupported)
+- *Version 2.0 (Latest)* (*Versions/Version-2.0.md* - placeholder) - Current production
+- *Version 1.5* (*Versions/Version-1.5.md* - placeholder) - Legacy production (supported until 2026)
+- *Version 1.0* (*Versions/Version-1.0.md* - placeholder) - Deprecated (unsupported)
 ```
 
 #### Option 2: Use Git Tags and Branches (Advanced)
@@ -2207,27 +2207,27 @@ graph LR
     Service --> Queue[Message Queue]
 ```
 
-For detailed architecture documentation, see [Architecture](Architecture.md).
+For detailed architecture documentation, see *Architecture.md* (placeholder).
 
 ## Getting Started
 
 ### For Operators
 
-1. [Deploy the service](Operations/Deployment.md)
-2. [Configure monitoring](Operations/Monitoring.md)
-3. [Review operational runbook](Operations/Runbook.md)
+1. Deploy the service (*Operations/Deployment.md* - placeholder)
+2. Configure monitoring (*Operations/Monitoring.md* - placeholder)
+3. Review operational runbook (*Operations/Runbook.md* - placeholder)
 
 ### For Developers
 
-1. [Set up local development environment](Development/Local-Setup.md)
-2. [Review contribution guidelines](Development/Contributing.md)
-3. [Run tests](Development/Testing.md)
+1. Set up local development environment (*Development/Local-Setup.md* - placeholder)
+2. Review contribution guidelines (*Development/Contributing.md* - placeholder)
+3. Run tests (*Development/Testing.md* - placeholder)
 
 ### For Consumers
 
-1. [Review API documentation](API/Overview.md)
-2. [See integration examples](API/Examples.md)
-3. [Understand authentication](API/Authentication.md)
+1. Review API documentation (*API/Overview.md* - placeholder)
+2. See integration examples (*API/Examples.md* - placeholder)
+3. Understand authentication (*API/Authentication.md* - placeholder)
 
 ## Key Features
 
@@ -2248,20 +2248,20 @@ For detailed architecture documentation, see [Architecture](Architecture.md).
 - **On-Call:** [Link to PagerDuty/on-call schedule]
 - **Team Channel:** [#team-channel on Slack/Teams]
 - **Email:** [team@company.com](mailto:team@company.com)
-- **Issue Tracking:** [Azure DevOps Board](link)
+- **Issue Tracking:** *Azure DevOps Board* (*link* - placeholder)
 
 ## Related Services
 
-- [Service A](link-to-wiki) - [Brief description of relationship]
-- [Service B](link-to-wiki) - [Brief description of relationship]
+- Service A (*link-to-wiki* - placeholder) - [Brief description of relationship]
+- Service B (*link-to-wiki* - placeholder) - [Brief description of relationship]
 
 ## Recent Changes
 
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+See *CHANGELOG.md* (placeholder) for detailed version history.
 
 ## Contributing
 
-This service is maintained by [Team Name]. For contribution guidelines, see [Contributing Guide](Development/Contributing.md).
+This service is maintained by [Team Name]. For contribution guidelines, see *Contributing Guide* (*Development/Contributing.md* - placeholder).
 
 ---
 *Documentation last reviewed: [YYYY-MM-DD]*
@@ -2375,13 +2375,13 @@ requests
 
 ### Deploy New Version
 
-1. Review [Deployment Guide](Deployment.md)
+1. Review *Deployment Guide* (*Deployment.md* - placeholder)
 2. Check for breaking changes
 3. Deploy to staging first
 4. Run smoke tests
 5. Deploy to production
 6. Monitor for issues
-7. **Rollback procedure if needed:** [link to section]
+7. **Rollback procedure if needed:** *[link to section]* (placeholder)
 
 ### Scale Service
 
@@ -2407,7 +2407,7 @@ az appservice plan update --name plan-name --resource-group rg-name --sku P2V2
 ### Database Maintenance
 
 **Backup:** [Automatic, manual trigger, location]  
-**Restore:** See [Backup and Recovery Guide](Backup-Recovery.md)  
+**Restore:** See *Backup and Recovery Guide* (*Backup-Recovery.md* - placeholder)  
 **Index Maintenance:** [Schedule, procedure]
 
 ## Troubleshooting
@@ -2477,8 +2477,8 @@ az appservice plan update --name plan-name --resource-group rg-name --sku P2V2
 **RPO (Recovery Point Objective):** [X hours of data loss acceptable]
 
 **DR Site:** [Location]  
-**Failover Procedure:** See [Disaster Recovery Plan](Disaster-Recovery.md)  
-**Failback Procedure:** See [Disaster Recovery Plan](Disaster-Recovery.md)
+**Failover Procedure:** See *Disaster Recovery Plan* (*Disaster-Recovery.md* - placeholder)  
+**Failback Procedure:** See *Disaster Recovery Plan* (*Disaster-Recovery.md* - placeholder)
 
 **Last DR Test:** [Date]  
 **Next DR Test:** [Date]
@@ -2521,11 +2521,11 @@ az appservice plan update --name plan-name --resource-group rg-name --sku P2V2
 
 ## Related Documentation
 
-- [Architecture Documentation](../Architecture.md)
-- [Deployment Guide](Deployment.md)
-- [Monitoring Guide](Monitoring.md)
-- [Disaster Recovery Plan](Disaster-Recovery.md)
-- [API Documentation](../API/Overview.md)
+- *Architecture Documentation* (*../Architecture.md* - placeholder)
+- *Deployment Guide* (*Deployment.md* - placeholder)
+- *Monitoring Guide* (*Monitoring.md* - placeholder)
+- *Disaster Recovery Plan* (*Disaster-Recovery.md* - placeholder)
+- *API Documentation* (*../API/Overview.md* - placeholder)
 
 ## Document History
 
@@ -2625,7 +2625,7 @@ graph TB
 - `GET /api/v1/resources` - List resources
 - `GET /api/v1/resources/{id}` - Get resource
 - `POST /api/v1/resources` - Create resource
-- [See full API documentation](API/Overview.md)
+- *See full API documentation* (*API/Overview.md* - placeholder)
 
 ---
 
@@ -2783,7 +2783,7 @@ sequenceDiagram
 **DR Strategy:** [Active-Passive / Active-Active / Backup and Restore]  
 **DR Site:** [Azure Region 2]
 
-**Failover Procedure:** See [Disaster Recovery Plan](Operations/Disaster-Recovery.md)
+**Failover Procedure:** See *Disaster Recovery Plan* (*Operations/Disaster-Recovery.md* - placeholder)
 
 ### Monitoring & Alerting Configuration
 
@@ -2870,15 +2870,15 @@ sequenceDiagram
 
 Major architecture decisions are documented separately:
 
-- [ADR-001: Choice of Database Technology](ADRs/ADR-001-Database-Choice.md)
-- [ADR-002: API Gateway vs Direct Access](ADRs/ADR-002-API-Gateway.md)
+- *ADR-001: Choice of Database Technology* (*ADRs/ADR-001-Database-Choice.md* - placeholder)
+- *ADR-002: API Gateway vs Direct Access* (*ADRs/ADR-002-API-Gateway.md* - placeholder)
 
 ## Architecture Documentation References
 
-- [Operations Runbook](Operations/Runbook.md)
-- [API Documentation](API/Overview.md)
-- [Deployment Guide](Operations/Deployment.md)
-- [Monitoring Guide](Operations/Monitoring.md)
+- *Operations Runbook* (*Operations/Runbook.md* - placeholder)
+- *API Documentation* (*API/Overview.md* - placeholder)
+- *Deployment Guide* (*Operations/Deployment.md* - placeholder)
+- *Monitoring Guide* (*Operations/Monitoring.md* - placeholder)
 
 ## Architecture Document History
 

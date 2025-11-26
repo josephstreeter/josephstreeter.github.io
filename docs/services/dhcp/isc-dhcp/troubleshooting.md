@@ -8,7 +8,7 @@ tags: [isc-dhcp-troubleshooting, dhcp-debugging, log-analysis]
 
 Comprehensive troubleshooting guide for diagnosing and resolving ISC DHCP Server issues.
 
-## 🔍 Diagnostic Commands
+## Diagnostic Commands
 
 ### Configuration Testing
 
@@ -31,7 +31,7 @@ sudo grep "DHCPDISCOVER" /var/log/syslog
 sudo grep "DHCPACK" /var/log/syslog
 ```
 
-## 🚨 Common Issues
+## Common Issues
 
 ### Service Won't Start
 
@@ -56,6 +56,6 @@ sudo dhcpd -t -cf /etc/dhcp/dhcpd.conf
 
 ---
 
-> **💡 Pro Tip**: Enable detailed logging to troubleshoot complex DHCP issues and monitor client behavior.
+> **Pro Tip**: Enable detailed logging to troubleshoot complex DHCP issues and monitor client behavior.
 
 *Effective troubleshooting techniques ensure rapid resolution of DHCP service issues.*

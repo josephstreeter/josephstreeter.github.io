@@ -8,7 +8,7 @@ tags: [windows-dns-troubleshooting, dns-diagnostics, problem-resolution, dns-deb
 
 Comprehensive troubleshooting guide for diagnosing and resolving Windows DNS Server issues.
 
-## 🔍 Diagnostic Tools
+## Diagnostic Tools
 
 ### PowerShell Diagnostics
 
@@ -33,7 +33,7 @@ Get-WinEvent -LogName "DNS Server" -MaxEvents 50
 Get-WinEvent -LogName "DNS Server" | Where-Object LevelDisplayName -eq "Error"
 ```
 
-## 🚨 Common Issues
+## Common Issues
 
 ### Zone Transfer Problems
 
@@ -57,6 +57,6 @@ Test-DnsServer -IPAddress "192.168.1.10" -ZoneName "."
 
 ---
 
-> **💡 Pro Tip**: Use DNS debug logging sparingly in production environments as it can generate large log files and impact performance.
+> **Pro Tip**: Use DNS debug logging sparingly in production environments as it can generate large log files and impact performance.
 
 *Systematic troubleshooting techniques ensure rapid resolution of DNS service issues.*

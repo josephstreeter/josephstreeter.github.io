@@ -8,7 +8,7 @@ tags: [dns-performance, optimization, performance-tuning, dns-efficiency]
 
 Performance optimization strategies and tuning guidelines for DNS infrastructure.
 
-## ⚡ Optimization Strategies
+## Optimization Strategies
 
 ### Caching Optimization
 
@@ -35,7 +35,7 @@ Set-DnsServerCache -LockingPercent 90 -MaxKBSize 512000
 Set-DnsServerSetting -SocketPoolSize 2500
 ```
 
-## 📊 Performance Monitoring
+## Performance Monitoring
 
 ### Key Metrics
 
@@ -53,6 +53,6 @@ Set-DnsServerSetting -SocketPoolSize 2500
 
 ---
 
-> **💡 Pro Tip**: Monitor cache hit ratios and adjust TTL values to balance between performance and data freshness.
+> **Pro Tip**: Monitor cache hit ratios and adjust TTL values to balance between performance and data freshness.
 
 *Performance optimization ensures efficient DNS resolution and optimal user experience.*

@@ -8,7 +8,7 @@ tags: [bind9-zones, dns-zone-configuration, bind-zone-management]
 
 Comprehensive guide to creating and managing DNS zones in BIND9 server environments.
 
-## 🌐 Zone Configuration
+## Zone Configuration
 
 ### Forward Zone Example
 
@@ -23,7 +23,7 @@ zone "example.com" {
 
 ### Zone File Creation
 
-```bash
+```text
 # Create zone file
 sudo nano /etc/bind/zones/db.example.com
 
@@ -53,6 +53,6 @@ zone "1.168.192.in-addr.arpa" {
 
 ---
 
-> **💡 Pro Tip**: Always increment the serial number when making zone file changes to ensure proper zone transfer.
+> **Pro Tip**: Always increment the serial number when making zone file changes to ensure proper zone transfer.
 
 *Proper zone configuration ensures reliable DNS resolution and zone delegation.*
