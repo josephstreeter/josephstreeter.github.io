@@ -72,14 +72,13 @@ Azure DevOps provides two types of wikis, each serving different purposes.
 - A wiki provisioned for an entire Azure DevOps project
 - Backed by a hidden Git repository (you can clone and work locally)
 - One per project (but can have multiple projects)
-- Managed through the Azure DevOps web interface OR via Git
+- Managed via Git or through the Azure DevOps web interface
 
 **Best used for:**
 
 - ✅ Cross-cutting documentation (affects multiple services/repos)
 - ✅ Operational procedures and runbooks
 - ✅ Organizational standards and policies
-- ✅ Architecture decision records (ADRs)
 - ✅ Project management documentation
 - ✅ Team onboarding and training materials
 - ✅ Index/catalog of all services and their documentation
@@ -90,7 +89,6 @@ Azure DevOps provides two types of wikis, each serving different purposes.
 - Not tied to specific code repositories
 - Survives even if code repositories are deleted
 - Easier to manage permissions at project level
-- Good for non-technical stakeholders (can edit via web UI)
 
 **Example structure:**
 
@@ -126,27 +124,25 @@ Project Wiki: "Enterprise IT Documentation"
 **What it is:**
 
 - A wiki published from a specific folder in a Git repository
-- Lives alongside the code it documents
+- Lives alongside the code it documents, if code exists
 - Can have multiple code wikis (one per repo or even multiple per repo)
 - Automatically updated when repository changes are merged
 
 **Best used for:**
 
 - ✅ Service-specific technical documentation
-- ✅ API documentation
 - ✅ Architecture for specific applications
 - ✅ Setup and configuration guides
-- ✅ Developer guides for specific codebases
 - ✅ Runbooks specific to one service
-- ✅ Documentation that should version with code
+- ✅ API documentation
+- ✅ Developer guides for specific codebases
 
 **Characteristics:**
 
 - Tightly coupled to code repository
 - Documentation versions match code versions (branches, tags)
-- Can have different documentation per branch
 - Deleted when repository is deleted (unless backed up)
-- Perfect for technical documentation by developers
+- Technical documentation for a specific solution or service
 - Changes go through same pull request process as code
 
 **Example structure:**
@@ -189,12 +185,6 @@ Code Repository: "email-gateway-service"
 | Code setup and development guide              |              | ✅        |
 | API documentation for one service             |              | ✅        |
 | Documentation that versions with code         |              | ✅        |
-
-#### Recommendation: Use both together
-
-- **Project Wiki:** "Table of contents" and operational documentation
-- **Code Wikis:** Deep technical documentation per service
-- **Link between them:** Project Wiki contains service catalog with links to each code wiki
 
 ---
 
