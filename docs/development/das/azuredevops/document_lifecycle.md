@@ -1,4 +1,11 @@
-# Post-Implementation Document Lifecycle Guide
+---
+title: "Post-Implementation Document Lifecycle Guide"
+description: "Comprehensive guide for transforming project requirements into living operational documentation and maintaining document relevance over time"
+keywords: "document lifecycle, documentation management, operational procedures, knowledge base, continuous improvement"
+author: "Joseph Streeter"
+ms.date: "2025-11-26"
+ms.topic: "article"
+---
 
 ## What to Do With This Requirements Document After Implementation
 

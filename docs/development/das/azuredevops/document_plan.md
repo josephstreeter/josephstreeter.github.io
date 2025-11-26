@@ -1,4 +1,11 @@
-# Post-Implementation Document Lifecycle Guide
+---
+title: "Post-Implementation Document Lifecycle Guide"
+description: "Guide for managing documentation lifecycle after service implementation, including transformation to operational documentation and knowledge base"
+keywords: "document lifecycle, post-implementation, operational documentation, knowledge management, documentation strategy"
+author: "Joseph Streeter"
+ms.date: "2025-11-26"
+ms.topic: "article"
+---
 
 ## What to Do With This Requirements Document After Implementation
 
