@@ -45,6 +45,8 @@ DevOps represents a set of practices that combines software development (Dev) an
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
+_Shortcuts: See the [Pipeline Reference](pipelinereference.md) for YAML examples, reusable workflows, and templates._
+
 ### CI/CD Pipeline Design
 
 #### Basic Pipeline Structure

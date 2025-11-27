@@ -5,6 +5,11 @@
     href: automation/index.md
   - name: Azure DevOps
     href: azuredevops/index.md
+  - name: DevOps
+    href: devops/index.md
+    items:
+    - name: Pipeline Reference
+      href: devops/pipelinereference.md
   - name: Documentation as Code
     href: das/index.md
   - name: docfx
