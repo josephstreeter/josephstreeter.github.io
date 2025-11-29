@@ -5,8 +5,6 @@ category: "infrastructure"
 tags: ["containers", "tools"]
 ---
 
-# Jenkins
-
 This is a placeholder page for Jenkins documentation.
 
 ## Overview

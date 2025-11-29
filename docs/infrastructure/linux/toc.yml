@@ -1,6 +1,10 @@
 - name: Linux
   href: index.md
   items:
+  - name: Cron - Job Scheduling
+    href: cron.md
+  - name: Permissions and Access Control
+    href: permissions.md
   - name: SystemD Service Management
     href: systemd.md
   - name: Server Administration
