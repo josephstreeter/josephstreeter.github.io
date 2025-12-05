@@ -26,3 +26,5 @@
     href: vscode/index.md
   - name: Windows Terminal
     href: windows-terminal/index.md
+  - name: Work Management
+    href: workmanagement/index.md
