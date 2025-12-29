@@ -3,8 +3,6 @@
   href: services/index.md
 - name: Infrastructure
   href: infrastructure/index.md
-- name: Networking
-  href: infrastructure/networking/index.md
 - name: Development
   href: development/index.md
 - name: Security

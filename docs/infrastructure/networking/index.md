@@ -312,7 +312,7 @@ class NetworkVLAN {
         $this.SecurityZone = "Standard"
         $this.AccessPolicies = @{}
         $this.InterVLANRouting = $true
-        $this.AllowedVLANs = @()
+        $this.AllowedVLANs = @{}
         $this.QoSPolicies = @{}
         
         # Calculate gateway (first usable IP in subnet)
@@ -799,7 +799,6 @@ function Get-NetworkAnalysis {
     
     return $Analysis
 }
-
 ```
 
 ## Related Topics

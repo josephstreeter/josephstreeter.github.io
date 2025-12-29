@@ -1,4 +1,4 @@
-- name: Networking
+- name: Summary
   href: index.md
 - name: OSI Model
   href: osi-model.md

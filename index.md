@@ -8,37 +8,37 @@ Welcome to my personal technical documentation site. This contains guides, confi
 
 ## Quick Navigation
 
-### 🏗️ [Enterprise Services](docs/services/index.md)
+### [Enterprise Services](docs/services/index.md)
 
 Administration of Enterprise Services
 
 - Active Directory, Exchange
 
-### 🛠️ [Development](docs/development/index.md)
+### [Development](docs/development/index.md)
 
 Tools and workflows for software development
 
 - Git, VS Code, Regular Expressions
 
-### 🏗️ [Infrastructure](docs/infrastructure/index.md)
+### [Infrastructure](docs/infrastructure/index.md)
 
 Server management and infrastructure as code
 
 - Terraform, Proxmox, SSH
 
-### 🌐 [Networking](docs/infrastructure/networking/index.md)
+### [Networking](docs/infrastructure/networking/index.md)
 
 Network configuration and management
 
 - Unifi network equipment
 
-### 📸 [Personal](docs/personal/index.md)
+### [Personal](docs/personal/index.md)
 
 Hobbies and personal interests
 
 - Photography
 
-### 🌐 [Miscellatious](docs/misc/index.md)
+### [Miscellatious](docs/misc/index.md)
 
 Things that just don't fit anywhere else
 
