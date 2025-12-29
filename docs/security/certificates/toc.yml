@@ -1,9 +1,8 @@
-- name: Certificates
+- name: Summary
   href: index.md
-  items:
-  - name: OpenSSL Guide
-    href: openssl.md
-  - name: Self-Signed Certificates
-    href: self-signed.md
-  - name: SSL vs TLS
-    href: sslvstls.md
+- name: OpenSSL Guide
+  href: openssl.md
+- name: Self-Signed Certificates
+  href: self-signed.md
+- name: SSL vs TLS
+  href: sslvstls.md

@@ -11,10 +11,7 @@
     - name: Compliance and Auditing
       href: security/compliance/index.md
   - name: Networking
-    href: networking/index.md
-    items:
-    - name: Security
-      href: networking/security/index.md
+    href: networking/toc.yml
   - name: Monitoring
     href: monitoring/index.md
   - name: Disaster Recovery

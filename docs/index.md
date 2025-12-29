@@ -13,7 +13,7 @@ This documentation is organized into several main categories:
 - **[Enterprise Services](services/index.md)**: Administration guides for Active Directory, Exchange, and other corporate services
 - **[Infrastructure](infrastructure/index.md)**: Server management, virtualization, containers, and infrastructure as code
 - **[Development](development/index.md)**: Tools, languages, and workflows for software development
-- **[Networking](networking/index.md)**: Network configuration, management, and troubleshooting
+- **[Networking](infrastructure/networking/index.md)**: Network configuration, management, and troubleshooting
 - **[Security](security/index.md)**: Encryption, authentication, secure communications, and OSINT techniques
 - **[Miscellaneous](misc/index.md)**: Useful tools and references that cross domain boundaries
 

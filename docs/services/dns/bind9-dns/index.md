@@ -252,7 +252,7 @@ sudo journalctl -u named -f
 
 - **[Windows DNS](../windows-dns/index.md)** - Microsoft DNS Server alternative
 - **[DNS Best Practices](../best-practices/index.md)** - Design and security guidelines
-- **[Networking](../../../networking/index.md)** - Network infrastructure
+- **[Networking](../../../infrastructure/networking/index.md)** - Network infrastructure
 - **[Security](../../../security/index.md)** - Enterprise security documentation
 
 ---

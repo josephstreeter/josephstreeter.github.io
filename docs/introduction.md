@@ -22,7 +22,7 @@ Server management and infrastructure as code
 
 - Terraform, Proxmox, SSH
 
-### 🌐 [Networking](networking/index.md)
+### 🌐 [Networking](infrastructure/networking/index.md)
 
 Network configuration and management
 

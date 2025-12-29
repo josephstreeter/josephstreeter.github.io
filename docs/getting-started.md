@@ -44,7 +44,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 2. **[Infrastructure](infrastructure/index.md)** - Server management, containers, and network infrastructure  
 3. **[Development](development/index.md)** - Programming languages, frameworks, and development tools
 4. **[Security](security/index.md)** - Security practices, tools, and configurations
-5. **[Networking](networking/index.md)** - Network configuration and troubleshooting
+5. **[Networking](infrastructure/networking/index.md)** - Network configuration and troubleshooting
 6. **[Miscellaneous](misc/index.md)** - Additional tools and personal projects
 
 ### How to Navigate
