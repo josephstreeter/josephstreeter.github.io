@@ -1,13 +1,15 @@
 - name: Linux
   href: index.md
   items:
+  - name: Server Administration
+    href: server.md
+  - name: Desktop Environment
+    href: desktop.md
   - name: Cron - Job Scheduling
     href: cron.md
   - name: Permissions and Access Control
     href: permissions.md
   - name: SystemD Service Management
     href: systemd.md
-  - name: Server Administration
-    href: server.md
-  - name: Desktop Environment
-    href: desktop.md
+  - name: Journalctl
+    href: journalctl.md
