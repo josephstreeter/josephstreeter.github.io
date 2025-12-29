@@ -160,7 +160,7 @@ To update a changed host key:
 ssh-keygen -R hostname
 
 # Or edit the known_hosts file directly
-nano ~/.ssh/known_hosts
+vi ~/.ssh/known_hosts
 ```
 
 #### Regenerating Server Host Keys

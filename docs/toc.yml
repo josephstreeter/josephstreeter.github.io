@@ -4,7 +4,7 @@
 - name: Infrastructure
   href: infrastructure/index.md
 - name: Networking
-  href: networking/index.md
+  href: infrastructure/networking/index.md
 - name: Development
   href: development/index.md
 - name: Security

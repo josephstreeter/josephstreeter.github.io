@@ -1,8 +1,12 @@
 - name: Networking
   href: index.md
+- name: OSI Model
+  href: osi-model.md
 - name: Troubleshooting Guide
   href: troubleshooting.md
 - name: Diagrams
   href: diagrams/toc.yml
 - name: UniFi Network
   href: unifi/toc.yml
+- name: Security
+  href: security/index.md

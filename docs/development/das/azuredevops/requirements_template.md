@@ -1,4 +1,11 @@
-# Enterprise Service Deployment - Requirements Document Template
+---
+title: "Enterprise Service Deployment - Requirements Document Template"
+description: "Comprehensive template for documenting enterprise service deployment requirements, including technical specifications, infrastructure, and operational considerations"
+keywords: "requirements template, service deployment, enterprise architecture, documentation, project management"
+author: "Joseph Streeter"
+ms.date: "2025-11-26"
+ms.topic: "article"
+---
 
 **Organization:** [Organization Name]  
 **Project:** [Service/Solution Name] - [Brief Description]  

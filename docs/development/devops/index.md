@@ -34,16 +34,18 @@ DevOps represents a set of practices that combines software development (Dev) an
 - **Feedback loops** for continuous improvement
 
 ```text
-┌─────────────────────────────────────────────────────────────────┐
-│                    DevOps Lifecycle                             │
-├─────────────────────────────────────────────────────────────────┤
+┌────────────────────────────────────────────────────────────────────┐
+│                    DevOps Lifecycle                                │
+├────────────────────────────────────────────────────────────────────┤
 │  Plan → Code → Build → Test → Release → Deploy → Operate → Monitor │
-│    ↑                                                         ↓    │
-│    └─────────────────── Feedback ──────────────────────────┘    │
-└─────────────────────────────────────────────────────────────────┘
+│    ↑                                                         ↓     │
+│    └─────────────────── Feedback ────────────────────────────┘     │
+└────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
+
+_Shortcuts: See the [Pipeline Reference](pipelinereference.md) for YAML examples, reusable workflows, and templates._
 
 ### CI/CD Pipeline Design
 

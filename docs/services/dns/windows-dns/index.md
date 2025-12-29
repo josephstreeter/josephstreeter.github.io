@@ -161,7 +161,7 @@ Set-DnsServerScavenging -RefreshInterval "7.00:00:00" -NoRefreshInterval "7.00:0
 - **[BIND9 DNS](../bind9-dns/index.md)** - Alternative DNS server implementation
 - **[DNS Best Practices](../best-practices/index.md)** - Design and security guidelines
 - **[Active Directory](../../activedirectory/index.md)** - AD integration details
-- **[Networking](../../../networking/index.md)** - Network infrastructure
+- **[Networking](../../../infrastructure/networking/index.md)** - Network infrastructure
 
 ---
 

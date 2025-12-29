@@ -1,7 +1,7 @@
 ---
 title: "Post-Implementation Document Lifecycle Guide"
-description: "Guide for managing documentation lifecycle after service implementation, including transformation to operational documentation and knowledge base"
-keywords: "document lifecycle, post-implementation, operational documentation, knowledge management, documentation strategy"
+description: "Comprehensive guide for transforming project requirements into living operational documentation and maintaining document relevance over time"
+keywords: "document lifecycle, documentation management, operational procedures, knowledge base, continuous improvement"
 author: "Joseph Streeter"
 ms.date: "2025-11-26"
 ms.topic: "article"

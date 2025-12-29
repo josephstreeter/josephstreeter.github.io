@@ -1,76 +1,19 @@
-# Regular Expressions
+---
+title: Regular Expressions (Regex) — Overview
+description: Short landing page for the Regular Expressions guide with quick links to language-specific examples.
+ms.topic: overview
+ms.date: 2025-11-27
+---
 
-This page provides practical regular expression (regex) examples for common text manipulation tasks. Explanations and sample input/output are included for clarity.
+This is a short landing page for regular expressions. Use the quick links below to jump to language-specific examples in the full guide.
 
-## Examples
+- [Full Regular Expressions Guide](guide.md)
 
-### Remove Dots and Aliases from Email Addresses
+Quick links
 
-This regex removes dots from the local part of an email address and strips out any alias (the `+something` part):
+- [JavaScript examples](guide.md#javascript-examples-javascript)
+- [Python examples](guide.md#python-examples-python)
+- [.NET examples](guide.md#net-examples-dotnet)
+- [PowerShell examples](guide.md#powershell-examples-powershell)
 
-```text
-(\.(?=[^@]*?@)|\+[^@]*?(?=@))
-```
-
-**Double quote each line**:
-
-```text
-"^((.*)$)" => "<<"(.*?)>>"
-```
-
-**Double quote each line in Notepad++**:
-
-You can save this as a macro for easy use.
-
-```text
-AliceBlue
-AntiqueWhite
-Aqua
-Aquamarine
-Azure
-Beige
-Bisque
-Black
-BlanchedAlmond
-```
-
-Find (in regular expression mode):
-
-```text
-(.+)
-```
-
-Replace with:
-
-```text
-"\1"
-```
-
-This adds the quotes:
-
-```text
-"AliceBlue"
-"AntiqueWhite"
-"Aqua"
-"Aquamarine"
-"Azure"
-"Beige"
-"Bisque"
-"Black"
-"BlanchedAlmond"
-```
-
-Find (in extended mode):
-
-```text
-\r\n
-```
-
-Replace with (with a space after the comma, not shown):
-
-```text
-, 
-```
-
-> This is a work in progress
-> [https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/](https://how-to-learn-regex.netlify.app/tutorials/how-to-add-double-quotes-to-text-line-using-regex/index.md)
+If you'd like, I can also add brief language-specific snippets directly on this page.
