@@ -470,7 +470,7 @@ netsh interface ipv4 add dns "Ethernet" 1.0.0.1 index=2
 
 #### Linux
 
-**Method 1: /etc/resolv.conf**
+**Method 1:** /etc/resolv.conf
 
 ```bash
 sudo nano /etc/resolv.conf
@@ -479,14 +479,14 @@ nameserver 1.1.1.1
 nameserver 1.0.0.1
 ```
 
-**Method 2: NetworkManager**
+**Method 2:** NetworkManager
 
 ```bash
 nmcli connection modify "Wired connection 1" ipv4.dns "1.1.1.1 1.0.0.1"
 nmcli connection up "Wired connection 1"
 ```
 
-**Method 3: systemd-resolved**
+**Method 3:** systemd-resolved
 
 ```bash
 sudo nano /etc/systemd/resolved.conf

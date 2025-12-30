@@ -72,7 +72,7 @@ Different protocols use different metrics to determine the best path:
 
 ## Static Routing
 
-### Overview
+### Static Routing Overview
 
 Static routes are manually configured by network administrators. They provide explicit control over routing decisions and are ideal for small networks or specific routing requirements.
 
@@ -137,7 +137,7 @@ ip route 0.0.0.0 0.0.0.0 192.168.2.1 10    # AD = 10 (backup)
 
 ## Dynamic Routing Protocols
 
-### Overview
+### Dynamic Routing Overview
 
 Dynamic routing protocols automatically discover routes, adapt to topology changes, and select optimal paths. They exchange routing information with neighboring routers to maintain up-to-date routing tables.
 
@@ -171,11 +171,11 @@ Dynamic routing protocols automatically discover routes, adapt to topology chang
 
 ## RIP (Routing Information Protocol)
 
-### Overview
+### RIP Overview
 
 RIP is one of the oldest distance-vector routing protocols, using hop count as its metric.
 
-### Key Characteristics
+### RIP Key Characteristics
 
 - **Maximum hop count**: 15 (16 = unreachable)
 - **Updates**: Periodic broadcasts every 30 seconds
@@ -205,11 +205,11 @@ RIP is one of the oldest distance-vector routing protocols, using hop count as i
 
 ## OSPF (Open Shortest Path First)
 
-### Overview
+### OSPF Overview
 
 OSPF is a link-state IGP that uses Dijkstra's algorithm to calculate the shortest path. It's the most widely deployed IGP in enterprise networks.
 
-### Key Characteristics
+### OSPF Key Characteristics
 
 - **Metric**: Cost (based on bandwidth)
 - **Updates**: Event-driven (topology changes only)
@@ -285,11 +285,11 @@ flowchart TB
 
 ## EIGRP (Enhanced Interior Gateway Routing Protocol)
 
-### Overview
+### EIGRP Overview
 
 EIGRP is Cisco's advanced distance-vector (hybrid) protocol, combining benefits of distance-vector and link-state protocols.
 
-### Key Characteristics
+### EIGRP Key Characteristics
 
 - **Metric**: Composite (bandwidth, delay, load, reliability)
 - **Updates**: Partial, bounded updates (only changes)
@@ -331,11 +331,11 @@ EIGRP is Cisco's advanced distance-vector (hybrid) protocol, combining benefits 
 
 ## BGP (Border Gateway Protocol)
 
-### Overview
+### BGP Overview
 
 BGP is the path-vector protocol that routes traffic across the internet. It connects autonomous systems and makes routing decisions based on policies, paths, and network rules.
 
-### Key Characteristics
+### BGP Key Characteristics
 
 - **Metric**: Path attributes (AS_PATH, LOCAL_PREF, MED, etc.)
 - **Updates**: Incremental, triggered
@@ -513,7 +513,7 @@ tracert 8.8.8.8
 4. **Design hierarchically** - Use areas (OSPF) or summarization (EIGRP)
 5. **Test changes in lab** - Validate protocol changes before production
 
-### Static Routing
+### Static Routing Best Practices
 
 1. **Document static routes** - Critical since they're invisible to protocols
 2. **Use floating static routes** - Provide backup with higher AD

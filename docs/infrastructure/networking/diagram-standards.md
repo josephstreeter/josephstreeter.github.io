@@ -212,6 +212,7 @@ graph TD
 ```
 
 **Include**:
+
 - Device name/type (first line)
 - IP address (if relevant)
 - Model or key specs
@@ -433,11 +434,13 @@ flowchart TD
 ### Diagram Simplicity
 
 **DO**:
+
 - Group similar devices: `Users[10 Workstations]` instead of 10 individual nodes
 - Use subgraphs for logical grouping (floors, VLANs, sites)
 - Limit diagrams to one logical concept (physical topology OR VLAN design, not both)
 
 **DON'T**:
+
 - Overload with every device (show representative samples)
 - Mix abstraction levels (don't show cables on a logical VLAN diagram)
 - Use more than 15-20 nodes per diagram
@@ -458,8 +461,10 @@ flowchart TD
 ### Documentation Integration
 
 **In each diagram, include**:
+
 - **Title**: "Network Topology - Branch Office"
 - **Legend** (if using custom symbols):
+
   ```
   Legend:
   - Blue = Infrastructure
@@ -467,6 +472,7 @@ flowchart TD
   - Light Blue = User Devices
   - Pink = Wireless
   ```
+
 - **Date/Version**: Last updated information in YAML frontmatter
 
 ## Common Patterns

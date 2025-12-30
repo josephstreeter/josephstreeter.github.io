@@ -648,7 +648,7 @@ nslookup fileserver
 - [Scenarios Overview](index.md) - Other network design scenarios
 - [Small Office Design](small-office.md) - Smaller deployment
 - [Multi-Site Design](multi-site.md) - Enterprise with multiple branches
-- [VPN Configuration](../security/vpn.md) - Detailed VPN setup
+- [Security](../security/index.md) - Network security including VPN setup
 - [VLAN Configuration](../vlans.md) - VLAN best practices
 
 ---

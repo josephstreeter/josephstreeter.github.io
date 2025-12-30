@@ -34,6 +34,10 @@
       href: scenarios/small-office.md
     - name: Branch Office (20-50 Users)
       href: scenarios/branch-office.md
+    - name: Home Lab
+      href: scenarios/home-lab.md
+    - name: Multi-Site Enterprise (100+ Users)
+      href: scenarios/multi-site.md
 - name: Planning & Reference
   items:
     - name: Capacity Planning
