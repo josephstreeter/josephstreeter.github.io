@@ -1,13 +1,23 @@
 - name: Networking
   href: index.md
+- name: Getting Started
+  href: getting-started.md
 - name: Fundamentals
   href: fundamentals.md
 - name: OSI Model
   href: osi-model.md
 - name: Architecture
   href: architecture.md
+- name: Routing
+  href: routing.md
 - name: VLANs
   href: vlans.md
+- name: DNS
+  href: dns.md
+- name: DHCP
+  href: dhcp.md
+- name: Wireless
+  href: wireless.md
 - name: Firewalls
   href: firewalls.md
 - name: Configuration Guides
@@ -16,9 +26,29 @@
   href: automation.md
 - name: Troubleshooting
   href: troubleshooting.md
-- name: Cisco
-  href: cisco/toc.yml
-- name: UniFi Network
-  href: unifi/toc.yml
+- name: Real-World Scenarios
+  items:
+    - name: Overview
+      href: scenarios/index.md
+    - name: Small Office (10-20 Users)
+      href: scenarios/small-office.md
+    - name: Branch Office (20-50 Users)
+      href: scenarios/branch-office.md
+- name: Planning & Reference
+  items:
+    - name: Capacity Planning
+      href: capacity-planning.md
+    - name: Technology Comparisons
+      href: comparisons.md
+    - name: Diagram Standards
+      href: diagram-standards.md
+    - name: Glossary
+      href: glossary.md
+- name: Platform-Specific
+  items:
+    - name: Cisco
+      href: cisco/toc.yml
+    - name: UniFi Network
+      href: unifi/toc.yml
 - name: Security
   href: security/index.md
