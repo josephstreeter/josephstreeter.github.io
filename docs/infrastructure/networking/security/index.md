@@ -16,13 +16,13 @@ Network Infrastructure Security forms the foundation of enterprise cybersecurity
 ┌─────────────────────────────────────────────────────────────────┐
 │               Network Security Architecture                     │
 ├─────────────────────────────────────────────────────────────────┤
-│  Layer              │ Components                               │
-│  ├─ Perimeter       │ Firewall, WAF, DDoS Protection         │
-│  ├─ Internal        │ Segmentation, VLAN, Micro-segmentation │
-│  ├─ Access          │ NAC, 802.1X, VPN, Wireless Security    │
-│  ├─ Monitoring      │ IDS/IPS, SIEM, Flow Analysis           │
-│  ├─ Application     │ Load Balancer, SSL/TLS, API Gateway    │
-│  └─ Management      │ SNMP, SSH, Out-of-band Access          │
+│  Layer              │ Components                                │
+│  ├─ Perimeter       │ Firewall, WAF, DDoS Protection            │
+│  ├─ Internal        │ Segmentation, VLAN, Micro-segmentation    │
+│  ├─ Access          │ NAC, 802.1X, VPN, Wireless Security       │
+│  ├─ Monitoring      │ IDS/IPS, SIEM, Flow Analysis              │
+│  ├─ Application     │ Load Balancer, SSL/TLS, API Gateway       │
+│  └─ Management      │ SNMP, SSH, Out-of-band Access             │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

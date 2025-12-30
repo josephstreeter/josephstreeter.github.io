@@ -1,11 +1,23 @@
-- name: Summary
+- name: Networking
   href: index.md
+- name: Fundamentals
+  href: fundamentals.md
 - name: OSI Model
   href: osi-model.md
-- name: Troubleshooting Guide
+- name: Architecture
+  href: architecture.md
+- name: VLANs
+  href: vlans.md
+- name: Firewalls
+  href: firewalls.md
+- name: Configuration Guides
+  href: guides.md
+- name: Automation
+  href: automation.md
+- name: Troubleshooting
   href: troubleshooting.md
-- name: Diagrams
-  href: diagrams/toc.yml
+- name: Cisco
+  href: cisco/toc.yml
 - name: UniFi Network
   href: unifi/toc.yml
 - name: Security
