@@ -169,16 +169,22 @@ Install-WindowsFeature FS-FileServer,FS-DFS-Namespace,FS-DFS-Replication -Includ
 
 ### Domain Controller Promotion
 
+> [!WARNING]
+> Never hardcode passwords in production scripts. Always use `Get-Credential`, `Read-Host -AsSecureString`, or secure credential storage solutions.
+
 ```powershell
 # Install AD DS role
 Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+
+# Prompt for Safe Mode password securely
+$SafeModePassword = Read-Host -AsSecureString -Prompt "Enter Safe Mode Administrator Password"
 
 # Promote to domain controller (new forest)
 Install-ADDSForest `
     -DomainName "contoso.local" `
     -DomainNetbiosName "CONTOSO" `
     -InstallDns `
-    -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force) `
+    -SafeModeAdministratorPassword $SafeModePassword `
     -Force
 
 # Promote to domain controller (existing domain)
@@ -186,15 +192,21 @@ Install-ADDSDomainController `
     -DomainName "contoso.local" `
     -InstallDns `
     -Credential (Get-Credential) `
-    -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force) `
+    -SafeModeAdministratorPassword $SafeModePassword `
     -Force
 ```
 
 ### User and Group Management
 
+> [!WARNING]
+> Always use secure password generation methods. Never hardcode passwords or use predictable patterns in production environments.
+
 ```powershell
 # Create Organizational Unit
 New-ADOrganizationalUnit -Name "IT Department" -Path "DC=contoso,DC=local"
+
+# Prompt for initial user password securely
+$UserPassword = Read-Host -AsSecureString -Prompt "Enter initial password for new user"
 
 # Create user account
 New-ADUser `
@@ -204,7 +216,7 @@ New-ADUser `
     -SamAccountName "jdoe" `
     -UserPrincipalName "jdoe@contoso.local" `
     -Path "OU=IT Department,DC=contoso,DC=local" `
-    -AccountPassword (ConvertTo-SecureString "P@ssw0rd123!" -AsPlainText -Force) `
+    -AccountPassword $UserPassword `
     -Enabled $true
 
 # Create security group
@@ -239,6 +251,9 @@ New-NetFirewallRule -DisplayName "Allow HTTPS" -Direction Inbound -Protocol TCP 
 
 ### Remote Access and VPN
 
+> [!WARNING]
+> VPN credentials must be managed securely. Use Active Directory authentication or certificate-based authentication in production.
+
 ```powershell
 # Install RRAS role
 Install-WindowsFeature RemoteAccess -IncludeManagementTools
@@ -246,8 +261,9 @@ Install-WindowsFeature RemoteAccess -IncludeManagementTools
 # Configure VPN server
 Install-RemoteAccess -VpnType VpnS2S
 
-# Add VPN user
-Add-VpnUser -UserName "vpnuser" -Password "P@ssw0rd123!"
+# Add VPN user with secure password prompt
+$VpnPassword = Read-Host -AsSecureString -Prompt "Enter VPN user password"
+Add-VpnUser -UserName "vpnuser" -Password $VpnPassword
 ```
 
 ## Storage and File Services
@@ -444,6 +460,26 @@ This introduction provides the foundation for Windows Server administration. For
 
 - **[Security Hardening](security.md)**: Comprehensive security configuration and best practices
 - **[Configuration Management](configuration.md)**: PowerShell automation and winget package management
+
+## Related Topics
+
+### Configuration and Management
+
+- **[Configuration Overview](configuration.md)** - Quick-start Windows configuration guide
+- **[Configuration Management](configuration-management.md)** - PowerShell DSC, automation, and package management
+- **[PowerShell Development](~/docs/development/powershell/index.md)** - PowerShell scripting best practices
+
+### Security
+
+- **[Security Quick Start](security.md)** - Essential security hardening in 15-30 minutes
+- **[Security (Advanced)](security/index.md)** - Comprehensive security documentation
+- **[Infrastructure Security](~/docs/infrastructure/security/index.md)** - Enterprise security architecture
+
+### Related Infrastructure
+
+- **[Linux Administration](~/docs/infrastructure/linux/index.md)** - Linux server management
+- **[Networking](~/docs/infrastructure/networking/toc.yml)** - Network configuration and troubleshooting
+- **[Monitoring](~/docs/infrastructure/monitoring/index.md)** - Infrastructure monitoring solutions
 
 ## Additional Resources
 
