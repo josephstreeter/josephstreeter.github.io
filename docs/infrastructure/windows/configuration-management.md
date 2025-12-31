@@ -65,6 +65,57 @@ Import-Module -Name ActiveDirectory
 
 ### PowerShell Desired State Configuration (DSC)
 
+#### DSC Architecture Overview
+
+DSC provides declarative configuration management for Windows:
+
+```mermaid
+graph TB
+    subgraph Author["Authoring Phase"]
+        Script[DSC Configuration Script]
+        Script --> MOF[Compile to MOF]
+    end
+    
+    subgraph Staging["Staging Phase"]
+        MOF --> PullServer[DSC Pull Server]
+        MOF --> Push[Push Mode]
+    end
+    
+    subgraph Enact["Enactment Phase"]
+        PullServer -->|Pull| LCM1[Local Configuration Manager]
+        Push -->|Push| LCM1
+        
+        LCM1 --> Check{Current State = Desired State?}
+        Check -->|No| Resources[DSC Resources]
+        Check -->|Yes| Compliant[Compliant]
+        
+        Resources --> File[File Resource]
+        Resources --> Service[Service Resource]
+        Resources --> Registry[Registry Resource]
+        Resources --> Package[Package Resource]
+        Resources --> Custom[Custom Resources]
+        
+        File --> Apply[Apply Configuration]
+        Service --> Apply
+        Registry --> Apply
+        Package --> Apply
+        Custom --> Apply
+        
+        Apply --> Report[Report to Pull Server]
+        Compliant --> Report
+    end
+    
+    subgraph Monitor["Monitoring Phase"]
+        Report --> Dashboard[Compliance Dashboard]
+        Report --> Alerts[Alerts & Notifications]
+    end
+    
+    style Script fill:#4caf50
+    style LCM1 fill:#2196f3
+    style Check fill:#ff9800
+    style Compliant fill:#4caf50
+```
+
 #### DSC Configuration Example
 
 ```powershell
@@ -369,6 +420,47 @@ $results | Format-Table -AutoSize
 
 ## Group Policy Management
 
+### Group Policy Processing Flow
+
+Understanding how Group Policies are processed is crucial for troubleshooting:
+
+```mermaid
+graph TD
+    Start[Computer Starts / User Logs On]
+    Start --> Network{Network Available?}
+    Network -->|Yes| GetPolicies[Retrieve GPO List from DC]
+    Network -->|No| Cached[Use Cached Policies]
+    
+    GetPolicies --> ProcessOrder[Process in Order]
+    
+    ProcessOrder --> Local[1. Local Computer Policy]
+    Local --> Site[2. Site Policies]
+    Site --> Domain[3. Domain Policies]
+    Domain --> OU1[4. OU Policies Level 1]
+    OU1 --> OU2[5. OU Policies Level 2...]
+    OU2 --> Enforced{Enforced GPOs?}
+    
+    Enforced -->|Yes| Override[Override Previous Settings]
+    Enforced -->|No| Merge[Merge with Previous]
+    
+    Override --> Loopback{Loopback Processing?}
+    Merge --> Loopback
+    
+    Loopback -->|Yes| UserPolicies[Apply User Policies from Computer Location]
+    Loopback -->|No| Standard[Standard User Policy Processing]
+    
+    UserPolicies --> Apply[Apply Final Policy]
+    Standard --> Apply
+    Cached --> Apply
+    
+    Apply --> Complete[Policy Application Complete]
+    
+    style Start fill:#4caf50
+    style Complete fill:#4caf50
+    style Enforced fill:#ff9800
+    style Override fill:#f44336
+```
+
 ### PowerShell Group Policy Module
 
 ```powershell
@@ -615,41 +707,593 @@ $health | ConvertTo-Json -Depth 3 | Out-File "C:\Reports\HealthReport-$(Get-Date
    - Document custom scripts
    - Keep runbooks updated
 
-## Troubleshooting
+## Troubleshooting Configuration Management
 
-### Common Issues
+### PowerShell Issues
 
-1. **PowerShell Execution Policy**
+#### Issue: Scripts Not Running - Execution Policy
 
-   ```powershell
-   Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process
-   ```
+**Symptoms**:
 
-2. **winget Package Installation Failures**
+- Error: "cannot be loaded because running scripts is disabled on this system"
+- Scripts work for one user but not another
 
-   ```powershell
-   winget install --id PackageName --source winget --force
-   ```
-
-3. **DSC Configuration Failures**
-
-   ```powershell
-   Get-DscConfigurationStatus
-   Start-DscConfiguration -UseExisting -Force
-   ```
-
-### Diagnostic Commands
+**Diagnosis**:
 
 ```powershell
-# System diagnostics
-Get-ComputerInfo
-Get-HotFix
-Get-WindowsFeature | Where-Object InstallState -eq "Installed"
-
-# PowerShell diagnostics
-$PSVersionTable
+# Check current execution policy
 Get-ExecutionPolicy -List
-Get-Module -ListAvailable
+
+# Check if script is blocked
+Get-Item -Path "C:\Scripts\MyScript.ps1" -Stream * | Where-Object Stream -eq "Zone.Identifier"
+```
+
+**Solutions**:
+
+```powershell
+# Set execution policy for current user
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+# Unblock downloaded scripts
+Unblock-File -Path "C:\Scripts\MyScript.ps1"
+
+# Unblock all scripts in directory
+Get-ChildItem -Path "C:\Scripts" -Recurse | Unblock-File
+
+# Bypass execution policy for single script
+PowerShell.exe -ExecutionPolicy Bypass -File "C:\Scripts\MyScript.ps1"
+```
+
+#### Issue: Module Import Failures
+
+**Diagnosis**:
+
+```powershell
+# Check if module exists
+Get-Module -ListAvailable -Name ModuleName
+
+# Check module path
+$env:PSModulePath -split ';'
+
+# Verify module integrity
+Test-ModuleManifest -Path "C:\Path\To\Module.psd1"
+
+# Check for conflicting modules
+Get-Module | Where-Object {$_.Name -like "*ModuleName*"}
+```
+
+**Solutions**:
+
+```powershell
+# Install missing module
+Install-Module -Name ModuleName -Force
+
+# Update module
+Update-Module -Name ModuleName
+
+# Import module explicitly with full path
+Import-Module -Name "C:\Modules\ModuleName" -Force
+
+# Remove conflicting module
+Remove-Module -Name ConflictingModule -Force
+
+# Add custom module path
+$env:PSModulePath += ";C:\CustomModules"
+```
+
+#### Issue: PowerShell Remoting Not Working
+
+**Diagnosis**:
+
+```powershell
+# Test WinRM connectivity
+Test-WSMan -ComputerName Server01
+
+# Check WinRM service
+Get-Service WinRM
+
+# Check WinRM configuration
+winrm get winrm/config
+
+# Test PS Remoting
+Test-NetConnection -ComputerName Server01 -Port 5985
+
+# Check firewall rules
+Get-NetFirewallRule -DisplayName "*WinRM*" | Format-Table Name, Enabled, Direction
+```
+
+**Solutions**:
+
+```powershell
+# Enable PS Remoting on remote server
+Enable-PSRemoting -Force
+
+# Configure WinRM for HTTPS
+winrm quickconfig -transport:https
+
+# Add computer to TrustedHosts (workgroup only)
+Set-Item WSMan:\localhost\Client\TrustedHosts -Value "Server01" -Force
+
+# Restart WinRM service
+Restart-Service WinRM
+
+# Check and enable firewall rules
+Enable-NetFirewallRule -DisplayName "Windows Remote Management (HTTP-In)"
+
+# For domain environments, ensure Kerberos authentication
+Test-ComputerSecureChannel -Verbose
+```
+
+### DSC Configuration Issues
+
+#### Issue: DSC Configuration Not Applying
+
+**Diagnosis**:
+
+```powershell
+# Check LCM status
+Get-DscLocalConfigurationManager
+
+# Get current DSC configuration status
+Get-DscConfiguration
+
+# View DSC configuration events
+Get-WinEvent -LogName "Microsoft-Windows-DSC/Operational" | Select-Object -First 20
+
+# Test current configuration
+Test-DscConfiguration -Verbose
+
+# Get detailed configuration status
+Get-DscConfigurationStatus -All
+```
+
+**Solutions**:
+
+```powershell
+# Force DSC configuration
+Start-DscConfiguration -Path "C:\DSC\Config" -Wait -Verbose -Force
+
+# Reset LCM
+Remove-DscConfigurationDocument -Stage Current, Pending, Previous
+Stop-DscConfiguration
+
+# Reconfigure LCM
+[DSCLocalConfigurationManager()]
+Configuration LCMConfig
+{
+    Node localhost
+    {
+        Settings
+        {
+            RefreshMode = 'Push'
+            ConfigurationMode = 'ApplyAndAutoCorrect'
+            RebootNodeIfNeeded = $true
+        }
+    }
+}
+LCMConfig -OutputPath "C:\DSC\LCM"
+Set-DscLocalConfigurationManager -Path "C:\DSC\LCM" -Verbose
+
+# Start configuration
+Start-DscConfiguration -Path "C:\DSC\Config" -Wait -Verbose
+```
+
+#### Issue: DSC Resource Not Found
+
+**Diagnosis**:
+
+```powershell
+# List available DSC resources
+Get-DscResource
+
+# Check if specific resource exists
+Get-DscResource -Name ResourceName
+
+# Find resource module
+Find-DscResource -Name ResourceName
+```
+
+**Solutions**:
+
+```powershell
+# Install missing DSC resource module
+Install-Module -Name xWebAdministration -Force
+Install-Module -Name NetworkingDsc -Force
+
+# Update DSC resource modules
+Update-Module -Name xWebAdministration
+
+# Import DSC resource
+Import-DscResource -ModuleName PSDesiredStateConfiguration
+```
+
+### Package Management (winget) Issues
+
+#### Issue: winget Not Found
+
+**Diagnosis**:
+
+```powershell
+# Check if winget is installed
+Get-Command winget -ErrorAction SilentlyContinue
+
+# Check App Installer version
+Get-AppxPackage Microsoft.DesktopAppInstaller
+```
+
+**Solutions**:
+
+```powershell
+# Install winget manually
+# Download from: https://github.com/microsoft/winget-cli/releases
+
+# Or install via Microsoft Store
+Start-Process "ms-windows-store://pdp/?ProductId=9NBLGGH4NNS1"
+
+# Register App Installer
+Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
+```
+
+#### Issue: winget Installation Failures
+
+**Diagnosis**:
+
+```powershell
+# Try installation with detailed output
+winget install PackageId --verbose
+
+# Check source configuration
+winget source list
+
+# View installation logs
+Get-Content "$env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log"
+```
+
+**Solutions**:
+
+```powershell
+# Reset winget sources
+winget source reset --force
+
+# Update winget sources
+winget source update
+
+# Try alternative source
+winget install PackageId --source msstore
+
+# Install with specific version
+winget install PackageId --version 1.2.3
+
+# Skip hash validation (use with caution)
+winget install PackageId --ignore-security-hash
+```
+
+### Group Policy Issues
+
+#### Issue: GPO Settings Not Taking Effect
+
+**Diagnosis**:
+
+```powershell
+# Force GP update
+gpupdate /force
+
+# Generate detailed report
+gpresult /h C:\Temp\GPReport.html
+
+# View applied GPOs
+gpresult /r /scope:computer
+gpresult /r /scope:user
+
+# Check GPO replication (on DC)
+Get-GPO -All | ForEach-Object {
+    if ((Get-GPOReport -Guid $_.Id -ReportType XML) -match "Error") {
+        Write-Host "Issue with GPO: $($_.DisplayName)" -ForegroundColor Red
+    }
+}
+```
+
+**Solutions**:
+
+```powershell
+# Clear group policy cache
+Remove-Item "$env:SystemRoot\System32\GroupPolicy" -Recurse -Force
+Remove-Item "$env:SystemRoot\System32\GroupPolicyUsers" -Recurse -Force
+gpupdate /force
+
+# On domain controller, force replication
+repadmin /syncall /AdeP
+
+# Check network connectivity to DC
+Test-ComputerSecureChannel -Repair
+
+# Verify GPO links
+Get-GPInheritance -Target "OU=Servers,DC=contoso,DC=com"
+
+# Check for blocked inheritance
+Get-GPO -All | Get-GPOReport -ReportType XML | Select-String "BlockInheritance"
+```
+
+### Registry Configuration Issues
+
+#### Issue: Registry Changes Not Persisting
+
+**Diagnosis**:
+
+```powershell
+# Check if key exists and has correct permissions
+$Key = "HKLM:\SOFTWARE\MyApp"
+Test-Path $Key
+Get-Acl $Key | Format-List
+
+# Monitor registry changes
+# Use Process Monitor from Sysinternals
+
+# Check for Group Policy override
+gpresult /h C:\Temp\GPReport.html
+# Look for conflicting GPO settings
+```
+
+**Solutions**:
+
+```powershell
+# Set registry value with proper error handling
+$RegPath = "HKLM:\SOFTWARE\MyApp"
+if (!(Test-Path $RegPath))
+{
+    New-Item -Path $RegPath -Force
+}
+Set-ItemProperty -Path $RegPath -Name "Setting" -Value 1 -Type DWord
+
+# Take ownership if access denied
+$Acl = Get-Acl $RegPath
+$Acl.SetOwner([System.Security.Principal.NTAccount]"BUILTIN\Administrators")
+Set-Acl -Path $RegPath -AclObject $Acl
+
+# Grant permissions
+$Rule = New-Object System.Security.AccessControl.RegistryAccessRule(
+    "BUILTIN\Administrators",
+    "FullControl",
+    "ContainerInherit,ObjectInherit",
+    "None",
+    "Allow"
+)
+$Acl.AddAccessRule($Rule)
+Set-Acl -Path $RegPath -AclObject $Acl
+```
+
+### Service Configuration Issues
+
+#### Issue: Service Fails to Start
+
+**Diagnosis**:
+
+```powershell
+# Check service status and details
+Get-Service -Name ServiceName | Format-List *
+
+# Check service dependencies
+Get-Service -Name ServiceName -DependentServices
+Get-Service -Name ServiceName -RequiredServices
+
+# View service configuration
+sc.exe qc ServiceName
+
+# Check event logs for service errors
+Get-WinEvent -FilterHashtable @{
+    LogName='System'
+    ProviderName='Service Control Manager'
+    Level=2  # Error
+} -MaxEvents 20 | Where-Object {$_.Message -like "*ServiceName*"}
+```
+
+**Solutions**:
+
+```powershell
+# Start service with error handling
+try
+{
+    Start-Service -Name ServiceName -ErrorAction Stop
+    Write-Host "Service started successfully" -ForegroundColor Green
+}
+catch
+{
+    Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+    
+    # Check dependencies
+    $RequiredServices = Get-Service -Name ServiceName -RequiredServices
+    foreach ($Svc in $RequiredServices)
+    {
+        if ($Svc.Status -ne 'Running')
+        {
+            Write-Host "Required service $($Svc.Name) is not running" -ForegroundColor Yellow
+            Start-Service -Name $Svc.Name
+        }
+    }
+}
+
+# Configure service recovery options
+sc.exe failure ServiceName reset= 86400 actions= restart/60000/restart/60000/restart/60000
+
+# Change service account if needed
+$ServiceCred = Get-Credential
+$Service = Get-WmiObject -Class Win32_Service -Filter "Name='ServiceName'"
+$Service.Change($null,$null,$null,$null,$null,$null,$ServiceCred.UserName,$ServiceCred.GetNetworkCredential().Password)
+```
+
+### Scheduled Task Issues
+
+#### Issue: Scheduled Task Not Running
+
+**Diagnosis**:
+
+```powershell
+# Get task information
+Get-ScheduledTask -TaskName "TaskName" | Get-ScheduledTaskInfo
+
+# Check task history
+Get-WinEvent -LogName "Microsoft-Windows-TaskScheduler/Operational" | 
+    Where-Object {$_.Message -like "*TaskName*"} | 
+    Select-Object TimeCreated, Message -First 10
+
+# View task configuration
+$Task = Get-ScheduledTask -TaskName "TaskName"
+$Task | Select-Object -ExpandProperty Actions
+$Task | Select-Object -ExpandProperty Triggers
+$Task | Select-Object -ExpandProperty Principal
+```
+
+**Solutions**:
+
+```powershell
+# Recreate scheduled task
+Unregister-ScheduledTask -TaskName "TaskName" -Confirm:$false
+
+$Action = New-ScheduledTaskAction -Execute "PowerShell.exe" `
+    -Argument "-ExecutionPolicy Bypass -File C:\Scripts\script.ps1"
+
+$Trigger = New-ScheduledTaskTrigger -Daily -At "02:00AM"
+
+$Principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" `
+    -LogonType ServiceAccount -RunLevel Highest
+
+Register-ScheduledTask -TaskName "TaskName" `
+    -Action $Action `
+    -Trigger $Trigger `
+    -Principal $Principal `
+    -Description "Task Description"
+
+# Enable task history
+wevtutil set-log Microsoft-Windows-TaskScheduler/Operational /enabled:true
+
+# Run task manually to test
+Start-ScheduledTask -TaskName "TaskName"
+```
+
+### Performance and Resource Issues
+
+#### Issue: High CPU or Memory Usage
+
+**Diagnosis**:
+
+```powershell
+# Check top processes
+Get-Process | Sort-Object CPU -Descending | Select-Object -First 10 Name, CPU, WorkingSet
+Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 10 Name, CPU, @{N='MemoryMB';E={$_.WorkingSet/1MB}}
+
+# Check performance counters
+Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 1 -MaxSamples 5
+Get-Counter -Counter "\Memory\Available MBytes" -SampleInterval 1 -MaxSamples 5
+
+# Identify memory leaks
+Get-Process | Where-Object {$_.WorkingSet -gt 500MB} | 
+    Format-Table Name, Id, @{N='MemoryMB';E={[math]::Round($_.WorkingSet/1MB,2)}} -AutoSize
+```
+
+**Solutions**:
+
+```powershell
+# Stop high-resource process
+Stop-Process -Name ProcessName -Force
+
+# Restart Windows service
+Restart-Service -Name ServiceName
+
+# Clear system cache (use with caution)
+Clear-RecycleBin -Force
+
+# Optimize performance
+# Disable unnecessary startup programs
+Get-CimInstance Win32_StartupCommand | Select-Object Name, Command, Location
+
+# Adjust processor scheduling for background services
+Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\PriorityControl" `
+    -Name "Win32PrioritySeparation" -Value 24
+
+# Configure page file
+$PageFile = Get-WmiObject -Query "SELECT * FROM Win32_ComputerSystem"
+$PageFile.AutomaticManagedPagefile = $false
+$PageFile.Put()
+
+$PageFile = Get-WmiObject -Query "SELECT * FROM Win32_PageFileSetting WHERE Name='C:\\pagefile.sys'"
+$PageFile.InitialSize = 4096
+$PageFile.MaximumSize = 8192
+$PageFile.Put()
+```
+
+### Common Configuration Errors and Solutions
+
+| Error | Cause | Solution |
+| --- | --- | --- |
+| "Access denied" during configuration | Insufficient permissions | Run as administrator or check NTFS/share permissions |
+| "Cannot find path" errors | Path doesn't exist or typo | Verify path exists, check for typos |
+| "Object reference not set to an instance" | Null object reference | Add null checks: `if ($null -ne $Object)` |
+| WMI errors | WMI repository corruption | Rebuild WMI: `winmgmt /salvagerepository` |
+| "The system cannot find the file specified" | Missing dependency | Install required features/modules |
+
+### Best Practices for Troubleshooting
+
+1. **Enable Verbose Logging**
+
+   ```powershell
+   $VerbosePreference = "Continue"
+   $DebugPreference = "Continue"
+   ```
+
+2. **Use Try-Catch for Error Handling**
+
+   ```powershell
+   try
+   {
+       # Your code here
+   }
+   catch
+   {
+       Write-Host "Error: $($_.Exception.Message)" -ForegroundColor Red
+       Write-Host "Line: $($_.InvocationInfo.ScriptLineNumber)" -ForegroundColor Yellow
+   }
+   ```
+
+3. **Test in Non-Production First**
+   - Always test configuration changes in development environment
+   - Use `-WhatIf` parameter where available
+   - Create system restore points before major changes
+
+4. **Document Changes**
+   - Keep configuration change log
+   - Comment code thoroughly
+   - Maintain runbooks for common procedures
+
+5. **Monitor and Alert**
+   - Set up monitoring for critical services
+   - Configure alerts for failures
+   - Review logs regularly
+
+### Useful Troubleshooting Commands
+
+```powershell
+# System information
+Get-ComputerInfo | Format-List
+
+# Check disk space
+Get-PSDrive | Where-Object {$_.Provider -like "*FileSystem*"}
+
+# Network diagnostics
+Test-NetConnection -ComputerName google.com -Port 443 -InformationLevel Detailed
+
+# DNS troubleshooting
+Resolve-DnsName google.com
+Clear-DnsClientCache
+ipconfig /flushdns
+
+# View recent errors
+Get-WinEvent -FilterHashtable @{LogName='System'; Level=1,2} -MaxEvents 20
+
+# Check Windows Update history
+Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10
+
+# Verify service status
+Get-Service | Where-Object {$_.StartType -eq 'Automatic' -and $_.Status -ne 'Running'}
 ```
 
 ## Related Topics
@@ -657,8 +1301,8 @@ Get-Module -ListAvailable
 ### Windows Documentation
 
 - **[Windows Server Overview](index.md)** - Server roles, features, and editions
-- **[Configuration Overview](configuration.md)** - Quick configuration reference
-- **[Security Quick Start](security.md)** - Essential security hardening
+- **[Configuration Overview](configuration/index.md)** - Quick configuration reference
+- **[Security Quick Start](security/quick-start.md)** - Essential security hardening
 - **[Security (Advanced)](security/index.md)** - Comprehensive security guide
 
 ### Development and Automation

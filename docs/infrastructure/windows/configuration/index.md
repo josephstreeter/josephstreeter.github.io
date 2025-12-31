@@ -10,13 +10,13 @@ keywords: Windows configuration, quick start, overview, setup guide, Windows Ser
 uid: docs.infrastructure.windows.configuration
 ---
 
-This guide provides a quick-start overview of Windows configuration for both servers and workstations. For comprehensive configuration management including PowerShell DSC, automation, and package management, see [Configuration Management](configuration-management.md).
+This guide provides a quick-start overview of Windows configuration for both servers and workstations. For comprehensive configuration management including PowerShell DSC, automation, and package management, see [Configuration Management](../configuration-management.md).
 
 ## Quick Configuration Paths
 
 ### For Windows Server Administrators
 
-**Initial Server Setup** → [Configuration Management: Server Initial Configuration](configuration-management.md#server-initial-configuration-script)
+**Initial Server Setup** → [Configuration Management: Server Initial Configuration](../configuration-management.md#server-initial-configuration-script)
 
 Key topics:
 
@@ -25,7 +25,7 @@ Key topics:
 - Domain join procedures
 - Essential software installation
 
-**Server Roles Configuration** → [Index: Server Roles and Features](index.md#server-roles-and-features)
+**Server Roles Configuration** → [Index: Server Roles and Features](../server-roles/index.md)
 
 Available roles:
 
@@ -35,7 +35,7 @@ Available roles:
 - File Services
 - Hyper-V
 
-**Group Policy Management** → [Configuration Management: Group Policy Management](configuration-management.md#group-policy-management)
+**Group Policy Management** → [Configuration Management: Group Policy Management](../configuration-management.md#group-policy-management)
 
 Group Policy operations:
 
@@ -55,7 +55,7 @@ Key areas:
 - User profile management
 - Default application associations
 
-**Package Management** → [Configuration Management: winget](configuration-management.md#package-management-with-winget)
+**Package Management** → [Configuration Management: winget](../configuration-management.md#package-management-with-winget)
 
 Package management:
 
@@ -89,7 +89,7 @@ Set-DnsClientServerAddress -InterfaceIndex $Adapter.InterfaceIndex `
 Add-Computer -DomainName "contoso.com" -Credential (Get-Credential) -Restart
 ```
 
-For detailed server configuration including Server Core setup, see [Configuration Management](configuration-management.md).
+For detailed server configuration including Server Core setup, see [Configuration Management](../configuration-management.md).
 
 ### Windows Features Management
 
@@ -119,7 +119,7 @@ Install-Module -Name PowerShellGet -Force
 Update-Module PowerShellGet
 ```
 
-For advanced PowerShell configuration including DSC and remoting, see [Configuration Management: PowerShell](configuration-management.md#powershell-for-configuration-management).
+For advanced PowerShell configuration including DSC and remoting, see [Configuration Management: PowerShell](../configuration-management.md#powershell-for-configuration-management).
 
 ## Windows Workstation Configuration
 
@@ -176,7 +176,7 @@ Stop-Service -Name "WSearch" -Force
 Set-Service -Name "WSearch" -StartupType Disabled
 ```
 
-For comprehensive user profile management and Group Policy configuration, see [Configuration Management](configuration-management.md).
+For comprehensive user profile management and Group Policy configuration, see [Configuration Management](../configuration-management.md).
 
 ## Registry Management
 
@@ -262,23 +262,23 @@ function Get-SystemHealth {
 Get-SystemHealth
 ```
 
-For comprehensive monitoring solutions, see [Configuration Management: Monitoring](configuration-management.md#monitoring-and-maintenance).
+For comprehensive monitoring solutions, see [Configuration Management: Monitoring](../configuration-management.md#monitoring-and-maintenance).
 
 ## Next Steps
 
 ### Essential Reading
 
-- **[Configuration Management](configuration-management.md)** - Comprehensive PowerShell automation, DSC, winget, and package management
-- **[Security Overview](security.md)** - Quick security hardening guide
-- **[Security (Advanced)](security/index.md)** - Comprehensive security documentation
+- **[Configuration Management](../configuration-management.md)** - Comprehensive PowerShell automation, DSC, winget, and package management
+- **[Security Overview](../security/quick-start.md)** - Quick security hardening guide
+- **[Security (Advanced)](../security/index.md)** - Comprehensive security documentation
 - **[Index](index.md)** - Windows Server overview and server roles
 
 ### Common Tasks
 
-- **Automate configuration** → [Configuration Management: DSC](configuration-management.md#powershell-desired-state-configuration-dsc)
-- **Deploy software** → [Configuration Management: winget](configuration-management.md#package-management-with-winget)
-- **Manage policies** → [Configuration Management: Group Policy](configuration-management.md#group-policy-management)
-- **Secure systems** → [Security Overview](security.md)
+- **Automate configuration** → [Configuration Management: DSC](../configuration-management.md#powershell-desired-state-configuration-dsc)
+- **Deploy software** → [Configuration Management: winget](../configuration-management.md#package-management-with-winget)
+- **Manage policies** → [Configuration Management: Group Policy](../configuration-management.md#group-policy-management)
+- **Secure systems** → [Security Overview](../security/quick-start.md)
 
 ### External Resources
 

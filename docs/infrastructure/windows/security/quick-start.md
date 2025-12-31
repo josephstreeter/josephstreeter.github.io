@@ -7,10 +7,10 @@ ms.date: 2024-12-30
 ms.topic: quickstart
 ms.service: windows-server
 keywords: Windows Server security, hardening, quick start, security baseline, best practices
-uid: docs.infrastructure.windows.security.quickstart
+uid: docs.infrastructure.windows.security.quick-start
 ---
 
-This quick-start guide provides essential security configurations for Windows Server. For comprehensive security documentation including advanced threat protection, compliance, and enterprise security architecture, see [Windows Infrastructure Security (Advanced)](security/index.md).
+This quick-start guide provides essential security configurations for Windows Server. For comprehensive security documentation including advanced threat protection, compliance, and enterprise security architecture, see [Windows Infrastructure Security (Advanced)](index.md).
 
 > [!TIP]
 > **Time to secure**: 15-30 minutes for basic hardening
@@ -126,7 +126,7 @@ graph TD
     style Drop fill:#9e9e9e
 ```
 
-For advanced firewall configuration including application-specific rules and IPSec, see [Network Security Controls](security/index.md#network-security-controls).
+For advanced firewall configuration including application-specific rules and IPSec, see [Network Security Controls](index.md#network-security-controls).
 
 ### 3. Secure Local Administrator Account (3 minutes)
 
@@ -145,7 +145,7 @@ Disable-LocalUser -Name "Administrator"
 net accounts /minpwlen:14 /maxpwage:60 /minpwage:1 /uniquepw:24
 ```
 
-For enterprise-scale privileged access management including tiered admin models and LAPS, see [Domain Controller Security Hardening](security/index.md#domain-controller-security-hardening).
+For enterprise-scale privileged access management including tiered admin models and LAPS, see [Domain Controller Security Hardening](index.md#domain-controller-security-hardening).
 
 ### Privileged Access Security Model
 
@@ -210,7 +210,7 @@ wevtutil sl Security /ms:1073741824
 wevtutil sl Security /rt:true  # Retain old events
 ```
 
-For comprehensive security monitoring and SIEM integration, see [Endpoint Detection and Response](security/index.md#endpoint-detection-and-response-edr).
+For comprehensive security monitoring and SIEM integration, see [Endpoint Detection and Response](index.md#endpoint-detection-and-response-edr).
 
 ### 5. Disable SMBv1 (2 minutes)
 
@@ -230,7 +230,7 @@ Set-SmbServerConfiguration -EnableSecuritySignature $true -Force
 Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
 ```
 
-For network security including IPSec and network segmentation, see [Network Security Controls](security/index.md#network-security-controls).
+For network security including IPSec and network segmentation, see [Network Security Controls](index.md#network-security-controls).
 
 ## Security Baselines by Server Role
 
@@ -244,7 +244,7 @@ For network security including IPSec and network segmentation, see [Network Secu
 - Secure LDAP (enable LDAPS)
 - Implement tiered administration
 
-**Full guide**: [Domain Controller Security Hardening](security/index.md#domain-controller-security-hardening)
+**Full guide**: [Domain Controller Security Hardening](index.md#domain-controller-security-hardening)
 
 ### File Server Security
 
@@ -325,7 +325,7 @@ Add-ADFineGrainedPasswordPolicySubject -Identity "AdminPasswordPolicy" `
     -Subjects "Domain Admins"
 ```
 
-For advanced password policies and passwordless authentication, see [Domain Controller Security](security/index.md#domain-controller-security-hardening).
+For advanced password policies and passwordless authentication, see [Domain Controller Security](index.md#domain-controller-security-hardening).
 
 ## SSL/TLS Configuration
 
@@ -369,7 +369,7 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Cryptography\Configura
     -Name "Functions" -Value $CipherSuiteOrder
 ```
 
-For certificate services and PKI implementation, see [Advanced Security Guide](security/index.md).
+For certificate services and PKI implementation, see [Advanced Security Guide](index.md).
 
 ### Public Key Infrastructure (PKI) Hierarchy
 
@@ -444,7 +444,7 @@ Get-WinEvent -FilterXml $Query -MaxEvents 50 |
 - **4740**: User account locked
 - **4767**: User account unlocked
 
-For automated monitoring and incident response, see [Endpoint Detection and Response](security/index.md#endpoint-detection-and-response-edr).
+For automated monitoring and incident response, see [Endpoint Detection and Response](index.md#endpoint-detection-and-response-edr).
 
 ## Compliance Quick Check
 
@@ -483,7 +483,7 @@ function Test-CISCompliance
 Test-CISCompliance | Format-List
 ```
 
-For full CIS and STIG compliance implementation, see [Compliance and Audit Framework](security/index.md#compliance-and-audit-framework).
+For full CIS and STIG compliance implementation, see [Compliance and Audit Framework](index.md#compliance-and-audit-framework).
 
 ## Next Steps
 
@@ -517,11 +517,12 @@ For full CIS and STIG compliance implementation, see [Compliance and Audit Frame
 
 ### Quick Reference Guides
 
-- **[Configuration Management](configuration-management.md)** - PowerShell automation and DSC
+- **[Configuration Overview](../configuration/index.md)** - Basic Windows configuration
+- **[Configuration Management](../configuration-management.md)** - PowerShell automation and DSC
 
 ### Comprehensive Security Documentation
 
-- **[Windows Infrastructure Security (Advanced)](security/index.md)** - Complete security guide including:
+- **[Windows Infrastructure Security (Advanced)](index.md)** - Complete security guide including:
   - Domain controller hardening
   - Privileged access management
   - Advanced threat protection
@@ -543,7 +544,7 @@ For full CIS and STIG compliance implementation, see [Compliance and Audit Frame
 
 ---
 
-This quick-start guide provides the minimum essential security configurations. For production environments, comprehensive security requires implementing all controls in the [Advanced Security Guide](security/index.md).
+This quick-start guide provides the minimum essential security configurations. For production environments, comprehensive security requires implementing all controls in the [Advanced Security Guide](index.md).
 
 ## Troubleshooting Security Issues
 
@@ -875,9 +876,9 @@ foreach ($Tool in $SysinternalsTools)
 
 **Internal Resources**:
 
-- Review [Advanced Security Guide](security/index.md) for detailed security implementations
-- Check [Configuration Management](configuration-management.md) for automation scripts
-- Consult [Windows Server Index](index.md) for architecture information
+- Review [Advanced Security Guide](index.md) for detailed security implementations
+- Check [Configuration Management](../configuration-management.md) for automation scripts
+- Consult [Windows Server Index](../index.md) for architecture information
 
 **External Resources**:
 
