@@ -27,7 +27,7 @@
   - name: Ansible
     href: ansible/index.md
   - name: Terraform
-    href: terraform/index.md
+    href: terraform/toc.yml
   - name: Grafana
     href: grafana/index.md
   - name: Prometheus

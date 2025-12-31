@@ -33,9 +33,9 @@ This guide provides a comprehensive approach to deploying a production-ready Act
 ### Network Architecture
 
 ```text
-┌─────────────────────────────────────────────────────┐
-│                    Azure Region                      │
-│  ┌─────────────────────────────────────────────────┐ │
+┌───────────────────────────────────────────────────────┐
+│                    Azure Region                       │
+│  ┌──────────────────────────────────────────────────┐ │
 │  │              Virtual Network                     │ │
 │  │  ┌─────────────────┐  ┌─────────────────────────┐│ │
 │  │  │  AD Subnet      │  │    Client Subnet        ││ │
@@ -50,8 +50,8 @@ This guide provides a comprehensive approach to deploying a production-ready Act
 │  │  │ │ Secondary   │ │  │                         ││ │
 │  │  │ └─────────────┘ │  │                         ││ │
 │  │  └─────────────────┘  └─────────────────────────┘│ │
-│  └─────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────┘
+│  └──────────────────────────────────────────────────┘ │
+└───────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -113,7 +113,7 @@ azure-ad-forest/
 
 ### `providers.tf`
 
-```terraform
+```text
 terraform {
   required_version = ">= 1.0"
   required_providers {
@@ -144,7 +144,7 @@ provider "azurerm" {
 
 ### `variables.tf`
 
-```terraform
+```text
 variable "resource_group_name" {
   type        = string
   description = "Name of the Azure resource group"
@@ -276,7 +276,7 @@ variable "tags" {
 
 ### `main.tf`
 
-```terraform
+```text
 # Local values for computed configurations
 locals {
   common_tags = merge(var.tags, {
@@ -643,7 +643,7 @@ resource "azurerm_backup_protected_vm" "dc_backup" {
 
 ### `outputs.tf`
 
-```terraform
+```text
 output "resource_group_name" {
   description = "Name of the created resource group"
   value       = azurerm_resource_group.main.name
@@ -726,7 +726,7 @@ output "connection_info" {
 
 Create this file with your values (DO NOT commit to version control):
 
-```terraform
+```text
 # Resource Configuration
 resource_group_name = "rg-ad-prod-eus"
 location           = "East US"

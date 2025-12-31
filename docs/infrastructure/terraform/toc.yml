@@ -1,6 +1,10 @@
-- name: Terraform
+- name: Overview
   href: index.md
 - name: Proxmox
   href: proxmox.md
 - name: Gitignore
   href: gitignore.md
+- name: Examples
+  items:
+    - name: Active Directory
+      href: azure-active-directory-forest.md

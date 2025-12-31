@@ -139,7 +139,7 @@ Removes all resources defined in your Terraform configuration.
 
 Here's a simple Azure Virtual Machine configuration:
 
-```hcl
+```text
 # Configure the Azure Provider
 terraform {
   required_providers {
@@ -314,7 +314,7 @@ terraform state push terraform.tfstate
 
 ### Variable Types
 
-```hcl
+```text
 # String variable
 variable "vm_size" {
   description = "Azure VM size"
@@ -361,7 +361,7 @@ variable "vm_config" {
 
 ### Outputs
 
-```hcl
+```text
 # Output values
 output "resource_group_id" {
   description = "ID of the resource group"
@@ -384,7 +384,7 @@ output "vm_fqdn" {
 
 ### Conditional Resources
 
-```hcl
+```text
 # Create resource only if condition is met
 resource "azurerm_linux_virtual_machine" "conditional" {
   count = var.create_vm ? 1 : 0
@@ -415,7 +415,7 @@ resource "azurerm_linux_virtual_machine" "conditional" {
 
 ### Dynamic Blocks
 
-```hcl
+```text
 # Dynamic network security group rules
 resource "azurerm_network_security_group" "example" {
   name                = "nsg-example"
@@ -441,7 +441,7 @@ resource "azurerm_network_security_group" "example" {
 
 ### Data Sources
 
-```hcl
+```text
 # Get existing resource group
 data "azurerm_resource_group" "existing" {
   name = "existing-rg"
