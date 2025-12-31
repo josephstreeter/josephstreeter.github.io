@@ -19,10 +19,7 @@
   - name: Linux
     href: linux/index.md
   - name: Windows
-    href: windows/index.md
-    items:
-    - name: Security
-      href: windows/security/index.md
+    href: windows/toc.yml
   - name: Proxmox
     href: proxmox/index.md
   - name: Containers
