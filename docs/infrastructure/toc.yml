@@ -13,7 +13,7 @@
   - name: Networking
     href: networking/toc.yml
   - name: Monitoring
-    href: monitoring/index.md
+    href: monitoring/toc.yml
   - name: Disaster Recovery
     href: disaster-recovery/index.md
   - name: Linux
@@ -28,10 +28,8 @@
     href: ansible/toc.yml
   - name: Terraform
     href: terraform/toc.yml
-  - name: Grafana
-    href: grafana/index.md
   - name: Prometheus
-    href: containers/prometheus/index.md
+    href: monitoring/prometheus/index.md
   - name: Home Lab
     href: homelab/index.md
   - name: SQL Server

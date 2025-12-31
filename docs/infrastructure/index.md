@@ -145,7 +145,7 @@ flowchart TB
 - [Containers](containers/index.md) - Docker and Kubernetes
 - [Diagrams](diagrams/index.md) - Infrastructure diagrams and architecture visualization
 - [Disaster Recovery](disaster-recovery/index.md) - Business continuity and disaster recovery planning
-- [Grafana](grafana/index.md) - Monitoring and observability dashboards
+- [Grafana](monitoring/grafana/index.md) - Monitoring and observability dashboards
 - [Home Lab](homelab/index.md) - Home lab notes and setup guides
 - [KQL](kql/index.md) - Kusto Query Language for log analysis
 - [Linux](linux/index.md) - Linux system administration and configuration

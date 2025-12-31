@@ -31,23 +31,31 @@ Effective infrastructure monitoring provides:
 
 ### Time Series Databases
 
-- **Prometheus** - Open-source monitoring and alerting toolkit
+- **[Prometheus](prometheus/index.md)** - Open-source monitoring and alerting toolkit
 - **InfluxDB** - Purpose-built time series database
 - **Grafana Cloud** - Managed observability platform
 - **Azure Monitor** - Cloud-native monitoring solution
 
 ### Visualization and Dashboards
 
-- **Grafana** - Feature-rich visualization and analytics platform
+- **[Grafana](grafana/index.md)** - Feature-rich visualization and analytics platform
 - **Kibana** - Data visualization for Elasticsearch
 - **Azure Monitor Workbooks** - Interactive reports and dashboards
 - **Custom Dashboards** - Purpose-built monitoring interfaces
 
-## Prometheus Monitoring
+## Monitoring Solutions
+
+This section provides an overview and quick start examples. For comprehensive documentation on each component, see:
+
+- **[Prometheus](prometheus/index.md)** - Complete Prometheus monitoring system guide including installation, configuration, PromQL queries, and best practices
+- **[Alertmanager](alertmanager/index.md)** - Comprehensive Alertmanager guide for alert routing, grouping, and notification management
+- **[Grafana](grafana/index.md)** - Full Grafana documentation including dashboards, configuration, security, and high availability
+
+## Quick Start Examples
 
 ### Prometheus Setup
 
-Prometheus is the de facto standard for metrics collection in modern infrastructure:
+Prometheus is the de facto standard for metrics collection in modern infrastructure. For complete documentation, see the [Prometheus section](prometheus/index.md).
 
 ```yaml
 # prometheus.yml
@@ -238,6 +246,8 @@ groups:
 ```
 
 ### Alertmanager Configuration
+
+For comprehensive Alertmanager configuration, see the [Alertmanager documentation](alertmanager/index.md).
 
 ```yaml
 # alertmanager.yml
@@ -505,7 +515,9 @@ storage:
 
 ## Related Documentation
 
-- **[Grafana Configuration](../grafana/index.md)** - Dashboard and visualization setup
+- **[Prometheus](prometheus/index.md)** - Complete Prometheus monitoring system documentation
+- **[Alertmanager](alertmanager/index.md)** - Alert routing and notification management
+- **[Grafana Configuration](grafana/index.md)** - Dashboard and visualization setup
 - **[Container Monitoring](../containers/docker/monitoring.md)** - Docker-specific monitoring
 - **[Kubernetes Monitoring](../containers/kubernetes/monitoring.md)** - K8s cluster monitoring
 - **[Infrastructure Security](../security/index.md)** - Securing monitoring infrastructure

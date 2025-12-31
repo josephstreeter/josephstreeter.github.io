@@ -53,13 +53,13 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Metrics and Monitoring
 
-- **[Prometheus](prometheus/index.md)** - Time-series monitoring and alerting system
+- **[Prometheus](../monitoring/prometheus/index.md)** - Time-series monitoring and alerting system
   - Comprehensive metrics collection and storage
   - PromQL query language and alerting rules
   - Container and Kubernetes monitoring integration
   - Production deployment patterns and scaling
 
-- **[Grafana](grafana/index.md)** - Analytics and monitoring visualization platform
+- **[Grafana](../monitoring/grafana/index.md)** - Analytics and monitoring visualization platform
   - Dashboard creation and management
   - Data source integration (Prometheus, InfluxDB, etc.)
   - Alerting and notification systems
@@ -278,7 +278,7 @@ If you're new to containerization, follow this learning path:
    - Define services, networks, and volumes
    - Manage application stacks
 
-4. **[Monitoring Setup](prometheus/index.md)** - Implement basic monitoring
+4. **[Monitoring Setup](../monitoring/prometheus/index.md)** - Implement basic monitoring
    - Deploy Prometheus and Grafana
    - Create your first dashboards
    - Set up basic alerts
