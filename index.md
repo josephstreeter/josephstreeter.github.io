@@ -49,7 +49,7 @@ Things that just don't fit anywhere else
 - [Git Configuration](docs/development/git/configuration.md)
 - [SSH Setup](docs/security/ssh/index.md)
 - [VS Code for PowerShell](docs/development/vscode/index.md)
-- [Terraform with Proxmox](docs/infrastructure/terraform/proxmox.md)
+- [Terraform with Proxmox](docs/infrastructure/terraform/solutions/kubernetes-cluster-proxmox.md)
 
 ## Recent Updates
 

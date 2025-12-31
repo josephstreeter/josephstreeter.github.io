@@ -1,10 +1,16 @@
 - name: Overview
   href: index.md
+- name: Azure
+  href: azure.md
 - name: Proxmox
   href: proxmox.md
+- name: Hyper-V
+  href: hyper-v.md
 - name: Gitignore
   href: gitignore.md
 - name: Examples
   items:
-    - name: Active Directory
-      href: azure-active-directory-forest.md
+    - name: Active Directory Forest (Azure)
+      href: solutions/active-directory-forest-azure.md
+    - name: Kubernetes Cluster (Proxmox)
+      href: solutions/kubernetes-cluster-proxmox.md

@@ -1,124 +1,149 @@
 ---
-title: "Terraform Proxmox Kubernetes Cluster"
-description: "Complete guide to deploying a highly available Kubernetes cluster on Proxmox VE using Terraform infrastructure as code"
+title: "Terraform with Proxmox VE"
+description: "Complete guide to using Terraform for infrastructure automation with Proxmox Virtual Environment"
 author: "josephstreeter"
-ms.date: "2025-08-29"
+ms.date: "2025-12-30"
 ms.topic: "how-to-guide"
 ms.service: "terraform"
-keywords: ["Terraform", "Proxmox", "Kubernetes", "K8s", "Infrastructure as Code", "IaC", "Cloud-Init", "Automation"]
+keywords: ["Terraform", "Proxmox", "Virtualization", "Infrastructure as Code", "IaC", "VM Automation", "Cloud-Init"]
 ---
 
-This guide demonstrates how to deploy a production-ready Kubernetes cluster on Proxmox VE using Terraform. The configuration creates multiple nodes with proper networking, security, and scalability considerations.
+This guide demonstrates how to use Terraform to automate infrastructure provisioning on Proxmox Virtual Environment (VE). Proxmox is an open-source server virtualization platform that combines KVM hypervisor and LXC containers with an intuitive web interface and REST API.
+
+## Overview
+
+Terraform enables Infrastructure as Code (IaC) for Proxmox, allowing you to:
+
+- **Automate VM provisioning** - Create and manage virtual machines programmatically
+- **Version control infrastructure** - Track changes to your infrastructure in Git
+- **Ensure consistency** - Deploy identical environments across development, staging, and production
+- **Scale efficiently** - Provision multiple VMs with minimal configuration
+- **Integrate cloud-init** - Automate guest OS configuration and initialization
 
 ## Prerequisites
 
 ### Proxmox VE Requirements
 
-- Proxmox VE 7.x or later
-- API user with appropriate permissions
-- Cloud-init enabled VM template (Ubuntu/Debian recommended)
-- Sufficient resources for cluster nodes
-- Network bridge configured (vmbr0)
+- Proxmox VE 7.x or later installed and configured
+- API access enabled
+- VM template with cloud-init support (recommended)
+- Network bridge configured (typically vmbr0)
+- Sufficient storage for VM disks
 
-### Required Proxmox API Permissions
+### Local Development Requirements
 
-Create a dedicated API user for Terraform:
+- Terraform >= 1.0 installed
+- Network connectivity to Proxmox host
+- API credentials (token authentication recommended)
+
+### Install Terraform
 
 ```bash
-# Create user
-pveum user add terraform-prov@pve
+# Download and install Terraform (Linux)
+wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+unzip terraform_1.6.0_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
+terraform --version
+```
+
+## Proxmox API Setup
+
+### Create API User and Token
+
+Create a dedicated user and API token for Terraform:
+
+```bash
+# Create Terraform provisioning user
+pveum user add terraform-prov@pve --comment "Terraform Provisioning User"
 
 # Create API token
-pveum user token add terraform-prov@pve terraform_id -privsep 0
+pveum user token add terraform-prov@pve terraform_id --privsep=0
 
-# Assign permissions
-pveum aclmod / -user terraform-prov@pve -role Administrator
+# Output will include:
+# ┌──────────────┬──────────────────────────────────────┐
+# │ key          │ value                                │
+# ╞══════════════╪══════════════════════════════════════╡
+# │ full-tokenid │ terraform-prov@pve!terraform_id      │
+# ├──────────────┼──────────────────────────────────────┤
+# │ info         │ {"privsep":"0"}                      │
+# ├──────────────┼──────────────────────────────────────┤
+# │ value        │ xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx │
+# └──────────────┴──────────────────────────────────────┘
+
+# Save the token value - it will only be displayed once!
 ```
 
-### Terraform Requirements
+### Grant Permissions
 
-- Terraform >= 1.0
-- Proxmox Terraform provider
-- SSH key pair for VM access
-
-### Cloud-Init Template Preparation
-
-Ensure your template includes:
+Grant necessary permissions to the Terraform user:
 
 ```bash
-# Install cloud-init and qemu-guest-agent
-sudo apt update && sudo apt install -y cloud-init qemu-guest-agent
+# Create custom role with minimal required permissions (REQUIRED for production)
+pveum role add TerraformProvisioner -privs "VM.Allocate VM.Clone VM.Config.CDROM VM.Config.CPU VM.Config.Cloudinit VM.Config.Disk VM.Config.HWType VM.Config.Memory VM.Config.Network VM.Config.Options VM.Monitor VM.Audit VM.PowerMgmt Datastore.AllocateSpace Datastore.Audit Pool.Allocate Sys.Audit Sys.Console Sys.Modify SDN.Use"
 
-# Enable services
-sudo systemctl enable qemu-guest-agent
-sudo systemctl enable cloud-init
-
-# Clean template before conversion
-sudo cloud-init clean --logs
-sudo rm -rf /var/lib/cloud/instances/*
+# Assign role to user at root level
+pveum aclmod / -user terraform-prov@pve -role TerraformProvisioner
 ```
 
----
+> **Security Warning:** Never use Administrator or PVEAdmin roles for Terraform automation. Always follow least-privilege principles by creating custom roles with only the permissions required for your specific use case.
 
-## Terraform Configuration
+## Terraform Provider Configuration
 
-### Project Structure
+### Provider Setup
 
-```text
-kubernetes-cluster/
-├── main.tf                 # Main resource definitions
-├── variables.tf           # Input variables
-├── outputs.tf            # Output values
-├── providers.tf          # Provider configurations
-├── terraform.tfvars     # Variable values (DO NOT COMMIT)
-├── modules/
-│   └── k8s-node/        # Reusable node module
-└── scripts/
-    └── k8s-setup.sh     # Post-deployment scripts
-```
+Create `provider.tf`:
 
-### `providers.tf`
-
-```terraform
+```hcl
 terraform {
   required_version = ">= 1.0"
+  
   required_providers {
     proxmox = {
-      source  = "telmate/proxmox"
-      version = "~> 3.0"
+      source  = "bpg/proxmox"
+      version = "0.46.5"  # Pin exact version for production
     }
   }
 }
 
 provider "proxmox" {
-  pm_api_url          = var.proxmox_api_url
-  pm_api_token_id     = var.proxmox_api_token_id
-  pm_api_token_secret = var.proxmox_api_token_secret
-  pm_tls_insecure     = var.proxmox_tls_insecure
-  pm_parallel         = 3
-  pm_timeout          = 600
+  endpoint = var.proxmox_api_url
+  
+  # Token format: username@realm!tokenid=secret
+  api_token = "${var.proxmox_api_token_id}=${var.proxmox_api_token_secret}"
+  
+  # Set to false in production with valid SSL certificate
+  insecure = var.insecure_skip_tls_verify
+  
+  # Optional: SSH access for certain operations
+  ssh {
+    agent    = true
+    username = "root"
+  }
 }
 ```
 
-### `variables.tf`
+### Variables Configuration
 
-```terraform
+Create `variables.tf`:
+
+```hcl
 variable "proxmox_api_url" {
   type        = string
-  description = "URL of the Proxmox API"
+  description = "Proxmox API URL (e.g., https://proxmox.example.com:8006/api2/json)"
+  
   validation {
-    condition     = can(regex("^https://", var.proxmox_api_url))
-    error_message = "Proxmox API URL must start with https://"
+    condition     = can(regex("^https?://", var.proxmox_api_url))
+    error_message = "API URL must start with http:// or https://"
   }
 }
 
 variable "proxmox_api_token_id" {
   type        = string
-  description = "Proxmox API token ID"
-  sensitive   = true
+  description = "Proxmox API token ID (e.g., terraform-prov@pve!terraform_id)"
+  
   validation {
-    condition     = can(regex("@pve!", var.proxmox_api_token_id))
-    error_message = "API token ID must be in format: user@pve!token-name"
+    condition     = can(regex("^[^@]+@[^!]+![^=]+$", var.proxmox_api_token_id))
+    error_message = "Token ID must be in format: username@realm!tokenid"
   }
 }
 
@@ -126,472 +151,879 @@ variable "proxmox_api_token_secret" {
   type        = string
   description = "Proxmox API token secret"
   sensitive   = true
+  
+  validation {
+    condition     = length(var.proxmox_api_token_secret) >= 16
+    error_message = "Token secret must be at least 16 characters"
+  }
 }
 
-variable "proxmox_tls_insecure" {
+variable "insecure_skip_tls_verify" {
   type        = bool
-  description = "Skip TLS verification for Proxmox API"
-  default     = true
+  description = "Skip TLS certificate verification (only for development)"
+  default     = false
 }
 
 variable "target_node" {
   type        = string
-  description = "Target Proxmox node for VM deployment"
+  description = "Proxmox node name"
+  default     = "pve"
+  
+  validation {
+    condition     = length(var.target_node) > 0
+    error_message = "Target node name cannot be empty"
+  }
+}
+
+variable "datastore_id" {
+  type        = string
+  description = "Proxmox datastore ID for VM disks"
+  default     = "local-lvm"
 }
 
 variable "template_name" {
   type        = string
-  description = "Name of the cloud-init template"
-  default     = "debian12-cloudinit"
+  description = "Name of the VM template to clone"
+  default     = "ubuntu-cloud-template"
 }
 
-variable "storage" {
+variable "template_id" {
+  type        = number
+  description = "Template VM ID to clone from"
+  default     = 9000
+  
+  validation {
+    condition     = var.template_id >= 100 && var.template_id <= 999999999
+    error_message = "Template ID must be between 100 and 999999999"
+  }
+}
+
+variable "vm_count" {
+  type        = number
+  description = "Number of VMs to create"
+  default     = 1
+  
+  validation {
+    condition     = var.vm_count >= 1 && var.vm_count <= 100
+    error_message = "VM count must be between 1 and 100"
+  }
+}
+
+variable "vm_name_prefix" {
   type        = string
-  description = "Storage pool for VM disks"
-  default     = "local-lvm"
+  description = "Prefix for VM names"
+  default     = "terraform-vm"
+  
+  validation {
+    condition     = can(regex("^[a-z0-9][a-z0-9-]*$", var.vm_name_prefix))
+    error_message = "VM name prefix must start with alphanumeric and contain only lowercase letters, numbers, and hyphens"
+  }
+}
+
+variable "vm_memory" {
+  type        = number
+  description = "VM memory in MB"
+  default     = 2048
+  
+  validation {
+    condition     = var.vm_memory >= 512 && var.vm_memory <= 524288
+    error_message = "Memory must be between 512MB and 512GB"
+  }
+}
+
+variable "vm_cores" {
+  type        = number
+  description = "Number of CPU cores"
+  default     = 2
+  
+  validation {
+    condition     = var.vm_cores >= 1 && var.vm_cores <= 128
+    error_message = "CPU cores must be between 1 and 128"
+  }
+}
+
+variable "vm_disk_size" {
+  type        = string
+  description = "VM disk size (e.g., 20G)"
+  default     = "20G"
+  
+  validation {
+    condition     = can(regex("^[0-9]+[KMGT]$", var.vm_disk_size))
+    error_message = "Disk size must be in format: number followed by K, M, G, or T (e.g., 20G, 500M)"
+  }
 }
 
 variable "network_bridge" {
   type        = string
-  description = "Network bridge for VMs"
+  description = "Network bridge name"
   default     = "vmbr0"
-}
-
-variable "cluster_name" {
-  type        = string
-  description = "Name of the Kubernetes cluster"
-  default     = "k8s-cluster"
+  
   validation {
-    condition     = can(regex("^[a-z0-9-]+$", var.cluster_name))
-    error_message = "Cluster name must contain only lowercase letters, numbers, and hyphens"
-  }
-}
-
-variable "cluster_network" {
-  type = object({
-    subnet  = string
-    gateway = string
-    dns     = list(string)
-  })
-  description = "Network configuration for the cluster"
-  default = {
-    subnet  = "192.168.100.0/24"
-    gateway = "192.168.100.1"
-    dns     = ["8.8.8.8", "1.1.1.1"]
-  }
-}
-
-variable "master_nodes" {
-  type = map(object({
-    vmid   = number
-    ip     = string
-    cores  = number
-    memory = number
-    disk   = string
-  }))
-  description = "Master node configurations"
-  default = {
-    "master-01" = {
-      vmid   = 101
-      ip     = "192.168.100.10"
-      cores  = 2
-      memory = 4096
-      disk   = "20G"
-    }
-    "master-02" = {
-      vmid   = 102
-      ip     = "192.168.100.11"
-      cores  = 2
-      memory = 4096
-      disk   = "20G"
-    }
-    "master-03" = {
-      vmid   = 103
-      ip     = "192.168.100.12"
-      cores  = 2
-      memory = 4096
-      disk   = "20G"
-    }
-  }
-}
-
-variable "worker_nodes" {
-  type = map(object({
-    vmid   = number
-    ip     = string
-    cores  = number
-    memory = number
-    disk   = string
-  }))
-  description = "Worker node configurations"
-  default = {
-    "worker-01" = {
-      vmid   = 201
-      ip     = "192.168.100.20"
-      cores  = 4
-      memory = 8192
-      disk   = "50G"
-    }
-    "worker-02" = {
-      vmid   = 202
-      ip     = "192.168.100.21"
-      cores  = 4
-      memory = 8192
-      disk   = "50G"
-    }
-    "worker-03" = {
-      vmid   = 203
-      ip     = "192.168.100.22"
-      cores  = 4
-      memory = 8192
-      disk   = "50G"
-    }
+    condition     = can(regex("^vmbr[0-9]+$", var.network_bridge))
+    error_message = "Network bridge must be in format: vmbr followed by number (e.g., vmbr0)"
   }
 }
 
 variable "ssh_public_key" {
   type        = string
-  description = "SSH public key for VM access"
-  sensitive   = true
+  description = "SSH public key for cloud-init"
+  
+  validation {
+    condition     = can(regex("^(ssh-rsa|ssh-ed25519|ecdsa-sha2-nistp256) ", var.ssh_public_key))
+    error_message = "Must be a valid SSH public key (ssh-rsa, ssh-ed25519, or ecdsa-sha2-nistp256)"
+  }
 }
 
-variable "cloud_init_user" {
+variable "environment" {
   type        = string
-  description = "Default user for cloud-init"
-  default     = "ubuntu"
+  description = "Environment name (dev, staging, production)"
+  default     = "dev"
+  
+  validation {
+    condition     = contains(["dev", "staging", "production"], var.environment)
+    error_message = "Environment must be dev, staging, or production"
+  }
 }
 ```
 
-### `main.tf`
+Create `terraform.tfvars` (never commit this file):
 
-```terraform
-### Main Configuration
+```hcl
+proxmox_api_url           = "https://192.168.1.100:8006/api2/json"
+proxmox_api_token_id      = "terraform-prov@pve!terraform_id"
+proxmox_api_token_secret  = "your-secret-token-here"
+target_node               = "pve"
+template_name             = "ubuntu-cloud-template"
+vm_count                  = 3
+vm_name_prefix            = "web-server"
+vm_memory                 = 4096
+vm_cores                  = 2
+vm_disk_size              = "30G"
+ssh_public_key            = "ssh-rsa AAAAB3NzaC1yc2E... user@host"
+```
 
-```terraform
-# Local values for common configurations
+## Creating VM Templates
+
+### Ubuntu Cloud Image Template
+
+Create a cloud-init enabled template:
+
+```bash
+# Download Ubuntu cloud image
+wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+
+# Create VM
+qm create 9000 --name ubuntu-cloud-template --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
+
+# Import disk
+qm importdisk 9000 jammy-server-cloudimg-amd64.img local-lvm
+
+# Configure VM
+qm set 9000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9000-disk-0
+qm set 9000 --boot c --bootdisk scsi0
+qm set 9000 --ide2 local-lvm:cloudinit
+qm set 9000 --serial0 socket --vga serial0
+qm set 9000 --agent enabled=1
+
+# Convert to template
+qm template 9000
+
+# Verify template exists
+qm list
+```
+
+### Debian Cloud Image Template
+
+```bash
+# Download Debian cloud image
+wget https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2
+
+# Create and configure VM
+qm create 9001 --name debian-cloud-template --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
+qm importdisk 9001 debian-12-generic-amd64.qcow2 local-lvm
+qm set 9001 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-9001-disk-0
+qm set 9001 --boot c --bootdisk scsi0
+qm set 9001 --ide2 local-lvm:cloudinit
+qm set 9001 --serial0 socket --vga serial0
+qm set 9001 --agent enabled=1
+qm template 9001
+```
+
+## Basic VM Provisioning
+
+### Single VM Example
+
+Create `main.tf`:
+
+```hcl
+resource "proxmox_virtual_environment_vm" "vm" {
+  name        = var.vm_name_prefix
+  node_name   = var.target_node
+  vm_id       = 100
+  
+  clone {
+    vm_id = var.template_id
+    full  = true
+  }
+  
+  agent {
+    enabled = true
+    timeout = "60s"  # Wait for agent to be ready
+  }
+  
+  cpu {
+    cores = var.vm_cores
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = var.vm_memory
+  }
+  
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi0"
+    size         = var.vm_disk_size
+    iothread     = true
+    cache        = "writethrough"
+  }
+  
+  network_device {
+    bridge = var.network_bridge
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "dhcp"
+      }
+    }
+    
+    user_account {
+      username = "ubuntu"
+      keys     = [var.ssh_public_key]
+    }
+  }
+  
+  operating_system {
+    type = "l26"  # Linux 2.6+ kernel
+  }
+  
+  on_boot = true
+  
+  lifecycle {
+    ignore_changes = [
+      initialization,  # Cloud-init changes don't trigger recreation
+    ]
+  }
+  
+  tags = [var.environment, "terraform-managed"]
+}
+```
+
+### Multiple VMs with Count
+
+```hcl
+resource "proxmox_virtual_environment_vm" "vms" {
+  count = var.vm_count
+  
+  name      = "${var.vm_name_prefix}-${format("%02d", count.index + 1)}"
+  node_name = var.target_node
+  vm_id     = 100 + count.index
+  
+  clone {
+    vm_id = var.template_id
+    full  = true
+  }
+  
+  agent {
+    enabled = true
+    timeout = "60s"
+  }
+  
+  cpu {
+    cores = var.vm_cores
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = var.vm_memory
+  }
+  
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi0"
+    size         = var.vm_disk_size
+    iothread     = true
+    cache        = "writethrough"
+  }
+  
+  network_device {
+    bridge = var.network_bridge
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "dhcp"
+      }
+    }
+    
+    user_account {
+      username = "ubuntu"
+      keys     = [var.ssh_public_key]
+    }
+  }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
+  
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [initialization]
+    prevent_destroy       = var.environment == "production"
+  }
+  
+  tags = [var.environment, "terraform-managed", "vm-${count.index + 1}"]
+  
+  # Wait for VM to be ready before continuing
+  timeouts {
+    create = "10m"
+    update = "10m"
+    delete = "5m"
+  }
+}
+```
+
+## Advanced VM Configuration
+
+### Static IP Configuration
+
+```hcl
+variable "vm_ips" {
+  type = map(object({
+    ip      = string
+    gateway = string
+    vm_id   = number
+  }))
+  description = "Map of VM names to their network configuration"
+  
+  default = {
+    "vm-1" = {
+      ip      = "192.168.1.101/24"
+      gateway = "192.168.1.1"
+      vm_id   = 101
+    }
+    "vm-2" = {
+      ip      = "192.168.1.102/24"
+      gateway = "192.168.1.1"
+      vm_id   = 102
+    }
+    "vm-3" = {
+      ip      = "192.168.1.103/24"
+      gateway = "192.168.1.1"
+      vm_id   = 103
+    }
+  }
+  
+  validation {
+    condition = alltrue([
+      for k, v in var.vm_ips : can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}/[0-9]{1,2}$", v.ip))
+    ])
+    error_message = "All IP addresses must be in CIDR format (e.g., 192.168.1.101/24)"
+  }
+}
+
+resource "proxmox_virtual_environment_vm" "static_ip_vms" {
+  for_each = var.vm_ips
+  
+  name      = each.key
+  node_name = var.target_node
+  vm_id     = each.value.vm_id
+  
+  clone {
+    vm_id = var.template_id
+    full  = true
+  }
+  
+  agent {
+    enabled = true
+    timeout = "60s"
+  }
+  
+  cpu {
+    cores = var.vm_cores
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = var.vm_memory
+  }
+  
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi0"
+    size         = var.vm_disk_size
+    iothread     = true
+    cache        = "writethrough"
+  }
+  
+  network_device {
+    bridge = var.network_bridge
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = each.value.ip
+        gateway = each.value.gateway
+      }
+    }
+    
+    dns {
+      servers = ["8.8.8.8", "8.8.4.4"]
+    }
+    
+    user_account {
+      username = "ubuntu"
+      keys     = [var.ssh_public_key]
+    }
+  }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
+  
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [initialization]
+    prevent_destroy       = var.environment == "production"
+  }
+  
+  tags = [var.environment, "terraform-managed", "static-ip"]
+}
+```
+
+### Cloud-Init User Data
+
+```hcl
+resource "proxmox_virtual_environment_vm" "cloudinit_vm" {
+  name      = "web-server"
+  node_name = var.target_node
+  vm_id     = 200
+  
+  clone {
+    vm_id = 9000
+    full  = true
+  }
+  
+  agent {
+    enabled = true
+  }
+  
+  cpu {
+    cores = 4
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = 8192
+  }
+  
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "scsi0"
+    size         = "50G"
+  }
+  
+  network_device {
+    bridge = "vmbr0"
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "192.168.1.150/24"
+        gateway = "192.168.1.1"
+      }
+    }
+    
+    dns {
+      servers = ["8.8.8.8", "1.1.1.1"]
+      domain  = "example.com"
+    }
+    
+    user_account {
+      username = "admin"
+      keys     = [var.ssh_public_key]
+      # SECURITY: Never use passwords - SSH keys only!
+      # To set password: use cloud-init user_data with hashed password
+    }
+    
+    user_data_file_id = proxmox_virtual_environment_file.cloud_init_config.id
+  }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
+}
+
+resource "proxmox_virtual_environment_file" "cloud_init_config" {
+  content_type = "snippets"
+  datastore_id = "local"
+  node_name    = var.target_node
+  
+  source_raw {
+    data = templatefile("${path.module}/cloud-init-config.tftpl", {
+      hostname    = "web-server"
+      environment = var.environment
+      ssh_keys    = [var.ssh_public_key]
+    })
+    
+    file_name = "cloud-init-${var.environment}-config.yaml"
+  }
+}
+
+# Create cloud-init-config.tftpl file with:
 locals {
-  all_nodes = merge(var.master_nodes, var.worker_nodes)
-  
-  common_vm_config = {
-    agent               = 1
-    boot                = "order=scsi0"
-    clone               = var.template_name
-    scsihw              = "virtio-scsi-single"
-    vm_state            = "running"
-    automatic_reboot    = true
-    ciupgrade           = true
-    skip_ipv6           = true
-    ciuser              = var.cloud_init_user
-    sshkeys             = var.ssh_public_key
-    nameserver          = join(" ", var.cluster_network.dns)
-  }
+  cloud_init_template = <<-EOF
+    #cloud-config
+    hostname: ${hostname}
+    manage_etc_hosts: true
+    
+    # Security hardening
+    ssh_pwauth: false
+    disable_root: true
+    
+    packages:
+      - qemu-guest-agent
+      - nginx
+      - curl
+      - htop
+      - vim
+      - fail2ban
+      - ufw
+    
+    package_update: true
+    package_upgrade: true
+    
+    runcmd:
+      # Start QEMU guest agent
+      - systemctl enable qemu-guest-agent
+      - systemctl start qemu-guest-agent
+      # Configure firewall
+      - ufw allow 22/tcp
+      - ufw allow 80/tcp
+      - ufw allow 443/tcp
+      - ufw --force enable
+      # Configure nginx
+      - systemctl enable nginx
+      - systemctl start nginx
+      - echo "Welcome to Terraform-provisioned VM (${environment})" > /var/www/html/index.html
+    
+    users:
+      - name: admin
+        groups: sudo
+        shell: /bin/bash
+        sudo: ['ALL=(ALL) NOPASSWD:ALL']
+        ssh_authorized_keys: %{ for key in ssh_keys }
+          - ${key}
+        %{ endfor }
+    
+    timezone: UTC
+    
+    write_files:
+      - path: /etc/motd
+        content: |
+          ****************************************************
+          * This VM is managed by Terraform                 *
+          * Environment: ${environment}                     *
+          * Do not make manual changes without documenting  *
+          ****************************************************
+  EOF
 }
+```
 
-# Master nodes for Kubernetes control plane
-resource "proxmox_vm_qemu" "k8s_masters" {
-  for_each = var.master_nodes
+## Storage Configuration
 
-  vmid        = each.value.vmid
-  name        = "${var.cluster_name}-${each.key}"
-  target_node = var.target_node
-  
-  # Resource allocation
-  cores  = each.value.cores
-  memory = each.value.memory
-  
-  # Apply common configuration
-  agent               = local.common_vm_config.agent
-  boot                = local.common_vm_config.boot
-  clone               = local.common_vm_config.clone
-  scsihw              = local.common_vm_config.scsihw
-  vm_state            = local.common_vm_config.vm_state
-  automatic_reboot    = local.common_vm_config.automatic_reboot
-  
-  # Cloud-init configuration
-  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
-  ciupgrade  = local.common_vm_config.ciupgrade
-  ciuser     = local.common_vm_config.ciuser
-  sshkeys    = local.common_vm_config.sshkeys
-  nameserver = local.common_vm_config.nameserver
-  skip_ipv6  = local.common_vm_config.skip_ipv6
-  
-  # Network configuration
-  ipconfig0 = "ip=${each.value.ip}/${split("/", var.cluster_network.subnet)[1]},gw=${var.cluster_network.gateway}"
-  
-  # Tags for organization
-  tags = "kubernetes,master,${var.cluster_name}"
+### Multiple Disks
 
-  # Serial console for cloud-init
-  serial {
-    id = 0
+```hcl
+resource "proxmox_virtual_environment_vm" "multi_disk_vm" {
+  name      = "database-server"
+  node_name = var.target_node
+  vm_id     = 300
+  
+  clone {
+    vm_id = 9000
+    full  = true
   }
-
-  # Disk configuration
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = var.storage
-          size    = each.value.disk
-          cache   = "writethrough"
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
+  
+  agent {
+    enabled = true
   }
-
-  # Network interface
-  network {
-    id     = 0
-    bridge = var.network_bridge
+  
+  cpu {
+    cores = 8
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = 16384
+  }
+  
+  # OS disk
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi0"
+    size         = "50G"
+    cache        = "writethrough"
+    iothread     = true
+  }
+  
+  # Data disk (consider using separate datastore for better performance)
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi1"
+    size         = "200G"
+    cache        = "writethrough"
+    iothread     = true
+    discard      = "on"  # Enable TRIM for SSD
+  }
+  
+  # Backup disk
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi2"
+    size         = "100G"
+    cache        = "writethrough"
+    iothread     = true
+  }
+  
+  network_device {
+    bridge = "vmbr0"
     model  = "virtio"
   }
-
-  # Lifecycle management
-  lifecycle {
-    ignore_changes = [
-      clone,
-      full_clone,
-    ]
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "192.168.1.200/24"
+        gateway = "192.168.1.1"
+      }
+    }
+    
+    user_account {
+      username = "dbadmin"
+      keys     = [var.ssh_public_key]
+    }
   }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
 }
+```
 
-# Worker nodes for Kubernetes workloads
-resource "proxmox_vm_qemu" "k8s_workers" {
-  for_each = var.worker_nodes
+## Networking Configuration
 
-  vmid        = each.value.vmid
-  name        = "${var.cluster_name}-${each.key}"
-  target_node = var.target_node
-  
-  # Resource allocation
-  cores  = each.value.cores
-  memory = each.value.memory
-  
-  # Apply common configuration
-  agent               = local.common_vm_config.agent
-  boot                = local.common_vm_config.boot
-  clone               = local.common_vm_config.clone
-  scsihw              = local.common_vm_config.scsihw
-  vm_state            = local.common_vm_config.vm_state
-  automatic_reboot    = local.common_vm_config.automatic_reboot
-  
-  # Cloud-init configuration
-  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
-  ciupgrade  = local.common_vm_config.ciupgrade
-  ciuser     = local.common_vm_config.ciuser
-  sshkeys    = local.common_vm_config.sshkeys
-  nameserver = local.common_vm_config.nameserver
-  skip_ipv6  = local.common_vm_config.skip_ipv6
-  
-  # Network configuration
-  ipconfig0 = "ip=${each.value.ip}/${split("/", var.cluster_network.subnet)[1]},gw=${var.cluster_network.gateway}"
-  
-  # Tags for organization
-  tags = "kubernetes,worker,${var.cluster_name}"
+### Multiple Network Interfaces
 
-  # Serial console for cloud-init
-  serial {
-    id = 0
+```hcl
+resource "proxmox_virtual_environment_vm" "multi_nic_vm" {
+  name      = "firewall-vm"
+  node_name = var.target_node
+  vm_id     = 400
+  
+  clone {
+    vm_id = 9000
+    full  = true
   }
-
-  # Disk configuration
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = var.storage
-          size    = each.value.disk
-          cache   = "writethrough"
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
+  
+  agent {
+    enabled = true
   }
-
-  # Network interface
-  network {
-    id     = 0
-    bridge = var.network_bridge
+  
+  cpu {
+    cores = 4
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = 4096
+  }
+  
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "scsi0"
+    size         = "30G"
+  }
+  
+  # WAN interface
+  network_device {
+    bridge = "vmbr0"
     model  = "virtio"
   }
-
-  # Lifecycle management
-  lifecycle {
-    ignore_changes = [
-      clone,
-      full_clone,
-    ]
+  
+  # LAN interface
+  network_device {
+    bridge = "vmbr1"
+    model  = "virtio"
   }
+  
+  # DMZ interface
+  network_device {
+    bridge = "vmbr2"
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = "192.168.1.254/24"
+        gateway = "192.168.1.1"
+      }
+    }
+    
+    ip_config {
+      ipv4 {
+        address = "10.0.0.1/24"
+      }
+    }
+    
+    ip_config {
+      ipv4 {
+        address = "172.16.0.1/24"
+      }
+    }
+    
+    user_account {
+      username = "admin"
+      keys     = [var.ssh_public_key]
+    }
+  }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
 }
 ```
 
-### `outputs.tf`
+## Outputs
 
-```terraform
-output "master_nodes" {
-  description = "Master node information"
+Create `outputs.tf`:
+
+```hcl
+output "vm_ids" {
+  description = "IDs of created VMs"
+  value       = [for vm in proxmox_virtual_environment_vm.vms : vm.vm_id]
+}
+
+output "vm_names" {
+  description = "Names of created VMs"
+  value       = [for vm in proxmox_virtual_environment_vm.vms : vm.name]
+}
+
+output "vm_details" {
+  description = "Detailed information about created VMs"
   value = {
-    for k, v in proxmox_vm_qemu.k8s_masters : k => {
-      name      = v.name
-      vmid      = v.vmid
-      ip        = var.master_nodes[k].ip
-      cores     = v.cores
-      memory    = v.memory
-      status    = v.vm_state
+    for vm in proxmox_virtual_environment_vm.vms :
+    vm.name => {
+      vm_id         = vm.vm_id
+      node          = vm.node_name
+      # DHCP may take time to assign IP - check after cloud-init completes
+      ipv4_addresses = length(vm.ipv4_addresses) > 1 ? vm.ipv4_addresses[1] : ["IP not yet assigned"]
+      mac_addresses  = vm.mac_addresses
+      status        = vm.started ? "running" : "stopped"
     }
   }
 }
 
-output "worker_nodes" {
-  description = "Worker node information"
+output "static_ip_vms" {
+  description = "Static IP VM information"
   value = {
-    for k, v in proxmox_vm_qemu.k8s_workers : k => {
-      name      = v.name
-      vmid      = v.vmid
-      ip        = var.worker_nodes[k].ip
-      cores     = v.cores
-      memory    = v.memory
-      status    = v.vm_state
+    for vm in proxmox_virtual_environment_vm.static_ip_vms :
+    vm.name => {
+      vm_id      = vm.vm_id
+      ip_address = split("/", var.vm_ips[vm.name].ip)[0]
+      ssh_command = "ssh ubuntu@${split("/", var.vm_ips[vm.name].ip)[0]}"
     }
   }
+  sensitive = false
 }
 
-output "cluster_endpoints" {
-  description = "Kubernetes cluster connection information"
-  value = {
-    api_servers    = [for k, v in var.master_nodes : "${v.ip}:6443"]
-    master_ips     = [for k, v in var.master_nodes : v.ip]
-    worker_ips     = [for k, v in var.worker_nodes : v.ip]
-    ssh_command    = "ssh ${var.cloud_init_user}@<node_ip>"
-  }
+output "connection_info" {
+  description = "Quick reference for connecting to VMs"
+  value = <<-EOT
+    To connect to VMs:
+    
+    Static IP VMs:
+    %{ for name, config in var.vm_ips ~}
+    - ${name}: ssh ubuntu@${split("/", config.ip)[0]}
+    %{ endfor ~}
+    
+    DHCP VMs: Run 'terraform output vm_details' to see assigned IPs
+    
+    Note: VMs may take 1-2 minutes after creation for cloud-init to complete.
+  EOT
 }
+```
 
-output "next_steps" {
-  description = "Commands to run after deployment"
-  value = {
-    ssh_to_master = "ssh ${var.cloud_init_user}@${values(var.master_nodes)[0].ip}"
-    kubeadm_init  = "sudo kubeadm init --apiserver-advertise-address=${values(var.master_nodes)[0].ip} --pod-network-cidr=10.244.0.0/16"
-    setup_kubectl = "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config"
+## State Management
+
+### Remote State with S3
+
+Create `backend.tf`:
+
+```hcl
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "proxmox/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    kms_key_id     = "arn:aws:kms:us-east-1:ACCOUNT:key/KEY-ID"  # Optional: KMS encryption
+    dynamodb_table = "terraform-state-lock"
+    
+    # Enable workspace support
+    workspace_key_prefix = "workspaces"
   }
 }
 ```
 
----
+### Remote State with Consul
 
-## Configuration Files
-
-### `terraform.tfvars` Template
-
-Create this file with your actual values (DO NOT commit to version control):
-
-```terraform
-# Proxmox connection
-proxmox_api_url          = "https://your-proxmox-host:8006/api2/json"
-proxmox_api_token_id     = "terraform-prov@pve!terraform_id"
-proxmox_api_token_secret = "your-api-token-secret"
-proxmox_tls_insecure     = true
-
-# Infrastructure settings  
-target_node     = "your-node-name"
-template_name   = "debian12-cloudinit"
-storage         = "local-lvm"
-network_bridge  = "vmbr0"
-
-# Cluster configuration
-cluster_name = "production-k8s"
-cluster_network = {
-  subnet  = "192.168.100.0/24"
-  gateway = "192.168.100.1"
-  dns     = ["8.8.8.8", "1.1.1.1"]
-}
-
-# SSH access
-ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your-public-key"
-cloud_init_user = "ubuntu"
-
-# Master nodes (adjust as needed)
-master_nodes = {
-  "master-01" = {
-    vmid   = 101
-    ip     = "192.168.100.10"
-    cores  = 2
-    memory = 4096
-    disk   = "20G"
-  }
-  "master-02" = {
-    vmid   = 102
-    ip     = "192.168.100.11" 
-    cores  = 2
-    memory = 4096
-    disk   = "20G"
-  }
-  "master-03" = {
-    vmid   = 103
-    ip     = "192.168.100.12"
-    cores  = 2
-    memory = 4096
-    disk   = "20G"
-  }
-}
-
-# Worker nodes (adjust as needed)
-worker_nodes = {
-  "worker-01" = {
-    vmid   = 201
-    ip     = "192.168.100.20"
-    cores  = 4
-    memory = 8192
-    disk   = "50G"
-  }
-  "worker-02" = {
-    vmid   = 202
-    ip     = "192.168.100.21"
-    cores  = 4
-    memory = 8192
-    disk   = "50G"  
-  }
-  "worker-03" = {
-    vmid   = 203
-    ip     = "192.168.100.22"
-    cores  = 4
-    memory = 8192
-    disk   = "50G"
+```hcl
+terraform {
+  backend "consul" {
+    address = "consul.example.com:8500"
+    scheme  = "https"
+    path    = "terraform/proxmox"
   }
 }
 ```
 
-### Environment Variables (Alternative)
+## Deployment Workflow
+
+### Initialize and Deploy
 
 ```bash
-export TF_VAR_proxmox_api_url="https://your-proxmox-host:8006/api2/json"
-export TF_VAR_proxmox_api_token_id="terraform-prov@pve!terraform_id"  
-export TF_VAR_proxmox_api_token_secret="your-api-token-secret"
-export TF_VAR_ssh_public_key="$(cat ~/.ssh/id_ed25519.pub)"
-```
-
----
-
----
-
-## Deployment Process
-
-### Step 1: Initialize Terraform
-
-```bash
-# Initialize Terraform workspace
+# Initialize Terraform
 terraform init
 
 # Validate configuration
@@ -599,400 +1031,446 @@ terraform validate
 
 # Format configuration files
 terraform fmt
-```
 
-### Step 2: Plan Deployment
+# Plan infrastructure changes
+terraform plan -out=tfplan
 
-```bash
-# Review planned changes
-terraform plan
+# Review plan output carefully
 
-# Save plan to file for review
-terraform plan -out=k8s-cluster.tfplan
+# Apply changes
+terraform apply tfplan
 
-# Review specific resource changes
-terraform show k8s-cluster.tfplan
-```
-
-### Step 3: Deploy Infrastructure
-
-```bash
-# Apply configuration
-terraform apply k8s-cluster.tfplan
-
-# Or apply with auto-approval (use with caution)
-terraform apply -auto-approve
-```
-
-### Step 4: Verify Deployment
-
-```bash
-# Check deployed resources
+# Verify deployment
 terraform show
 
-# Verify outputs
-terraform output
-
-# Test SSH connectivity to first master
-terraform output -json cluster_endpoints | jq -r '.value.ssh_command'
+# Test SSH connectivity
+ssh ubuntu@<vm-ip-address>
 ```
 
----
-
-## Post-Deployment Kubernetes Setup
-
-### Initialize Kubernetes Cluster
-
-SSH to the first master node and initialize the cluster:
+### Update Infrastructure
 
 ```bash
-# SSH to first master node
-ssh ubuntu@192.168.100.10
+# Modify variables or configuration
 
-# Initialize Kubernetes cluster
-sudo kubeadm init \
-  --apiserver-advertise-address=192.168.100.10 \
-  --pod-network-cidr=10.244.0.0/16 \
-  --service-cidr=10.96.0.0/12 \
-  --control-plane-endpoint=192.168.100.10:6443
+# Plan changes
+terraform plan -out=tfplan
 
-# Set up kubectl for current user
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+# Review changes
 
-# Install network plugin (Flannel)
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+# Apply updates
+terraform apply tfplan
 ```
 
-### Join Additional Master Nodes (HA Setup)
+### Destroy Infrastructure
 
 ```bash
-# Generate join command for control plane nodes
-kubeadm token create --print-join-command --certificate-key $(kubeadm init phase upload-certs --upload-certs | tail -1)
+# Preview destruction
+terraform plan -destroy
 
-# SSH to additional master nodes and run join command with --control-plane flag
+# Destroy all resources
+terraform destroy
+
+# Or destroy specific resource
+terraform destroy -target=proxmox_virtual_environment_vm.vms[0]
 ```
 
-### Join Worker Nodes
+## Module Organization
 
-```bash
-# Generate join command for worker nodes
-kubeadm token create --print-join-command
+### Reusable VM Module
 
-# SSH to each worker node and run the join command
+Create `modules/proxmox-vm/main.tf`:
+
+```hcl
+variable "node_name" {
+  type = string
+}
+
+variable "vm_name" {
+  type = string
+}
+
+variable "vm_id" {
+  type = number
+}
+
+variable "template_id" {
+  type    = number
+  default = 9000
+}
+
+variable "cores" {
+  type    = number
+  default = 2
+}
+
+variable "memory" {
+  type    = number
+  default = 2048
+}
+
+variable "disk_size" {
+  type    = string
+  default = "20G"
+}
+
+variable "ip_address" {
+  type = string
+}
+
+variable "gateway" {
+  type = string
+}
+
+variable "ssh_public_key" {
+  type = string
+}
+
+variable "datastore_id" {
+  type        = string
+  description = "Datastore ID for VM disks"
+  default     = "local-lvm"
+}
+
+variable "network_bridge" {
+  type        = string
+  description = "Network bridge"
+  default     = "vmbr0"
+}
+
+variable "environment" {
+  type        = string
+  description = "Environment tag"
+  default     = "dev"
+}
+
+resource "proxmox_virtual_environment_vm" "vm" {
+  name      = var.vm_name
+  node_name = var.node_name
+  vm_id     = var.vm_id
+  
+  clone {
+    vm_id = var.template_id
+    full  = true
+  }
+  
+  agent {
+    enabled = true
+    timeout = "60s"
+  }
+  
+  cpu {
+    cores = var.cores
+    type  = "host"
+  }
+  
+  memory {
+    dedicated = var.memory
+  }
+  
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "scsi0"
+    size         = var.disk_size
+    iothread     = true
+    cache        = "writethrough"
+  }
+  
+  network_device {
+    bridge = var.network_bridge
+    model  = "virtio"
+  }
+  
+  initialization {
+    ip_config {
+      ipv4 {
+        address = var.ip_address
+        gateway = var.gateway
+      }
+    }
+    
+    user_account {
+      username = "ubuntu"
+      keys     = [var.ssh_public_key]
+    }
+  }
+  
+  operating_system {
+    type = "l26"
+  }
+  
+  on_boot = true
+  
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes        = [initialization]
+    prevent_destroy       = var.environment == "production"
+  }
+  
+  tags = [var.environment, "terraform-managed", "module-created"]
+}
+
+output "vm_id" {
+  description = "VM ID"
+  value       = proxmox_virtual_environment_vm.vm.vm_id
+}
+
+output "vm_name" {
+  description = "VM name"
+  value       = proxmox_virtual_environment_vm.vm.name
+}
+
+output "ip_address" {
+  description = "Configured IP address"
+  value       = var.ip_address
+}
+
+output "actual_ipv4_addresses" {
+  description = "Actual IPv4 addresses assigned to VM"
+  value       = length(proxmox_virtual_environment_vm.vm.ipv4_addresses) > 1 ? proxmox_virtual_environment_vm.vm.ipv4_addresses[1] : []
+}
 ```
 
-### Verify Cluster Status
+Create `modules/proxmox-vm/variables.tf` and `modules/proxmox-vm/outputs.tf` as needed.
 
-```bash
-# Check node status
-kubectl get nodes
+### Using the Module
 
-# Check system pods
-kubectl get pods -A
+In your root `main.tf`:
 
-# Check cluster info
-kubectl cluster-info
-```
+```hcl
+module "web_servers" {
+  source = "./modules/proxmox-vm"
+  
+  for_each = {
+    "web-01" = { ip = "192.168.1.101/24", vm_id = 101 }
+    "web-02" = { ip = "192.168.1.102/24", vm_id = 102 }
+    "web-03" = { ip = "192.168.1.103/24", vm_id = 103 }
+  }
+  
+  node_name      = var.target_node
+  vm_name        = each.key
+  vm_id          = each.value.vm_id
+  cores          = 4
+  memory         = 8192
+  disk_size      = "50G"
+  ip_address     = each.value.ip
+  gateway        = "192.168.1.1"
+  ssh_public_key = var.ssh_public_key
+}
 
----
-
-## Management and Maintenance
-
-### Scaling Operations
-
-#### Add New Worker Node
-
-1. Update `terraform.tfvars` to add new worker node:
-
-```terraform
-worker_nodes = {
-  # ... existing workers ...
-  "worker-04" = {
-    vmid   = 204
-    ip     = "192.168.100.23"
-    cores  = 4
-    memory = 8192
-    disk   = "50G"
+output "web_servers" {
+  value = {
+    for k, v in module.web_servers :
+    k => {
+      vm_id = v.vm_id
+      ip    = v.ip_address
+    }
   }
 }
 ```
 
-1. Apply changes:
+## Best Practices
 
-```bash
-terraform plan
-terraform apply
-```
+### Security
 
-1. Join new node to cluster as shown above.
+- **Use API tokens** instead of password authentication
+- **Apply least privilege** - create custom roles with minimal permissions
+- **Never commit secrets** - use environment variables or secret management tools
+- **Enable SSL/TLS** - use valid certificates in production environments
+- **Rotate credentials** regularly
+- **Use SSH keys** instead of passwords for VM access
 
-#### Remove Worker Node
+### Infrastructure Management
 
-```bash
-# Drain node safely
-kubectl drain <node-name> --ignore-daemonsets --delete-emptydir-data
+- **Version control** - store Terraform code in Git
+- **Use remote state** - S3, Consul, or Terraform Cloud for state storage
+- **Enable state locking** - prevent concurrent modifications
+- **Use workspaces** - separate dev, staging, and production environments
+- **Implement CI/CD** - automate terraform plan/apply in pipelines
+- **Tag resources** - use consistent naming and tagging conventions
 
-# Delete node from cluster
-kubectl delete node <node-name>
+### Performance Optimization
 
-# Remove from Terraform configuration
-# Update terraform.tfvars and apply
-```
+- **Use cloud-init** for faster provisioning
+- **Enable QEMU agent** for better VM management
+- **Use virtio drivers** for optimal disk and network performance
+- **Set appropriate I/O threads** for disk-intensive workloads
+- **Configure CPU type** - "host" for best performance
+- **Use SSD storage pools** for database and high-IOPS workloads
 
-### Resource Updates
+### Maintenance
 
-#### Modify VM Resources
-
-Update node specifications in `terraform.tfvars`:
-
-```terraform
-master_nodes = {
-  "master-01" = {
-    vmid   = 101
-    ip     = "192.168.100.10"
-    cores  = 4  # Increased from 2
-    memory = 8192  # Increased from 4096
-    disk   = "30G"  # Increased from 20G
-  }
-}
-```
-
-**Note:** VM shutdowns required for CPU/memory changes.
-
-### Backup and Recovery
-
-#### Backup Strategy
-
-```bash
-# Backup Terraform state
-cp terraform.tfstate terraform.tfstate.backup
-
-# Backup Kubernetes cluster
-kubectl get all --all-namespaces -o yaml > cluster-backup.yaml
-
-# Backup etcd (from master node)
-sudo ETCDCTL_API=3 etcdctl snapshot save /opt/etcd-backup.db \
-  --endpoints=https://127.0.0.1:2379 \
-  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
-  --cert=/etc/kubernetes/pki/etcd/server.crt \
-  --key=/etc/kubernetes/pki/etcd/server.key
-```
-
-#### Recovery Procedures
-
-```bash
-# Restore from Terraform state backup
-cp terraform.tfstate.backup terraform.tfstate
-
-# Restore infrastructure
-terraform plan
-terraform apply
-
-# Restore Kubernetes resources
-kubectl apply -f cluster-backup.yaml
-```
-
----
+- **Regular backups** - use Proxmox backup solutions
+- **Monitor resources** - track CPU, memory, disk usage
+- **Update templates** - keep base images current with security patches
+- **Test disaster recovery** - validate restore procedures
+- **Document infrastructure** - maintain README and runbooks
+- **Review logs** - check Terraform and Proxmox logs regularly
 
 ## Troubleshooting
 
 ### Common Issues
 
-#### VM Creation Failures
+**Issue:** Authentication failures
 
-```bash
-# Check Proxmox logs
-tail -f /var/log/pve/tasks/active
-
-# Verify template exists
-qm list | grep template
-
-# Check storage space
-pvesm status
+```text
+Error: authentication failed
 ```
 
-#### Network Connectivity Issues
+Solution:
+
+- Verify API token is correct
+- Check token has not expired
+- Ensure user has proper permissions
+- Test API access with curl
 
 ```bash
-# Test from Terraform host
-ping 192.168.100.10
-
-# Check Proxmox network configuration
-cat /etc/network/interfaces
-
-# Verify bridge configuration
-brctl show vmbr0
+curl -k -H "Authorization: PVEAPIToken=terraform-prov@pve!terraform_id=your-token" \
+  https://proxmox:8006/api2/json/version
 ```
 
-#### Cloud-Init Problems
+**Issue:** Template not found
+
+```text
+Error: VM template 9000 not found
+```
+
+Solution:
+
+- Verify template exists: `qm list`
+- Check template ID in configuration
+- Ensure template is on correct node
+- Verify storage is accessible
+
+**Issue:** IP address conflicts
+
+```text
+Error: IP address already in use
+```
+
+Solution:
+
+- Check for duplicate IP assignments
+- Use DHCP for dynamic environments
+- Maintain IP address inventory
+- Use Terraform data sources to query existing VMs
+
+**Issue:** Disk space errors
+
+```text
+Error: not enough space on datastore
+```
+
+Solution:
+
+- Check storage capacity: `pvesm status`
+- Clean up old VM disks
+- Use different storage pool
+- Reduce disk size allocation
+
+**Issue:** Slow provisioning
+
+Solution:
+
+- Use cloud-init for faster configuration
+- Optimize template images (remove unnecessary packages)
+- Use local storage instead of NFS for better performance
+- Enable thin provisioning
+- Use SSD storage pools
+
+### Debug Mode
+
+Enable detailed logging:
 
 ```bash
-# Check cloud-init logs on VM
-sudo cloud-init status --long
-sudo cat /var/log/cloud-init.log
+# Set Terraform debug mode
+export TF_LOG=DEBUG
+export TF_LOG_PATH=terraform-debug.log
 
-# Regenerate cloud-init
-sudo cloud-init clean --logs
-sudo cloud-init init
+terraform apply
+
+# Review debug log
+less terraform-debug.log
 ```
 
-### Kubernetes Troubleshooting
+## Advanced Topics
 
-#### Cluster Issues
+### Import Existing VMs
 
 ```bash
-# Check node status
-kubectl get nodes -o wide
+# Import existing VM into Terraform state
+terraform import proxmox_virtual_environment_vm.imported_vm <node>/<vmid>
 
-# Examine system pods
-kubectl get pods -A --field-selector=status.phase!=Running
-
-# Check cluster events
-kubectl get events --sort-by='.lastTimestamp'
+# Example
+terraform import proxmox_virtual_environment_vm.imported_vm pve/105
 ```
 
-#### Network Plugin Issues
+### Using Data Sources
 
-```bash
-# Check Flannel pods
-kubectl get pods -n kube-flannel
-
-# Restart Flannel daemonset
-kubectl rollout restart daemonset/kube-flannel-ds -n kube-flannel
-
-# Check node network configuration
-ip route show
-```
-
-### Terraform State Issues
-
-```bash
-# Import existing resource
-terraform import proxmox_vm_qemu.k8s_masters["master-01"] <node-name>/<vmid>
-
-# Refresh state
-terraform refresh
-
-# Remove resource from state (dangerous)
-terraform state rm proxmox_vm_qemu.k8s_masters["master-01"]
-```
-
----
-
-## Security Considerations
-
-### Network Security
-
-- Use private network ranges for cluster communication
-- Implement firewall rules for API access
-- Consider VPN for management access
-- Isolate cluster network from other VLANs
-
-### Access Control
-
-```bash
-# Create restricted Proxmox user for Terraform
-pveum user add terraform-prov@pve --comment "Terraform provisioning user"
-pveum aclmod /vms -user terraform-prov@pve -role PVEVMAdmin
-pveum aclmod /storage -user terraform-prov@pve -role PVEDatastoreUser
-```
-
-### SSH Key Management
-
-```bash
-# Generate dedicated SSH key for cluster
-ssh-keygen -t ed25519 -f ~/.ssh/k8s-cluster -C "k8s-cluster@$(hostname)"
-
-# Use in terraform.tfvars
-ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... k8s-cluster@hostname"
-```
-
-### Kubernetes Security
-
-- Enable RBAC (default in modern Kubernetes)
-- Use network policies for pod communication
-- Implement admission controllers
-- Regular security updates and patching
-
----
-
-## Performance Optimization
-
-### VM Performance
-
-```terraform
-# Optimized disk configuration for better I/O
-disks {
-  scsi {
-    scsi0 {
-      disk {
-        storage    = "nvme-storage"  # Use faster storage
-        size       = "50G"
-        cache      = "writethrough"
-        iothread   = 1
-        discard    = "on"
-        ssd        = 1
-      }
-    }
+```hcl
+# Query existing template
+data "proxmox_virtual_environment_vms" "templates" {
+  node_name = var.target_node
+  
+  filter {
+    name   = "template"
+    values = [true]
   }
 }
 
-# Enable NUMA for larger VMs
-numa = true
-```
-
-### Network Performance
-
-```terraform
-network {
-  id       = 0
-  bridge   = "vmbr0"
-  model    = "virtio"
-  queues   = 4        # Multi-queue support
-  mtu      = 9000     # Jumbo frames if supported
+# Use template in resource
+resource "proxmox_virtual_environment_vm" "vm_from_data" {
+  name      = "data-source-vm"
+  node_name = var.target_node
+  
+  clone {
+    vm_id = data.proxmox_virtual_environment_vms.templates.vms[0].vm_id
+    full  = true
+  }
+  
+  # ... rest of configuration
 }
 ```
 
-### Kubernetes Optimization
+### Provisioners for Post-Deployment
 
-- Use node affinity for workload placement
-- Implement resource quotas and limits
-- Configure horizontal pod autoscaling
-- Use persistent volume claims for storage
+```hcl
+resource "proxmox_virtual_environment_vm" "provisioned_vm" {
+  name      = "app-server"
+  node_name = var.target_node
+  
+  # ... configuration ...
+  
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y docker.io",
+      "sudo systemctl enable docker",
+      "sudo systemctl start docker"
+    ]
+    
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file("~/.ssh/id_rsa")
+      host        = self.ipv4_addresses[1][0]
+    }
+  }
+}
+```
+
+## Additional Resources
+
+- [Proxmox VE Documentation](https://pve.proxmox.com/pve-docs/)
+- [Terraform Proxmox Provider (bpg)](https://registry.terraform.io/providers/bpg/proxmox/latest/docs)
+- [Cloud-Init Documentation](https://cloudinit.readthedocs.io/)
+- [Terraform Best Practices](https://www.terraform.io/docs/cloud/guides/recommended-practices/index.html)
 
 ---
 
-## Best Practices
+**Important Notes:**
 
-### Infrastructure as Code
-
-- **Version Control**: Always use Git for Terraform configurations
-- **State Management**: Use remote state backends (S3, Consul, etc.)
-- **Environment Separation**: Use workspaces or separate directories
-- **Documentation**: Keep README files updated with deployment procedures
-
-### Security Best Practices
-
-- **Secrets Management**: Never commit sensitive values to Git
-- **Least Privilege**: Grant minimum necessary permissions
-- **Regular Updates**: Keep Terraform provider and Kubernetes versions current
-- **Monitoring**: Implement logging and monitoring for security events
-
-### Operational Best Practices
-
-- **Resource Tagging**: Use consistent tagging for resource organization
-- **Backup Strategy**: Automated backups of both infrastructure state and cluster data
-- **Disaster Recovery**: Document and test recovery procedures
-- **Change Management**: Use pull request workflows for infrastructure changes
-
----
-
-**Important Security Notes:**
-
-- **Never commit `terraform.tfvars`** or any files containing sensitive data to version control
-- **Use environment variables** or encrypted secret management for sensitive values  
-- **Rotate API tokens** and SSH keys regularly
-- **Implement proper network segmentation** and firewall rules
-- **Keep Proxmox and Kubernetes** updated with latest security patches
+- Always test in a non-production environment first
+- Maintain backups before making infrastructure changes
+- Document custom configurations and network topology
+- Use version control for all Terraform code
+- Never commit sensitive credentials to version control
