@@ -1,11 +1,5 @@
 - name: Windows Server
   href: index.md
-- name: Security
-  href: security.md
-- name: Configuration Management
-  href: configuration-management.md
-- name: Configuration
-  href: configuration.md
   items:
     - name: Getting Started
       href: getting-started/index.md
