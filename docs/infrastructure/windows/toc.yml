@@ -1,11 +1,80 @@
 - name: Windows Server
   href: index.md
-- name: Security
-  href: security.md
-- name: Configuration Management
-  href: configuration-management.md
-- name: Configuration
-  href: configuration.md
   items:
-  - name: Security
-    href: security.md
+    - name: Getting Started
+      href: getting-started/index.md
+      items:
+        - name: Overview
+          href: getting-started/index.md
+        - name: Installation and Setup
+          href: getting-started/index.md#installation
+        - name: Post-Installation Configuration
+          href: getting-started/index.md#post-installation-configuration
+        - name: Management Tools
+          href: getting-started/index.md#management-tools
+    
+    - name: Server Roles
+      href: server-roles/index.md
+      items:
+        - name: Overview
+          href: server-roles/index.md
+        - name: Active Directory Domain Services
+          href: server-roles/ad-ds.md
+        - name: DNS Server
+          href: server-roles/dns.md
+        - name: DHCP Server
+          href: server-roles/dhcp.md
+        - name: File and Storage Services
+          href: server-roles/file-services.md
+        - name: Web Server (IIS)
+          href: server-roles/iis.md
+        - name: Hyper-V
+          href: server-roles/hyper-v.md
+    
+    - name: Configuration
+      href: configuration/index.md
+      items:
+        - name: Quick Start
+          href: configuration/index.md
+        - name: Configuration Management
+          href: configuration-management.md
+        - name: PowerShell Automation
+          href: configuration-management.md#powershell-for-configuration-management
+        - name: Desired State Configuration (DSC)
+          href: configuration-management.md#powershell-desired-state-configuration-dsc
+        - name: Group Policy
+          href: configuration-management.md#group-policy-management
+        - name: Package Management
+          href: configuration-management.md#package-management-with-winget
+        - name: Troubleshooting
+          href: configuration-management.md#troubleshooting-configuration-management
+    
+    - name: Security
+      href: security/quick-start.md
+      items:
+        - name: Quick Start (15-30 min)
+          href: security/quick-start.md
+        - name: Advanced Security
+          href: security/index.md
+        - name: Domain Controller Hardening
+          href: security/index.md#domain-controller-security-hardening
+        - name: Endpoint Detection and Response
+          href: security/index.md#endpoint-detection-and-response-edr
+        - name: Network Security Controls
+          href: security/index.md#network-security-controls
+        - name: Compliance and Audit Framework
+          href: security/index.md#compliance-and-audit-framework
+        - name: Troubleshooting
+          href: security/quick-start.md#troubleshooting-security-issues
+    
+    - name: Scenarios
+      href: scenarios.md
+      items:
+        - name: Overview
+          href: scenarios.md
+        - name: Secure File Server
+          href: scenarios.md#scenario-1-deploying-a-secure-file-server
+        - name: IIS Web Application
+          href: scenarios.md#scenario-2-deploying-a-web-application-on-iis
+        - name: Privileged Access Workstation
+          href: scenarios.md#scenario-3-configuring-a-privileged-access-workstation-paw
