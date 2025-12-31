@@ -4,7 +4,7 @@ description: "Comprehensive guide to diagnosing and resolving common networking 
 tags: ["networking", "troubleshooting", "diagnostics", "connectivity"]
 category: "networking"
 difficulty: "intermediate"
-last_updated: "2025-07-18"
+last_updated: "2025-12-30"
 ---
 
 ## Network Troubleshooting Guide
