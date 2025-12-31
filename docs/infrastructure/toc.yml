@@ -1,4 +1,4 @@
-- name: Infrastructure
+- name: Overview
   href: index.md
   items:
   - name: Diagrams
@@ -25,7 +25,7 @@
   - name: Containers
     href: containers/toc.yml
   - name: Ansible
-    href: ansible/index.md
+    href: ansible/toc.yml
   - name: Terraform
     href: terraform/toc.yml
   - name: Grafana
