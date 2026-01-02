@@ -290,7 +290,7 @@ Speed improvements.
 
 Robust workflows.
 
-### Documentation
+### Workflow Documentation
 
 Maintaining workflows.
 
@@ -328,7 +328,7 @@ Optimization tips.
 
 ## Resources
 
-### Documentation
+### Official Documentation
 
 Official guides.
 
