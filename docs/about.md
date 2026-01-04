@@ -11,7 +11,7 @@ permalink: /about/
 ---
 Over 20 years experience. From desktop management and server administration to network engineering and Directory Services. In recent years I have settled primarily in the area of Identity and Access Management.
 
-In addition to my professional work, I do a lot of tinkering around with different technologies. Home Automation and experimenting in the home lab, I'm always doing something. 
+In addition to my professional work, I do a lot of tinkering around with different technologies. Home Automation and experimenting in the home lab, I'm always doing something.
 
 ### Photographer
 

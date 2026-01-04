@@ -1,0 +1,88 @@
+- name: Overview
+  href: index.md
+- name: Prompts
+  items:
+    - name: Introduction to Prompts
+      href: prompts/introduction.md
+    - name: Best Practices
+      href: prompts/best-practices.md
+    - name: Prompt Engineering
+      href: prompts/prompt-engineering.md
+    - name: Image Creation Prompts
+      href: prompts/image-creation.md
+- name: Models
+  items:
+    - name: Model Selection
+      href: models/model-selection.md
+    - name: Fine-tuning Models
+      href: models/fine-tuning.md
+    - name: Model Evaluation
+      href: models/model-evaluation.md
+- name: Use Cases
+  items:
+    - name: Customer Support
+      href: use-cases/customer-support.md
+    - name: Content Generation
+      href: use-cases/content-generation.md
+    - name: Data Analysis
+      href: use-cases/data-analysis.md
+- name: Local LLMs
+  items:
+    - name: Introduction to Local LLMs
+      href: local-llms/introduction.md
+    - name: Hardware Requirements
+      href: local-llms/hardware-requirements.md
+    - name: Installation and Setup
+      href: local-llms/installation-setup.md
+    - name: Model Selection
+      href: local-llms/model-selection.md
+    - name: Running Models
+      href: local-llms/running-models.md
+    - name: Optimization Techniques
+      href: local-llms/optimization.md
+    - name: Integration and APIs
+      href: local-llms/integration.md
+    - name: Troubleshooting
+      href: local-llms/troubleshooting.md
+- name: Ethics and Safety
+  items:
+    - name: Ethical Considerations
+      href: ethics/ethical-considerations.md
+    - name: AI Safety
+      href: ethics/ai-safety.md
+    - name: Bias in AI
+      href: ethics/bias-in-ai.md
+- name: Agents
+  items:
+    - name: Introduction to Agents
+      href: agents/introduction.md
+    - name: Building AI Agents
+      href: agents/building-agents.md
+    - name: Agent Use Cases
+      href: agents/agent-use-cases.md
+- name: Automation and Workflow Tools
+  items:
+    - name: Introduction to AI Workflow Tools
+      href: automation/introduction.md
+    - name: n8n
+      href: automation/n8n.md
+    - name: Make (Integromat)
+      href: automation/make.md
+    - name: Zapier with AI
+      href: automation/zapier.md
+    - name: LangFlow
+      href: automation/langflow.md
+    - name: Flowise
+      href: automation/flowise.md
+    - name: Workflow Design Patterns
+      href: automation/workflow-patterns.md
+    - name: Integration Best Practices
+      href: automation/best-practices.md
+- name: References
+  items:
+    - name: Glossary
+      href: references/glossary.md
+    - name: Further Reading
+      href: references/further-reading.md
+    - name: API Documentation
+      href: references/api-documentation.md
