@@ -41,6 +41,7 @@ Meta's Llama series represents the most influential open-source LLM family, sett
 - **License**: Llama 2 Community License (permits commercial use with restrictions)
 
 **Key characteristics**:
+
 - Strong general-purpose capabilities
 - Excellent base for fine-tuning
 - Large ecosystem of derivatives
@@ -55,6 +56,7 @@ Meta's Llama series represents the most influential open-source LLM family, sett
 - **Improvements**: Better coding, reasoning, and multilingual performance
 
 **Key characteristics**:
+
 - Superior tokenization efficiency
 - Significantly better code generation
 - Improved mathematical reasoning
@@ -75,6 +77,7 @@ Meta's Llama series represents the most influential open-source LLM family, sett
 - **Key strength**: Edge deployment, mobile devices, vision understanding
 
 **Use cases**:
+
 - **7-8B models**: General chat, content generation, personal assistants
 - **13B models**: Code generation, analysis, technical writing
 - **70B models**: Complex reasoning, research, professional applications
@@ -106,12 +109,14 @@ Mistral AI's models are known for exceptional quality-to-size ratio, punching ab
 - **License**: Apache 2.0 (fully open)
 
 **Key characteristics**:
+
 - Outperforms Llama 2 13B on many benchmarks
 - Efficient inference due to GQA
 - Strong coding and reasoning
 - Excellent for production deployment
 
 **Mistral 7B Instruct**:
+
 - Instruction-tuned version
 - Superior conversational abilities
 - Better task following
@@ -126,6 +131,7 @@ Mistral AI's models are known for exceptional quality-to-size ratio, punching ab
 - **Performance**: Matches or exceeds GPT-3.5 on many tasks
 
 **Key characteristics**:
+
 - MoE efficiency: Large model capacity with smaller active parameters
 - Multilingual excellence (English, French, German, Spanish, Italian)
 - Strong code generation
@@ -139,10 +145,12 @@ Mistral AI's models are known for exceptional quality-to-size ratio, punching ab
 - **Performance**: Approaches GPT-4 level on many benchmarks
 
 **Mistral Small, Medium, Large** (API-only):
+
 - Closed-source commercial models
 - Not available for local deployment
 
 **Use cases**:
+
 - **Mistral 7B**: Production chatbots, content generation, coding assistance
 - **Mixtral 8x7B**: Complex reasoning, multilingual applications, research
 - **Mixtral 8x22B**: Professional applications, analysis, advanced reasoning
@@ -174,23 +182,27 @@ Technology Innovation Institute (TII) of UAE's Falcon series, known for strong p
 - **License**: Apache 2.0 / TII Falcon LLM License
 
 **Key characteristics**:
+
 - RefinedWeb: High-quality web data filtering
 - Strong performance on reasoning benchmarks
 - Multilingual capabilities
 - Commercial-friendly licensing
 
 **Falcon 180B**:
+
 - One of the largest open models
 - Requires distributed inference
 - Competitive with GPT-3.5
 - Challenging to run locally
 
 **Use cases**:
+
 - **Falcon 7B**: Resource-efficient deployment
 - **Falcon 40B**: High-quality applications with sufficient hardware
 - Best for organizations needing strong licensing terms
 
 **Considerations**:
+
 - Less ecosystem support than Llama
 - Fewer fine-tuned variants available
 - Higher memory bandwidth requirements
@@ -214,6 +226,7 @@ Microsoft's Phi series demonstrates that smaller, carefully trained models can m
 - **Training**: 1.4 trillion tokens of high-quality data
 
 **Key characteristics**:
+
 - Exceptional performance per parameter
 - Strong mathematical and logical reasoning
 - Good code generation despite small size
@@ -233,6 +246,7 @@ Microsoft's Phi series demonstrates that smaller, carefully trained models can m
 - **Vision**: Multimodal variants available
 
 **Use cases**:
+
 - Edge devices and mobile applications
 - Quick prototyping and testing
 - Resource-constrained environments
@@ -264,6 +278,7 @@ Google's Gemma models, derived from Gemini research, offer strong performance wi
 - **License**: Gemma Terms of Use (restrictive for some uses)
 
 **Key characteristics**:
+
 - Strong safety alignment
 - Excellent instruction following
 - Good multilingual support
@@ -277,23 +292,27 @@ Google's Gemma models, derived from Gemini research, offer strong performance wi
 - **Performance**: Competitive with much larger models
 
 **Key characteristics**:
+
 - Knowledge distillation from Gemini
 - Strong mathematical reasoning
 - Enhanced coding capabilities
 - Better long-form generation
 
 **CodeGemma**:
+
 - Specialized for code generation
 - 2B (fill-in-the-middle), 7B (instruction)
 - Competitive with larger code models
 
 **Use cases**:
+
 - Safety-critical applications
 - Content moderation systems
 - Educational chatbots
 - Mobile and edge deployment (2B)
 
 **License considerations**:
+
 - Restrictions on certain use cases
 - Cannot be used to improve other models
 - Review terms carefully for commercial use
@@ -310,6 +329,7 @@ Alibaba Cloud's Qwen (Tongyi Qianwen) series excels at multilingual tasks, parti
 - **Training**: 3 trillion tokens
 
 **Key characteristics**:
+
 - Best-in-class multilingual performance
 - Strong reasoning and knowledge
 - Excellent code generation
@@ -330,11 +350,13 @@ Alibaba Cloud's Qwen (Tongyi Qianwen) series excels at multilingual tasks, parti
 - **Performance**: State-of-the-art for size class
 
 **Specialized variants**:
+
 - **Qwen-Coder**: Optimized for code (1.5B-32B)
 - **Qwen-Math**: Mathematical reasoning focus
 - **Qwen-VL**: Vision-language multimodal
 
 **Use cases**:
+
 - Multilingual applications (especially Asian languages)
 - International business applications
 - Translation and localization
@@ -357,35 +379,41 @@ llm = Llama(
 ### Others
 
 **DeepSeek Models**:
+
 - **DeepSeek Coder**: State-of-the-art code generation (1.3B-33B)
 - **DeepSeek Math**: Mathematical reasoning specialist
 - Strong performance on technical tasks
 - Apache 2.0 license
 
 **Yi Models** (01.AI):
+
 - Strong general-purpose models (6B, 34B)
 - Long context (200K tokens)
 - Apache 2.0 license
 - Good multilingual support
 
 **Orca 2** (Microsoft Research):
+
 - Based on Llama 2
 - Advanced reasoning techniques
 - 7B, 13B sizes
 - Research-focused
 
 **Zephyr** (HuggingFace):
+
 - Llama 2 fine-tune with DPO
 - Excellent instruction following
 - 7B size
 - Strong community support
 
 **StableLM** (Stability AI):
+
 - Various sizes (3B, 7B, etc.)
 - Apache 2.0 license
 - Good for creative applications
 
 **OpenHermes / Nous-Hermes** (NousResearch):
+
 - High-quality Llama/Mistral fine-tunes
 - Excellent instruction following
 - Large training on diverse data
@@ -406,7 +434,7 @@ Small models offer the best balance of performance and resource efficiency for m
 **Resource requirements**:
 
 | Model Size | FP16 | Q8 | Q4 | Q3 |
-|------------|------|----|----|-----|
+| --- | --- | --- | --- | --- |
 | 1B | 2GB | 1GB | 0.6GB | 0.4GB |
 | 3B | 6GB | 3GB | 1.7GB | 1.2GB |
 | 7B | 14GB | 7GB | 4GB | 2.8GB |
@@ -474,7 +502,7 @@ Medium models provide significant capability improvements over small models whil
 **Resource requirements**:
 
 | Model Size | FP16 | Q8 | Q4 | Q3 |
-|------------|------|----|----|-----|
+| --- | --- | --- | --- | --- |
 | 8B | 16GB | 8GB | 4.5GB | 3.2GB |
 | 13B | 26GB | 13GB | 7GB | 5GB |
 
@@ -538,7 +566,7 @@ Large models deliver professional-grade quality for demanding applications, requ
 **Resource requirements**:
 
 | Model Size | FP16 | Q8 | Q4 | Q3 |
-|------------|------|----|----|-----|
+| --- | --- | --- | --- | --- |
 | 13B | 26GB | 13GB | 7GB | 5GB |
 | 20B | 40GB | 20GB | 11GB | 7.5GB |
 | 34B | 68GB | 34GB | 18GB | 12GB |
@@ -603,7 +631,7 @@ Extra large models represent state-of-the-art open-source capabilities, approach
 **Resource requirements**:
 
 | Model Size | FP16 | Q8 | Q4 | Q3 |
-|------------|------|----|----|-----|
+| --- | --- | --- | --- | --- |
 | 70B | 140GB | 70GB | 38GB | 26GB |
 | 180B | 360GB | 180GB | 95GB | 65GB |
 
@@ -708,7 +736,7 @@ Full precision models provide maximum quality at the cost of memory and performa
 **Memory requirements (FP16)**:
 
 | Model Size | FP16 Memory |
-|------------|-------------|
+| --- | --- |
 | 1B | ~2GB |
 | 3B | ~6GB |
 | 7B | ~14GB |
@@ -765,7 +793,7 @@ model = AutoModelForCausalLM.from_pretrained(
 **Memory requirements**:
 
 | Model Size | INT8 Memory | Savings vs FP16 |
-|------------|-------------|-----------------|
+| --- | --- | --- |
 | 1B | ~1GB | 50% |
 | 3B | ~3GB | 50% |
 | 7B | ~7GB | 50% |
@@ -845,7 +873,7 @@ llm = Llama(
 **Memory requirements**:
 
 | Model Size | Q4 Memory | Savings vs FP16 |
-|------------|-----------|-----------------|
+| --- | --- | --- |
 | 1B | ~0.6GB | 70% |
 | 3B | ~1.8GB | 70% |
 | 7B | ~4GB | 71% |
@@ -938,7 +966,7 @@ Aggressive quantization for extreme memory constraints, with significant quality
 **Memory requirements**:
 
 | Model Size | Q3 Memory | Q2 Memory |
-|------------|-----------|-----------|
+| --- | --- | --- |
 | 1B | ~0.5GB | ~0.35GB |
 | 3B | ~1.4GB | ~1GB |
 | 7B | ~3GB | ~2.2GB |
@@ -1269,7 +1297,7 @@ Native PyTorch format with full precision and flexibility.
 **Format recommendation by use case**:
 
 | Use Case | Recommended Format | Second Choice |
-|----------|-------------------|---------------|
+| --- | --- | --- |
 | General local use | GGUF | PyTorch + Transformers |
 | NVIDIA GPU | GPTQ | AWQ |
 | Apple Silicon | GGUF | ONNX |
@@ -1575,7 +1603,7 @@ Multilingual capability varies significantly across model families.
 **Language quality comparison**:
 
 | Model Family | English | European | Asian | Other |
-|--------------|---------|----------|-------|-------|
+| --- | --- | --- | --- | --- |
 | Llama 3.1 | Excellent | Good | Fair | Fair |
 | Mistral/Mixtral | Excellent | Excellent | Poor | Poor |
 | Qwen 2.5 | Excellent | Good | Excellent | Good |
@@ -1656,7 +1684,7 @@ Context window size determines how much text the model can process simultaneousl
 **Context size ranges**:
 
 | Size | Token Count | Approximate Pages | Use Cases |
-|------|-------------|-------------------|-----------|
+| --- | --- | --- | --- |
 | Small | 2K-4K | 4-8 pages | Chat, short tasks |
 | Medium | 4K-8K | 8-16 pages | Standard applications |
 | Large | 8K-32K | 16-64 pages | Document analysis |
@@ -1666,7 +1694,7 @@ Context window size determines how much text the model can process simultaneousl
 **Model context capabilities**:
 
 | Model | Base Context | Extended Context Available |
-|-------|--------------|----------------------------|
+| --- | --- | --- |
 | Llama 2 | 4K | 32K (rope scaling) |
 | Llama 3 | 8K | 128K (rope scaling) |
 | Llama 3.1/3.2 | 128K | Native |
@@ -1763,7 +1791,7 @@ Benchmarks provide quantitative comparisons but should be interpreted with real-
 **Approximate benchmark scores** (Q4 quantization, subject to variation):
 
 | Model | MMLU | HumanEval | GSM8K | Params |
-|-------|------|-----------|-------|--------|
+| --- | --- | --- | --- | --- |
 | Phi-3 Mini | 69% | 59% | 82% | 3.8B |
 | Llama 3.2 3B | 63% | 50% | 52% | 3B |
 | Mistral 7B v0.2 | 64% | 31% | 52% | 7B |
@@ -1879,7 +1907,7 @@ Models optimized specifically for programming tasks with code-specific training 
 **Specialized code models comparison**:
 
 | Model | Best Use Case | Strength |
-|-------|---------------|----------|
+| --- | --- | --- |
 | Code Llama 7B | IDE integration, completion | Fast, efficient |
 | Code Llama 34B | Complex code generation | Quality, multi-step |
 | DeepSeek Coder 6.7B | Project-level understanding | Repo context |
@@ -2734,7 +2762,7 @@ ollama run my-coding-assistant
 **Ollama vs manual GGUF**:
 
 | Feature | Ollama | Manual GGUF |
-|---------|--------|-------------|
+| --- | --- | --- |
 | Setup | One command | Download + configure |
 | Configuration | Pre-optimized | Manual tuning |
 | Updates | `ollama pull` | Manual download |

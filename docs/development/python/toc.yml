@@ -1,4 +1,72 @@
 - name: Python
   href: index.md
-- name: Flask
-  href: flask.md
+- name: Best Practices
+  href: best-practices.md
+- name: Web Development
+  items:
+    - name: Overview
+      href: web-development/index.md
+    - name: Flask
+      href: web-development/flask.md
+    - name: Django
+      href: web-development/django.md
+- name: Data Science
+  items:
+    - name: Overview
+      href: data-science/index.md
+    - name: NumPy
+      href: data-science/numpy.md
+    - name: Pandas
+      href: data-science/pandas.md
+    - name: Matplotlib
+      href: data-science/matplotlib.md
+- name: Machine Learning
+  items:
+    - name: Overview
+      href: machine-learning/index.md
+    - name: Scikit-learn
+      href: machine-learning/scikit-learn.md
+    - name: TensorFlow
+      href: machine-learning/tensorflow.md
+    - name: PyTorch
+      href: machine-learning/pytorch.md
+- name: Automation
+  items:
+    - name: Overview
+      href: automation/index.md
+    - name: Scripting with Python
+      href: automation/scripting.md
+    - name: Web Scraping
+      href: automation/web-scraping.md
+- name: Testing
+  items:
+    - name: Overview
+      href: testing/index.md
+    - name: Unit Testing
+      href: testing/unit-testing.md
+    - name: Integration Testing
+      href: testing/integration-testing.md
+    - name: Test Automation
+      href: testing/test-automation.md
+- name: Deployment
+  items:
+    - name: Overview
+      href: deployment/index.md
+    - name: Packaging
+      href: deployment/packaging.md
+    - name: Continuous Integration
+      href: deployment/ci.md
+    - name: Cloud Deployment
+      href: cloud-deployment.md
+- name: Package Management
+  items:
+    - name: Overview
+      href: package-management/index.md
+    - name: UV
+      href: package-management/uv.md
+    - name: pip
+      href: package-management/pip.md
+    - name: conda
+      href: package-management/conda.md
+    - name: virtualenv
+      href: package-management/virtualenv.md

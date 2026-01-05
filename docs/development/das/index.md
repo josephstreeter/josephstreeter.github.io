@@ -84,7 +84,7 @@ graph TB
 ### Component Responsibilities
 
 | Component | Purpose | Key Features |
-|-----------|---------|--------------|
+| --------- | ------- | ------------ |
 | **Azure DevOps Repositories** | Source control and collaboration | Git repositories, branch policies, pull requests |
 | **DocFX** | Static site generation | Markdown processing, API documentation, themes |
 | **Azure Pipelines** | CI/CD automation | Build validation, testing, deployment |
