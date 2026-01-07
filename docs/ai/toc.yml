@@ -58,6 +58,8 @@
       href: agents/introduction.md
     - name: Building AI Agents
       href: agents/building-agents.md
+    - name: Model Context Protocol
+      href: agents/model-context-protocol.md
     - name: Agent Use Cases
       href: agents/agent-use-cases.md
 - name: Automation and Workflow Tools

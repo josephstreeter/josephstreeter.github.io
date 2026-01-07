@@ -1,0 +1,18 @@
+{"severity":"info","message":"Searching built-in plugins in directory /home/hades/.dotnet/tools/.store/docfx/2.78.3/docfx/2.78.3/tools/net8.0/any/...","date_time":"2026-01-07T02:27:19.9784162Z"}
+{"severity":"info","message":"Post processor ExtractSearchIndex loaded.","date_time":"2026-01-07T02:27:20.1122506Z"}
+{"severity":"info","message":"7 plug-in(s) loaded.","date_time":"2026-01-07T02:27:20.1767938Z"}
+{"severity":"info","message":"ExtractSearchIndex: UseMetadata = False, UseMetadataTitle = True","date_time":"2026-01-07T02:27:20.1934735Z"}
+{"severity":"info","message":"Building 762 file(s) in ConceptualDocumentProcessor(BuildConceptualDocument=>ValidateConceptualDocumentMetadata)...","date_time":"2026-01-07T02:27:20.782654Z"}
+{"severity":"info","message":"Building 73 file(s) in TocDocumentProcessor(BuildTocDocument)...","date_time":"2026-01-07T02:27:20.7828558Z"}
+{"severity":"info","message":"Building 26 file(s) in ResourceDocumentProcessor(ValidateResourceMetadata)...","date_time":"2026-01-07T02:27:20.7830411Z"}
+{"severity":"info","message":"Building 0 file(s) in ManagedReferenceDocumentProcessor(BuildManagedReferenceDocument=>SplitClassPageToMemberLevel=>ValidateManagedReferenceDocumentMetadata=>ApplyOverwriteDocumentForMref=>FillReferenceInformation=>FillMetadata)...","date_time":"2026-01-07T02:27:20.7831973Z"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/scientific-computing/numpy.md).","file":"docs/development/python/machine-learning/index.md","line":"1409","date_time":"2026-01-07T02:27:29.8677896Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/environments/virtualenv.md).","file":"docs/development/python/machine-learning/index.md","line":"1411","date_time":"2026-01-07T02:27:29.8679492Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/data-analysis/pandas.md).","file":"docs/development/python/machine-learning/index.md","line":"1410","date_time":"2026-01-07T02:27:29.8680248Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/algorithms/neural-networks.md).","file":"docs/development/python/machine-learning/pytorch.md","line":"1568","date_time":"2026-01-07T02:27:29.8681295Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/apis/rest-api.md).","file":"docs/development/python/web-development/django.md","line":"1937","date_time":"2026-01-07T02:27:29.8683352Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/python/web-development/fastapi.md).","file":"docs/development/python/web-development/django.md","line":"1936","date_time":"2026-01-07T02:27:29.8683887Z","code":"InvalidFileLink"}
+{"severity":"warning","message":"Invalid file link:(~/docs/development/databases/postgresql.md).","file":"docs/development/python/web-development/django.md","line":"1938","date_time":"2026-01-07T02:27:29.8684244Z","code":"InvalidFileLink"}
+{"severity":"info","message":"Applying templates to 861 model(s)...","date_time":"2026-01-07T02:27:30.1135186Z"}
+{"severity":"info","message":"XRef map exported.","date_time":"2026-01-07T02:27:33.0452683Z"}
+{"severity":"info","message":"Extracting index data from 762 html files","date_time":"2026-01-07T02:27:34.9167621Z"}

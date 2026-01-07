@@ -1,18 +1,34 @@
 - name: Python
   href: index.md
 - name: Best Practices
-  href: best-practices.md
+  items:
+    - name: Overview
+      href: best-practices.md
+    - name: Best Practices Guide
+      href: best-practices/index.md
+    - name: Data Visualization
+      href: best-practices/data-visualization.md
 - name: Web Development
   items:
     - name: Overview
+      href: web-development.md
+    - name: Web Development Guide
       href: web-development/index.md
     - name: Flask
       href: web-development/flask.md
     - name: Django
       href: web-development/django.md
+- name: APIs
+  items:
+    - name: API Integration
+      href: api-integration.md
+    - name: REST API
+      href: apis/rest-api.md
 - name: Data Science
   items:
     - name: Overview
+      href: data-science.md
+    - name: Data Science Guide
       href: data-science/index.md
     - name: NumPy
       href: data-science/numpy.md
@@ -30,6 +46,10 @@
       href: machine-learning/tensorflow.md
     - name: PyTorch
       href: machine-learning/pytorch.md
+- name: Algorithms
+  items:
+    - name: Neural Networks
+      href: algorithms/neural-networks.md
 - name: Automation
   items:
     - name: Overview
@@ -61,6 +81,8 @@
 - name: Package Management
   items:
     - name: Overview
+      href: package-management.md
+    - name: Package Management Guide
       href: package-management/index.md
     - name: UV
       href: package-management/uv.md
