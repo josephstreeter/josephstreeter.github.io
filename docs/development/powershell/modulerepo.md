@@ -54,7 +54,7 @@ $Params = @{
 Register-PSRepository @Params 
 ```
 
-THe following commands used to find, install, upgrade, and remove a module from the BaGet PSRepository
+The following commands used to find, install, upgrade, and remove a module from the BaGet PSRepository
 
 ```powershell
 # Find a module

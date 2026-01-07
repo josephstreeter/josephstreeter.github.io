@@ -1212,4 +1212,4 @@ intersphinx_mapping = {
 - [Python Web Development](../web-development/index.md)
 - [Python Data Science](../data-science/index.md)
 - [Package Management](../package-management/index.md)
-- [Flask Development](../flask.md)
+- [Flask Development](../web-development/flask.md)

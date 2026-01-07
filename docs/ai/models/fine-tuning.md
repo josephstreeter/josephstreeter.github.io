@@ -24,8 +24,6 @@ The core concept relies on **transfer learning**: a pre-trained model has alread
 
 ## When to Fine-tune
 
-## When to Fine-tune
-
 ### Use Cases
 
 Fine-tuning is most valuable in these scenarios:
