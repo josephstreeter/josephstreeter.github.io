@@ -46,6 +46,22 @@
       href: machine-learning/tensorflow.md
     - name: PyTorch
       href: machine-learning/pytorch.md
+- name: Deep Learning
+  items:
+    - name: Overview
+      href: deep-learning/index.md
+- name: Natural Language Processing
+  items:
+    - name: Overview
+      href: nlp/index.md
+- name: Computer Vision
+  items:
+    - name: Overview
+      href: computer-vision/index.md
+- name: ORM & Database
+  items:
+    - name: SQLAlchemy
+      href: orm/sqlalchemy.md
 - name: Algorithms
   items:
     - name: Neural Networks
