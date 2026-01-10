@@ -23,9 +23,9 @@ Content coming soon...
 
 ## See Also
 
-- [Python Overview](../python/index.md)
-- [Data Science](../python/data-science/index.md)
-- [Machine Learning](../python/machine-learning/index.md)
+- [Python Overview](../index.md)
+- [Data Science](../data-science/index.md)
+- [Machine Learning](../machine-learning/index.md)
 
 ## Resources
 

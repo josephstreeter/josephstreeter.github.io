@@ -3255,13 +3255,13 @@ Neural networks continue to advance with innovations in architectures (Transform
 
 ## See Also
 
-- [Python Machine Learning Overview](../index.md)
+- [Python Machine Learning Overview](../machine-learning/index.md)
 - [Deep Learning Algorithms](index.md)
-- [Computer Vision with OpenCV](../../libraries/opencv.md)
+- [Computer Vision with OpenCV](../libraries/opencv.md)
 - [Natural Language Processing](../nlp/index.md)
-- [NumPy for Scientific Computing](../../libraries/numpy.md)
-- [Data Preprocessing](../../data-science/preprocessing.md)
-- [Model Deployment](../../deployment/index.md)
+- [NumPy for Scientific Computing](../libraries/numpy.md)
+- [Data Preprocessing](../data-science/index.md)
+- [Model Deployment](../deployment/index.md)
 
 ## Additional Topics
 

@@ -174,10 +174,10 @@ Content coming soon...
 
 ## See Also
 
-- [Python Overview](../python/index.md)
+- [Python Overview](../index.md)
 - [NumPy](numpy.md)
-- [Machine Learning](../python/machine-learning/index.md)
-- [Neural Networks](../python/algorithms/neural-networks.md)
+- [Machine Learning](../machine-learning/index.md)
+- [Neural Networks](../algorithms/neural-networks.md)
 
 ## Resources
 
