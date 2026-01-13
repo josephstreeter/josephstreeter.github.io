@@ -14,7 +14,7 @@ This section covers Enterprise Service topics such as Active Directory and Excha
 
 - [Active Directory](activedirectory/index.md) - Directory services
 - [Exchange](exchange/index.md) - Email services
-- [Identity Management](idm/index.md) - Identity management solutions
+- [Identity Management](iam/index.md) - Enterprise identity management documentation and best practices
 
 ## Getting Started
 
@@ -51,7 +51,7 @@ Before diving into enterprise services, ensure you have:
 ### Common Enterprise Service Tasks
 
 | Task | Tool | Example |
-|------|------|---------|
+| ---- | ---- | ------- |
 | User Management | Active Directory Users and Computers | Creating a new user account |
 | Email Configuration | Exchange Admin Center | Setting up a new mail flow rule |
 | Certificate Management | Certificate Authority | Issuing a new web server certificate |

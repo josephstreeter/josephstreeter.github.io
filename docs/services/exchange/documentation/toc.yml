@@ -1,8 +1,6 @@
-- name: Documentation
-  items:
-  - name: Documentation Process
-    href: index.md
-  - name: Documentation Example
-    href: example.md
-  - name: Naming Convention
-    href: namingconvention.md
+- name: Documentation Process
+  href: index.md
+- name: Documentation Example
+  href: example.md
+- name: Naming Convention
+  href: namingconvention.md

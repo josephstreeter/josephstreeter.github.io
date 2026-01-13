@@ -1,49 +1,48 @@
-- name: DNS Services
+- name: Overview
   href: index.md
+- name: Windows DNS
   items:
-  - name: Windows DNS
-    items:
-    - name: Overview
-      href: windows-dns/index.md
-    - name: Server Configuration
-      href: windows-dns/server-configuration.md
-    - name: Zone Management
-      href: windows-dns/zone-management.md
-    - name: Active Directory Integration
-      href: windows-dns/active-directory-integration.md
-    - name: Security Configuration
-      href: windows-dns/security-configuration.md
-    - name: Troubleshooting
-      href: windows-dns/troubleshooting.md
-    - name: Performance Monitoring
-      href: windows-dns/performance-monitoring.md
-  - name: BIND9 DNS
-    items:
-    - name: Overview
-      href: bind9-dns/index.md
-    - name: Installation & Setup
-      href: bind9-dns/installation-setup.md
-    - name: Zone Configuration
-      href: bind9-dns/zone-configuration.md
-    - name: DNSSEC Implementation
-      href: bind9-dns/dnssec-implementation.md
-    - name: Security Hardening
-      href: bind9-dns/security-hardening.md
-    - name: Performance Optimization
-      href: bind9-dns/performance-optimization.md
-    - name: Monitoring & Logging
-      href: bind9-dns/monitoring-logging.md
-    - name: Troubleshooting
-      href: bind9-dns/troubleshooting.md
-  - name: DNS Best Practices
-    items:
-    - name: Overview
-      href: best-practices/index.md
-    - name: Design Principles
-      href: best-practices/design-principles.md
-    - name: Security Guidelines
-      href: best-practices/security-guidelines.md
-    - name: Performance Optimization
-      href: best-practices/performance-optimization.md
-    - name: Disaster Recovery
-      href: best-practices/disaster-recovery.md
+  - name: Overview
+    href: windows-dns/index.md
+  - name: Server Configuration
+    href: windows-dns/server-configuration.md
+  - name: Zone Management
+    href: windows-dns/zone-management.md
+  - name: Active Directory Integration
+    href: windows-dns/active-directory-integration.md
+  - name: Security Configuration
+    href: windows-dns/security-configuration.md
+  - name: Troubleshooting
+    href: windows-dns/troubleshooting.md
+  - name: Performance Monitoring
+    href: windows-dns/performance-monitoring.md
+- name: BIND9 DNS
+  items:
+  - name: Overview
+    href: bind9-dns/index.md
+  - name: Installation & Setup
+    href: bind9-dns/installation-setup.md
+  - name: Zone Configuration
+    href: bind9-dns/zone-configuration.md
+  - name: DNSSEC Implementation
+    href: bind9-dns/dnssec-implementation.md
+  - name: Security Hardening
+    href: bind9-dns/security-hardening.md
+  - name: Performance Optimization
+    href: bind9-dns/performance-optimization.md
+  - name: Monitoring & Logging
+    href: bind9-dns/monitoring-logging.md
+  - name: Troubleshooting
+    href: bind9-dns/troubleshooting.md
+- name: DNS Best Practices
+  items:
+  - name: Overview
+    href: best-practices/index.md
+  - name: Design Principles
+    href: best-practices/design-principles.md
+  - name: Security Guidelines
+    href: best-practices/security-guidelines.md
+  - name: Performance Optimization
+    href: best-practices/performance-optimization.md
+  - name: Disaster Recovery
+    href: best-practices/disaster-recovery.md

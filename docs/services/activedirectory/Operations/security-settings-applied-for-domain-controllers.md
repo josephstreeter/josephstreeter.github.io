@@ -50,7 +50,7 @@ The InCommon Silver standard mandates several critical security controls:
 #### Required Active Directory Security Settings
 
 | Security Policy | Setting | Value | Purpose |
-|-----------------|---------|-------|---------|
+| --------------- | ------- | ----- | ------- |
 | Network security: Do not store LAN Manager hash value on next password change | Enabled | `1` | Prevents storage of weak LM hashes |
 
 #### Implementation Details
@@ -79,7 +79,7 @@ Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "NoLMH
 #### Protected Channel Security Settings
 
 | Security Policy | Setting | Value | Purpose |
-|-----------------|---------|-------|---------|
+| --------------- | ------- | ----- | ------- |
 | Domain Controller: LDAP server signing requirements | Require signing | `2` | Forces LDAP communication signing |
 | Network security: LDAP client signing requirements | Require signing | `2` | Forces LDAP client signing |
 
@@ -112,7 +112,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\ldap" -Name "lda
 #### Replay Attack Prevention Settings
 
 | Security Policy | Setting | Value | Purpose |
-|-----------------|---------|-------|---------|
+| --------------- | ------- | ----- | ------- |
 | Domain Controller: LDAP server signing requirements | Require signing | `2` | Prevents LDAP replay attacks |
 | Network security: LDAP client signing requirements | Require signing | `2` | Ensures client-side replay protection |
 
@@ -123,7 +123,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\ldap" -Name "lda
 #### Eavesdropper Attack Prevention Settings
 
 | Security Policy | Setting | Value | Purpose |
-|-----------------|---------|-------|---------|
+| --------------- | ------- | ----- | ------- |
 | Domain Controller: LDAP server signing requirements | Require signing | `2` | Prevents credential interception |
 | Network security: LDAP client signing requirements | Require signing | `2` | Protects client communications |
 | Network security: LAN Manager authentication level | Send NTLMv2 response only. Refuse LM & NTLM | `5` | Enforces strongest authentication |
@@ -148,7 +148,7 @@ Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name "LmCom
 #### Secure Communication Settings
 
 | Security Policy | Setting | Value | Purpose |
-|-----------------|---------|-------|---------|
+| --------------- | ------- | ----- | ------- |
 | Domain Controller: LDAP server signing requirements | Require signing | `2` | Ensures encrypted LDAP communications |
 | Network security: LDAP client signing requirements | Require signing | `2` | Mandates client-side encryption |
 
@@ -207,7 +207,7 @@ Set-ItemProperty -Path $regPath -Name "16 LDAP Interface Events" -Value 2
 > **Warning:** The following legacy systems are no longer supported by Microsoft and should be migrated to modern alternatives.
 
 | Legacy System | Impact | Recommended Action |
-|---------------|--------|-------------------|
+| ------------- | ------ | ------------------ |
 | Windows Server 2008/2008 R2 | End of extended support | Migrate to Windows Server 2019+ |
 | Windows 7 | End of extended support | Upgrade to Windows 10/11 |
 | Samba < 4.0 | Compatibility issues | Upgrade to Samba 4.15+ |
@@ -327,7 +327,7 @@ Monitor these Windows Event Logs for compliance verification:
 
 - [LDAP Channel Binding and LDAP Signing Implementation](ldap-channel-binding-and-ldap-signing.md)
 - [Active Directory Security Best Practices](../Security/index.md)
-- [Identity Provider Security Configuration](../../idm/index.md)
+- [Identity Management](../../iam/index.md)
 
 ### Support Resources
 

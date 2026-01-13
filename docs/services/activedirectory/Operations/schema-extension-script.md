@@ -390,7 +390,7 @@ Write-LogMessage "Schema extension script completed" "INFO"
 ### Supported Attribute Syntaxes
 
 | Data Type | Syntax OID | OM Syntax | Use Case | Example |
-|-----------|------------|-----------|----------|---------|
+| --------- | ---------- | --------- | -------- | ------- |
 | **Boolean** | 2.5.5.8 | 1 | True/False flags | isRetired, isFaculty |
 | **Integer** | 2.5.5.9 | 2 | Numeric values | positionTime, employeeID |
 | **GeneralizedTime** | 2.5.5.11 | 24 | Date/time values | employeeStartDate, contractEndDate |
@@ -873,7 +873,7 @@ Get-ReplicationMetrics
 
 - [Active Directory Security Best Practices](../Security/index.md)
 - [Group Policy Management](../fundamentals/group-policy.md)
-- [Identity Governance](../../idm/governance/index.md)
+- [Identity Management](../../iam/index.md)
 
 ### Tools and Utilities
 

@@ -1,37 +1,36 @@
-- name: DHCP Services
+- name: Overview
   href: index.md
+- name: Windows DHCP Server
   items:
-  - name: Windows DHCP Server
-    items:
-    - name: Overview
-      href: windows-dhcp/index.md
-    - name: Installation & Setup
-      href: windows-dhcp/installation-setup.md
-    - name: Scope Configuration
-      href: windows-dhcp/scope-configuration.md
-    - name: Advanced Features
-      href: windows-dhcp/advanced-features.md
-    - name: Security & Monitoring
-      href: windows-dhcp/security-monitoring.md
-  - name: ISC DHCP Server
-    items:
-    - name: Overview
-      href: isc-dhcp/index.md
-    - name: Installation & Configuration
-      href: isc-dhcp/installation-configuration.md
-    - name: Subnet Management
-      href: isc-dhcp/subnet-management.md
-    - name: Advanced Configuration
-      href: isc-dhcp/advanced-configuration.md
-    - name: Troubleshooting
-      href: isc-dhcp/troubleshooting.md
-  - name: Best Practices & Operations
-    items:
-    - name: Design Principles
-      href: best-practices/design-principles.md
-    - name: Security Guidelines
-      href: best-practices/security-guidelines.md
-    - name: Performance Optimization
-      href: best-practices/performance-optimization.md
-    - name: Monitoring & Maintenance
-      href: best-practices/monitoring-maintenance.md
+  - name: Overview
+    href: windows-dhcp/index.md
+  - name: Installation & Setup
+    href: windows-dhcp/installation-setup.md
+  - name: Scope Configuration
+    href: windows-dhcp/scope-configuration.md
+  - name: Advanced Features
+    href: windows-dhcp/advanced-features.md
+  - name: Security & Monitoring
+    href: windows-dhcp/security-monitoring.md
+- name: ISC DHCP Server
+  items:
+  - name: Overview
+    href: isc-dhcp/index.md
+  - name: Installation & Configuration
+    href: isc-dhcp/installation-configuration.md
+  - name: Subnet Management
+    href: isc-dhcp/subnet-management.md
+  - name: Advanced Configuration
+    href: isc-dhcp/advanced-configuration.md
+  - name: Troubleshooting
+    href: isc-dhcp/troubleshooting.md
+- name: Best Practices & Operations
+  items:
+  - name: Design Principles
+    href: best-practices/design-principles.md
+  - name: Security Guidelines
+    href: best-practices/security-guidelines.md
+  - name: Performance Optimization
+    href: best-practices/performance-optimization.md
+  - name: Monitoring & Maintenance
+    href: best-practices/monitoring-maintenance.md

@@ -1,5 +1,7 @@
-- name: Identity Management Overview
+- name: Overview
   href: index.md
+- name: IAM Best Practices
+  href: best-practices.md
 - name: Microsoft Identity Manager
   href: mim/toc.yml
 - name: Identity Governance

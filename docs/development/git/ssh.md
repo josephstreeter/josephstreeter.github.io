@@ -19,7 +19,7 @@ SSH authentication uses public-key cryptography to establish secure connections 
 #### SSH vs HTTPS Comparison
 
 | Aspect | SSH | HTTPS |
-|--------|-----|-------|
+| ------ | --- | ----- |
 | **Security** | Public key cryptography | Token/password based |
 | **Setup Complexity** | Moderate (key generation required) | Simple (username/token) |
 | **Multi-Account** | Excellent (config-based) | Limited (credential switching) |

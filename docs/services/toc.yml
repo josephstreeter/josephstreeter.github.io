@@ -1,15 +1,14 @@
 - name: Enterprise Services
   href: index.md
-  items:
-  - name: Active Directory
-    href: activedirectory/toc.yml
-  - name: DHCP Services
-    href: dhcp/toc.yml
-  - name: DNS Services
-    href: dns/toc.yml
-  - name: Exchange
-    href: exchange/toc.yml
-  - name: Group Policy
-    href: grouppolicy/index.md
-  - name: Identity Management
-    href: idm/toc.yml
+- name: Active Directory
+  href: activedirectory/toc.yml
+- name: DHCP Services
+  href: dhcp/toc.yml
+- name: DNS Services
+  href: dns/toc.yml
+- name: Exchange
+  href: exchange/toc.yml
+- name: Group Policy
+  href: grouppolicy/index.md
+- name: Identity and Access Management
+  href: iam/toc.yml

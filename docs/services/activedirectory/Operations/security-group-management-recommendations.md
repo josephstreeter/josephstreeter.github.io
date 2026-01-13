@@ -39,7 +39,7 @@ Security group management is a critical component of Active Directory administra
 Active Directory supports two distinct group types, each serving specific organizational purposes:
 
 | Group Type | Primary Purpose | Security Features | Common Use Cases |
-|------------|-----------------|-------------------|------------------|
+| ---------- | --------------- | ----------------- | ---------------- |
 | **Security Groups** | Access control and authorization | Can be assigned permissions and user rights | File shares, applications, Exchange mailboxes |
 | **Distribution Groups** | Email distribution only | Cannot be assigned permissions | Email distribution lists, organizational communication |
 
@@ -50,7 +50,7 @@ Active Directory supports two distinct group types, each serving specific organi
 Understanding group scopes is essential for implementing the AGDLP strategy effectively:
 
 | Scope | Membership Rules | Replication | Best Use Case |
-|-------|------------------|-------------|---------------|
+| ----- | ---------------- | ----------- | ------------- |
 | **Domain Local** | Users, computers, global groups, universal groups from any trusted domain | Local domain only | Resource access permissions |
 | **Global** | Users, computers, other global groups from same domain only | Forest-wide | Role-based user collections |
 | **Universal** | Users, computers, global groups, universal groups from any domain in forest | Global Catalog (forest-wide) | Cross-domain role aggregation |
@@ -172,7 +172,7 @@ Assign actual permissions to the domain local groups (typically done through GUI
 Consistent naming conventions are essential for group management at scale. Use the following prefixes to identify group scope and purpose:
 
 | Prefix | Scope | Purpose | Example |
-|--------|-------|---------|---------|
+| ------ | ----- | ------- | ------- |
 | **GG-** | Global | Role-based user collections | `GG-Finance-Staff` |
 | **DL-** | Domain Local | Resource access permissions | `DL-Finance-Shared-FullControl` |
 | **UG-** | Universal | Cross-domain role aggregation | `UG-Global-Managers` |
@@ -484,7 +484,7 @@ $HealthCheck = Invoke-GroupHealthCheck
 
 - [Active Directory Security Hardening](../Security/index.md)
 - [Privileged Access Management](../privileged-access/index.md)
-- [Identity Governance](../../idm/governance/index.md)
+- [Identity Management](../../iam/index.md)
 
 ### Tools and Utilities
 
