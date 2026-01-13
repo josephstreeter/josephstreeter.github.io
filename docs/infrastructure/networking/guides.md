@@ -217,8 +217,8 @@ See platform-specific guides for implementation:
 
 DNS translates domain names to IP addresses. For DNS server setup, see:
 
-- [Windows DNS](../../services/dns/windows-dns/index.md)
-- [BIND9](../../services/dns/bind9-dns/index.md)
+- [Windows DNS](../../services/networkservices/dns/windows-dns/index.md)
+- [BIND9](../../services/networkservices/dns/bind9-dns/index.md)
 
 ### NAT/PAT Configuration
 

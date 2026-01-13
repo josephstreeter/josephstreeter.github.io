@@ -1,14 +1,28 @@
 - name: Enterprise Services
   href: index.md
-- name: Active Directory
-  href: activedirectory/toc.yml
-- name: DHCP Services
-  href: dhcp/toc.yml
-- name: DNS Services
-  href: dns/toc.yml
-- name: Exchange
-  href: exchange/toc.yml
-- name: Group Policy
-  href: grouppolicy/index.md
+- name: Directory Services
+  items:
+  - name: Active Directory
+    href: directoryservices/activedirectory/toc.yml
+  - name: OpenLDAP
+    href: directoryservices/openldap/toc.yml
+- name: Email Services
+  items:
+  - name: Exchange
+    href: email/exchange/toc.yml
+  - name: Postfix
+    href: email/postfix/toc.yml
+  - name: SMTP
+    href: email/smtp/toc.yml
+- name: Network Services
+  items:
+  - name: DHCP Services
+    href: networkservices/dhcp/toc.yml
+  - name: DNS Services
+    href: networkservices/dns/toc.yml
+  - name: NTP
+    href: networkservices/ntp/toc.yml
+  - name: IPAM
+    href: networkservices/ipam/toc.yml
 - name: Identity and Access Management
   href: iam/toc.yml

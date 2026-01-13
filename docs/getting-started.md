@@ -14,7 +14,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 
 ### 👥 **For System Administrators**
 
-- **[Active Directory](services/activedirectory/index.md)** - Complete AD administration guide
+- **[Active Directory](services/directoryservices/activedirectory/index.md)** - Complete AD administration guide
 - **[Infrastructure](infrastructure/index.md)** - Server and network management
 - **[Security](security/index.md)** - Security best practices and configurations
 
@@ -60,7 +60,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 
 1. Start with **[Infrastructure Basics](infrastructure/index.md)**
 2. Learn **[Windows Administration](infrastructure/windows/index.md)**
-3. Understand **[Active Directory](services/activedirectory/index.md)**
+3. Understand **[Active Directory](services/directoryservices/activedirectory/index.md)**
 4. Implement **[Security Best Practices](security/index.md)**
 
 ### New to Container Technology?
@@ -81,7 +81,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 
 1. Master **[SSH](security/ssh/index.md)** for secure access
 2. Implement **[PGP](security/pgp/index.md)** for encryption
-3. Study **[Active Directory Security](services/activedirectory/security-best-practices.md)**
+3. Study **[Active Directory Security](services/directoryservices/activedirectory/security-best-practices.md)**
 4. Review **[Infrastructure Security](infrastructure/security/index.md)**
 
 ## 🔍 **Finding Information**
@@ -91,14 +91,6 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 - Use specific technical terms for better results
 - Search for error messages or configuration issues
 - Try both full names and acronyms (e.g., "Active Directory" and "AD")
-
-### Popular Topics
-
-- **[Active Directory Operations](services/activedirectory/Operations/index.md)**
-- **[Docker Quickstart](infrastructure/containers/docker/quickstart.md)**
-- **[SSH Key Management](security/ssh/index.md)**
-- **[PowerShell Scripting](development/powershell/index.md)**
-- **[VS Code Configuration](development/vscode/configure.md)**
 
 ## 📖 **Documentation Features**
 

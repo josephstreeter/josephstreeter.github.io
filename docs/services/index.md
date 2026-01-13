@@ -12,8 +12,8 @@ This section covers Enterprise Service topics such as Active Directory and Excha
 
 ## Topics
 
-- [Active Directory](activedirectory/index.md) - Directory services
-- [Exchange](exchange/index.md) - Email services
+- [Active Directory](directoryservices/activedirectory/index.md) - Active Directory Domain Services
+- [Exchange](email/exchange/index.md) - Microsoft Exchange Server
 - [Identity Management](iam/index.md) - Enterprise identity management documentation and best practices
 
 ## Getting Started

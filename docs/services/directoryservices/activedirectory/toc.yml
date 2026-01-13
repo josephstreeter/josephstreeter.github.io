@@ -1,0 +1,22 @@
+- name: Summary
+  href: index.md
+- name: Getting Started
+  href: getting-started.md
+- name: Documentation
+  href: documentation/toc.yml
+- name: Naming Convention
+  href: documentation/namingconvention.md
+- name: Fundamentals
+  href: fundamentals/toc.yml
+- name: Objects and Management
+  href: objects-management/toc.yml
+- name: Security
+  href: Security/toc.yml
+- name: Operations
+  href: Operations/toc.yml
+- name: Configuration
+  href: configuration/toc.yml
+- name: Group Policy
+  href: grouppolicy.md
+- name: Reference
+  href: reference/toc.yml

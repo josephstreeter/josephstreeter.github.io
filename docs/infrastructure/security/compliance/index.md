@@ -890,5 +890,5 @@ function Enable-ContinuousCompliance {
 - [Windows Infrastructure Security](../../windows/security/index.md)
 - [Network Infrastructure Security](../../networking/security/index.md)
 - [Identity and Access Management](../iam/index.md)
-- [Active Directory Security](../../../services/activedirectory/Security/index.md)
+- [Active Directory Security](../../../services/directoryservices/activedirectory/Security/index.md)
 - [Infrastructure Monitoring](../../monitoring/index.md)

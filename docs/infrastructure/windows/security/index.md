@@ -945,7 +945,7 @@ function Get-ComplianceChecks {
 ## Related Topics
 
 - [Windows Server Configuration](../index.md)
-- [Active Directory Security](../../../services/activedirectory/Security/index.md)
+- [Active Directory Security](../../../services/directoryservices/activedirectory/Security/index.md)
 - [Network Infrastructure Security](../../networking/security/index.md)
 - [Identity and Access Management](../../security/iam/index.md)
 - [Compliance and Auditing](../../security/compliance/index.md)

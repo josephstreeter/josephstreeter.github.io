@@ -641,8 +641,7 @@ Invoke-WindowsHardening
 
 ## Related Topics
 
-- [Active Directory Security](~/docs/services/activedirectory/index.md)
-- [Group Policy Security](~/docs/services/grouppolicy/index.md)
+- [Active Directory Security](~/docs/services/directoryservices/activedirectory/index.md)
 - [PowerShell Security](~/docs/development/powershell/index.md)
 - [Network Security](~/docs/security/networking/index.md)
 - [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
