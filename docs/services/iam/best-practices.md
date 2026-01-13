@@ -27,7 +27,6 @@ IAM encompasses three fundamental functions:
 ### The IAM Lifecycle
 
 ```mermaid
-
 flowchart LR
     A[Onboarding] --> B[Provisioning]
     B --> C[Access Management]
@@ -36,7 +35,6 @@ flowchart LR
     E --> C
     C --> F[Deprovisioning]
     F --> G[Offboarding]
-
 ```
 
 **Lifecycle stages:**

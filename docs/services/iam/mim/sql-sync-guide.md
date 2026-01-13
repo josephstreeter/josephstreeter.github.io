@@ -1003,7 +1003,7 @@ catch
 **Common Issues and Resolutions:**
 
 | Issue | Symptoms | Resolution |
-|-------|----------|------------|
+| ----- | -------- | ---------- |
 | Connection timeout | Import/Export failures | Check network connectivity, increase timeout values |
 | Duplicate objects | Join failures | Review join criteria, check for data quality issues |
 | Rule extension errors | Sync failures with code errors | Check rule extension compilation, review logs |
