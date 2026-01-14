@@ -326,7 +326,7 @@ Monitor these Windows Event Logs for compliance verification:
 ### Related Security Guides
 
 - [LDAP Channel Binding and LDAP Signing Implementation](ldap-channel-binding-and-ldap-signing.md)
-- [Active Directory Security Best Practices](../Security/index.md)
+- [Active Directory Security Best Practices](../security/index.md)
 - [Identity Management](../../../iam/index.md)
 
 ### Support Resources

@@ -44,18 +44,18 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 - **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
 - **[Directory Services Configuration](configuration/directory-services-configuration.md)** - Service settings
 - **[Group Policy](fundamentals/group-policy.md)** - Centralized configuration management
-- **[Delegation](Operations/delegation.md)** - Administrative permissions
+- **[Delegation](operations/delegation.md)** - Administrative permissions
 
 ### **Operations and Maintenance**
 
-- **[Operations](Operations/index.md)** - Day-to-day administrative procedures
-- **[Monitoring and Logging](Operations/monitoring-and-alerting.md)** - Health and performance tracking
-- **[Maintenance Troubleshooting](Operations/troubleshooting-guide.md)** - Issue resolution
+- **[Operations](operations/index.md)** - Day-to-day administrative procedures
+- **[Monitoring and Logging](operations/monitoring-and-alerting.md)** - Health and performance tracking
+- **[Maintenance Troubleshooting](operations/troubleshooting-guide.md)** - Issue resolution
 - **[Disaster Recovery](configuration/disaster-recovery.md)** - Backup and recovery procedures
 
 ### **Infrastructure Services**
 
-- **[Time Service](Operations/time-service.md)** - Windows Time Service configuration
+- **[Time Service](operations/time-service.md)** - Windows Time Service configuration
 - **[DCDiag and Repadmin Report](reference/dcdiag-and-repadmin-report.md)** - Health assessment tools
 
 ### **Environment Management**
@@ -66,13 +66,13 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 ### Certificate Services
 
-- **[Certificate Management](Operations/certificate-management.md)** - PKI and certificate lifecycle
-- **[LDAPS Configuration](Operations/confirming-ldaps-certificates.md)** - Secure LDAP setup
+- **[Certificate Management](operations/certificate-management.md)** - PKI and certificate lifecycle
+- **[LDAPS Configuration](operations/confirming-ldaps-certificates.md)** - Secure LDAP setup
 
 ### Advanced Security
 
-- **[LDAP Channel Binding](Operations/ldap-channel-binding-and-ldap-signing.md)** - Enhanced authentication security
-- **[Security Settings for Domain Controllers](Operations/security-settings-applied-for-domain-controllers.md)** - Hardening guidelines
+- **[LDAP Channel Binding](operations/ldap-channel-binding-and-ldap-signing.md)** - Enhanced authentication security
+- **[Security Settings for Domain Controllers](operations/security-settings-applied-for-domain-controllers.md)** - Hardening guidelines
 
 ## **Learning Paths**
 
@@ -88,31 +88,31 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 1. Review [Security Best Practices](./security-best-practices.md)
 2. Implement [Privileged Account Management](./objects-management/privileged-accounts.md)
-3. Configure [LDAP Channel Binding](./Operations/ldap-channel-binding-and-ldap-signing.md)
-4. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
+3. Configure [LDAP Channel Binding](./operations/ldap-channel-binding-and-ldap-signing.md)
+4. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
 5. Plan [Disaster Recovery](./configuration/disaster-recovery.md) procedures
 
 ### **For Operations Teams**
 
-1. Learn [Operations](./Operations/index.md) procedures
-2. Set up [Monitoring and Logging](./Operations/monitoring-and-alerting.md)
-3. Master [Maintenance Troubleshooting](./Operations/troubleshooting-guide.md)
-4. Implement [Certificate Management](./Operations/certificate-management.md)
-5. Configure [Time Service](./Operations/time-service.md)
+1. Learn [Operations](./operations/index.md) procedures
+2. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)
+3. Master [Maintenance Troubleshooting](./operations/troubleshooting-guide.md)
+4. Implement [Certificate Management](./operations/certificate-management.md)
+5. Configure [Time Service](./operations/time-service.md)
 
 ## **Quick Reference**
 
 ### Emergency Procedures
 
 - **Domain Controller Failures**: See [Disaster Recovery](configuration/disaster-recovery.md)
-- **Authentication Issues**: Check [LDAP Channel Binding](Operations/ldap-channel-binding-and-ldap-signing.md)
-- **Time Synchronization**: Review [Time Service](Operations/time-service.md)
-- **Certificate Problems**: Consult [Certificate Management](Operations/certificate-management.md)
+- **Authentication Issues**: Check [LDAP Channel Binding](operations/ldap-channel-binding-and-ldap-signing.md)
+- **Time Synchronization**: Review [Time Service](operations/time-service.md)
+- **Certificate Problems**: Consult [Certificate Management](operations/certificate-management.md)
 
 ### Health Checks
 
 - **[DCDiag and Repadmin Report](reference/dcdiag-and-repadmin-report.md)** - Automated health assessment
-- **[Monitoring and Logging](Operations/monitoring-and-alerting.md)** - Ongoing health monitoring
+- **[Monitoring and Logging](operations/monitoring-and-alerting.md)** - Ongoing health monitoring
 
 ## **Related Documentation**
 

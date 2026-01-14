@@ -190,9 +190,9 @@ Configuring Active Directory to handle growth and scale.
 ## Related Sections
 
 - **[Fundamentals](../fundamentals/index.md)**: Core concepts needed for configuration
-- **[Operations](../Operations/index.md)**: Ongoing maintenance and monitoring
-- **[Operations](../Operations/index.md)**: Comprehensive operational procedures
-- **[Security](../Security/index.md)**: Security configuration and hardening
+- **[Operations](../operations/index.md)**: Ongoing maintenance and monitoring
+- **[Operations](../operations/index.md)**: Comprehensive operational procedures
+- **[Security](../security/index.md)**: Security configuration and hardening
 
 ## Quick Reference
 

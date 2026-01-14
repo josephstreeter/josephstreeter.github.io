@@ -468,6 +468,6 @@ Set-GPRegistryValue -Name "Audit Policy" -Key "HKLM\Software\Microsoft\Windows N
 
 - [Active Directory Fundamentals](fundamentals/index.md)
 - [Active Directory Configuration](configuration/index.md)
-- [Active Directory Troubleshooting](Operations/troubleshooting-guide.md)
+- [Active Directory Troubleshooting](operations/troubleshooting-guide.md)
 - [PowerShell Administration](../../../development/powershell/index.md)
 - [Windows Security](../../../security/windows/index.md)

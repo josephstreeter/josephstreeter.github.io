@@ -351,7 +351,7 @@ fc "C:\Baseline\BaselineSecPolicy.inf" "C:\Validation\Current-SecPolicy.inf"
 
 ## Related Documentation
 
-- **[Active Directory Security](../Security/index.md)**: Security best practices and configurations
+- **[Active Directory Security](../security/index.md)**: Security best practices and configurations
 - **[Group Policy Management](../configuration/group-policy-management.md)**: Group policy configuration procedures
 
 ## References

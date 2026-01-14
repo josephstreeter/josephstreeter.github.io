@@ -1,4 +1,4 @@
-- name: Summary
+- name: Overview
   href: index.md
 - name: Getting Started
   href: getting-started.md
@@ -11,9 +11,9 @@
 - name: Objects and Management
   href: objects-management/toc.yml
 - name: Security
-  href: Security/toc.yml
+  href: security/toc.yml
 - name: Operations
-  href: Operations/toc.yml
+  href: operations/toc.yml
 - name: Configuration
   href: configuration/toc.yml
 - name: Group Policy

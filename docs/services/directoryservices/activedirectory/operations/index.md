@@ -72,7 +72,7 @@ Most operations in this section require:
 
 ## Related Sections
 
-- [Security](../Security/index.md) - Security policies and procedures
+- [Security](../security/index.md) - Security policies and procedures
 - [Configuration](../configuration/index.md) - Advanced configuration guides
 
 - [Reference](../reference/index.md) - Quick reference materials

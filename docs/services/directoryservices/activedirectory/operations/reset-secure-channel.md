@@ -700,7 +700,7 @@ Set-ItemProperty -Path $RegPath -Name "NegativeCachePeriod" -Value 45
 
 ### Internal Documentation Links
 
-- [Active Directory Security Best Practices](../Security/index.md)
+- [Active Directory Security Best Practices](../security/index.md)
 - [Active Directory Group Policy Management](../fundamentals/group-policy.md)
 - [Domain Controller Maintenance](../fundamentals/domain-controllers.md)
 

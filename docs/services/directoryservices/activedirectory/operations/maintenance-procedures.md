@@ -236,8 +236,8 @@ Regular maintenance of Active Directory is crucial for optimal performance, reli
 
 ## Related Documentation
 
-- [Active Directory Operations](../Operations/index.md) - Standard operational procedures
-- [Active Directory Security](../Security/index.md) - Security hardening and monitoring
+- [Active Directory Operations](../operations/index.md) - Standard operational procedures
+- [Active Directory Security](../security/index.md) - Security hardening and monitoring
 - [Active Directory Backup Configuration](backup-and-restore.md) - Backup strategies and procedures
 
 ---

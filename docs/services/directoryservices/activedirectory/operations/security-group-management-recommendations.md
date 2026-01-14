@@ -482,7 +482,7 @@ $HealthCheck = Invoke-GroupHealthCheck
 
 ### Related Security Guides
 
-- [Active Directory Security Hardening](../Security/index.md)
+- [Active Directory Security Hardening](../security/index.md)
 - [Privileged Access Management](../privileged-access/index.md)
 - [Identity Management](../../../iam/index.md)
 

@@ -1329,7 +1329,7 @@ end
 ## Related Topics
 
 - [Windows Infrastructure Security](../../windows/security/index.md)
-- [Active Directory Security](../../../services/directoryservices/activedirectory/Security/index.md)
+- [Active Directory Security](../../../services/directoryservices/activedirectory/security/index.md)
 - [Identity and Access Management](../../security/iam/index.md)
 - [Infrastructure Monitoring](../../monitoring/index.md)
 - [Compliance and Auditing](../../security/compliance/index.md)

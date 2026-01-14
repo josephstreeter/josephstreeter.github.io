@@ -101,9 +101,9 @@ Understand multi-domain search and authentication.
 
 ## Related Sections
 
-- **🔧 [Operations](../Operations/index.md)**: Day-to-day administration and monitoring
-- **🛠️ [Operations](../Operations/index.md)**: Comprehensive operational procedures
-- **🔒 [Security](../Security/index.md)**: Security policies and best practices
+- **🔧 [Operations](../operations/index.md)**: Day-to-day administration and monitoring
+- **🛠️ [Operations](../operations/index.md)**: Comprehensive operational procedures
+- **🔒 [Security](../security/index.md)**: Security policies and best practices
 - **⚙️ [Configuration](../configuration/index.md)**: Advanced configuration topics
 
 ## Additional Resources

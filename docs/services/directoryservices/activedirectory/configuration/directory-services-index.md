@@ -129,9 +129,9 @@ LDAPS (LDAP over SSL/TLS) provides:
 
 ## Related Documentation
 
-- [Active Directory Security](../Security/index.md) - Comprehensive security hardening guide
-- [Active Directory Operations](../Operations/index.md) - Operational procedures and maintenance
-- [Certificate Management](../Operations/certificate-management.md) - Detailed certificate management procedures
+- [Active Directory Security](../security/index.md) - Comprehensive security hardening guide
+- [Active Directory Operations](../operations/index.md) - Operational procedures and maintenance
+- [Certificate Management](../operations/certificate-management.md) - Detailed certificate management procedures
 
 ## Compliance and Standards
 

@@ -871,7 +871,7 @@ Get-ReplicationMetrics
 
 ### Related Guides
 
-- [Active Directory Security Best Practices](../Security/index.md)
+- [Active Directory Security Best Practices](../security/index.md)
 - [Group Policy Management](../fundamentals/group-policy.md)
 - [Identity Management](../../../iam/index.md)
 

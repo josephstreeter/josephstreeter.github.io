@@ -8,12 +8,12 @@
     href: directoryservices/openldap/toc.yml
 - name: Email Services
   items:
+  - name: SMTP
+    href: email/smtp/toc.yml
   - name: Exchange
     href: email/exchange/toc.yml
   - name: Postfix
     href: email/postfix/toc.yml
-  - name: SMTP
-    href: email/smtp/toc.yml
 - name: Network Services
   items:
   - name: DHCP Services

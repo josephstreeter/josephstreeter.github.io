@@ -833,7 +833,7 @@ catch
 
 - [Certificate Management](certificate-management.md) - Comprehensive certificate lifecycle management
 - [Apply Baseline Group Policy and Security Template](apply-baseline-group-policy-and-security-template.md) - Security baseline implementation
-- [Active Directory Security Configuration](../Security/index.md) - AD security hardening procedures
+- [Active Directory Security Configuration](../security/index.md) - AD security hardening procedures
 
 ## External References
 

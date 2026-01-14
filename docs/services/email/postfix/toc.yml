@@ -1,2 +1,56 @@
 - name: Overview
   href: index.md
+- name: Getting Started
+  items:
+  - name: Quick Start Guide
+    href: getting-started.md
+  - name: Installation
+    href: installation.md
+  - name: Basic Configuration
+    href: postfix-configuration.md#basic-configuration
+  - name: First Steps
+    href: first-steps.md
+- name: Security & Authentication
+  items:
+  - name: Security Hardening
+    href: security-hardening.md
+  - name: TLS/SSL Configuration
+    href: tls-ssl-configuration.md
+  - name: SASL Authentication
+    href: sasl.md
+  - name: DKIM Email Signing
+    href: dkim.md
+  - name: SPF and DMARC Integration
+    href: spf-dmarc-integration.md
+- name: Advanced Topics
+  items:
+  - name: Virtual Domains & Mailboxes
+    href: virtual-domains.md
+  - name: Relay and Smart Host
+    href: relay-guide.md
+  - name: Anti-Spam & Anti-Virus
+    href: spam-filtering.md
+  - name: Content Filtering
+    href: content-filtering.md
+  - name: Performance Tuning
+    href: postfix-configuration.md#performance-tuning
+- name: Operations
+  items:
+  - name: Queue Management
+    href: queue-management.md
+  - name: Monitoring & Logging
+    href: monitoring-logging.md
+  - name: Backup & Recovery
+    href: backup-recovery.md
+  - name: Troubleshooting
+    href: troubleshooting.md
+- name: Reference
+  items:
+  - name: FAQ
+    href: faq.md
+  - name: Configuration Parameters
+    href: configuration-parameters.md
+  - name: Command Reference
+    href: command-reference.md
+  - name: Common Use Cases
+    href: common-use-cases.md
