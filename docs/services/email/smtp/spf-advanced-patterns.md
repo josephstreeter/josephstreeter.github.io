@@ -8,167 +8,42 @@ last_updated: "2026-01-13"
 author: "Joseph Streeter"
 ---
 
-This guide covers advanced SPF implementation patterns for complex organizations. For basic SPF concepts, see the main [Email Authentication Guide](authentication.md).
+> **📘 Prerequisites**: This guide assumes you understand basic SPF redirect and include mechanisms.
+> For fundamental redirect vs include concepts, decision trees, and comparison tables,
+> see the [Email Authentication Guide - Redirect vs Include section](authentication.md#redirect-vs-include-decision-guide).
+
+This guide covers **advanced implementation patterns** for complex enterprise scenarios.
+
+## Who Should Use This Guide
+
+This advanced guide is for:
+
+- ✅ Enterprise architects managing 20+ domains
+- ✅ Organizations with complex multi-region infrastructure
+- ✅ Teams hitting the 10 DNS lookup limit
+- ✅ Organizations requiring tiered SPF architectures
+- ✅ Teams implementing SPF flattening strategies
+
+**If you're just getting started**, read the [basic redirect vs include guide](authentication.md#redirect-vs-include-decision-guide) first.
 
 ## Prerequisites
 
 Before implementing these advanced patterns, ensure you:
 
-- Understand basic SPF syntax and mechanisms
-- Have implemented basic SPF records successfully
-- Understand DNS lookup limits and their implications
-- Have multiple domains or complex sending infrastructure
+- ✅ Understand basic SPF syntax and mechanisms
+- ✅ Have implemented basic SPF records successfully
+- ✅ Understand DNS lookup limits (10 lookups) and their implications
+- ✅ Have multiple domains or complex sending infrastructure
+- ✅ Know the difference between redirect and include (see [main guide](authentication.md#redirect-vs-include-decision-guide))
 
-## Redirect vs Include: Deep Dive
+## Advanced Redirect Patterns
 
-### Understanding Redirect Modifier
+> **Note**: For basic redirect usage and when to choose redirect vs include,
+> see the [main authentication guide](authentication.md#redirect-vs-include-decision-guide).
 
-The `redirect` modifier tells SPF to replace the current domain's SPF record with another domain's record:
+### Geo-Specific Delegation
 
-```text
-# Main domain uses redirect
-example.com. IN TXT "v=spf1 redirect=_spf.example.com"
-
-# All SPF logic in redirected domain
-_spf.example.com. IN TXT "v=spf1 mx include:_spf.google.com ip4:192.0.2.0/24 -all"
-```
-
-#### Key Characteristics of Redirect
-
-- **Replaces** the entire SPF record (no mechanisms after redirect)
-- Counts as **1 DNS lookup**
-- Does not require an `all` mechanism in the original record
-- Useful for centralizing SPF management across multiple domains
-- The redirected record **must** include the `all` mechanism
-- Cannot combine with other mechanisms in the same record
-
-#### When to Use Redirect
-
-**Full Delegation Scenarios:**
-
-```text
-# All domains use same mail infrastructure
-example.com. IN TXT "v=spf1 redirect=_spf.example.com"
-example.net. IN TXT "v=spf1 redirect=_spf.example.com"
-example.org. IN TXT "v=spf1 redirect=_spf.example.com"
-
-# Single consolidated SPF
-_spf.example.com. IN TXT "v=spf1 mx ip4:192.0.2.0/24 include:_spf.google.com -all"
-```
-
-**Benefits:**
-
-- Update one record to affect all domains
-- Reduces DNS lookup count (redirect = 1 lookup)
-- Simplifies management for multi-domain organizations
-- Clear delegation of authority
-
-**Multi-Brand Organization Example:**
-
-```text
-# Corporate brands all use same infrastructure
-acmecorp.com. IN TXT "v=spf1 redirect=_spf-shared.acmecorp.com"
-acmebrands.com. IN TXT "v=spf1 redirect=_spf-shared.acmecorp.com"
-acmeservices.com. IN TXT "v=spf1 redirect=_spf-shared.acmecorp.com"
-
-# Shared infrastructure definition
-_spf-shared.acmecorp.com. IN TXT "v=spf1 mx include:_spf.google.com include:_spf.salesforce.com ip4:192.0.2.0/24 ip4:198.51.100.0/24 -all"
-```
-
-**DNS Lookup Analysis:**
-
-- Without redirect: 4 lookups per domain × 3 domains = potential for many lookups
-- With redirect: 1 redirect + lookups in shared record = manageable count
-
-### Understanding Include Mechanism
-
-The `include` mechanism references another domain's SPF record without replacing the current one:
-
-```text
-# Main domain with include
-example.com. IN TXT "v=spf1 include:_spf.example.com include:_spf2.example.com -all"
-
-# First split
-_spf.example.com. IN TXT "v=spf1 include:_spf.google.com include:_spf.salesforce.com -all"
-
-# Second split
-_spf2.example.com. IN TXT "v=spf1 ip4:192.0.2.0/24 ip4:198.51.100.0/24 -all"
-```
-
-#### Key Characteristics of Include
-
-- **Adds** additional authorized sources to the current record
-- Each `include` counts as **1 DNS lookup**
-- Requires `all` mechanism in the main record
-- Multiple includes can be used for logical grouping
-- Included records should also have `all` mechanisms
-- Continues evaluation if included record doesn't match
-
-#### When to Use Include
-
-**Modular Architecture:**
-
-```text
-# Main domain coordinates multiple sources
-example.com. IN TXT "v=spf1 include:_spf-corp.example.com include:_spf-cloud.example.com include:_spf-marketing.example.com -all"
-
-# Corporate mail servers
-_spf-corp.example.com. IN TXT "v=spf1 mx ip4:192.0.2.0/24 -all"
-
-# Cloud-based services  
-_spf-cloud.example.com. IN TXT "v=spf1 include:_spf.google.com include:_spf.office365.com -all"
-
-# Marketing platforms
-_spf-marketing.example.com. IN TXT "v=spf1 include:servers.mcsv.net include:_spf.sendgrid.net -all"
-```
-
-**Benefits:**
-
-- Logical separation by function or department
-- Team-based ownership of SPF components
-- Easier to add/remove specific services
-- Better for decentralized management
-
-**Per-Department Management Example:**
-
-```text
-# Main domain
-example.com. IN TXT "v=spf1 include:_spf-it.example.com include:_spf-sales.example.com include:_spf-support.example.com -all"
-
-# IT department (manages infrastructure)
-_spf-it.example.com. IN TXT "v=spf1 mx ip4:192.0.2.0/24 ip4:192.0.3.0/24 -all"
-
-# Sales department (manages CRM)
-_spf-sales.example.com. IN TXT "v=spf1 include:_spf.salesforce.com include:_spf.hubspot.com -all"
-
-# Support department (manages ticketing)
-_spf-support.example.com. IN TXT "v=spf1 include:_spf.zendesk.com include:_spf.freshdesk.com -all"
-```
-
-**DNS Lookup Budget:**
-
-- Main record: 3 lookups (one per include)
-- IT record: 0 additional lookups (direct IP)
-- Sales record: 2 lookups (Salesforce, HubSpot)
-- Support record: 2 lookups (Zendesk, Freshdesk)
-- **Total: 7 lookups** ✓ (within 10 limit)
-
-### Redirect vs Include Comparison
-
-| Aspect | Redirect | Include |
-| --- | --- | --- |
-| **DNS Lookups** | 1 | 1 per include |
-| **All Mechanism** | In redirected record only | In main and included records |
-| **Use Case** | Full delegation | Modular composition |
-| **Additional Mechanisms** | Cannot add mechanisms | Can add mechanisms |
-| **Management** | Centralized | Distributed |
-| **Flexibility** | Low | High |
-| **Lookup Efficiency** | Most efficient | Moderate |
-| **Team Ownership** | Single team | Multiple teams |
-
-### Advanced Redirect Patterns
-
-#### Geo-Specific Delegation
+Complex multi-region organizations can use redirect for geographical infrastructure isolation:
 
 ```text
 # Different regions with different infrastructure
@@ -215,9 +90,14 @@ _spf-dev.example.com. IN TXT "v=spf1 ip4:192.0.2.200/28 ?all"
 - Clear separation of concerns
 - Gradual rollout capability
 
-### Advanced Include Patterns
+## Advanced Include Patterns
 
-#### Tiered Include Structure
+> **Note**: For basic include usage and modular design principles,
+> see the [main authentication guide](authentication.md#redirect-vs-include-decision-guide).
+
+### Tiered Include Structure
+
+For large organizations, multi-tier includes provide clear hierarchy and separation:
 
 ```text
 # Level 1: Main domain

@@ -54,6 +54,37 @@ When an email is sent with full authentication:
 7. **Action Taken** based on DMARC policy (deliver, quarantine, or reject)
 8. **Report Sent** to domain owner about authentication results
 
+### Complete Email Authentication Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Sender Prepares Email] --> B[Mail Server Adds DKIM Signature]
+    B --> C[Email Sent with SPF/DKIM Data]
+    C --> D[Receiving Server Receives Email]
+    D --> E{SPF Check}
+    E -->|Query DNS| F[Check Sender IP vs SPF Record]
+    F -->|Pass| G[SPF Pass]
+    F -->|Fail| H[SPF Fail]
+    D --> I{DKIM Check}
+    I -->|Query DNS| J[Retrieve Public Key]
+    J --> K[Verify Signature]
+    K -->|Valid| L[DKIM Pass]
+    K -->|Invalid| M[DKIM Fail]
+    G --> N{DMARC Evaluation}
+    H --> N
+    L --> N
+    M --> N
+    N -->|Check Alignment| O{Policy Decision}
+    O -->|p=none| P[Deliver + Report]
+    O -->|p=quarantine| Q[Quarantine + Report]
+    O -->|p=reject| R[Reject + Report]
+    P --> S[Send DMARC Report to Domain Owner]
+    Q --> S
+    R --> S
+```
+
+This diagram shows the complete flow of email authentication from sending to policy enforcement and reporting.
+
 ## SPF (Sender Policy Framework)
 
 ### SPF Overview
@@ -73,6 +104,38 @@ The SPF verification process occurs during the SMTP transaction:
 7. **Action taken** based on result and local policy
 
 SPF checks happen before message content is transmitted, making it an efficient first line of defense.
+
+#### SPF Validation Flow Diagram
+
+```mermaid
+flowchart TD
+    A[Email Arrives] --> B[Extract Envelope Sender Domain]
+    B --> C[Query DNS for SPF Record]
+    C -->|Record Found| D[Parse SPF Mechanisms]
+    C -->|No Record| E[Result: None]
+    D --> F{Evaluate Mechanisms Left to Right}
+    F -->|ip4/ip6 match| G{Check Qualifier}
+    F -->|include| H[Query Included Domain]
+    F -->|mx| I[Query MX Records]
+    F -->|a| J[Query A Records]
+    H --> K{Included Domain Result}
+    I --> L{IP in MX Range?}
+    J --> M{IP in A Range?}
+    K -->|Pass| G
+    K -->|Fail/Other| F
+    L -->|Yes| G
+    L -->|No| F
+    M -->|Yes| G
+    M -->|No| F
+    G -->|+ Pass| N[Result: Pass]
+    G -->|- Fail| O[Result: Fail]
+    G -->|~ SoftFail| P[Result: SoftFail]
+    G -->|? Neutral| Q[Result: Neutral]
+    F -->|No Match| R[Check 'all' Mechanism]
+    R --> G
+```
+
+This diagram illustrates the step-by-step SPF validation process from email receipt to final result determination.
 
 ### SPF Record Syntax
 
@@ -233,6 +296,264 @@ v=spf1 include:_spf.google.com include:_spf.salesforce.com -all
 Important: `include` only passes if the included domain returns Pass. If it returns Fail, evaluation continues.
 
 Nesting depth limited to 10 DNS lookups total (see Limitations section).
+
+### Redirect vs Include: Decision Guide
+
+Understanding when to use `redirect` versus `include` is critical for efficient SPF design.
+
+#### Quick Decision Tree
+
+```text
+┌─────────────────────────────────────────┐
+│ Do you need to add mechanisms           │
+│ beyond the delegated record?            │
+└──────────────┬──────────────────────────┘
+               │
+       ┌───────┴───────┐
+       │               │
+      NO              YES
+       │               │
+       ↓               ↓
+  Use REDIRECT    Use INCLUDE
+       │               │
+       ↓               ↓
+┌─────────────┐  ┌──────────────┐
+│ Full        │  │ Modular      │
+│ Delegation  │  │ Composition  │
+└─────────────┘  └──────────────┘
+```
+
+#### Comparison Table
+
+| Factor | Redirect | Include |
+| ------ | -------- | ------- |
+| **Purpose** | Replace entire SPF | Add to existing SPF |
+| **DNS Lookups** | 1 | 1 per include |
+| **Additional Mechanisms** | ❌ Cannot add | ✅ Can add |
+| **All Mechanism** | In redirected record | In both main & included |
+| **Use Case** | All domains same infrastructure | Mix internal + third-party |
+| **Management** | Centralized (single team) | Distributed (multiple teams) |
+| **Lookup Efficiency** | Most efficient | Moderate |
+| **Best For** | Multi-brand/domain consolidation | Modular service separation |
+
+#### Redirect: When and How
+
+**Use redirect when:**
+
+- ✅ All domains use identical mail infrastructure
+- ✅ You manage multiple domains/brands centrally
+- ✅ You want maximum DNS lookup efficiency
+- ✅ You need single-point SPF management
+- ✅ Domains have no unique sending sources
+
+**Example: Multi-Brand Organization:**
+
+```text
+# All brands redirect to shared infrastructure
+acmecorp.com. IN TXT "v=spf1 redirect=_spf.acmecorp.com"
+acmebrands.com. IN TXT "v=spf1 redirect=_spf.acmecorp.com"
+acmeservices.com. IN TXT "v=spf1 redirect=_spf.acmecorp.com"
+
+# Single SPF definition
+_spf.acmecorp.com. IN TXT "v=spf1 mx include:_spf.google.com ip4:192.0.2.0/24 -all"
+```
+
+**Benefits:**
+
+- Update once, affects all domains
+- Reduces total DNS lookups
+- Simple maintenance
+- Clear infrastructure ownership
+
+**DNS Lookup Analysis:**
+
+```bash
+# Check redirect
+dig TXT acmecorp.com +short
+# v=spf1 redirect=_spf.acmecorp.com
+
+dig TXT _spf.acmecorp.com +short
+# v=spf1 mx include:_spf.google.com ip4:192.0.2.0/24 -all
+
+# Total lookups: 1 (redirect) + 1 (mx) + 1 (include) = 3 ✓
+```
+
+#### Include: When and How
+
+**Use include when:**
+
+- ✅ Combining internal servers + third-party services
+- ✅ Different departments manage different services
+- ✅ Domains have unique sending sources
+- ✅ You need modular, flexible architecture
+- ✅ You want per-function separation
+
+**Example: Department-Based Management:**
+
+```text
+# Main domain coordinates sources
+example.com. IN TXT "v=spf1 include:_spf-corp.example.com include:_spf-cloud.example.com -all"
+
+# IT department manages infrastructure
+_spf-corp.example.com. IN TXT "v=spf1 mx ip4:192.0.2.0/24 -all"
+
+# Marketing manages cloud services
+_spf-cloud.example.com. IN TXT "v=spf1 include:_spf.google.com include:servers.mcsv.net -all"
+```
+
+**Benefits:**
+
+- Team ownership per include
+- Add/remove services independently
+- Logical grouping by function
+- Easier troubleshooting
+
+**DNS Lookup Analysis:**
+
+```bash
+# Total lookups:
+# 2 (includes in main) + 1 (mx) + 2 (includes in cloud) = 5 ✓
+```
+
+#### Architectural Decision Flowchart
+
+```text
+                    ┌─────────────────────┐
+                    │ Starting SPF Design │
+                    └──────────┬──────────┘
+                               │
+                               ↓
+                    ┌─────────────────────┐
+                    │ How many domains?   │
+                    └──────────┬──────────┘
+                               │
+                  ┌────────────┴─────────────┐
+                  │                          │
+            Single Domain              Multiple Domains
+                  │                          │
+                  ↓                          ↓
+         ┌─────────────────┐      ┌──────────────────────┐
+         │ Same sending    │      │ Same infrastructure  │
+         │ infrastructure  │      │ across all domains?  │
+         │ for all mail?   │      └──────────┬───────────┘
+         └────────┬────────┘                 │
+                  │              ┌───────────┴────────────┐
+         ┌────────┴────────┐     │                        │
+         │                 │    YES                       NO
+        YES               NO     │                        │
+         │                 │     ↓                        ↓
+         ↓                 ↓  ┌──────────────┐  ┌─────────────────┐
+   ┌──────────┐    ┌──────────────┐  │ Use REDIRECT │  │ Each domain has │
+   │ Direct   │    │ Use INCLUDE  │  │              │  │ unique sources? │
+   │ IP/MX    │    │ - Group by   │  │ Benefits:    │  └────────┬────────┘
+   │ listing  │    │   function   │  │ • Efficient  │           │
+   │          │    │ - Team-based │  │ • Central    │  ┌────────┴────────┐
+   │ Example: │    │   ownership  │  │   mgmt       │  │                 │
+   │ v=spf1   │    │              │  │ • Simple     │ YES               NO
+   │ mx       │    │ Example:     │  └──────────────┘  │                 │
+   │ ip4:...  │    │ v=spf1       │                    ↓                 ↓
+   │ -all     │    │ include:_corp│         ┌──────────────┐  ┌──────────────┐
+   └──────────┘    │ include:_saas│         │ Use INCLUDE  │  │ Use REDIRECT │
+                   │ -all         │         │ per domain   │  │ + INCLUDE    │
+                   └──────────────┘         │              │  │ hybrid       │
+                                            │ Benefits:    │  │              │
+                                            │ • Flexible   │  │ Benefits:    │
+                                            │ • Modular    │  │ • Best of    │
+                                            │              │  │   both       │
+                                            └──────────────┘  └──────────────┘
+```
+
+#### Common Patterns by Organization Type
+
+**Small Business (1-2 domains):**
+
+```text
+# Simple direct listing
+example.com. IN TXT "v=spf1 mx include:_spf.google.com -all"
+```
+
+**Growing Company (3-10 domains, shared infrastructure):**
+
+```text
+# Redirect pattern
+example.com. IN TXT "v=spf1 redirect=_spf.example.com"
+example.net. IN TXT "v=spf1 redirect=_spf.example.com"
+example.org. IN TXT "v=spf1 redirect=_spf.example.com"
+
+_spf.example.com. IN TXT "v=spf1 mx include:_spf.google.com include:_spf.salesforce.com -all"
+```
+
+**Mid-Size Enterprise (multiple departments/services):**
+
+```text
+# Include pattern with modular design
+example.com. IN TXT "v=spf1 include:_spf-it.example.com include:_spf-marketing.example.com include:_spf-sales.example.com -all"
+
+_spf-it.example.com. IN TXT "v=spf1 mx ip4:192.0.2.0/24 -all"
+_spf-marketing.example.com. IN TXT "v=spf1 include:servers.mcsv.net include:_spf.sendgrid.net -all"
+_spf-sales.example.com. IN TXT "v=spf1 include:_spf.salesforce.com -all"
+```
+
+**Large Enterprise (many domains/brands):**
+
+```text
+# Hybrid: Redirect for brand domains + Include for services
+# Brand domains redirect to regional infrastructure
+acmecorp.com. IN TXT "v=spf1 redirect=_spf-us.acme.com"
+acmecorp.eu. IN TXT "v=spf1 redirect=_spf-eu.acme.com"
+
+# Regional records use includes for services
+_spf-us.acme.com. IN TXT "v=spf1 include:_spf-infra-us.acme.com include:_spf-saas.acme.com -all"
+_spf-infra-us.acme.com. IN TXT "v=spf1 ip4:192.0.2.0/24 mx -all"
+_spf-saas.acme.com. IN TXT "v=spf1 include:_spf.google.com include:_spf.salesforce.com -all"
+```
+
+#### Key Differences in Behavior
+
+**Redirect Behavior:**
+
+```bash
+# When SPF checking encounters redirect:
+1. Ignore all mechanisms after redirect
+2. Replace current record with redirected record
+3. Evaluate redirected record as if it were the original
+4. Redirected record MUST have 'all' mechanism
+
+# Example:
+example.com: v=spf1 redirect=_spf.example.com
+_spf.example.com: v=spf1 ip4:192.0.2.0/24 -all
+
+# Evaluation: As if example.com had "v=spf1 ip4:192.0.2.0/24 -all"
+```
+
+**Include Behavior:**
+
+```bash
+# When SPF checking encounters include:
+1. Query included domain
+2. If included returns Pass → Pass
+3. If included returns Fail/SoftFail/Neutral → Continue evaluation
+4. If included returns TempError/PermError → TempError/PermError
+
+# Example:
+example.com: v=spf1 include:_spf.partner.com ip4:192.0.2.0/24 -all
+_spf.partner.com: v=spf1 ip4:198.51.100.0/24 -all
+
+# Sending from 192.0.2.10:
+# 1. Check include → Partner IP doesn't match → Continue
+# 2. Check ip4:192.0.2.0/24 → Match! → Pass
+```
+
+### Advanced Patterns
+
+> **For Complex Scenarios**: See [Advanced SPF Architecture Patterns](spf-advanced-patterns.md) for:
+>
+> - Multi-region SPF deployment strategies
+> - SPF flattening techniques and tools
+> - Tiered include structures
+> - Vendor-specific grouping patterns
+> - DNS lookup optimization
+> - Enterprise-scale implementations
 
 #### A and MX Mechanisms
 
@@ -399,6 +720,55 @@ _spf-cloud.example.com. IN TXT "v=spf1 include:_spf.google.com -all"
 
 **For detailed guidance on complex SPF architectures, enterprise patterns, and performance optimization, see [Advanced SPF Architecture Patterns](spf-advanced-patterns.md).**
 
+#### Redirect vs Include Architecture Comparison
+
+```mermaid
+graph TB
+    subgraph "Include Pattern - Modular Composition"
+        A1[example.com] --> B1["v=spf1 include:_spf-corp.example.com<br/>include:_spf-cloud.example.com -all"]
+        B1 --> C1[_spf-corp.example.com]
+        C1 --> D1["v=spf1 mx ip4:192.0.2.0/24 -all"]
+        B1 --> E1[_spf-cloud.example.com]
+        E1 --> F1["v=spf1 include:_spf.google.com -all"]
+        F1 --> G1[Google's SPF]
+    end
+    
+    subgraph "Redirect Pattern - Centralized Management"
+        A2[example.com] --> B2["v=spf1 redirect=_spf.example.com"]
+        B2 --> C2[_spf.example.com]
+        C2 --> D2["v=spf1 mx include:_spf.google.com<br/>ip4:192.0.2.0/24 -all"]
+        D2 --> E2[Google's SPF]
+    end
+    
+    subgraph "Multi-Domain Redirect - Enterprise Pattern"
+        A3[brand1.com] --> B3["v=spf1 redirect=_spf.company.com"]
+        A4[brand2.com] --> B3
+        A5[brand3.com] --> B3
+        B3 --> C3[_spf.company.com]
+        C3 --> D3["v=spf1 mx include:_spf.google.com<br/>include:sendgrid.net -all"]
+    end
+    
+    style A1 fill:#e1f5ff
+    style A2 fill:#e1f5ff
+    style A3 fill:#e1f5ff
+    style A4 fill:#e1f5ff
+    style A5 fill:#e1f5ff
+    style C2 fill:#d4edda
+    style C3 fill:#d4edda
+```
+
+**When to use Include:**
+
+- ✅ Adding third-party services to existing SPF
+- ✅ Modular SPF architecture with multiple sources
+- ✅ Each include handles a specific mail source
+
+**When to use Redirect:**
+
+- ✅ Centralizing SPF for multiple domains
+- ✅ Complete delegation to another SPF record
+- ✅ Simplifying multi-brand management
+
 #### Email Forwarding Problem
 
 SPF breaks with email forwarding:
@@ -483,6 +853,149 @@ dig +short TXT example.com
 
 For strategies to reduce DNS lookup count through IP consolidation and other optimization techniques, see [Advanced SPF Architecture Patterns](spf-advanced-patterns.md#performance-optimization).
 
+#### DNS Lookup Tree Visualization
+
+```mermaid
+graph TD
+    A[example.com SPF Query] --> B[v=spf1 mx include:_spf.google.com include:sendgrid.net ip4:192.0.2.0/24 -all]
+    B --> C[Lookup 1: MX example.com]
+    C --> D[mail.example.com]
+    B --> E[Lookup 2: include:_spf.google.com]
+    E --> F[v=spf1 include:_netblocks.google.com ...]
+    F --> G[Lookup 3: _netblocks.google.com]
+    G --> H[ip4:... ip6:...]
+    F --> I[Lookup 4: _netblocks2.google.com]
+    I --> J[ip4:... ip6:...]
+    F --> K[Lookup 5: _netblocks3.google.com]
+    K --> L[ip4:... ip6:...]
+    B --> M[Lookup 6: include:sendgrid.net]
+    M --> N[v=spf1 ip4:... ip4:...]
+    B --> O[Direct IP: 192.0.2.0/24]
+    
+    style A fill:#e1f5ff
+    style C fill:#fff3cd
+    style E fill:#fff3cd
+    style G fill:#fff3cd
+    style I fill:#fff3cd
+    style K fill:#fff3cd
+    style M fill:#fff3cd
+    style O fill:#d4edda
+    
+    P[Total: 6 DNS Lookups] --> A
+    style P fill:#f8d7da
+```
+
+This visualization shows how DNS lookups accumulate. Each `include`, `mx`, and `a` mechanism counts toward the 10-lookup limit.
+
+### SPF Dangerous Patterns to Avoid
+
+#### ❌ DON'T: Use Soft Fail in Production
+
+```text
+# Bad - Allows unauthorized senders to deliver mail
+v=spf1 mx include:_spf.google.com ~all
+```
+
+**Why it's dangerous:** Soft fail (`~all`) doesn't prevent spoofing. Attackers can send from any server, and mail may still be delivered.
+
+#### ✅ DO: Use Hard Fail in Production
+
+```text
+# Good - Rejects unauthorized senders
+v=spf1 mx include:_spf.google.com -all
+```
+
+**Why it's better:** Hard fail (`-all`) explicitly rejects mail from unauthorized servers, providing real protection.
+
+---
+
+#### ❌ DON'T: Forget Subdomain Protection
+
+```text
+# Bad - Only main domain protected
+example.com. IN TXT "v=spf1 mx -all"
+# mail.example.com has no SPF record
+# app.example.com has no SPF record
+```
+
+**Why it's dangerous:** Attackers can spoof any subdomain without SPF protection.
+
+#### ✅ DO: Protect All Subdomains
+
+```text
+# Good - Main domain and all subdomains protected
+example.com. IN TXT "v=spf1 mx -all"
+mail.example.com. IN TXT "v=spf1 a -all"
+app.example.com. IN TXT "v=spf1 ip4:192.0.2.100 -all"
+*.example.com. IN TXT "v=spf1 -all"  # Non-sending subdomains
+```
+
+**Why it's better:** Comprehensive protection prevents subdomain spoofing attacks.
+
+---
+
+#### ❌ DON'T: Exceed DNS Lookup Limit
+
+```text
+# Bad - 12+ lookups, causes PermError
+v=spf1 mx a:mail1.example.com a:mail2.example.com include:_spf.google.com include:_spf.salesforce.com include:servers.mcsv.net include:_spf.service4.com include:_spf.service5.com include:_spf.service6.com -all
+```
+
+**Why it's dangerous:** Exceeds 10 lookup limit, results in SPF failure for all mail.
+
+#### ✅ DO: Consolidate with IP Addresses
+
+```text
+# Good - Under 10 lookups
+v=spf1 ip4:192.0.2.0/24 ip4:198.51.100.0/24 include:_spf.google.com include:servers.mcsv.net -all
+```
+
+**Why it's better:** Stays under lookup limit while covering all legitimate sources.
+
+---
+
+#### ❌ DON'T: Use Overly Permissive Mechanisms
+
+```text
+# Bad - Too broad, includes unintended servers
+v=spf1 a mx ptr ?all
+```
+
+**Why it's dangerous:**
+
+- `ptr` is deprecated and unreliable
+- `?all` provides no protection (neutral result)
+- May authorize unintended servers
+
+#### ✅ DO: Be Explicit and Specific
+
+```text
+# Good - Specific, authorized sources only
+v=spf1 ip4:192.0.2.0/24 include:_spf.google.com -all
+```
+
+**Why it's better:** Only explicitly authorized sources can send, clear policy enforcement.
+
+---
+
+#### ❌ DON'T: Hardcode Third-Party IPs
+
+```text
+# Bad - SendGrid IPs will change
+v=spf1 ip4:168.245.0.0/16 ip4:167.89.0.0/17 mx -all
+```
+
+**Why it's dangerous:** Third-party services change IPs frequently. Hardcoded IPs become outdated, breaking email delivery.
+
+#### ✅ DO: Use Provider's SPF Include
+
+```text
+# Good - Uses SendGrid's maintained SPF record
+v=spf1 include:sendgrid.net mx -all
+```
+
+**Why it's better:** Provider maintains their SPF record with current IPs. Automatically stays up-to-date.
+
 #### Advanced SPF Architectures
 
 For complex multi-domain or enterprise SPF architectures, see the comprehensive guide: [Advanced SPF Architecture Patterns](spf-advanced-patterns.md).
@@ -507,6 +1020,743 @@ v=spf1 ptr:example.com -all
 v=spf1 ip4:192.0.2.0/24 -all
 ```
 
+### SPF Subdomain Protection
+
+**CRITICAL SECURITY REQUIREMENT:** Protecting subdomains with SPF is not optional—it's essential to prevent subdomain spoofing attacks. Attackers actively target unprotected subdomains because they're often overlooked in SPF configurations.
+
+#### Why Subdomain Protection Matters
+
+By default, **subdomains do NOT inherit** the parent domain's SPF record. This creates a significant security vulnerability:
+
+**The Attack Scenario:**
+
+```text
+# You protect your main domain
+example.com. IN TXT "v=spf1 mx -all"
+
+# But forget subdomains...
+# mail.example.com - No SPF record
+# app.example.com - No SPF record
+# support.example.com - No SPF record
+
+# Result: Attackers can spoof emails from:
+# - support@support.example.com
+# - admin@app.example.com
+# - noreply@mail.example.com
+```
+
+**Real-World Impact:**
+
+- ✅ Users trust emails from `support@support.example.com` because it's your domain
+- ❌ No SPF protection means ANY server can send as that subdomain
+- 📧 Phishing emails appear legitimate and bypass many filters
+- 💰 Brand damage and potential legal liability
+
+#### Comprehensive Subdomain SPF Configuration
+
+##### Configuration Strategy
+
+**Step 1: Identify Subdomain Types:**
+
+Categorize your subdomains:
+
+1. **Sending subdomains** - Legitimate mail servers (need specific SPF)
+2. **Non-sending subdomains** - No legitimate email (need restrictive SPF)
+3. **Wildcard protection** - Catch-all for undefined subdomains
+
+##### Step 2: Configure Sending Subdomains
+
+For subdomains that send legitimate email, create specific SPF records:
+
+```text
+# Marketing emails
+marketing.example.com. IN TXT "v=spf1 include:sendgrid.net -all"
+
+# Transactional emails from application
+app.example.com. IN TXT "v=spf1 ip4:192.0.2.100 ip4:192.0.2.101 -all"
+
+# Support system emails
+support.example.com. IN TXT "v=spf1 include:zendesk.com -all"
+
+# Newsletter subdomain
+news.example.com. IN TXT "v=spf1 include:servers.mcsv.net -all"
+```
+
+##### Step 3: Protect Non-Sending Subdomains
+
+For subdomains that should NEVER send email, use the most restrictive SPF:
+
+```text
+# Internal applications (no email)
+internal.example.com. IN TXT "v=spf1 -all"
+
+# Development environment
+dev.example.com. IN TXT "v=spf1 -all"
+
+# API endpoints
+api.example.com. IN TXT "v=spf1 -all"
+
+# Static content CDN
+cdn.example.com. IN TXT "v=spf1 -all"
+
+# Documentation site
+docs.example.com. IN TXT "v=spf1 -all"
+```
+
+**Critical:** Use `-all` (hard fail), not `~all` (soft fail), for non-sending domains.
+
+##### Step 4: Implement Wildcard Protection
+
+**The Most Important Security Control:**
+
+```text
+# Wildcard SPF - protects ALL undefined subdomains
+*.example.com. IN TXT "v=spf1 -all"
+```
+
+**What this does:**
+
+- ✅ Protects every subdomain that doesn't have an explicit SPF record
+- ✅ Prevents attackers from spoofing `random123.example.com`
+- ✅ Provides defense-in-depth even if you miss a subdomain
+- ✅ Stops subdomain enumeration attacks via email
+
+**Record Precedence:**
+
+```text
+# Specific records override wildcard
+example.com. IN TXT "v=spf1 mx -all"                    # Main domain
+mail.example.com. IN TXT "v=spf1 a -all"                 # Specific subdomain
+*.example.com. IN TXT "v=spf1 -all"                      # Wildcard catch-all
+
+# Resolution examples:
+# example.com         → Uses first record (mx mechanism)
+# mail.example.com    → Uses second record (a mechanism)
+# random.example.com  → Uses wildcard record (-all only)
+# any.other.example.com → Uses wildcard record (-all only)
+```
+
+#### Complete DNS Zone Example
+
+Here's a complete zone file demonstrating comprehensive subdomain protection:
+
+```text
+; Main domain SPF
+example.com. IN TXT "v=spf1 mx include:_spf.google.com -all"
+
+; Explicit sending subdomains
+mail.example.com. IN TXT "v=spf1 a -all"
+smtp.example.com. IN TXT "v=spf1 ip4:192.0.2.0/24 -all"
+marketing.example.com. IN TXT "v=spf1 include:sendgrid.net -all"
+transactional.example.com. IN TXT "v=spf1 include:_spf.sparkpost.com -all"
+
+; Explicit non-sending subdomains
+www.example.com. IN TXT "v=spf1 -all"
+api.example.com. IN TXT "v=spf1 -all"
+cdn.example.com. IN TXT "v=spf1 -all"
+static.example.com. IN TXT "v=spf1 -all"
+dev.example.com. IN TXT "v=spf1 -all"
+staging.example.com. IN TXT "v=spf1 -all"
+test.example.com. IN TXT "v=spf1 -all"
+
+; Wildcard protection for everything else
+*.example.com. IN TXT "v=spf1 -all"
+```
+
+#### Why Soft Fail (~all) is Dangerous
+
+**⚠️ NEVER use `~all` (soft fail) in production, especially for non-sending domains:**
+
+##### The Problem with Soft Fail
+
+```text
+# DANGEROUS - Soft fail
+*.example.com. IN TXT "v=spf1 ~all"
+```
+
+**What soft fail means:**
+
+- `~all` = "This server is probably not authorized, but don't reject the email"
+- Receiving servers often deliver these emails anyway
+- **Result:** Spoofing protection is essentially disabled
+
+**Real-world impact:**
+
+```text
+# Attacker sends phishing email
+From: password-reset@secure.example.com
+Authentication-Results: mx.google.com;
+  spf=softfail (domain owner discourages use of this host)
+
+# Gmail's decision:
+# - SPF says "softfail" 
+# - Not a hard failure
+# - Other signals (DKIM, DMARC) also weak/missing
+# - Email is delivered to inbox or spam folder
+# - User clicks phishing link
+```
+
+##### Hard Fail vs Soft Fail Comparison
+
+| Qualifier | Meaning | Attacker Result | Use Case |
+| --------- | ------- | --------------- | -------- |
+| `-all` | Hard fail - **reject** | Email rejected | Production domains |
+| `~all` | Soft fail - **accept but mark** | Email delivered | Testing phase only |
+| `?all` | Neutral - **no policy** | Email delivered | No protection |
+| `+all` | Pass - **explicitly allow** | Email delivered | Never use! |
+
+**Bottom line:** In production, use `-all` for all domains and subdomains. Use `~all` only during initial testing periods.
+
+#### Subdomain SPF Testing
+
+**Test each subdomain:**
+
+```bash
+# Test main domain
+dig +short TXT example.com | grep spf
+
+# Test specific subdomains
+dig +short TXT mail.example.com | grep spf
+dig +short TXT marketing.example.com | grep spf
+
+# Test wildcard (query non-existent subdomain)
+dig +short TXT nonexistent123.example.com | grep spf
+```
+
+**Expected results:**
+
+```text
+# Main domain
+"v=spf1 mx include:_spf.google.com -all"
+
+# Specific subdomain
+"v=spf1 a -all"
+
+# Non-existent (should return wildcard)
+"v=spf1 -all"
+```
+
+**Send test emails from subdomains:**
+
+```bash
+# Test from authorized subdomain
+echo "Test from mail subdomain" | mail -a "From: test@mail.example.com" -s "SPF Test" recipient@gmail.com
+
+# Check headers for: spf=pass
+
+# Test from non-sending subdomain (should fail)
+echo "Test from api subdomain" | mail -a "From: test@api.example.com" -s "SPF Test" recipient@gmail.com
+
+# Check headers for: spf=fail
+```
+
+#### Subdomain Security Checklist
+
+Before considering subdomain protection complete, verify:
+
+- [ ] Main domain has SPF record with `-all`
+- [ ] All email-sending subdomains have specific SPF records
+- [ ] All non-sending subdomains have `v=spf1 -all` records
+- [ ] Wildcard SPF record `*.example.com` configured with `-all`
+- [ ] NO domains use `~all` in production (only during initial testing)
+- [ ] NO domains use `?all` or `+all` (provides no/negative protection)
+- [ ] Test emails from each sending subdomain show `spf=pass`
+- [ ] Test emails from non-sending subdomains show `spf=fail`
+- [ ] DMARC policy covers all subdomains (see DMARC section)
+- [ ] Regular audits of new subdomains (quarterly review)
+
+#### Common Subdomain Mistakes
+
+##### Mistake 1: Forgetting Wildcard
+
+```text
+# Incomplete - Only main domain protected
+example.com. IN TXT "v=spf1 mx -all"
+
+# Missing: *.example.com protection
+# Result: Any undefined subdomain can be spoofed
+```
+
+##### Mistake 2: Using Soft Fail for Non-Sending Domains
+
+```text
+# WRONG - Soft fail provides weak protection
+dev.example.com. IN TXT "v=spf1 ~all"
+api.example.com. IN TXT "v=spf1 ~all"
+
+# CORRECT - Hard fail prevents spoofing
+dev.example.com. IN TXT "v=spf1 -all"
+api.example.com. IN TXT "v=spf1 -all"
+```
+
+##### Mistake 3: Assuming Inheritance
+
+```text
+# Developers often assume this works:
+example.com. IN TXT "v=spf1 mx -all"
+# Expectation: mail.example.com inherits parent SPF
+# Reality: mail.example.com has NO SPF protection!
+
+# Must explicitly configure:
+mail.example.com. IN TXT "v=spf1 a -all"
+```
+
+#### Multi-Level Subdomain Protection
+
+For deep subdomain hierarchies:
+
+```text
+# Second-level subdomains also need protection
+app.prod.example.com. IN TXT "v=spf1 ip4:192.0.2.50 -all"
+api.prod.example.com. IN TXT "v=spf1 -all"
+
+# Wildcard at multiple levels
+*.prod.example.com. IN TXT "v=spf1 -all"
+*.dev.example.com. IN TXT "v=spf1 -all"
+*.example.com. IN TXT "v=spf1 -all"
+```
+
+**Note:** Most DNS providers support multi-level wildcards, but verify with your provider.
+
+#### Automated Subdomain Discovery
+
+**Script to find unprotected subdomains:**
+
+```bash
+#!/bin/bash
+# Find subdomains without SPF protection
+
+DOMAIN="example.com"
+SUBDOMAINS_FILE="subdomains.txt"
+
+echo "Checking SPF records for subdomains of $DOMAIN..."
+echo
+
+while IFS= read -r subdomain; do
+    FULL_DOMAIN="${subdomain}.${DOMAIN}"
+    SPF=$(dig +short TXT "$FULL_DOMAIN" | grep "v=spf1" || true)
+    
+    if [ -z "$SPF" ]; then
+        echo "⚠️  MISSING: $FULL_DOMAIN has no SPF record"
+    else
+        echo "✓ $FULL_DOMAIN: $SPF"
+    fi
+done < "$SUBDOMAINS_FILE"
+```
+
+**Usage:**
+
+```bash
+# Create subdomain list
+echo -e "mail\napp\napi\nmarketing\nsupport" > subdomains.txt
+
+# Run check
+./check-subdomain-spf.sh
+```
+
+### SPF Security and Attack Vectors
+
+Understanding how attackers exploit SPF weaknesses helps you build stronger email authentication defenses.
+
+#### SPF Bypass Techniques
+
+Attackers use various techniques to bypass or exploit SPF protection:
+
+##### Attack 1: Subdomain Spoofing
+
+**Technique:** Target unprotected subdomains
+
+```text
+# Main domain protected
+example.com. IN TXT "v=spf1 mx -all"
+
+# Subdomain unprotected
+# support.example.com - No SPF record
+
+# Attacker sends:
+From: security@support.example.com
+Subject: Urgent: Password Reset Required
+```
+
+**Why it works:**
+
+- Users trust `@support.example.com` addresses
+- No SPF record = no authentication check
+- Email passes most filters
+
+**Defense:**
+
+```text
+# Protect all subdomains with wildcard
+*.example.com. IN TXT "v=spf1 -all"
+```
+
+##### Attack 2: Display Name Spoofing
+
+**Technique:** SPF checks envelope sender, not display name
+
+```text
+# SPF checks this (MAIL FROM):
+Return-Path: <attacker@malicious.com>
+
+# But users see this (From header):
+From: "IT Department" <it@example.com>
+```
+
+**SPF Result:**
+
+```text
+Authentication-Results: mx.google.com;
+  spf=pass (malicious.com SPF passes)
+  # SPF doesn't verify From header!
+```
+
+**Why it works:**
+
+- SPF only validates envelope sender (MAIL FROM/Return-Path)
+- Display name and From header are not checked by SPF
+- Email clients show the From header prominently
+
+**Defense:**
+
+- **DKIM** signs the From header, detecting modifications
+- **DMARC** requires alignment between envelope and header From
+- Combined SPF + DKIM + DMARC prevents this attack
+
+##### Attack 3: Email Forwarding Bypass
+
+**Technique:** Exploit SPF's forwarding problem
+
+```text
+1. Attacker sends email through legitimate service with valid SPF
+2. Recipient's mailbox forwards to final destination
+3. Final destination sees forwarding server's IP, not original
+4. SPF check fails for forwarded email
+```
+
+**Why it works:**
+
+- SPF breaks with forwarding (by design)
+- Legitimate emails may fail SPF after forwarding
+- Creates confusion about SPF reliability
+
+**Defense:**
+
+- **SRS (Sender Rewriting Scheme)** at forwarding servers
+- Rely on **DKIM** which survives forwarding
+- **DMARC** with DKIM alignment handles this scenario
+
+##### Attack 4: Soft Fail Exploitation
+
+**Technique:** Soft fail doesn't prevent delivery
+
+```text
+# Weak SPF configuration
+example.com. IN TXT "v=spf1 ~all"
+
+# Attacker sends from any IP:
+From: admin@example.com
+Sending IP: 203.0.113.50 (attacker controlled)
+
+# Result:
+Authentication-Results: mx.gmail.com;
+  spf=softfail (sender IP is 203.0.113.50)
+
+# Email still delivered!
+```
+
+**Why it works:**
+
+- `~all` means "probably not authorized" but not a hard fail
+- Many receivers deliver softfail emails anyway
+- Provides false sense of security
+
+**Defense:**
+
+```text
+# Use hard fail in production
+example.com. IN TXT "v=spf1 mx include:_spf.google.com -all"
+```
+
+##### Attack 5: Cousin Domain Spoofing
+
+**Technique:** Register similar domain with no SPF checks
+
+```text
+# Legitimate domain
+example.com. IN TXT "v=spf1 mx -all"
+
+# Attacker registers similar domain
+examp1e.com. - No SPF record needed (attacker controls it)
+
+# Attacker sends:
+From: admin@examp1e.com  # Note the "1" instead of "l"
+```
+
+**Why it works:**
+
+- Attacker controls `examp1e.com`, so SPF passes
+- Visual similarity deceives users
+- SPF can't protect against this
+
+**Defense:**
+
+- Register common typosquatting domains
+- Configure SPF `-all` for defensive registrations
+- User training to verify sender domains
+- **DMARC** reports show unauthorized use of your domain (not cousin domains)
+
+#### SPF Forgery Detection Limitations
+
+SPF alone has significant limitations in detecting forgery:
+
+##### Limitation 1: Header vs Envelope
+
+**What SPF checks:**
+
+```text
+✓ Envelope Sender (MAIL FROM/Return-Path)
+✗ From Header (what users see)
+✗ Reply-To Header
+✗ Display Name
+```
+
+**Real example:**
+
+```text
+Return-Path: <legitimate@authorized.com>  # SPF checks this
+From: "CEO" <ceo@yourcompany.com>         # SPF ignores this
+Reply-To: attacker@malicious.com           # SPF ignores this
+```
+
+**SPF result:** PASS (because envelope sender is authorized)  
+**Actual threat:** High (users see forged From header)
+
+##### Limitation 2: No Message Integrity
+
+SPF doesn't detect message tampering:
+
+```text
+# Email passes SPF validation
+# Then content is modified in transit
+# SPF can't detect this
+```
+
+**Defense:** Use DKIM for message integrity verification
+
+##### Limitation 3: No Replay Protection
+
+SPF doesn't prevent legitimate emails from being replayed:
+
+```text
+# Attacker intercepts legitimate email that passed SPF
+# Replays it to different recipients
+# SPF still passes (legitimate sender's IP)
+```
+
+**Defense:** DKIM signatures include timestamps and can expire
+
+##### Limitation 4: Shared Infrastructure
+
+Many legitimate senders share IP addresses:
+
+```text
+# Shared hosting environment
+IP 192.0.2.100 sends for:
+- example.com (your domain)
+- attacker.com (attacker's domain)
+- other-site.com (unrelated site)
+
+# SPF passes for all domains using this IP
+# No way to distinguish legitimate vs attacker
+```
+
+**Defense:** Use dedicated IP addresses or services with proper segmentation
+
+#### Email Forgery Techniques Beyond SPF
+
+Attackers use multiple techniques that SPF alone cannot prevent:
+
+##### Technique 1: SMTP Header Injection
+
+```text
+# Attacker adds multiple From headers
+From: attacker@malicious.com
+From: ceo@example.com
+
+# Some clients display second header
+# SPF checks envelope, not headers
+```
+
+##### Technique 2: Homograph Attacks
+
+```text
+# Using Unicode lookalikes
+exаmple.com  # Uses Cyrillic 'а' (U+0430)
+example.com  # Uses Latin 'a' (U+0061)
+
+# Visually identical, different domains
+# Each has its own SPF record
+```
+
+##### Technique 3: Compromised Accounts
+
+```text
+# Attacker compromises legitimate user account
+# Sends from legitimate server with valid SPF
+# SPF passes because it's a legitimate source
+
+# SPF cannot detect:
+- Compromised credentials
+- Insider threats
+- Lateral movement
+```
+
+#### Comprehensive Email Authentication Security
+
+To properly defend against email forgery, use all three protocols together:
+
+```mermaid
+graph TD
+    A[Email Received] --> B{SPF Check}
+    B -->|Pass| C{DKIM Check}
+    B -->|Fail| D[SPF Fail]
+    C -->|Pass| E{DMARC Check}
+    C -->|Fail| F[DKIM Fail]
+    E -->|Alignment Pass| G[Deliver Email]
+    E -->|Alignment Fail| H{DMARC Policy}
+    D --> H
+    F --> H
+    H -->|p=none| I[Deliver + Report]
+    H -->|p=quarantine| J[Quarantine + Report]
+    H -->|p=reject| K[Reject + Report]
+    
+    style G fill:#d4edda
+    style I fill:#fff3cd
+    style J fill:#ffeaa7
+    style K fill:#ff7675
+```
+
+**Layered Security Approach:**
+
+1. **SPF** - Validates sending server infrastructure
+2. **DKIM** - Verifies message integrity and signing domain
+3. **DMARC** - Enforces alignment and provides reporting
+
+**Example of complete protection:**
+
+```text
+# SPF record
+example.com. IN TXT "v=spf1 mx include:_spf.google.com -all"
+
+# DKIM public key
+default._domainkey.example.com. IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3..."
+
+# DMARC policy
+_dmarc.example.com. IN TXT "v=DMARC1; p=reject; rua=mailto:dmarc@example.com; ruf=mailto:forensic@example.com; pct=100"
+```
+
+#### SPF Security Deployment Checklist
+
+Before considering your SPF security complete:
+
+**Infrastructure Security:**
+
+- [ ] All sending IPs documented and authorized in SPF
+- [ ] Third-party service SPF includes verified and monitored
+- [ ] DNS lookup count under 10 (preferably under 8)
+- [ ] SPF record uses `-all` (hard fail) in production
+- [ ] No use of deprecated `ptr` mechanism
+
+**Subdomain Protection:**
+
+- [ ] All subdomains have explicit SPF records
+- [ ] Wildcard SPF `*.example.com` configured with `-all`
+- [ ] Non-sending subdomains use `v=spf1 -all`
+- [ ] Regular subdomain audits (quarterly minimum)
+
+**Testing and Validation:**
+
+- [ ] SPF passes from all legitimate sending sources
+- [ ] SPF fails from unauthorized test sources
+- [ ] Authentication headers show `spf=pass` for legitimate mail
+- [ ] PermError testing completed (syntax, lookup limits)
+- [ ] Test emails sent from all subdomains
+
+**Monitoring and Response:**
+
+- [ ] SPF failure monitoring alerts configured
+- [ ] DNS lookup count monitoring in place
+- [ ] Regular SPF record audits scheduled
+- [ ] Incident response plan for SPF bypass attempts
+- [ ] DMARC reports reviewed for SPF failures
+
+**Defense in Depth:**
+
+- [ ] DKIM configured for all sending sources
+- [ ] DMARC policy published with reporting
+- [ ] DMARC policy progressed to `p=quarantine` or `p=reject`
+- [ ] Regular review of DMARC aggregate reports
+- [ ] Forensic reports analyzed for attack patterns
+
+**Documentation:**
+
+- [ ] SPF record changes documented with rationale
+- [ ] Authorized sending sources inventory maintained
+- [ ] Third-party service configurations documented
+- [ ] Emergency contact procedures for SPF issues
+- [ ] Runbook for SPF lookup limit exceeded
+
+#### Advanced Security Considerations
+
+##### Rate Limiting and Anomaly Detection
+
+While SPF doesn't provide these features, implement at SMTP level:
+
+```text
+# Postfix example - rate limiting
+smtpd_client_connection_rate_limit = 100
+smtpd_client_message_rate_limit = 50
+smtpd_client_recipient_rate_limit = 100
+```
+
+##### Geographic IP Restrictions
+
+If your mail servers are in specific regions:
+
+```text
+# SPF with specific IP ranges
+v=spf1 ip4:192.0.2.0/24 ip4:198.51.100.0/24 -all
+
+# Consider geo-blocking at firewall level
+# Allow SMTP only from expected geographic regions
+```
+
+##### Emergency SPF Rollback Procedure
+
+Document steps for emergency SPF changes:
+
+1. **Identify issue** - SPF too restrictive, blocking legitimate mail
+2. **Temporary softfail** - Change `-all` to `~all` temporarily
+3. **Update DNS** - Make correction with low TTL (300s)
+4. **Verify fix** - Test from affected sources
+5. **Restore hardfail** - Change back to `-all` after verification
+6. **Post-incident review** - Document what went wrong
+
+```bash
+# Emergency rollback script
+#!/bin/bash
+DOMAIN="example.com"
+
+# Backup current SPF
+CURRENT_SPF=$(dig +short TXT "$DOMAIN" | grep "v=spf1")
+echo "Current SPF: $CURRENT_SPF" > spf-backup-$(date +%Y%m%d-%H%M%S).txt
+
+# Temporarily softfail (manual DNS update required)
+echo "Change SPF to: ${CURRENT_SPF/-all/~all}"
+echo "After fixing, restore: $CURRENT_SPF"
+```
+
 ### SPF Testing and Validation
 
 Thorough testing ensures your SPF configuration works correctly before deployment and helps identify issues in production.
@@ -518,9 +1768,18 @@ Thorough testing ensures your SPF configuration works correctly before deploymen
 ```bash
 # Query SPF record
 dig +short TXT example.com
+```
 
-# Expected output
+**Expected output (SPF record exists):**
+
+```text
 "v=spf1 mx include:_spf.google.com -all"
+```
+
+**Expected output (No SPF record):**
+
+```text
+[No output - record doesn't exist]
 ```
 
 **Detailed DNS Queries:**
@@ -528,7 +1787,16 @@ dig +short TXT example.com
 ```bash
 # Query specific DNS server
 dig @8.8.8.8 TXT example.com
+```
 
+**Expected output:**
+
+```text
+;; ANSWER SECTION:
+example.com.        3600    IN      TXT     "v=spf1 mx include:_spf.google.com -all"
+```
+
+```bash
 # Verbose output with full trace
 dig TXT example.com +trace
 
@@ -536,17 +1804,46 @@ dig TXT example.com +trace
 dig TXT example.com +short | grep -i spf
 ```
 
+**Expected output (multiple TXT records):**
+
+```text
+"v=spf1 mx include:_spf.google.com -all"
+```
+
 **Validate Included Records:**
 
 ```bash
 # Check included SPF records
 dig +short TXT _spf.google.com
+```
 
+**Expected output:**
+
+```text
+"v=spf1 include:_netblocks.google.com include:_netblocks2.google.com include:_netblocks3.google.com ~all"
+```
+
+```bash
 # Verify MX records referenced in SPF
 dig +short MX example.com
+```
 
+**Expected output:**
+
+```text
+10 mail.example.com.
+20 mail2.example.com.
+```
+
+```bash
 # Check A records
 dig +short A mail.example.com
+```
+
+**Expected output:**
+
+```text
+192.0.2.10
 ```
 
 #### Practical Testing Scenarios
@@ -583,26 +1880,132 @@ dig +short TXT _spf.google.com
 
 ##### Scenario 3: Test SPF Failures
 
-```bash
-# Send from unauthorized server (for testing only)
-# This should result in SPF fail
+**Test Case 1: Syntax Error (PermError):**
 
-# Check resulting authentication headers
-# Look for: spf=fail or spf=softfail
+```bash
+# Intentional syntax error in SPF record (for testing environment only)
+# Record: "v=spf1 mx include :_spf.google.com -all"  # Space before colon
+dig +short TXT test-broken.example.com
+```
+
+**Expected output:**
+
+```text
+"v=spf1 mx include :_spf.google.com -all"
+```
+
+**Expected authentication header:**
+
+```text
+Authentication-Results: mx.google.com;
+  spf=permerror (google.com: error in processing during lookup of test-broken.example.com: invalid SPF record)
+  smtp.mailfrom=sender@test-broken.example.com
+```
+
+**Test Case 2: Too Many DNS Lookups (PermError):**
+
+```bash
+# SPF record exceeding 10 lookup limit
+# Record with 12+ includes/mx/a mechanisms
+dig +short TXT test-overlimit.example.com
+```
+
+**Expected authentication header:**
+
+```text
+Authentication-Results: mx.outlook.com;
+  spf=permerror (sender IP is 192.0.2.10)
+  smtp.mailfrom=sender@test-overlimit.example.com;
+  reason="SPF exceeds DNS lookup limit"
+```
+
+**Test Case 3: Unauthorized Sender (Fail):**
+
+```bash
+# Send from server NOT in SPF record
+# Sending IP: 203.0.113.50
+# SPF Record: "v=spf1 ip4:192.0.2.0/24 -all"
+```
+
+**Expected authentication header:**
+
+```text
+Authentication-Results: mx.gmail.com;
+  spf=fail (google.com: domain of sender@example.com does not designate 203.0.113.50 as permitted sender)
+  smtp.mailfrom=sender@example.com;
+  smtp.helo=unauthorized-mail.badhost.com
+```
+
+**Test Case 4: Soft Fail:**
+
+```bash
+# SPF record with ~all (soft fail)
+# Sending IP: 203.0.113.50
+# SPF Record: "v=spf1 ip4:192.0.2.0/24 ~all"
+```
+
+**Expected authentication header:**
+
+```text
+Authentication-Results: mx.yahoo.com;
+  spf=softfail (transitioning 203.0.113.50)
+  smtp.mailfrom=sender@example.com
+```
+
+**Test Case 5: No SPF Record (None):**
+
+```bash
+# Domain with no SPF record
+dig +short TXT no-spf-record.example.com
+```
+
+**Expected output:**
+
+```text
+[No SPF record returned]
+```
+
+**Expected authentication header:**
+
+```text
+Authentication-Results: mx.example.com;
+  spf=none (no SPF record)
+  smtp.mailfrom=sender@no-spf-record.example.com
 ```
 
 #### Automated Testing Script
 
 ```bash
 #!/bin/bash
-# SPF Validation Test Script
+# SPF Validation Test Script with Error Handling
+# Usage: ./spf-test.sh <domain> <test-email>
 
-DOMAIN=$1
-TEST_EMAIL=$2
+set -euo pipefail  # Exit on error, undefined variables, pipe failures
 
-if [ -z "$DOMAIN" ] || [ -z "$TEST_EMAIL" ]; then
-    echo "Usage: $0 <domain> <test-email>"
+DOMAIN=${1:-}
+TEST_EMAIL=${2:-}
+
+# Color output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+error_exit() {
+    echo -e "${RED}ERROR: $1${NC}" >&2
     exit 1
+}
+
+warning() {
+    echo -e "${YELLOW}WARNING: $1${NC}"
+}
+
+success() {
+    echo -e "${GREEN}✓ $1${NC}"
+}
+
+if [ -z "$DOMAIN" ]; then
+    error_exit "Usage: $0 <domain> <test-email>"
 fi
 
 echo "===== SPF Testing for $DOMAIN ====="
@@ -610,49 +2013,365 @@ echo
 
 # 1. Check SPF record exists
 echo "1. Checking SPF record..."
-SPF_RECORD=$(dig +short TXT $DOMAIN | grep "v=spf1")
+SPF_RECORD=$(dig +short TXT "$DOMAIN" | grep -i "^\"v=spf1" | tr -d '"' || true)
+
 if [ -z "$SPF_RECORD" ]; then
-    echo "ERROR: No SPF record found!"
-    exit 1
+    error_exit "No SPF record found for $DOMAIN!"
 fi
-echo "SPF Record: $SPF_RECORD"
+
+success "SPF Record found: $SPF_RECORD"
 echo
 
-# 2. Count DNS lookups
-echo "2. Counting DNS lookups..."
-INCLUDES=$(echo $SPF_RECORD | grep -o "include:[^ ]*" | wc -l)
-MX_COUNT=$(echo $SPF_RECORD | grep -o "\\bmx\\b" | wc -l)
-A_COUNT=$(echo $SPF_RECORD | grep -o " a\\b\\|a:" | wc -l)
+# 2. Validate SPF syntax
+echo "2. Validating SPF syntax..."
 
-echo "Includes: $INCLUDES"
-echo "MX mechanisms: $MX_COUNT"
-echo "A mechanisms: $A_COUNT"
-TOTAL=$((INCLUDES + MX_COUNT + A_COUNT))
-echo "Estimated total lookups: $TOTAL"
-
-if [ $TOTAL -gt 10 ]; then
-    echo "WARNING: May exceed 10 lookup limit!"
+# Check for common syntax errors
+if [[ ! "$SPF_RECORD" =~ ^v=spf1[[:space:]] ]]; then
+    error_exit "SPF record must start with 'v=spf1 '"
 fi
+
+if [[ ! "$SPF_RECORD" =~ ([-~+?]all|redirect=) ]]; then
+    warning "SPF record should end with a terminating 'all' mechanism or redirect"
+fi
+
+# Check for multiple spf records (not allowed)
+SPF_COUNT=$(dig +short TXT "$DOMAIN" | grep -c "v=spf1" || true)
+if [ "$SPF_COUNT" -gt 1 ]; then
+    error_exit "Multiple SPF records found! Only one SPF record is allowed per domain."
+fi
+
+success "SPF syntax is valid"
 echo
 
-# 3. Check record length
-echo "3. Checking record length..."
+# 3. Count DNS lookups
+echo "3. Counting DNS lookups..."
+
+# Count mechanisms that cause DNS lookups
+INCLUDES=$(echo "$SPF_RECORD" | grep -o "include:[^ ]*" | wc -l)
+MX_COUNT=$(echo "$SPF_RECORD" | grep -o "\\bmx\\b" | wc -l)
+A_COUNT=$(echo "$SPF_RECORD" | grep -o -E " a\\b|\\ba:" | wc -l)
+PTR_COUNT=$(echo "$SPF_RECORD" | grep -o "\\bptr\\b" | wc -l)
+EXISTS_COUNT=$(echo "$SPF_RECORD" | grep -o "exists:" | wc -l)
+
+echo "  Includes: $INCLUDES"
+echo "  MX mechanisms: $MX_COUNT"
+echo "  A mechanisms: $A_COUNT"
+echo "  PTR mechanisms: $PTR_COUNT"
+echo "  EXISTS mechanisms: $EXISTS_COUNT"
+
+TOTAL=$((INCLUDES + MX_COUNT + A_COUNT + PTR_COUNT + EXISTS_COUNT))
+echo "  Estimated total lookups: $TOTAL"
+
+if [ "$TOTAL" -gt 10 ]; then
+    error_exit "SPF record exceeds 10 DNS lookup limit! This will cause PermError."
+elif [ "$TOTAL" -eq 10 ]; then
+    warning "SPF record uses exactly 10 DNS lookups. No room for expansion."
+elif [ "$TOTAL" -ge 8 ]; then
+    warning "SPF record uses $TOTAL DNS lookups. Approaching the 10 lookup limit."
+else
+    success "DNS lookup count is within limits ($TOTAL/10)"
+fi
+
+if [ "$PTR_COUNT" -gt 0 ]; then
+    warning "PTR mechanism is deprecated and slow. Consider replacing with ip4/ip6."
+fi
+
+echo
+
+# 4. Check record length
+echo "4. Checking record length..."
 LENGTH=${#SPF_RECORD}
-echo "Record length: $LENGTH characters"
-if [ $LENGTH -gt 255 ]; then
-    echo "WARNING: Record exceeds 255 character soft limit"
+echo "  Record length: $LENGTH characters"
+
+if [ "$LENGTH" -gt 450 ]; then
+    error_exit "Record length exceeds 450 characters. May cause issues with some DNS servers."
+elif [ "$LENGTH" -gt 255 ]; then
+    warning "Record length exceeds 255 character soft limit ($LENGTH characters)"
+else
+    success "Record length is acceptable"
 fi
 echo
 
-# 4. Send test email
-echo "4. Sending test email to $TEST_EMAIL..."
-echo "SPF test from $DOMAIN at $(date)" | mail -s "SPF Test - $DOMAIN" $TEST_EMAIL
-echo "Test email sent. Check authentication headers in received message."
+# 5. Check for common issues
+echo "5. Checking for common issues..."
+
+# Check for soft fail in production
+if [[ "$SPF_RECORD" =~ ~all$ ]]; then
+    warning "Using soft fail (~all). Consider hard fail (-all) for production."
+fi
+
+# Check for overly permissive policies
+if [[ "$SPF_RECORD" =~ [?]all$ ]]; then
+    warning "Using neutral (?all). This provides no protection!"
+fi
+
+if [[ "$SPF_RECORD" =~ [+]all$ ]]; then
+    warning "Using pass (+all). This allows ALL servers - completely insecure!"
+fi
+
+# Check for hardcoded IPs from major providers
+if echo "$SPF_RECORD" | grep -qE "ip4:(168\.245\.|167\.89\.)"; then
+    warning "Possible hardcoded SendGrid IPs. Use include:sendgrid.net instead."
+fi
+
+success "Common issue check complete"
+echo
+
+# 6. Test included SPF records
+echo "6. Validating included SPF records..."
+INCLUDE_DOMAINS=$(echo "$SPF_RECORD" | grep -o "include:[^ ]*" | cut -d':' -f2 || true)
+
+if [ -n "$INCLUDE_DOMAINS" ]; then
+    for INCLUDE_DOMAIN in $INCLUDE_DOMAINS; do
+        echo "  Checking $INCLUDE_DOMAIN..."
+        INCLUDE_SPF=$(dig +short TXT "$INCLUDE_DOMAIN" | grep "v=spf1" || true)
+        if [ -z "$INCLUDE_SPF" ]; then
+            error_exit "Included domain $INCLUDE_DOMAIN has no SPF record!"
+        else
+            success "$INCLUDE_DOMAIN has valid SPF record"
+        fi
+    done
+else
+    echo "  No includes to validate"
+fi
+echo
+
+# 7. Send test email (optional)
+if [ -n "$TEST_EMAIL" ]; then
+    echo "7. Sending test email to $TEST_EMAIL..."
+    if command -v mail >/dev/null 2>&1; then
+        echo "SPF test from $DOMAIN at $(date)" | mail -s "SPF Test - $DOMAIN" "$TEST_EMAIL" && \
+        success "Test email sent successfully" || \
+        warning "Failed to send test email"
+        echo "Check authentication headers in received message for:"
+        echo "  Authentication-Results: ... spf=pass ..."
+    else
+        warning "mail command not found. Skipping email test."
+        echo "Install mailutils: sudo apt-get install mailutils"
+    fi
+else
+    echo "7. Skipping test email (no recipient specified)"
+fi
 echo
 
 echo "===== Test Complete ====="
-echo "Review received email headers for:"
-echo "  Authentication-Results: ... spf=pass ..."
+echo
+echo "Summary:"
+echo "  Domain: $DOMAIN"
+echo "  SPF Record: $SPF_RECORD"
+echo "  DNS Lookups: $TOTAL/10"
+echo "  Record Length: $LENGTH characters"
+echo
+
+exit 0
+```
+
+**Script features:**
+
+- ✅ Comprehensive error handling with `set -euo pipefail`
+- ✅ Color-coded output for errors, warnings, and success
+- ✅ Validates SPF syntax and common issues
+- ✅ Counts DNS lookups accurately
+- ✅ Checks included SPF records
+- ✅ Provides actionable warnings
+- ✅ Exit codes for CI/CD integration
+
+**Usage:**
+
+```bash
+# Basic validation
+./spf-test.sh example.com
+
+# With test email
+./spf-test.sh example.com admin@example.com
+
+# In CI/CD pipeline
+./spf-test.sh example.com || exit 1
+```
+
+#### CI/CD Integration Examples
+
+##### GitHub Actions Workflow
+
+```yaml
+name: SPF Validation
+
+on:
+  push:
+    paths:
+      - 'dns/spf-records.txt'
+      - '.github/workflows/spf-validation.yml'
+  pull_request:
+    paths:
+      - 'dns/spf-records.txt'
+
+jobs:
+  validate-spf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install dig
+        run: sudo apt-get update && sudo apt-get install -y dnsutils
+      
+      - name: Download SPF validation script
+        run: |
+          curl -o spf-test.sh https://example.com/scripts/spf-test.sh
+          chmod +x spf-test.sh
+      
+      - name: Validate SPF records
+        run: |
+          # Read domains from file
+          while IFS= read -r domain; do
+            echo "Testing $domain..."
+            ./spf-test.sh "$domain" || exit 1
+          done < dns/spf-records.txt
+      
+      - name: Check DNS lookup count
+        run: |
+          # Fail if any domain exceeds 8 lookups (warning threshold)
+          while IFS= read -r domain; do
+            LOOKUPS=$(dig +short TXT "$domain" | \
+              grep -o -E "include:|\\bmx\\b|\\ba\\b" | wc -l)
+            if [ "$LOOKUPS" -gt 8 ]; then
+              echo "ERROR: $domain uses $LOOKUPS lookups (max safe: 8)"
+              exit 1
+            fi
+          done < dns/spf-records.txt
+      
+      - name: Notify on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '❌ SPF validation failed! Check workflow logs for details.'
+            })
+```
+
+##### GitLab CI Pipeline
+
+```yaml
+spf-validation:
+  stage: test
+  image: alpine:latest
+  before_script:
+    - apk add --no-cache bind-tools bash
+  script:
+    - chmod +x scripts/spf-test.sh
+    - |
+      for domain in $(cat dns/spf-records.txt); do
+        echo "Validating $domain..."
+        ./scripts/spf-test.sh "$domain" || exit 1
+      done
+  rules:
+    - changes:
+      - dns/spf-records.txt
+      - scripts/spf-test.sh
+  allow_failure: false
+```
+
+#### Pre-Commit Hook for SPF Validation
+
+Create `.git/hooks/pre-commit`:
+
+```bash
+#!/bin/bash
+# Pre-commit hook for SPF validation
+
+set -e
+
+SPF_RECORDS_FILE="dns/spf-records.txt"
+
+# Only run if SPF records file is being committed
+if git diff --cached --name-only | grep -q "$SPF_RECORDS_FILE"; then
+    echo "Validating SPF records before commit..."
+    
+    # Get list of domains from staged file
+    DOMAINS=$(git show ":$SPF_RECORDS_FILE")
+    
+    # Validate each domain
+    for domain in $DOMAINS; do
+        echo "Checking $domain..."
+        
+        # Check if SPF record exists
+        SPF=$(dig +short TXT "$domain" | grep "v=spf1" || true)
+        if [ -z "$SPF" ]; then
+            echo "ERROR: No SPF record found for $domain"
+            exit 1
+        fi
+        
+        # Count DNS lookups
+        LOOKUPS=$(echo "$SPF" | grep -o -E "include:|\\bmx\\b|\\ba\\b" | wc -l)
+        if [ "$LOOKUPS" -gt 10 ]; then
+            echo "ERROR: $domain exceeds DNS lookup limit ($LOOKUPS lookups)"
+            exit 1
+        fi
+        
+        echo "✓ $domain: $LOOKUPS/10 lookups"
+    done
+    
+    echo "✓ All SPF records validated successfully"
+fi
+
+exit 0
+```
+
+**Make hook executable:**
+
+```bash
+chmod +x .git/hooks/pre-commit
+```
+
+#### Automated SPF Monitoring Script
+
+```bash
+#!/bin/bash
+# Continuous SPF monitoring script
+# Run via cron: */15 * * * * /usr/local/bin/spf-monitor.sh
+
+DOMAINS="example.com example.org"
+ALERT_EMAIL="admin@example.com"
+LOG_FILE="/var/log/spf-monitor.log"
+
+for DOMAIN in $DOMAINS; do
+    TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    # Check SPF record
+    SPF=$(dig +short TXT "$DOMAIN" +timeout=5 | grep "v=spf1" || true)
+    
+    if [ -z "$SPF" ]; then
+        # SPF record missing!
+        echo "[$TIMESTAMP] ALERT: No SPF record for $DOMAIN" >> "$LOG_FILE"
+        echo "ALERT: SPF record missing for $DOMAIN" | \
+            mail -s "SPF ALERT: $DOMAIN" "$ALERT_EMAIL"
+    else
+        # Check lookup count
+        LOOKUPS=$(echo "$SPF" | grep -o -E "include:|\\bmx\\b|\\ba\\b" | wc -l)
+        
+        if [ "$LOOKUPS" -gt 10 ]; then
+            echo "[$TIMESTAMP] ALERT: $DOMAIN exceeds lookup limit ($LOOKUPS)" >> "$LOG_FILE"
+            echo "ALERT: $DOMAIN SPF exceeds lookup limit: $LOOKUPS lookups" | \
+                mail -s "SPF ALERT: $DOMAIN" "$ALERT_EMAIL"
+        fi
+        
+        echo "[$TIMESTAMP] OK: $DOMAIN SPF valid ($LOOKUPS lookups)" >> "$LOG_FILE"
+    fi
+done
+```
+
+**Install as cron job:**
+
+```bash
+# Edit crontab
+crontab -e
+
+# Add monitoring every 15 minutes
+*/15 * * * * /usr/local/bin/spf-monitor.sh
 ```
 
 #### Online SPF Validators
