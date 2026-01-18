@@ -10,6 +10,17 @@ keywords: ["Terraform", "Proxmox", "Kubernetes", "K8s", "Infrastructure as Code"
 
 This guide demonstrates how to deploy VM infrastructure on Proxmox VE using Terraform for Kubernetes clusters. Terraform handles VM provisioning with cloud-init integration, while Kubernetes installation can be automated through cloud-init scripts, Ansible, or manual setup. The configuration creates multiple nodes with proper networking, security, and scalability considerations.
 
+> **⚠️ SECURITY WARNING:** This guide contains example configurations with placeholder values. NEVER use these examples directly in production. Always:
+>
+> - Generate unique SSH keys for each environment
+> - Use strong, randomly generated passwords and tokens
+> - Enable TLS verification (set `proxmox_tls_insecure = false`)
+> - Store sensitive values in secure secret management systems (HashiCorp Vault, AWS Secrets Manager, etc.)
+> - Never commit `terraform.tfvars` or any files containing credentials to version control
+> - Implement regular secret rotation policies
+
+---
+
 > **Note:** This guide focuses on infrastructure provisioning. Kubernetes installation is covered through cloud-init automation. For production deployments, consider using Packer for template creation and GitOps workflows.
 
 ## Prerequisites
@@ -100,6 +111,10 @@ terraform {
     region         = "us-east-1"
     encrypt        = true
     dynamodb_table = "terraform-state-lock"
+    
+    # Enable state locking
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
   }
   
   # Alternative: Consul backend
@@ -118,29 +133,22 @@ terraform {
   
   required_providers {
     proxmox = {
-      source  = "bpg/proxmox"
-      version = "~> 0.46"
+      source  = "telmate/proxmox"
+      version = "~> 2.9"
     }
   }
 }
 
 provider "proxmox" {
-  endpoint  = var.proxmox_api_url
-  api_token = "${var.proxmox_api_token_id}=${var.proxmox_api_token_secret}"
-  insecure  = var.proxmox_tls_insecure
+  pm_api_url      = var.proxmox_api_url
+  pm_api_token_id = var.proxmox_api_token_id
+  pm_api_token_secret = var.proxmox_api_token_secret
+  pm_tls_insecure = var.proxmox_tls_insecure
   
-  # Optional: SSH connection for operations requiring it
-  ssh {
-    agent    = true
-    username = "root"
-  }
-  
-  # Logging configuration
-  tmp_dir = "/tmp"
 }
 ```
 
-> **Note:** The provider has changed from `telmate/proxmox` to `bpg/proxmox` (community-maintained fork with active development). Update your existing configurations accordingly.
+> **Note:** This configuration uses the `telmate/proxmox` provider which is stable and widely used. For the latest features, consider the `bpg/proxmox` fork, but note that resource names and configuration differ significantly.
 
 ### `variables.tf`
 
@@ -172,8 +180,8 @@ variable "proxmox_api_token_secret" {
 
 variable "proxmox_tls_insecure" {
   type        = bool
-  description = "Skip TLS verification for Proxmox API"
-  default     = true
+  description = "Skip TLS verification for Proxmox API (only use for testing with self-signed certificates)"
+  default     = false
 }
 
 variable "target_node" {
@@ -216,6 +224,21 @@ variable "cluster_network" {
     dns     = list(string)
   })
   description = "Network configuration for the cluster"
+  validation {
+    condition     = can(cidrhost(var.cluster_network.subnet, 0))
+    error_message = "Subnet must be a valid CIDR notation (e.g., 192.168.100.0/24)"
+  }
+  validation {
+    condition     = can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.cluster_network.gateway))
+    error_message = "Gateway must be a valid IPv4 address"
+  }
+  validation {
+    condition = alltrue([
+      for dns in var.cluster_network.dns : 
+      can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", dns))
+    ])
+    error_message = "All DNS servers must be valid IPv4 addresses"
+  }
   default = {
     subnet  = "192.168.100.0/24"
     gateway = "192.168.100.1"
@@ -232,6 +255,28 @@ variable "master_nodes" {
     disk   = string
   }))
   description = "Master node configurations"
+  validation {
+    condition = alltrue([
+      for k, v in var.master_nodes : 
+      can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", v.ip))
+    ])
+    error_message = "All master node IP addresses must be valid IPv4 addresses"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.master_nodes : 
+      v.vmid >= 100 && v.vmid <= 999999
+    ])
+    error_message = "All master node VMIDs must be between 100 and 999999"
+  }
+  validation {
+    condition = length(var.master_nodes) == length(distinct([for k, v in var.master_nodes : v.vmid]))
+    error_message = "All master node VMIDs must be unique"
+  }
+  validation {
+    condition = length(var.master_nodes) == length(distinct([for k, v in var.master_nodes : v.ip]))
+    error_message = "All master node IP addresses must be unique"
+  }
   default = {
     "master-01" = {
       vmid   = 101
@@ -266,6 +311,28 @@ variable "worker_nodes" {
     disk   = string
   }))
   description = "Worker node configurations"
+  validation {
+    condition = alltrue([
+      for k, v in var.worker_nodes : 
+      can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", v.ip))
+    ])
+    error_message = "All worker node IP addresses must be valid IPv4 addresses"
+  }
+  validation {
+    condition = alltrue([
+      for k, v in var.worker_nodes : 
+      v.vmid >= 100 && v.vmid <= 999999
+    ])
+    error_message = "All worker node VMIDs must be between 100 and 999999"
+  }
+  validation {
+    condition = length(var.worker_nodes) == length(distinct([for k, v in var.worker_nodes : v.vmid]))
+    error_message = "All worker node VMIDs must be unique"
+  }
+  validation {
+    condition = length(var.worker_nodes) == length(distinct([for k, v in var.worker_nodes : v.ip]))
+    error_message = "All worker node IP addresses must be unique"
+  }
   default = {
     "worker-01" = {
       vmid   = 201
@@ -318,6 +385,10 @@ variable "enable_ha" {
 variable "lb_ip" {
   type        = string
   description = "Load balancer IP address"
+  validation {
+    condition     = can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.lb_ip))
+    error_message = "Load balancer IP must be a valid IPv4 address"
+  }
   default     = "192.168.100.5"
 }
 ```
@@ -457,6 +528,23 @@ scp cloud-init/k8s-node.yaml root@proxmox-host:/var/lib/vz/snippets/
 # Local values for common configurations
 locals {
   all_nodes = merge(var.master_nodes, var.worker_nodes)
+  
+  # Kubernetes constants
+  k8s_api_port              = 6443
+  haproxy_stats_port        = 8404
+  node_exporter_port        = 9100
+  
+  # Default resource allocations
+  default_master_memory_mb  = 4096
+  default_master_cores      = 2
+  default_master_disk_gb    = 20
+  default_worker_memory_mb  = 8192
+  default_worker_cores      = 4
+  default_worker_disk_gb    = 50
+  
+  # Network configuration
+  pod_network_cidr_default  = "10.244.0.0/16"
+  service_cidr_default      = "10.96.0.0/12"
   
   common_vm_config = {
     agent               = 1
@@ -657,11 +745,25 @@ output "worker_nodes" {
 
 output "cluster_endpoints" {
   description = "Kubernetes cluster connection information"
+  sensitive   = true
   value = {
-    api_servers    = [for k, v in var.master_nodes : "${v.ip}:6443"]
+    api_servers    = [for k, v in var.master_nodes : "${v.ip}:${local.k8s_api_port}"]
     master_ips     = [for k, v in var.master_nodes : v.ip]
     worker_ips     = [for k, v in var.worker_nodes : v.ip]
-    ssh_command    = "ssh ${var.cloud_init_user}@<node_ip>"
+    # SSH connection info removed from output for security
+    # Use: terraform output -raw cluster_endpoints | jq -r '.master_ips[0]'
+  }
+}
+
+output "connection_info" {
+  description = "Safe connection information for cluster access"
+  value = {
+    cluster_name     = var.cluster_name
+    master_count     = length(var.master_nodes)
+    worker_count     = length(var.worker_nodes)
+    kubernetes_version = var.kubernetes_version
+    ha_enabled       = var.enable_ha
+    api_endpoint     = var.enable_ha ? "${var.lb_ip}:${local.k8s_api_port}" : "${values(var.master_nodes)[0].ip}:${local.k8s_api_port}"
   }
 }
 
@@ -669,7 +771,7 @@ output "next_steps" {
   description = "Commands to run after deployment"
   value = {
     ssh_to_master = "ssh ${var.cloud_init_user}@${values(var.master_nodes)[0].ip}"
-    kubeadm_init  = "sudo kubeadm init --apiserver-advertise-address=${values(var.master_nodes)[0].ip} --pod-network-cidr=10.244.0.0/16"
+    kubeadm_init  = "sudo kubeadm init --apiserver-advertise-address=${values(var.master_nodes)[0].ip} --pod-network-cidr=${local.pod_network_cidr_default}"
     setup_kubectl = "mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config"
   }
 }
@@ -747,6 +849,8 @@ resource "proxmox_vm_qemu" "k8s_lb" {
 
 Create `cloud-init/haproxy-cloud-init.yml`:
 
+> **Note:** This should be generated dynamically using Terraform's `templatefile()` function for production use.
+
 ```yaml
 #cloud-config
 package_update: true
@@ -777,7 +881,7 @@ write_files:
         timeout server  50000
       
       frontend k8s_api_frontend
-        bind *:6443
+        bind *:${K8S_API_PORT}
         mode tcp
         option tcplog
         default_backend k8s_api_backend
@@ -786,12 +890,14 @@ write_files:
         mode tcp
         option tcp-check
         balance roundrobin
-        server master-01 192.168.100.10:6443 check fall 3 rise 2
-        server master-02 192.168.100.11:6443 check fall 3 rise 2
-        server master-03 192.168.100.12:6443 check fall 3 rise 2
+        # NOTE: These IPs should be dynamically generated from Terraform
+        # Use: templatefile("haproxy-cloud-init.tpl", { master_nodes = var.master_nodes })
+        server master-01 ${MASTER_01_IP}:${K8S_API_PORT} check fall 3 rise 2
+        server master-02 ${MASTER_02_IP}:${K8S_API_PORT} check fall 3 rise 2
+        server master-03 ${MASTER_03_IP}:${K8S_API_PORT} check fall 3 rise 2
       
       listen stats
-        bind *:8404
+        bind *:${HAPROXY_STATS_PORT}
         stats enable
         stats uri /
         stats refresh 30s
@@ -801,10 +907,94 @@ runcmd:
   - systemctl restart haproxy
 ```
 
-Upload to Proxmox:
+**Better approach using Terraform template:**
 
-```bash
-scp cloud-init/haproxy-cloud-init.yml root@proxmox-host:/var/lib/vz/snippets/
+Create `templates/haproxy-cloud-init.tpl`:
+
+```yaml
+#cloud-config
+package_update: true
+packages:
+  - haproxy
+  - keepalived
+
+write_files:
+  - path: /etc/haproxy/haproxy.cfg
+    content: |
+      global
+        log /dev/log local0
+        log /dev/log local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+      
+      defaults
+        log     global
+        mode    tcp
+        option  tcplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+      
+      frontend k8s_api_frontend
+        bind *:${k8s_api_port}
+        mode tcp
+        option tcplog
+        default_backend k8s_api_backend
+      
+      backend k8s_api_backend
+        mode tcp
+        option tcp-check
+        balance roundrobin
+        %{ for name, node in master_nodes ~}
+        server ${name} ${node.ip}:${k8s_api_port} check fall 3 rise 2
+        %{ endfor ~}
+      
+      listen stats
+        bind *:${haproxy_stats_port}
+        stats enable
+        stats uri /
+        stats refresh 30s
+
+runcmd:
+  - systemctl enable haproxy
+  - systemctl restart haproxy
+```
+
+Then generate the file in Terraform:
+
+```hcl
+# Generate HAProxy cloud-init configuration
+resource "local_file" "haproxy_cloud_init" {
+  count = var.enable_ha ? 1 : 0
+  
+  content = templatefile("${path.module}/templates/haproxy-cloud-init.tpl", {
+    master_nodes       = var.master_nodes
+    k8s_api_port      = local.k8s_api_port
+    haproxy_stats_port = local.haproxy_stats_port
+  })
+  filename = "${path.module}/generated/haproxy-cloud-init.yml"
+}
+
+# Upload to Proxmox requires manual step or automation
+# Consider using Terraform's null_resource with local-exec
+resource "null_resource" "upload_haproxy_config" {
+  count = var.enable_ha ? 1 : 0
+  
+  triggers = {
+    config_hash = local_file.haproxy_cloud_init[0].content
+  }
+  
+  provisioner "local-exec" {
+    command = "scp ${local_file.haproxy_cloud_init[0].filename} root@${var.proxmox_host}:/var/lib/vz/snippets/haproxy-cloud-init.yml"
+  }
+  
+  depends_on = [local_file.haproxy_cloud_init]
+}
 ```
 
 Update outputs for load balancer:
@@ -814,8 +1004,8 @@ output "load_balancer" {
   description = "Load balancer information"
   value = var.enable_ha ? {
     ip            = var.lb_ip
-    api_endpoint  = "${var.lb_ip}:6443"
-    stats_url     = "http://${var.lb_ip}:8404"
+    api_endpoint  = "${var.lb_ip}:${local.k8s_api_port}"
+    stats_url     = "http://${var.lb_ip}:${local.haproxy_stats_port}"
   } : null
 }
 ```
@@ -828,12 +1018,20 @@ output "load_balancer" {
 
 Create this file with your actual values (DO NOT commit to version control):
 
+> **⚠️ CRITICAL SECURITY REMINDER:**
+>
+> - Add `terraform.tfvars` to your `.gitignore` file immediately
+> - Use unique credentials for each environment (dev, staging, production)
+> - Enable TLS verification in production (`proxmox_tls_insecure = false`)
+> - Consider using `terraform.tfvars.example` as a template and `.tfvars` for actual values
+> - For CI/CD pipelines, use environment variables or secret management tools instead
+
 ```hcl
 # Proxmox connection
 proxmox_api_url          = "https://your-proxmox-host:8006/api2/json"
 proxmox_api_token_id     = "terraform-prov@pve!terraform_id"
 proxmox_api_token_secret = "your-api-token-secret"
-proxmox_tls_insecure     = true
+proxmox_tls_insecure     = false  # Set to true only for testing with self-signed certs
 
 # Infrastructure settings  
 target_node     = "your-node-name"
@@ -1145,7 +1343,8 @@ resource "local_file" "ansible_inventory" {
   
   depends_on = [
     proxmox_vm_qemu.k8s_masters,
-    proxmox_vm_qemu.k8s_workers
+    proxmox_vm_qemu.k8s_workers,
+    proxmox_vm_qemu.k8s_lb
   ]
 }
 
@@ -1156,16 +1355,32 @@ resource "null_resource" "kubernetes_installation" {
       [for k, v in proxmox_vm_qemu.k8s_masters : v.vmid],
       [for k, v in proxmox_vm_qemu.k8s_workers : v.vmid]
     ))
+    kubernetes_version = var.kubernetes_version
   }
   
   provisioner "local-exec" {
     command = <<-EOT
       cd ${path.module}/ansible
-      sleep 60  # Wait for cloud-init to complete
+      
+      # Wait for all VMs to have cloud-init complete
+      echo "Waiting for cloud-init to complete on all nodes..."
+      for ip in ${join(" ", concat(
+        [for k, v in var.master_nodes : v.ip],
+        [for k, v in var.worker_nodes : v.ip]
+      ))}; do
+        echo "Checking $ip..."
+        timeout 600 bash -c 'until ssh -o StrictHostKeyChecking=no -o ConnectTimeout=5 ${var.cloud_init_user}@'$ip' "cloud-init status --wait" 2>/dev/null; do sleep 10; done'
+        if [ $? -ne 0 ]; then
+          echo "ERROR: Cloud-init did not complete on $ip within 10 minutes"
+          exit 1
+        fi
+        echo "Cloud-init completed on $ip"
+      done
+      
       ansible-playbook -i inventory/hosts.ini \
-        -e kubernetes_version=1.28.3 \
-        -e pod_network_cidr=10.244.0.0/16 \
-        -e service_cidr=10.96.0.0/12 \
+        -e kubernetes_version=${var.kubernetes_version} \
+        -e pod_network_cidr=${var.pod_network_cidr} \
+        -e service_cidr=${var.service_cidr} \
         -e cluster_name=${var.cluster_name} \
         playbooks/k8s-cluster.yml
     EOT
@@ -1175,20 +1390,43 @@ resource "null_resource" "kubernetes_installation" {
     }
   }
   
-  depends_on = [local_file.ansible_inventory]
+  depends_on = [
+    local_file.ansible_inventory,
+    proxmox_vm_qemu.k8s_masters,
+    proxmox_vm_qemu.k8s_workers
+  ]
 }
 
 # Retrieve kubeconfig
 resource "null_resource" "fetch_kubeconfig" {
+  triggers = {
+    cluster_id = null_resource.kubernetes_installation.id
+  }
+  
   provisioner "local-exec" {
     command = <<-EOT
+      set -euo pipefail
+      
       mkdir -p ${path.module}/kubeconfig
+      
+      echo "Waiting for Kubernetes API to be ready..."
+      timeout 300 bash -c 'until kubectl --kubeconfig=/dev/null get --raw /healthz &>/dev/null; do sleep 5; done' || true
+      
+      echo "Fetching kubeconfig..."
       scp -o StrictHostKeyChecking=no \
         ${var.cloud_init_user}@${values(var.master_nodes)[0].ip}:~/.kube/config \
         ${path.module}/kubeconfig/${var.cluster_name}.conf
       
       # Update server address if using load balancer
-      ${var.enable_ha ? "sed -i 's|server: https://.*:6443|server: https://${var.lb_ip}:6443|' ${path.module}/kubeconfig/${var.cluster_name}.conf" : ""}
+      if [ "${var.enable_ha}" = "true" ]; then
+        sed -i 's|server: https://.*:${local.k8s_api_port}|server: https://${var.lb_ip}:${local.k8s_api_port}|' \
+          ${path.module}/kubeconfig/${var.cluster_name}.conf
+      fi
+      
+      # Set proper permissions
+      chmod 600 ${path.module}/kubeconfig/${var.cluster_name}.conf
+      
+      echo "Kubeconfig saved to: ${path.module}/kubeconfig/${var.cluster_name}.conf"
     EOT
   }
   
@@ -1510,27 +1748,37 @@ Create `packer/scripts/k8s-prep.sh`:
 
 ```bash
 #!/bin/bash
-set -e
+# Kubernetes Node Preparation Script
+# Exit on error, undefined variables, and pipe failures
+set -euo pipefail
 
-K8S_VERSION=$1
-CONTAINERD_VERSION=$2
+# Trap errors and report line number
+trap 'echo "Error on line $LINENO. Exit code: $?" >&2' ERR
+
+K8S_VERSION=${1:-"1.28.3"}
+CONTAINERD_VERSION=${2:-"1.7.11"}
 
 echo "=== Installing Kubernetes prerequisites ==="
+echo "Kubernetes version: ${K8S_VERSION}"
+echo "Containerd version: ${CONTAINERD_VERSION}"
 
 # Disable swap
-swapoff -a
+echo "Disabling swap..."
+swapoff -a || { echo "Failed to disable swap" >&2; exit 1; }
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 # Load kernel modules
+echo "Loading kernel modules..."
 cat <<EOF | tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
 EOF
 
-modprobe overlay
-modprobe br_netfilter
+modprobe overlay || { echo "Failed to load overlay module" >&2; exit 1; }
+modprobe br_netfilter || { echo "Failed to load br_netfilter module" >&2; exit 1; }
 
 # Set sysctl parameters
+echo "Configuring sysctl parameters..."
 cat <<EOF | tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
@@ -1541,50 +1789,77 @@ kernel.panic                        = 10
 kernel.panic_on_oops                = 1
 EOF
 
-sysctl --system
+sysctl --system || { echo "Failed to apply sysctl parameters" >&2; exit 1; }
 
 echo "=== Installing containerd ==="
 
 # Install dependencies
-apt-get update
-apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+apt-get update || { echo "Failed to update package list" >&2; exit 1; }
+apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release || {
+  echo "Failed to install dependencies" >&2
+  exit 1
+}
 
 # Add Docker repository
-curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg || {
+  echo "Failed to add Docker GPG key" >&2
+  exit 1
+}
+
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install containerd
-apt-get update
-apt-get install -y containerd.io
+apt-get update || { echo "Failed to update package list" >&2; exit 1; }
+apt-get install -y containerd.io || { echo "Failed to install containerd" >&2; exit 1; }
 
 # Configure containerd
 mkdir -p /etc/containerd
-containerd config default | tee /etc/containerd/config.toml
+containerd config default | tee /etc/containerd/config.toml > /dev/null
 sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 
-systemctl restart containerd
-systemctl enable containerd
+systemctl restart containerd || { echo "Failed to restart containerd" >&2; exit 1; }
+systemctl enable containerd || { echo "Failed to enable containerd" >&2; exit 1; }
 
 echo "=== Installing Kubernetes components ==="
 
 # Add Kubernetes repository
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION%.*}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION%.*}/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION%.*}/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg || {
+  echo "Failed to add Kubernetes GPG key" >&2
+  exit 1
+}
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v${K8S_VERSION%.*}/deb/ /" | tee /etc/apt/sources.list.d/kubernetes.list > /dev/null
 
 # Install kubeadm, kubelet, kubectl
-apt-get update
-apt-get install -y kubelet kubeadm kubectl
-apt-mark hold kubelet kubeadm kubectl
+apt-get update || { echo "Failed to update package list" >&2; exit 1; }
+apt-get install -y kubelet kubeadm kubectl || {
+  echo "Failed to install Kubernetes components" >&2
+  exit 1
+}
 
-systemctl enable kubelet
+apt-mark hold kubelet kubeadm kubectl || {
+  echo "Failed to hold Kubernetes packages" >&2
+  exit 1
+}
+
+systemctl enable kubelet || { echo "Failed to enable kubelet" >&2; exit 1; }
 
 echo "=== Installing monitoring tools ==="
 
 # Install Prometheus Node Exporter
-wget -q https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
-tar xvfz node_exporter-1.7.0.linux-amd64.tar.gz
-cp node_exporter-1.7.0.linux-amd64/node_exporter /usr/local/bin/
-useradd -rs /bin/false node_exporter
+NODE_EXPORTER_VERSION="1.7.0"
+wget -q "https://github.com/prometheus/node_exporter/releases/download/v${NODE_EXPORTER_VERSION}/node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz" || {
+  echo "Failed to download node_exporter" >&2
+  exit 1
+}
+
+tar xvfz "node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64.tar.gz"
+cp "node_exporter-${NODE_EXPORTER_VERSION}.linux-amd64/node_exporter" /usr/local/bin/
+
+if ! id -u node_exporter > /dev/null 2>&1; then
+  useradd -rs /bin/false node_exporter
+fi
+
 chown node_exporter:node_exporter /usr/local/bin/node_exporter
 
 cat <<EOF | tee /etc/systemd/system/node_exporter.service
@@ -1603,12 +1878,16 @@ WantedBy=multi-user.target
 EOF
 
 systemctl daemon-reload
-systemctl enable node_exporter
+systemctl enable node_exporter || { echo "Failed to enable node_exporter" >&2; exit 1; }
 
 # Cleanup
-rm -rf node_exporter-*
+rm -rf "node_exporter-${NODE_EXPORTER_VERSION}"*
 
 echo "=== Kubernetes prerequisites installation complete ==="
+echo "Installed versions:"
+kubelet --version
+kubeadm version
+kubectl version --client
 ```
 
 ### Debian Preseed File
@@ -2442,6 +2721,59 @@ kubectl cluster-info
 
 ---
 
+## Day-2 Operations
+
+### Kubernetes Version Upgrades
+
+Upgrade control plane first, then workers. Always test in non-production first.
+
+```bash
+# On first control plane node
+sudo apt-mark unhold kubeadm
+sudo apt-get update && sudo apt-get install -y kubeadm=1.29.0-00
+sudo apt-mark hold kubeadm
+
+kubectl drain $(hostname) --ignore-daemonsets --delete-emptydir-data
+sudo kubeadm upgrade apply v1.29.0
+
+sudo apt-mark unhold kubelet kubectl
+sudo apt-get install -y kubelet=1.29.0-00 kubectl=1.29.0-00
+sudo apt-mark hold kubelet kubectl
+
+sudo systemctl daemon-reload && sudo systemctl restart kubelet
+kubectl uncordon $(hostname)
+```
+
+### Certificate Management
+
+Monitor and renew certificates before expiration:
+
+```bash
+# Check expiration
+sudo kubeadm certs check-expiration
+
+# Renew all certificates
+sudo kubeadm certs renew all
+
+# Restart control plane
+kubectl -n kube-system delete pod -l component=kube-apiserver
+```
+
+### etcd Maintenance
+
+Regular defragmentation reclaims disk space:
+
+```bash
+sudo ETCDCTL_API=3 etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  defrag
+```
+
+---
+
 ## Management and Maintenance
 
 ### Scaling Operations
@@ -2509,33 +2841,186 @@ master_nodes = {
 
 #### Backup Strategy
 
+Define RTO (Recovery Time Objective) and RPO (Recovery Point Objective):
+
+- **RTO Target**: 2 hours for full cluster recovery
+- **RPO Target**: Maximum 4 hours data loss for applications, 1 hour for infrastructure state
+
+**Backup Components:**
+
 ```bash
-# Backup Terraform state
-cp terraform.tfstate terraform.tfstate.backup
+# 1. Backup Terraform state (critical for infrastructure)
+cp terraform.tfstate terraform.tfstate.backup.$(date +%Y%m%d-%H%M%S)
 
-# Backup Kubernetes cluster
-kubectl get all --all-namespaces -o yaml > cluster-backup.yaml
-
-# Backup etcd (from master node)
-sudo ETCDCTL_API=3 etcdctl snapshot save /opt/etcd-backup.db \
+# 2. Backup etcd (Kubernetes cluster state)
+sudo ETCDCTL_API=3 etcdctl snapshot save /opt/etcd-backup-$(date +%Y%m%d-%H%M%S).db \
   --endpoints=https://127.0.0.1:2379 \
   --cacert=/etc/kubernetes/pki/etcd/ca.crt \
   --cert=/etc/kubernetes/pki/etcd/server.crt \
   --key=/etc/kubernetes/pki/etcd/server.key
+
+# 3. Backup Kubernetes resources
+kubectl get all --all-namespaces -o yaml > cluster-resources-$(date +%Y%m%d-%H%M%S).yaml
+
+# 4. Backup persistent volumes data
+# Use Velero or storage-specific snapshots
+
+# 5. Backup certificates and secrets
+sudo tar -czf k8s-pki-backup-$(date +%Y%m%d-%H%M%S).tar.gz \
+  /etc/kubernetes/pki \
+  /etc/kubernetes/admin.conf
+```
+
+#### Automated Backup Script
+
+```bash
+cat <<'EOF' > /usr/local/bin/k8s-backup.sh
+#!/bin/bash
+set -euo pipefail
+
+BACKUP_DIR="/opt/kubernetes-backups"
+RETENTION_DAYS=30
+DATE=$(date +%Y%m%d-%H%M%S)
+
+mkdir -p "$BACKUP_DIR"
+
+echo "[$(date)] Starting Kubernetes backup"
+
+# Backup etcd
+if ETCDCTL_API=3 etcdctl snapshot save "$BACKUP_DIR/etcd-$DATE.db" \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key; then
+  echo "[$(date)] etcd backup completed"
+else
+  echo "[$(date)] etcd backup FAILED" >&2
+  exit 1
+fi
+
+# Backup all resources
+kubectl get all --all-namespaces -o yaml > "$BACKUP_DIR/resources-$DATE.yaml"
+
+# Cleanup old backups
+find "$BACKUP_DIR" -name "*.db" -mtime +$RETENTION_DAYS -delete
+find "$BACKUP_DIR" -name "*.yaml" -mtime +$RETENTION_DAYS -delete
+
+echo "[$(date)] Backup completed: $BACKUP_DIR"
+EOF
+
+chmod +x /usr/local/bin/k8s-backup.sh
 ```
 
 #### Recovery Procedures
 
-```bash
-# Restore from Terraform state backup
-cp terraform.tfstate.backup terraform.tfstate
+##### Scenario 1: Single Node Failure
 
-# Restore infrastructure
-terraform plan
+```bash
+# Remove failed node from cluster
+kubectl delete node <failed-node>
+
+# Update Terraform to replace node
+terraform taint proxmox_vm_qemu.k8s_workers["worker-01"]
 terraform apply
 
-# Restore Kubernetes resources
-kubectl apply -f cluster-backup.yaml
+# Node will automatically join cluster via cloud-init/Ansible
+```
+
+##### Scenario 2: Control Plane Failure (HA)
+
+```bash
+# If one master fails, cluster continues operating
+# Remove failed master
+kubectl delete node <failed-master>
+
+# Recreate master with Terraform
+terraform taint proxmox_vm_qemu.k8s_masters["master-02"]
+terraform apply
+
+# Join new master to cluster
+kubeadm join <lb-ip>:6443 --token <token> \
+  --discovery-token-ca-cert-hash sha256:<hash> \
+  --control-plane --certificate-key <key>
+```
+
+##### Scenario 3: Complete etcd Restore
+
+```bash
+# Stop all control plane components
+sudo systemctl stop kubelet
+
+# Restore etcd snapshot
+sudo ETCDCTL_API=3 etcdctl snapshot restore /opt/etcd-backup.db \
+  --data-dir=/var/lib/etcd-restore \
+  --name=$(hostname) \
+  --initial-cluster=master-01=https://192.168.100.10:2380,master-02=https://192.168.100.11:2380,master-03=https://192.168.100.12:2380 \
+  --initial-advertise-peer-urls=https://192.168.100.10:2380
+
+# Update etcd data directory
+sudo rm -rf /var/lib/etcd
+sudo mv /var/lib/etcd-restore /var/lib/etcd
+
+# Start kubelet
+sudo systemctl start kubelet
+
+# Verify cluster
+kubectl get nodes
+kubectl get pods --all-namespaces
+```
+
+##### Scenario 4: Complete Cluster Rebuild
+
+```bash
+# 1. Restore Terraform state
+cp terraform.tfstate.backup terraform.tfstate
+
+# 2. Rebuild infrastructure
+terraform apply
+
+# 3. Restore etcd on first master (see Scenario 3)
+
+# 4. Restore application data from persistent volume backups
+
+# 5. Verify all services
+kubectl get all --all-namespaces
+```
+
+#### Disaster Recovery Testing
+
+Test DR procedures quarterly:
+
+```bash
+# DR Test Checklist
+cat <<'EOF' > dr-test-checklist.md
+# Disaster Recovery Test
+
+## Pre-Test
+- [ ] Notify team of DR test
+- [ ] Document current cluster state
+- [ ] Verify backups are available
+- [ ] Prepare test environment
+
+## Test Execution
+- [ ] Simulate failure (controlled)
+- [ ] Measure detection time
+- [ ] Execute recovery procedures
+- [ ] Measure recovery time
+- [ ] Verify all services restored
+- [ ] Check data integrity
+
+## Post-Test
+- [ ] Document actual RTO achieved
+- [ ] Document actual RPO achieved
+- [ ] Identify improvement areas
+- [ ] Update runbooks
+- [ ] Share lessons learned
+
+## Metrics
+- Detection Time: ___ minutes
+- Recovery Time: ___ minutes
+- Data Loss: ___ (transactions/records)
+- Success Rate: ____%
+EOF
 ```
 
 ---
@@ -2555,6 +3040,10 @@ qm list | grep template
 
 # Check storage space
 pvesm status
+
+# Verify user permissions
+pveum user list
+pveum acl list
 ```
 
 #### Network Connectivity Issues
@@ -2568,6 +3057,12 @@ cat /etc/network/interfaces
 
 # Verify bridge configuration
 brctl show vmbr0
+
+# Check firewall rules
+iptables -L -n -v
+
+# Test DNS resolution
+nslookup kubernetes.default.svc.cluster.local 10.96.0.10
 ```
 
 #### Cloud-Init Problems
@@ -2576,10 +3071,19 @@ brctl show vmbr0
 # Check cloud-init logs on VM
 sudo cloud-init status --long
 sudo cat /var/log/cloud-init.log
+sudo cat /var/log/cloud-init-output.log
+
+# Verify cloud-init configuration
+sudo cloud-init query -all
 
 # Regenerate cloud-init
 sudo cloud-init clean --logs
 sudo cloud-init init
+sudo cloud-init modules --mode=config
+sudo cloud-init modules --mode=final
+
+# Check qemu-guest-agent
+sudo systemctl status qemu-guest-agent
 ```
 
 ### Kubernetes Troubleshooting
@@ -2594,20 +3098,173 @@ kubectl get nodes -o wide
 kubectl get pods -A --field-selector=status.phase!=Running
 
 # Check cluster events
-kubectl get events --sort-by='.lastTimestamp'
+kubectl get events --sort-by='.lastTimestamp' -A
+
+# View component logs
+kubectl logs -n kube-system -l component=kube-apiserver
+kubectl logs -n kube-system -l component=kube-controller-manager
+kubectl logs -n kube-system -l component=kube-scheduler
+
+# Check etcd health
+kubectl exec -n kube-system etcd-master-01 -- etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/peer.crt \
+  --key=/etc/kubernetes/pki/etcd/peer.key \
+  endpoint health
 ```
 
 #### Network Plugin Issues
 
 ```bash
-# Check Flannel pods
+# Check CNI pods (Calico/Flannel)
+kubectl get pods -n kube-system -l k8s-app=calico-node
 kubectl get pods -n kube-flannel
 
-# Restart Flannel daemonset
+# Restart CNI daemonset
+kubectl rollout restart daemonset/calico-node -n kube-system
+# or
 kubectl rollout restart daemonset/kube-flannel-ds -n kube-flannel
 
 # Check node network configuration
 ip route show
+ip addr show
+sysctl net.ipv4.ip_forward
+```
+
+#### Pod Scheduling Failures
+
+```bash
+# Check pod events
+kubectl describe pod <pod-name> -n <namespace>
+
+# Check node resources
+kubectl describe nodes | grep -A 5 "Allocated resources"
+
+# View taints and tolerations
+kubectl get nodes -o custom-columns=NAME:.metadata.name,TAINTS:.spec.taints
+
+# Check resource quotas
+kubectl get resourcequota --all-namespaces
+kubectl describe resourcequota -n <namespace>
+```
+
+#### Certificate Issues
+
+```bash
+# Check certificate expiration
+sudo kubeadm certs check-expiration
+
+# Verify certificate chain
+openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
+
+# Check API server certificate
+echo | openssl s_client -connect localhost:6443 2>/dev/null | openssl x509 -noout -dates
+
+# Renew expired certificates
+sudo kubeadm certs renew all
+sudo systemctl restart kubelet
+```
+
+#### etcd Issues
+
+```bash
+# Check etcd cluster members
+kubectl exec -n kube-system etcd-master-01 -- etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/peer.crt \
+  --key=/etc/kubernetes/pki/etcd/peer.key \
+  member list
+
+# Check etcd alarms
+kubectl exec -n kube-system etcd-master-01 -- etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/peer.crt \
+  --key=/etc/kubernetes/pki/etcd/peer.key \
+  alarm list
+
+# Disarm space quota alarm
+kubectl exec -n kube-system etcd-master-01 -- etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/peer.crt \
+  --key=/etc/kubernetes/pki/etcd/peer.key \
+  alarm disarm
+```
+
+#### Split-Brain Scenario
+
+```bash
+# Identify split-brain condition
+kubectl get nodes
+# Some nodes show NotReady with different cluster states
+
+# Check etcd membership from each master
+for master in master-01 master-02 master-03; do
+  echo "=== $master ==="
+  ssh ubuntu@$master "sudo ETCDCTL_API=3 etcdctl \
+    --endpoints=https://127.0.0.1:2379 \
+    --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+    --cert=/etc/kubernetes/pki/etcd/peer.crt \
+    --key=/etc/kubernetes/pki/etcd/peer.key \
+    member list"
+done
+
+# Remove stale etcd members
+kubectl exec -n kube-system etcd-master-01 -- etcdctl \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  --cert=/etc/kubernetes/pki/etcd/peer.crt \
+  --key=/etc/kubernetes/pki/etcd/peer.key \
+  member remove <member-id>
+
+# Re-add healthy member
+sudo kubeadm join <lb-ip>:6443 --token <token> \
+  --discovery-token-ca-cert-hash sha256:<hash> \
+  --control-plane --certificate-key <key>
+```
+
+#### API Server Unresponsive
+
+```bash
+# Check API server process
+ssh ubuntu@master-01 "ps aux | grep kube-apiserver"
+
+# Check API server logs
+ssh ubuntu@master-01 "sudo journalctl -u kubelet -f"
+
+# Restart API server
+ssh ubuntu@master-01 "sudo systemctl restart kubelet"
+
+# Force recreate API server pod
+kubectl delete pod -n kube-system kube-apiserver-master-01
+
+# Check load balancer health (if HA)
+curl -k https://192.168.100.5:8404  # HAProxy stats
+```
+
+#### Storage Issues
+
+```bash
+# Check PV status
+kubectl get pv
+kubectl describe pv <pv-name>
+
+# Check PVC binding
+kubectl get pvc --all-namespaces
+kubectl describe pvc <pvc-name> -n <namespace>
+
+# Check storage class
+kubectl get storageclass
+kubectl describe storageclass <sc-name>
+
+# Identify pods with volume issues
+kubectl get pods --all-namespaces -o json | \
+  jq -r '.items[] | select(.status.phase != "Running") | 
+  select(.spec.volumes != null) | 
+  "\(.metadata.namespace)/\(.metadata.name)"'
 ```
 
 ### Terraform State Issues
@@ -2621,6 +3278,73 @@ terraform refresh
 
 # Remove resource from state (dangerous)
 terraform state rm proxmox_vm_qemu.k8s_masters["master-01"]
+
+# Show state
+terraform state list
+terraform state show proxmox_vm_qemu.k8s_masters["master-01"]
+
+# Move resource in state
+terraform state mv proxmox_vm_qemu.old_name proxmox_vm_qemu.new_name
+
+# Recover from state corruption
+terraform state pull > terraform.tfstate.backup
+# Edit state file carefully
+terraform state push terraform.tfstate.backup
+```
+
+### Performance Troubleshooting
+
+#### High CPU Usage
+
+```bash
+# Identify high CPU pods
+kubectl top pods --all-namespaces --sort-by=cpu
+
+# Check node CPU
+kubectl top nodes
+
+# Analyze CPU throttling
+for pod in $(kubectl get pods -A -o jsonpath='{.items[*].metadata.name}'); do
+  kubectl get pod $pod -o jsonpath='{.metadata.name}{"\t"}{.spec.containers[*].resources.limits.cpu}{"\n"}'
+done
+
+# Check CPU limits vs requests
+kubectl describe nodes | grep -A 10 "Allocated resources"
+```
+
+#### Memory Issues
+
+```bash
+# Check OOM killed pods
+kubectl get pods --all-namespaces --field-selector=status.phase=Failed
+kubectl describe pod <pod-name> | grep -A 10 "Last State"
+
+# Check node memory pressure
+kubectl describe nodes | grep MemoryPressure
+
+# Identify memory-hungry pods
+kubectl top pods --all-namespaces --sort-by=memory | head -20
+
+# Check swap (should be disabled)
+ssh ubuntu@<node-ip> "free -h"
+```
+
+#### Network Latency
+
+```bash
+# Test pod-to-pod communication
+kubectl run test-pod --image=nicolaka/netshoot --rm -it -- bash
+# Inside pod: ping <other-pod-ip>
+
+# Check CNI performance
+kubectl run test1 --image=nicolaka/netshoot -- sleep 3600
+kubectl run test2 --image=nicolaka/netshoot -- sleep 3600
+kubectl exec test1 -- iperf3 -s &
+kubectl exec test2 -- iperf3 -c <test1-ip>
+
+# Check DNS latency
+kubectl run dnstest --image=tutum/dnsutils --rm -it -- bash
+# Inside pod: time nslookup kubernetes.default
 ```
 
 ---
@@ -2653,12 +3377,530 @@ ssh-keygen -t ed25519 -f ~/.ssh/k8s-cluster -C "k8s-cluster@$(hostname)"
 ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... k8s-cluster@hostname"
 ```
 
+### Secret Rotation Strategy
+
+Implement regular rotation of all sensitive credentials to maintain security:
+
+#### 1. Proxmox API Token Rotation
+
+Rotate Proxmox API tokens every 90 days:
+
+```bash
+# Generate new API token
+NEW_TOKEN_ID="terraform-prov@pve!terraform_id_$(date +%Y%m%d)"
+pveum user token add terraform-prov@pve "terraform_id_$(date +%Y%m%d)" -privsep 1
+
+# Update terraform.tfvars with new token
+# Test deployment with new token
+terraform plan
+
+# After successful test, delete old token
+pveum user token remove terraform-prov@pve terraform_id_old
+```
+
+**Automation with script:**
+
+```bash
+#!/bin/bash
+# proxmox-token-rotation.sh
+set -euo pipefail
+
+OLD_TOKEN_NAME="${1:?Usage: $0 <old_token_name>}"
+NEW_TOKEN_NAME="terraform_id_$(date +%Y%m%d)"
+USER="terraform-prov@pve"
+
+echo "Creating new token: $NEW_TOKEN_NAME"
+pveum user token add "$USER" "$NEW_TOKEN_NAME" -privsep 1
+
+echo "Update your terraform.tfvars with the new token:"
+echo "proxmox_api_token_id = \"$USER!$NEW_TOKEN_NAME\""
+echo ""
+echo "After testing, delete old token with:"
+echo "pveum user token remove $USER $OLD_TOKEN_NAME"
+```
+
+#### 2. SSH Key Rotation
+
+Rotate SSH keys every 6 months:
+
+```bash
+# Generate new SSH key pair
+ssh-keygen -t ed25519 -f ~/.ssh/k8s-cluster-new -C "k8s-cluster-$(date +%Y%m%d)"
+
+# Add new key to all nodes
+for node_ip in 192.168.100.10 192.168.100.11 192.168.100.12 192.168.100.20 192.168.100.21 192.168.100.22; do
+  echo "Adding new key to $node_ip"
+  ssh-copy-id -i ~/.ssh/k8s-cluster-new.pub ubuntu@$node_ip
+done
+
+# Test new key access
+for node_ip in 192.168.100.10 192.168.100.11 192.168.100.12 192.168.100.20 192.168.100.21 192.168.100.22; do
+  ssh -i ~/.ssh/k8s-cluster-new -o PasswordAuthentication=no ubuntu@$node_ip "echo 'Connection successful to $node_ip'"
+done
+
+# Update terraform.tfvars
+# ssh_public_key = file("~/.ssh/k8s-cluster-new.pub")
+
+# Remove old keys from nodes after verification
+for node_ip in 192.168.100.10 192.168.100.11 192.168.100.12 192.168.100.20 192.168.100.21 192.168.100.22; do
+  ssh -i ~/.ssh/k8s-cluster-new ubuntu@$node_ip "sed -i '/k8s-cluster@/d' ~/.ssh/authorized_keys"
+done
+```
+
+#### 3. Kubernetes Certificate Rotation
+
+Kubernetes certificates expire after 1 year by default. Rotate before expiration:
+
+```bash
+# Check certificate expiration
+kubeadm certs check-expiration
+
+# Renew all certificates
+kubeadm certs renew all
+
+# Restart control plane components
+kubectl -n kube-system delete pod -l component=kube-apiserver
+kubectl -n kube-system delete pod -l component=kube-controller-manager
+kubectl -n kube-system delete pod -l component=kube-scheduler
+
+# Update kubeconfig
+sudo cp /etc/kubernetes/admin.conf ~/.kube/config
+sudo chown $(id -u):$(id -g) ~/.kube/config
+```
+
+**Automated certificate renewal:**
+
+```bash
+# Add to crontab on master nodes: 0 2 1 * * /usr/local/bin/k8s-cert-renew.sh
+cat <<'EOF' | sudo tee /usr/local/bin/k8s-cert-renew.sh
+#!/bin/bash
+set -euo pipefail
+
+LOGFILE="/var/log/k8s-cert-renewal.log"
+
+echo "[$(date)] Starting certificate renewal" >> "$LOGFILE"
+
+if kubeadm certs renew all >> "$LOGFILE" 2>&1; then
+  echo "[$(date)] Certificate renewal successful" >> "$LOGFILE"
+  
+  # Restart control plane
+  kubectl -n kube-system delete pod -l component=kube-apiserver --grace-period=30
+  kubectl -n kube-system delete pod -l component=kube-controller-manager --grace-period=30
+  kubectl -n kube-system delete pod -l component=kube-scheduler --grace-period=30
+  
+  echo "[$(date)] Control plane restarted" >> "$LOGFILE"
+else
+  echo "[$(date)] Certificate renewal failed!" >> "$LOGFILE"
+  exit 1
+fi
+EOF
+
+sudo chmod +x /usr/local/bin/k8s-cert-renew.sh
+```
+
+#### 4. Secrets Management Best Practices
+
+**Use External Secret Management:**
+
+```hcl
+# Example: HashiCorp Vault integration
+variable "vault_addr" {
+  type        = string
+  description = "Vault server address"
+  default     = "https://vault.example.com:8200"
+}
+
+data "vault_generic_secret" "proxmox_credentials" {
+  path = "secret/proxmox/terraform"
+}
+
+provider "proxmox" {
+  pm_api_url          = var.proxmox_api_url
+  pm_api_token_id     = data.vault_generic_secret.proxmox_credentials.data["token_id"]
+  pm_api_token_secret = data.vault_generic_secret.proxmox_credentials.data["token_secret"]
+  pm_tls_insecure     = false
+}
+```
+
+**Kubernetes Secrets with External Secrets Operator:**
+
+```yaml
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: proxmox-credentials
+  namespace: terraform
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: SecretStore
+  target:
+    name: proxmox-credentials
+    creationPolicy: Owner
+  data:
+    - secretKey: api_token_id
+      remoteRef:
+        key: secret/proxmox/terraform
+        property: token_id
+    - secretKey: api_token_secret
+      remoteRef:
+        key: secret/proxmox/terraform
+        property: token_secret
+```
+
+#### 5. Rotation Schedule
+
+Implement this rotation schedule:
+
+| Secret Type            | Rotation Frequency | Priority |
+| ---------------------- | ------------------ | -------- |
+| Proxmox API Tokens     | 90 days            | High     |
+| SSH Keys               | 180 days           | High     |
+| Kubernetes Certificates| 365 days (auto)    | Critical |
+| Database Passwords     | 90 days            | High     |
+| Service Account Tokens | 30 days            | Medium   |
+| TLS Certificates       | Before expiration  | Critical |
+
+**Create rotation reminders:**
+
+```bash
+# Add to main.tf
+resource "time_rotating" "proxmox_token_rotation" {
+  rotation_days = 90
+}
+
+resource "time_rotating" "ssh_key_rotation" {
+  rotation_days = 180
+}
+
+# Output warnings when rotation is needed
+output "security_warnings" {
+  value = {
+    proxmox_token_rotated = time_rotating.proxmox_token_rotation.rfc3339
+    ssh_key_rotated      = time_rotating.ssh_key_rotation.rfc3339
+    rotation_due_days    = {
+      proxmox_token = max(0, 90 - parseint(formatdate("DD", timestamp()), 10))
+      ssh_key       = max(0, 180 - parseint(formatdate("DD", timestamp()), 10))
+    }
+  }
+}
+```
+
 ### Kubernetes Security
 
 - Enable RBAC (default in modern Kubernetes)
 - Use network policies for pod communication
-- Implement admission controllers
+- Implement admission controllers (PSP/PSA/OPA)
 - Regular security updates and patching
+- Enable audit logging
+- Use pod security standards
+- Implement image scanning with Trivy or Clair
+
+---
+
+## Cost Estimation and Capacity Planning
+
+### Resource Cost Calculator
+
+Estimate infrastructure costs based on node configuration:
+
+```bash
+cat <<'EOF' > cost-calculator.sh
+#!/bin/bash
+# Kubernetes Cluster Cost Estimator for Proxmox
+
+# Proxmox host specifications
+TOTAL_CPU_CORES=64
+TOTAL_RAM_GB=256
+TOTAL_STORAGE_TB=4
+
+# Cost assumptions (adjust for your region/provider)
+COST_PER_CORE_MONTHLY=5.00
+COST_PER_GB_RAM_MONTHLY=2.00
+COST_PER_GB_STORAGE_MONTHLY=0.10
+POWER_COST_PER_KWH=0.12
+WATTS_PER_CORE=10
+HOURS_PER_MONTH=730
+
+# Cluster configuration
+MASTER_COUNT=3
+MASTER_CORES=2
+MASTER_RAM_GB=4
+MASTER_DISK_GB=20
+
+WORKER_COUNT=3
+WORKER_CORES=4
+WORKER_RAM_GB=8
+WORKER_DISK_GB=50
+
+# Calculate resources
+TOTAL_CLUSTER_CORES=$((MASTER_COUNT * MASTER_CORES + WORKER_COUNT * WORKER_CORES))
+TOTAL_CLUSTER_RAM=$((MASTER_COUNT * MASTER_RAM_GB + WORKER_COUNT * WORKER_RAM_GB))
+TOTAL_CLUSTER_STORAGE=$((MASTER_COUNT * MASTER_DISK_GB + WORKER_COUNT * WORKER_DISK_GB))
+
+# Calculate costs
+COMPUTE_COST=$(echo "$TOTAL_CLUSTER_CORES * $COST_PER_CORE_MONTHLY" | bc)
+MEMORY_COST=$(echo "$TOTAL_CLUSTER_RAM * $COST_PER_GB_RAM_MONTHLY" | bc)
+STORAGE_COST=$(echo "$TOTAL_CLUSTER_STORAGE * $COST_PER_GB_STORAGE_MONTHLY" | bc)
+POWER_COST=$(echo "$TOTAL_CLUSTER_CORES * $WATTS_PER_CORE * $HOURS_PER_MONTH * $POWER_COST_PER_KWH / 1000" | bc)
+
+TOTAL_MONTHLY_COST=$(echo "$COMPUTE_COST + $MEMORY_COST + $STORAGE_COST + $POWER_COST" | bc)
+TOTAL_YEARLY_COST=$(echo "$TOTAL_MONTHLY_COST * 12" | bc)
+
+# Calculate utilization
+CPU_UTILIZATION=$(echo "scale=2; $TOTAL_CLUSTER_CORES / $TOTAL_CPU_CORES * 100" | bc)
+RAM_UTILIZATION=$(echo "scale=2; $TOTAL_CLUSTER_RAM / $TOTAL_RAM_GB * 100" | bc)
+STORAGE_UTILIZATION=$(echo "scale=2; $TOTAL_CLUSTER_STORAGE / ($TOTAL_STORAGE_TB * 1024) * 100" | bc)
+
+# Display results
+cat <<REPORT
+=== Kubernetes Cluster Cost Estimation ===
+
+Cluster Configuration:
+  Masters: $MASTER_COUNT × ${MASTER_CORES}C/${MASTER_RAM_GB}GB/${MASTER_DISK_GB}GB
+  Workers: $WORKER_COUNT × ${WORKER_CORES}C/${WORKER_RAM_GB}GB/${WORKER_DISK_GB}GB
+  
+  Total Cores: $TOTAL_CLUSTER_CORES
+  Total RAM: ${TOTAL_CLUSTER_RAM}GB
+  Total Storage: ${TOTAL_CLUSTER_STORAGE}GB
+
+Monthly Costs:
+  Compute: \$${COMPUTE_COST}
+  Memory: \$${MEMORY_COST}
+  Storage: \$${STORAGE_COST}
+  Power: \$${POWER_COST}
+  ─────────────────
+  Total: \$${TOTAL_MONTHLY_COST}
+
+Annual Cost: \$${TOTAL_YEARLY_COST}
+
+Resource Utilization:
+  CPU: ${CPU_UTILIZATION}%
+  RAM: ${RAM_UTILIZATION}%
+  Storage: ${STORAGE_UTILIZATION}%
+
+Cost per Node: \$$(echo "$TOTAL_MONTHLY_COST / ($MASTER_COUNT + $WORKER_COUNT)" | bc)
+Cost per Core: \$$(echo "$TOTAL_MONTHLY_COST / $TOTAL_CLUSTER_CORES" | bc)
+Cost per GB RAM: \$$(echo "$TOTAL_MONTHLY_COST / $TOTAL_CLUSTER_RAM" | bc)
+
+REPORT
+
+# Recommendations
+if (( $(echo "$CPU_UTILIZATION > 80" | bc -l) )); then
+  echo "⚠️  WARNING: CPU utilization is high. Consider adding Proxmox nodes."
+fi
+
+if (( $(echo "$RAM_UTILIZATION > 80" | bc -l) )); then
+  echo "⚠️  WARNING: RAM utilization is high. Consider adding memory."
+fi
+
+if (( $(echo "$STORAGE_UTILIZATION > 70" | bc -l) )); then
+  echo "⚠️  WARNING: Storage utilization is high. Consider adding storage."
+fi
+EOF
+
+chmod +x cost-calculator.sh
+./cost-calculator.sh
+```
+
+### Capacity Planning
+
+#### Right-Sizing Workloads
+
+Analyze actual vs requested resources:
+
+```bash
+# Install metrics-server if not already present
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# Check actual vs requested resources
+cat <<'EOF' > capacity-analysis.sh
+#!/bin/bash
+
+echo "=== Pod Resource Analysis ==="
+echo ""
+
+kubectl get pods --all-namespaces -o json | jq -r '
+.items[] | 
+{
+  namespace: .metadata.namespace,
+  name: .metadata.name,
+  containers: [.spec.containers[] | {
+    name: .name,
+    cpu_request: .resources.requests.cpu,
+    cpu_limit: .resources.limits.cpu,
+    mem_request: .resources.requests.memory,
+    mem_limit: .resources.limits.memory
+  }]
+} | 
+"\(.namespace)/\(.name): CPU: \(.containers[0].cpu_request) → \(.containers[0].cpu_limit), MEM: \(.containers[0].mem_request) → \(.containers[0].mem_limit)"
+' | column -t
+
+echo ""
+echo "=== Actual Usage ==="
+kubectl top pods --all-namespaces --sort-by=cpu | head -20
+
+echo ""
+echo "=== Over-provisioned Pods (>50% unused) ==="
+kubectl top pods --all-namespaces -o json | jq -r '
+.items[] | 
+select(.containers[0].usage.cpu != null) |
+{
+  namespace: .metadata.namespace,
+  name: .metadata.name,
+  cpu_usage: .containers[0].usage.cpu,
+  mem_usage: .containers[0].usage.memory
+}
+'
+EOF
+
+chmod +x capacity-analysis.sh
+./capacity-analysis.sh
+```
+
+#### Growth Planning
+
+Project resource needs based on growth:
+
+```bash
+cat <<'EOF' > growth-planning.sh
+#!/bin/bash
+
+CURRENT_WORKERS=3
+CURRENT_CORES_PER_WORKER=4
+CURRENT_RAM_PER_WORKER=8
+
+MONTHLY_GROWTH_RATE=10  # Percentage
+MONTHS_TO_PROJECT=12
+
+echo "=== Capacity Growth Projection ==="
+echo ""
+echo "Current Configuration:"
+echo "  Workers: $CURRENT_WORKERS"
+echo "  Cores per worker: $CURRENT_CORES_PER_WORKER"
+echo "  RAM per worker: ${CURRENT_RAM_PER_WORKER}GB"
+echo ""
+
+TOTAL_CORES=$((CURRENT_WORKERS * CURRENT_CORES_PER_WORKER))
+TOTAL_RAM=$((CURRENT_WORKERS * CURRENT_RAM_PER_WORKER))
+
+echo "Month | Workers | Cores | RAM(GB) | Action"
+echo "------|---------|-------|---------|------------------"
+
+for month in $(seq 1 $MONTHS_TO_PROJECT); do
+  GROWTH_FACTOR=$(echo "1 + ($MONTHLY_GROWTH_RATE / 100 * $month)" | bc -l)
+  NEEDED_CORES=$(echo "$TOTAL_CORES * $GROWTH_FACTOR / 1" | bc)
+  NEEDED_RAM=$(echo "$TOTAL_RAM * $GROWTH_FACTOR / 1" | bc)
+  NEEDED_WORKERS=$(echo "($NEEDED_CORES + $CURRENT_CORES_PER_WORKER - 1) / $CURRENT_CORES_PER_WORKER" | bc)
+  
+  if [ $NEEDED_WORKERS -gt $CURRENT_WORKERS ]; then
+    ACTION="⚠️  Add $((NEEDED_WORKERS - CURRENT_WORKERS)) worker(s)"
+    CURRENT_WORKERS=$NEEDED_WORKERS
+  else
+    ACTION="✓ Sufficient"
+  fi
+  
+  printf "%5d | %7d | %5d | %7d | %s\n" \
+    $month $NEEDED_WORKERS $NEEDED_CORES $NEEDED_RAM "$ACTION"
+done
+
+echo ""
+echo "Recommendations:"
+echo "  - Plan hardware procurement for month $(echo "scale=0; 100 / $MONTHLY_GROWTH_RATE" | bc)"
+echo "  - Review capacity quarterly"
+echo "  - Monitor utilization trends"
+EOF
+
+chmod +x growth-planning.sh
+./growth-planning.sh
+```
+
+#### Cluster Sizing Recommendations
+
+| Workload Type        | Master Nodes | Master Specs      | Worker Nodes | Worker Specs       | Use Case                 |
+| -------------------- | ------------ | ----------------- | ------------ | ------------------ | ------------------------ |
+| Development/Testing  | 1            | 2C / 4GB / 20GB   | 2            | 2C / 4GB / 50GB    | Local dev, CI/CD         |
+| Small Production     | 3            | 2C / 4GB / 20GB   | 3            | 4C / 8GB / 100GB   | Small apps, < 100 pods   |
+| Medium Production    | 3            | 4C / 8GB / 50GB   | 5            | 8C / 16GB / 200GB  | Medium apps, < 500 pods  |
+| Large Production     | 5            | 8C / 16GB / 100GB | 10+          | 16C / 32GB / 500GB | Large scale, > 1000 pods |
+
+### Resource Optimization Strategies
+
+```bash
+# 1. Implement Horizontal Pod Autoscaling
+cat <<'EOF' > hpa-example.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: webapp-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: webapp
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+EOF
+
+# 2. Set Resource Quotas per Namespace
+cat <<'EOF' > resource-quota.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-quota
+  namespace: development
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: 20Gi
+    limits.cpu: "20"
+    limits.memory: 40Gi
+    persistentvolumeclaims: "10"
+EOF
+
+# 3. Implement Limit Ranges
+cat <<'EOF' > limit-range.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+spec:
+  limits:
+  - max:
+      cpu: "2"
+      memory: 4Gi
+    min:
+      cpu: 50m
+      memory: 64Mi
+    default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 128Mi
+    type: Container
+EOF
+
+# 4. Use Vertical Pod Autoscaler for recommendations
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
+
+# 5. Monitor and act on recommendations
+kubectl describe vpa <vpa-name>
+```
 
 ---
 

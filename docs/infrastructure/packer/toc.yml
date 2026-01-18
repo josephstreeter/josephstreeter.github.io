@@ -1,0 +1,26 @@
+- name: Summary
+  href: index.md
+- name: Introduction to Packer
+  href: introduction.md
+- name: Installing Packer
+  href: installing-packer.md
+- name: Creating Your First Packer Template
+  href: first-packer-template.md
+- name: Packer Builders
+  href: packer-builders.md
+- name: Packer Provisioners
+  href: packer-provisioners.md
+- name: Packer Post-Processors
+  href: packer-post-processors.md
+- name: Best Practices for Packer Templates
+  href: packer-best-practices.md
+- name: Troubleshooting Packer Builds
+  href: packer-troubleshooting.md
+- name: Advanced Packer Features
+  href: advanced-packer-features.md
+- name: Integrating Packer with CI/CD Pipelines
+  href: packer-ci-cd-integration.md
+- name: Packer Security Considerations
+  href: packer-security.md
+- name: Conclusion and Next Steps
+  href: conclusion.md
