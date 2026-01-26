@@ -2,7 +2,7 @@
 title: "Terraform Proxmox VM Infrastructure for Kubernetes"
 description: "Complete guide to deploying VM infrastructure on Proxmox VE using Terraform for Kubernetes clusters with automation and best practices"
 author: "josephstreeter"
-ms.date: "2025-12-30"
+ms.date: "2026-01-19"
 ms.topic: "how-to-guide"
 ms.service: "terraform"
 keywords: ["Terraform", "Proxmox", "Kubernetes", "K8s", "Infrastructure as Code", "IaC", "Cloud-Init", "Automation", "VMs"]
@@ -87,15 +87,321 @@ sudo rm -rf /var/lib/cloud/instances/*
 
 ```text
 kubernetes-cluster/
-├── main.tf                 # Main resource definitions
-├── variables.tf           # Input variables
-├── outputs.tf            # Output values
-├── providers.tf          # Provider configurations
-├── terraform.tfvars     # Variable values (DO NOT COMMIT)
+├── main.tf                    # Main resource definitions
+├── variables.tf               # Input variables
+├── outputs.tf                 # Output values
+├── providers.tf               # Provider configurations
+├── data.tf                    # Data sources for dynamic queries
+├── terraform.tfvars           # Variable values (DO NOT COMMIT)
+├── cloud-init/
+│   ├── k8s-node.yaml          # Cloud-init configuration for K8s nodes
+│   └── haproxy-cloud-init.yml # HAProxy load balancer cloud-init
 ├── modules/
-│   └── k8s-node/        # Reusable node module
-└── scripts/
-    └── k8s-setup.sh     # Post-deployment scripts
+│   ├── k8s-node/              # Reusable node module
+│   │   ├── main.tf
+│   │   ├── variables.tf
+│   │   ├── outputs.tf
+│   │   └── versions.tf
+│   └── load-balancer/         # Load balancer module
+│       ├── main.tf
+│       ├── variables.tf
+│       ├── outputs.tf
+│       └── versions.tf
+├── scripts/
+│   └── k8s-setup.sh           # Post-deployment scripts
+├── templates/
+│   ├── haproxy-cloud-init.tpl # HAProxy cloud-init template
+│   └── inventory.tpl          # Ansible inventory template
+├── ansible/
+│   └── playbooks/
+│       └── k8s-cluster.yml    # Ansible Kubernetes setup
+├── packer/
+│   ├── debian-k8s-template.pkr.hcl  # Packer template
+│   └── scripts/
+│       └── k8s-prep.sh        # Packer provisioning script
+└── .github/
+    └── workflows/
+        ├── terraform-plan.yml  # GitHub Actions plan workflow
+        └── terraform-apply.yml # GitHub Actions apply workflow
+```
+
+### Initialize Project Structure
+
+Use this script to create the complete directory structure and placeholder files:
+
+```bash
+#!/bin/bash
+# Script to initialize Kubernetes-Cluster Terraform project structure
+
+set -e
+
+PROJECT_NAME="kubernetes-cluster"
+
+echo "Creating project structure for $PROJECT_NAME..."
+
+# Create project root
+mkdir -p "$PROJECT_NAME"
+cd "$PROJECT_NAME"
+
+# Create directories
+echo "Creating directories..."
+mkdir -p cloud-init
+mkdir -p modules/k8s-node
+mkdir -p modules/load-balancer
+mkdir -p scripts
+mkdir -p templates
+mkdir -p ansible/playbooks
+mkdir -p packer/scripts
+mkdir -p .github/workflows
+
+# Create root-level Terraform files
+echo "Creating Terraform configuration files..."
+
+cat > main.tf << 'EOF'
+# Main resource definitions
+# See documentation for complete configuration
+EOF
+
+cat > variables.tf << 'EOF'
+# Input variables
+# See documentation for complete variable definitions
+EOF
+
+cat > outputs.tf << 'EOF'
+# Output values
+# See documentation for complete output definitions
+EOF
+
+cat > providers.tf << 'EOF'
+# Provider configurations
+# See documentation for complete provider setup
+EOF
+
+cat > data.tf << 'EOF'
+# Data sources for dynamic queries
+# See documentation for data source examples
+EOF
+
+cat > terraform.tfvars.example << 'EOF'
+# Variable values template
+# Copy to terraform.tfvars and customize
+# WARNING: Never commit terraform.tfvars to version control
+EOF
+
+# Create .gitignore
+cat > .gitignore << 'EOF'
+# Terraform files
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+terraform.tfvars
+*.auto.tfvars
+
+# Sensitive files
+*.pem
+*.key
+kubeconfig/
+*.conf
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+EOF
+
+# Create cloud-init files
+echo "Creating cloud-init configurations..."
+
+cat > cloud-init/k8s-node.yaml << 'EOF'
+#cloud-config
+# Kubernetes Node Preparation via Cloud-Init
+# See documentation for complete configuration
+EOF
+
+cat > cloud-init/haproxy-cloud-init.yml << 'EOF'
+#cloud-config
+# HAProxy Load Balancer Cloud-Init
+# See documentation for complete configuration
+EOF
+
+# Create templates
+echo "Creating template files..."
+
+cat > templates/haproxy-cloud-init.tpl << 'EOF'
+# HAProxy cloud-init template
+# See documentation for complete template configuration
+EOF
+
+cat > templates/inventory.tpl << 'EOF'
+# Ansible inventory template
+# See documentation for complete template configuration
+EOF
+
+# Create k8s-node module files
+echo "Creating k8s-node module..."
+
+cat > modules/k8s-node/main.tf << 'EOF'
+# K8s node module resources
+# See documentation for complete module configuration
+EOF
+
+cat > modules/k8s-node/variables.tf << 'EOF'
+# K8s node module variables
+# See documentation for variable definitions
+EOF
+
+cat > modules/k8s-node/outputs.tf << 'EOF'
+# K8s node module outputs
+# See documentation for output definitions
+EOF
+
+cat > modules/k8s-node/versions.tf << 'EOF'
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "~> 2.9"
+    }
+  }
+}
+EOF
+
+# Create load-balancer module files
+echo "Creating load-balancer module..."
+
+cat > modules/load-balancer/main.tf << 'EOF'
+# Load balancer module resources
+# See documentation for complete module configuration
+EOF
+
+cat > modules/load-balancer/variables.tf << 'EOF'
+# Load balancer module variables
+# See documentation for variable definitions
+EOF
+
+cat > modules/load-balancer/outputs.tf << 'EOF'
+# Load balancer module outputs
+# See documentation for output definitions
+EOF
+
+cat > modules/load-balancer/versions.tf << 'EOF'
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "~> 2.9"
+    }
+  }
+}
+EOF
+
+# Create scripts
+echo "Creating scripts..."
+
+cat > scripts/k8s-setup.sh << 'EOF'
+#!/bin/bash
+# Post-deployment Kubernetes setup script
+# See documentation for usage instructions
+EOF
+
+chmod +x scripts/k8s-setup.sh
+
+# Create Ansible playbooks
+echo "Creating Ansible playbooks..."
+
+cat > ansible/playbooks/k8s-cluster.yml << 'EOF'
+---
+# Ansible playbook for Kubernetes cluster setup
+# See documentation for complete playbook configuration
+EOF
+
+# Create Packer files
+echo "Creating Packer configuration..."
+
+cat > packer/debian-k8s-template.pkr.hcl << 'EOF'
+# Packer template for Debian-based K8s nodes
+# See documentation for complete template configuration
+EOF
+
+cat > packer/scripts/k8s-prep.sh << 'EOF'
+#!/bin/bash
+# Packer provisioning script for K8s preparation
+# See documentation for usage instructions
+EOF
+
+chmod +x packer/scripts/k8s-prep.sh
+
+# Create GitHub Actions workflows
+echo "Creating GitHub Actions workflows..."
+
+cat > .github/workflows/terraform-plan.yml << 'EOF'
+name: Terraform Plan
+# See documentation for complete workflow configuration
+EOF
+
+cat > .github/workflows/terraform-apply.yml << 'EOF'
+name: Terraform Apply
+# See documentation for complete workflow configuration
+EOF
+
+# Create README
+cat > README.md << 'EOF'
+# Kubernetes Cluster on Proxmox with Terraform
+
+This project provisions Kubernetes cluster infrastructure on Proxmox VE using Terraform.
+
+## Getting Started
+
+1. Review and customize `terraform.tfvars.example`
+2. Copy to `terraform.tfvars` with your values
+3. Initialize Terraform: `terraform init`
+4. Plan deployment: `terraform plan`
+5. Apply configuration: `terraform apply`
+
+## Documentation
+
+Refer to the complete documentation for detailed configuration examples and best practices.
+
+## Security Notes
+
+- Never commit `terraform.tfvars` or files containing secrets
+- Use secure secret management for production deployments
+- Generate unique SSH keys for each environment
+- Enable TLS verification for Proxmox API connections
+
+EOF
+
+echo ""
+echo "✅ Project structure created successfully!"
+echo ""
+echo "Next steps:"
+echo "1. Copy terraform.tfvars.example to terraform.tfvars:"
+echo "   cp terraform.tfvars.example terraform.tfvars"
+echo "2. Edit terraform.tfvars with your actual values"
+echo "3. Copy configuration examples from documentation into module files"
+echo "4. Initialize Terraform: terraform init"
+echo "5. Validate configuration: terraform validate"
+echo "6. Plan deployment: terraform plan"
+echo ""
+echo "⚠️  IMPORTANT: Never commit terraform.tfvars or sensitive files to version control!"
+```
+
+Run the script to create the project structure:
+
+```bash
+chmod +x create-project-structure.sh
+./create-project-structure.sh
+
+# After running the script, copy and customize your configuration:
+cd kubernetes-cluster
+cp terraform.tfvars.example terraform.tfvars
+# Edit terraform.tfvars with your actual values
 ```
 
 ### `providers.tf`
@@ -382,35 +688,45 @@ variable "enable_ha" {
   default     = true
 }
 
-variable "lb_ip" {
+variable "lb_ip_address" {
   type        = string
   description = "Load balancer IP address"
   validation {
-    condition     = can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.lb_ip))
+    condition     = can(regex("^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$", var.lb_ip_address))
     error_message = "Load balancer IP must be a valid IPv4 address"
   }
   default     = "192.168.100.5"
+}
+
+variable "kubernetes_version" {
+  type        = string
+  description = "Kubernetes version to install"
+  default     = "1.28.3"
 }
 ```
 
 ### `data.tf`
 
-Query Proxmox for dynamic values:
+Validate configuration and define dynamic values:
 
 ```hcl
-# Get available nodes in the cluster
-data "proxmox_virtual_environment_nodes" "available" {}
-
-# Get current Proxmox version
-data "proxmox_virtual_environment_version" "current" {}
-
-# Output available storage for validation
+# Local validations and computed values
 locals {
   # Validate storage and network configuration
   valid_storage = var.storage != ""
   valid_network = var.network_bridge != ""
+  
+  # Validate that enable_ha requires lb_ip_address
+  ha_config_valid = !var.enable_ha || (var.enable_ha && var.lb_ip_address != "")
+}
+
+# Validation checks
+resource "null_resource" "validate_ha_config" {
+  count = var.enable_ha && var.lb_ip_address == "" ? "ERROR: enable_ha requires lb_ip_address to be set" : 0
 }
 ```
+
+> **Note:** The telmate/proxmox provider doesn't support data sources for querying Proxmox nodes or versions. All configuration must be provided via variables.
 
 ### Cloud-Init Kubernetes Preparation
 
@@ -524,6 +840,8 @@ scp cloud-init/k8s-node.yaml root@proxmox-host:/var/lib/vz/snippets/
 
 ### `main.tf`
 
+Main configuration using modular approach for better organization and reusability:
+
 ```hcl
 # Local values for common configurations
 locals {
@@ -534,37 +852,21 @@ locals {
   haproxy_stats_port        = 8404
   node_exporter_port        = 9100
   
-  # Default resource allocations
-  default_master_memory_mb  = 4096
-  default_master_cores      = 2
-  default_master_disk_gb    = 20
-  default_worker_memory_mb  = 8192
-  default_worker_cores      = 4
-  default_worker_disk_gb    = 50
-  
   # Network configuration
   pod_network_cidr_default  = "10.244.0.0/16"
   service_cidr_default      = "10.96.0.0/12"
   
-  common_vm_config = {
-    agent               = 1
-    boot                = "order=scsi0"
-    clone               = var.template_name
-    scsihw              = "virtio-scsi-single"
-    vm_state            = "running"
-    automatic_reboot    = true
-    ciupgrade           = true
-    skip_ipv6           = true
-    ciuser              = var.cloud_init_user
-    sshkeys             = var.ssh_public_key
-    nameserver          = join(" ", var.cluster_network.dns)
-  }
+  # Common VM settings
+  network_cidr = split("/", var.cluster_network.subnet)[1]
+  cloud_init_snippet = "k8s-node.yaml"
 }
 
-# Master nodes for Kubernetes control plane
-resource "proxmox_vm_qemu" "k8s_masters" {
+# Master nodes using k8s-node module
+module "k8s_masters" {
+  source   = "./modules/k8s-node"
   for_each = var.master_nodes
 
+  # VM identification
   vmid        = each.value.vmid
   name        = "${var.cluster_name}-${each.key}"
   target_node = var.target_node
@@ -572,74 +874,31 @@ resource "proxmox_vm_qemu" "k8s_masters" {
   # Resource allocation
   cores  = each.value.cores
   memory = each.value.memory
+  disk_size = each.value.disk
   
-  # Apply common configuration
-  agent               = local.common_vm_config.agent
-  boot                = local.common_vm_config.boot
-  clone               = local.common_vm_config.clone
-  scsihw              = local.common_vm_config.scsihw
-  vm_state            = local.common_vm_config.vm_state
-  automatic_reboot    = local.common_vm_config.automatic_reboot
-  
-  # Cloud-init configuration
-  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
-  ciupgrade  = local.common_vm_config.ciupgrade
-  ciuser     = local.common_vm_config.ciuser
-  sshkeys    = local.common_vm_config.sshkeys
-  nameserver = local.common_vm_config.nameserver
-  skip_ipv6  = local.common_vm_config.skip_ipv6
+  # Template and storage
+  template_name  = var.template_name
+  storage        = var.storage
   
   # Network configuration
-  ipconfig0 = "ip=${each.value.ip}/${split("/", var.cluster_network.subnet)[1]},gw=${var.cluster_network.gateway}"
+  network_bridge = var.network_bridge
+  ip_address     = each.value.ip
+  ip_cidr        = local.network_cidr
+  gateway        = var.cluster_network.gateway
+  dns_servers    = var.cluster_network.dns
   
-  # Tags for organization
-  tags = "kubernetes,master,${var.cluster_name}"
-
-  # Serial console for cloud-init
-  serial {
-    id = 0
-  }
-
-  # Disk configuration
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = var.storage
-          size    = each.value.disk
-          cache   = "writethrough"
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
-  }
-
-  # Network interface
-  network {
-    id     = 0
-    bridge = var.network_bridge
-    model  = "virtio"
-  }
-
-  # Lifecycle management
-  lifecycle {
-    ignore_changes = [
-      clone,
-      full_clone,
-    ]
-  }
+  # Cloud-init
+  cloud_init_file = local.cloud_init_snippet
+  cloud_init_user = var.cloud_init_user
+  ssh_public_key  = var.ssh_public_key
 }
 
-# Worker nodes for Kubernetes workloads
-resource "proxmox_vm_qemu" "k8s_workers" {
+# Worker nodes using k8s-node module
+module "k8s_workers" {
+  source   = "./modules/k8s-node"
   for_each = var.worker_nodes
 
+  # VM identification
   vmid        = each.value.vmid
   name        = "${var.cluster_name}-${each.key}"
   target_node = var.target_node
@@ -647,84 +906,82 @@ resource "proxmox_vm_qemu" "k8s_workers" {
   # Resource allocation
   cores  = each.value.cores
   memory = each.value.memory
+  disk_size = each.value.disk
   
-  # Apply common configuration
-  agent               = local.common_vm_config.agent
-  boot                = local.common_vm_config.boot
-  clone               = local.common_vm_config.clone
-  scsihw              = local.common_vm_config.scsihw
-  vm_state            = local.common_vm_config.vm_state
-  automatic_reboot    = local.common_vm_config.automatic_reboot
-  
-  # Cloud-init configuration
-  cicustom   = "vendor=local:snippets/qemu-guest-agent.yml"
-  ciupgrade  = local.common_vm_config.ciupgrade
-  ciuser     = local.common_vm_config.ciuser
-  sshkeys    = local.common_vm_config.sshkeys
-  nameserver = local.common_vm_config.nameserver
-  skip_ipv6  = local.common_vm_config.skip_ipv6
+  # Template and storage
+  template_name  = var.template_name
+  storage        = var.storage
   
   # Network configuration
-  ipconfig0 = "ip=${each.value.ip}/${split("/", var.cluster_network.subnet)[1]},gw=${var.cluster_network.gateway}"
+  network_bridge = var.network_bridge
+  ip_address     = each.value.ip
+  ip_cidr        = local.network_cidr
+  gateway        = var.cluster_network.gateway
+  dns_servers    = var.cluster_network.dns
   
-  # Tags for organization
-  tags = "kubernetes,worker,${var.cluster_name}"
+  # Cloud-init
+  cloud_init_file = local.cloud_init_snippet
+  cloud_init_user = var.cloud_init_user
+  ssh_public_key  = var.ssh_public_key
+}
 
-  # Serial console for cloud-init
-  serial {
-    id = 0
-  }
+# Optional: HAProxy Load Balancer for HA setup
+module "k8s_lb" {
+  count  = var.enable_ha ? 1 : 0
+  source = "./modules/load-balancer"
 
-  # Disk configuration
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = var.storage
-          size    = each.value.disk
-          cache   = "writethrough"
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
-  }
-
-  # Network interface
-  network {
-    id     = 0
-    bridge = var.network_bridge
-    model  = "virtio"
-  }
-
-  # Lifecycle management
-  lifecycle {
-    ignore_changes = [
-      clone,
-      full_clone,
-    ]
-  }
+  # VM identification
+  vmid        = 100
+  name        = "${var.cluster_name}-lb"
+  target_node = var.target_node
+  
+  # Resource allocation
+  cores  = 2
+  memory = 2048
+  disk_size = "10G"
+  
+  # Template and storage
+  template_name  = var.template_name
+  storage        = var.storage
+  
+  # Network configuration
+  network_bridge = var.network_bridge
+  ip_address     = var.lb_ip_address
+  ip_cidr        = local.network_cidr
+  gateway        = var.cluster_network.gateway
+  dns_servers    = var.cluster_network.dns
+  
+  # Cloud-init
+  cloud_init_file = "haproxy-cloud-init.yml"
+  cloud_init_user = var.cloud_init_user
+  ssh_public_key  = var.ssh_public_key
 }
 ```
 
+> **Note:** The load balancer module creates the VM infrastructure only. HAProxy configuration must be provided via the cloud-init file (`haproxy-cloud-init.yml`). The backend server list, health checks, and load balancing algorithm should be defined in your cloud-init configuration.
+
+**Benefits of this modular approach:**
+
+- **Reusability**: Same module handles masters and workers with different configurations
+- **Maintainability**: Changes to VM configuration only need to be made in the module
+- **Consistency**: All nodes are created with identical settings except for specified parameters
+- **Scalability**: Easy to add more nodes by adding entries to variables
+- **Testing**: Modules can be tested independently
+
 ### `outputs.tf`
+
+Outputs for module-based configuration:
 
 ```hcl
 output "master_nodes" {
   description = "Master node information"
   value = {
-    for k, v in proxmox_vm_qemu.k8s_masters : k => {
-      name      = v.name
-      vmid      = v.vmid
-      ip        = var.master_nodes[k].ip
-      cores     = v.cores
-      memory    = v.memory
-      status    = v.vm_state
+    for k, v in module.k8s_masters : k => {
+      name      = v.vm_name
+      vmid      = v.vm_id
+      ip        = v.ip_address
+      cores     = var.master_nodes[k].cores
+      memory    = var.master_nodes[k].memory
     }
   }
 }
@@ -732,15 +989,23 @@ output "master_nodes" {
 output "worker_nodes" {
   description = "Worker node information"
   value = {
-    for k, v in proxmox_vm_qemu.k8s_workers : k => {
-      name      = v.name
-      vmid      = v.vmid
-      ip        = var.worker_nodes[k].ip
-      cores     = v.cores
-      memory    = v.memory
-      status    = v.vm_state
+    for k, v in module.k8s_workers : k => {
+      name      = v.vm_name
+      vmid      = v.vm_id
+      ip        = v.ip_address
+      cores     = var.worker_nodes[k].cores
+      memory    = var.worker_nodes[k].memory
     }
   }
+}
+
+output "load_balancer" {
+  description = "Load balancer information (if HA enabled)"
+  value = var.enable_ha ? {
+    name = module.k8s_lb[0].vm_name
+    vmid = module.k8s_lb[0].vm_id
+    ip   = module.k8s_lb[0].ip_address
+  } : null
 }
 
 output "cluster_endpoints" {
@@ -761,9 +1026,11 @@ output "connection_info" {
     cluster_name     = var.cluster_name
     master_count     = length(var.master_nodes)
     worker_count     = length(var.worker_nodes)
+    total_cores      = sum([for n in merge(var.master_nodes, var.worker_nodes) : n.cores])
+    total_memory_mb  = sum([for n in merge(var.master_nodes, var.worker_nodes) : n.memory])
     kubernetes_version = var.kubernetes_version
     ha_enabled       = var.enable_ha
-    api_endpoint     = var.enable_ha ? "${var.lb_ip}:${local.k8s_api_port}" : "${values(var.master_nodes)[0].ip}:${local.k8s_api_port}"
+    api_endpoint     = var.enable_ha ? "${var.lb_ip_address}:${local.k8s_api_port}" : "${values(var.master_nodes)[0].ip}:${local.k8s_api_port}"
   }
 }
 
@@ -779,75 +1046,70 @@ output "next_steps" {
 
 ### Load Balancer for HA Kubernetes API
 
-For highly available Kubernetes control plane, add HAProxy load balancer:
+The load balancer is handled by the `module.k8s_lb` module in the main.tf configuration (see above). The module provides:
 
-```hcl
-# HAProxy Load Balancer for K8s API (optional - enabled via var.enable_ha)
-resource "proxmox_vm_qemu" "k8s_lb" {
-  count = var.enable_ha ? 1 : 0
-  
-  vmid        = 100
-  name        = "${var.cluster_name}-lb"
-  target_node = var.target_node
-  
-  cores  = 2
-  memory = 2048
-  
-  agent               = local.common_vm_config.agent
-  boot                = local.common_vm_config.boot
-  clone               = local.common_vm_config.clone
-  scsihw              = local.common_vm_config.scsihw
-  vm_state            = local.common_vm_config.vm_state
-  automatic_reboot    = local.common_vm_config.automatic_reboot
-  
-  # Cloud-init with HAProxy configuration
-  cicustom   = "vendor=local:snippets/haproxy-cloud-init.yml"
-  ciupgrade  = local.common_vm_config.ciupgrade
-  ciuser     = local.common_vm_config.ciuser
-  sshkeys    = local.common_vm_config.sshkeys
-  nameserver = local.common_vm_config.nameserver
-  skip_ipv6  = local.common_vm_config.skip_ipv6
-  
-  ipconfig0 = "ip=${var.lb_ip}/${split("/", var.cluster_network.subnet)[1]},gw=${var.cluster_network.gateway}"
-  
-  tags = "kubernetes,loadbalancer,${var.cluster_name}"
-  
-  serial {
-    id = 0
-  }
-  
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage = var.storage
-          size    = "20G"
-          cache   = "writethrough"
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
-  }
-  
-  network {
-    id     = 0
-    bridge = var.network_bridge
-    model  = "virtio"
-  }
-  
-  lifecycle {
-    ignore_changes = [clone, full_clone]
-  }
-}
+- **Conditional deployment**: Only created when `var.enable_ha = true`
+- **VM provisioning**: Creates Proxmox VM for HAProxy load balancer
+- **Cloud-init integration**: Uses `haproxy-cloud-init.yml` for automated HAProxy configuration
+
+> **Important:** The module creates the VM infrastructure only. You must provide complete HAProxy configuration in your `cloud-init/haproxy-cloud-init.yml` file including:
+>
+> - Backend server pool (master node IPs and port 6443)
+> - Frontend listener configuration
+> - Health check settings
+> - Load balancing algorithm (roundrobin recommended)
+> - HAProxy statistics interface (optional)
+
+**Required cloud-init configuration structure:**
+
+```yaml
+#cloud-config
+package_update: true
+packages:
+  - haproxy
+
+write_files:
+  - path: /etc/haproxy/haproxy.cfg
+    content: |
+      global
+        log /dev/log local0
+        maxconn 4096
+      
+      defaults
+        log global
+        mode tcp
+        option tcplog
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+      
+      frontend kubernetes-api
+        bind *:6443
+        default_backend kubernetes-masters
+      
+      backend kubernetes-masters
+        balance roundrobin
+        option tcp-check
+        # Add your master nodes here:
+        server master-01 192.168.100.10:6443 check
+        server master-02 192.168.100.11:6443 check
+        server master-03 192.168.100.12:6443 check
+
+runcmd:
+  - systemctl enable haproxy
+  - systemctl start haproxy
 ```
 
-Create `cloud-init/haproxy-cloud-init.yml`:
+To enable the load balancer, configure these variables in `terraform.tfvars`:
+
+```hcl
+enable_ha = true
+lb_ip_address = "192.168.100.5"
+```
+
+### Cloud-Init Configuration for HAProxy
+
+Create `cloud-init/haproxy-cloud-init.yml` or use the templated version below:
 
 > **Note:** This should be generated dynamically using Terraform's `templatefile()` function for production use.
 
@@ -965,7 +1227,14 @@ runcmd:
   - systemctl restart haproxy
 ```
 
-Then generate the file in Terraform:
+Then generate the file in Terraform using the `templatefile()` function. This resource dynamically creates the HAProxy cloud-init configuration file by:
+
+1. **Reading the template** from `templates/haproxy-cloud-init.tpl`
+2. **Interpolating variables** (master_nodes, k8s_api_port, haproxy_stats_port) into the template
+3. **Writing the output** to `generated/haproxy-cloud-init.yml`
+4. **Conditional creation** - only creates the file when `var.enable_ha = true`
+
+The generated file can then be uploaded to Proxmox as a cloud-init snippet or referenced directly in the VM configuration.
 
 ```hcl
 # Generate HAProxy cloud-init configuration
@@ -1050,13 +1319,46 @@ cluster_network = {
 # HA and Monitoring
 enable_ha         = true
 enable_monitoring = true
-lb_ip             = "192.168.100.5"
 
-# SSH access
-ssh_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your-public-key"
+# High Availability Configuration
+enable_ha = false  # Set to true to enable HAProxy load balancer
+lb_ip_address = "192.168.100.5"  # Required if enable_ha = true
+
+# Kubernetes Configuration
+kubernetes_version = "1.28.3"
+```
+
+### `terraform.tfvars` Complete Example
+
+Here's a complete `terraform.tfvars` file ready to customize:
+
+```hcl
+# Proxmox API Configuration
+proxmox_api_url          = "https://192.168.1.100:8006/api2/json"
+proxmox_api_token_id     = "terraform-prov@pve!terraform_id"
+proxmox_api_token_secret = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+proxmox_tls_insecure     = false  # Use true only for self-signed certificates in testing
+
+# Proxmox Infrastructure Settings
+target_node    = "pve-node-01"
+template_name  = "debian12-cloudinit"
+storage        = "local-lvm"
+network_bridge = "vmbr0"
+
+# Kubernetes Cluster Configuration
+cluster_name = "k8s-prod"
+
+cluster_network = {
+  subnet  = "192.168.100.0/24"
+  gateway = "192.168.100.1"
+  dns     = ["8.8.8.8", "1.1.1.1"]
+}
+
+# SSH Access Configuration
+ssh_public_key  = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJxyz... user@hostname"
 cloud_init_user = "ubuntu"
 
-# Master nodes (adjust as needed)
+# Master Node Definitions
 master_nodes = {
   "master-01" = {
     vmid   = 101
@@ -1067,7 +1369,7 @@ master_nodes = {
   }
   "master-02" = {
     vmid   = 102
-    ip     = "192.168.100.11" 
+    ip     = "192.168.100.11"
     cores  = 2
     memory = 4096
     disk   = "20G"
@@ -1081,7 +1383,7 @@ master_nodes = {
   }
 }
 
-# Worker nodes (adjust as needed)
+# Worker Node Definitions
 worker_nodes = {
   "worker-01" = {
     vmid   = 201
@@ -1095,7 +1397,7 @@ worker_nodes = {
     ip     = "192.168.100.21"
     cores  = 4
     memory = 8192
-    disk   = "50G"  
+    disk   = "50G"
   }
   "worker-03" = {
     vmid   = 203
@@ -1105,6 +1407,16 @@ worker_nodes = {
     disk   = "50G"
   }
 }
+
+# High Availability Configuration
+enable_ha     = false  # Set to true to enable HAProxy load balancer
+lb_ip_address = "192.168.100.5"
+
+# Kubernetes Version
+kubernetes_version = "1.28.3"
+
+# Monitoring
+enable_monitoring = true
 ```
 
 ### Environment Variables (Alternative)
@@ -1118,29 +1430,6 @@ export TF_VAR_ssh_public_key="$(cat ~/.ssh/id_ed25519.pub)"
 
 ---
 
-## Modular Architecture (Recommended)
-
-For better maintainability, organize infrastructure using modules.
-
-### Module Structure
-
-```text
-kubernetes-cluster/
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── providers.tf
-└── modules/
-    ├── k8s-node/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-    └── load-balancer/
-        ├── main.tf
-        ├── variables.tf
-        └── outputs.tf
-```
-
 ### Node Module: `modules/k8s-node/main.tf`
 
 ```hcl
@@ -1153,106 +1442,353 @@ resource "proxmox_vm_qemu" "node" {
   memory = var.memory
   
   agent            = 1
-  boot             = "order=scsi0"
   clone            = var.template_name
-  scsihw           = "virtio-scsi-single"
-  vm_state         = "running"
-  automatic_reboot = true
+  full_clone       = false
+  oncreate         = true
   
+  # Cloud-init configuration
   cicustom   = "vendor=local:snippets/${var.cloud_init_file}"
-  ciupgrade  = true
   ciuser     = var.cloud_init_user
   sshkeys    = var.ssh_public_key
   nameserver = join(" ", var.dns_servers)
-  skip_ipv6  = true
+  ipconfig0  = "ip=${var.ip_address}/${var.ip_cidr},gw=${var.gateway}"
   
-  ipconfig0 = "ip=${var.ip_address}/${var.ip_cidr},gw=${var.gateway}"
-  tags = join(",", concat(["kubernetes", var.node_type], var.additional_tags))
-  
-  serial {
-    id = 0
+  # Disk configuration
+  disk {
+    type    = "scsi"
+    storage = var.storage
+    size    = var.disk_size
+    cache   = "writethrough"
   }
   
-  disks {
-    scsi {
-      scsi0 {
-        disk {
-          storage  = var.storage
-          size     = var.disk_size
-          cache    = "writethrough"
-          iothread = var.enable_iothread ? 1 : 0
-        }
-      }
-    }
-    ide {
-      ide1 {
-        cloudinit {
-          storage = var.storage
-        }
-      }
-    }
-  }
-  
+  # Network configuration
   network {
-    id     = 0
     bridge = var.network_bridge
     model  = "virtio"
   }
   
+  # Serial device for console access
+  serial {
+    id   = 0
+    type = "socket"
+  }
+  
   lifecycle {
-    ignore_changes = [clone, full_clone]
+    ignore_changes = [network]
   }
 }
 ```
 
 ### Node Module Variables
 
-Key variables for the module in `modules/k8s-node/variables.tf`:
+Complete variable definitions for `modules/k8s-node/variables.tf`:
 
 ```hcl
-variable "vmid" { type = number }
-variable "name" { type = string }
-variable "target_node" { type = string }
-variable "cores" { type = number; default = 2 }
-variable "memory" { type = number; default = 4096 }
-variable "disk_size" { type = string; default = "20G" }
-variable "node_type" {
-  type = string
-  validation {
-    condition     = contains(["master", "worker"], var.node_type)
-    error_message = "Node type must be master or worker"
+variable "vmid" {
+  type        = number
+  description = "VM ID in Proxmox"
+}
+
+variable "name" {
+  type        = string
+  description = "VM name"
+}
+
+variable "target_node" {
+  type        = string
+  description = "Proxmox node to deploy on"
+}
+
+variable "cores" {
+  type        = number
+  description = "Number of CPU cores"
+  default     = 2
+}
+
+variable "memory" {
+  type        = number
+  description = "Memory in MB"
+  default     = 4096
+}
+
+variable "disk_size" {
+  type        = string
+  description = "Disk size (e.g., 20G, 50G)"
+  default     = "20G"
+}
+
+variable "template_name" {
+  type        = string
+  description = "Name of the cloud-init template to clone"
+}
+
+variable "storage" {
+  type        = string
+  description = "Storage pool for VM disks"
+}
+
+variable "network_bridge" {
+  type        = string
+  description = "Network bridge for VM"
+}
+
+variable "ip_address" {
+  type        = string
+  description = "Static IP address for the VM"
+}
+
+variable "ip_cidr" {
+  type        = string
+  description = "CIDR notation for subnet (e.g., 24)"
+}
+
+variable "gateway" {
+  type        = string
+  description = "Network gateway"
+}
+
+variable "dns_servers" {
+  type        = list(string)
+  description = "List of DNS servers"
+}
+
+variable "cloud_init_file" {
+  type        = string
+  description = "Cloud-init configuration file name"
+}
+
+variable "cloud_init_user" {
+  type        = string
+  description = "Default user for cloud-init"
+}
+
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key for VM access"
+}
+```
+
+### Node Module Outputs
+
+Create `modules/k8s-node/outputs.tf`:
+
+```hcl
+output "vm_name" {
+  description = "Name of the created VM"
+  value       = proxmox_vm_qemu.node.name
+}
+
+output "vm_id" {
+  description = "VM ID in Proxmox"
+  value       = proxmox_vm_qemu.node.vmid
+}
+
+output "ip_address" {
+  description = "IP address of the VM"
+  value       = var.ip_address
+}
+```
+
+**Copy this code** into `modules/k8s-node/versions.tf`:
+
+```hcl
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "~> 2.9"
+    }
   }
 }
 ```
 
-### Using the Module
+> **Why versions.tf is needed:** Modules must explicitly declare which providers they use. This file tells Terraform the module requires the `telmate/proxmox` provider. Provider authentication (credentials) is still configured only in the root `providers.tf` file.
+
+### Load Balancer Module
+
+**Copy this complete code** into `modules/load-balancer/main.tf`:
 
 ```hcl
-# Master nodes using module
-module "k8s_masters" {
-  source   = "./modules/k8s-node"
-  for_each = var.master_nodes
+resource "proxmox_vm_qemu" "lb" {
+  vmid        = var.vmid
+  name        = var.name
+  target_node = var.target_node
   
-  vmid            = each.value.vmid
-  name            = "${var.cluster_name}-${each.key}"
-  target_node     = var.target_node
-  cores           = each.value.cores
-  memory          = each.value.memory
-  disk_size       = each.value.disk
-  template_name   = var.template_name
-  storage         = var.storage
-  network_bridge  = var.network_bridge
-  ip_address      = each.value.ip
-  ip_cidr         = split("/", var.cluster_network.subnet)[1]
-  gateway         = var.cluster_network.gateway
-  dns_servers     = var.cluster_network.dns
-  cloud_init_user = var.cloud_init_user
-  ssh_public_key  = var.ssh_public_key
-  cloud_init_file = "k8s-node.yaml"
-  node_type       = "master"
-  additional_tags = [var.cluster_name]
+  cores  = var.cores
+  memory = var.memory
+  
+  agent      = 1
+  clone      = var.template_name
+  full_clone = false
+  oncreate   = true
+  
+  # Cloud-init configuration
+  cicustom   = "vendor=local:snippets/${var.cloud_init_file}"
+  ciuser     = var.cloud_init_user
+  sshkeys    = var.ssh_public_key
+  nameserver = join(" ", var.dns_servers)
+  ipconfig0  = "ip=${var.ip_address}/${var.ip_cidr},gw=${var.gateway}"
+  
+  # Disk configuration
+  disk {
+    type    = "scsi"
+    storage = var.storage
+    size    = var.disk_size
+    cache   = "writethrough"
+  }
+  
+  # Network configuration
+  network {
+    bridge = var.network_bridge
+    model  = "virtio"
+  }
+  
+  # Serial device for console access
+  serial {
+    id   = 0
+    type = "socket"
+  }
+  
+  lifecycle {
+    ignore_changes = [network]
+  }
 }
 ```
+
+Create `modules/load-balancer/variables.tf`:
+
+```hcl
+variable "vmid" {
+  type        = number
+  description = "VM ID in Proxmox"
+}
+
+variable "name" {
+  type        = string
+  description = "VM name"
+}
+
+variable "target_node" {
+  type        = string
+  description = "Proxmox node to deploy on"
+}
+
+variable "cores" {
+  type        = number
+  description = "Number of CPU cores"
+  default     = 2
+}
+
+variable "memory" {
+  type        = number
+  description = "Memory in MB"
+  default     = 2048
+}
+
+variable "disk_size" {
+  type        = string
+  description = "Disk size"
+  default     = "10G"
+}
+
+variable "template_name" {
+  type        = string
+  description = "Name of the cloud-init template to clone"
+}
+
+variable "storage" {
+  type        = string
+  description = "Storage pool for VM disks"
+}
+
+variable "network_bridge" {
+  type        = string
+  description = "Network bridge for VM"
+}
+
+variable "ip_address" {
+  type        = string
+  description = "Static IP address for the load balancer"
+}
+
+variable "ip_cidr" {
+  type        = string
+  description = "CIDR notation for subnet"
+}
+
+variable "gateway" {
+  type        = string
+  description = "Network gateway"
+}
+
+variable "dns_servers" {
+  type        = list(string)
+  description = "List of DNS servers"
+}
+
+variable "cloud_init_user" {
+  type        = string
+  description = "Default user for cloud-init"
+}
+
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key for VM access"
+}
+
+variable "cloud_init_file" {
+  type        = string
+  description = "Cloud-init configuration file"
+  default     = "haproxy-cloud-init.yml"
+}
+```
+
+**Copy this code** into `modules/load-balancer/outputs.tf`:
+
+```hcl
+output "vm_name" {
+  description = "Name of the load balancer VM"
+  value       = proxmox_vm_qemu.lb.name
+}
+
+output "vm_id" {
+  description = "VM ID in Proxmox"
+  value       = proxmox_vm_qemu.lb.vmid
+}
+
+output "ip_address" {
+  description = "IP address of the load balancer"
+  value       = var.ip_address
+}
+```
+
+**Copy this code** into `modules/load-balancer/versions.tf`:
+
+```hcl
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "telmate/proxmox"
+      version = "~> 2.9"
+    }
+  }
+}
+```
+
+> **Note:** This versions.tf file is identical to the one in k8s-node module. Each module must declare its provider dependencies to ensure Terraform uses the correct provider source.
+
+### Understanding the Module Usage
+
+> **Note:** The code shown above is an **example** of how the k8s-node module is called. This exact code is **already included in the main.tf** file shown earlier in the document. You do **NOT** need to add this code anywhere - it's provided here for reference only to help you understand how modules work.
+
+**What this example demonstrates:**
+
+- **Module source**: `source = "./modules/k8s-node"` tells Terraform where to find the module code
+- **for_each loop**: Creates multiple VMs (one per master node defined in `var.master_nodes`)
+- **Parameter mapping**: Shows how values from your `terraform.tfvars` are passed to the module
+- **Module reusability**: The same module is used for both masters and workers with different parameters
+
+**Key takeaway:** The module definitions you copied above (main.tf, variables.tf, outputs.tf) are the reusable building blocks. The main.tf file at the project root calls these modules to create your actual infrastructure.
 
 ---
 
@@ -1342,9 +1878,9 @@ resource "local_file" "ansible_inventory" {
   filename = "${path.module}/ansible/inventory/hosts.ini"
   
   depends_on = [
-    proxmox_vm_qemu.k8s_masters,
-    proxmox_vm_qemu.k8s_workers,
-    proxmox_vm_qemu.k8s_lb
+    module.k8s_masters,
+    module.k8s_workers,
+    module.k8s_lb
   ]
 }
 
@@ -1352,8 +1888,8 @@ resource "local_file" "ansible_inventory" {
 resource "null_resource" "kubernetes_installation" {
   triggers = {
     cluster_instance_ids = join(",", concat(
-      [for k, v in proxmox_vm_qemu.k8s_masters : v.vmid],
-      [for k, v in proxmox_vm_qemu.k8s_workers : v.vmid]
+      [for k, v in module.k8s_masters : v.vm_id],
+      [for k, v in module.k8s_workers : v.vm_id]
     ))
     kubernetes_version = var.kubernetes_version
   }
@@ -1392,8 +1928,8 @@ resource "null_resource" "kubernetes_installation" {
   
   depends_on = [
     local_file.ansible_inventory,
-    proxmox_vm_qemu.k8s_masters,
-    proxmox_vm_qemu.k8s_workers
+    module.k8s_masters,
+    module.k8s_workers
   ]
 }
 
@@ -1580,6 +2116,22 @@ Create `ansible/playbooks/k8s-cluster.yml`:
 #### Add Required Variables
 
 ```hcl
+variable "enable_ha" {
+  type        = bool
+  description = "Enable high availability with HAProxy load balancer"
+  default     = false
+}
+
+variable "lb_ip_address" {
+  type        = string
+  description = "IP address for HAProxy load balancer (required if enable_ha is true)"
+  default     = ""
+  validation {
+    condition     = var.enable_ha ? var.lb_ip_address != "" : true
+    error_message = "Load balancer IP address must be specified when HA is enabled"
+  }
+}
+
 variable "kubernetes_version" {
   type        = string
   description = "Kubernetes version to install"
