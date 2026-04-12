@@ -1,8 +1,36 @@
-- name: Diesel Truck Troubleshooting Guide
-  href: ./ram3500/truck.md
-- name: Edge CTS3 Dashboard Configuration
-  href: ./edge_ct3/edge_ct3_guide.md
-- name: Python OBD-II Data Analysis
-  href: ./python_obd/python-obd-guide.md
-- name: DashCommand App Guide
-  href: ./ram3500/dashcommand-guide.md
+- name: Ram 3500
+  items:
+  - name: Maintenance Guide
+    href: ./ram3500/maintenance.md
+  - name: Diesel Truck Troubleshooting Guide
+    href: ./ram3500/truck.md
+  - name: Edge CTS3 Dashboard Configuration
+    href: ./ram3500/edge_ct3_guide.md
+  - name: Python OBD-II Data Analysis
+    href: ./ram3500/python-obd-guide.md
+  - name: DashCommand App Guide
+    href: ./ram3500/dashcommand-guide.md
+- name: Honda Accord
+  items:
+  - name: Honda Accord Sport 2016 Overview
+    href: ./hondaaccord/overview.md
+  - name: Maintenance Guide
+    href: ./hondaaccord/maintenance.md
+- name: John Deere 1025R
+  items:
+  - name: Overview
+    href: ./johndeere1025r/index.md
+  - name: Maintenance Guide
+    href: ./johndeere1025r/maintenance.md
+- name: Heartland Fuel M-352
+  items:
+  - name: Overview
+    href: ./heartlandfuel352/index.md
+  - name: Maintenance Guide
+    href: ./heartlandfuel352/maintenance.md
+- name: Harley-Davidson Ultra Classic
+  items:
+  - name: Overview
+    href: ./hdultraclassic/index.md
+  - name: Maintenance Guide
+    href: ./hdultraclassic/maintenance.md
