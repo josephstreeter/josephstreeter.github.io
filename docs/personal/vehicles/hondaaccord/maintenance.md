@@ -359,7 +359,7 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 
 | Date | Mileage | Service Performed | Parts Used | Notes |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| 2026-04-18 | | Replaced wiper blades | Bosch ICON 26A, 22A | |
 | | | | | |
 | | | | | |
 | | | | | |

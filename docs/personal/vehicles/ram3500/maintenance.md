@@ -557,6 +557,35 @@ This page serves as a maintenance reference for a 2014 RAM 3500 equipped with th
 4. Do not shut the engine off immediately after hard towing in hot weather — idle for 3-5 minutes to allow coolant to continue circulating and cool the turbocharger bearing housing
 5. Store DEF containers in a shaded location. DEF stored above 86°F for extended periods degrades and will cause quality fault codes when added to the tank
 
+### Wiper Blades
+
+- **Interval:** Replace annually or when streaking, chattering, tearing, or reduced visibility occurs
+- **Type:** Bosch ICON (beam-style)
+- **Size:** Driver 22 in, Passenger 22 in — verify fitment for your specific model/year and cab configuration before purchase
+- **Rear:** Typically not applicable for most Ram 3500 cab configurations; if a rear wiper is fitted, verify size separately
+
+**Required Tools:**
+
+- No tools required
+- Small flat-blade screwdriver (optional, for removing some adapter clips)
+
+**Steps:**
+
+1. Turn the wipers off and set the ignition to ACCESSORY or OFF. Lift the wiper arms away from the windshield and rest them in the service position if available. Place a towel on the windshield to protect the glass
+2. Rotate the blade assembly perpendicular to the arm so the release tab or clip is accessible
+3. Press the blade release tab (or lift the small locking clip) and slide the old blade off the arm adapter
+4. Compare the new Bosch ICON blade adapter with the old blade to confirm compatibility. Bosch ICON kits typically include common adapters for hook-style and pin-style arms
+5. Align the new blade with the arm adapter and slide it on until it locks with an audible click
+6. Carefully lower the wiper arm back onto the windshield
+7. Test the wipers at low speed and verify there is no streaking, skipping, or interference with the cowl or hood
+
+**Installation Tips:**
+
+- Keep a towel or rag between the arm and windshield while changing blades to prevent the arm from contacting the glass
+- Replace both blades at the same time for consistent performance
+- If the blade chatters or streaks after installation, verify the arm is not bent and that the blade is the correct length and properly seated
+- Always verify blade length and adapter type against the parts listing or Bosch fitment guide before purchasing
+
 ## Common Maintenance Part Numbers
 
 | Part | Mopar Part Number | Notes |
@@ -568,6 +597,14 @@ This page serves as a maintenance reference for a 2014 RAM 3500 equipped with th
 | Cabin Air Filter | 68406048AA | Behind glove box |
 | Transmission Filter Kit | 68RFE specific | Includes pan gasket |
 | Thermostat | 68382490AA | 200°F rated |
+| Coolant (OAT) | MS-12106 | Pre-mixed or concentrate |
+| ATF+4 Transmission Fluid | MS-9602 | Do not substitute with other ATF types |
+| Front Diff Gear Oil (AAM 9.25) | MS-8985 (75W-90) | Add limited-slip additive if equipped |
+| Rear Diff Gear Oil (AAM 11.5) | MS-8985 (75W-140) | Add limited-slip additive if equipped |
+| Brake Pads (Front) | Varies by trim/axle | Verify fitment for specific model/year |
+| Brake Pads (Rear) | Varies by trim/axle | Verify fitment for specific model/year |
+| Brake Rotors | Varies by trim/axle | Verify fitment for specific model/year |
+| Wiper Blades | Bosch ICON 22" | Verify fitment for specific model/year and cab configuration |
 
 > [!NOTE]
 > Part numbers may be superseded over time. Always verify the current part number with your dealer or a trusted parts catalog before ordering.
@@ -576,7 +613,8 @@ This page serves as a maintenance reference for a 2014 RAM 3500 equipped with th
 
 | Date | Mileage | Service Performed | Parts Used | Notes |
 | --- | --- | --- | --- | --- |
-| | | | | |
+| 2026-02 | ~99,0000 | Transmission replaced | 687RFE | Diesel Forward |
+| 2026-04 | | Replaced fuel filter/water separator | Mopar 68197867AB/68065608AA | |
 | | | | | |
 | | | | | |
 | | | | | |
