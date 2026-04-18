@@ -312,7 +312,7 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 
 - **Interval:** Replace annually or when streaking, chattering, tearing, or reduced visibility occurs
 - **Type:** Bosch ICON (beam-style)
-- **Size:** Driver 26 in (26A), Passenger 22 in (22A) — verify fitment for your specific trim before purchase
+- **Size:** Driver 26 in (26A), Passenger 20 in (20A) — verify fitment for your specific trim before purchase
 - **Rear:** Not applicable for the 2016 Accord sedan (no rear wiper)
 
 **Required Tools:**
@@ -350,7 +350,7 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 | Honda MTF | 08798-9031 | Manual transmission only |
 | Coolant (Type 2) | OL999-9011 | Pre-mixed 50/50 |
 | Bosch ICON Driver Blade | 26A | None |
-| Bosch ICON Passenger Blade | 22A | Verify fitment for your trim |
+| Bosch ICON Passenger Blade | 20A | Verify fitment for your trim |
 
 > [!NOTE]
 > Part numbers may be superseded. Always verify the current number with a Honda dealer or parts catalog before ordering.
@@ -359,7 +359,7 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 
 | Date | Mileage | Service Performed | Parts Used | Notes |
 | --- | --- | --- | --- | --- |
-| 2026-04-18 | | Replaced wiper blades | Bosch ICON 26A, 22A | |
+| 2026-04-18 | | Replaced wiper blades | Bosch ICON 26A, 20A | |
 | | | | | |
 | | | | | |
 | | | | | |
