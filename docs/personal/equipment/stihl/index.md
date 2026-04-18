@@ -1,4 +1,12 @@
-# Stihl
+---
+title: "Stihl"
+description: "Reference notes for Stihl outdoor power equipment including chainsaws, trimmers, and blowers."
+tags: ["stihl", "chainsaw", "trimmer", "blower", "equipment", "outdoor power"]
+category: "personal"
+author: "Joseph Streeter"
+---
+
+## Stihl
 
 Stihl is a well-known brand in the outdoor power equipment industry, offering a wide range of products including chainsaws, trimmers, blowers, and more. Stihl products are known for their reliability, performance, and innovative features, making them a popular choice among homeowners and professionals alike.
 
