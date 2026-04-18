@@ -308,6 +308,35 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 4. Inspect each idler and tensioner pulley by spinning them by hand. They should spin freely with no grinding or rumbling
 5. If any wear is found or the belt has reached 105,000 miles, replace it
 
+### Wiper Blades
+
+- **Interval:** Replace annually or when streaking, chattering, tearing, or reduced visibility occurs
+- **Type:** Bosch ICON (beam-style)
+- **Size:** Driver 26 in (26A), Passenger 22 in (22A) — verify fitment for your specific trim before purchase
+- **Rear:** Not applicable for the 2016 Accord sedan (no rear wiper)
+
+**Required Tools:**
+
+- No tools required
+- Small flat-blade screwdriver (optional)
+
+**Steps:**
+
+1. Turn the wipers off and set the ignition to ACCESSORY or OFF. Lift the wiper arms away from the windshield and rest them in the service position if available. Place a towel on the windshield to protect the glass.
+2. Rotate the blade assembly perpendicular to the arm so the release tab or clip is accessible.
+3. Press the blade release tab (or lift the small locking clip) and slide the old blade off the arm adapter.
+4. Compare the new Bosch ICON blade adapter with the old blade to confirm compatibility.
+5. Align the new blade with the arm adapter and slide it on until it locks with an audible click.
+6. Carefully lower the wiper arm back onto the windshield.
+7. Test the wipers at low speed and verify there is no streaking, skipping, or interference with the cowl or hood.
+
+**Installation Tips:**
+
+- Keep a towel or rag between the arm and windshield while changing blades.
+- Replace both blades at the same time for consistent performance.
+- If the blade chatters or streaks after installation, verify the arm is not bent and that the blade is the correct length and properly seated.
+- Always verify blade length and adapter type against the parts listing or Bosch fitment guide before purchasing.
+
 ## Common Maintenance Part Numbers
 
 | Part | Honda Part Number | Notes |
