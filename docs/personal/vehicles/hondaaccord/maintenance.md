@@ -349,6 +349,8 @@ The 2016 Accord uses Honda's Maintenance Minder system to calculate service inte
 | CVT Fluid (HCF-2) | 08200-HCF2 | 4-quart jug; do not substitute |
 | Honda MTF | 08798-9031 | Manual transmission only |
 | Coolant (Type 2) | OL999-9011 | Pre-mixed 50/50 |
+| Bosch ICON Driver Blade | 26A | None |
+| Bosch ICON Passenger Blade | 22A | Verify fitment for your trim |
 
 > [!NOTE]
 > Part numbers may be superseded. Always verify the current number with a Honda dealer or parts catalog before ordering.
