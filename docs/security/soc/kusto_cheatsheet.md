@@ -1,4 +1,14 @@
-# Kusto Cheatsheet for SOC Analyst
+---
+title: "Kusto Cheatsheet for SOC Analyst"
+description: >-
+    Practical Kusto Query Language patterns that support SOC triage,
+    investigations, and hunting workflows
+author: "Joseph Streeter"
+ms.date: "2026-05-19"
+ms.topic: "how-to"
+---
+
+## Kusto Cheatsheet for SOC Analyst
 
 This page provides practical Kusto Query Language (KQL) patterns that support
 SOC triage and investigations in the SOC analyst playbook.

@@ -1,6 +1,8 @@
 ---
 title: "Security Operations Center (SOC)"
-description: "Central hub for SOC strategy, detection engineering, incident response, and continuous security operations improvement"
+description: >-
+    Central hub for SOC strategy, detection engineering, incident response, and
+    continuous security operations improvement
 author: "Joseph Streeter"
 ms.date: "2026-05-19"
 ms.topic: "landing-page"
@@ -8,9 +10,13 @@ ms.topic: "landing-page"
 
 ## Security Operations Center
 
-The Security Operations Center (SOC) section is the operational security hub for this infrastructure documentation. It focuses on building a practical detection and response capability that scales from home lab environments to enterprise operations.
+The Security Operations Center (SOC) section is the operational security hub
+for this infrastructure documentation. It focuses on building a practical
+detection and response capability that scales from home lab environments to
+enterprise operations.
 
-Use this area to define how alerts are triaged, incidents are investigated, and defensive controls are continuously improved.
+Use this area to define how alerts are triaged, incidents are investigated,
+and defensive controls are continuously improved.
 
 ## SOC Mission
 
@@ -77,6 +83,21 @@ flowchart LR
 - False positive rate and tuning backlog
 - Incident recurrence by category
 
+## SOC Reference Pages
+
+- [SOC Analyst Playbook](soc_analyst.md)
+- [Kusto Cheatsheet for SOC Analyst](kusto_cheatsheet.md)
+- [Microsoft Defender](ms_defender.md)
+- [Microsoft Sentinel](sentinel.md)
+
+## SOC Runbooks
+
+- [Malware Outbreak Response](malware_outbreak_response.md)
+- [Identity Compromise Response](identity_compromise_response.md)
+- [Phishing and Business Email Compromise Response](phishing_bec_response.md)
+- [Suspicious Cloud Activity Response](suspicious_cloud_activity_response.md)
+- [Privileged Access Abuse Response](privileged_access_abuse_response.md)
+
 ## Adjacent Infrastructure Security Areas
 
 - [Infrastructure Security](../../infrastructure/security/index.md)
@@ -87,11 +108,7 @@ flowchart LR
 
 ## Next Build-Out Topics
 
-- [SOC Analyst Playbook](soc_analyst.md)
-- [Kusto Cheatsheet for SOC Analyst](kusto_cheatsheet.md)
-- [Microsoft Defender Outline](ms_defender.md)
 - SIEM architecture and onboarding standards
 - Detection rule lifecycle and quality gates
-- Incident response playbooks by scenario
 - Threat hunting methodology and cadence
 - SOC dashboards and executive reporting

@@ -1,4 +1,14 @@
-# SOC Analyst Role
+---
+title: "SOC Analyst Role"
+description: >-
+  Analyst-facing playbook for SOC threat detection, triage, investigation, and
+  response workflows
+author: "Joseph Streeter"
+ms.date: "2026-05-19"
+ms.topic: "how-to"
+---
+
+## SOC Analyst Role
 
 You are an expert Security Operations Center (SOC) analyst conducting threat
 detection and incident response for a higher education environment. Your

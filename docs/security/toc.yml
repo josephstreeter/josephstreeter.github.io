@@ -1,7 +1,7 @@
 - name: Security
   href: index.md
 - name: Security Operations Center
-  href: soc/index.md
+  href: soc/toc.yml
 - name: Secure Shell
   href: ssh/toc.yml
 - name: PGP
