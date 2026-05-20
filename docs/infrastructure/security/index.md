@@ -12,6 +12,12 @@ Infrastructure security is the foundation of any secure computing environment. T
 
 ## Security Framework
 
+## Topics
+
+- [Security Operations Center (SOC)](soc/index.md)
+- [Identity and Access Management](iam/index.md)
+- [Compliance and Auditing](compliance/index.md)
+
 ### Defense in Depth
 
 Implement multiple layers of security controls:

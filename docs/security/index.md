@@ -12,6 +12,7 @@ This section covers a range of security topics including encryption, secure comm
 
 ## Topics
 
+- [Security Operations Center (SOC)](soc/index.md) - SOC strategy, detection engineering, and incident response operations
 - [SSH](ssh/index.md) - Secure Shell configuration and best practices
 - [Certificates](certificates/index.md) - Certificate management and PKI fundamentals
 - [OSINT](osint/index.md) - Open Source Intelligence techniques and tools
@@ -85,6 +86,7 @@ Explore more in the [OSINT section](osint/index.md).
 
 ### Next Steps
 
+- Review [SOC operations and workflow](soc/index.md) to establish detection and response practices
 - Learn about [encryption algorithms and their applications](pgp/05-encryption.md)
 - Explore [SSH hardening techniques](ssh/index.md) for server security
 - Understand [wireless security protocols](wireless/index.md) and vulnerabilities
