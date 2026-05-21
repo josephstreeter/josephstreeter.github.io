@@ -16,6 +16,8 @@
     href: docfx/index.md
   - name: Git
     href: git/index.md
+  - name: Bash
+    href: bash/toc.yml
   - name: PowerShell
     href: powershell/index.md
   - name: Python

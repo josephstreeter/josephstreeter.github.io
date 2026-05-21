@@ -1,0 +1,9 @@
+- name: Bash
+  href: index.md
+  items:
+  - name: Navigation and File Commands
+    href: navigation-and-files.md
+  - name: Text Processing and Search Commands
+    href: text-processing-and-search.md
+  - name: System, Process, and Network Commands
+    href: system-process-and-network.md

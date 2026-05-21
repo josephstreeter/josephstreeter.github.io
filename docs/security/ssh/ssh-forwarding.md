@@ -71,10 +71,16 @@ You can then access the remote web server by browsing to `http://localhost:8080`
 
 #### Restricting Access to Forwarded Ports
 
-By default, forwarded ports are bound to all interfaces (`0.0.0.0`), allowing other machines to connect to the forwarded port. To restrict access to the local machine only:
+By default, local forwarded ports are typically bound to localhost (`127.0.0.1`). To explicitly keep access local to your machine:
 
 ```bash
 ssh -L 127.0.0.1:8080:internal-web.example.com:80 jumphost.example.com
+```
+
+To verify where the listener is bound:
+
+```bash
+ss -ltnp | grep :8080
 ```
 
 #### Forwarding Multiple Ports
