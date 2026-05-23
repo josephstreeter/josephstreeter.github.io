@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# PGP Email Integration
+## PGP Email Integration
 
 This is a placeholder for PGP Email Integration content.
 

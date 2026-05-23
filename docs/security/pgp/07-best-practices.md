@@ -6,7 +6,7 @@ ms.date: "2025-07-18"
 ms.topic: "article"
 ---
 
-# PGP Best Practices
+## PGP Best Practices
 
 This is a placeholder for PGP Best Practices content.
 

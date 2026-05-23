@@ -32,7 +32,7 @@ This guide provides a comprehensive overview of tools and techniques used for wi
 Common tools used for wireless network security assessment include:
 
 | Tool | Purpose |
-|------|---------|
+| ---- | ------- |
 | **aircrack-ng** | Suite of tools for WiFi network security assessment |
 | **airodump-ng** | Packet capture tool for wireless networks |
 | **aireplay-ng** | Tool for packet injection and deauthentication |
