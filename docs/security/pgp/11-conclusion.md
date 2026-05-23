@@ -4,12 +4,15 @@ description: "Summary of PGP/GPG concepts, implementation roadmap, and recommend
 tags: ["pgp", "gpg", "conclusion", "security", "roadmap", "best-practices"]
 category: "security"
 difficulty: "beginner"
-last_updated: "2025-01-20"
+last_updated: "2026-05-23"
 ---
 
 ## PGP/GPG Conclusion and Next Steps
 
 This guide has covered the essential concepts and practical implementation of Pretty Good Privacy (PGP) and GNU Privacy Guard (GPG) for secure communications. This conclusion summarizes key takeaways and provides guidance for your ongoing security journey.
+
+> [!NOTE]
+> Use this chapter as an execution checklist. Detailed procedures remain in the earlier chapters.
 
 ## Key Concepts Recap
 
@@ -267,15 +270,15 @@ gpgconf --launch gpg-agent
 
 ### Official Documentation
 
-- **GnuPG Manual** - [https://gnupg.org/documentation/](https://gnupg.org/documentation/index.md)
-- **OpenPGP Standard** - [RFC 4880](https://tools.ietf.org/html/rfc4880)
+- **GnuPG Manual** - [https://gnupg.org/documentation/](https://gnupg.org/documentation/)
+- **OpenPGP Standard** - [RFC 4880](https://datatracker.ietf.org/doc/html/rfc4880)
 - **GPG4Win Documentation** - [https://www.gpg4win.org/documentation.html](https://www.gpg4win.org/documentation.html)
 
 ### Security Research
 
-- **EFF Surveillance Self-Defense** - [https://ssd.eff.org/](https://ssd.eff.org/index.md)
-- **Security in Context** - [https://securityinabox.org/](https://securityinabox.org/index.md)
-- **NIST Cryptographic Standards** - [https://csrc.nist.gov/](https://csrc.nist.gov/index.md)
+- **EFF Surveillance Self-Defense** - [https://ssd.eff.org/](https://ssd.eff.org/)
+- **Security in Context** - [https://securityinabox.org/](https://securityinabox.org/)
+- **NIST Cryptographic Standards** - [https://csrc.nist.gov/](https://csrc.nist.gov/)
 
 ### Community Resources
 
@@ -397,11 +400,7 @@ PGP/GPG represents one of the most mature and widely-deployed end-to-end encrypt
 
 5. **Education is ongoing** - Stay informed about new developments, threats, and best practices in the rapidly evolving field of cryptographic security.
 
-**Remember**: The goal isn't perfect security—it's appropriate security for your threat model, implemented consistently and maintained over time. PGP gives you the tools; the rest depends on your knowledge, habits, and commitment to protecting your communications.
-
-Whether you're protecting personal privacy, professional communications, or contributing to broader digital rights, every person who adopts strong encryption makes the entire ecosystem more secure for everyone.
-
-Take the first step. Generate your keys. Start the conversation. The future of private communication depends on each of us taking responsibility for our own digital security.
+**Remember**: The goal is not perfect security; it is appropriate, repeatable security for your threat model. Strong tooling plus disciplined operations yields the best outcomes.
 
 ---
 

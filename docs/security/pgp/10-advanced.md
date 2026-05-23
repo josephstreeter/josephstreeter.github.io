@@ -4,12 +4,15 @@ description: "Advanced security techniques for PGP/GPG including metadata protec
 tags: ["pgp", "gpg", "security", "opsec", "metadata", "advanced"]
 category: "security"
 difficulty: "advanced"
-last_updated: "2025-01-20"
+last_updated: "2026-05-23"
 ---
 
 ## Advanced PGP/GPG Security Practices
 
 This guide covers advanced security techniques for PGP/GPG usage, focusing on operational security (OPSEC), metadata protection, and threat mitigation strategies.
+
+> [!NOTE]
+> This chapter assumes you already completed installation, key management, encryption, and email integration basics in earlier chapters.
 
 ## Understanding the Threat Model
 
@@ -67,7 +70,7 @@ The subject line is completely unprotected and should be treated as public infor
 - Reveal sender/recipient relationship context
 
 > [!WARNING]
-> **Example of fatal OPSEC failure**: "Subject: Your cocaine has shipped!" reveals criminal activity regardless of encrypted content.
+> **Example of OPSEC failure**: Subject lines like "Payroll records attached" can expose sensitive context regardless of encrypted content.
 
 **Configure your email client:**
 
@@ -287,12 +290,16 @@ Digital signatures provide authentication but also provide positive identificati
 - ❌ **Sensitive operations** - Provides positive identification
 - ❌ **Routine messages** - Unnecessary operational signature
 
-**Configuration:**
+**Configuration by threat model:**
 
 ```text
+Enterprise integrity-first profile:
+Default signing: ON
+Require encryption for sensitive workflows: ENABLED
+
+Anonymity-focused profile:
 Default signing: OFF
-Require manual override: YES
-Sign only when explicitly chosen: ENABLED
+Sign only when explicit attribution is required: ENABLED
 ```
 
 ### Message Lifecycle Management
@@ -367,7 +374,6 @@ default-preference-list SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Un
 disable-cipher-algo 3DES
 disable-cipher-algo CAST5
 disable-cipher-algo BLOWFISH
-weak-digest SHA1
 
 # Security settings
 require-cross-certification
@@ -461,7 +467,7 @@ sudo sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
 
 ### Secure Email Clients
 
-1. **Thunderbird + Enigmail/Built-in PGP**
+1. **Thunderbird (Built-in OpenPGP)**
    - Open source
    - Extensive PGP integration
    - Good security features

@@ -115,15 +115,18 @@ Subkey-Length: 4096
 Name-Real: Your Name
 Name-Email: your.email@example.com
 Expire-Date: 2y
-Passphrase: YourSecurePassphrase123!
 %commit
 EOF
 
+# Set passphrase at runtime (do not hardcode in files)
+export KEY_PASSPHRASE='set-this-securely-at-runtime'
+
 # Generate key using batch file
-gpg --batch --generate-key keygen.batch
+gpg --batch --pinentry-mode loopback --passphrase "$KEY_PASSPHRASE" --generate-key keygen.batch
 
 # Securely delete batch file
 shred -vfz -n 3 keygen.batch
+unset KEY_PASSPHRASE
 ```
 
 ### List Keys
@@ -465,7 +468,6 @@ default-preference-list SHA512 SHA384 SHA256 AES256 AES192 AES ZLIB BZIP2 ZIP Un
 # Disable weak algorithms
 disable-cipher-algo 3DES
 disable-cipher-algo CAST5
-weak-digest SHA1
 
 # Security settings
 require-cross-certification
@@ -495,7 +497,7 @@ gpg --compress-level 1 --cipher-algo AES128 --digest-algo SHA256
 gpg --compress-level 0
 
 # Use faster algorithms for testing
-gpg --cipher-algo AES128 --digest-algo SHA1
+gpg --cipher-algo AES128 --digest-algo SHA256
 ```
 
 ## Batch Operations and Scripting
@@ -520,8 +522,8 @@ done
 # Non-interactive mode (for scripts)
 gpg --batch --yes --armor --encrypt --recipient friend@example.com document.txt
 
-# Use passphrase from file (security risk!)
-gpg --batch --yes --passphrase-file passfile --decrypt secret.gpg
+# Preferred: use gpg-agent/pinentry for passphrase entry
+gpg --batch --yes --decrypt secret.gpg
 
 # Use GPG agent for passphrase caching
 eval $(gpg-agent --daemon)

@@ -1,93 +1,135 @@
 ---
 title: "PGP Key Management"
-description: "Guide to PGP Key Management"
+description: "Practical lifecycle management for PGP keys, trust, backup, and revocation"
 category: "security"
-tags: ["pgp", "encryption", "security"]
+tags: ["pgp", "gpg", "key-management", "security"]
+difficulty: "intermediate"
+last_updated: "2026-05-23"
 ---
 
 ## PGP Key Management
 
-Managing your PGP keys effectively is crucial for maintaining security and ensuring smooth operation of your encrypted communications. This guide covers essential key management tasks including creation, backup, expiration, and revocation.
+Key management is the most important part of using PGP safely. Most real-world failures are operational, not cryptographic. This chapter focuses on the complete key lifecycle: creation, validation, usage, rotation, backup, and revocation.
 
-### Creating Your Key Pair
+## Lifecycle Overview
 
-#### Using GPG Command Line
+1. Generate key pair with expiration.
+2. Protect private key with strong passphrase.
+3. Share public key and verify fingerprints out-of-band.
+4. Encrypt/sign during normal operations.
+5. Rotate keys on policy schedule.
+6. Revoke immediately on compromise.
+
+## Create a Key Pair
+
+### Command Line
 
 ```bash
-# Generate a new key pair
+# Generate key pair interactively
 gpg --full-generate-key
 
-# Use the following settings for best security:
-# - Key type: RSA and RSA (default)
-# - Key size: 4096 bits
-# - Key validity: 2 years (or appropriate for your use case)
-# - Provide your real name and email address
-# - Set a strong passphrase
+# Recommended defaults for most users:
+# - Key type: RSA and RSA
+# - Key size: 4096
+# - Expiration: 1y to 3y
+# - Strong passphrase
 ```
 
-#### Using GUI Applications
+### GUI Options
 
-- **Kleopatra**: Click "File" → "New Key Pair"
-- **GPG4Win**: Use the Certificate Creation Wizard
-- **GPG Suite**: Use the Key Creation Assistant
+- Kleopatra: File -> New Certificate
+- GPG Suite: Key creation wizard
+- GPA: Keys -> New Key
 
-### Exporting Your Keys
+## Share and Validate Public Keys
 
 ```bash
-# Export your public key to share with others
-gpg --export --armor your@email.com > mypublickey.asc
+# Export your public key
+gpg --armor --export your@email.com > mypublickey.asc
 
-# Export your private key for backup (keep secure!)
-gpg --export-secret-keys --armor your@email.com > myprivatekey.asc
+# Show fingerprint for out-of-band verification
+gpg --fingerprint your@email.com
 ```
 
-### Managing Key Expiration
+Validation checklist:
 
-Setting an expiration date on your key is recommended for security:
+- Confirm full fingerprint over a second channel.
+- Confirm UID/email matches intended recipient.
+- Confirm key is not expired or revoked.
+
+## Protect Private Keys
 
 ```bash
-# Edit your key
+# Export private key for encrypted offline backup only
+gpg --armor --export-secret-keys your@email.com > myprivatekey.asc
+
+# Export owner trust values for recovery
+gpg --export-ownertrust > ownertrust.txt
+```
+
+Private key safeguards:
+
+- Keep private keys on minimal trusted endpoints.
+- Back up offline using encrypted storage.
+- Avoid storing key backups in shared cloud folders.
+
+## Manage Expiration and Rotation
+
+```bash
+# Update expiration date
 gpg --edit-key your@email.com
-
-# At the gpg> prompt:
-gpg> key 0
-gpg> expire
-# Follow prompts to set new expiration
-gpg> save
+# gpg> key 0
+# gpg> expire
+# gpg> save
 ```
 
-### Revoking Keys
+Rotation guidance:
 
-If your key is compromised, you should revoke it immediately:
+- Rotate on a schedule (for example every 1-3 years).
+- Publish new key before old key expires.
+- Keep overlap window so contacts can transition.
+
+## Generate Revocation Certificate
+
+Create this immediately after key creation and store it offline.
 
 ```bash
-# Generate a revocation certificate (do this in advance)
-gpg --gen-revoke your@email.com > revoke.asc
-
-# To revoke your key
-gpg --import revoke.asc
-gpg --keyserver keys.gnupg.net --send-keys your_key_id
+# Generate revocation certificate
+gpg --output revoke.asc --gen-revoke your@email.com
 ```
 
-### Key Backup Best Practices
+If compromised:
 
-1. **Export both public and private keys** to secure offline storage
-2. **Create a revocation certificate** and store it securely
-3. **Use encrypted storage** for your private key backups
-4. **Consider paper backups** for long-term storage
-5. **Store copies in multiple physical locations** to prevent loss
+```bash
+# Import revocation and publish it
+gpg --import revoke.asc
+gpg --keyserver hkps://keys.openpgp.org --send-keys your_key_id
+```
 
-### Next Steps
+## Useful Key Maintenance Commands
 
-- [Encryption and Decryption](05-encryption.md) - Learn how to use your keys
-- [Email Integration](06-email-integration.md) - Set up PGP with your email client
+```bash
+# List public keys
+gpg --list-keys
 
-## Overview
+# List private keys
+gpg --list-secret-keys
 
-Content will be added soon.
+# Refresh key metadata from keyserver
+gpg --refresh-keys
 
-## Key Points
+# Edit key trust, UID, expiration, subkeys
+gpg --edit-key your@email.com
+```
 
-- Important information about PGP Key Management
-- Step-by-step instructions
-- Best practices
+## Operational Pitfalls to Avoid
+
+- Trusting a key only because it appears on a keyserver.
+- Using a key with no expiration date.
+- Skipping revocation certificate creation.
+- Failing to test backup restore workflows.
+
+## Next Steps
+
+- [Encryption and Decryption](05-encryption.md) - Apply your keys in daily workflows.
+- [Email Integration](06-email-integration.md) - Configure secure email operations.

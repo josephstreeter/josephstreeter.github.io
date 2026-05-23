@@ -275,7 +275,7 @@ gpg --list-keys
 
 ### GPG Suite
 
-**Download**: [https://gpgtools.org/](https://gpgtools.org/index.md)
+**Download**: [https://gpgtools.org/](https://gpgtools.org/)
 
 #### GPG Suite Features
 
@@ -291,10 +291,10 @@ gpg --list-keys
 ```bash
 # Download from GPG Tools website
 # Verify the download signature before installation
-curl -O https://releases.gpgtools.org/GPG_Suite-2022.2.dmg
+curl -LO https://releases.gpgtools.org/GPG_Suite-current.dmg
 
 # Mount and install the DMG file
-open GPG_Suite-2022.2.dmg
+open GPG_Suite-current.dmg
 ```
 
 #### Method 2: Homebrew
