@@ -3,12 +3,29 @@ title: Secure File Copy (SCP) and SFTP - Complete Guide
 description: A comprehensive guide to securely transferring files between systems using SCP and SFTP protocols
 author: josephstreeter
 ms.author: josephstreeter
-ms.date: 2025-09-22
+ms.date: 2026-05-23
 ms.topic: conceptual
 ms.service: security
 ---
 
 Secure file transfer is essential for protecting sensitive data when copying files between systems. This guide covers the two primary secure file transfer protocols that leverage SSH for encryption and authentication: SCP (Secure Copy Protocol) and SFTP (SSH File Transfer Protocol).
+
+## Quick Start
+
+Most users can start with these commands:
+
+```bash
+# Upload one file
+scp file.txt user@host:/remote/path/
+
+# Download one file
+scp user@host:/remote/path/file.txt ./
+
+# Interactive SFTP session
+sftp user@host
+```
+
+For automation or reliability-sensitive jobs, prefer SFTP batch mode or rsync over SSH.
 
 ## Secure Copy Protocol (SCP)
 
@@ -277,6 +294,8 @@ Host key verification failed
 ```
 
 **Solutions:**
+
+- Verify the new host fingerprint through a trusted out-of-band channel.
 
 - If the server's host key has legitimately changed, update your known_hosts file:
 
