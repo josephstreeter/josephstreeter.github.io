@@ -18,6 +18,7 @@ This section covers a range of security topics including encryption, secure comm
 - [OSINT](osint/index.md) - Open Source Intelligence techniques and tools
 - [PGP Encryption](pgp/index.md) - Secure communications with Pretty Good Privacy
 - [Wireless Security](wireless/index.md) - Security practices for wireless networks
+- [Kali Linux](kali/index.md) - Defensive security workflows and lab usage guidance
 
 ## Getting Started
 
@@ -90,6 +91,7 @@ Explore more in the [OSINT section](osint/index.md).
 - Learn about [encryption algorithms and their applications](pgp/05-encryption.md)
 - Explore [SSH hardening techniques](ssh/index.md) for server security
 - Understand [wireless security protocols](wireless/index.md) and vulnerabilities
+- Start with [Kali Linux defensive workflows](kali/index.md) for authorized assessment labs
 
 ### Recommended Resources
 
