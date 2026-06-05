@@ -1,0 +1,55 @@
+- name: Bash Commands
+  href: index.md
+  items:
+  - name: sed
+    href: sed.md
+  - name: grep
+    href: grep.md
+  - name: awk
+    href: awk.md
+  - name: ss
+    href: ss.md
+  - name: tee
+    href: tee.md
+  - name: ls
+    href: ls.md
+  - name: pushd and popd
+    href: pushd-popd.md
+  - name: apt
+    href: apt.md
+  - name: sudo
+    href: sudo.md
+  - name: touch
+    href: touch.md
+  - name: cat
+    href: cat.md
+  - name: less
+    href: less.md
+  - name: mkdir
+    href: mkdir.md
+  - name: rm
+    href: rm.md
+  - name: head
+    href: head.md
+  - name: tail
+    href: tail.md
+  - name: wc
+    href: wc.md
+  - name: cp
+    href: cp.md
+  - name: mv
+    href: mv.md
+  - name: ps
+    href: ps.md
+  - name: kill
+    href: kill.md
+  - name: nohup
+    href: nohup.md
+  - name: pgrep
+    href: pgrep.md
+  - name: pkill
+    href: pkill.md
+  - name: systemctl
+    href: systemctl.md
+  - name: journalctl
+    href: journalctl.md
