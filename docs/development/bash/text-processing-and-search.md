@@ -15,7 +15,7 @@ Text processing is a core part of shell scripting and operations work. This page
 | Command | Purpose | Example |
 | ------ | ------- | ------- |
 | `grep` | Match patterns in text | `grep -E "ERROR\|WARN" app.log` |
-| `find` | Locate files by criteria | `find . -name "*.md"` |
+| [`find`](commands/find.md) | Locate files by criteria | `find . -name "*.md"` |
 | `sort` | Sort lines | `sort users.txt` |
 | `uniq` | Remove adjacent duplicates | `sort users.txt \| uniq` |
 | `cut` | Extract delimited fields | `cut -d',' -f1 data.csv` |

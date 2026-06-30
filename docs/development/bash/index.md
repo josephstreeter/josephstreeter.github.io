@@ -20,6 +20,7 @@ Bash is a foundational shell for Linux and Unix-like systems. This section focus
 
 ## Command References
 
+- [Command Reference Index](commands/index.md)
 - [Navigation and File Commands](navigation-and-files.md)
 - [Text Processing and Search Commands](text-processing-and-search.md)
 - [System, Process, and Network Commands](system-process-and-network.md)

@@ -65,6 +65,10 @@ iw phy phy0 info | grep -A8 "Frequencies"
 
 ### Enabling Monitor Mode
 
+Monitor mode changes a wireless adapter from normal client behavior to passive capture behavior. In managed mode, your interface only processes traffic for the network it joins; in monitor mode, it can observe 802.11 frames from nearby access points and clients on the tuned channel. This is required for visibility tasks such as channel utilization analysis, beacon inspection, and authorized wireless security auditing.
+
+When switching modes, some network managers or supplicant services may conflict with the interface state. If commands fail, stop conflicting services first, place the adapter in monitor mode, then verify the interface name and state before capturing traffic.
+
 Monitor mode allows you to capture all wireless traffic without being associated with an access point:
 
 ```bash
@@ -208,6 +212,55 @@ fi
 echo "Beginning beacon flood on wlan0mon"
 mdk4 wlan0mon b -c 11 -f ssid_list.txt
 ```
+
+## Wi-Fi Password Security Assessment (Authorized Use)
+
+> [!IMPORTANT]
+> Do not attempt credential cracking or recovery on networks you do not own or explicitly have written permission to test. Keep all testing in a controlled lab or approved assessment scope.
+
+Use this section to evaluate password policy quality and reduce the risk of weak shared secrets in WPA2/WPA3-Personal environments.
+
+### What to Validate First
+
+Before any assessment activity, validate these baseline controls:
+
+1. **Prefer WPA3-Personal (SAE)** for new deployments and modern client fleets.
+2. **Use long passphrases** (minimum 16 characters, recommended 20+).
+3. **Avoid predictable patterns** (company name, season-year formats, keyboard walks).
+4. **Rotate shared passphrases** on a scheduled cadence and after staff/vendor changes.
+5. **Separate SSIDs by trust boundary** (corporate, BYOD, guest, IoT).
+6. **Use 802.1X (WPA-Enterprise)** for corporate environments to avoid shared credentials.
+
+### Aircrack-ng Suite in Defensive Workflows
+
+The Aircrack-ng suite is often associated with offensive activity, but it is also useful for authorized validation of wireless posture in lab and audit contexts:
+
+1. **Inventory and visibility**: Identify SSIDs, channel usage, and AP metadata.
+2. **Handshake validation**: Confirm authentication exchanges are observable as expected during controlled test scenarios.
+3. **Configuration review support**: Correlate captured metadata with expected encryption and cipher settings.
+
+For production networks, focus on control verification and policy enforcement rather than attempting credential recovery.
+
+### Hardening Checklist
+
+Use this checklist to reduce password-related wireless risk:
+
+1. Enforce a passphrase standard in network policy documentation.
+2. Disable legacy encryption modes (WEP, WPA, TKIP).
+3. Enable management frame protection (802.11w/PMF) where supported.
+4. Restrict management-plane access to AP controllers and interfaces.
+5. Monitor authentication anomalies and repeated association failures.
+6. Keep AP and controller firmware updated.
+7. Migrate high-value networks to WPA-Enterprise with RADIUS.
+
+### Recommended Lab-Only Testing Model
+
+For teams with formal authorization, keep testing controlled:
+
+1. Use isolated lab SSIDs with non-production credentials.
+2. Define written rules of engagement and success criteria.
+3. Record findings in terms of policy gaps and remediation actions.
+4. Re-test after mitigation to confirm improved resistance.
 
 ## Wireless Security Best Practices
 
