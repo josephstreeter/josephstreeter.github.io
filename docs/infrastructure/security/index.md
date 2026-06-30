@@ -14,7 +14,6 @@ Infrastructure security is the foundation of any secure computing environment. T
 
 ## Topics
 
-- [Security Operations Center (SOC)](soc/index.md)
 - [Identity and Access Management](iam/index.md)
 - [Compliance and Auditing](compliance/index.md)
 
