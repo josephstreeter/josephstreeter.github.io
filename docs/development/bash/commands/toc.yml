@@ -5,6 +5,8 @@
     href: sed.md
   - name: grep
     href: grep.md
+  - name: find
+    href: find.md
   - name: awk
     href: awk.md
   - name: ss

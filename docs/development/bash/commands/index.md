@@ -14,6 +14,7 @@ This section contains placeholder pages for common Bash commands.
 
 - [sed](sed.md)
 - [grep](grep.md)
+- [find](find.md)
 - [awk](awk.md)
 - [ss](ss.md)
 - [tee](tee.md)
