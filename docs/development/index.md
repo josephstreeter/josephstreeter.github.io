@@ -1,7 +1,7 @@
 ---
 title: "Development Tools"
 description: "Comprehensive development tools and workflows documentation covering software development, version control, code editing, and documentation"
-tags: ["development", "tools", "git", "vscode", "powershell", "python", "azure-devops", "docfx"]
+tags: ["development", "tools", "git", "vscode", "bash", "powershell", "python", "azure-devops", "docfx"]
 category: "development"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
@@ -15,6 +15,7 @@ This section covers development tools and workflows for software development, ve
 - [Git](git/index.md) - Version control and collaboration
 - [Visual Studio Code](vscode/index.md) - Code editor configuration and tips
 - [Regular Expressions](regex/index.md) - Pattern matching and text processing
+- [Bash](bash/index.md) - Shell scripting and Linux automation
 - [PowerShell](powershell/index.md) - Scripting and automation
 - [Python](python/index.md) - Python development guides
 - [Azure DevOps](azuredevops/index.md) - Project management and CI/CD
@@ -89,6 +90,7 @@ Explore the [DocFX guide](docfx/index.md) for customization options.
 
 ### Language-Specific Resources
 
+- **Bash**: [Shell scripting fundamentals](bash/index.md) and automation patterns
 - **PowerShell**: [Automation scripts](powershell/index.md) and module development
 - **Python**: [Development best practices](python/index.md) and virtual environments
 

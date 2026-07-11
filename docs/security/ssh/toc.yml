@@ -1,6 +1,8 @@
 - name: Overview
   href: index.md
+- name: SSH Keys
+  href: ssh-keys.md
 - name: Forwarding
   href: ssh-forwarding.md
-- name: SecureFileCopy
+- name: Secure File Copy
   href: secure-file-copy.md

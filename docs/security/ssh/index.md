@@ -3,12 +3,25 @@ title: Secure Shell (SSH) - Comprehensive Guide
 description: A comprehensive guide to SSH protocol, configuration, security best practices, and advanced usage scenarios
 author: josephstreeter
 ms.author: josephstreeter
-ms.date: 2025-09-22
+ms.date: 2026-05-23
 ms.topic: conceptual
 ms.service: security
 ---
 
 Secure Shell (SSH) is a cryptographic network protocol that provides secure communication over an unsecured network. It enables users to securely access remote systems, execute commands, transfer files, and tunnel other network services. SSH was designed as a replacement for insecure protocols like Telnet, rlogin, and FTP, which transmit data (including authentication credentials) in plaintext.
+
+This section is written for a general audience first, with advanced notes for enterprise administrators and security engineers where deeper control is needed.
+
+## Quick Start
+
+Use these defaults for most users:
+
+1. Generate a key pair: `ssh-keygen -t ed25519 -C "you@example.com"`.
+2. Install your public key on the target: `ssh-copy-id user@host`.
+3. Connect with key auth: `ssh user@host`.
+4. Verify host key fingerprints before first trust.
+
+If this is your first time using SSH, start with [SSH Keys](ssh-keys.md), then continue to [Secure File Copy](secure-file-copy.md).
 
 ## Key Features and Benefits
 
@@ -58,6 +71,7 @@ The authentication process works as follows:
 
 1. Client sends the public key identifier to the server
 2. Server checks if the public key is authorized
+<<<<<<< HEAD
 3. Server generates a challenge encrypted with the public key
 4. Client decrypts the challenge using the private key
 5. Client responds to the server with the decrypted information
@@ -322,6 +336,12 @@ Subsystem sftp /usr/lib/openssh/sftp-server
    MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
    KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group16-sha512
    ```
+=======
+3. Server sends data that must be signed by the client
+4. Client signs the data using the private key
+5. Client returns the signature to the server
+6. Server verifies the signature using the public key and grants access if valid
+>>>>>>> 69209624d66ef0c9202860a2e4de1ec159818f6b
 
 ## Advanced SSH Techniques
 
@@ -401,13 +421,14 @@ TrustedUserCAKeys /etc/ssh/ca.pub
    - Ensure public key is properly added to authorized_keys
 
 3. **Host Key Verification Failed**
-   - If legitimate host key change: `ssh-keygen -R hostname`
-   - If unexpected, investigate potential security issues
+    - Verify the new host fingerprint through a trusted out-of-band channel first
+    - If legitimate host key change: `ssh-keygen -R hostname`
+    - If unexpected, investigate potential security issues
 
 4. **Slow Connection**
-   - Check DNS settings (UseDNS no)
-   - Review GSSAPI authentication settings
-   - Test with verbose output: `ssh -vvv user@host`
+    - Check DNS latency and name resolution behavior
+    - Review GSSAPI authentication settings
+    - Test with verbose output: `ssh -vvv user@host`
 
 ### Debugging Commands
 
@@ -482,7 +503,6 @@ Host internal
 ```text
 # Security settings
 Port 22
-Protocol 2
 PermitRootLogin no
 PasswordAuthentication no
 PubkeyAuthentication yes
@@ -497,6 +517,9 @@ MaxStartups 5
 LogLevel INFO
 SyslogFacility AUTH
 ```
+
+> [!NOTE]
+> Modern OpenSSH already uses SSH protocol version 2 by default, so `Protocol 2` is usually unnecessary.
 
 ## Additional Resources
 

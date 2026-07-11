@@ -42,7 +42,7 @@ PowerShell is built on the .NET runtime, providing:
 ### PowerShell Editions
 
 | Edition | Description | Platform Support |
-|---------|-------------|-------------------|
+| ------- | ----------- | ---------------- |
 | **PowerShell Core** | Open-source, cross-platform | Windows, Linux, macOS |
 | **Windows PowerShell** | Built-in Windows version | Windows only |
 
@@ -214,7 +214,7 @@ PowerShell -ExecutionPolicy Bypass -File script.ps1
 #### Execution Policy Levels
 
 | Policy | Description |
-|--------|-------------|
+| ------ | ----------- |
 | **Restricted** | No scripts allowed (default on Windows clients) |
 | **AllSigned** | Only scripts signed by trusted publishers |
 | **RemoteSigned** | Local scripts run freely, remote scripts must be signed |
@@ -560,7 +560,7 @@ $server = New-Object -TypeName PSCustomObject -Property @{
 PowerShell provides convenient type accelerators for common .NET types:
 
 | Accelerator | Full Type Name | Description |
-|-------------|----------------|-------------|
+| ------------ | ------------- | ----------- |
 | `[string]` | System.String | Text data |
 | `[char]` | System.Char | Single Unicode character |
 | `[byte]` | System.Byte | 8-bit unsigned integer |
@@ -1319,7 +1319,7 @@ PowerShell provides multiple output streams that enable precise control over dif
 PowerShell provides multiple output streams that allow developers to send different types of information to appropriate destinations:
 
 | Stream | Stream Number | Description | Default Destination |
-|--------|---------------|-------------|-------------------|
+| ------- | ------------- | ----------- | ----------------- |
 | Success (Output) | 1 | Standard output for pipeline objects | Console/Pipeline |
 | Error | 2 | Error messages and exceptions | Console (red text) |
 | Warning | 3 | Warning messages | Console (yellow text) |
@@ -2293,7 +2293,7 @@ $db = Initialize-DatabaseConnection -ConnectionString $connString
 #### Decision Matrix
 
 | Scenario | Use Write-Error | Use Throw | Reason |
-|----------|----------------|-----------|---------|
+| -------- | ------------- | --------- | ------- |
 | Processing multiple items | ✅ | ❌ | Allow processing of remaining items |
 | Critical resource failure | ❌ | ✅ | Cannot continue without the resource |
 | Input validation failure | ✅ | ❌ | Caller may want to retry with different input |

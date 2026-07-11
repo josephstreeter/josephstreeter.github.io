@@ -136,15 +136,18 @@ Subkey-Length: 4096
 Name-Real: Your Name
 Name-Email: your.email@example.com
 Expire-Date: 2y
-Passphrase: YourSecurePassphrase123!
 %commit
 EOF
 
-# Generate key using batch file
-gpg --batch --generate-key keygen.batch
+# Set passphrase at runtime (do not hardcode in files or shell history)
+export KEY_PASSPHRASE='set-this-securely-at-runtime'
 
-# Clean up batch file (contains passphrase)
+# Generate key using batch file and loopback pinentry
+gpg --batch --pinentry-mode loopback --passphrase "$KEY_PASSPHRASE" --generate-key keygen.batch
+
+# Clean up temporary files and variables
 shred -vfz -n 3 keygen.batch
+unset KEY_PASSPHRASE
 ```
 
 ---

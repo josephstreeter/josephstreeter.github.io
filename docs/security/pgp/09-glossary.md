@@ -100,7 +100,7 @@ This comprehensive glossary defines key terms, concepts, and terminology related
 : A lightweight email client with built-in PGP support for encrypted email communication.
 
 **Enigmail**
-: A legacy Thunderbird extension that provided PGP encryption capabilities (now replaced by built-in OpenPGP support).
+: A legacy Thunderbird extension that provided PGP encryption capabilities in older Thunderbird versions. Modern Thunderbird uses built-in OpenPGP support and no longer requires Enigmail.
 
 **GPA (GNU Privacy Assistant)**
 : A graphical user interface for GnuPG, providing an alternative to command-line key management and encryption operations.

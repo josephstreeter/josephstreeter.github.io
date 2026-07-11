@@ -13,3 +13,5 @@
     href: systemd.md
   - name: Journalctl
     href: journalctl.md
+  - name: Bash Scripting (Development)
+    href: ../../development/bash/index.md

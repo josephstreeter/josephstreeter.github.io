@@ -134,19 +134,19 @@ Consult a qualified diesel mechanic if:
 
 Below is a summary table of key PIDs for the 2014 Ram 2500/3500 Cummins. These can be monitored with advanced OBD-II scanners or the DashCommand app. For custom PID setup, see the [DashCommand App Guide](dashcommand-guide.md).
 
-| PID Name / Hex Code      | Description                   | Formula / Units           | Expected Values / Notes                |
-|-------------------------|-------------------------------|---------------------------|----------------------------------------|
-| DPF Soot Mass (22C101)  | Soot in DPF                   | ((A*256)+B)/10 g          | 5–25g normal; >40g = regen needed      |
-| DPF Diff. Pressure (22C102) | Pressure across DPF         | ((A*256)+B)/100 kPa       | 0–1.5 kPa idle; 3–8 kPa under load     |
-| DPF Regen Status (22C10C)   | Regen active/inactive       | A                         | 0=Inactive, 1=Active                   |
-| SCR Catalyst Temp (22C120)  | SCR temp                    | ((A*256)+B)/10 °C         | 200–350°C normal; >500°C during regen  |
-| DEF Level (22C123)      | DEF tank level                | ((A*256)+B)/10 %          | 20–100% (should match tank)            |
-| DEF Pressure (22C124)   | DEF system pressure           | ((A*256)+B)/10 kPa        | 400–650 kPa normal                     |
-| DEF Quality (22C125)    | Urea concentration            | ((A*256)+B)/100 %         | ~32.5% urea (API standard)             |
-| EGR Valve Pos. (22C130) | EGR valve position            | A %                       | 0–100%; erratic = fault                |
-| Turbo Actuator Pos. (22C131) | Turbo actuator position   | A %                       | 0–100%; low at high load = issue       |
-| Fuel Temp (22C132)      | Fuel temperature              | ((A*256)+B)/10 °C         | -20°C to 60°C                          |
-| Oil Temp (22C133)       | Oil temperature               | ((A*256)+B)/10 °C         | 80–110°C normal                        |
+| PID Name / Hex Code | Description | Formula / Units | Expected Values / Notes |
+| ------------------- | ----------- | --------------- | ----------------------- |
+| DPF Soot Mass (22C101) | Soot in DPF | ((A*256)+B)/10 g | 5–25g normal; >40g = regen needed |
+| DPF Diff. Pressure (22C102) | Pressure across DPF | ((A*256)+B)/100 kPa | 0–1.5 kPa idle; 3–8 kPa under load |
+| DPF Regen Status (22C10C) | Regen active/inactive | A | 0=Inactive, 1=Active |
+| SCR Catalyst Temp (22C120) | SCR temp | ((A*256)+B)/10 °C | 200–350°C normal; >500°C during regen |
+| DEF Level (22C123) | DEF tank level | ((A*256)+B)/10 % | 20–100% (should match tank) |
+| DEF Pressure (22C124) | DEF system pressure | ((A*256)+B)/10 kPa | 400–650 kPa normal |
+| DEF Quality (22C125) | Urea concentration | ((A*256)+B)/100 % | ~32.5% urea (API standard) |
+| EGR Valve Pos. (22C130) | EGR valve position | A % | 0–100%; erratic = fault |
+| Turbo Actuator Pos. (22C131) | Turbo actuator position | A % | 0–100%; low at high load = issue |
+| Fuel Temp (22C132) | Fuel temperature | ((A*256)+B)/10 °C | -20°C to 60°C |
+| Oil Temp (22C133) | Oil temperature | ((A*256)+B)/10 °C | 80–110°C normal |
 
 > **Tip:** Compare your readings to these expected values. Abnormal results may indicate system faults or maintenance needs.
 

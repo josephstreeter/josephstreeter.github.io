@@ -5,3 +5,10 @@
     href: photography/toc.yml
   - name: Vehicles
     href: vehicles/toc.yml
+  - name: Equipment
+    href: index.md
+    items:
+    - name: Ariens Icon Xd
+      href: ./equipment/ariens-icon-xd/index.md
+    - name: Stihl
+      href: ./equipment/stihl/index.md

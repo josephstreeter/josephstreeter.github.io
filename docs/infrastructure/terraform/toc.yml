@@ -8,9 +8,15 @@
   href: hyper-v.md
 - name: Gitignore
   href: gitignore.md
+- name: Patterns
+  href: patterns.md
 - name: Examples
   items:
     - name: Active Directory Forest (Azure)
       href: solutions/active-directory-forest-azure.md
+    - name: DNS Service - Public (Azure)
+      href: solutions/dns-azure-public.md
+    - name: DNS Service - Private (Azure)
+      href: solutions/dns-azure-private.md
     - name: Kubernetes Cluster (Proxmox)
       href: solutions/kubernetes-cluster-proxmox.md

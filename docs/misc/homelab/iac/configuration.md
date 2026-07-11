@@ -13,7 +13,7 @@ Complete Infrastructure as Code implementation for home lab using Terraform for 
 ### Tool Selection and Responsibilities
 
 | Tool | Purpose | Scope | Configuration |
-|------|---------|-------|---------------|
+| ---- | ------- | ----- | ------------- |
 | **Terraform** | Infrastructure provisioning | Proxmox VMs, networks, storage | HCL declarative |
 | **Ansible** | Configuration management | OS setup, services, applications | YAML playbooks |
 | **Git** | Version control | All configurations | Branching strategy |

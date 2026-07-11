@@ -4,7 +4,7 @@ description: "Complete introduction to Pretty Good Privacy (PGP) and GNU Privacy
 tags: ["pgp", "gpg", "encryption", "security", "cryptography"]
 category: "security"
 difficulty: "intermediate"
-last_updated: "2025-01-20"
+last_updated: "2026-05-23"
 ---
 
 ## PGP/GPG Summary and Overview
@@ -219,15 +219,27 @@ It is not necessary to sign and encrypt every outgoing message. Understanding ho
 ### Decision Matrix
 
 | Scenario | Method | Reason |
-|----------|--------|--------|
+| --- | --- | --- |
 | Public information, no authentication needed | **Plain text** | Contents not confidential, authentication not important |
 | Public information, authentication important | **Sign only** | Message authentication required, but contents not confidential |
 | Confidential information | **Sign and encrypt** | If message is important enough to encrypt, it's important enough to sign |
 
+### Threat Model Profiles
+
+Choose a default behavior that matches your environment:
+
+| Profile | Default Behavior | When to Use |
+| --- | --- | --- |
+| Enterprise integrity-first | Sign + encrypt sensitive messages by default | Compliance, legal, software release, business workflow integrity |
+| Anonymity-focused | Encrypt by default, sign selectively | Cases where attribution creates operational risk |
+
+> [!IMPORTANT]
+> Treat signing policy as threat-model dependent. Signing strengthens authenticity but can reduce anonymity.
+
 ### Best Practices
 
 > [!TIP]
-> For 90% of messages most people send, signing and encrypting is not necessary. The remaining 10% may require signing and encrypting confidential information such as:
+> Most messages do not require PGP controls. Use signing and encryption when handling confidential, regulated, or integrity-sensitive information such as:
 >
 > - Personally Identifiable Information (PII)
 > - Credit card information
@@ -242,27 +254,26 @@ The need for signing-only will likely be rare in most use cases.
 
 ### PGP MIME vs. PGP INLINE
 
-#### PGP INLINE (Recommended)
+#### PGP INLINE
 
 - Ciphertext sent as plain text in message body
-- Works everywhere: shell, Facebook, iMessage, etc.
+- Works in many text-based channels
 - No extra steps required
 - Compatible with all applications
 
-#### PGP MIME (Attachments)
+#### PGP MIME (Client-Integrated)
 
-- Encrypted message sent as attachment
-- Extra steps for no security benefit
-- Limited compatibility
-- May not work in all applications
+- Better structure for client-native email workflows
+- Strong attachment handling in compatible clients
+- Less error-prone when users stay in one mail client ecosystem
 
 > [!TIP]
-> **Recommendation**: Use inline text format as nothing is gained from sending the message as attachments, and it ends up being extra steps for no reason.
+> **Recommendation**: Use inline for portability and manual workflows, and use PGP/MIME for client-integrated email where interoperability is known to work.
 
 ### Mail Client Plugin Considerations
 
 > [!CAUTION]
-> **Security Warning**: Relying on mail client plugins can result in a false sense of security. Unless you have access to the source code and are willing to review it, users have no idea what the plugins may be doing. When a plugin generates an attachment and sends it before you can see what is happening, you have no control or visibility into the process.
+> **Security Warning**: Plugin-based encryption can reduce visibility into what is being signed, encrypted, and sent. Validate behavior in your environment and prefer well-maintained, transparent tooling.
 
 **Recommended Approach**: Use standalone PGP applications where you can see and verify each step of the encryption/decryption process.
 

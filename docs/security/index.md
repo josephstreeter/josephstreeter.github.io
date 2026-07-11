@@ -12,12 +12,14 @@ This section covers a range of security topics including encryption, secure comm
 
 ## Topics
 
+- [Security Operations Center (SOC)](soc/index.md) - SOC strategy, detection engineering, and incident response operations
 - [SSH](ssh/index.md) - Secure Shell configuration and best practices
 - [Certificates](certificates/index.md) - Certificate management and PKI fundamentals
 - [OSINT](osint/index.md) - Open Source Intelligence techniques and tools
 - [Threat Hunting](threat-hunting/index.md) - Proactive, hypothesis-driven detection of adversary activity
 - [PGP Encryption](pgp/index.md) - Secure communications with Pretty Good Privacy
 - [Wireless Security](wireless/index.md) - Security practices for wireless networks
+- [Kali Linux](kali/index.md) - Defensive security workflows and lab usage guidance
 
 ## Getting Started
 
@@ -86,9 +88,11 @@ Explore more in the [OSINT section](osint/index.md).
 
 ### Next Steps
 
+- Review [SOC operations and workflow](soc/index.md) to establish detection and response practices
 - Learn about [encryption algorithms and their applications](pgp/05-encryption.md)
 - Explore [SSH hardening techniques](ssh/index.md) for server security
 - Understand [wireless security protocols](wireless/index.md) and vulnerabilities
+- Start with [Kali Linux defensive workflows](kali/index.md) for authorized assessment labs
 
 ### Recommended Resources
 

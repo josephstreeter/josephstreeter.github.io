@@ -1,5 +1,7 @@
 - name: Security
   href: index.md
+- name: Security Operations Center
+  href: soc/toc.yml
 - name: Secure Shell
   href: ssh/toc.yml
 - name: PGP
@@ -11,6 +13,8 @@
   href: certificates/toc.yml
 - name: Wireless
   href: wireless/toc.yml
+- name: Kali Linux
+  href: kali/toc.yml
 - name: OSINT
   href: osint/toc.yml
 - name: Threat Hunting

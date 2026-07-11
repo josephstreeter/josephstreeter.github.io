@@ -1,0 +1,22 @@
+- name: Security Operations Center
+  href: index.md
+- name: SOC Analyst Playbook
+  href: soc_analyst.md
+- name: Kusto Cheatsheet
+  href: kusto_cheatsheet.md
+- name: Microsoft Defender
+  href: ms_defender.md
+- name: Microsoft Sentinel
+  href: sentinel.md
+- name: Runbooks
+  items:
+  - name: Malware Outbreak Response
+    href: malware_outbreak_response.md
+  - name: Identity Compromise Response
+    href: identity_compromise_response.md
+  - name: Phishing and BEC Response
+    href: phishing_bec_response.md
+  - name: Suspicious Cloud Activity Response
+    href: suspicious_cloud_activity_response.md
+  - name: Privileged Access Abuse Response
+    href: privileged_access_abuse_response.md

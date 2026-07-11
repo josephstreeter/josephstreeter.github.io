@@ -3,16 +3,44 @@ title: Secure File Copy (SCP) and SFTP - Complete Guide
 description: A comprehensive guide to securely transferring files between systems using SCP and SFTP protocols
 author: josephstreeter
 ms.author: josephstreeter
-ms.date: 2025-09-22
+ms.date: 2026-05-23
 ms.topic: conceptual
 ms.service: security
 ---
 
 Secure file transfer is essential for protecting sensitive data when copying files between systems. This guide covers the two primary secure file transfer protocols that leverage SSH for encryption and authentication: SCP (Secure Copy Protocol) and SFTP (SSH File Transfer Protocol).
 
+## Quick Start
+
+Most users can start with these commands:
+
+```bash
+# Upload one file
+scp file.txt user@host:/remote/path/
+
+# Download one file
+scp user@host:/remote/path/file.txt ./
+
+# Interactive SFTP session
+sftp user@host
+```
+
+For automation or reliability-sensitive jobs, prefer SFTP batch mode or rsync over SSH.
+
 ## Secure Copy Protocol (SCP)
 
 SCP is a network protocol that uses SSH for data transfer and provides the same authentication and security as SSH. It helps users securely transfer files between a local and remote host or between two remote hosts.
+
+Note: For automation and reliability-sensitive workflows, prefer SFTP or `rsync` over SSH when possible. SCP behavior can vary across implementations and OpenSSH versions.
+
+In practice, this matters because SCP has historically had differences in path handling, wildcard expansion, and quoting behavior depending on client/server implementation and version. These differences can cause scripts to behave differently across environments.
+
+For unattended jobs, SFTP and `rsync` are generally safer choices:
+
+- **SFTP**: More predictable protocol semantics, better error handling, and batch mode support (`sftp -b`).
+- **rsync over SSH**: Better for large or interrupted transfers due to delta transfer, resume-friendly behavior, and strong verification options.
+
+If transfer reliability is critical (backups, scheduled syncs, CI/CD artifacts), favor SFTP batch jobs or `rsync -az --partial --append-verify -e ssh ...`.
 
 ### Key Features
 
@@ -197,7 +225,11 @@ quit
 ## SCP vs SFTP: When to Use Which
 
 | Feature | SCP | SFTP |
+<<<<<<< HEAD
 | ------- | --- | ---- |
+=======
+| ------- | --- | --- |
+>>>>>>> 69209624d66ef0c9202860a2e4de1ec159818f6b
 | **Ease of use** | Simpler for basic transfers | More complex, but more powerful |
 | **Command-line use** | Single command execution | Interactive shell or batch mode |
 | **Resume capability** | No | Yes |
@@ -267,6 +299,8 @@ Host key verification failed
 
 **Solutions:**
 
+- Verify the new host fingerprint through a trusted out-of-band channel.
+
 - If the server's host key has legitimately changed, update your known_hosts file:
 
   ```bash
@@ -292,22 +326,21 @@ For users who prefer graphical interfaces, several clients provide SCP/SFTP func
 #!/bin/bash
 # Script to securely copy log files to a backup server
 
+set -euo pipefail
+
 SOURCE_DIR="/var/log/"
 DEST_USER="backup"
 DEST_HOST="backup-server.example.com"
 DEST_PATH="/backup/logs/$(date +%Y-%m-%d)"
 
 # Create remote directory
-ssh $DEST_USER@$DEST_HOST "mkdir -p $DEST_PATH"
+ssh "${DEST_USER}@${DEST_HOST}" "mkdir -p '${DEST_PATH}'"
 
 # Copy logs
-scp -r $SOURCE_DIR/*.log $DEST_USER@$DEST_HOST:$DEST_PATH
-
-# Check status
-if [ $? -eq 0 ]; then
-    echo "Log transfer completed successfully"
+if scp -r "${SOURCE_DIR}"*.log "${DEST_USER}@${DEST_HOST}:${DEST_PATH}"; then
+   echo "Log transfer completed successfully"
 else
-    echo "Error transferring logs"
+   echo "Error transferring logs"
 fi
 ```
 
@@ -317,10 +350,12 @@ fi
 #!/bin/bash
 # Script to transfer files using SFTP batch mode
 
+set -euo pipefail
+
 # Create temporary batch file
 BATCH_FILE=$(mktemp)
 
-cat > $BATCH_FILE << EOF
+cat > "$BATCH_FILE" << EOF
 cd /remote/directory
 put -r /local/files/*.txt
 get -r reports/*.pdf /local/reports/
@@ -328,10 +363,10 @@ quit
 EOF
 
 # Execute SFTP with batch file
-sftp -b $BATCH_FILE user@server.example.com
+sftp -b "$BATCH_FILE" user@server.example.com
 
 # Clean up
-rm $BATCH_FILE
+rm -f "$BATCH_FILE"
 ```
 
 ## Additional Resources
