@@ -1,2 +1,14 @@
-- name: KQL
+- name: Overview
   href: index.md
+- name: Query Structure and Statements
+  href: query-structure.md
+- name: Functions and Operators
+  href: functions-and-operators.md
+- name: Best Practices and Performance
+  href: best-practices.md
+- name: Security Examples
+  href: security-examples.md
+- name: Quick Reference (Cheat Sheet)
+  href: cheat-sheet.md
+- name: Next Steps and References
+  href: reference.md

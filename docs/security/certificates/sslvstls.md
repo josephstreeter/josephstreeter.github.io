@@ -56,7 +56,7 @@ The evolution of TLS has been driven by:
 ## Key Differences Between SSL and TLS
 
 | Aspect | SSL | TLS |
-|--------|-----|-----|
+| ------ | --- | --- |
 | **Development** | Netscape Communications | Internet Engineering Task Force (IETF) |
 | **Security** | Weaker encryption algorithms | Stronger encryption and security features |
 | **Performance** | Slower handshake process | Optimized handshake, especially TLS 1.3 |
@@ -191,7 +191,7 @@ TLS 1.3 made significant cryptographic improvements:
 ### Protocol Adoption
 
 | Protocol | Browser Support | Server Support | Recommended |
-|----------|----------------|----------------|-------------|
+| -------- | --------------- | -------------- | ----------- |
 | SSL 2.0 | None | < 1% | No - Critical vulnerabilities |
 | SSL 3.0 | None | < 1% | No - Critical vulnerabilities |
 | TLS 1.0 | Legacy only | ~10% | No - Deprecated |

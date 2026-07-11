@@ -75,7 +75,7 @@ SSH keys are asymmetric cryptographic keys that provide a more secure alternativ
 Modern SSH implementations support several key types:
 
 | Key Type | Description | Recommended Size | Notes |
-|----------|-------------|------------------|-------|
+| -------- | ----------- | ---------------- | ----- |
 | ED25519 | Edwards-curve Digital Signature Algorithm | 256-bit | Recommended for modern systems, excellent security with small key size |
 | RSA | Rivest-Shamir-Adleman | 3072 or 4096-bit | Widely compatible, good for legacy systems |
 | ECDSA | Elliptic Curve Digital Signature Algorithm | 256, 384, or 521-bit | Good alternative, but less widely used than ED25519 or RSA |
@@ -201,7 +201,7 @@ Host myserver
 ### Common Client Configuration Options
 
 | Option | Description | Example |
-|--------|-------------|---------|
+| ------ | ----------- | ------- |
 | HostName | Real hostname to connect to | `HostName 192.168.1.100` |
 | User | Username to login as | `User admin` |
 | Port | Port to connect to | `Port 2222` |

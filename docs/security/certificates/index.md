@@ -23,7 +23,7 @@ Digital certificates form the backbone of secure communications, identity verifi
 - [PowerShell Certificate Management](#powershell-certificate-management)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
-- [OpenSSL Guide](openssl.md)
+- [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
 
 ## Certificate Fundamentals
@@ -631,7 +631,7 @@ if (-not $Result) {
 
 ## Related Topics
 
-- [OpenSSL Guide](openssl.md)
+- [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
 - [Security Fundamentals](../index.md)
 

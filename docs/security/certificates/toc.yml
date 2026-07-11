@@ -1,7 +1,7 @@
 - name: Summary
   href: index.md
 - name: OpenSSL Guide
-  href: openssl.md
+  href: openssl/toc.yml
 - name: Self-Signed Certificates
   href: self-signed.md
 - name: SSL vs TLS

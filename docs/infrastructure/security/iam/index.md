@@ -17,12 +17,12 @@ Identity and Access Management (IAM) is the framework of policies and technologi
 │                    IAM Architecture                             │
 ├─────────────────────────────────────────────────────────────────┤
 │  Layer                │ Components                              │
-│  ├─ Identity Sources  │ AD, LDAP, HR Systems, Cloud Providers  │
-│  ├─ Authentication    │ MFA, SSO, Biometrics, Certificates     │
-│  ├─ Authorization     │ RBAC, ABAC, Policy Engines            │
-│  ├─ Provisioning     │ Automated Account Lifecycle            │
-│  ├─ Governance        │ Access Reviews, Compliance, Audit     │
-│  └─ Integration       │ APIs, SAML, OAuth, OIDC, SCIM         │
+│  ├─ Identity Sources  │ AD, LDAP, HR Systems, Cloud Providers   │
+│  ├─ Authentication    │ MFA, SSO, Biometrics, Certificates      │
+│  ├─ Authorization     │ RBAC, ABAC, Policy Engines              │
+│  ├─ Provisioning      │ Automated Account Lifecycle             │
+│  ├─ Governance        │ Access Reviews, Compliance, Audit       │
+│  └─ Integration       │ APIs, SAML, OAuth, OIDC, SCIM           │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

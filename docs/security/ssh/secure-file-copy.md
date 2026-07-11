@@ -68,7 +68,7 @@ scp admin@server1.example.com:/home/admin/file.txt user@server2.example.com:/hom
 ### Common SCP Options
 
 | Option | Description |
-|--------|-------------|
+| ------ | ----------- |
 | `-r` | Recursively copy entire directories |
 | `-p` | Preserve file modification and access times |
 | `-P port` | Specify an alternate port (uppercase P) |
@@ -148,7 +148,7 @@ sftp admin@server.example.com
 Once connected to an SFTP server, you'll have access to an interactive shell with commands similar to FTP:
 
 | Command | Description | Example |
-|---------|-------------|---------|
+| ------- | ----------- | ------- |
 | `ls` | List directory contents | `ls /var/log` |
 | `cd` | Change directory | `cd /home/user` |
 | `get` | Download file | `get report.pdf` |
@@ -186,7 +186,7 @@ quit
 ### SFTP Options
 
 | Option | Description |
-|--------|-------------|
+| ------ | ----------- |
 | `-b batch_file` | Batch mode using specified file |
 | `-P port` | Connect to specified port |
 | `-i identity_file` | Specify private key file |
@@ -197,7 +197,7 @@ quit
 ## SCP vs SFTP: When to Use Which
 
 | Feature | SCP | SFTP |
-|---------|-----|------|
+| ------- | --- | ---- |
 | **Ease of use** | Simpler for basic transfers | More complex, but more powerful |
 | **Command-line use** | Single command execution | Interactive shell or batch mode |
 | **Resume capability** | No | Yes |

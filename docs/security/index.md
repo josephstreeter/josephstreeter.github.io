@@ -1,7 +1,7 @@
 ---
 title: "Security"
 description: "Comprehensive security documentation covering encryption, secure communications, OSINT, wireless security, and security best practices"
-tags: ["security", "encryption", "ssh", "pgp", "osint", "wireless-security", "cybersecurity"]
+tags: ["security", "encryption", "ssh", "pgp", "osint", "threat-hunting", "wireless-security", "cybersecurity"]
 category: "security"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
@@ -15,6 +15,7 @@ This section covers a range of security topics including encryption, secure comm
 - [SSH](ssh/index.md) - Secure Shell configuration and best practices
 - [Certificates](certificates/index.md) - Certificate management and PKI fundamentals
 - [OSINT](osint/index.md) - Open Source Intelligence techniques and tools
+- [Threat Hunting](threat-hunting/index.md) - Proactive, hypothesis-driven detection of adversary activity
 - [PGP Encryption](pgp/index.md) - Secure communications with Pretty Good Privacy
 - [Wireless Security](wireless/index.md) - Security practices for wireless networks
 

@@ -37,19 +37,19 @@ OpenSSL has evolved significantly over time with critical security improvements 
 #### Version History
 
 | Version | Release Date | Support Status | Key Features & Security Notes |
-|---------|--------------|----------------|-------------------------------|
-| 3.2.x   | 2023-Present | Active Development | Expanded QUIC API, optimized memory usage, improved TLS implementation, enhanced FIPS provider |
-| 3.1.x   | 2023-Present | Active Development | Enhanced FIPS compliance, certificate policy improvements, memory leak fixes, expanded provider architecture |
-| 3.0.x   | 2021-Present | Active Development | Modern provider architecture, enhanced FIPS support, improved command structure, security hardening, memory leak fixes |
-| 1.1.1   | 2018-2023    | Extended Support | TLS 1.3 support, significant security improvements, CHACHA20 and POLY1305 support, enhanced protocol hardening |
-| 1.0.2   | 2014-2019    | End of Life | TLS 1.2, Suite B, post-Heartbleed security improvements |
-| 1.0.1   | 2012-2017    | End of Life | ECDHE, TLS 1.1/1.2, affected by Heartbleed vulnerability (CVE-2014-0160) |
-| 0.9.8   | 2005-2015    | Obsolete | Historic version, lacks modern security features, contains numerous vulnerabilities |
+| ------- | ------------ | -------------- | ----------------------------- |
+| 3.2.x | 2023-Present | Active Development | Expanded QUIC API, optimized memory usage, improved TLS implementation, enhanced FIPS provider |
+| 3.1.x | 2023-Present | Active Development | Enhanced FIPS compliance, certificate policy improvements, memory leak fixes, expanded provider architecture |
+| 3.0.x | 2021-Present | Active Development | Modern provider architecture, enhanced FIPS support, improved command structure, security hardening, memory leak fixes |
+| 1.1.1 | 2018-2023 | Extended Support | TLS 1.3 support, significant security improvements, CHACHA20 and POLY1305 support, enhanced protocol hardening |
+| 1.0.2 | 2014-2019 | End of Life | TLS 1.2, Suite B, post-Heartbleed security improvements |
+| 1.0.1 | 2012-2017 | End of Life | ECDHE, TLS 1.1/1.2, affected by Heartbleed vulnerability (CVE-2014-0160) |
+| 0.9.8 | 2005-2015 | Obsolete | Historic version, lacks modern security features, contains numerous vulnerabilities |
 
 #### Critical Security Vulnerabilities by Version
 
 | Version | Notable Vulnerabilities | Impact |
-|---------|-------------------------|--------|
+| ------- | ----------------------- | ------ |
 | 3.0.0-3.0.7 | CVE-2022-3786, CVE-2022-3602 (X.509 Email Address Buffer Overflows) | Remote code execution possible |
 | 3.0.0-3.0.6 | CVE-2022-2274 (AES OCB mode) | Remote code execution via cryptographic operations |
 | 1.0.1-1.0.1f | CVE-2014-0160 (Heartbleed) | Memory exposure including private keys |
@@ -495,7 +495,7 @@ cat certificate.crt intermediate.crt rootca.crt > fullchain.pem
 Common certificate formats:
 
 | Format | Description | Common Usage |
-|--------|-------------|--------------|
+| ------ | ----------- | ------------ |
 | PEM (.pem, .crt, .cer) | Base64 encoded with header/footer | Most web servers, OpenSSL |
 | DER (.der, .cer) | Binary format | Java applications, Windows |
 | PKCS#7 (.p7b, .p7c) | Certificate containers, no private key | Windows, Java Keystores |
@@ -642,7 +642,7 @@ cat server.crt ca/certs/ca.crt > server-chain.crt
 Certificate validity periods should follow industry best practices:
 
 | Certificate Type | Recommended Validity | Notes |
-|------------------|---------------------|-------|
+| ---------------- | -------------------- | ----- |
 | Root CA | 10-20 years | Keep offline, used only to sign intermediates |
 | Intermediate CA | 5-10 years | Used for routine certificate signing |
 | Server/Client | 1 year or less | Public CAs now limit to 398 days |
@@ -819,14 +819,14 @@ openssl ca -config crl.conf -gencrl -out ca/crl/ca.crl
 Certificate revocation status can be checked through two main methods:
 
 | Method | Advantages | Disadvantages |
-|--------|------------|---------------|
+| ------ | ---------- | ------------- |
 | CRL | Simple implementation | Can grow large over time |
-|     | Works offline once downloaded | Potentially stale data |
-|     | Single file for many certificates | Full list must be downloaded |
+| | Works offline once downloaded | Potentially stale data |
+| | Single file for many certificates | Full list must be downloaded |
 | OCSP | Real-time status | Requires online verification |
-|      | Smaller network footprint | Privacy concerns |
-|      | More current information | Single point of failure |
-|      | Only queries needed certificates | More complex to implement |
+| | Smaller network footprint | Privacy concerns |
+| | More current information | Single point of failure |
+| | Only queries needed certificates | More complex to implement |
 
 For high-security environments, consider implementing both CRL and OCSP for redundancy.
 
@@ -901,12 +901,12 @@ openssl x509 -in certificate.crt -text -noout | grep -A 3 "Authority Information
 ### Common Certificate Problems and Solutions
 
 | Problem | Possible Causes | Solutions |
-|---------|----------------|-----------|
+| ------- | --------------- | --------- |
 | Certificate not trusted | Missing CA in trust store | Add CA certificate to system trust store |
-|                         | Incomplete certificate chain | Include intermediate certificates |
+| | Incomplete certificate chain | Include intermediate certificates |
 | Certificate expired | Not renewed in time | Generate and install new certificate |
 | Name mismatch | Wrong hostname in certificate | Use correct hostname or add to SAN |
-|              | Accessing by IP, not hostname | Use proper DNS name matching certificate |
+| | Accessing by IP, not hostname | Use proper DNS name matching certificate |
 | Self-signed warning | Certificate not signed by trusted CA | Install certificate from trusted CA |
 | Revoked certificate | Certificate compromised | Generate new key pair and certificate |
 | Weak signature algorithm | Old certificate using SHA-1 | Generate new certificate using SHA-256 |
@@ -977,10 +977,10 @@ openssl genpkey -algorithm ED25519 -out ed25519_encrypted.key -aes-256-cbc
 When selecting a key type, consider security requirements, performance needs, and compatibility:
 
 | Key Type | Command | Bit Size | Security Level | Use Case | Compatibility |
-|----------|---------|----------|---------------|----------|---------------|
-| RSA-2048 | genrsa  | 2048 | Standard | General purpose | Universal |
-| RSA-3072 | genrsa  | 3072 | High | Long-term security | Universal |
-| RSA-4096 | genrsa  | 4096 | Very High | Critical infrastructure | Universal but slower |
+| -------- | ------- | -------- | ------------- | --------- | ------------- |
+| RSA-2048 | genrsa | 2048 | Standard | General purpose | Universal |
+| RSA-3072 | genrsa | 3072 | High | Long-term security | Universal |
+| RSA-4096 | genrsa | 4096 | Very High | Critical infrastructure | Universal but slower |
 | ECC (P-256) | ecparam | 256 | High | Mobile/IoT, limited CPU | Modern systems |
 | ECC (P-384) | ecparam | 384 | Very High | Government/Financial | Modern systems |
 | Ed25519 | genpkey | 256 | High | High-performance signing | Newer systems only |
@@ -1431,7 +1431,7 @@ Understanding certificate formats and conversion between them is essential for c
 ### Common Certificate Formats Overview
 
 | Format | File Extensions | Description | Typical Use Cases |
-|--------|----------------|-------------|-------------------|
+| ------ | --------------- | ----------- | ----------------- |
 | PEM | .pem, .crt, .cer, .key | Base64 encoded with header/footer | Web servers, OpenSSL |
 | DER | .der, .cer | Binary format | Java applications, Windows |
 | PKCS#7 | .p7b, .p7c | Certificate collection | Windows, Java Keystores |
@@ -2230,7 +2230,7 @@ When working with OpenSSL and cryptographic operations, several security conside
 OpenSSL has experienced several high-profile vulnerabilities. Awareness of these helps prevent security issues:
 
 | Vulnerability | Affected Versions | Description | Mitigation |
-|---------------|------------------|-------------|------------|
+| ------------- | ----------------- | ----------- | ---------- |
 | Heartbleed (CVE-2014-0160) | 1.0.1 through 1.0.1f | Allows attackers to read memory from the server, potentially exposing private keys | Upgrade to 1.0.1g+ or 1.1.0+ |
 | POODLE (CVE-2014-3566) | All versions supporting SSLv3 | Padding Oracle attack allowing decryption of secure communications | Disable SSLv3 support |
 | FREAK (CVE-2015-0204) | Versions before 1.0.1k | Allows forced use of weak export-grade ciphers | Upgrade to 1.0.1k+ or 1.1.0+ |
