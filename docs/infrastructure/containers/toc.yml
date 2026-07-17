@@ -1,3 +1,5 @@
+- name: Authentik
+  href: authentik/toc.yml
 - name: Docker
   href: docker/toc.yml
 - name: Kubernetes
