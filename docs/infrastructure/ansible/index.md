@@ -1,348 +1,109 @@
 ---
-title: "Ansible Configuration Management"
-description: "Complete guide to Ansible setup, playbooks, and automation for infrastructure management"
-tags: ["automation", "configuration-management", "devops", "ansible"]
-category: "infrastructure"
-difficulty: "intermediate"
-last_updated: "2025-07-08"
+title: Ansible
+description: A comprehensive guide to Ansible - installation, inventory, playbooks, variables and facts, roles and collections, secrets management, and best practices.
+author: Joseph Streeter
+ms.author: josephstreeter
+ms.date: 07/17/2026
+ms.topic: overview
+ms.service: ansible
+keywords: ansible, automation, configuration management, playbooks, roles, inventory, ansible vault, infrastructure as code
+uid: docs.infrastructure.ansible.index
 ---
 
 ## Ansible
 
-Ansible is an open-source automation platform that simplifies configuration management, application deployment, and task automation across multiple systems. It uses a declarative language to describe system configurations and automates complex IT tasks without requiring agents on target machines.
+[Ansible](https://www.ansible.com/) is an open-source automation engine for configuration management, application deployment, and orchestration. It is **agentless** — it connects to managed nodes over SSH (or WinRM) and executes tasks described declaratively in YAML — so there is no software to install or maintain on the systems it manages.
 
-## What is Ansible?
+This section is a complete, practical guide to Ansible: from installing the control node through writing playbooks, structuring reusable roles, managing secrets, and running it reliably in production.
 
-Ansible is a powerful automation tool that allows you to:
+> [!NOTE]
+> The guide targets **ansible-core 2.16/2.17** conventions, including fully-qualified collection names (FQCN, e.g. `ansible.builtin.copy`) throughout. Examples use a repo-local project layout rather than the global `/etc/ansible` directory.
 
-- **Configure systems** consistently across your infrastructure
-- **Deploy applications** to multiple environments
-- **Orchestrate complex workflows** involving multiple systems
-- **Manage cloud resources** and infrastructure as code
-- **Automate repetitive tasks** to reduce human error
+## Why Ansible
 
-## Key Features
+- **Agentless** — no agents or daemons on managed nodes; only SSH and Python are required.
+- **Idempotent** — modules converge a system to a desired state, so runs can be repeated safely.
+- **Declarative and readable** — automation is expressed in YAML that doubles as documentation.
+- **Batteries included** — thousands of modules and a large collection ecosystem for OSes, clouds, network gear, and services.
+- **Push-based** — you decide when automation runs; there is no central server the nodes poll.
 
-- **Agentless**: No need to install software on target machines
-- **SSH-based**: Uses existing SSH connections for communication
-- **Idempotent**: Runs can be repeated safely without unwanted changes
-- **Human-readable**: Uses YAML syntax that's easy to read and write
-- **Extensible**: Large library of modules for various systems and services
+## How it fits together
 
-## Common Use Cases
+| Concept | What it is | Page |
+| ------- | ---------- | ---- |
+| **Control node** | The machine that runs Ansible and connects out to managed nodes | [Installation](installation.md) |
+| **Inventory** | The list of managed hosts and how to reach and group them | [Inventory](inventory.md) |
+| **Playbook** | An ordered set of plays mapping hosts to tasks | [Playbooks](playbooks.md) |
+| **Module / Task** | A unit of work (invoked by FQCN) and its invocation in a play | [Playbooks](playbooks.md) |
+| **Variables & Facts** | Data that parameterizes automation, plus gathered system facts | [Variables, Facts, and Templating](variables-and-facts.md) |
+| **Role** | A reusable, shareable bundle of tasks, templates, and defaults | [Roles and Collections](roles-and-collections.md) |
+| **Collection** | A distributable package of roles, modules, and plugins | [Roles and Collections](roles-and-collections.md) |
+| **Vault** | Encryption for secrets kept alongside your code | [Vault and Secrets](vault-and-secrets.md) |
 
-- **Configuration Management**: Ensure servers are configured consistently
-- **Application Deployment**: Automate deployment pipelines
-- **Infrastructure Provisioning**: Create and manage cloud resources
-- **Security Compliance**: Apply security policies across systems
-- **Disaster Recovery**: Automate backup and recovery procedures
+## In this section
 
-## How Ansible Works
+1. **[Installation and Setup](installation.md)** — install Ansible on the control node, configure `ansible.cfg`, lay out a project, and prepare managed nodes.
+2. **[Inventory](inventory.md)** — define hosts with static INI/YAML inventories, groups, `group_vars`/`host_vars`, dynamic inventory, and targeting patterns.
+3. **[Playbooks and Tasks](playbooks.md)** — plays, tasks, handlers, conditionals, loops, blocks, error handling, and controlling execution.
+4. **[Variables, Facts, and Templating](variables-and-facts.md)** — variable precedence, gathered and custom facts, magic variables, and Jinja2 templating.
+5. **[Roles and Collections](roles-and-collections.md)** — structure reusable roles and distribute content with collections and Ansible Galaxy.
+6. **[Vault and Secrets Management](vault-and-secrets.md)** — encrypt sensitive data with Ansible Vault and integrate external secret managers.
+7. **[Best Practices](best-practices.md)** — project structure, idempotency, linting and testing, performance, CI/CD, and scaling with Automation Platform.
 
-1. **Inventory**: Define which hosts to manage
-2. **Playbooks**: Write automation scripts in YAML
-3. **Modules**: Use pre-built functions for specific tasks
-4. **Execution**: Ansible connects via SSH and runs tasks
+## Quick start
 
-## Ansible Setup
-
-### Installation
-
-**Ubuntu/Debian:**
-
-```bash
-# Update package manager
-sudo apt update && sudo apt upgrade -y
-
-# Install Ansible
-sudo apt install ansible -y
-
-# Verify installation
-ansible --version
-```
-
-**RHEL/CentOS/Fedora:**
+Install Ansible, define a host, and run an ad-hoc command — no playbook required:
 
 ```bash
-# Enable EPEL repository (RHEL/CentOS)
-sudo yum install epel-release -y
+# 1. Install (isolated) on the control node
+pipx install --include-deps ansible
 
-# Install Ansible
-sudo yum install ansible -y
-
-# Verify installation
-ansible --version
-```
-
-**Using pip (all distributions):**
-
-```bash
-# Install pip if not available
-sudo apt install python3-pip -y  # Ubuntu/Debian
-# sudo yum install python3-pip -y  # RHEL/CentOS
-
-# Install Ansible via pip
-pip3 install ansible
-
-# Verify installation
-ansible --version
-```
-
-### Directory Structure Setup
-
-Create the recommended Ansible directory structure:
-
-[Ansible Sample Setup](https://docs.ansible.com/ansible/latest/tips_tricks/sample_setup.html)
-
-```bash
-# Create main Ansible directory
-sudo mkdir -p /etc/ansible
-
-# Create recommended directory structure
-sudo mkdir -p /etc/ansible/{inventories,group_vars,host_vars,roles,playbooks}
-
-# Create subdirectories for different environments
-sudo mkdir -p /etc/ansible/inventories/{production,staging,development}
-
-# Set proper permissions (optional - use current user)
-sudo chown -R $USER:$USER /etc/ansible
-```
-
-### Configuration File
-
-Create a basic Ansible configuration file:
-
-```bash
-# Create ansible.cfg in /etc/ansible/
-sudo tee /etc/ansible/ansible.cfg > /dev/null <<EOF
-[defaults]
-inventory = /etc/ansible/inventories/hosts
-remote_user = ansible
-ask_pass = false
-host_key_checking = false
-retry_files_enabled = false
-gathering = smart
-fact_caching = memory
-
-[privilege_escalation]
-become = true
-become_method = sudo
-become_user = root
-become_ask_pass = false
-
-[ssh_connection]
-ssh_args = -o ControlMaster=auto -o ControlPersist=60s
-pipelining = true
+# 2. A minimal inventory
+cat > inventory.ini <<'EOF'
+[web]
+web01.example.com
 EOF
+
+# 3. Verify connectivity (uses your SSH config / keys)
+ansible web -i inventory.ini -m ansible.builtin.ping
 ```
 
-## Populate Inventory
-
-Enter hosts by role in an inventory file. The file can be in INI or YAML format.
-
-### INI Format (Recommended for beginners)
-
-```ini
-# /etc/ansible/inventories/hosts
-
-# Ungrouped hosts
-mail.example.com
-
-[webservers]
-foo.example.com
-bar.example.com
-
-[dbservers]
-one.example.com
-two.example.com
-three.example.com
-
-[webservers:vars]
-http_port=80
-max_clients=200
-
-[dbservers:vars]
-mysql_port=3306
-mysql_max_connections=100
-
-# Group of groups
-[production:children]
-webservers
-dbservers
-```
-
-### YAML Format
+Then capture the same intent as a repeatable **playbook**:
 
 ```yaml
-# /etc/ansible/inventories/hosts.yml
-all:
-  hosts:
-    mail.example.com:
-  children:
-    webservers:
-      hosts:
-        foo.example.com:
-        bar.example.com:
-      vars:
-        http_port: 80
-        max_clients: 200
-    dbservers:
-      hosts:
-        one.example.com:
-        two.example.com:
-        three.example.com:
-      vars:
-        mysql_port: 3306
-        mysql_max_connections: 100
-    production:
-      children:
-        webservers:
-        dbservers:
+---
+- name: Install and start nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: Install nginx
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Ensure nginx is running and enabled
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
 ```
-
-### Test Connectivity
-
-Verify Ansible can connect to your hosts:
 
 ```bash
-# Test connection to all hosts
-ansible all -m ping
-
-# Test connection to specific group
-ansible webservers -m ping
-
-# Get system information
-ansible all -m setup --tree /tmp/facts
+ansible-playbook -i inventory.ini site.yml --check   # dry run first
+ansible-playbook -i inventory.ini site.yml           # apply
 ```
 
-## Create Playbook
+Continue with [Installation and Setup](installation.md) for a production-ready control node and project layout.
 
-Ansible playbooks are YAML files that define a series of tasks to be executed on target hosts. They are the heart of Ansible automation and allow you to orchestrate complex deployments and configurations.
+## Related
 
-### Basic Playbook Structure
+- [Infrastructure overview](../index.md) — where Ansible fits among the other infrastructure tooling.
+- [Terraform](../terraform/index.md) — provisioning infrastructure that Ansible then configures (if present in your environment).
+- [Docker](../containers/docker/index.md) — a common target and driver for Ansible automation.
 
-A playbook consists of one or more "plays" that map groups of hosts to tasks. Here's the basic structure:
+## References
 
-```yaml
----
-- name: Play name
-  hosts: target_hosts
-  become: yes  # Run with sudo privileges
-  vars:
-    variable_name: value
-  tasks:
-    - name: Task description
-      module_name:
-        parameter: value
-```
-
-### Example: Web Server Setup Playbook
-
-Create a file named `webserver-setup.yml`:
-
-```yaml
----
-- name: Configure web servers
-  hosts: webservers
-  become: yes
-  vars:
-    http_port: 80
-    max_clients: 200
-  
-  tasks:
-    - name: Update package cache
-      apt:
-        update_cache: yes
-        cache_valid_time: 3600
-    
-    - name: Install Apache web server
-      apt:
-        name: apache2
-        state: present
-    
-    - name: Start and enable Apache service
-      systemd:
-        name: apache2
-        state: started
-        enabled: yes
-    
-    - name: Create custom index page
-      copy:
-        content: |
-          <html>
-            <head><title>Welcome</title></head>
-            <body><h1>Server configured by Ansible!</h1></body>
-          </html>
-        dest: /var/www/html/index.html
-        owner: www-data
-        group: www-data
-        mode: '0644'
-    
-    - name: Configure firewall for HTTP
-      ufw:
-        rule: allow
-        port: "{{ http_port }}"
-        proto: tcp
-```
-
-### Running the Playbook
-
-Execute the playbook with the following command:
-
-```bash
-ansible-playbook -i inventory webserver-setup.yml
-```
-
-Options:
-
-- `-i inventory`: Specify the inventory file
-- `--check`: Dry run to see what would change
-- `--limit webservers`: Run only on specific hosts/groups
-- `-v`: Verbose output
-
-### Example: Database Server Playbook
-
-Create `database-setup.yml` for database servers:
-
-```yaml
----
-- name: Configure database servers
-  hosts: dbservers
-  become: yes
-  vars:
-    mysql_root_password: "secure_password_123"
-  
-  tasks:
-    - name: Install MySQL server
-      apt:
-        name: mysql-server
-        state: present
-    
-    - name: Start MySQL service
-      systemd:
-        name: mysql
-        state: started
-        enabled: yes
-    
-    - name: Set MySQL root password
-      mysql_user:
-        name: root
-        password: "{{ mysql_root_password }}"
-        login_unix_socket: /var/run/mysqld/mysqld.sock
-    
-    - name: Create application database
-      mysql_db:
-        name: webapp_db
-        state: present
-        login_user: root
-        login_password: "{{ mysql_root_password }}"
-```
-
-### Best Practices
-
-- **Use descriptive names** for plays and tasks
-- **Group related tasks** logically
-- **Use variables** for values that might change
-- **Test with `--check`** before running destructive operations
-- **Use roles** for complex, reusable configurations
-- **Keep sensitive data** in encrypted secrets management
+- [Ansible documentation](https://docs.ansible.com/ansible/latest/)
+- [Getting started with Ansible](https://docs.ansible.com/ansible/latest/getting_started/index.html)
+- [ansible-core](https://docs.ansible.com/ansible/latest/reference_appendices/release_and_maintenance.html)
+- [Ansible Galaxy](https://galaxy.ansible.com/)

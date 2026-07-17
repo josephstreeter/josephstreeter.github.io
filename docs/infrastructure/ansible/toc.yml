@@ -1,2 +1,16 @@
 - name: Overview
   href: index.md
+- name: Installation and Setup
+  href: installation.md
+- name: Inventory
+  href: inventory.md
+- name: Playbooks and Tasks
+  href: playbooks.md
+- name: Variables, Facts, and Templating
+  href: variables-and-facts.md
+- name: Roles and Collections
+  href: roles-and-collections.md
+- name: Vault and Secrets Management
+  href: vault-and-secrets.md
+- name: Best Practices
+  href: best-practices.md
