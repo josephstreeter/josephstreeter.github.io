@@ -1,8 +1,8 @@
 ---
 title: Prometheus and Grafana Configuration
 description: Detailed configuration guide for Prometheus, Grafana, and monitoring components
-author: Your Name
-ms.author: your-email
+author: Joseph Streeter
+ms.author: josephstreeter
 ms.topic: configuration
 ms.date: 12/30/2025
 keywords: prometheus, grafana, configuration, scrape_configs, recording rules, datasources
@@ -368,8 +368,8 @@ http_addr = 0.0.0.0
 http_port = 3000
 domain = grafana.example.com
 root_url = https://grafana.example.com
-cert_file = /etc/grafana/ssl/cert.pem
-cert_key = /etc/grafana/ssl/key.pem
+cert_file = /etc/grafana/certs/cert.pem
+cert_key = /etc/grafana/certs/key.pem
 
 [security]
 admin_user = admin
@@ -416,11 +416,10 @@ mode = console file
 level = info
 filters = rendering:debug
 
+# Legacy alerting was removed in Grafana 11 and is mutually exclusive with
+# [unified_alerting]. Keep it disabled and use unified alerting only.
 [alerting]
-enabled = true
-execute_alerts = true
-max_attempts = 3
-min_interval_seconds = 1
+enabled = false
 
 [unified_alerting]
 enabled = true
@@ -437,7 +436,7 @@ address = jaeger:6831
 always_included_tag = cluster=production
 
 [feature_toggles]
-enable = newNavigation,publicDashboards
+enable = publicDashboards
 ```
 
 ### Datasource Provisioning
@@ -462,6 +461,9 @@ datasources:
       exemplarTraceIdDestinations:
         - name: trace_id
           datasourceUid: 'tempo'
+      # Custom HTTP header name paired with the value below. Both the header
+      # name (jsonData) and its value (secureJsonData) are required.
+      httpHeaderName1: 'Authorization'
     secureJsonData:
       httpHeaderValue1: 'Bearer ${PROMETHEUS_TOKEN}'
 
@@ -543,7 +545,14 @@ providers:
 
 ### Alert Notification Provisioning
 
-Create `/etc/grafana/provisioning/notifiers/default.yml`:
+> [!WARNING]
+> The `notifiers:` provisioning format shown below belongs to Grafana's
+> **legacy alerting**, which was removed in Grafana 11. It is retained here only
+> for reference on older installations. On Grafana 9+ with unified alerting,
+> provision contact points via `provisioning/alerting/*.yaml` using the
+> `contactPoints:` schema (see the unified-alerting example that follows).
+
+Legacy format — create `/etc/grafana/provisioning/notifiers/default.yml`:
 
 ```yaml
 apiVersion: 1
@@ -597,6 +606,38 @@ notifiers:
       url: '$__file{/run/secrets/teams_webhook_url}'
 ```
 
+#### Unified Alerting Contact Points (Grafana 9+)
+
+With unified alerting, provision contact points as files under
+`/etc/grafana/provisioning/alerting/` using the `contactPoints:` schema. Do not
+use the legacy `notifiers:` format above.
+
+Create `/etc/grafana/provisioning/alerting/contactpoints.yml`:
+
+```yaml
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: email-team
+    receivers:
+      - uid: email-receiver
+        type: email
+        settings:
+          addresses: 'admin@example.com;ops-team@example.com'
+          singleEmail: false
+
+  - orgId: 1
+    name: slack-alerts
+    receivers:
+      - uid: slack-receiver
+        type: slack
+        settings:
+          url: '$__file{/run/secrets/slack_webhook_url}'
+          recipient: '#alerts'
+          username: 'Grafana'
+```
+
 ### LDAP Configuration
 
 Create `/etc/grafana/ldap.toml`:
@@ -608,7 +649,7 @@ port = 636
 use_ssl = true
 start_tls = false
 ssl_skip_verify = false
-root_ca_cert = "/etc/grafana/ssl/ca.crt"
+root_ca_cert = "/etc/grafana/certs/ca.crt"
 
 bind_dn = "cn=grafana,ou=services,dc=example,dc=com"
 bind_password = '$__file{/run/secrets/ldap_bind_password}'
@@ -759,10 +800,13 @@ promtool query instant http://localhost:9090 'up'
 promtool test rules /etc/prometheus/tests/*.yml
 ```
 
-### Validate Grafana Configuration
+### Reset the Grafana Admin Password
+
+The `grafana-cli admin reset-admin-password` command resets the admin account
+password (it does not validate configuration):
 
 ```bash
-# Check configuration file
+# Reset the admin password
 grafana-cli --configOverrides cfg:default.paths.data=/var/lib/grafana admin reset-admin-password newpassword
 
 # Validate datasource
@@ -831,8 +875,8 @@ callback_url = http://grafana:3000/
 ## Next Steps
 
 - Review [Security Configuration](security.md) for TLS and authentication
-- Configure [Exporters](exporters.md) for additional metrics
-- Set up [Alerting Rules](alerting.md) and notification channels
+- Configure [Exporters](../prometheus/exporters.md) for additional metrics
+- Set up [Alerting Rules](../prometheus/alerting.md) and notification channels
 - Implement [High Availability](high-availability.md) architecture
 - Configure [Backup and Recovery](backup-recovery.md) procedures
 

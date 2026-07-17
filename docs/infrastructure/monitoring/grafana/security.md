@@ -1,8 +1,8 @@
 ---
 title: Security Configuration
 description: Comprehensive security guide for Grafana and Prometheus including TLS, authentication, secrets management, and hardening
-author: Your Name
-ms.author: your-email
+author: Joseph Streeter
+ms.author: josephstreeter
 ms.topic: security
 ms.date: 12/30/2025
 keywords: security, tls, mtls, authentication, oauth, ldap, secrets management, hardening
@@ -178,7 +178,7 @@ Update `docker-compose.yml`:
 ```yaml
 services:
   grafana:
-    image: grafana/grafana:10.2.3
+    image: grafana/grafana:11.2.0
     volumes:
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
       - ./certs:/etc/grafana/certs:ro
@@ -402,7 +402,7 @@ version: '3.8'
 
 services:
   grafana:
-    image: grafana/grafana:10.2.3
+    image: grafana/grafana:11.2.0
     environment:
       - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password
       - GF_DATABASE_PASSWORD__FILE=/run/secrets/postgres_password
@@ -426,8 +426,13 @@ secrets:
 
 ```bash
 # Install Vault
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+# apt-key is deprecated; use the signed-by keyring method instead
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://apt.releases.hashicorp.com/gpg | \
+  sudo gpg --dearmor -o /etc/apt/keyrings/hashicorp.gpg
+sudo chmod a+r /etc/apt/keyrings/hashicorp.gpg
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+  sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt-get update && sudo apt-get install vault
 
 # Start Vault in dev mode (for testing)
@@ -528,7 +533,7 @@ spec:
     spec:
       containers:
         - name: grafana
-          image: grafana/grafana:10.2.3
+          image: grafana/grafana:11.2.0
           env:
             - name: GF_SECURITY_ADMIN_PASSWORD
               valueFrom:
@@ -677,6 +682,9 @@ upstream prometheus {
     server 127.0.0.1:9090;
 }
 
+# Rate limiting zone (must be defined in the http context, not inside a server block)
+limit_req_zone $binary_remote_addr zone=grafana_limit:10m rate=10r/s;
+
 # Grafana HTTPS server
 server {
     listen 443 ssl http2;
@@ -702,8 +710,7 @@ server {
     add_header Referrer-Policy "no-referrer-when-downgrade" always;
     add_header Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';" always;
     
-    # Rate limiting
-    limit_req_zone $binary_remote_addr zone=grafana_limit:10m rate=10r/s;
+    # Rate limiting (zone is defined above in the http context)
     limit_req zone=grafana_limit burst=20 nodelay;
     
     # Client authentication (optional)
@@ -844,7 +851,13 @@ command:
 [log]
 mode = console file
 level = info
+```
 
+> [!IMPORTANT]
+> The `[auditing]` feature below is available only in **Grafana Enterprise** and **Grafana Cloud**. It is not present in the open-source (OSS) edition. On OSS, rely on the standard `[log]` configuration above for operational logging.
+
+```ini
+# grafana.ini — Grafana Enterprise / Grafana Cloud only
 [auditing]
 enabled = true
 loggers = console file
@@ -857,7 +870,7 @@ log_dashboard_content = true
 - ✅ **Strong Passwords**: Use strong, unique passwords (20+ characters)
 - ✅ **Secrets Management**: Never hardcode credentials
 - ✅ **Authentication**: Enable authentication on all services
-- ✅ **Authorization**: Use RBAC with principle of least privilege
+- ✅ **Authorization**: Apply least privilege. Grafana OSS provides only organization roles (Admin/Editor/Viewer); fine-grained **RBAC** is a **Grafana Enterprise / Grafana Cloud** feature. Likewise, **SAML** authentication is Enterprise/Cloud-only — OSS supports LDAP and generic OAuth/OpenID Connect for SSO.
 - ✅ **Network Segmentation**: Isolate monitoring network
 - ✅ **Firewall Rules**: Whitelist only required IPs
 - ✅ **Regular Updates**: Keep all components up to date

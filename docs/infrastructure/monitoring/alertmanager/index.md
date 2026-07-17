@@ -53,31 +53,29 @@ graph TB
 
 ```bash
 # Pull the official Alertmanager image
-docker pull prom/alertmanager:latest
+docker pull prom/alertmanager:v0.27.0
 
 # Run with default configuration
 docker run -d \
   --name alertmanager \
   -p 9093:9093 \
-  prom/alertmanager:latest
+  prom/alertmanager:v0.27.0
 
 # Run with custom configuration
 docker run -d \
   --name alertmanager \
   -p 9093:9093 \
   -v /path/to/alertmanager.yml:/etc/alertmanager/alertmanager.yml \
-  prom/alertmanager:latest
+  prom/alertmanager:v0.27.0
 ```
 
 ### Docker Compose
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
-
 services:
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     container_name: alertmanager
     ports:
       - "9093:9093"
@@ -94,7 +92,7 @@ services:
       - monitoring
 
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.53.0
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -107,7 +105,6 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
       - '--web.enable-lifecycle'
-      - '--alertmanager.url=http://alertmanager:9093'
     restart: unless-stopped
     networks:
       - monitoring
@@ -179,11 +176,11 @@ route:
   repeat_interval: 1h
   receiver: 'default-receiver'
   routes:
-  - match:
-      severity: critical
+  - matchers:
+      - severity="critical"
     receiver: 'critical-alerts'
-  - match:
-      team: database
+  - matchers:
+      - team="database"
     receiver: 'database-team'
 
 receivers:
@@ -221,10 +218,10 @@ receivers:
     subject: 'Database Alert - {{ .GroupLabels.alertname }}'
 
 inhibit_rules:
-- source_match:
-    severity: 'critical'
-  target_match:
-    severity: 'warning'
+- source_matchers:
+    - severity="critical"
+  target_matchers:
+    - severity="warning"
   equal: ['alertname', 'instance']
 ```
 
@@ -257,32 +254,32 @@ route:
   
   routes:
   # Critical alerts - immediate notification
-  - match:
-      severity: critical
+  - matchers:
+      - severity="critical"
     receiver: 'critical-alerts'
     group_wait: 10s
     repeat_interval: 5m
     
   # Infrastructure alerts
-  - match:
-      team: infrastructure
+  - matchers:
+      - team="infrastructure"
     receiver: 'infrastructure-team'
     group_by: ['alertname', 'instance']
     
   # Application alerts
-  - match_re:
-      service: ^(api|web|app).*
+  - matchers:
+      - service=~"^(api|web|app).*"
     receiver: 'application-team'
     group_by: ['alertname', 'service']
     
   # Database alerts with escalation
-  - match:
-      team: database
+  - matchers:
+      - team="database"
     receiver: 'database-primary'
     continue: true
-  - match:
-      team: database
-      severity: critical
+  - matchers:
+      - team="database"
+      - severity="critical"
     receiver: 'database-escalation'
 
 receivers:
@@ -332,18 +329,66 @@ receivers:
 
 inhibit_rules:
 # Inhibit warning alerts if critical alert is firing
-- source_match:
-    severity: 'critical'
-  target_match:
-    severity: 'warning'
+- source_matchers:
+    - severity="critical"
+  target_matchers:
+    - severity="warning"
   equal: ['alertname', 'instance']
 
 # Inhibit node alerts if entire cluster is down
-- source_match:
-    alertname: 'ClusterDown'
-  target_match_re:
-    alertname: '^(NodeDown|NodeDiskFull|NodeMemoryHigh)$'
+- source_matchers:
+    - alertname="ClusterDown"
+  target_matchers:
+    - alertname=~"^(NodeDown|NodeDiskFull|NodeMemoryHigh)$"
   equal: ['cluster']
+```
+
+### Time Intervals (Maintenance Windows)
+
+Use `time_intervals` to define named time windows, then reference them on routes with
+`mute_time_intervals` (suppress notifications during the window) or `active_time_intervals`
+(only notify during the window). This is ideal for maintenance windows and business-hours
+routing.
+
+> [!NOTE]
+> `time_intervals` replaces the deprecated top-level `mute_time_intervals` config block.
+> Times are evaluated in UTC unless a `location` is specified.
+
+```yaml
+# Define reusable named time intervals
+time_intervals:
+- name: nightly-maintenance
+  time_intervals:
+  - times:
+    - start_time: '01:00'
+      end_time: '03:00'
+    weekdays: ['monday:friday']
+    location: 'America/Chicago'
+
+- name: business-hours
+  time_intervals:
+  - times:
+    - start_time: '09:00'
+      end_time: '17:00'
+    weekdays: ['monday:friday']
+    location: 'America/Chicago'
+
+route:
+  receiver: 'default-receiver'
+  routes:
+  # Suppress non-critical noise during the nightly maintenance window
+  - matchers:
+      - severity="warning"
+    receiver: 'default-receiver'
+    mute_time_intervals:
+    - nightly-maintenance
+
+  # Only page the business-hours receiver during working hours
+  - matchers:
+      - team="application"
+    receiver: 'application-team'
+    active_time_intervals:
+    - business-hours
 ```
 
 ### Notification Templates
@@ -467,7 +512,7 @@ groups:
 
   - alert: HighCPUUsage
     expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-    for: 10m
+    for: 5m
     labels:
       severity: warning
       team: infrastructure
@@ -488,7 +533,7 @@ groups:
 
   - alert: HighMemoryUsage
     expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.85
-    for: 10m
+    for: 5m
     labels:
       severity: warning
       team: infrastructure
@@ -522,7 +567,7 @@ groups:
     expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
     for: 5m
     labels:
-      severity: warning
+      severity: critical
       team: application
     annotations:
       summary: "High error rate on {{ $labels.service }}"
@@ -655,21 +700,19 @@ receivers:
 - name: 'web.hook'
   email_configs:
   - to: 'admin@company.com'
-
-# Clustering configuration
-cluster:
-  listen-address: '0.0.0.0:9094'
-  peer: ['alertmanager-1:9094', 'alertmanager-2:9094', 'alertmanager-3:9094']
 ```
+
+> [!IMPORTANT]
+> Alertmanager has no `cluster:` section in `alertmanager.yml`. Clustering is configured
+> exclusively through command-line flags (`--cluster.listen-address`, `--cluster.peer`),
+> as shown in the Docker Compose example below.
 
 ### Docker Compose HA Setup
 
 ```yaml
-version: '3.8'
-
 services:
   alertmanager-1:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     container_name: alertmanager-1
     ports:
       - "9093:9093"
@@ -686,7 +729,7 @@ services:
       - monitoring
 
   alertmanager-2:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     container_name: alertmanager-2
     ports:
       - "9095:9093"
@@ -703,7 +746,7 @@ services:
       - monitoring
 
   alertmanager-3:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     container_name: alertmanager-3
     ports:
       - "9097:9093"
@@ -772,10 +815,10 @@ networks:
 
    ```yaml
    inhibit_rules:
-   - source_match:
-       severity: 'critical'
-     target_match:
-       severity: 'warning'
+   - source_matchers:
+       - severity="critical"
+     target_matchers:
+       - severity="warning"
      equal: ['alertname', 'instance']
    ```
 
@@ -803,12 +846,13 @@ networks:
    amtool config routes test --config.file=alertmanager.yml \
      alertname="TestAlert" severity="critical"
    
-   # Send test alerts
-   curl -X POST http://localhost:9093/api/v1/alerts \
+   # Send test alerts (Alertmanager v2 API)
+   curl -X POST http://localhost:9093/api/v2/alerts \
      -H "Content-Type: application/json" \
      -d '[{
        "labels": {"alertname": "TestAlert", "severity": "critical"},
        "annotations": {"summary": "Test alert"},
+       "startsAt": "2026-07-17T12:00:00Z",
        "generatorURL": "http://localhost:9090/graph"
      }]'
    ```
@@ -949,7 +993,7 @@ receivers:
 receivers:
 - name: 'pagerduty-critical'
   pagerduty_configs:
-  - service_key: 'YOUR-PAGERDUTY-SERVICE-KEY'
+  - routing_key: 'YOUR-PAGERDUTY-ROUTING-KEY'
     description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
     severity: '{{ .GroupLabels.severity }}'
     details:

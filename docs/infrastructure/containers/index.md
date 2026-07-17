@@ -202,6 +202,16 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Query performance optimization
   - Schema visualization and validation
 
+## IT Service Management
+
+### ITSM & CMDB
+
+- **[iTop ITSM / CMDB](itop/index.md)** - Open-source IT Service Management and Configuration Management Database
+  - Docker deployment with MariaDB and the setup wizard
+  - CMDB, incident/problem/change, and service management (ITIL)
+  - REST/JSON API, data synchronization, and LDAP
+  - Security, backups, upgrades, and monitoring
+
 ## Networking & Ingress
 
 ### Web Servers & Reverse Proxies

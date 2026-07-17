@@ -28,8 +28,6 @@
     href: ansible/toc.yml
   - name: Terraform
     href: terraform/toc.yml
-  - name: Prometheus
-    href: monitoring/prometheus/index.md
   - name: Home Lab
     href: homelab/index.md
   - name: SQL Server

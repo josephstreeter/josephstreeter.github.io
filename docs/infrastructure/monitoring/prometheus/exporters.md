@@ -2,11 +2,11 @@
 title: "Exporters Configuration"
 description: "Comprehensive guide to configuring and deploying Prometheus exporters for monitoring infrastructure and applications"
 author: "josephstreeter"
-ms.author: "joseph.streeter"
+ms.author: josephstreeter
 ms.topic: reference
 ms.date: 12/30/2025
 keywords: ["prometheus", "exporters", "node exporter", "cadvisor", "blackbox", "monitoring", "metrics"]
-uid: docs.infrastructure.grafana.exporters
+uid: docs.infrastructure.prometheus.exporters
 ---
 
 ## Overview
@@ -101,11 +101,9 @@ Start-Service node_exporter
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
-
 services:
   node_exporter:
-    image: prom/node-exporter:v1.8.0
+    image: prom/node-exporter:v1.8.2
     container_name: node_exporter
     restart: unless-stopped
     command:
@@ -168,11 +166,10 @@ Container Advisor (cAdvisor) provides resource usage and performance characteris
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
     container_name: cadvisor
     restart: unless-stopped
     privileged: true
@@ -223,7 +220,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: cadvisor
-        image: gcr.io/cadvisor/cadvisor:v0.47.2
+        image: gcr.io/cadvisor/cadvisor:v0.49.1
         ports:
         - name: metrics
           containerPort: 8080
@@ -378,7 +375,6 @@ modules:
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   blackbox_exporter:
@@ -447,7 +443,6 @@ Unpoller collects metrics from UniFi Controller for network monitoring.
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   unpoller:
@@ -550,7 +545,6 @@ unifi_alarms_total{site="default"}
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   postgres_exporter:
@@ -619,7 +613,6 @@ pg_table_bloat:
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   mysql_exporter:
@@ -656,7 +649,6 @@ networks:
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   mongodb_exporter:
@@ -688,7 +680,6 @@ networks:
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   redis_exporter:
@@ -775,6 +766,14 @@ export MIBDIRS=/usr/share/snmp/mibs
 
 ```yaml
 # snmp.yml (example output from generator)
+# snmp_exporter >= 0.23 uses a top-level `auths:` block. Each auth is defined
+# once by name here and referenced by name from the Prometheus scrape config
+# (params.auth), instead of embedding community/version inside the module.
+auths:
+  public_v2:
+    community: public
+    version: 2
+
 modules:
   cisco_switch:
     walk:
@@ -793,20 +792,16 @@ modules:
         indexes:
           - labelname: ifIndex
             type: gauge
-    version: 2
-    auth:
-      community: public
 ```
 
 ### SNMP Docker Deployment
 
 ```yaml
 # docker-compose.yml
-version: '3.8'
 
 services:
   snmp_exporter:
-    image: prom/snmp-exporter:v0.25.0
+    image: prom/snmp-exporter:v0.26.0
     container_name: snmp_exporter
     restart: unless-stopped
     ports:
@@ -1194,8 +1189,9 @@ MemoryAccounting=true
 
 ## See Also
 
-- [Prometheus Configuration](index.md)
-- [Alerting Configuration](alerting.md)
-- [Configuration Guide](configuration.md)
-- [Grafana Dashboards](dashboards.md)
+- [Monitoring Stack Overview](../index.md)
+- [Prometheus](index.md)
+- [Alerting](alerting.md)
+- [Grafana Configuration](../grafana/configuration.md)
+- [Grafana Dashboards](../grafana/dashboards.md)
 - [High Availability](high-availability.md)

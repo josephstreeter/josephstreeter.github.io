@@ -2,20 +2,21 @@
 title: "Infrastructure Monitoring"
 description: "Comprehensive infrastructure monitoring, alerting, and observability solutions"
 author: "Joseph Streeter"
+ms.author: josephstreeter
 ms.date: "2025-09-08"
 ms.topic: "article"
 ---
 
 ## Infrastructure Monitoring
 
-Infrastructure monitoring is essential for maintaining system reliability, performance, and availability. This guide covers monitoring solutions from basic system metrics to advanced observability platforms.
+Infrastructure monitoring is essential for maintaining system reliability, performance, and availability. This page is the **overview and map** of the monitoring section; the detailed, authoritative guides live in the linked sub-sections. To avoid drift, this page intentionally keeps only orientation and breadth — configuration details are not duplicated here.
 
 ## Overview
 
 Effective infrastructure monitoring provides:
 
 - **Real-time visibility** into system health and performance
-- **Proactive alerting** for potential issues before they become problems  
+- **Proactive alerting** for potential issues before they become problems
 - **Historical data** for capacity planning and trend analysis
 - **Root cause analysis** capabilities for faster incident resolution
 - **Compliance reporting** for regulatory requirements
@@ -31,7 +32,7 @@ Effective infrastructure monitoring provides:
 
 ### Time Series Databases
 
-- **[Prometheus](prometheus/index.md)** - Open-source monitoring and alerting toolkit
+- **[Prometheus](prometheus/index.md)** - Open-source monitoring and alerting toolkit (the primary metrics store in this stack)
 - **InfluxDB** - Purpose-built time series database
 - **Grafana Cloud** - Managed observability platform
 - **Azure Monitor** - Cloud-native monitoring solution
@@ -41,21 +42,42 @@ Effective infrastructure monitoring provides:
 - **[Grafana](grafana/index.md)** - Feature-rich visualization and analytics platform
 - **Kibana** - Data visualization for Elasticsearch
 - **Azure Monitor Workbooks** - Interactive reports and dashboards
-- **Custom Dashboards** - Purpose-built monitoring interfaces
 
-## Monitoring Solutions
+## The Prometheus + Grafana Stack
 
-This section provides an overview and quick start examples. For comprehensive documentation on each component, see:
+The core of this section is an open-source Prometheus + Grafana stack — no licensing cost, a large exporter ecosystem, PromQL for analysis, and Kubernetes-native deployment. Its components:
 
-- **[Prometheus](prometheus/index.md)** - Complete Prometheus monitoring system guide including installation, configuration, PromQL queries, and best practices
-- **[Alertmanager](alertmanager/index.md)** - Comprehensive Alertmanager guide for alert routing, grouping, and notification management
-- **[Grafana](grafana/index.md)** - Full Grafana documentation including dashboards, configuration, security, and high availability
+| Component | Role |
+| --------- | ---- |
+| **Prometheus** | Time-series database that scrapes and stores metrics and evaluates alert rules |
+| **Grafana** | Visualization, dashboards, and (optionally) unified alerting |
+| **Alertmanager** | Routes, groups, silences, and delivers alerts from Prometheus |
+| **Node Exporter / cAdvisor / Blackbox** | Expose host, container, and endpoint metrics for Prometheus to scrape |
+| **Thanos / Cortex / VictoriaMetrics** | Long-term storage and high availability (optional) |
 
-## Quick Start Examples
+Production concerns — high availability, TLS/auth, retention/cardinality, and backups — are covered in the per-component guides below.
 
-### Prometheus Setup
+Each component has a complete guide:
 
-Prometheus is the de facto standard for metrics collection in modern infrastructure. For complete documentation, see the [Prometheus section](prometheus/index.md).
+| Guide | Covers |
+| ----- | ------ |
+| [Prometheus — Overview](prometheus/index.md) | Installation, scrape configs, service discovery, PromQL, recording/alerting rules, retention, securing the server |
+| [Prometheus — Exporters](prometheus/exporters.md) | Node Exporter, cAdvisor, Blackbox, and database exporters |
+| [Prometheus — Alerting](prometheus/alerting.md) | Prometheus alert rules, Alertmanager routing, and Grafana unified alerting (choose one) |
+| [Prometheus — High Availability](prometheus/high-availability.md) | Multiple replicas, Thanos, federation, and remote storage for the metrics pipeline |
+| [Prometheus — Backup and Recovery](prometheus/backup-recovery.md) | TSDB snapshots, shared backup storage, disaster recovery, and automation |
+| [Alertmanager](alertmanager/index.md) | Alert routing, grouping, silences, inhibition, time intervals, receivers, clustering |
+| [Grafana — Overview](grafana/index.md) | Grafana landing page — visualization, dashboards, and the Grafana-specific guides |
+| [Grafana — Installation](grafana/installation.md) | Docker Compose and native install, secrets |
+| [Grafana — Configuration](grafana/configuration.md) | `grafana.ini`, provisioning, data sources |
+| [Grafana — Dashboards](grafana/dashboards.md) | Building and provisioning dashboards |
+| [Grafana — Security](grafana/security.md) | TLS/mTLS, authentication, hardening |
+| [Grafana — High Availability](grafana/high-availability.md) | Grafana clustering — shared database backend and load balancing |
+| [Grafana — Backup and Recovery](grafana/backup-recovery.md) | Backing up the Grafana database, dashboards, and provisioning |
+
+### Quick Start
+
+Follow [Grafana — Installation](grafana/installation.md) for a complete `docker compose` stack (Prometheus, Grafana, Alertmanager, Node Exporter, cAdvisor). A minimal `prometheus.yml` shows the shape of the configuration:
 
 ```yaml
 # prometheus.yml
@@ -70,382 +92,45 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
       - targets: ['localhost:9090']
-
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['localhost:9100']
 
-  - job_name: 'docker'
-    static_configs:
-      - targets: ['localhost:9323']
-
 alerting:
   alertmanagers:
     - static_configs:
-        - targets:
-          - localhost:9093
+        - targets: ['localhost:9093']
 ```
 
-### Node Exporter for System Metrics
+> [!NOTE]
+> The **canonical alert-rule set** (InstanceDown, HighCPUUsage, HighMemoryUsage, DiskSpaceLow, HighErrorRate) and full scrape/relabel configuration live in the [Prometheus guide](prometheus/index.md). Alert **routing and notification** live in the [Alertmanager guide](alertmanager/index.md). This stack can alert through either **Prometheus + Alertmanager** or **Grafana unified alerting** — pick one per environment to avoid duplicate notifications (see [Prometheus — Alerting](prometheus/alerting.md)).
 
-```bash
-# Install and run node_exporter
-wget https://github.com/prometheus/node_exporter/releases/download/v1.6.1/node_exporter-1.6.1.linux-amd64.tar.gz
-tar xvfz node_exporter-1.6.1.linux-amd64.tar.gz
-cd node_exporter-1.6.1.linux-amd64
-./node_exporter
-```
+## Beyond the Core Stack
 
-### Docker Container Monitoring
+The following are complementary approaches this section references but does not document in depth.
 
-```yaml
-# docker-compose.yml for monitoring stack
-version: '3.8'
-services:
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
+### Cloud Monitoring
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+- **Azure Monitor** — agent-based and agentless monitoring for Azure and hybrid resources; integrates with Log Analytics and Workbooks.
+- **AWS CloudWatch** — metrics, logs, and alarms for AWS workloads; metric filters extract metrics from log groups.
+- **Grafana Cloud** — managed Prometheus/Loki/Grafana if you prefer not to self-host.
 
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: node-exporter
-    ports:
-      - "9100:9100"
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.rootfs=/rootfs'
-      - '--path.sysfs=/host/sys'
+### Log Management
 
-volumes:
-  prometheus_data:
-  grafana_data:
-```
+Metrics answer "what is happening"; logs answer "why". Common log pipelines:
 
-## Grafana Dashboards
-
-### System Overview Dashboard
-
-Create comprehensive system dashboards for infrastructure monitoring:
-
-```json
-{
-  "dashboard": {
-    "id": null,
-    "title": "Infrastructure Overview",
-    "tags": ["infrastructure", "monitoring"],
-    "panels": [
-      {
-        "title": "CPU Usage",
-        "type": "stat",
-        "targets": [
-          {
-            "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
-            "refId": "A"
-          }
-        ]
-      },
-      {
-        "title": "Memory Usage",
-        "type": "stat",
-        "targets": [
-          {
-            "expr": "(1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100",
-            "refId": "A"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
-
-### Container Monitoring Dashboard
-
-Monitor Docker containers and Kubernetes pods:
-
-```yaml
-# Container metrics configuration
-- name: container_cpu_usage
-  query: rate(container_cpu_usage_seconds_total[5m])
-  
-- name: container_memory_usage
-  query: container_memory_working_set_bytes / container_spec_memory_limit_bytes
-
-- name: container_network_io
-  query: rate(container_network_receive_bytes_total[5m])
-```
-
-## Alerting Configuration
-
-### Prometheus Alerting Rules
-
-```yaml
-# alert_rules.yml
-groups:
-- name: infrastructure_alerts
-  rules:
-  - alert: HighCPUUsage
-    expr: 100 - (avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: "High CPU usage detected"
-      description: "CPU usage is above 80% for more than 5 minutes"
-
-  - alert: HighMemoryUsage
-    expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 85
-    for: 5m
-    labels:
-      severity: critical
-    annotations:
-      summary: "High memory usage detected"
-      description: "Memory usage is above 85% for more than 5 minutes"
-
-  - alert: DiskSpaceLow
-    expr: (1 - (node_filesystem_avail_bytes / node_filesystem_size_bytes)) * 100 > 90
-    for: 2m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Disk space is running low"
-      description: "Disk usage is above 90% on {{ $labels.device }}"
-
-  - alert: ServiceDown
-    expr: up == 0
-    for: 1m
-    labels:
-      severity: critical
-    annotations:
-      summary: "Service is down"
-      description: "{{ $labels.job }} service is down"
-```
-
-### Alertmanager Configuration
-
-For comprehensive Alertmanager configuration, see the [Alertmanager documentation](alertmanager/index.md).
-
-```yaml
-# alertmanager.yml
-global:
-  smtp_smarthost: 'localhost:587'
-  smtp_from: 'alerts@example.com'
-
-route:
-  group_by: ['alertname']
-  group_wait: 10s
-  group_interval: 10s
-  repeat_interval: 1h
-  receiver: 'web.hook'
-
-receivers:
-- name: 'web.hook'
-  email_configs:
-  - to: 'admin@example.com'
-    subject: 'Alert: {{ .GroupLabels.alertname }}'
-    body: |
-      {{ range .Alerts }}
-      Alert: {{ .Annotations.summary }}
-      Description: {{ .Annotations.description }}
-      {{ end }}
-
-  slack_configs:
-  - api_url: 'YOUR_SLACK_WEBHOOK_URL'
-    channel: '#alerts'
-    title: 'Infrastructure Alert'
-    text: '{{ range .Alerts }}{{ .Annotations.summary }}{{ end }}'
-```
-
-## Cloud Monitoring Solutions
-
-### Azure Monitor
-
-```bash
-# Install Azure Monitor agent
-wget https://aka.ms/azcmagent
-sudo chmod +x azcmagent
-sudo ./azcmagent connect --resource-group "rg-monitoring" --tenant-id "your-tenant-id"
-```
-
-### AWS CloudWatch
-
-```yaml
-# CloudWatch configuration
-Resources:
-  LogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: /aws/infrastructure/monitoring
-      RetentionInDays: 30
-
-  MetricFilter:
-    Type: AWS::Logs::MetricFilter
-    Properties:
-      LogGroupName: !Ref LogGroup
-      FilterPattern: "[timestamp, request_id, level=ERROR]"
-      MetricTransformations:
-        - MetricNamespace: "Custom/Application"
-          MetricName: "ErrorCount"
-          MetricValue: "1"
-```
-
-## Log Management
-
-### Centralized Logging with ELK Stack
-
-```yaml
-# docker-compose-elk.yml
-version: '3.8'
-services:
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
-    environment:
-      - discovery.type=single-node
-      - xpack.security.enabled=false
-    ports:
-      - "9200:9200"
-
-  logstash:
-    image: docker.elastic.co/logstash/logstash:8.10.2
-    volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-    ports:
-      - "5044:5044"
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:8.10.2
-    ports:
-      - "5601:5601"
-    environment:
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-```
-
-### Fluentd for Log Collection
-
-```yaml
-# fluentd.conf
-<source>
-  @type tail
-  path /var/log/containers/*.log
-  pos_file /var/log/fluentd-containers.log.pos
-  tag kubernetes.*
-  format json
-</source>
-
-<match kubernetes.**>
-  @type elasticsearch
-  host elasticsearch
-  port 9200
-  index_name kubernetes
-  type_name _doc
-</match>
-```
-
-## Performance Monitoring
+- **ELK / Elastic Stack** (Elasticsearch + Logstash + Kibana) — see the [ELK Stack container guide](../containers/elk-stack/index.md).
+- **Grafana Loki** — a log store that pairs with Grafana, using labels like Prometheus.
+- **Fluentd / Fluent Bit** — log collectors/forwarders, common in Kubernetes.
 
 ### Application Performance Monitoring (APM)
 
-Monitor application performance and user experience:
+Distributed tracing and request-level telemetry (latency, error rate, dependencies) complement infrastructure metrics. Options include OpenTelemetry (vendor-neutral instrumentation), Grafana Tempo (traces), Jaeger, and Elastic APM. Use consistent sampling and correlate traces with metrics and logs.
 
-```yaml
-# APM configuration
-apm:
-  enabled: true
-  service_name: "my-application"
-  environment: "production"
-  
-  instrumentation:
-    - http_requests
-    - database_queries
-    - cache_operations
-    - external_services
+### Container and Kubernetes Monitoring
 
-  sampling:
-    rate: 0.1  # 10% sampling rate
-    
-  alerts:
-    response_time_threshold: 500ms
-    error_rate_threshold: 5%
-```
-
-### Database Monitoring
-
-```sql
--- Database performance queries
-SELECT 
-    query,
-    mean_time,
-    calls,
-    total_time
-FROM pg_stat_statements 
-ORDER BY total_time DESC 
-LIMIT 10;
-```
-
-## Container and Kubernetes Monitoring
-
-### Kubernetes Monitoring Stack
-
-```yaml
-# monitoring-namespace.yml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: monitoring
-
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: prometheus
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: prometheus
-  template:
-    metadata:
-      labels:
-        app: prometheus
-    spec:
-      containers:
-      - name: prometheus
-        image: prom/prometheus:latest
-        ports:
-        - containerPort: 9090
-        volumeMounts:
-        - name: config
-          mountPath: /etc/prometheus
-      volumes:
-      - name: config
-        configMap:
-          name: prometheus-config
-```
+- **Docker** — container and host metrics via cAdvisor and Node Exporter. See [Docker monitoring](../containers/docker/monitoring.md).
+- **Kubernetes** — the kube-prometheus-stack (Prometheus Operator) is the standard, adding kube-state-metrics and service discovery. See [Kubernetes monitoring](../containers/kubernetes/monitoring.md).
 
 ## Best Practices
 
@@ -480,48 +165,41 @@ spec:
 1. **High cardinality metrics**
 
    ```bash
-   # Check metric cardinality
+   # Check total number of series/label values
    curl http://localhost:9090/api/v1/label/__name__/values | jq '.data | length'
    ```
 
 2. **Missing metrics**
 
    ```bash
-   # Verify scrape targets
+   # Verify scrape targets and their health
    curl http://localhost:9090/api/v1/targets
    ```
 
-3. **Alert fatigue**
+3. **Alert fatigue** — review how often alerts fire and tune thresholds/grouping. A meta-alert can flag noisy rules:
 
    ```yaml
-   # Review alert frequency
    - alert: HighAlertFrequency
      expr: increase(prometheus_notifications_total[1h]) > 10
    ```
 
-### Performance Optimization
+### Performance and Retention
 
-```yaml
-# Prometheus optimization
-global:
-  scrape_interval: 30s       # Increase interval for less critical metrics
-  evaluation_interval: 30s   # Match scrape interval
+Prometheus retention and storage limits are set with **command-line flags** (not a config-file section):
 
-storage:
-  tsdb:
-    retention.time: 30d      # Adjust retention based on needs
-    retention.size: 10GB     # Set size limits
+```bash
+# In the Prometheus startup command / docker-compose command:
+--storage.tsdb.retention.time=30d    # keep 30 days of data
+--storage.tsdb.retention.size=10GB   # cap on-disk size
 ```
+
+For less critical targets, raise `scrape_interval`/`evaluation_interval` in `prometheus.yml` to reduce load. See the [Prometheus guide](prometheus/index.md) for cardinality, recording rules, and remote storage.
 
 ## Related Documentation
 
 - **[Prometheus](prometheus/index.md)** - Complete Prometheus monitoring system documentation
 - **[Alertmanager](alertmanager/index.md)** - Alert routing and notification management
-- **[Grafana Configuration](grafana/index.md)** - Dashboard and visualization setup
+- **[Grafana](grafana/index.md)** - Dashboards, configuration, security, exporters, alerting, HA, and backup
 - **[Container Monitoring](../containers/docker/monitoring.md)** - Docker-specific monitoring
 - **[Kubernetes Monitoring](../containers/kubernetes/monitoring.md)** - K8s cluster monitoring
 - **[Infrastructure Security](../security/index.md)** - Securing monitoring infrastructure
-
----
-
-*This guide provides comprehensive coverage of infrastructure monitoring from basic system metrics to enterprise-scale observability solutions. Choose the tools and approaches that best fit your infrastructure requirements and operational complexity.*
