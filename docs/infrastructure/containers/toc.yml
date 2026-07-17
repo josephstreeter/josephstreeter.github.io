@@ -1,3 +1,7 @@
+- name: Apache HTTP Server
+  href: apache/toc.yml
+- name: Asterisk PBX
+  href: asterisk/toc.yml
 - name: Authentik
   href: authentik/toc.yml
 - name: Docker
@@ -6,3 +10,5 @@
   href: kubernetes/toc.yml
 - name: Nginx
   href: nginx/toc.yml
+- name: PostgreSQL
+  href: postgresql/toc.yml
