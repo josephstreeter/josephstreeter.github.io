@@ -71,10 +71,277 @@ The authentication process works as follows:
 
 1. Client sends the public key identifier to the server
 2. Server checks if the public key is authorized
+<<<<<<< HEAD
+3. Server generates a challenge encrypted with the public key
+4. Client decrypts the challenge using the private key
+5. Client responds to the server with the decrypted information
+6. Server verifies the response and grants access if correct
+
+### SSH Keys
+
+SSH keys are asymmetric cryptographic keys that provide a more secure alternative to password-based authentication. A key pair consists of:
+
+- **Private Key (Identification Key)**: Must be kept secure, optionally protected by a passphrase
+- **Public Key (Authorization Key)**: Can be shared and placed on servers you need to access
+
+#### SSH Key Types
+
+Modern SSH implementations support several key types:
+
+| Key Type | Description | Recommended Size | Notes |
+| -------- | ----------- | ---------------- | ----- |
+| ED25519 | Edwards-curve Digital Signature Algorithm | 256-bit | Recommended for modern systems, excellent security with small key size |
+| RSA | Rivest-Shamir-Adleman | 3072 or 4096-bit | Widely compatible, good for legacy systems |
+| ECDSA | Elliptic Curve Digital Signature Algorithm | 256, 384, or 521-bit | Good alternative, but less widely used than ED25519 or RSA |
+
+#### SSH Key Pair Creation
+
+Generate a new modern SSH key pair (recommended for current systems):
+
+```console
+ssh-keygen -t ed25519 -C "user@example.com"
+```
+
+For legacy system compatibility, use RSA with at least 3072 bits:
+
+```console
+ssh-keygen -t rsa -b 4096 -C "user@example.com"
+```
+
+During key generation, you'll be prompted to:
+
+1. Specify a file location (default is usually fine)
+2. Create an optional passphrase (highly recommended for additional security)
+
+#### Key Management
+
+```bash
+# List your existing keys
+ls -la ~/.ssh/
+
+# Add key to SSH agent (avoids typing passphrase repeatedly)
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
+# List keys loaded in the agent
+ssh-add -l
+
+# Copy public key to remote server
+ssh-copy-id -i ~/.ssh/id_ed25519.pub username@remote-host
+
+# Remove a key from the agent
+ssh-add -d ~/.ssh/id_ed25519
+```
+
+### Host Keys
+
+Host keys establish the server's identity and protect against man-in-the-middle attacks. Each SSH server has its own set of host keys.
+
+When a client connects to a server for the first time, the server presents its host key. The client displays the key's fingerprint and asks for confirmation:
+
+```console
+$ ssh -t user@example.com
+The authenticity of host 'example.com (192.168.1.10)' can't be established.
+ED25519 key fingerprint is SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+After confirming, the host key is stored in the `~/.ssh/known_hosts` file. On subsequent connections, the client verifies the server's identity against this stored key.
+
+If the host key changes, you'll see a warning:
+
+```text
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+```
+
+This could indicate:
+
+- A legitimate server reconfiguration or OS reinstallation
+- A DNS spoofing attack
+- A man-in-the-middle attack
+
+#### Managing Host Keys
+
+To update a changed host key:
+
+```bash
+# Remove the old key for a specific host
+ssh-keygen -R hostname
+
+# Or edit the known_hosts file directly
+vi ~/.ssh/known_hosts
+```
+
+#### Regenerating Server Host Keys
+
+If you're administering an SSH server and need to regenerate host keys:
+
+```console
+# Debian/Ubuntu
+sudo rm /etc/ssh/ssh_host_*
+sudo dpkg-reconfigure openssh-server
+
+# RHEL/CentOS
+sudo rm /etc/ssh/ssh_host_*
+sudo ssh-keygen -A
+sudo systemctl restart sshd
+```
+
+## Client Configuration
+
+SSH client behavior can be customized through the `~/.ssh/config` file, which allows defining host-specific settings.
+
+### Basic Configuration Structure
+
+```text
+# Default settings for all hosts
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    
+# Specific host configuration
+Host myserver
+    HostName server.example.com
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/id_rsa_myserver
+```
+
+### Common Client Configuration Options
+
+| Option | Description | Example |
+| ------ | ----------- | ------- |
+| HostName | Real hostname to connect to | `HostName 192.168.1.100` |
+| User | Username to login as | `User admin` |
+| Port | Port to connect to | `Port 2222` |
+| IdentityFile | Private key file to use | `IdentityFile ~/.ssh/id_rsa` |
+| ForwardAgent | Enable SSH agent forwarding | `ForwardAgent yes` |
+| ForwardX11 | Enable X11 forwarding | `ForwardX11 yes` |
+| ServerAliveInterval | Seconds between keepalive packets | `ServerAliveInterval 60` |
+| ProxyJump | Use a jump host | `ProxyJump jumphost` |
+| StrictHostKeyChecking | Host key verification behavior | `StrictHostKeyChecking yes` |
+| IdentitiesOnly | Only use specified keys | `IdentitiesOnly yes` |
+
+### Advanced Configuration Examples
+
+#### Jump Host Configuration
+
+```text
+# Jump through bastion host to reach internal servers
+Host internal-server
+    HostName 10.0.0.5
+    User admin
+    ProxyJump bastion.example.com
+```
+
+#### Multiple GitHub Accounts
+
+```text
+# Personal GitHub account
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_github_personal
+    
+# Work GitHub account
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_github_work
+```
+
+#### X11 Forwarding for GUI Applications
+
+```text
+Host dev-server
+    HostName dev.example.com
+    User developer
+    ForwardX11 yes
+    ForwardX11Trusted yes
+```
+
+## Server Configuration
+
+The SSH server configuration is typically found in `/etc/ssh/sshd_config`. Here are some important security-focused settings:
+
+```text
+# Basic Settings
+Port 22
+Protocol 2
+ListenAddress 0.0.0.0
+
+# Authentication
+PermitRootLogin no
+MaxAuthTries 3
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+UsePAM yes
+
+# Security
+X11Forwarding no
+AllowTcpForwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+```
+
+### Security Best Practices for SSH Servers
+
+1. **Disable Root Login**:
+
+   ```text
+   PermitRootLogin no
+   ```
+
+2. **Use Key Authentication Only**:
+
+   ```text
+   PasswordAuthentication no
+   ```
+
+3. **Limit User Access**:
+
+   ```text
+   AllowUsers user1 user2
+   ```
+
+4. **Change Default Port** (obscurity, not security):
+
+   ```text
+   Port 2222
+   ```
+
+5. **Implement Fail2Ban** to protect against brute force attacks
+
+6. **Enable Two-Factor Authentication** for additional security
+
+7. **Disable Unused Features**:
+
+   ```text
+   X11Forwarding no
+   AllowAgentForwarding no
+   ```
+
+8. **Tighten Cryptographic Settings**:
+
+   ```text
+   Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+   MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+   KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group16-sha512
+   ```
+=======
 3. Server sends data that must be signed by the client
 4. Client signs the data using the private key
 5. Client returns the signature to the server
 6. Server verifies the signature using the public key and grants access if valid
+>>>>>>> 69209624d66ef0c9202860a2e4de1ec159818f6b
 
 ## Advanced SSH Techniques
 

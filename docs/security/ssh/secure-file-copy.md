@@ -225,7 +225,11 @@ quit
 ## SCP vs SFTP: When to Use Which
 
 | Feature | SCP | SFTP |
+<<<<<<< HEAD
+| ------- | --- | ---- |
+=======
 | ------- | --- | --- |
+>>>>>>> 69209624d66ef0c9202860a2e4de1ec159818f6b
 | **Ease of use** | Simpler for basic transfers | More complex, but more powerful |
 | **Command-line use** | Single command execution | Interactive shell or batch mode |
 | **Resume capability** | No | Yes |

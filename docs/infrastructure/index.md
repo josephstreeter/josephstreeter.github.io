@@ -161,7 +161,7 @@ flowchart TB
 
 Choose your learning path based on your goals and current experience level:
 
-#### 🏠 **Home Lab Enthusiast**
+#### **Home Lab Enthusiast**
 
 Perfect for learning and experimentation in a home environment:
 
@@ -171,7 +171,7 @@ Perfect for learning and experimentation in a home environment:
 4. Set up monitoring with Prometheus and Grafana
 5. Automate deployments with [Ansible](ansible/index.md)
 
-#### 🏢 **Enterprise Infrastructure**
+#### **Enterprise Infrastructure**
 
 For production environments and enterprise deployments:
 
@@ -181,7 +181,7 @@ For production environments and enterprise deployments:
 4. Master [Linux](linux/index.md) and [Windows](windows/index.md) administration
 5. Analyze logs and metrics with [KQL](kql/index.md)
 
-#### ☁️ **Cloud Native Developer**
+#### **Cloud Native Developer**
 
 For modern application deployment and container orchestration:
 
@@ -191,7 +191,7 @@ For modern application deployment and container orchestration:
 4. Automate with [Ansible](ansible/index.md) configuration management
 5. Visualize systems with [Diagrams](diagrams/index.md)
 
-#### 📊 **DevOps and Monitoring**
+#### **DevOps and Monitoring**
 
 Focus on observability, automation, and operations:
 
@@ -230,7 +230,7 @@ Before diving into infrastructure management, ensure you have the following:
 
 ### Quick Start Guides
 
-#### 🚀 **15-Minute Container Setup**
+#### **15-Minute Container Setup**
 
 Get your first container running quickly:
 
@@ -256,7 +256,7 @@ Basic Proxmox setup for beginners:
 4. **Access web interface** at `https://your-server-ip:8006`
 5. **Create your first VM** using the web interface
 
-#### 📈 **Monitoring Stack Setup**
+#### **Monitoring Stack Setup**
 
 Deploy Prometheus and Grafana monitoring:
 

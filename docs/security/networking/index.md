@@ -17,6 +17,18 @@ Network security involves protecting the integrity, confidentiality, and availab
 Multiple layers of security controls to protect against various attack vectors.
 
 ```text
+<<<<<<< HEAD
+┌─────────────────────────────────────────────────────────────────┐
+│                    Defense in Depth Model                       │
+├─────────────────────────────────────────────────────────────────┤
+│  Perimeter Security     │ Firewalls, IDS/IPS, DMZ               │
+│  Network Segmentation   │ VLANs, Subnets, ACLs                  │
+│  Access Control         │ Authentication, Authorization         │
+│  Endpoint Security      │ Antivirus, EDR, Device Management     │
+│  Data Protection        │ Encryption, DLP, Backup               │
+│  Monitoring & Logging   │ SIEM, Network Monitoring, Analytics   │
+└─────────────────────────────────────────────────────────────────┘
+=======
 ┌──────────────────────────────────────────────────────────────┐
 │                    Defense in Depth Model                    │
 ├──────────────────────────────────────────────────────────────┤
@@ -27,6 +39,7 @@ Multiple layers of security controls to protect against various attack vectors.
 │  Data Protection       │ Encryption, DLP, Backup             │
 │  Monitoring & Logging  │ SIEM, Network Monitoring, Analytics │
 └──────────────────────────────────────────────────────────────┘
+>>>>>>> 69209624d66ef0c9202860a2e4de1ec159818f6b
 ```
 
 #### Network Zones
