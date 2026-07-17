@@ -66,6 +66,63 @@ SigninLogs
 
 **Triage:** correlate with travel, VPN use, and the sensitivity of the accessed application. A new country plus a legacy-authentication protocol or an MFA failure is a stronger signal.
 
+### Accounts sharing a source IP with known-bad accounts
+
+- **Hypothesis:** an adversary who controls one set of accounts is signing in to *other* accounts from the same infrastructure. Starting from confirmed-bad users, pivot on their source IPs to surface the rest of the compromised estate.
+- **ATT&CK:** T1078 - Valid Accounts
+- **Data source:** `SigninLogs` (Sentinel)
+
+```kql
+let KnownBad = dynamic([
+    "user1@domain.com",
+    "user2@domain.com",
+    "user3@domain.com"]);
+// Sign-ins by the known-bad accounts, and the IPs they used
+let BadActorSignins =
+    SigninLogs
+    | where TimeGenerated > ago(3d)
+    | where UserPrincipalName in (KnownBad)
+    | extend Country = tostring(LocationDetails.countryOrRegion),
+             City = tostring(LocationDetails.city)
+    | project TimeGenerated, UserPrincipalName, IPAddress, AppDisplayName, Country, City, ResultDescription;
+let BadIPs = BadActorSignins | distinct IPAddress;
+// Other accounts seen on those same IPs
+let PivotSignins =
+    SigninLogs
+    | where TimeGenerated > ago(3d)
+    | where IPAddress in (BadIPs)
+    | where UserPrincipalName !in (KnownBad)
+    | extend Country = tostring(LocationDetails.countryOrRegion),
+             City = tostring(LocationDetails.city)
+    | project TimeGenerated, UserPrincipalName, IPAddress, AppDisplayName, Country, City, ResultDescription;
+BadActorSignins
+| union PivotSignins
+| order by IPAddress asc, TimeGenerated asc
+```
+
+**Triage:** the pivoted accounts are candidates, not confirmed victims — shared IPs also arise from NAT, VPN egress, and corporate proxies. Weight the result by how *specific* the IP is (a residential or hosting-provider address shared by several unrelated users is far more suspicious than a corporate gateway). Corroborate with a successful sign-in (`ResultType == "0"`) followed by sensitive activity.
+
+### Shared source IP outside the home country
+
+- **Hypothesis:** multiple distinct users signing in from a single foreign IP indicates shared adversary infrastructure, an anonymizing proxy, or coordinated access rather than normal travel.
+- **ATT&CK:** T1090 - Proxy / T1078 - Valid Accounts
+- **Data source:** `SigninLogs` (Sentinel)
+
+```kql
+SigninLogs
+| where TimeGenerated > ago(7d)
+| extend Country = tostring(LocationDetails.countryOrRegion)
+| where Country != "US" and Country != ""      // set to your home country
+| where isnotempty(UserPrincipalName) and UserPrincipalName != "Unknown"
+| summarize Users = make_set(UserPrincipalName, 100), UserCount = dcount(UserPrincipalName)
+    by IPAddress, Country
+| where UserCount > 1
+| project IPAddress, Country, UserCount, Users
+| sort by UserCount desc
+```
+
+**Triage:** rank by `UserCount` — one IP serving many unrelated users is the strongest signal. Confirm the country is genuinely off-pattern for your organization, and drop known egress ranges (VPN concentrators, satellite offices) into an allowlist as you tune.
+
 ## Endpoint hunts
 
 ### Encoded PowerShell execution
@@ -156,6 +213,116 @@ AuditLogs
 ```
 
 **Triage:** review the permissions granted (especially broad mail, file, or directory scopes) and whether the application publisher is verified. User-consented, unverified apps requesting sensitive scopes are the priority.
+
+### Adversary-in-the-middle session
+
+- **Hypothesis:** an AiTM phishing proxy captured a session token and is replaying it, so the same session is seen accessing different applications from different countries within a short window.
+- **ATT&CK:** T1557 - Adversary-in-the-Middle
+- **Data source:** `AADSignInEventsBeta` (Defender)
+
+> [!CAUTION]
+> This pattern flags sessions where a browser reaches a second application from a different country than the initial Office portal sign-in. It is a strong AiTM indicator but can also fire on VPN transitions — validate before acting.
+
+```kql
+let OfficeHomeSessions =
+    AADSignInEventsBeta
+    | where Timestamp > ago(1d)
+    | where ErrorCode == 0
+    | where ApplicationId == "4765445b-32c6-49b0-83e6-1d93765276ca"   // OfficeHome
+    | where ClientAppUsed == "Browser"
+    | where LogonType has "interactiveUser"
+    | summarize arg_min(Timestamp, Country) by SessionId;
+AADSignInEventsBeta
+| where Timestamp > ago(1d)
+| where ApplicationId != "4765445b-32c6-49b0-83e6-1d93765276ca"
+| where ClientAppUsed == "Browser"
+| project OtherTimestamp = Timestamp, Application, ApplicationId,
+          AccountObjectId, AccountDisplayName, OtherCountry = Country, SessionId
+| join kind=inner OfficeHomeSessions on SessionId
+| where OtherTimestamp > Timestamp and OtherCountry != Country
+| project AccountDisplayName, AccountObjectId, SessionId,
+          Timestamp, Country, OtherTimestamp, OtherCountry, Application
+```
+
+**Triage:** a single session touching multiple apps from two countries minutes apart is not normal travel. Pull the full session, reset the user's credentials and revoke sessions, and check for mailbox rule creation or OAuth consent that often follows token theft.
+
+## Email and initial-access hunts
+
+### Phishing or spam delivered to a target list
+
+- **Hypothesis:** a set of high-value users received malicious mail that bypassed filtering and may have led to initial access.
+- **ATT&CK:** T1566 - Phishing
+- **Data source:** `EmailEvents` (Defender)
+
+```kql
+let Targets = dynamic([
+    "exec1@domain.com",
+    "exec2@domain.com",
+    "finance@domain.com"]);
+EmailEvents
+| where Timestamp > ago(7d)
+| where RecipientEmailAddress in (Targets)
+| where ThreatTypes has_any ("Phish", "Spam")
+| project Timestamp, SenderFromAddress, SenderMailFromAddress,
+          RecipientEmailAddress, Subject, ThreatTypes, DeliveryAction
+| order by Timestamp desc
+```
+
+**Triage:** prioritize messages with `DeliveryAction == "Delivered"` (they reached the inbox). Pivot on the sender and subject to find the full campaign, then join to `UrlClickEvents` / `EmailUrlInfo` to see whether any recipient clicked.
+
+### Outbound email volume spike from a single sender
+
+- **Hypothesis:** a compromised mailbox is being used to send spam or phishing in bulk to internal or external recipients.
+- **ATT&CK:** T1566 - Phishing (outbound abuse) / T1078 - Valid Accounts
+- **Data source:** `EmailEvents` (Defender)
+
+```kql
+EmailEvents
+| where Timestamp > ago(7d)
+| where EmailDirection == "Outbound"
+| where SenderFromAddress !startswith "mailer"   // drop known bulk senders
+| summarize MessageCount = count(), Recipients = dcount(RecipientEmailAddress)
+    by bin(Timestamp, 1d), SenderFromAddress
+| where MessageCount >= 700
+| order by MessageCount desc
+```
+
+**Triage:** a normal user rarely sends hundreds of messages a day to hundreds of recipients. Confirm against the sender's baseline, check for a matching inbound phish that compromised them, and inspect for newly created inbox forwarding rules.
+
+## Scoping queries for triage
+
+These are not hunts on their own — they are fast lookups for scoping an incident once you have a lead (a suspect address, IP, or user).
+
+**Every account seen on a set of known-bad IPs:**
+
+```kql
+let BadIPs = dynamic(["203.0.113.10", "198.51.100.24"]);
+SigninLogs
+| where TimeGenerated > ago(30d)
+| where IPAddress in (BadIPs)
+| distinct UserPrincipalName
+| order by UserPrincipalName asc
+```
+
+**Who a suspect address has emailed (and how much):**
+
+```kql
+EmailEvents
+| where Timestamp > ago(30d)
+| where SenderMailFromAddress == "suspect@external.example"
+| summarize Messages = count() by RecipientEmailAddress
+| order by Messages desc
+```
+
+**Volume a mailbox received, by sender — for a suspected compromised inbox:**
+
+```kql
+EmailEvents
+| where Timestamp > ago(30d)
+| where RecipientEmailAddress == "victim@domain.com"
+| summarize Messages = count() by SenderMailFromAddress
+| order by Messages desc
+```
 
 ## From hunt to detection
 

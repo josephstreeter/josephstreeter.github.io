@@ -6,8 +6,8 @@
   href: functions-and-operators.md
 - name: Best Practices and Performance
   href: best-practices.md
-- name: Security Examples
-  href: security-examples.md
+- name: Infrastructure Examples
+  href: examples.md
 - name: Quick Reference (Cheat Sheet)
   href: cheat-sheet.md
 - name: Next Steps and References
