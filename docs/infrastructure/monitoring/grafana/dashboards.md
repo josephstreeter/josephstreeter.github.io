@@ -2,7 +2,7 @@
 title: "Grafana Dashboards"
 description: "Comprehensive guide to creating, managing, and optimizing Grafana dashboards for monitoring infrastructure and applications"
 author: "josephstreeter"
-ms.author: "joseph.streeter"
+ms.author: josephstreeter
 ms.topic: how-to
 ms.date: 12/30/2025
 keywords: ["grafana", "dashboards", "visualization", "panels", "promql", "queries", "templates"]
@@ -111,7 +111,7 @@ Create dashboard JSON for version control:
       {
         "id": 1,
         "title": "CPU Usage",
-        "type": "graph",
+        "type": "timeseries",
         "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
         "datasource": {
           "type": "prometheus",
@@ -585,8 +585,8 @@ node_filesystem_avail_bytes{mountpoint=~"$mountpoint",fstype!~"tmpfs|fuse.*"}
         "matcher": {"id": "byName", "options": "Value"},
         "properties": [
           {
-            "id": "custom.displayMode",
-            "value": "color-background"
+            "id": "custom.cellOptions",
+            "value": {"type": "color-background"}
           },
           {
             "id": "mappings",
@@ -853,8 +853,9 @@ instance:node_cpu_utilization:rate5m
 # Automatic step based on dashboard time range
 rate(metric[5m])
 
-# Manual step for specific resolution
-rate(metric[5m])[$__interval]
+# Subquery: evaluate rate() at a specific inner resolution
+# (a range selector cannot be applied to a function result, so use subquery syntax)
+rate(metric[5m:$__interval])
 ```
 
 ### Dashboard Settings
@@ -892,6 +893,9 @@ rate(metric[5m])[$__interval]
 ```
 
 ## Dashboard Export and Import
+
+> [!NOTE]
+> The API examples below use `Authorization: Bearer ${API_KEY}`. Legacy Grafana **API keys are deprecated** (Grafana 9+) in favor of **service accounts** and **service-account tokens**. Create a service account, generate a token for it, and use that token as the bearer credential. Service accounts support scoped roles, token rotation, and independent lifecycle management.
 
 ### Export Dashboard
 
@@ -996,10 +1000,10 @@ label_values(metric_name, label_name)
 
 ## See Also
 
-- [Prometheus Configuration](index.md)
+- [Monitoring Stack Overview](index.md)
 - [Configuration Guide](configuration.md)
-- [Alerting Configuration](alerting.md)
-- [Exporters Configuration](exporters.md)
+- [Alerting Configuration](../prometheus/alerting.md)
+- [Exporters Configuration](../prometheus/exporters.md)
 
 ## References
 

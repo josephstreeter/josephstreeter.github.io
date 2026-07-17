@@ -1,8 +1,8 @@
 ---
 title: Installation and Setup
 description: Production-ready installation guide for Grafana and Prometheus monitoring stack
-author: Your Name
-ms.author: your-email
+author: Joseph Streeter
+ms.author: josephstreeter
 ms.topic: installation
 ms.date: 12/30/2025
 keywords: grafana, prometheus, installation, docker, docker-compose, monitoring
@@ -51,11 +51,9 @@ mkdir -p prometheus/rules grafana/provisioning/{datasources,dashboards,notifiers
 Create `docker-compose.yml` with pinned versions:
 
 ```yaml
-version: '3.8'
-
 services:
   prometheus:
-    image: prom/prometheus:v2.48.1  # Pinned version
+    image: prom/prometheus:v2.53.0  # Pinned version
     container_name: prometheus
     user: "1000:1000"  # Run as non-root
     command:
@@ -92,20 +90,20 @@ services:
           memory: 1024M
 
   grafana:
-    image: grafana/grafana:10.2.3  # Pinned version
+    image: grafana/grafana:11.2.0  # Pinned version
     container_name: grafana
     user: "1000:1000"  # Run as non-root
     ports:
       - "3000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=${GF_ADMIN_USER:-admin}
-      - GF_SECURITY_ADMIN_PASSWORD_FILE=/run/secrets/grafana_admin_password
+      - GF_SECURITY_ADMIN_PASSWORD__FILE=/run/secrets/grafana_admin_password
       - GF_INSTALL_PLUGINS=
       - GF_SERVER_ROOT_URL=https://grafana.yourdomain.com
       - GF_SMTP_ENABLED=true
       - GF_SMTP_HOST=smtp.gmail.com:587
       - GF_SMTP_USER=${SMTP_USER}
-      - GF_SMTP_PASSWORD_FILE=/run/secrets/smtp_password
+      - GF_SMTP_PASSWORD__FILE=/run/secrets/smtp_password
       - GF_SMTP_FROM_ADDRESS=${SMTP_FROM:-alerts@yourdomain.com}
       - GF_AUTH_ANONYMOUS_ENABLED=false
       - GF_LOG_MODE=console file
@@ -169,7 +167,7 @@ services:
           memory: 256M
 
   node-exporter:
-    image: prom/node-exporter:v1.7.0  # Pinned version
+    image: prom/node-exporter:v1.8.2  # Pinned version
     container_name: node-exporter
     command:
       - '--path.procfs=/host/proc'
@@ -420,14 +418,50 @@ echo "Access Prometheus at: http://localhost:9090"
 
 set -e
 
-# Add Grafana repository (Ubuntu/Debian)
-sudo apt-get install -y software-properties-common
-sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+# Add Grafana repository (Ubuntu/Debian) using the signed-by keyring method
+# (the legacy key-add approach is deprecated and removed in newer distributions)
+sudo apt-get install -y apt-transport-https software-properties-common wget
+sudo mkdir -p /etc/apt/keyrings
+wget -q -O - https://apt.grafana.com/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/grafana.gpg
+echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
 
 # Update and install
 sudo apt-get update
 sudo apt-get install -y grafana
+
+# Enable and start service
+sudo systemctl daemon-reload
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
+
+echo "Grafana installed successfully!"
+echo "Access Grafana at: http://localhost:3000"
+echo "Default credentials: admin/admin"
+```
+
+For RHEL, Rocky Linux, AlmaLinux, or Fedora (yum/dnf), use the Grafana RPM repository instead:
+
+```bash
+#!/bin/bash
+# install-grafana-rpm.sh
+
+set -e
+
+# Create the Grafana RPM repository definition
+sudo tee /etc/yum.repos.d/grafana.repo > /dev/null <<'EOF'
+[grafana]
+name=grafana
+baseurl=https://rpm.grafana.com
+repo_gpgcheck=1
+enabled=1
+gpgcheck=1
+gpgkey=https://rpm.grafana.com/gpg.key
+sslverify=1
+sslcacert=/etc/pki/tls/certs/ca-bundle.crt
+EOF
+
+# Install Grafana (dnf on RHEL 8+/Fedora, yum on older releases)
+sudo dnf install -y grafana
 
 # Enable and start service
 sudo systemctl daemon-reload
@@ -671,8 +705,8 @@ After successful installation:
 
 1. Review [Configuration Guide](configuration.md) for detailed Prometheus and Grafana configuration
 2. Set up [Security](security.md) with TLS, authentication, and secrets management
-3. Configure [Exporters](exporters.md) for additional metrics collection
-4. Set up [Alerting](alerting.md) with Prometheus alert rules and Alertmanager
+3. Configure [Exporters](../prometheus/exporters.md) for additional metrics collection
+4. Set up [Alerting](../prometheus/alerting.md) with Prometheus alert rules and Alertmanager
 5. Implement [High Availability](high-availability.md) for production deployments
 6. Configure [Backup and Recovery](backup-recovery.md) procedures
 

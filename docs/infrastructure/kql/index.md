@@ -39,6 +39,6 @@ If you are new to KQL, work through these pages in order:
 1. [Query structure and statements](query-structure.md) - How statements, `let` bindings, and the pipeline (`|`) fit together.
 2. [Functions and operators](functions-and-operators.md) - Common transformations and aggregations such as `where`, `join`, `parse_json`, and `summarize`.
 3. [Best practices and performance](best-practices.md) - Write queries that are fast, readable, and maintainable.
-4. [Security examples](security-examples.md) - Realistic sign-in, email, and threat-hunting investigations.
+4. [Infrastructure examples](examples.md) - Realistic VM, container, and Application Insights monitoring queries.
 5. [Quick reference (cheat sheet)](cheat-sheet.md) - Condensed lookup of the most common operators and functions.
 6. [Next steps and references](reference.md) - Further learning resources and official documentation.

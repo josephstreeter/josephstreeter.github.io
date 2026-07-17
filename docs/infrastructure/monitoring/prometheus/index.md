@@ -209,7 +209,7 @@ docker run -d \
   --name prometheus \
   -p 9090:9090 \
   -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
-  prom/prometheus:latest
+  prom/prometheus:v2.53.0
 
 # With additional configuration
 docker run -d \
@@ -218,7 +218,7 @@ docker run -d \
   -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml \
   -v $(pwd)/alert_rules:/etc/prometheus/rules \
   -v prometheus-data:/prometheus \
-  prom/prometheus:latest \
+  prom/prometheus:v2.53.0 \
     --config.file=/etc/prometheus/prometheus.yml \
     --storage.tsdb.path=/prometheus \
     --web.console.libraries=/etc/prometheus/console_libraries \
@@ -230,11 +230,9 @@ docker run -d \
 ### Docker Compose
 
 ```yaml
-version: '3.8'
-
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.53.0
     container_name: prometheus
     ports:
       - "9090:9090"
@@ -255,7 +253,7 @@ services:
     restart: unless-stopped
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter:v1.8.2
     container_name: node-exporter
     ports:
       - "9100:9100"
@@ -273,7 +271,7 @@ services:
     restart: unless-stopped
 
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
     container_name: cadvisor
     ports:
       - "8080:8080"
@@ -288,7 +286,7 @@ services:
     restart: unless-stopped
 
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.27.0
     container_name: alertmanager
     ports:
       - "9093:9093"
@@ -334,7 +332,7 @@ spec:
       serviceAccountName: prometheus
       containers:
       - name: prometheus
-        image: prom/prometheus:latest
+        image: prom/prometheus:v2.53.0
         ports:
         - containerPort: 9090
         args:
@@ -705,7 +703,7 @@ rate(http_requests_total[5m])
 avg_over_time(cpu_usage_percent[10m])
 
 # 95th percentile response time
-histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
 
 # Increase function (total increase over time range)
 increase(http_requests_total[1h])
@@ -724,7 +722,7 @@ rate(cpu_usage_seconds_total[5m])
 avg_over_time(cpu_usage_percent[10m])
 
 # 95th percentile response time
-histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
 
 # Increase function (total increase over time range)
 increase(http_requests_total[1h])
@@ -798,7 +796,7 @@ rate(network_receive_bytes_total[5m]) + rate(network_transmit_bytes_total[5m])
 avg_over_time(up[1h])
 
 # 99th percentile response time
-histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
 
 # Error rate percentage
 rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100
@@ -806,8 +804,11 @@ rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 1
 # Predict disk full time (linear regression)
 predict_linear(filesystem_free_bytes[1h], 3600 * 24)
 
-# Alert if service is down for more than 5 minutes
-absent_over_time(up[5m])
+# Detect a missing/absent series (no `up` samples scraped in the last 5m).
+# NOTE: this is NOT the same as `up == 0`. `absent_over_time` fires when the
+# series has disappeared entirely (target dropped from discovery / never scraped),
+# whereas `up == 0` fires when the target is scraped but unreachable/failing.
+absent_over_time(up{job="my-service"}[5m])
 
 # Container CPU throttling
 rate(container_cpu_cfs_throttled_seconds_total[5m])
@@ -884,7 +885,7 @@ groups:
           current_value: "{{ $value }}%"
 
       - alert: HighResponseTime
-        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        expr: histogram_quantile(0.95, sum by (job, le) (rate(http_request_duration_seconds_bucket[5m]))) > 2
         for: 10m
         labels:
           severity: warning
@@ -1081,43 +1082,72 @@ groups:
 
 ## Security
 
+> [!IMPORTANT]
+> The Prometheus server has **no built-in authentication or authorization** on
+> its own HTTP endpoints (UI, `/api`, `/metrics`, admin/lifecycle). Anyone who can
+> reach the port can query data and, if enabled, trigger reloads or deletions.
+> Since Prometheus 2.24 you can secure the server's own endpoints with a web
+> configuration file passed via `--web.config.file=web.yml`, which provides TLS
+> and HTTP basic auth. For anything beyond that (multi-user RBAC, SSO), place
+> Prometheus behind a reverse proxy or authenticating gateway.
+
+### Securing the Prometheus Server (web config file)
+
+Enable TLS and basic auth on the Prometheus server's own endpoints by starting it
+with `--web.config.file=web.yml`, where `web.yml` looks like:
+
+```yaml
+# web.yml
+tls_server_config:
+  cert_file: /etc/prometheus/certs/prometheus.crt
+  key_file: /etc/prometheus/certs/prometheus.key
+
+# Bcrypt-hashed passwords (generate with `htpasswd -nBC 12 "" | tr -d ':\n'`)
+basic_auth_users:
+  admin: $2y$12$hV8p0Q0mQ5N3o4E1u2sJ9eKq1r3s5t7u9v1w3x5y7z9A1B3C5D7E
+```
+
+Then run Prometheus with:
+
+```bash
+prometheus --config.file=/etc/prometheus/prometheus.yml \
+  --web.config.file=/etc/prometheus/web.yml
+```
+
 ### Basic Authentication
 
 ```yaml
-# Enable basic authentication
-global:
-  # Basic auth for scraping
-  scrape_configs:
-    - job_name: 'secure-app'
-      static_configs:
-        - targets: ['app:8080']
-      basic_auth:
-        username: 'prometheus'
-        password: 'secure_password'
-      scheme: https
-      tls_config:
-        ca_file: /etc/prometheus/ca.pem
-        cert_file: /etc/prometheus/prometheus.pem
-        key_file: /etc/prometheus/prometheus-key.pem
-        insecure_skip_verify: false
+# Enable basic authentication for a scrape target
+scrape_configs:
+  - job_name: 'secure-app'
+    static_configs:
+      - targets: ['app:8080']
+    basic_auth:
+      username: 'prometheus'
+      password: 'secure_password'
+    scheme: https
+    tls_config:
+      ca_file: /etc/prometheus/ca.pem
+      cert_file: /etc/prometheus/prometheus.pem
+      key_file: /etc/prometheus/prometheus-key.pem
+      insecure_skip_verify: false
 ```
 
 ### TLS Configuration
 
 ```yaml
 # TLS configuration for secure communication
-global:
-  scrape_configs:
-    - job_name: 'tls-enabled-service'
-      static_configs:
-        - targets: ['secure-service:8443']
-      scheme: https
-      tls_config:
-        ca_file: /etc/prometheus/certs/ca.crt
-        cert_file: /etc/prometheus/certs/prometheus.crt
-        key_file: /etc/prometheus/certs/prometheus.key
-        server_name: secure-service.example.com
-        insecure_skip_verify: false
+scrape_configs:
+  - job_name: 'tls-enabled-service'
+    static_configs:
+      - targets: ['secure-service:8443']
+    scheme: https
+    tls_config:
+      ca_file: /etc/prometheus/certs/ca.crt
+      cert_file: /etc/prometheus/certs/prometheus.crt
+      key_file: /etc/prometheus/certs/prometheus.key
+      server_name: secure-service.example.com
+      insecure_skip_verify: false
 ```
 
 ### Network Security
@@ -1386,10 +1416,9 @@ instance:cpu_usage:rate5m
 
 ```yaml
 # Prometheus HA setup with shared storage
-version: '3.8'
 services:
   prometheus-1:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.53.0
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -1402,7 +1431,7 @@ services:
       cluster: 'production'
 
   prometheus-2:
-    image: prom/prometheus:latest
+    image: prom/prometheus:v2.53.0
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
@@ -1438,8 +1467,14 @@ docker logs prometheus 2>&1 | grep -i "discovery\|scrape"
 #### Query Performance
 
 ```bash
-# Enable query logging
---query.log-file=/var/log/prometheus_queries.log
+# Enable query logging.
+# There is no --query.log-file CLI flag; the active query log is configured
+# via the global.query_log_file field in prometheus.yml, e.g.:
+#
+#   global:
+#     query_log_file: /var/log/prometheus_queries.log
+#
+# (This can be toggled at runtime by editing prometheus.yml and reloading.)
 
 # Monitor query performance
 tail -f /var/log/prometheus_queries.log | grep -E "took|ms"
@@ -1630,7 +1665,6 @@ func main() {
 docker run -d -p 3000:3000 --name grafana grafana/grafana
 
 # Or with Docker Compose
-version: '3'
 services:
   grafana:
     image: grafana/grafana
@@ -1666,8 +1700,8 @@ volumes:
 rate(http_requests_total[5m])
 
 # Response Time Percentiles
-histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))
-histogram_quantile(0.50, rate(http_request_duration_seconds_bucket[5m]))
+histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
+histogram_quantile(0.50, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
 ```
 
 ## Advanced Monitoring Patterns

@@ -1,0 +1,18 @@
+- name: Overview
+  href: index.md
+- name: Installation and Deployment
+  href: installation.md
+- name: Configuration
+  href: configuration.md
+- name: Dialplan
+  href: dialplan.md
+- name: Endpoints and Trunks
+  href: endpoints-trunks.md
+- name: Queues and IVR
+  href: queues-ivr.md
+- name: Security
+  href: security.md
+- name: Monitoring and Troubleshooting
+  href: monitoring.md
+- name: Best Practices
+  href: best-practices.md

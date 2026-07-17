@@ -1,0 +1,10 @@
+- name: Overview
+  href: index.md
+- name: Exporters
+  href: exporters.md
+- name: Alerting
+  href: alerting.md
+- name: High Availability
+  href: high-availability.md
+- name: Backup and Recovery
+  href: backup-recovery.md

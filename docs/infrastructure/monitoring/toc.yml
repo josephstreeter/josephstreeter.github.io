@@ -1,8 +1,10 @@
 - name: Overview
   href: index.md
 - name: Prometheus
-  href: prometheus/index.md
+  href: prometheus/toc.yml
 - name: Alertmanager
   href: alertmanager/index.md
 - name: Grafana
-  href: grafana/index.md
+  href: grafana/toc.yml
+- name: Azure Monitor
+  href: azure-monitor/toc.yml

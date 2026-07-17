@@ -202,15 +202,38 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Query performance optimization
   - Schema visualization and validation
 
+## IT Service Management
+
+### ITSM & CMDB
+
+- **[iTop ITSM / CMDB](itop/index.md)** - Open-source IT Service Management and Configuration Management Database
+  - Docker deployment with MariaDB and the setup wizard
+  - CMDB, incident/problem/change, and service management (ITIL)
+  - REST/JSON API, data synchronization, and LDAP
+  - Security, backups, upgrades, and monitoring
+
 ## Networking & Ingress
 
 ### Web Servers & Reverse Proxies
 
+- **[Apache HTTP Server](apache/index.md)** - Modular web server, reverse proxy, and load balancer
+  - `mod_proxy` reverse proxy and virtual hosts
+  - `mod_proxy_balancer` load balancing with health checks
+  - TLS termination with `mod_ssl` and Let's Encrypt
+  - Security hardening and performance (MPM) tuning
 - **[Nginx](nginx/index.md)** - High-performance web server and reverse proxy
   - Container-based load balancing
   - SSL/TLS termination and security
   - Kubernetes ingress controller
   - Microservices routing and configuration
+
+### Communications & Telephony
+
+- **[Asterisk PBX](asterisk/index.md)** - Open-source VoIP/telephony framework (PBX)
+  - PJSIP configuration, dialplan, and provider trunks
+  - SIP/RTP networking for containers
+  - Toll-fraud prevention, TLS/SRTP, and fail2ban
+  - Monitoring, NAT handling, and production best practices
 
 ## Development Tools
 

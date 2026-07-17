@@ -2,11 +2,11 @@
 title: "Alerting Configuration"
 description: "Comprehensive guide to configuring Prometheus and Grafana alerting, including alert rules, Alertmanager, notification channels, and runbooks"
 author: "josephstreeter"
-ms.author: "joseph.streeter"
+ms.author: josephstreeter
 ms.topic: how-to
 ms.date: 12/30/2025
 keywords: ["prometheus", "alerting", "alertmanager", "grafana", "notifications", "monitoring", "runbooks"]
-uid: docs.infrastructure.grafana.alerting
+uid: docs.infrastructure.prometheus.alerting
 ---
 
 ## Overview
@@ -24,6 +24,23 @@ Prometheus alerting separates into two components:
 - **Annotations**: Provide human-readable information
 - **Inhibition**: Suppress alerts based on other active alerts
 - **Silences**: Temporarily mute alerts
+
+## Choose One Alerting System
+
+> [!IMPORTANT]
+> This monitoring stack can generate alerts through **two independent systems that overlap**. Running **both** against the same conditions will produce **duplicate notifications** (the same alert paged/emailed/posted twice). Pick **one** per environment and standardize on it.
+
+The two options are:
+
+1. **Prometheus alerting rules + Alertmanager** — Prometheus evaluates the alert rules (PromQL) and forwards firing alerts to Alertmanager, which owns routing, grouping, silencing, and inhibition. This is everything in the *Alert Rules*, *Alertmanager Configuration*, and *Notification Channels* sections below.
+2. **Grafana Unified Alerting** — Grafana evaluates alert rules against one or more datasources and handles delivery through contact points and notification policies configured inside Grafana. This is the *Grafana Unified Alerting* section below.
+
+| Choose | When |
+| --- | --- |
+| **Prometheus + Alertmanager** | Prometheus-centric setups; you want mature, battle-tested routing, grouping, inhibition, and high-availability clustering; alerting config lives in version-controlled YAML alongside Prometheus. |
+| **Grafana Unified Alerting** | You alert across multiple datasources (not just Prometheus); you want a single unified UI to author rules, contact points, and silences; you prefer managing alerting entirely within Grafana. |
+
+This page documents **both** systems for reference. It is not a recommendation to deploy both simultaneously — choose one, and disable or avoid duplicating alert rules in the other.
 
 ## Prometheus Alerting Architecture
 
@@ -186,6 +203,9 @@ groups:
           runbook_url: "https://docs.example.com/runbooks/high-load"
 
       - alert: ClockSkew
+        # Note: this abs()/timestamp() comparison is a crude approximation. Prefer
+        # node_timex_offset_seconds (from node_exporter's timex collector), which reports
+        # the NTP-estimated clock offset directly and is the more reliable skew signal.
         expr: abs(node_time_seconds - timestamp(node_time_seconds)) > 30
         for: 5m
         labels:
@@ -413,8 +433,8 @@ route:
   # Sub-routes
   routes:
     # Critical alerts go to PagerDuty and Slack
-    - match:
-        severity: critical
+    - matchers:
+        - severity = critical
       receiver: 'critical-alerts'
       continue: false
       group_wait: 10s
@@ -422,38 +442,38 @@ route:
       repeat_interval: 1h
 
     # Database alerts
-    - match_re:
-        component: database
+    - matchers:
+        - component =~ "database"
       receiver: 'database-team'
       continue: true
       group_by: ['alertname', 'instance']
 
     # Infrastructure alerts
-    - match_re:
-        component: (cpu|memory|disk|network|system)
+    - matchers:
+        - component =~ "cpu|memory|disk|network|system"
       receiver: 'infrastructure-team'
       continue: true
 
     # Application alerts
-    - match:
-        component: application
+    - matchers:
+        - component = application
       receiver: 'development-team'
       continue: true
 
     # Container alerts
-    - match:
-        component: container
+    - matchers:
+        - component = container
       receiver: 'platform-team'
       continue: true
 
     # Monitoring system alerts (don't page for these)
-    - match:
-        job: prometheus
+    - matchers:
+        - job = prometheus
       receiver: 'monitoring-team'
       repeat_interval: 24h
 
 # Inhibition rules
-inhibition_rules:
+inhibit_rules:
   # Inhibit warning if critical is firing
   - source_match:
       severity: 'critical'
@@ -487,7 +507,8 @@ receivers:
   # Critical alerts
   - name: 'critical-alerts'
     pagerduty_configs:
-      - service_key: '${PAGERDUTY_SERVICE_KEY}'
+      # Use routing_key (PagerDuty Events API v2); service_key is the legacy v1 field.
+      - routing_key: '${PAGERDUTY_ROUTING_KEY}'
         description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
         severity: 'critical'
         client: 'Prometheus'
@@ -665,8 +686,9 @@ receivers:
 receivers:
   - name: 'pagerduty'
     pagerduty_configs:
-      - service_key: '${PAGERDUTY_SERVICE_KEY}'
-        routing_key: '${PAGERDUTY_ROUTING_KEY}'
+      # Use routing_key with the PagerDuty Events API v2 (Prometheus integration type).
+      # routing_key and service_key are mutually exclusive; service_key is the legacy Events API v1 field.
+      - routing_key: '${PAGERDUTY_ROUTING_KEY}'
         description: '{{ .GroupLabels.alertname }}: {{ .CommonAnnotations.summary }}'
         severity: '{{ if eq .GroupLabels.severity "critical" }}critical{{ else }}warning{{ end }}'
         client: 'Prometheus Alertmanager'
@@ -768,7 +790,7 @@ Runbooks provide step-by-step instructions for responding to alerts.
 
 **Structure:**
 
-```markdown
+````markdown
 # Alert: HighCPUUsage
 
 ## Summary
@@ -845,14 +867,13 @@ If issue persists after 30 minutes, escalate to:
 
 - [CPU Optimization Guide](https://wiki.example.com/cpu-optimization)
 - [Grafana Dashboard](https://grafana.example.com/d/cpu-analysis)
-
-```markdown
+````
 
 ### Example Runbooks
 
 **NodeDown:**
 
-```markdown
+````markdown
 # Alert: NodeDown
 
 ## Summary
@@ -880,10 +901,11 @@ ssh <instance> 'sudo systemctl status node_exporter'
 ### NodeDown Escalation
 
 Immediate - This is critical infrastructure failure
+````
 
 **HighMemoryUsage:**
 
-```markdown
+````markdown
 # Alert: HighMemoryUsage
 
 ## Summary
@@ -911,8 +933,7 @@ sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
 # Restart problematic service
 sudo systemctl restart application.service
 ```
-
-```markdown
+````
 
 ## Grafana Unified Alerting
 
@@ -1173,7 +1194,7 @@ if __name__ == "__main__":
 group_by: ['alertname', 'cluster', 'service']
 
 # Use inhibition to suppress redundant alerts
-inhibition_rules:
+inhibit_rules:
   - source_match:
       alertname: 'ServiceDown'
     target_match_re:
@@ -1258,9 +1279,10 @@ curl http://alertmanager:9093/api/v2/alerts | jq '.[] | select(.status.inhibited
 
 ## See Also
 
-- [Prometheus Configuration](index.md)
-- [Exporters Configuration](exporters.md)
-- [Configuration Guide](configuration.md)
-- [Grafana Dashboards](dashboards.md)
+- [Monitoring Stack Overview](../index.md)
+- [Prometheus](index.md)
+- [Alertmanager](../alertmanager/index.md)
+- [Exporters](exporters.md)
+- [Grafana Dashboards](../grafana/dashboards.md)
 - [High Availability](high-availability.md)
 - [Backup and Recovery](backup-recovery.md)

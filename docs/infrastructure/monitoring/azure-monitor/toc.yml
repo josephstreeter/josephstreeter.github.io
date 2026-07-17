@@ -1,0 +1,8 @@
+- name: Overview
+  href: index.md
+- name: Data Collection
+  href: data-collection.md
+- name: Azure Alerts
+  href: alerts.md
+- name: Visualization
+  href: visualization.md

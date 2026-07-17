@@ -879,7 +879,7 @@ b: a
 ### Command Line Options
 
 | Option | Description |
-|--------|-------------|
+| ------ | ----------- |
 | `make` | Build default target |
 | `make target` | Build specific target |
 | `make -f file` | Use specific makefile |
@@ -894,7 +894,7 @@ b: a
 ### Special Targets
 
 | Target | Purpose |
-|--------|---------|
+| ------ | ------- |
 | `.PHONY` | Declare phony targets |
 | `.SILENT` | Suppress command echoing |
 | `.DELETE_ON_ERROR` | Delete target on error |
@@ -905,7 +905,7 @@ b: a
 ### Automatic Variables
 
 | Variable | Meaning |
-|----------|---------|
+| -------- | ------- |
 | `$@` | Target name |
 | `$<` | First prerequisite |
 | `$^` | All prerequisites |

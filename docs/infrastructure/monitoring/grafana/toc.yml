@@ -1,4 +1,4 @@
-- name: Grafana and Prometheus
+- name: Overview
   href: index.md
 - name: Installation
   href: installation.md
@@ -8,10 +8,6 @@
   href: dashboards.md
 - name: Security
   href: security.md
-- name: Exporters
-  href: exporters.md
-- name: Alerting
-  href: alerting.md
 - name: High Availability
   href: high-availability.md
 - name: Backup and Recovery
