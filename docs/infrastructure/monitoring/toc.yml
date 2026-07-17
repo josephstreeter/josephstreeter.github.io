@@ -6,3 +6,5 @@
   href: alertmanager/index.md
 - name: Grafana
   href: grafana/toc.yml
+- name: Azure Monitor
+  href: azure-monitor/toc.yml

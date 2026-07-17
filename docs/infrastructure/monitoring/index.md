@@ -21,6 +21,17 @@ Effective infrastructure monitoring provides:
 - **Root cause analysis** capabilities for faster incident resolution
 - **Compliance reporting** for regulatory requirements
 
+## Two Monitoring Stacks
+
+This section documents two complete stacks that solve the same problem in different ways. Pick the one that fits your environment — or run both in a hybrid.
+
+| Stack | What it is | Best for |
+| ----- | ---------- | -------- |
+| **[Prometheus + Grafana](prometheus/index.md)** (self-hosted) | Open-source metrics, alerting, and dashboards you run and scale yourself | Kubernetes, multi-cloud, on-prem, full control, no per-GB cost |
+| **[Azure Monitor + Azure Alerts](azure-monitor/index.md)** (managed) | Cloud-native, fully managed metrics, logs, alerting, and visualization | Azure-native and Arc-managed workloads, minimal operational overhead |
+
+The bulk of this section details the **Prometheus + Grafana** stack (below). The **[Azure Monitor](azure-monitor/index.md)** subsection covers the managed alternative and maps each Azure component back to its Prometheus-stack equivalent. A common hybrid keeps Prometheus for Kubernetes and uses Azure Monitor for Azure platform resources, with a single [Azure Managed Grafana](azure-monitor/visualization.md#azure-managed-grafana) pane over both.
+
 ## Monitoring Stack Components
 
 ### Metrics Collection
@@ -35,13 +46,13 @@ Effective infrastructure monitoring provides:
 - **[Prometheus](prometheus/index.md)** - Open-source monitoring and alerting toolkit (the primary metrics store in this stack)
 - **InfluxDB** - Purpose-built time series database
 - **Grafana Cloud** - Managed observability platform
-- **Azure Monitor** - Cloud-native monitoring solution
+- **[Azure Monitor](azure-monitor/index.md)** - Cloud-native, fully managed metrics and logs (the alternate stack)
 
 ### Visualization and Dashboards
 
 - **[Grafana](grafana/index.md)** - Feature-rich visualization and analytics platform
 - **Kibana** - Data visualization for Elasticsearch
-- **Azure Monitor Workbooks** - Interactive reports and dashboards
+- **[Azure Monitor Workbooks](azure-monitor/visualization.md)** - Interactive reports and dashboards
 
 ## The Prometheus + Grafana Stack
 
@@ -111,7 +122,7 @@ The following are complementary approaches this section references but does not 
 
 ### Cloud Monitoring
 
-- **Azure Monitor** — agent-based and agentless monitoring for Azure and hybrid resources; integrates with Log Analytics and Workbooks.
+- **Azure Monitor** — the managed alternate stack, documented in depth in the [Azure Monitor subsection](azure-monitor/index.md); agent-based and agentless monitoring for Azure and hybrid resources, integrating Log Analytics, Application Insights, Azure Alerts, and Workbooks.
 - **AWS CloudWatch** — metrics, logs, and alarms for AWS workloads; metric filters extract metrics from log groups.
 - **Grafana Cloud** — managed Prometheus/Loki/Grafana if you prefer not to self-host.
 
@@ -200,6 +211,7 @@ For less critical targets, raise `scrape_interval`/`evaluation_interval` in `pro
 - **[Prometheus](prometheus/index.md)** - Complete Prometheus monitoring system documentation
 - **[Alertmanager](alertmanager/index.md)** - Alert routing and notification management
 - **[Grafana](grafana/index.md)** - Dashboards, configuration, security, exporters, alerting, HA, and backup
+- **[Azure Monitor](azure-monitor/index.md)** - The managed alternate stack: data collection, Azure Alerts, and visualization
 - **[Container Monitoring](../containers/docker/monitoring.md)** - Docker-specific monitoring
 - **[Kubernetes Monitoring](../containers/kubernetes/monitoring.md)** - K8s cluster monitoring
 - **[Infrastructure Security](../security/index.md)** - Securing monitoring infrastructure
