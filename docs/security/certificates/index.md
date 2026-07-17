@@ -23,8 +23,9 @@ Digital certificates form the backbone of secure communications, identity verifi
 - [PowerShell Certificate Management](#powershell-certificate-management)
 - [Troubleshooting](#troubleshooting)
 - [Best Practices](#best-practices)
-- [OpenSSL Guide](openssl.md)
+- [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
+- [ACME (Automated Certificates)](acme/index.md)
 
 ## Certificate Fundamentals
 
@@ -592,9 +593,12 @@ if (-not $Result) {
 ### Advanced PKI Management
 
 - **Certificate Transparency (CT)**
-  - Monitor CT logs for unauthorized certificate issuance
-  - Submit certificates to CT logs for public verification
-  - Implement Expect-CT headers for websites
+  - Monitor CT logs (e.g. [crt.sh](https://crt.sh/)) for unauthorized certificate issuance
+  - Submit certificates to CT logs for public verification (CAs do this automatically)
+  - Modern browsers enforce CT for publicly trusted certificates by default
+
+  > [!NOTE]
+  > The **Expect-CT** HTTP header is obsolete and was removed from major browsers around 2022. Certificate Transparency is now enforced by default, so no header is required. Do not deploy Expect-CT on new sites.
 
 - **Certificate Authority Authorization (CAA)**
   - Configure DNS CAA records to restrict certificate issuance
@@ -602,9 +606,12 @@ if (-not $Result) {
   - Include all authorized CAs in CAA records
 
 - **Certificate Pinning**
-  - Implement HTTP Public Key Pinning (HPKP) or certificate pinning in applications
-  - Define backup certificates in pinning configuration
+  - Pin certificates or public keys in native/mobile applications (e.g. via the platform's networking stack) where you control both client and server
+  - Define backup keys in the pinning configuration to avoid lockout during rotation
   - Test pinning implementations thoroughly before deployment
+
+  > [!WARNING]
+  > **HTTP Public Key Pinning (HPKP)** is deprecated and was removed from all major browsers (Chrome removed it in 2018). Do not deploy the `Public-Key-Pins` header — a misconfiguration can render a site unreachable ("HPKP suicide"). Use certificate/key pinning inside applications, or rely on CAA records and CT monitoring for the web instead.
 
 ## Key Certificate Management Tools
 
@@ -618,7 +625,7 @@ if (-not $Result) {
 ### Web Server Integrations
 
 - **IIS Certificate Manager**: Windows IIS certificate management
-- **Let's Encrypt Certbot**: Automated certificate management for ACME protocol
+- **ACME clients ([Certbot](acme/certbot.md), [win-acme](acme/win-acme.md))**: Automated issuance and renewal via the ACME protocol — see the [ACME section](acme/index.md)
 - **Apache mod_ssl**: Apache HTTP server SSL module
 - **Nginx SSL**: Nginx web server SSL configuration
 
@@ -631,8 +638,9 @@ if (-not $Result) {
 
 ## Related Topics
 
-- [OpenSSL Guide](openssl.md)
+- [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
+- [ACME (Automated Certificates)](acme/index.md)
 - [Security Fundamentals](../index.md)
 
 ## Additional Resources

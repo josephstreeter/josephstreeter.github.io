@@ -56,7 +56,7 @@ The evolution of TLS has been driven by:
 ## Key Differences Between SSL and TLS
 
 | Aspect | SSL | TLS |
-|--------|-----|-----|
+| ------ | --- | --- |
 | **Development** | Netscape Communications | Internet Engineering Task Force (IETF) |
 | **Security** | Weaker encryption algorithms | Stronger encryption and security features |
 | **Performance** | Slower handshake process | Optimized handshake, especially TLS 1.3 |
@@ -191,7 +191,7 @@ TLS 1.3 made significant cryptographic improvements:
 ### Protocol Adoption
 
 | Protocol | Browser Support | Server Support | Recommended |
-|----------|----------------|----------------|-------------|
+| -------- | --------------- | -------------- | ----------- |
 | SSL 2.0 | None | < 1% | No - Critical vulnerabilities |
 | SSL 3.0 | None | < 1% | No - Critical vulnerabilities |
 | TLS 1.0 | Legacy only | ~10% | No - Deprecated |
@@ -321,9 +321,7 @@ sslContext.init(null, null, new SecureRandom());
 
 HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 
-// Explicitly enable only TLS 1.2 and TLS 1.3
-SSLContext sslContext = SSLContext.getInstance("TLS");
-sslContext.init(null, null, new SecureRandom());
+// Explicitly enable only TLS 1.2 and TLS 1.3 on the parameters
 SSLParameters params = sslContext.getDefaultSSLParameters();
 params.setProtocols(new String[] {"TLSv1.2", "TLSv1.3"});
 ```
@@ -366,6 +364,7 @@ response = session.get('https://example.com')
 ```javascript
 const https = require('https');
 const tls = require('tls');
+const fs = require('fs');
 
 // Configure TLS options for HTTPS requests
 const options = {
@@ -463,6 +462,13 @@ const server = tls.createServer({
 While SSL and TLS are often used interchangeably in common parlance, understanding their differences is crucial for implementing secure communications. SSL is legacy technology that should be avoided, while TLS (particularly versions 1.2 and 1.3) provides the security and performance needed for modern applications.
 
 Organizations should prioritize migrating to TLS 1.2 as a minimum, with TLS 1.3 being the preferred choice for new implementations. Regular security assessments, proper certificate management, and staying current with security best practices are essential for maintaining a secure communication infrastructure.
+
+## Related Topics
+
+- [Certificate Management and PKI](index.md)
+- [OpenSSL Guide](openssl/index.md) — testing TLS versions and ciphers with `s_client`
+- [ACME (Automated Certificates)](acme/index.md)
+- [Self-Signed Certificates](self-signed.md)
 
 ## Further Reading
 

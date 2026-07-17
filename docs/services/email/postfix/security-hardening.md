@@ -283,9 +283,10 @@ smtpd_tls_cert_file = /etc/ssl/certs/postfix.pem
 smtpd_tls_key_file = /etc/ssl/private/postfix.key
 smtpd_tls_CAfile = /etc/ssl/certs/ca-bundle.crt
 
-# DH parameters for PFS
+# DH parameters for PFS (the "dh1024" parameter name is historical;
+# point it at a 2048-bit file. Do NOT configure 512-bit DH params — they
+# are vulnerable to Logjam and are ignored by modern Postfix.)
 smtpd_tls_dh1024_param_file = /etc/postfix/dh2048.pem
-smtpd_tls_dh512_param_file = /etc/postfix/dh512.pem
 
 # Session cache
 smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
@@ -300,9 +301,9 @@ smtpd_tls_received_header = yes
 Generate strong DH parameters:
 
 ```bash
-# Generate 2048-bit DH parameters (takes time)
+# Generate 2048-bit DH parameters (takes time). 2048-bit is the minimum;
+# do not generate 512- or 1024-bit parameters (weak, Logjam-vulnerable).
 sudo openssl dhparam -out /etc/postfix/dh2048.pem 2048
-sudo openssl dhparam -out /etc/postfix/dh512.pem 512
 
 sudo chmod 644 /etc/postfix/dh*.pem
 ```
@@ -695,10 +696,12 @@ sudo iptables -A INPUT -s 192.0.2.100 -j DROP
 doveadm pw -s SHA512-CRYPT
 # Update database with new password
 
-# Review and rotate TLS certificates
-sudo openssl req -new -x509 -nodes -days 365 \
-    -keyout /etc/ssl/private/postfix.key \
-    -out /etc/ssl/certs/postfix.pem
+# Review and rotate TLS certificates. For a public-facing MTA, reissue from
+# your trusted CA (or re-run your ACME client) rather than installing a
+# self-signed certificate, which clients will not trust. See
+# ../../../security/certificates/acme/certbot.md
+sudo certbot renew --force-renewal --cert-name mail.example.com
+sudo systemctl reload postfix
 ```
 
 ### Post-Incident Hardening

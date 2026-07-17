@@ -4,7 +4,9 @@ date:   2013-09-24 00:00:00 -0500
 categories: IT
 ---
 
-SSL is a great way to protect traffic to your website. These are the steps to create a self-signed certificate and install it on an apache web server. It is self-signed, so the user's browser will throw an error because it doesn't trust the certificate. It's a start though....
+> **⚠️ Historical post (2013) — outdated.** CentOS 6 is end-of-life, and its OpenSSL defaulted to SHA-1 signatures. The command below also sets only a Common Name (no SAN), which modern browsers reject. **For a public website, use a free, automatically renewed certificate from a trusted CA** — see the [ACME / Certbot guide](../security/certificates/acme/certbot.md). Reserve self-signed certificates for development or internal use, and always include Subject Alternative Names — see [Self-Signed Certificates](../security/certificates/self-signed.md).
+
+SSL is a great way to protect traffic to your website. These are the steps to create a self-signed certificate and install it on an apache web server. It is self-signed, so the user's browser will throw an error because it doesn't trust the certificate. It's a start for development and internal use only.
 
 Install Mod SSL
 
@@ -54,5 +56,3 @@ Restart Apache
 ```powershell
 service httpd restart
 ```
-
-

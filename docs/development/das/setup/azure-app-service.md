@@ -40,7 +40,7 @@ Resource Naming Pattern: {project}-{environment}-{service}-{region}
 **Environment Strategy:**
 
 | Environment | Purpose | Configuration | Scaling |
-|-------------|---------|---------------|---------|
+| ----------- | ------- | ------------- | ------- |
 | **Development** | Testing and staging | Basic tier, manual scaling | 1 instance |
 | **Production** | Live documentation | Standard/Premium tier, auto-scaling | 2-10 instances |
 | **Preview** | Pull request previews | Shared with development | On-demand |

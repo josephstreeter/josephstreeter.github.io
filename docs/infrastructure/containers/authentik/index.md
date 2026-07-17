@@ -35,7 +35,7 @@ author: "Joseph Streeter"
 #### Core Identity Services
 
 | Feature | Description | Enterprise Benefit |
-|---------|-------------|-------------------|
+| ------- | ----------- | ------------------ |
 | **Single Sign-On (SSO)** | Unified authentication across applications | Improved user experience and security |
 | **Multi-Factor Authentication** | TOTP, WebAuthn, SMS, Email | Enhanced security posture |
 | **Protocol Support** | SAML 2.0, OAuth2, OIDC, LDAP | Universal application compatibility |
@@ -137,7 +137,7 @@ graph TB
 #### Component Details
 
 | Component | Purpose | Scaling Considerations |
-|-----------|---------|----------------------|
+| --------- | ------- | ---------------------- |
 | **Authentik Server** | Main application logic and API | Stateless - horizontal scaling |
 | **Worker** | Background tasks and jobs | Multiple workers for performance |
 | **Outpost** | Proxy and LDAP services | Deploy near applications |
@@ -273,7 +273,7 @@ services:
 #### System Requirements
 
 | Component | Minimum | Recommended | Production |
-|-----------|---------|-------------|------------|
+| --------- | ------- | ----------- | ---------- |
 | **CPU** | 2 cores | 4 cores | 8+ cores |
 | **Memory** | 4GB RAM | 8GB RAM | 16+ GB RAM |
 | **Storage** | 20GB | 100GB | 500+ GB SSD |
@@ -899,7 +899,7 @@ Authentik uses a flexible flow system that allows you to customize the authentic
 #### Core Flow Types
 
 | Flow Type | Purpose | Use Cases |
-|-----------|---------|-----------|
+| --------- | ------- | --------- |
 | **Authentication** | User login process | SSO, multi-step authentication |
 | **Authorization** | Access control decisions | Policy enforcement, consent |
 | **Invalidation** | Session termination | Logout, account suspension |

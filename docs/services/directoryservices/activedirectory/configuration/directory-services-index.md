@@ -15,8 +15,8 @@ This section covers essential configuration procedures for Active Directory dire
 
 ### LDAP Security Configuration
 
-- **[LDAP Channel Binding and LDAP Signing](ldap-channel-binding-and-ldap-signing.md)** - Implementing LDAP channel binding and signing for enhanced security
-- **[Confirming LDAPS Certificates](confirming-ldaps-certificates.md)** - Verifying and managing LDAPS certificate configurations
+- **[LDAP Channel Binding and LDAP Signing](../operations/ldap-channel-binding-and-ldap-signing.md)** - Implementing LDAP channel binding and signing for enhanced security
+- **[Confirming LDAPS Certificates](../operations/confirming-ldaps-certificates.md)** - Verifying and managing LDAPS certificate configurations
 
 ## Overview
 

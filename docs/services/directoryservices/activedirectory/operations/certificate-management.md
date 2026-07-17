@@ -209,17 +209,30 @@ Set-GPRegistryValue -Name $GPOName -Key "HKCU\SOFTWARE\Policies\Microsoft\Crypto
 
 **Manual Certificate Request:**
 
+Enroll against the enterprise CA using `Get-Certificate` (this issues a CA-signed certificate from the named template — do not use `New-SelfSignedCertificate` here, which would produce an untrusted self-signed certificate).
+
 ```powershell
-# Request certificate using PowerShell
+# Request (enroll) a certificate from the enterprise CA using a template
 $CertTemplate = "WebServer"
 $Subject = "CN=web01.contoso.com"
 $SANs = @("web01.contoso.com", "www.contoso.com", "contoso.com")
 
-# Create certificate request
-$CertRequest = New-SelfSignedCertificate -Template $CertTemplate -Subject $Subject -DnsName $SANs -CertStoreLocation "Cert:\LocalMachine\My"
+# Enroll against the CA; auto-selects the issuing CA via AD
+$Result = Get-Certificate -Template $CertTemplate -SubjectName $Subject -DnsName $SANs `
+    -CertStoreLocation "Cert:\LocalMachine\My"
 
-Write-Host "Certificate requested with thumbprint: $($CertRequest.Thumbprint)" -ForegroundColor Green
+if ($Result.Status -eq "Issued")
+{
+    Write-Host "Certificate issued with thumbprint: $($Result.Certificate.Thumbprint)" -ForegroundColor Green
+}
+else
+{
+    Write-Warning "Enrollment status: $($Result.Status)"
+}
 ```
+
+> [!NOTE]
+> `New-SelfSignedCertificate` is appropriate only for development, testing, or internal systems where the certificate is manually trusted — see [Self-Signed Certificates](../../../../security/certificates/self-signed.md). For production, enroll from a CA as shown above.
 
 ### Certificate Operations
 
@@ -375,6 +388,9 @@ certutil -dump certificate.cer
 ```
 
 ### Linux Certificate Management
+
+> [!NOTE]
+> The cross-platform OpenSSL and macOS Keychain steps in this section are generic. For the authoritative OpenSSL reference (retrieval, verification, conversion, key management), see the [OpenSSL Guide](../../../../security/certificates/openssl/index.md). The AD-specific material (AD CS, templates, auto-enrollment, LDAPS) elsewhere on this page is the unique content to rely on here.
 
 **Using OpenSSL for Certificate Operations:**
 

@@ -141,7 +141,7 @@ spec:
 
 ### Creating Self-Signed Certificates
 
-For development or internal services:
+For development or internal services only. For the full self-signed and OpenSSL reference (formats, key types, validation), see [Self-Signed Certificates](../../../security/certificates/self-signed.md) and the [OpenSSL Guide](../../../security/certificates/openssl/index.md). In production, prefer cert-manager with an ACME or CA issuer (below).
 
 ```bash
 # Generate private key
@@ -151,8 +151,9 @@ openssl genrsa -out tls.key 2048
 openssl req -new -key tls.key -out tls.csr \
   -subj "/C=US/ST=State/L=City/O=Organization/CN=app.example.local"
 
-# Generate self-signed certificate
-openssl x509 -req -in tls.csr -signkey tls.key -out tls.crt -days 365
+# Generate self-signed certificate — include a SAN (modern clients ignore the CN)
+openssl x509 -req -in tls.csr -signkey tls.key -out tls.crt -days 365 \
+  -extfile <(printf "subjectAltName=DNS:app.example.local")
 
 # Create Kubernetes secret
 kubectl create secret tls app-tls-secret \

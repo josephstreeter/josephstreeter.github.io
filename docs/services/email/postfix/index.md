@@ -341,10 +341,13 @@ sudo systemctl status certbot.timer
 **Option 2: Self-Signed (Testing Only):**
 
 ```bash
-# Generate self-signed certificate
+# Generate self-signed certificate — include the mail hostname as a SAN
+# (clients ignore the Common Name). For testing/internal use only.
 sudo openssl req -new -x509 -days 365 -nodes \
   -out /etc/postfix/ssl/mail.crt \
-  -keyout /etc/postfix/ssl/mail.key
+  -keyout /etc/postfix/ssl/mail.key \
+  -subj "/CN=mail.example.com" \
+  -addext "subjectAltName=DNS:mail.example.com"
 
 sudo chmod 600 /etc/postfix/ssl/mail.key
 ```

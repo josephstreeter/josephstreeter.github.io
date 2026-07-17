@@ -3,7 +3,7 @@ title: Self-Signed Certificates
 description: Comprehensive guide to creating and managing self-signed certificates with OpenSSL
 author: josephstreeter
 ms.author: josephstreeter
-ms.date: 2024-09-21
+ms.date: 2026-07-17
 ms.topic: conceptual
 ms.service: security
 ---
@@ -89,13 +89,51 @@ openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
 
 ### Creating Self-Signed Wildcard Certificates
 
-Wildcard certificates secure a domain and all its subdomains.
+Wildcard certificates secure a domain and all its first-level subdomains.
+
+> [!IMPORTANT]
+> Modern browsers ignore the Common Name (CN) and validate against Subject Alternative Names (SANs) only. A wildcard certificate with just `CN=*.example.com` and no SANs will be rejected. Always include the wildcard **and** the bare domain as SANs, as shown below.
 
 ```bash
-# Generate a wildcard certificate
-openssl req -x509 -newkey rsa:4096 -keyout wildcard.key -out wildcard.crt -days 365 -nodes \
-  -subj "/C=US/ST=State/L=City/O=Organization/OU=Department/CN=*.example.com"
+# Create a configuration file with the wildcard in the SANs
+cat > wildcard.conf << EOF
+[req]
+default_bits = 4096
+prompt = no
+default_md = sha256
+distinguished_name = dn
+x509_extensions = v3_req
+
+[dn]
+C = US
+ST = State
+L = City
+O = Organization
+OU = Department
+CN = *.example.com
+
+[v3_req]
+subjectAltName = @alt_names
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+
+[alt_names]
+DNS.1 = *.example.com
+DNS.2 = example.com
+EOF
+
+# Generate a wildcard certificate with SANs
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
+  -keyout wildcard.key -out wildcard.crt \
+  -config wildcard.conf
+
+# Verify the SANs are present
+openssl x509 -in wildcard.crt -noout -text | grep -A 1 "Subject Alternative Name"
 ```
+
+> [!NOTE]
+> A wildcard covers only one level of subdomains: `*.example.com` matches `www.example.com` but not `a.b.example.com`. Add additional wildcard SANs (for example, `*.b.example.com`) if you need deeper coverage.
 
 ### Creating Self-Signed Certificates with Extended Validity
 
@@ -208,3 +246,19 @@ sudo nano /etc/nginx/sites-available/default
 6. **Secure Storage**: Protect private keys with proper permissions
 7. **Documentation**: Document all certificates, including creation date and purpose
 8. **Regular Rotation**: Establish a process for regular certificate rotation
+
+> [!TIP]
+> For any **public-facing** service, prefer a free, automatically renewed certificate from a trusted CA over a self-signed one. See the [ACME section](acme/index.md) and the [Certbot](acme/certbot.md) / [win-acme](acme/win-acme.md) guides. Self-signed certificates are best reserved for development, testing, and internal systems where you control the trust store.
+
+## Related Topics
+
+- [Certificate Management and PKI](index.md)
+- [OpenSSL Guide](openssl/index.md)
+- [ACME (Automated Certificates)](acme/index.md) — the automated alternative for publicly trusted certificates
+- [SSL vs TLS](sslvstls.md)
+
+## Additional Resources
+
+- [OpenSSL req Documentation](https://www.openssl.org/docs/man3.0/man1/openssl-req.html)
+- [Mozilla SSL Configuration Generator](https://ssl-config.mozilla.org/)
+- [RFC 5280 - Internet X.509 PKI Certificate and CRL Profile](https://tools.ietf.org/html/rfc5280)

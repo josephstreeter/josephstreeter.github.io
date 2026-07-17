@@ -286,19 +286,23 @@ topic read $SYS/#
 
 ### SSL/TLS Configuration
 
+> [!NOTE]
+> These self-signed certificates are for an **internal** MQTT broker where you control the clients and can distribute the CA. For the general process (and the SAN requirement), see [Self-Signed Certificates](../../../security/certificates/self-signed.md). The server certificate **must** include a Subject Alternative Name — modern clients ignore the Common Name.
+
 #### Generate SSL Certificates
 
 ```bash
 cd ssl
 
-# Generate CA key and certificate
+# Generate CA key and certificate (a long-lived internal CA is acceptable)
 openssl genrsa -out ca.key 2048
 openssl req -new -x509 -days 3650 -key ca.key -out ca.crt -subj "/C=US/ST=State/L=City/O=Organization/CN=MQTT-CA"
 
-# Generate server key and certificate
+# Generate server key and certificate — include the broker hostname as a SAN
 openssl genrsa -out server.key 2048
 openssl req -new -key server.key -out server.csr -subj "/C=US/ST=State/L=City/O=Organization/CN=mqtt.example.com"
-openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 3650
+openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt -days 825 \
+  -extfile <(printf "subjectAltName=DNS:mqtt.example.com")
 
 # Set permissions
 chmod 600 *.key
