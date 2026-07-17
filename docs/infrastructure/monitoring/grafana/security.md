@@ -15,6 +15,9 @@ This guide covers implementing production-grade security for your Grafana and Pr
 
 ### Generate Self-Signed Certificates (Development)
 
+> [!NOTE]
+> The certificate-generation steps below are a convenience for development/mTLS setup. For the authoritative guide to OpenSSL, self-signed certificates, key types, and formats, see [Self-Signed Certificates](../../../security/certificates/self-signed.md) and the [OpenSSL Guide](../../../security/certificates/openssl/index.md). Use publicly trusted or internal-CA certificates (not self-signed) for production monitoring endpoints.
+
 ```bash
 #!/bin/bash
 # generate-certs.sh

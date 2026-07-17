@@ -4,7 +4,9 @@ date:   2013-08-13 00:00:00 -0500
 categories: IT
 ---
 
-Using LDAP over SSL is a good step towards security. Improve security just a little bit more by disabling SSLv2 and forcing your clients to use SSLv3
+> **⚠️ Historical post — do not follow as written.** This 2013 article predates the POODLE attack (2014) and targets Windows Server 2008 (end-of-life). **SSLv3 is now insecure and must also be disabled**, along with TLS 1.0 and TLS 1.1. Configure clients and servers for **TLS 1.2 (minimum) and TLS 1.3**. See the current guidance in [SSL vs TLS](../security/certificates/sslvstls.md) and [Certificate Management](../security/certificates/index.md).
+
+Using LDAP over SSL is a good step towards security. The original advice below disabled SSLv2 and fell back to SSLv3 — that is no longer safe. Disable **SSLv2, SSLv3, TLS 1.0, and TLS 1.1**, and require **TLS 1.2 or higher** on all domain controllers.
 
 On each of your domain controllers create the following registry key:
 

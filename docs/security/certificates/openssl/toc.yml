@@ -1,10 +1,22 @@
-- name: OpenSSL Guide
+- name: Overview
   href: index.md
-- name: Installation and Basics
-  href: installation-and-basics.md
+- name: Installation
+  href: installation.md
+- name: Basic Concepts
+  href: basic-concepts.md
 - name: Certificate Operations
   href: certificate-operations.md
-- name: Private Keys and CSRs
-  href: private-keys-and-csrs.md
-- name: TLS Testing and Troubleshooting
-  href: testing-and-troubleshooting.md
+- name: Private Key Management
+  href: private-keys.md
+- name: CSR Creation and Management
+  href: csr.md
+- name: Certificate Conversions
+  href: conversions.md
+- name: Validation and Troubleshooting
+  href: validation-troubleshooting.md
+- name: SSL/TLS Testing
+  href: tls-testing.md
+- name: Advanced Operations
+  href: advanced.md
+- name: Best Practices & Security
+  href: best-practices.md

@@ -10,6 +10,12 @@
   href: certificate-management.md
 - name: Install Server Certificate for LDAPS
   href: install-server-certificate-for-ldaps.md
+- name: Confirming LDAPS Certificates
+  href: confirming-ldaps-certificates.md
+- name: LDAP Channel Binding and Signing
+  href: ldap-channel-binding-and-ldap-signing.md
+- name: Windows Time Service
+  href: time-service.md
 - name: Linux Authentication
   href: linux-authentication.md
 - name: Active Directory Forest Recovery

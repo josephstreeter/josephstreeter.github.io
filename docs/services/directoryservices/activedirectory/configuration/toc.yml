@@ -5,8 +5,8 @@
 - name: Group Policy Management
   href: group-policy.md
 - name: Windows Time Service
-  href: time-service.md
+  href: ../operations/time-service.md
 - name: LDAPS Certificates
-  href: confirming-ldaps-certificates.md
+  href: ../operations/confirming-ldaps-certificates.md
 - name: LDAP Channel Binding and Signing
-  href: ldap-channel-binding-and-ldap-signing.md
+  href: ../operations/ldap-channel-binding-and-ldap-signing.md

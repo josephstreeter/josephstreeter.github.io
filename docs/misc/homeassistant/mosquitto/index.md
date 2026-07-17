@@ -325,6 +325,9 @@ pattern read $SYS/broker/uptime
 
 #### SSL/TLS Configuration
 
+> [!NOTE]
+> These self-signed certificates are for an **internal** MQTT broker where you distribute the CA to your clients. The server certificate **must** carry a Subject Alternative Name matching the broker hostname — modern clients ignore the Common Name. For the general procedure, see [Self-Signed Certificates](../../../security/certificates/self-signed.md).
+
 Generate certificates:
 
 ```bash
@@ -347,12 +350,13 @@ sudo openssl req -new -key /etc/mosquitto/certs/server.key \
   -out /etc/mosquitto/certs/server.csr \
   -subj "/C=US/ST=State/L=City/O=Organization/CN=mqtt.local"
 
-# Generate server certificate
+# Generate server certificate — include the broker hostname as a SAN
 sudo openssl x509 -req -in /etc/mosquitto/certs/server.csr \
   -CA /etc/mosquitto/ca_certificates/ca.crt \
   -CAkey /etc/mosquitto/ca_certificates/ca.key \
   -CAcreateserial -out /etc/mosquitto/certs/server.crt \
-  -days 365
+  -days 825 \
+  -extfile <(printf "subjectAltName=DNS:mqtt.local")
 
 # Set permissions
 sudo chown -R mosquitto:mosquitto /etc/mosquitto/ca_certificates

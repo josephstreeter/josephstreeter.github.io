@@ -4,5 +4,7 @@
   href: openssl/toc.yml
 - name: Self-Signed Certificates
   href: self-signed.md
+- name: ACME (Automated Certificates)
+  href: acme/toc.yml
 - name: SSL vs TLS
   href: sslvstls.md

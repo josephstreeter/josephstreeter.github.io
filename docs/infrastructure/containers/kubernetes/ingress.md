@@ -28,7 +28,7 @@ Key components:
 Comparison with other service exposure methods:
 
 | Method | Use Case | Pros | Cons |
-|--------|----------|------|------|
+| ------ | -------- | ---- | ---- |
 | NodePort | Development/Testing | Simple setup | Limited port range |
 | LoadBalancer | Cloud environments | Cloud integration | Cost per service |
 | Ingress | Production HTTP/HTTPS | Advanced routing, SSL | Requires controller |
