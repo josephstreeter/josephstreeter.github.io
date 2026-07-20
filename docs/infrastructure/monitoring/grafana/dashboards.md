@@ -138,9 +138,18 @@ Create dashboard JSON for version control:
 }
 ```
 
-### Provisioning Dashboards
+## File-Based Dashboards (Provisioning)
 
-Create provisioning configuration:
+File-based provisioning is the GitOps approach to dashboards: Grafana loads dashboard JSON from disk at startup and rescans on an interval, so **the files in version control are the source of truth**. There is no manual import step and no drift — deploy the files and Grafana reconciles. This is the recommended way to manage dashboards in production.
+
+It has two moving parts:
+
+1. A **dashboard provider** — a small YAML file under `provisioning/dashboards/` that tells Grafana which directory to scan.
+2. The **dashboard JSON models** — one file per dashboard in that directory (and its subdirectories).
+
+### The dashboard provider
+
+Grafana reads every YAML file in `provisioning/dashboards/` (default `/etc/grafana/provisioning/dashboards/`) at startup. Each entry in `providers` defines one scanned location:
 
 ```yaml
 # /etc/grafana/provisioning/dashboards/dashboards.yml
@@ -149,24 +158,210 @@ apiVersion: 1
 providers:
   - name: 'Infrastructure'
     orgId: 1
-    folder: 'Infrastructure'
+    folder: 'Infrastructure'          # Grafana folder (created if missing)
+    folderUid: 'infrastructure'       # stable folder UID — pin it for reproducibility
     type: file
-    disableDeletion: false
-    updateIntervalSeconds: 30
-    allowUiUpdates: true
+    disableDeletion: true             # deleting a JSON file will NOT delete the dashboard
+    updateIntervalSeconds: 30         # how often Grafana rescans the path
+    allowUiUpdates: false             # provisioned dashboards are read-only in the UI
     options:
       path: /var/lib/grafana/dashboards/infrastructure
+      foldersFromFilesStructure: true # map subdirectories to Grafana folders
 ```
 
-Place dashboard JSON files in the specified path:
+| Field | Purpose | Notes |
+| ----- | ------- | ----- |
+| `name` | Provider identifier | Must be unique across provider files |
+| `orgId` | Target organization | Defaults to `1` |
+| `folder` | Grafana folder dashboards land in | Created automatically if absent |
+| `folderUid` | Stable folder UID | Pin it so the folder is identical across environments |
+| `type` | Provider type | `file` for file-based provisioning |
+| `disableDeletion` | Keep dashboards when their file is removed | `true` for safety; `false` for strict reconcile |
+| `updateIntervalSeconds` | Rescan interval | Default `10`; changed files are re-imported |
+| `allowUiUpdates` | Permit saving UI edits to provisioned dashboards | Keep `false` for true GitOps (see below) |
+| `options.path` | Directory to scan for `*.json` | Read recursively |
+| `options.foldersFromFilesStructure` | Derive folders from the directory tree | Overrides `folder` per subdirectory |
+
+> [!NOTE]
+> With `foldersFromFilesStructure: true`, each subdirectory under `options.path` becomes a Grafana folder, so your on-disk layout mirrors the folder tree in the UI. Leave it off (and set `folder`) if you want every dashboard from this provider in one folder.
+
+A layout that mirrors folders:
+
+```text
+/var/lib/grafana/dashboards/infrastructure/
+├── system/
+│   ├── node-exporter-overview.json     → folder "system"
+│   └── disk-performance.json
+├── containers/
+│   ├── docker-overview.json            → folder "containers"
+│   └── kubernetes-cluster.json
+└── network/
+    └── blackbox-probes.json            → folder "network"
+```
+
+### Preparing the JSON model
+
+The file provider expects the **raw dashboard model** — the object with top-level `title`, `uid`, `panels`, and `schemaVersion`. This is a common source of confusion:
+
+> [!IMPORTANT]
+> File provisioning uses the **raw model** (top-level `title`, `panels`, …). The HTTP API (`POST /api/dashboards/db`) instead expects the model **wrapped**: `{"dashboard": { … }, "overwrite": true, "folderUid": "…"}`. The [Dashboard as Code](#dashboard-as-code) example above shows the wrapped API form; for a provisioned file, use only the inner object. Feeding a wrapped file to the provider silently produces an empty/broken dashboard.
+
+Two rules make a model provisioning-ready:
+
+- **`id` must be `null`.** The numeric `id` is an internal, per-instance database key. Leave it `null` (or omit it) so Grafana assigns its own; a stale `id` copied from another instance causes import failures.
+- **`uid` must be set and stable.** The `uid` is how the provider matches a file to an existing dashboard across reloads and environments. Choose a deterministic, human-readable UID and never change it (changing it orphans the old dashboard and creates a new one).
+
+```json
+{
+  "uid": "node-exporter-system",
+  "title": "Node Exporter System Metrics",
+  "id": null,
+  "schemaVersion": 39,
+  "editable": true,
+  "tags": ["infrastructure", "linux"],
+  "panels": [ /* … */ ]
+}
+```
+
+> [!TIP]
+> When you export from the UI, use **Dashboard settings → JSON Model** (the raw model) rather than **Share → Export → "Export for sharing externally"**. The latter adds `__inputs` and `__requires` blocks that demand interactive input on import and do **not** work for headless file provisioning — strip them out.
+
+### Making dashboards portable across environments
+
+The biggest obstacle to reusable file-based dashboards is the **data source reference**. Every panel targets a data source by `uid`, and those UIDs differ between Grafana instances unless you control them. Two approaches solve this:
+
+**Pin the data source UID (recommended for file-based).** Give the data source a deterministic UID in its own provisioning file, then reference that exact UID from every panel. The same dashboard JSON then works unchanged in every environment.
+
+```yaml
+# /etc/grafana/provisioning/datasources/datasources.yml
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus            # deterministic, referenced by dashboards
+    url: http://prometheus:9090
+    isDefault: true
+```
+
+```json
+{
+  "datasource": { "type": "prometheus", "uid": "prometheus" }
+}
+```
+
+**Use a data source template variable.** Add a `templating` variable of type `datasource` and reference it as `${datasource}` in panels. This is how community dashboards stay portable, and it lets one dashboard switch between multiple Prometheus instances.
+
+```json
+{
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": {}
+      }
+    ]
+  },
+  "panels": [
+    { "datasource": { "type": "prometheus", "uid": "${datasource}" } }
+  ]
+}
+```
+
+### How UI edits interact with provisioning
+
+By default (`allowUiUpdates: false`) a provisioned dashboard is **read-only** in the UI. The Save action is disabled and Grafana shows a "provisioned dashboard cannot be edited" banner; users can still tweak it in-session and use **Save As** to fork an editable copy.
+
+> [!WARNING]
+> Setting `allowUiUpdates: true` lets users save changes to a provisioned dashboard, but the on-disk file still wins on the next rescan — any UI edit not written back to the file is **overwritten** at `updateIntervalSeconds`. For a genuine GitOps workflow, keep `allowUiUpdates: false` and treat the repository as the only way to change a dashboard.
+
+### Reload and deletion behavior
+
+- **Changes** — Grafana rescans every `updateIntervalSeconds` and re-imports any file whose contents changed, matching it to the existing dashboard by `uid`.
+- **Additions** — a new `*.json` file appears as a new dashboard on the next scan.
+- **Deletions** — removing a file deletes its dashboard **unless** `disableDeletion: true`. Keep deletion disabled if you want removals to be a deliberate, separate action.
+- **UID changes** — editing a file's `uid` does not rename; it orphans the old dashboard and creates a new one. Treat UIDs as immutable.
+
+### Delivering the files with Docker Compose
+
+Mount both the provider YAML and the dashboards directory into the container:
+
+```yaml
+# docker-compose.yml (excerpt)
+services:
+  grafana:
+    image: grafana/grafana:11.2.0
+    volumes:
+      - ./provisioning/datasources:/etc/grafana/provisioning/datasources:ro
+      - ./provisioning/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+```
+
+The repository layout that backs it:
+
+```text
+.
+├── docker-compose.yml
+├── provisioning/
+│   ├── datasources/datasources.yml
+│   └── dashboards/dashboards.yml        # options.path: /var/lib/grafana/dashboards
+└── dashboards/
+    ├── system/node-exporter-overview.json
+    └── containers/docker-overview.json
+```
+
+### Delivering the files on Kubernetes
+
+The Grafana Helm chart (and `kube-prometheus-stack`) ship a **dashboard sidecar** that watches `ConfigMap`s (and `Secret`s) carrying a label — by default `grafana_dashboard: "1"` — and drops their contents into the provisioning path automatically. You provision a dashboard by shipping a labeled ConfigMap:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-exporter-dashboard
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    grafana_folder: "Infrastructure"     # sidecar.dashboards.folderAnnotation
+data:
+  node-exporter.json: |
+    {
+      "uid": "node-exporter-system",
+      "title": "Node Exporter System Metrics",
+      "id": null,
+      "schemaVersion": 39,
+      "panels": []
+    }
+```
+
+> [!TIP]
+> The sidecar's folder annotation key is configurable via `sidecar.dashboards.folderAnnotation` in the chart values, paired with `provider.foldersFromFilesStructure`. For large dashboards that exceed the 1 MiB ConfigMap limit, reference them from a URL with `sidecar.dashboards.provider` or split the panels across dashboards.
+
+### Validating dashboards in CI
+
+Because provisioned files load without human review, validate them in the pipeline before merge:
 
 ```bash
-# Store dashboards in version control
-mkdir -p /var/lib/grafana/dashboards/infrastructure
-cp node-exporter.json /var/lib/grafana/dashboards/infrastructure/
-cp postgres-metrics.json /var/lib/grafana/dashboards/infrastructure/
-chown -R grafana:grafana /var/lib/grafana/dashboards
+# 1. Valid JSON, and a UID is present on every dashboard
+for f in $(find dashboards -name '*.json'); do
+  jq -e '.uid and (.uid | length > 0)' "$f" >/dev/null \
+    || { echo "FAIL: $f missing uid"; exit 1; }
+done
+
+# 2. UIDs are unique across the whole tree
+find dashboards -name '*.json' -exec jq -r '.uid' {} + \
+  | sort | uniq -d | grep . && { echo "FAIL: duplicate uid"; exit 1; }
+
+# 3. Lint panels/queries with grafana/dashboard-linter
+#    go install github.com/grafana/dashboard-linter@latest
+find dashboards -name '*.json' -exec dashboard-linter lint {} \;
 ```
+
+> [!TIP]
+> For generating dashboards rather than hand-editing JSON, consider [Grafana Foundation SDK](https://grafana.github.io/grafana-foundation-sdk/) or **grafonnet** (Jsonnet), and [Grizzly](https://grafana.github.io/grizzly/) (`grr`) to diff and sync file-based dashboards against a live instance from CI. These keep the source concise and the committed JSON generated and reviewable.
 
 ## Popular Pre-Built Dashboards
 
@@ -925,6 +1120,8 @@ curl -X POST \
 
 ### Version Control
 
+The export/import scripts below drive Grafana through its HTTP API, which suits ad-hoc backups and migrations. For ongoing management, prefer the declarative [File-Based Dashboards (Provisioning)](#file-based-dashboards-provisioning) workflow — the same Git repository, but Grafana reconciles from disk instead of you scripting API calls.
+
 ```bash
 # Store dashboards in Git
 mkdir -p dashboards/{infrastructure,applications,business}
@@ -993,6 +1190,9 @@ label_values(metric_name, label_name)
 - ✅ Add annotations for deployments and incidents
 - ✅ Use recording rules for expensive queries
 - ✅ Version control dashboard JSON
+- ✅ Provision dashboards from files (GitOps) instead of manual import; keep `allowUiUpdates: false`
+- ✅ Set a stable `uid` and `id: null` on every provisioned dashboard
+- ✅ Pin the data source `uid` (or use a `datasource` variable) so JSON is portable across environments
 - ✅ Document custom queries and transformations
 - ✅ Test dashboards before deploying
 - ✅ Set up alerts for critical metrics
@@ -1008,6 +1208,7 @@ label_values(metric_name, label_name)
 ## References
 
 - [Grafana Dashboard Documentation](https://grafana.com/docs/grafana/latest/dashboards/)
+- [Provision Dashboards](https://grafana.com/docs/grafana/latest/administration/provisioning/#dashboards)
 - [Grafana Panel Documentation](https://grafana.com/docs/grafana/latest/panels/)
 - [PromQL Documentation](https://prometheus.io/docs/prometheus/latest/querying/basics/)
 - [Grafana Variables](https://grafana.com/docs/grafana/latest/variables/)
