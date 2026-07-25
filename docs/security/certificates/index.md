@@ -25,6 +25,7 @@ Digital certificates form the backbone of secure communications, identity verifi
 - [Best Practices](#best-practices)
 - [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
+- [Windows Native Tools](windows-native.md)
 - [ACME (Automated Certificates)](acme/index.md)
 
 ## Certificate Fundamentals
@@ -640,6 +641,7 @@ if (-not $Result) {
 
 - [OpenSSL Guide](openssl/index.md)
 - [Self-Signed Certificates](self-signed.md)
+- [Windows Native Tools](windows-native.md)
 - [ACME (Automated Certificates)](acme/index.md)
 - [Security Fundamentals](../index.md)
 

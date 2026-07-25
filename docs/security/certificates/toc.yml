@@ -4,6 +4,8 @@
   href: openssl/toc.yml
 - name: Self-Signed Certificates
   href: self-signed.md
+- name: Windows Native Tools
+  href: windows-native.md
 - name: ACME (Automated Certificates)
   href: acme/toc.yml
 - name: SSL vs TLS
