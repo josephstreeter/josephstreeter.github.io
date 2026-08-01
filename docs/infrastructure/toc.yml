@@ -1,42 +1,54 @@
 - name: Overview
   href: index.md
   items:
-  - name: Diagrams
-    href: diagrams/toc.yml
-  - name: Security
-    href: security/index.md
+  - name: Platforms
     items:
-    - name: Identity and Access Management
-      href: security/iam/index.md
-    - name: Compliance and Auditing
-      href: security/compliance/index.md
+    - name: Linux
+      href: linux/toc.yml
+    - name: Windows
+      href: windows/toc.yml
+    - name: Proxmox
+      href: proxmox/toc.yml
+  - name: Containers and Orchestration
+    items:
+    - name: Containers
+      href: containers/toc.yml
+    - name: Docker
+      href: docker/toc.yml
+    - name: Kubernetes
+      href: kubernetes/toc.yml
+  - name: Automation and Infrastructure as Code
+    items:
+    - name: Ansible
+      href: ansible/toc.yml
+    - name: Terraform
+      href: terraform/toc.yml
+    - name: Packer
+      href: packer/toc.yml
   - name: Networking
     href: networking/toc.yml
-  - name: Monitoring
-    href: monitoring/toc.yml
-  - name: Disaster Recovery
-    href: disaster-recovery/index.md
-  - name: Linux
-    href: linux/toc.yml
-  - name: Windows
-    href: windows/toc.yml
-  - name: Proxmox
-    href: proxmox/toc.yml
-  - name: Containers
-    href: containers/toc.yml
-  - name: Docker
-    href: docker/toc.yml
-  - name: Kubernetes
-    href: kubernetes/toc.yml
-  - name: Ansible
-    href: ansible/toc.yml
-  - name: Terraform
-    href: terraform/toc.yml
-  - name: Packer
-    href: packer/toc.yml
+  - name: Operations
+    items:
+    - name: Monitoring
+      href: monitoring/toc.yml
+    - name: Security
+      href: security/index.md
+      items:
+      - name: Identity and Access Management
+        href: security/iam/index.md
+      - name: Compliance and Auditing
+        href: security/compliance/index.md
+    - name: Disaster Recovery
+      href: disaster-recovery/index.md
+  - name: Data and Query Languages
+    items:
+    - name: SQL Server
+      href: sql/toc.yml
+    - name: KQL
+      href: kql/toc.yml
   - name: Home Lab
     href: homelab/toc.yml
-  - name: SQL Server
-    href: sql/toc.yml
-  - name: KQL
-    href: kql/toc.yml
+  - name: Reference
+    items:
+    - name: Diagrams
+      href: diagrams/toc.yml
