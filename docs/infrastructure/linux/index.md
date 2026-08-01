@@ -324,7 +324,7 @@ sudo nano /etc/resolv.conf
 Most modern Linux distributions use systemd for service management:
 
 > [!TIP]
-> For comprehensive SystemD service management, security hardening, performance optimization, and enterprise automation, see our complete [**SystemD Service Management Guide**](systemd.md).
+> For comprehensive SystemD service management, security hardening, performance optimization, and enterprise automation, see our complete [**SystemD Service Management Guide**](systemd/index.md).
 
 ```bash
 # Service control
@@ -464,7 +464,7 @@ Linux servers excel at:
 
 For in-depth coverage of specific Linux administration topics, see our specialized guides:
 
-- **[SystemD Service Management](systemd.md)** - Complete enterprise guide to SystemD service management, security hardening, performance optimization, and automation with PowerShell integration
+- **[SystemD Service Management](systemd/index.md)** - Complete enterprise guide to SystemD service management, security hardening, performance optimization, and automation with PowerShell integration
 - **[Server Administration](server.md)** - Advanced server configuration and management
 - **[Desktop Environment](desktop.md)** - Desktop setup and customization
 

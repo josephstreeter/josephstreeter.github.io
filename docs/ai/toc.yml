@@ -41,7 +41,7 @@
     - name: Optimization Techniques
       href: local-llms/optimization.md
     - name: Integration and APIs
-      href: local-llms/integration.md
+      href: local-llms/integration/toc.yml
     - name: Troubleshooting
       href: local-llms/troubleshooting.md
 - name: Ethics and Safety

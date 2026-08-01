@@ -10,7 +10,7 @@
   - name: Permissions and Access Control
     href: permissions.md
   - name: SystemD Service Management
-    href: systemd.md
+    href: systemd/toc.yml
   - name: Journalctl
     href: journalctl.md
   - name: Bash Scripting (Development)

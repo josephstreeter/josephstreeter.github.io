@@ -1,0 +1,24 @@
+- name: Overview and Prerequisites
+  href: index.md
+- name: Terraform Configuration
+  href: terraform-configuration.md
+- name: Modules and Load Balancer
+  href: modules-and-load-balancer.md
+- name: Packer Template Creation
+  href: packer-template.md
+- name: Deployment and Kubernetes Installation
+  href: deployment.md
+- name: GitOps Workflow
+  href: gitops.md
+- name: Testing and Examples
+  href: testing.md
+- name: Day-2 Operations
+  href: operations.md
+- name: Monitoring
+  href: monitoring.md
+- name: Security Considerations
+  href: security.md
+- name: Capacity Planning and Cost
+  href: capacity-planning.md
+- name: Troubleshooting
+  href: troubleshooting.md

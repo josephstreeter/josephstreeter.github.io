@@ -66,6 +66,12 @@ Consider these factors when selecting a builder:
 | virtualbox-ovf | VirtualBox | Modify existing VMs |
 | qemu | QEMU/KVM | Linux KVM images |
 | hyperv-iso | Hyper-V | Windows Server images |
+| proxmox-iso | Proxmox VE | VM templates for Proxmox clusters |
+
+> [!NOTE]
+> The `proxmox-iso` builder has no dedicated section below, but there is a complete worked
+> example — building a Debian template with preseed for a Kubernetes cluster — in
+> [Packer Template Creation](../terraform/solutions/kubernetes-cluster-proxmox/packer-template.md).
 
 ### Container Builders
 

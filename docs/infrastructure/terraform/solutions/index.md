@@ -29,12 +29,12 @@ assumptions about naming, addressing, and sizing that will need to match your en
 
 | Solution | Builds | Size |
 |----------|--------|------|
-| [Kubernetes Cluster on Proxmox](kubernetes-cluster-proxmox.md) | VM infrastructure for a Kubernetes cluster — templates, cloud-init, control plane and worker provisioning | 5,013 lines |
+| [Kubernetes Cluster on Proxmox](kubernetes-cluster-proxmox/index.md) | VM infrastructure for a Kubernetes cluster — templates, cloud-init, control plane and worker provisioning | 12 pages |
 
 > [!NOTE]
-> The Proxmox guide is substantially longer than the others because it covers the full
-> lifecycle from image template through cluster bootstrap. Work through it in stages rather
-> than as a single sitting.
+> The Proxmox guide is a multi-page set rather than a single document, because it covers the
+> full lifecycle from image template through cluster bootstrap and day-2 operations. Start
+> from its [overview](kubernetes-cluster-proxmox/index.md).
 
 ## Before You Start
 

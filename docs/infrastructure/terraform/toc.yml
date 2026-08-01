@@ -22,4 +22,4 @@
     - name: DNS Service - Private (Azure)
       href: solutions/dns-azure-private.md
     - name: Kubernetes Cluster (Proxmox)
-      href: solutions/kubernetes-cluster-proxmox.md
+      href: solutions/kubernetes-cluster-proxmox/toc.yml
