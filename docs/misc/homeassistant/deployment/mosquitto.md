@@ -247,7 +247,7 @@ persistence_file mosquitto.db
 
 ```bash
 # Start mosquitto to create initial setup
-docker-compose up -d
+docker compose up -d
 
 # Create password file and users
 docker exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd homeassistant
@@ -256,7 +256,7 @@ docker exec mosquitto mosquitto_passwd /mosquitto/config/passwd iot_device
 docker exec mosquitto mosquitto_passwd /mosquitto/config/passwd monitoring
 
 # Restart to apply changes
-docker-compose restart mosquitto
+docker compose restart mosquitto
 ```
 
 #### Access Control List
@@ -316,13 +316,13 @@ rm server.csr
 
 ```bash
 # Start mosquitto
-docker-compose up -d
+docker compose up -d
 
 # Monitor logs
-docker-compose logs -f mosquitto
+docker compose logs -f mosquitto
 
 # Check service health
-docker-compose ps
+docker compose ps
 ```
 
 ### Testing MQTT Connectivity
@@ -436,10 +436,10 @@ autosave_on_changes false
 
 ```bash
 # View mosquitto logs
-docker-compose logs mosquitto
+docker compose logs mosquitto
 
 # Follow logs in real-time
-docker-compose logs -f mosquitto
+docker compose logs -f mosquitto
 
 # Log rotation (add to crontab)
 docker exec mosquitto logrotate /etc/logrotate.conf
@@ -483,7 +483,7 @@ docker run --rm -v mosquitto_data:/target -v $(pwd):/backup alpine \
 
 ```bash
 # Check mosquitto status
-docker-compose ps
+docker compose ps
 docker inspect mosquitto
 
 # Check configuration
@@ -504,11 +504,11 @@ docker exec mosquitto ls -la /mosquitto/data/
 ```bash
 # Enable verbose logging temporarily
 docker exec mosquitto sh -c 'echo "log_type debug" >> /mosquitto/config/mosquitto.conf'
-docker-compose restart mosquitto
+docker compose restart mosquitto
 
 # Remove debug logging
 docker exec mosquitto sed -i '/log_type debug/d' /mosquitto/config/mosquitto.conf
-docker-compose restart mosquitto
+docker compose restart mosquitto
 ```
 
 For integration with Home Assistant and complete stack deployment, see the [main deployment guide](index.md).

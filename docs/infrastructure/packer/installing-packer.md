@@ -91,16 +91,30 @@ sudo chmod +x /usr/local/bin/packer
 #### Ubuntu/Debian
 
 ```bash
-# Add HashiCorp GPG key
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
 
-# Add HashiCorp repository
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+# Add HashiCorp GPG key
+curl -fsSL https://apt.releases.hashicorp.com/gpg \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/hashicorp-archive-keyring.gpg
+sudo chmod a+r /etc/apt/keyrings/hashicorp-archive-keyring.gpg
+
+# Add HashiCorp repository. HashiCorp publishes for Ubuntu and Debian codenames,
+# so derivatives must use their upstream codename.
+CODENAME=$(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $CODENAME main" \
+  | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
 # Update and install
 sudo apt-get update
-sudo apt-get install packer
+sudo apt-get install -y packer
 ```
+
+> [!NOTE]
+> `apt-key` is deprecated and removed from current Debian and Ubuntu releases. Keys belong in
+> `/etc/apt/keyrings/` and are bound to a single repository with `signed-by=`, which also
+> stops that key from being trusted for every other repository on the system.
 
 #### Fedora/RHEL/CentOS
 

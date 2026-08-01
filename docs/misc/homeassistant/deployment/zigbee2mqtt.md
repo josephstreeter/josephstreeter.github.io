@@ -426,25 +426,25 @@ ls -la /dev/tty*
 
 # Update docker-compose.yml with correct device path
 # Start services
-docker-compose up -d
+docker compose up -d
 
 # Monitor startup logs
-docker-compose logs -f zigbee2mqtt
+docker compose logs -f zigbee2mqtt
 
 # Check service health
-docker-compose ps
+docker compose ps
 ```
 
 ### Initial Device Pairing
 
 ```bash
 # Enable permit join via logs
-docker-compose exec zigbee2mqtt mosquitto_pub -h mosquitto -t zigbee2mqtt/bridge/request/permit_join -m '{"value": true}'
+docker compose exec zigbee2mqtt mosquitto_pub -h mosquitto -t zigbee2mqtt/bridge/request/permit_join -m '{"value": true}'
 
 # Or via web interface at http://localhost:8080
 
 # Monitor device joining
-docker-compose logs -f zigbee2mqtt | grep -i pair
+docker compose logs -f zigbee2mqtt | grep -i pair
 ```
 
 ## Native Installation on Raspberry Pi
@@ -605,20 +605,20 @@ Example group configuration in `data/groups.yaml`:
 
 ```bash
 # Check Zigbee2MQTT logs
-docker-compose logs -f zigbee2mqtt
+docker compose logs -f zigbee2mqtt
 
 # Monitor MQTT messages
-docker-compose exec mosquitto mosquitto_sub -h localhost -t 'zigbee2mqtt/#' -v
+docker compose exec mosquitto mosquitto_sub -h localhost -t 'zigbee2mqtt/#' -v
 
 # Check device status
-docker-compose exec mosquitto mosquitto_sub -h localhost -t 'zigbee2mqtt/bridge/state' -C 1
+docker compose exec mosquitto mosquitto_sub -h localhost -t 'zigbee2mqtt/bridge/state' -C 1
 ```
 
 ### Network Map
 
 ```bash
 # Generate network map
-docker-compose exec zigbee2mqtt wget -O /app/data/networkmap.svg "http://localhost:8080/api/networkmap"
+docker compose exec zigbee2mqtt wget -O /app/data/networkmap.svg "http://localhost:8080/api/networkmap"
 
 # View via web interface
 # Navigate to http://localhost:8080 > Map tab
@@ -646,17 +646,17 @@ docker run --rm -v zigbee2mqtt_data:/target -v $(pwd):/backup alpine \
 
 ```bash
 # Check adapter detection
-docker-compose exec zigbee2mqtt ls -la /dev/ttyUSB*
+docker compose exec zigbee2mqtt ls -la /dev/ttyUSB*
 
 # Verify permissions
-docker-compose exec zigbee2mqtt id
+docker compose exec zigbee2mqtt id
 ls -la /dev/ttyUSB0
 
 # Check coordinator communication
-docker-compose logs zigbee2mqtt | grep -i coordinator
+docker compose logs zigbee2mqtt | grep -i coordinator
 
 # Reset coordinator (last resort)
-docker-compose exec zigbee2mqtt mosquitto_pub -h mosquitto -t zigbee2mqtt/bridge/request/coordinator_check -m '{}'
+docker compose exec zigbee2mqtt mosquitto_pub -h mosquitto -t zigbee2mqtt/bridge/request/coordinator_check -m '{}'
 ```
 
 ### Debug Mode

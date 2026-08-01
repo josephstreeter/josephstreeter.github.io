@@ -28,24 +28,29 @@ In the following example we will perform an offline defrag on a Domain Controlle
 1. Create a temporary directory for the storage of the compacted database. For example, D:\NTDS-Backup. Make sure that the drive you are using for the copy of the database will have enough space for the operation.
 
 2. Open a command prompt and enter the NTDSUtil command followed by these commands:
-```powershellfiles
+```text
+files
 info
-compact D:\NTDS-Backup```
+compact D:\NTDS-Backup
+```
 When the operation finishes you should see the following text:
-```powershell
+```text
 If compaction was successful, you need to:
 copy "D:\NTDS-Backup\ntds.dit"
 "D:\NTDS\ntds.dit"
 and delete the old log files:
-del L:\Logs*.log```
+del L:\Logs*.log
+```
 3. Save a copy of the ntds.dit file if possible so that it can be reused in the event that the compacted database has been corrupted.
 
 4. In order to complete the offline defrag you must copy the compacted ntds.dit in D:\NTDS-Backup to D:\NTDS, overwriting the existing ntds.dit file, and then delete the log files located in L:\Logs. The only files that will remain are the edb.chk, temp.edb and ntds.dit.
 
 5. Perform a file integrity check on the new ntds.dit file using the NTDSUtil command.
-```powershellntdsutil
+```text
+ntdsutil
 files
-integrity```
+integrity
+```
 6. Finally, restart the Domain Controller or start the AD DS service.
 
 ***References:***

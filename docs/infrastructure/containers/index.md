@@ -26,12 +26,12 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Core Container Platforms
 
-- **[Docker](docker/index.md)** - Industry-standard container platform and runtime
+- **[Docker](../docker/index.md)** - Industry-standard container platform and runtime
   - Complete installation guide for Linux, Windows, and macOS
   - Container lifecycle management and best practices
   - Multi-stage builds and optimization techniques
 
-- **[Docker Compose](docker/dockercompose/index.md)** - Multi-container application orchestration
+- **[Docker Compose](../docker/dockercompose/index.md)** - Multi-container application orchestration
   - Service definitions and networking
   - Volume management and persistence
   - Development and production configurations
@@ -44,7 +44,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Service discovery and networking
   - Storage and persistent volumes
 
-- **[Docker Swarm](docker-swarm/index.md)** - Native Docker clustering solution
+- **[Docker Swarm](../docker/swarm.md)** - Native Docker clustering solution
   - Swarm mode configuration
   - Service deployment and scaling
   - Load balancing and service discovery
@@ -286,7 +286,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 If you're new to containerization, follow this learning path:
 
-1. **[Docker Basics](docker/index.md)** - Learn container fundamentals
+1. **[Docker Basics](../docker/index.md)** - Learn container fundamentals
    - Understanding containers vs. virtual machines
    - Docker installation and basic commands
    - Creating and running your first container
@@ -296,7 +296,7 @@ If you're new to containerization, follow this learning path:
    - Configure container development extensions
    - Create your first containerized application
 
-3. **[Multi-Container Applications](docker/dockercompose/index.md)** - Orchestrate multiple services
+3. **[Multi-Container Applications](../docker/dockercompose/index.md)** - Orchestrate multiple services
    - Learn Docker Compose basics
    - Define services, networks, and volumes
    - Manage application stacks
@@ -345,10 +345,10 @@ services:
 EOF
 
 # 4. Development cycle
-docker-compose up -d          # Start services
-docker-compose logs -f app    # Monitor logs
-docker-compose exec app sh    # Debug container
-docker-compose down          # Stop services
+docker compose up -d          # Start services
+docker compose logs -f app    # Monitor logs
+docker compose exec app sh    # Debug container
+docker compose down          # Stop services
 
 # 5. Production deployment
 docker build -t myapp:v1.0 .
@@ -412,11 +412,11 @@ if ! command -v docker &> /dev/null; then
     sudo usermod -aG docker $USER
 fi
 
-# Install Docker Compose
-if ! command -v docker-compose &> /dev/null; then
-    echo "Installing Docker Compose..."
-    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    sudo chmod +x /usr/local/bin/docker-compose
+# Install Docker Compose (v2 ships as a CLI plugin, so test the subcommand, not a binary)
+if ! docker compose version &> /dev/null; then
+    echo "Installing Docker Compose plugin..."
+    sudo apt-get update && sudo apt-get install -y docker-compose-plugin \
+        || sudo dnf install -y docker-compose-plugin
 fi
 
 # Install kubectl
@@ -435,7 +435,7 @@ fi
 # Verify installations
 echo "Verifying installations..."
 docker --version
-docker-compose --version
+docker compose --version
 kubectl version --client
 helm version
 

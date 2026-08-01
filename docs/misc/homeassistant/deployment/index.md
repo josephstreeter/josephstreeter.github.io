@@ -28,11 +28,12 @@ The complete Home Assistant ecosystem consists of:
 ### Prerequisites
 
 ```bash
-# Install Docker and Docker Compose
+# Install Docker Engine — the convenience script also installs the Compose plugin
 curl -fsSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+
+# Verify Compose is available (invoked as "docker compose", not "docker-compose")
+docker compose version
 
 # Logout and login to apply group changes
 ```
@@ -455,13 +456,13 @@ ls -la /dev/tty*
 
 ```bash
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # Monitor startup
-docker-compose logs -f
+docker compose logs -f
 
 # Check service health
-docker-compose ps
+docker compose ps
 ```
 
 ### 3. Initial Configuration
@@ -472,10 +473,10 @@ docker exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd homeassistant
 docker exec mosquitto mosquitto_passwd /mosquitto/config/passwd zigbee2mqtt
 
 # Restart mosquitto to apply auth changes
-docker-compose restart mosquitto
+docker compose restart mosquitto
 
 # Check Zigbee2MQTT logs for adapter detection
-docker-compose logs zigbee2mqtt
+docker compose logs zigbee2mqtt
 ```
 
 ### 4. Access Services
@@ -570,44 +571,44 @@ services:
 
 ```bash
 # Update all services
-docker-compose pull
-docker-compose down
-docker-compose up -d
+docker compose pull
+docker compose down
+docker compose up -d
 
 # Update specific service
-docker-compose pull homeassistant
-docker-compose up -d homeassistant
+docker compose pull homeassistant
+docker compose up -d homeassistant
 
 # Force recreation
-docker-compose down
-docker-compose up -d --force-recreate
+docker compose down
+docker compose up -d --force-recreate
 ```
 
 ### Backup and Restore
 
 ```bash
 # Manual backup
-docker-compose exec backup /backup.sh
+docker compose exec backup /backup.sh
 
 # Restore from backup
-docker-compose down
+docker compose down
 tar -xzf backups/homeassistant-stack-20241120-020000.tar.gz -C ./
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Monitoring and Logs
 
 ```bash
 # View all logs
-docker-compose logs
+docker compose logs
 
 # Follow specific service logs
-docker-compose logs -f homeassistant
-docker-compose logs -f mosquitto
-docker-compose logs -f zigbee2mqtt
+docker compose logs -f homeassistant
+docker compose logs -f mosquitto
+docker compose logs -f zigbee2mqtt
 
 # Check container health
-docker-compose ps
+docker compose ps
 docker inspect homeassistant | grep Health
 
 # Resource usage
@@ -618,20 +619,20 @@ docker stats
 
 ```bash
 # Check network connectivity
-docker-compose exec homeassistant ping mosquitto
-docker-compose exec zigbee2mqtt ping mosquitto
+docker compose exec homeassistant ping mosquitto
+docker compose exec zigbee2mqtt ping mosquitto
 
 # Test MQTT connectivity
-docker-compose exec homeassistant mosquitto_pub -h mosquitto -t test -m "hello"
-docker-compose exec homeassistant mosquitto_sub -h mosquitto -t test
+docker compose exec homeassistant mosquitto_pub -h mosquitto -t test -m "hello"
+docker compose exec homeassistant mosquitto_sub -h mosquitto -t test
 
 # Check Zigbee adapter
-docker-compose exec zigbee2mqtt ls -la /dev/ttyUSB*
+docker compose exec zigbee2mqtt ls -la /dev/ttyUSB*
 
 # Restart individual services
-docker-compose restart homeassistant
-docker-compose restart mosquitto
-docker-compose restart zigbee2mqtt
+docker compose restart homeassistant
+docker compose restart mosquitto
+docker compose restart zigbee2mqtt
 ```
 
 ## Security Considerations

@@ -74,7 +74,7 @@ http {
 
 ```bash
 # Update configuration
-docker-compose down && docker-compose up -d
+docker compose down && docker compose up -d
 
 # Test load balancing with multiple requests
 for i in {1..10}; do 

@@ -807,7 +807,7 @@ pipeline {
                 script {
                     // Start test services
                     sh '''
-                        docker-compose -f docker-compose.test.yml up -d
+                        docker compose -f docker-compose.test.yml up -d
                         sleep 30
                     '''
                     
@@ -817,7 +817,7 @@ pipeline {
                         }
                     } finally {
                         // Cleanup test services
-                        sh 'docker-compose -f docker-compose.test.yml down -v'
+                        sh 'docker compose -f docker-compose.test.yml down -v'
                     }
                 }
             }
@@ -1176,6 +1176,6 @@ jobs:
 
 - [Azure DevOps Best Practices](../../azuredevops/index.md)
 - [Git Workflow Strategies](../../git/index.md)
-- [Docker Container Management](../../../infrastructure/containers/docker/index.md)
+- [Docker Container Management](../../../infrastructure/docker/index.md)
 - [Terraform Infrastructure](../../../infrastructure/terraform/index.md)
 - [PowerShell Automation](../../powershell/index.md)

@@ -99,7 +99,7 @@ Continue with [Installation and Setup](installation.md) for a production-ready c
 
 - [Infrastructure overview](../index.md) — where Ansible fits among the other infrastructure tooling.
 - [Terraform](../terraform/index.md) — provisioning infrastructure that Ansible then configures (if present in your environment).
-- [Docker](../containers/docker/index.md) — a common target and driver for Ansible automation.
+- [Docker](../docker/index.md) — a common target and driver for Ansible automation.
 
 ## References
 

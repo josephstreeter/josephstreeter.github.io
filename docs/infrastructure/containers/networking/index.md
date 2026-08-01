@@ -1,164 +1,19 @@
 ---
-title: Container Networking
-description: Complete guide to container networking concepts, configurations, and best practices for Docker and Kubernetes
+title: Kubernetes Networking
+description: Kubernetes networking concepts — CNI plugins, Services, Ingress, NetworkPolicy, and pod networking
 author: Joseph Streeter
 date: 2024-01-15
-tags: [containers, networking, docker, kubernetes, overlay, bridge, CNI]
+tags: [containers, networking, kubernetes, CNI, ingress, networkpolicy, service-mesh]
 ---
 
-Container networking is a fundamental aspect of containerized applications that enables communication between containers, services, and external systems. This guide covers essential networking concepts, configurations, and best practices.
+Kubernetes networking governs how pods communicate with each other, how traffic reaches
+services from outside the cluster, and how that traffic is restricted. This guide covers CNI
+plugins, the Service types, Ingress, NetworkPolicy, and the tooling used to troubleshoot
+them.
 
-## Docker Networking
-
-### Network Types
-
-#### Bridge Network
-
-The default network driver for containers.
-
-```bash
-
-```bash
-# Create custom bridge network
-docker network create --driver bridge my-bridge-network
-
-# Run container with custom network
-docker run -d --name web-server --network my-bridge-network nginx
-
-# Inspect network
-docker network inspect my-bridge-network
-```
-
-#### Host Network
-
-Container shares the host's network stack.
-
-```bash
-# Run container with host networking
-docker run -d --name app --network host nginx
-```
-
-#### Overlay Network
-
-Enables communication between containers across multiple Docker hosts.
-
-```bash
-# Create overlay network (Swarm mode)
-docker network create --driver overlay --attachable my-overlay
-
-# Deploy service with overlay network
-docker service create --name web --network my-overlay nginx
-```
-
-#### None Network
-
-Container has no network access.
-
-```bash
-# Run isolated container
-docker run -d --name isolated --network none alpine sleep 3600
-```
-
-### Network Configuration
-
-#### Port Mapping
-
-```bash
-# Map container port to host port
-docker run -d -p 8080:80 nginx
-
-# Map to specific interface
-docker run -d -p 127.0.0.1:8080:80 nginx
-
-# Map multiple ports
-docker run -d -p 8080:80 -p 8443:443 nginx
-```
-
-#### Environment Variables
-
-```bash
-# Set network-related environment variables
-docker run -d \
-  -e VIRTUAL_HOST=app.example.com \
-  -e VIRTUAL_PORT=8080 \
-  --name app nginx
-```
-
-#### DNS Configuration
-
-```bash
-# Custom DNS servers
-docker run -d --dns 8.8.8.8 --dns 8.8.4.4 nginx
-
-# Add custom host entries
-docker run -d --add-host api.local:192.168.1.100 nginx
-```
-
-### Docker Compose Networking
-
-#### Default Network
-
-```yaml
-version: '3.8'
-services:
-  web:
-    image: nginx
-    ports:
-      - "8080:80"
-  
-  app:
-    image: node:alpine
-    depends_on:
-      - web
-```
-
-#### Custom Networks
-
-```yaml
-version: '3.8'
-services:
-  web:
-    image: nginx
-    networks:
-      - frontend
-      - backend
-    ports:
-      - "80:80"
-  
-  app:
-    image: node:alpine
-    networks:
-      - backend
-  
-  db:
-    image: postgres
-    networks:
-      - backend
-    environment:
-      POSTGRES_PASSWORD: secret
-
-networks:
-  frontend:
-    driver: bridge
-  backend:
-    driver: bridge
-    internal: true
-```
-
-#### External Networks
-
-```yaml
-version: '3.8'
-services:
-  app:
-    image: nginx
-    networks:
-      - existing-network
-
-networks:
-  existing-network:
-    external: true
-```
+> [!NOTE]
+> For the Docker engine's own networking — bridge and macvlan drivers, embedded DNS, port
+> publishing, and firewall interaction — see [Docker Networking](../../docker/networking.md).
 
 ## Kubernetes Networking
 
@@ -426,37 +281,6 @@ spec:
 
 ## Network Troubleshooting
 
-### Docker Networking Issues
-
-#### Debug Container Connectivity
-
-```bash
-# Test connectivity between containers
-docker exec -it container1 ping container2
-
-# Check network configuration
-docker exec -it container1 ip addr show
-
-# Inspect network interfaces
-docker exec -it container1 netstat -tuln
-
-# Test DNS resolution
-docker exec -it container1 nslookup google.com
-```
-
-#### Network Inspection
-
-```bash
-# List all networks
-docker network ls
-
-# Inspect specific network
-docker network inspect bridge
-
-# Check container network settings
-docker inspect container_name | grep -A 20 NetworkSettings
-```
-
 ### Kubernetes Networking Issues
 
 #### Pod Connectivity
@@ -507,21 +331,6 @@ kubectl exec -it source-pod -- curl target-service:port
 
 ## Network Monitoring
 
-### Docker Network Monitoring
-
-#### Container Statistics
-
-```bash
-# Real-time container stats
-docker stats
-
-# Network statistics for specific container
-docker exec container_name cat /proc/net/dev
-
-# Monitor network traffic
-docker exec container_name ss -tuln
-```
-
 ### Kubernetes Network Monitoring
 
 #### Built-in Monitoring
@@ -564,19 +373,6 @@ spec:
 ## Security Best Practices
 
 ### Network Isolation
-
-#### Docker Security
-
-```bash
-# Run container with limited network access
-docker run -d --network none --name isolated-app app:latest
-
-# Use user-defined networks
-docker network create --driver bridge secure-network
-docker run -d --network secure-network app:latest
-```
-
-#### Kubernetes Security
 
 ```yaml
 # Network policy for micro-segmentation
@@ -636,31 +432,17 @@ spec:
 # Scan for open ports
 nmap -sS target-ip
 
-# Check for vulnerabilities
-docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
-  aquasec/trivy image nginx:latest
-
 # Network policy testing
 kubectl apply -f network-policy.yaml
 kubectl exec -it test-pod -- curl -m 5 restricted-service:port
 ```
 
+Image vulnerability scanning is covered in
+[Image Security](../security/index.md#image-security).
+
 ## Performance Optimization
 
 ### Network Performance
-
-#### Docker Optimization
-
-```bash
-# Use host networking for high-performance apps
-docker run -d --network host high-performance-app
-
-# Optimize bridge network
-docker network create --driver bridge \
-  --opt com.docker.network.bridge.name=optimized-bridge \
-  --opt com.docker.network.bridge.enable_ip_masquerade=true \
-  optimized-network
-```
 
 #### Kubernetes Optimization
 
@@ -709,7 +491,8 @@ spec:
 
 ## Related Topics
 
-- [Docker Fundamentals](~/docs/infrastructure/containers/docker/index.md)
+- [Docker Networking](~/docs/infrastructure/docker/networking.md) — the Docker engine's networking
+- [Docker Fundamentals](~/docs/infrastructure/docker/index.md)
 - [Kubernetes Fundamentals](~/docs/infrastructure/containers/kubernetes/index.md)
 - [Container Security](~/docs/infrastructure/containers/security/index.md)
 - [Service Mesh](~/docs/infrastructure/containers/kubernetes/service-mesh.md)

@@ -44,7 +44,7 @@ For a complete Home Assistant stack with MQTT and Zigbee support:
 mkdir homeassistant-stack
 cd homeassistant-stack
 # Download docker-compose.yml from deployment guide
-docker-compose up -d
+docker compose up -d
 ```
 
 This reorganization provides better separation of concerns and more focused documentation for each deployment scenario.

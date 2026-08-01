@@ -199,13 +199,13 @@ Create the environment by running the following Docker Compose command:
 
 ```bash
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # Verify services are running
-docker-compose ps
+docker compose ps
 
 # Check logs if needed
-docker-compose logs nginx
+docker compose logs nginx
 ```
 
 ## Reverse Proxy - Sites on Separate Ports
@@ -292,7 +292,7 @@ http {
 
 ```bash
 # Restart nginx with new configuration
-docker-compose down && docker-compose up -d
+docker compose down && docker compose up -d
 
 # Test both endpoints
 curl http://localhost:8081
@@ -401,7 +401,7 @@ http {
 
 ```bash
 # Update configuration
-docker-compose down && docker-compose up -d
+docker compose down && docker compose up -d
 
 # Test both sites
 curl http://site1.joseph-streeter.com

@@ -77,6 +77,6 @@ Signaling uses **SIP** (default UDP/TCP 5060, TLS 5061); the actual audio flows 
 
 ### Related Topics
 
-- [Docker](../docker/index.md)
+- [Docker](../../docker/index.md)
 - [TLS / Let's Encrypt (for SIP-TLS certificates)](../../../security/certificates/acme/index.md)
 - [Networking and Firewalls](../../networking/firewalls.md)

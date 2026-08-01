@@ -1230,8 +1230,6 @@ git sparse-checkout set src/ docs/
 - Parallel pipeline execution
 - Artifact reuse across stages
 
-```bash
-
 ---
 
 ## 📖 **Additional Resources**

@@ -91,12 +91,30 @@ sudo systemctl restart containerd
 sudo systemctl enable containerd
 
 # Install kubeadm, kubelet, and kubectl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt update
-sudo apt install -y kubelet kubeadm kubectl
+# Pick the minor version you intend to run — the repo is per-minor-version
+K8S_VERSION=v1.31
+
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+
+curl -fsSL "https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key" \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod a+r /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/ /" \
+  | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 ```
+
+> [!IMPORTANT]
+> The old `apt.kubernetes.io` / `packages.cloud.google.com` repository was retired and now
+> returns 404 — any guide still using it will fail at `apt update`. The current repositories
+> live at `pkgs.k8s.io` and are **split per minor version**, so upgrading Kubernetes means
+> editing `kubernetes.list` to point at the new `v1.xx` path, not just running `apt upgrade`.
 
 ### Step 4: Initialize the Controller Node
 

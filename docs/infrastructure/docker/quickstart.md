@@ -1,9 +1,11 @@
 ---
-title: Docker Quickstart
-description: Complete guide to getting started with Docker, from installation to running your first containers
-author: Joseph Streeter
-date: 2024-01-15
-tags: [docker, containers, quickstart, installation, tutorial]
+title: "Docker Quickstart"
+description: "Getting started with Docker: first containers, images, networking, volumes, and Compose"
+author: "Joseph Streeter"
+tags: ["docker", "containers", "quickstart", "tutorial"]
+category: "infrastructure"
+difficulty: "beginner"
+last_updated: "2026-08-01"
 ---
 
 Docker is a platform that enables developers to package applications and their dependencies into lightweight, portable containers. This quickstart guide will get you up and running with Docker in minutes.
@@ -16,103 +18,34 @@ Docker containers are lightweight, standalone packages that include everything n
 ┌─────────────────────────────────────────────────────────────────┐
 │                    Docker Architecture                          │
 ├─────────────────────────────────────────────────────────────────┤
-│  Docker Client  │ Commands (docker run, build, pull, push)     │
-│  Docker Daemon  │ Manages containers, images, networks         │
-│  Docker Images  │ Read-only templates for creating containers  │
-│  Docker Containers │ Running instances of images              │
-│  Docker Registry │ Repository for storing and sharing images   │
+│  Docker Client  │ Commands (docker run, build, pull, push)      │
+│  Docker Daemon  │ Manages containers, images, networks          │
+│  Docker Images  │ Read-only templates for creating containers   │
+│  Docker Containers │ Running instances of images                │
+│  Docker Registry │ Repository for storing and sharing images    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Installation
 
-### Linux Installation
-
-#### Ubuntu/Debian
-
-```bash
-# Update package index
-sudo apt-get update
-
-# Install required packages
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
-
-# Add Docker's official GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-# Add Docker repository
-echo \
-  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Install Docker Engine
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-
-# Add user to docker group (logout/login required)
-sudo usermod -aG docker $USER
-```
-
-#### CentOS/RHEL/Fedora
+Install Docker Engine on Linux, or Docker Desktop on Windows and macOS, following
+[Installing Docker](install.md). Then confirm it works:
 
 ```bash
-# Install required packages
-sudo dnf install -y dnf-plugins-core
-
-# Add Docker repository
-sudo dnf config-manager \
-    --add-repo \
-    https://download.docker.com/linux/fedora/docker-ce.repo
-
-# Install Docker Engine
-sudo dnf install docker-ce docker-ce-cli containerd.io
-
-# Start and enable Docker
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Add user to docker group
-sudo usermod -aG docker $USER
-```
-
-### Windows Installation
-
-1. Download Docker Desktop for Windows from [docker.com](https://www.docker.com/products/docker-desktop)
-2. Run the installer and follow the setup wizard
-3. Restart your computer when prompted
-4. Launch Docker Desktop from the Start menu
-
-### macOS Installation
-
-1. Download Docker Desktop for Mac from [docker.com](https://www.docker.com/products/docker-desktop)
-2. Drag Docker.app to the Applications folder
-3. Launch Docker from Applications
-4. Complete the setup process
-
-## Verify Installation
-
-```bash
-# Check Docker version
 docker --version
-
-# Check Docker info
+docker compose version
 docker info
-
-# Run hello-world container
-docker run hello-world
+docker run --rm hello-world
 ```
-
-Expected output:
 
 ```text
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
+
+If `docker` reports a permission error, your user is not yet in the `docker` group — see
+[Post-Installation](install.md#post-installation).
+
 
 ## Essential Docker Commands
 
@@ -288,6 +221,10 @@ EXPOSE 3000
 CMD ["node", "server.js"]
 ```
 
+> [!TIP]
+> For layer caching, `COPY` versus `ADD`, `ARG` versus `ENV`, BuildKit cache mounts, build
+> secrets, and multi-arch builds, see [Building Images](images.md).
+
 ## Container Networking
 
 ### Basic Networking
@@ -322,6 +259,10 @@ docker run -p 127.0.0.1:8080:80 nginx
 # Map random port
 docker run -P nginx
 ```
+
+> [!TIP]
+> This covers the basics. For network drivers, DNS behavior, `EXPOSE` versus `-p`, and
+> firewall interaction, see [Docker Networking](networking.md).
 
 ## Volume Management
 
@@ -363,24 +304,31 @@ docker run -d -v /host/path:/container/path:ro nginx
 docker run -d --tmpfs /tmp nginx
 ```
 
+> [!TIP]
+> For bind-mount permissions, storage drivers, NFS and CIFS volumes, and reclaiming disk
+> space, see [Docker Storage](storage.md).
+
 ## Docker Compose Quick Start
 
 ### Install Docker Compose
 
-```bash
-# Linux installation
-sudo curl -L "https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+Compose ships as a CLI plugin and is already installed if you followed
+[Installing Docker](install.md) or use Docker Desktop — the `docker-compose-plugin`
+package provides it. Verify:
 
-# Verify installation
-docker-compose --version
+```bash
+docker compose version
 ```
 
-### Basic docker-compose.yml
+> [!IMPORTANT]
+> Compose is invoked as `docker compose` (a subcommand), not `docker-compose` (a separate
+> binary). The hyphenated form is Compose v1, which reached end of life and is not installed
+> by current packages — older guides that tell you to `curl` a `docker-compose` binary into
+> `/usr/local/bin` or `pip install docker-compose` are out of date.
+
+### Basic compose.yaml
 
 ```yaml
-version: '3.8'
-
 services:
   web:
     image: nginx:latest
@@ -407,19 +355,19 @@ volumes:
 
 ```bash
 # Start services
-docker-compose up -d
+docker compose up -d
 
 # View running services
-docker-compose ps
+docker compose ps
 
 # View logs
-docker-compose logs
+docker compose logs
 
 # Stop services
-docker-compose down
+docker compose down
 
 # Rebuild and start
-docker-compose up --build
+docker compose up --build
 ```
 
 ## Best Practices
@@ -523,10 +471,10 @@ After completing this quickstart:
 ## Related Topics
 
 - [Working with Docker Containers](containers.md)
-- [Container Security](../security/index.md)
-- [Container Orchestration](../orchestration/index.md)
-- [DevOps Best Practices](../../../development/devops/index.md)
-
-## Topics
-
-Add topics here.
+- [Building Images](images.md) — Dockerfiles in depth, BuildKit, and caching
+- [Docker Networking](networking.md) — beyond basic port mapping
+- [Docker Storage](storage.md) — volumes, permissions, and disk usage
+- [Docker Compose](dockercompose/index.md) — multi-container applications
+- [Container Security](../containers/security/index.md)
+- [Container Orchestration](../containers/orchestration/index.md)
+- [DevOps Best Practices](../../development/devops/index.md)

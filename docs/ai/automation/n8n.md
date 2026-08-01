@@ -182,7 +182,7 @@ volumes:
   postgres_data:
 ```
 
-Run with: `docker-compose up -d`
+Run with: `docker compose up -d`
 
 ### Self-Hosted npm
 

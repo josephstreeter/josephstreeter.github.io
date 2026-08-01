@@ -60,7 +60,7 @@ docker run --rm -v $(pwd)/nginx/nginx.conf:/etc/nginx/nginx.conf nginx nginx -t
 
    ```bash
    # Check if backend servers are running
-   docker-compose ps
+   docker compose ps
    
    # Check network connectivity
    docker exec nginx-proxy ping my-apache-app1

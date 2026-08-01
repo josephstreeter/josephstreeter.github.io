@@ -402,20 +402,20 @@ jobs:
         EOF
     
     - name: Start services
-      run: docker-compose -f docker-compose.test.yml up -d
+      run: docker compose -f docker-compose.test.yml up -d
     
     - name: Wait for services to be ready
       run: |
-        timeout 60 bash -c 'until docker-compose -f docker-compose.test.yml exec -T api curl -f http://localhost:3000/health; do sleep 2; done'
+        timeout 60 bash -c 'until docker compose -f docker-compose.test.yml exec -T api curl -f http://localhost:3000/health; do sleep 2; done'
     
     - name: Run integration tests
       run: |
-        docker-compose -f docker-compose.test.yml exec -T api npm run test:integration
+        docker compose -f docker-compose.test.yml exec -T api npm run test:integration
     
     - name: Generate test report
       if: always()
       run: |
-        docker-compose -f docker-compose.test.yml exec -T api npm run test:report
+        docker compose -f docker-compose.test.yml exec -T api npm run test:report
     
     - name: Upload test results
       uses: actions/upload-artifact@v4
@@ -427,7 +427,7 @@ jobs:
     - name: Collect service logs
       if: failure()
       run: |
-        docker-compose -f docker-compose.test.yml logs > service-logs.txt
+        docker compose -f docker-compose.test.yml logs > service-logs.txt
     
     - name: Upload service logs
       uses: actions/upload-artifact@v4
@@ -438,7 +438,7 @@ jobs:
     
     - name: Clean up
       if: always()
-      run: docker-compose -f docker-compose.test.yml down -v
+      run: docker compose -f docker-compose.test.yml down -v
 ```
 
 ### Multi-Registry Push
@@ -2082,11 +2082,14 @@ runs:
     shell: bash
     run: |
       sudo apt-get update
-      sudo apt-get install wget apt-transport-https gnupg lsb-release
-      wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-      echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
+      sudo apt-get install -y wget apt-transport-https gnupg
+      sudo install -m 0755 -d /etc/apt/keyrings
+      wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key \
+        | sudo gpg --dearmor -o /etc/apt/keyrings/trivy.gpg
+      echo "deb [signed-by=/etc/apt/keyrings/trivy.gpg] https://aquasecurity.github.io/trivy-repo/deb $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") main" \
+        | sudo tee /etc/apt/sources.list.d/trivy.list
       sudo apt-get update
-      sudo apt-get install trivy
+      sudo apt-get install -y trivy
 
   - name: Run Trivy scan
     id: scan

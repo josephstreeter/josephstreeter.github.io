@@ -183,13 +183,29 @@ sudo usermod -aG docker $USER
 newgrp docker
 
 # Install NVIDIA Container Toolkit
-distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey \
+  | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+curl -sL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list \
+  | sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' \
+  | sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
 sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
+
+# Register the runtime with Docker
+sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
+
+# Verify
+docker run --rm --gpus all nvidia/cuda:12.4.1-base-ubuntu22.04 nvidia-smi
 ```
+
+> [!NOTE]
+> Older guides use `nvidia.github.io/nvidia-docker/` with `apt-key add`. That repository path
+> is superseded and `apt-key` has been removed from current Debian and Ubuntu releases. For
+> device selection, Compose syntax, and troubleshooting, see
+> [GPU and Device Access](../../infrastructure/docker/gpu.md).
 
 **Docker Compose Example for Text Generation WebUI:**
 

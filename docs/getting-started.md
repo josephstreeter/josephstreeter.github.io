@@ -65,7 +65,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 
 ### New to Container Technology?
 
-1. Begin with **[Docker Basics](infrastructure/containers/docker/index.md)**
+1. Begin with **[Docker Basics](infrastructure/docker/index.md)**
 2. Progress to **[Kubernetes](infrastructure/containers/kubernetes/index.md)**
 3. Learn **[Container Orchestration](infrastructure/containers/index.md)**
 4. Implement **[Monitoring](infrastructure/monitoring/index.md)**
@@ -137,7 +137,7 @@ All code examples are tested and include:
 ### Essential Commands
 
 - **[SSH Commands](security/ssh/index.md#quick-reference)**
-- **[Docker Commands](infrastructure/containers/docker/index.md#quick-reference)**
+- **[Docker Commands](infrastructure/docker/index.md#quick-reference)**
 - **[PowerShell Cmdlets](development/powershell/index.md#common-cmdlets)**
 - **[Git Commands](development/git/index.md#essential-commands)**
 
@@ -145,7 +145,7 @@ All code examples are tested and include:
 
 - **[VS Code Settings](development/vscode/configure.md#recommended-settings)**
 - **[SSH Config](security/ssh/index.md)**
-- **[Docker Compose](infrastructure/containers/docker/dockercompose/index.md#templates)**
+- **[Docker Compose](infrastructure/docker/dockercompose/index.md#templates)**
 
 ## 📈 **What's New**
 

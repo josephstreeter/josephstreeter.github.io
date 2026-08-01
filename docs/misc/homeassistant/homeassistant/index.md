@@ -193,7 +193,7 @@ services:
 Start Home Assistant:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 #### Advanced Docker Configuration

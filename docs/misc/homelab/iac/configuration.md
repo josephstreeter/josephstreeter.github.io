@@ -672,8 +672,6 @@ echo "Deployment to ${ENVIRONMENT} completed successfully!"
     dest: /etc/borgmatic/config.yml
     mode: '0600'
 
-```yaml
-
 - name: Schedule backup cron job
   cron:
     name: "Daily system backup"
@@ -1144,56 +1142,56 @@ check_docker() {
 
 # Function to validate compose file
 validate_compose() {
-    log "Validating docker-compose configuration..."
-    if ! docker-compose -f "$COMPOSE_FILE" config -q; then
-        error "Docker-compose configuration is invalid"
+    log "Validating Compose configuration..."
+    if ! docker compose -f "$COMPOSE_FILE" config -q; then
+        error "Compose configuration is invalid"
         exit 1
     fi
-    log "Docker-compose configuration is valid"
+    log "Compose configuration is valid"
 }
 
 # Function to start services
 start_services() {
     log "Starting homelab services..."
-    docker-compose -f "$COMPOSE_FILE" up -d
+    docker compose -f "$COMPOSE_FILE" up -d
     log "Services started successfully"
 }
 
 # Function to stop services
 stop_services() {
     log "Stopping homelab services..."
-    docker-compose -f "$COMPOSE_FILE" down
+    docker compose -f "$COMPOSE_FILE" down
     log "Services stopped successfully"
 }
 
 # Function to restart services
 restart_services() {
     log "Restarting homelab services..."
-    docker-compose -f "$COMPOSE_FILE" restart
+    docker compose -f "$COMPOSE_FILE" restart
     log "Services restarted successfully"
 }
 
 # Function to show status
 show_status() {
     log "Checking service status..."
-    docker-compose -f "$COMPOSE_FILE" ps
+    docker compose -f "$COMPOSE_FILE" ps
 }
 
 # Function to show logs
 show_logs() {
     local service="${1:-}"
     if [[ -n "$service" ]]; then
-        docker-compose -f "$COMPOSE_FILE" logs -f "$service"
+        docker compose -f "$COMPOSE_FILE" logs -f "$service"
     else
-        docker-compose -f "$COMPOSE_FILE" logs -f
+        docker compose -f "$COMPOSE_FILE" logs -f
     fi
 }
 
 # Function to update services
 update_services() {
     log "Updating homelab services..."
-    docker-compose -f "$COMPOSE_FILE" pull
-    docker-compose -f "$COMPOSE_FILE" up -d --remove-orphans
+    docker compose -f "$COMPOSE_FILE" pull
+    docker compose -f "$COMPOSE_FILE" up -d --remove-orphans
     docker image prune -f
     log "Services updated successfully"
 }
@@ -1201,7 +1199,7 @@ update_services() {
 # Function to backup data
 backup_data() {
     log "Starting backup process..."
-    docker-compose -f "$COMPOSE_FILE" --profile backup run --rm backup
+    docker compose -f "$COMPOSE_FILE" --profile backup run --rm backup
     log "Backup completed successfully"
 }
 
@@ -1229,7 +1227,7 @@ Commands:
     update      Update all services to latest versions
     backup      Run backup process
     cleanup     Clean up unused Docker resources
-    validate    Validate docker-compose configuration
+    validate    Validate Compose configuration
     help        Show this help message
 
 Examples:
@@ -1565,7 +1563,7 @@ server {
         - "{{ container_dir }}/scripts"
         - "{{ container_dir }}/backups"
 
-    - name: Copy docker-compose configuration
+    - name: Copy Compose configuration
       template:
         src: docker-compose.yml.j2
         dest: "{{ container_dir }}/docker-compose.yml"
@@ -1655,8 +1653,8 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory={{ container_dir }}
-ExecStart=/usr/local/bin/docker-compose up -d
-ExecStop=/usr/local/bin/docker-compose down
+ExecStart=/usr/local/bin/docker compose up -d
+ExecStop=/usr/local/bin/docker compose down
 TimeoutStartSec=0
 
 [Install]
@@ -1714,7 +1712,7 @@ check_container_health() {
 }
 
 # Get list of containers from docker-compose
-containers=$(docker-compose -f "$COMPOSE_FILE" ps --services)
+containers=$(docker compose -f "$COMPOSE_FILE" ps --services)
 failed_containers=()
 
 echo "🔍 Checking container health..."
@@ -1743,10 +1741,6 @@ else
     exit 1
 fi
 ```
-
----
-
-*This Infrastructure as Code approach provides reproducible, scalable, and maintainable infrastructure management for your home lab.*
 
 ---
 

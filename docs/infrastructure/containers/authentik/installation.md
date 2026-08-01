@@ -427,19 +427,19 @@ volumes:
         {
             # Pull images
             Write-Host "Pulling Docker images..." -ForegroundColor Yellow
-            & docker-compose pull
+            & docker compose pull
             
             # Start services
             Write-Host "Starting Authentik services..." -ForegroundColor Yellow
-            & docker-compose up -d
+            & docker compose up -d
             
             # Wait for services to be ready
             Write-Host "Waiting for services to start..." -ForegroundColor Yellow
             Start-Sleep -Seconds 30
             
             # Check service status
-            $services = & docker-compose ps --services
-            $runningServices = & docker-compose ps --services --filter "status=running"
+            $services = & docker compose ps --services
+            $runningServices = & docker compose ps --services --filter "status=running"
             
             Write-Host "`nDeployment Status:" -ForegroundColor Green
             Write-Host "  Total services: $($services.Count)" -ForegroundColor White
@@ -479,7 +479,7 @@ volumes:
             }
             else
             {
-                Write-Warning "Some services failed to start. Check logs with: docker-compose logs"
+                Write-Warning "Some services failed to start. Check logs with: docker compose logs"
                 return $false
             }
         }

@@ -85,11 +85,12 @@ Directory of flash:/
 3  -rw-         174                    <no>  index.html
 
 8388604 bytes total (8387812 bytes free)
-```<br />
+```
 ***Basic HTTP Filtering using NBAR***
 Lets set up basic http filtering with MQC on R2.
 
-```powershellR2(config)#class-map match-all MATCH-HTTP
+```text
+R2(config)#class-map match-all MATCH-HTTP
 R2(config-cmap)#match protocol http
 R2(config-cmap)#exit
 R2(config)#policy-map HTTP-POLICY
@@ -97,7 +98,8 @@ R2(config-pmap)#class MATCH-HTTP
 R2(config-pmap-c)#set dscp af13
 R2(config-pmap-c)#exit
 R2(config-pmap)#int s1/0
-R2(config-if)#service-policy input HTTP-POLICY```<br />
+R2(config-if)#service-policy input HTTP-POLICY
+```
 In the code above we have a class map called MATCH-HTTP. The match protocol http command tells NBAR to match the http protocol. This will match all http traffic. The MATCH-HTTP class is then utilized in the HTTP-POLICY policy map. This policy map is used to set a DSCP marking on all traffic that matches the MATCH-HTTP class (ie all http traffic). The policy is then implemented on R2&#8217;s s1/0. Traffic is inspected and marked as it comes into that interface.
 We can check how many packets have been marked using the show policy-map command.
 
@@ -362,7 +364,8 @@ match protocol http mime application/x-shockwave-flash
 
 Lets set up R2 to filter the image/jpeg mime type:
 
-```powershellR2#conf t
+```text
+R2#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 R2(config)#class-map MATCH-HTTP
 R2(config-cmap)#no match protocol http url *.jpg
@@ -371,10 +374,13 @@ WORD  Enter a string as the sub-protocol parameter
 
 R2(config-cmap)#match protocol http mime image/jpeg
 R2(config-cmap)#exit
-R2(config)#exit```<br />
+R2(config)#exit
+```
+
 Once again, we&#8217;ll clear the counters so we can verify that this works correctly.
 
-```powershellR2#clear counters s1/0
+```text
+R2#clear counters s1/0
 Clear "show interface" counters on this interface [confirm]
 *Mar  1 01:12:10.759: %CLEAR-5-COUNTERS: Clear counter on interface Serial1/0
 
@@ -394,14 +400,18 @@ Packets marked 0
 Class-map: class-default (match-any)
 1 packets, 84 bytes
 5 minute offered rate 0 bps, drop rate 0 bps
-Match: any```<br />
+Match: any
+```
 On R1 lets generate some traffic. A gif file will be requested first. This ***should not*** match our policy.
 
-```powershellR1#copy http://10.0.23.3/picture.gif null:
+```text
+R1#copy http://10.0.23.3/picture.gif null:
 Loading http://10.0.23.3/picture.gif
-90 bytes copied in 0.808 secs (111 bytes/sec)```<br />
+90 bytes copied in 0.808 secs (111 bytes/sec)
+```
 
-```powershellR2#sh policy-map int s1/0
+```text
+R2#sh policy-map int s1/0
 Serial1/0
 
 Service-policy input: HTTP-POLICY
@@ -417,14 +427,18 @@ Packets marked 0
 Class-map: class-default (match-any)
 10 packets, 689 bytes
 5 minute offered rate 0 bps, drop rate 0 bps
-Match: any```<br />
+Match: any
+```
 All good! Ok lets do the final test and actually request a jpeg image and see if it matches our policy.
 
-```powershellR1#copy http://10.0.23.3/picture.jpg null:
+```text
+R1#copy http://10.0.23.3/picture.jpg null:
 Loading http://10.0.23.3/picture.jpg
-329 bytes copied in 1.216 secs (271 bytes/sec)```<br />
+329 bytes copied in 1.216 secs (271 bytes/sec)
+```
 
-```powershellR2#sh policy-map int s1/0
+```text
+R2#sh policy-map int s1/0
 Serial1/0
 
 Service-policy input: HTTP-POLICY
@@ -440,12 +454,14 @@ Packets marked 5
 Class-map: class-default (match-any)
 16 packets, 1162 bytes
 5 minute offered rate 0 bps, drop rate 0 bps
-Match: any```<br />
+Match: any
+```
 You can see above that the jpeg image was matched. It works!
 ***Putting it all together***
 So lets put it all together. We can use all three match protocol http commands in a match-any class map. For example:
 
-```powershellclass-map match-any INTERNET-SCUM
+```text
+class-map match-any INTERNET-SCUM
 match protocol http host *youtube.com*|*video.google.com*
 match protocol http mime video/flv|video/x-flv|video/mp4|video/x-m4v|audio/mp4a-latm
 match protocol http mime video/3gpp|video/quicktime
@@ -460,7 +476,8 @@ drop
 !
 int s1/0
 service-policy input NOINTERNETVIDEO
-!```<br />
+!
+```
 This would match any traffic going to youtube or video.google.com, or any flash applications, or common video mime types, and any swf (flash or flash movie) files! Be aware that NBAR does make your router take a hit in CPU processor usage, I&#8217;d suggest evaluating your processor usage before using this in production.
 HTH! Now back to labs!
 ***Summary:***

@@ -1,8 +1,10 @@
 ---
 title: "Docker Compose"
-description: "Comprehensive guide to Docker Compose for multi-container application orchestration, development environments, and production deployments"
+description: "Multi-container application orchestration: service definitions, networks, volumes, environments, and production deployment"
+tags: ["containers", "docker", "compose", "orchestration", "multi-container", "yaml"]
 category: "infrastructure"
-tags: ["containers", "docker", "orchestration", "multi-container", "development", "deployment", "yaml"]
+difficulty: "intermediate"
+last_updated: "2026-08-01"
 ---
 
 Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application's services, networks, and volumes. Then, with a single command, you create and start all the services from your configuration.
@@ -20,8 +22,10 @@ Docker Compose is a tool for defining and running multi-container Docker applica
 - [Networks](#networks)
 - [Volumes](#volumes)
 - [Environment Variables](#environment-variables)
+- [Development Workflow](#development-workflow)
 - [Multi-Environment Setup](#multi-environment-setup)
 - [Production Considerations](#production-considerations)
+- [Backup and Restore](#backup-and-restore)
 - [Monitoring and Logging](#monitoring-and-logging)
 - [Security Best Practices](#security-best-practices)
 - [Templates](#templates)
@@ -78,57 +82,56 @@ Docker Compose is a tool for defining and running multi-container Docker applica
 
 ## Installation
 
+Compose v2 is a CLI plugin, invoked as `docker compose`. It is not a separate `docker-compose`
+binary and does not need to be installed independently in most cases.
+
 ### Docker Desktop (Windows/Mac)
 
-Docker Compose is included with Docker Desktop:
+Included — nothing to install:
 
 ```bash
-# Verify installation
 docker compose version
 ```
 
-### Linux Installation
+### Linux
+
+Install the plugin package from Docker's repository, which is also what
+[Installing Docker](../install.md) does:
 
 ```bash
-# Download the latest stable release
-sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-# Make it executable
-sudo chmod +x /usr/local/bin/docker-compose
-
-# Create symbolic link (optional)
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
-# Verify installation
-docker-compose --version
-```
-
-### Using pip (Alternative)
-
-```bash
-# Install using pip
-pip install docker-compose
-
-# Verify installation
-docker-compose --version
-```
-
-### Using package managers
-
-```bash
-# Ubuntu/Debian
+# Debian/Ubuntu
 sudo apt-get update
-sudo apt-get install docker-compose
+sudo apt-get install -y docker-compose-plugin
 
-# CentOS/RHEL/Fedora
-sudo dnf install docker-compose
+# RHEL/CentOS/Fedora
+sudo dnf install -y docker-compose-plugin
 
-# Arch Linux
-sudo pacman -S docker-compose
-
-# macOS (Homebrew)
-brew install docker-compose
+# Verify
+docker compose version
 ```
+
+### Manual Install
+
+Only needed when you cannot use Docker's repository:
+
+```bash
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+mkdir -p "$DOCKER_CONFIG/cli-plugins"
+curl -fsSL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" \
+  -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
+chmod +x "$DOCKER_CONFIG/cli-plugins/docker-compose"
+
+docker compose version
+```
+
+Install to `/usr/local/lib/docker/cli-plugins` instead of `$HOME` to make it available to all
+users.
+
+> [!WARNING]
+> Do not install Compose v1 — the standalone `docker-compose` binary, or `pip install
+> docker-compose`, or the distribution's own `docker-compose` package. v1 reached end of life,
+> receives no updates, and does not support the current Compose Specification. Guides
+> recommending those methods predate Compose v2.
 
 ## Core Concepts
 
@@ -153,17 +156,15 @@ Profiles allow you to adjust your Compose application for different environments
 ### Basic Structure
 
 ```yaml
-# docker-compose.yml
-version: '3.8'  # Compose file format version
-
+# compose.yaml
 services:
   # Define your services here
   web:
     # Service configuration
-    
+
 networks:
   # Define custom networks (optional)
-  
+
 volumes:
   # Define named volumes (optional)
 
@@ -174,18 +175,34 @@ configs:
   # Define configs (optional)
 ```
 
-### Version Compatibility
+### File Name
 
-| Compose Version | Docker Engine | Features |
-|-----------------|---------------|----------|
-| 3.8 | 19.03.0+ | Latest features, init, device_cgroup_rules |
-| 3.7 | 18.06.0+ | External networks, secrets |
-| 3.6 | 18.02.0+ | tmpfs, init |
-| 3.5 | 17.12.0+ | Isolation, scale |
-| 3.4 | 17.09.0+ | pid, platform |
+Compose looks for `compose.yaml` first, then falls back to `docker-compose.yml`. Both work;
+`compose.yaml` is the name in the current specification and is preferred for new projects.
+Override with `-f`:
+
+```bash
+docker compose -f custom-name.yaml up -d
+```
+
+### The `version` Key Is Obsolete
+
+Older Compose files begin with `version: '3.8'`. That field belonged to the legacy v1 file
+formats and is **ignored** by Compose v2, which warns about it:
+
+```text
+the attribute `version` is obsolete, it will be ignored,
+please remove it to avoid potential confusion
+```
+
+Remove it. There is no compatibility benefit to keeping it — Compose v2 implements the
+[Compose Specification](https://compose-spec.io/), which is unversioned and feature-detects
+instead. Guides presenting a "3.4 / 3.6 / 3.8 feature matrix" describe a format that no longer
+governs behavior.
 
 > [!TIP]
-> Use the latest version (3.8+) for new projects to access all features.
+> `docker compose config` renders the fully resolved file — the fastest way to see what
+> Compose actually parsed, including variable substitution and merged override files.
 
 ## Services Configuration
 
@@ -612,14 +629,118 @@ export DB_NAME=myapp
 export HOST_DATA_PATH=/opt/myapp/data
 ```
 
+## Development Workflow
+
+Compose v2 added features aimed squarely at the edit-reload loop. They are absent from most
+older material, which still reaches for bind mounts and manual `restart` for everything.
+
+### File Watching
+
+`docker compose watch` monitors the project and reacts per-path, rather than mounting the
+source tree and hoping the process notices:
+
+```yaml
+services:
+  web:
+    build: .
+    develop:
+      watch:
+        # Copy changed files straight into the running container
+        - action: sync
+          path: ./src
+          target: /app/src
+          ignore:
+            - node_modules/
+
+        # Dependency manifest changed — rebuild the image
+        - action: rebuild
+          path: ./package.json
+
+        # Copy, then restart the container
+        - action: sync+restart
+          path: ./config/nginx.conf
+          target: /etc/nginx/nginx.conf
+```
+
+```bash
+docker compose watch
+
+# Or run the stack and watch together
+docker compose up --watch
+```
+
+| Action | Behavior |
+|--------|----------|
+| `sync` | Copy changed files into the container. Fastest; needs an app that hot-reloads. |
+| `rebuild` | Rebuild the image and recreate the container. |
+| `sync+restart` | Copy, then restart the container — for config a process reads at startup. |
+| `sync+exec` | Copy, then run a command in the container (e.g. a migration). |
+
+`sync` avoids the bind-mount performance penalty on Docker Desktop entirely, which is its
+main advantage over the traditional approach — see
+[I/O Performance](../storage.md#io-performance).
+
+### Composing Files with `include`
+
+`include` pulls in another Compose file as a unit, which beats a sprawl of `-f` flags when
+several teams or subsystems each own a file:
+
+```yaml
+include:
+  - path: ./infra/compose.yaml
+  - path: ./services/api/compose.yaml
+  - path: ./services/worker/compose.yaml
+
+services:
+  gateway:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+```
+
+With env-file scoping and project directory control:
+
+```yaml
+include:
+  - path: ./services/api/compose.yaml
+    project_directory: ./services/api
+    env_file: ./services/api/.env
+```
+
+`include` differs from `-f` overrides in an important way: each included file is resolved
+**independently**, with its own relative paths and variables, then merged. Multiple `-f`
+files are merged first and resolved once, so relative paths in them are interpreted against
+the first file's directory. `include` is what you want for genuinely separate components;
+`-f` for layering environment overrides on one application.
+
+### Lifecycle Hooks
+
+`post_start` and `pre_stop` run commands at container transitions — useful for fixing
+permissions on a mount, or draining connections before shutdown:
+
+```yaml
+services:
+  app:
+    image: myapp:latest
+    volumes:
+      - appdata:/var/lib/app
+    post_start:
+      - command: chown -R app:app /var/lib/app
+        user: root
+    pre_stop:
+      - command: /app/bin/drain --timeout 20s
+```
+
+`post_start` hooks run without blocking startup, so do not treat them as an initialization
+barrier — use a [health check](#health-monitoring) plus `depends_on: condition:
+service_healthy` when ordering actually matters.
+
 ## Multi-Environment Setup
 
 ### Environment-Specific Files
 
 ```yaml
 # docker-compose.yml (base configuration)
-version: '3.8'
-
 services:
   app:
     image: myapp:latest
@@ -636,8 +757,6 @@ networks:
 
 ```yaml
 # docker-compose.override.yml (development overrides)
-version: '3.8'
-
 services:
   app:
     build: .
@@ -669,8 +788,6 @@ volumes:
 
 ```yaml
 # docker-compose.prod.yml (production overrides)
-version: '3.8'
-
 services:
   app:
     restart: unless-stopped
@@ -764,8 +881,6 @@ docker compose --profile core --profile admin --profile monitoring --profile deb
 ### Production-Ready Configuration
 
 ```yaml
-version: '3.8'
-
 services:
   app:
     image: myapp:${APP_VERSION}
@@ -970,6 +1085,146 @@ docker compose -f docker-compose.yml -f docker-compose.green.yml up -d
 # Switch traffic to green
 ```
 
+### Updating Running Services
+
+> [!TIP]
+> Pin images to specific tags in your Compose file. This prevents surprise failures from automatic updates and keeps deployments consistent across environments.
+
+Update every service in the stack:
+
+```bash
+# Pull the latest images
+docker compose pull
+
+# Record current state for reference
+docker compose ps > containers_backup.txt
+
+# Recreate containers with the new images
+docker compose up --force-recreate --build -d
+
+# Verify services are running
+docker compose ps
+
+# Reclaim space from superseded images
+docker image prune -f
+```
+
+Update a single service without disturbing its dependencies:
+
+```bash
+docker compose pull service_name
+docker compose up -d --no-deps service_name
+
+# Force recreate a single service
+docker compose up -d --force-recreate service_name
+```
+
+### Safe Update with Automatic Rollback
+
+This wrapper validates the configuration, waits for health, and restores the previous
+Compose file if any service exits during the update window.
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+# Back up the current compose file
+cp docker-compose.yml docker-compose.yml.backup
+
+# Pull new images and validate configuration before touching anything
+docker compose pull
+docker compose config >/dev/null
+
+# Update, then wait for health checks to settle
+docker compose up -d --remove-orphans --wait --wait-timeout 60
+
+# Roll back if any service exited
+if docker compose ps --status exited --quiet | grep -q .; then
+    echo "Some services failed, rolling back..."
+    docker compose down
+    mv docker-compose.yml.backup docker-compose.yml
+    docker compose up -d
+    exit 1
+fi
+
+echo "Update successful!"
+rm -f docker-compose.yml.backup
+docker image prune -f
+```
+
+## Backup and Restore
+
+A complete backup captures three things: the database contents, the Compose configuration
+that defines the stack, and the named volumes holding persistent data.
+
+### Backup Strategy
+
+```bash
+#!/bin/bash
+# backup-compose.sh
+set -euo pipefail
+
+DATE=$(date +%Y%m%d_%H%M%S)
+BACKUP_DIR="./backups/$DATE"
+mkdir -p "$BACKUP_DIR"
+
+# Dump the database
+docker compose exec -T db pg_dump -U user myapp > "$BACKUP_DIR/database.sql"
+
+# Preserve the configuration that defines the stack
+cp docker-compose.yml "$BACKUP_DIR/"
+cp .env "$BACKUP_DIR/" 2>/dev/null || true
+
+# Archive named volumes
+docker run --rm \
+    -v project_db_data:/data:ro \
+    -v "$(pwd)/$BACKUP_DIR":/backup \
+    alpine tar czf /backup/volumes.tar.gz -C /data .
+
+echo "Backup completed: $BACKUP_DIR"
+```
+
+> [!IMPORTANT]
+> Volume names are prefixed with the project name (the directory name by default). Confirm
+> the real name with `docker volume ls` before relying on the archive step.
+
+### Restore Process
+
+```bash
+#!/bin/bash
+# restore-compose.sh
+set -euo pipefail
+
+BACKUP_DIR=${1:-}
+
+if [ -z "$BACKUP_DIR" ]; then
+    echo "Usage: $0 <backup_directory>"
+    exit 1
+fi
+
+# Stop the stack before replacing configuration
+docker compose down
+
+# Restore configuration
+cp "$BACKUP_DIR/docker-compose.yml" .
+cp "$BACKUP_DIR/.env" . 2>/dev/null || true
+
+# Bring the database up first and wait for it to accept connections
+docker compose up -d --wait db
+
+# Restore the dump
+docker compose exec -T db psql -U user myapp < "$BACKUP_DIR/database.sql"
+
+# Start the remaining services
+docker compose up -d
+
+echo "Restore completed from: $BACKUP_DIR"
+```
+
+> [!WARNING]
+> Restoring overwrites the live database. Take a fresh backup before running this against
+> a production stack.
+
 ## Monitoring and Logging
 
 ### Centralized Logging
@@ -1023,8 +1278,6 @@ volumes:
 
 ```yaml
 # monitoring-stack.yml
-version: '3.8'
-
 services:
   prometheus:
     image: prom/prometheus:latest
@@ -1276,8 +1529,6 @@ Docker Compose templates for common application architectures and development sc
 ### Full-Stack Application
 
 ```yaml
-version: '3.8'
-
 services:
   # Frontend
   frontend:
@@ -1370,8 +1621,6 @@ volumes:
 ### Microservices Architecture
 
 ```yaml
-version: '3.8'
-
 services:
   # API Gateway
   gateway:
@@ -1490,8 +1739,6 @@ volumes:
 
 ```yaml
 # docker-compose.dev.yml
-version: '3.8'
-
 services:
   app:
     build:

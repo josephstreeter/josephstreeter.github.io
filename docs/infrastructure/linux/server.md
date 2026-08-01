@@ -332,36 +332,57 @@ GRANT ALL PRIVILEGES ON DATABASE app_db TO appuser;
 
 ### Docker Installation
 
+Full instructions, including the derivative-safe repository detection and the RPM-based
+distributions, are in [Installing Docker](../docker/install.md). The short version for
+Ubuntu and Debian:
+
 ```bash
-# Install Docker
-sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
 
-# Add Docker repository
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# Docker publishes repositories for "ubuntu" and "debian" only
+. /etc/os-release
+DISTRO="$ID"; CODENAME="$VERSION_CODENAME"
 
-# Install Docker
-sudo apt update
-sudo apt install -y docker-ce
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL "https://download.docker.com/linux/$DISTRO/gpg" \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
-# Add user to docker group
-sudo usermod -aG docker $USER
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+https://download.docker.com/linux/$DISTRO $CODENAME stable" \
+  | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Enable Docker service
-sudo systemctl enable docker
-sudo systemctl start docker
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io \
+    docker-buildx-plugin docker-compose-plugin
+
+sudo usermod -aG docker "$USER"
+sudo systemctl enable --now docker
 ```
+
+> [!NOTE]
+> `apt-key` is deprecated and has been removed from current Debian and Ubuntu releases. Keys
+> belong in `/etc/apt/keyrings/` and are bound to a repository with `signed-by=`, as above.
 
 ### Docker Compose
 
-```bash
-# Install Docker Compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+Compose v2 is a CLI plugin invoked as `docker compose`, and is installed from Docker's
+repository alongside the engine:
 
-# Example docker-compose.yml
-version: '3.8'
+```bash
+# Debian/Ubuntu
+sudo apt-get install -y docker-compose-plugin
+
+# RHEL/CentOS/Fedora
+sudo dnf install -y docker-compose-plugin
+
+# Verify
+docker compose version
+```
+
+```yaml
+# Example compose.yaml
 services:
   web:
     image: nginx:alpine

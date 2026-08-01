@@ -75,4 +75,4 @@ flowchart LR
 - [MySQL](../mysql/index.md) — the database backend (MariaDB is a drop-in alternative)
 - [Apache](../apache/index.md) / [Nginx](../nginx/index.md) — reverse proxy and TLS in front of iTop
 - [ACME / Let's Encrypt](../../../security/certificates/acme/index.md) — certificates for the portal
-- [Docker](../docker/index.md)
+- [Docker](../../docker/index.md)

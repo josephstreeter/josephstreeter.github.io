@@ -207,10 +207,20 @@ AMD GPUs with ROCm support provide an alternative to NVIDIA, though with less ec
 
 ```bash
 # ROCm installation (Ubuntu/Debian)
-wget -qO - https://repo.radeon.com/rocm/rocm.gpg.key | sudo apt-key add -
-echo 'deb [arch=amd64] https://repo.radeon.com/rocm/apt/5.7/ ubuntu main' | sudo tee /etc/apt/sources.list.d/rocm.list
-sudo apt update
-sudo apt install rocm-dev rocm-libs rccl
+sudo apt-get update
+sudo apt-get install -y wget gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+
+wget -qO - https://repo.radeon.com/rocm/rocm.gpg.key \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/rocm.gpg
+sudo chmod a+r /etc/apt/keyrings/rocm.gpg
+
+# Check https://repo.radeon.com/rocm/apt/ for the current release before pinning
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/5.7/ ubuntu main" \
+  | sudo tee /etc/apt/sources.list.d/rocm.list
+
+sudo apt-get update
+sudo apt-get install -y rocm-dev rocm-libs rccl
 
 # Environment setup
 export HSA_OVERRIDE_GFX_VERSION=11.0.0  # For RX 7000 series

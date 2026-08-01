@@ -161,7 +161,7 @@ EOF
 Start the service:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### Method 2: Native Installation on Linux

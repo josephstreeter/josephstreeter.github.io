@@ -223,18 +223,18 @@ http:
 
 ```bash
 # Start services
-docker-compose up -d
+docker compose up -d
 
 # Monitor logs
-docker-compose logs -f homeassistant
+docker compose logs -f homeassistant
 
 # Check service health
-docker-compose ps
+docker compose ps
 
 # Update containers
-docker-compose pull
-docker-compose down
-docker-compose up -d --force-recreate
+docker compose pull
+docker compose down
+docker compose up -d --force-recreate
 
 # Clean up unused images
 docker image prune -f
@@ -316,27 +316,27 @@ http {
 
 ```bash
 # Check container logs
-docker-compose logs homeassistant
+docker compose logs homeassistant
 
 # Check container health
-docker-compose ps
+docker compose ps
 docker inspect homeassistant | grep Health
 
 # Check resource usage
 docker stats homeassistant
 
 # Check file permissions
-docker-compose exec homeassistant ls -la /config
+docker compose exec homeassistant ls -la /config
 
 # Restart service
-docker-compose restart homeassistant
+docker compose restart homeassistant
 ```
 
 ### Configuration Validation
 
 ```bash
 # Check Home Assistant configuration
-docker-compose exec homeassistant python -m homeassistant --script check_config --config /config
+docker compose exec homeassistant python -m homeassistant --script check_config --config /config
 ```
 
 For complete stack deployment with MQTT and Zigbee integration, see the [main deployment guide](index.md).

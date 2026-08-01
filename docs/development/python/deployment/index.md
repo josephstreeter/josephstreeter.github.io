@@ -545,7 +545,7 @@ docker logs -f myproject
 docker exec -it myproject python manage.py migrate
 
 # Clean up
-docker-compose down -v
+docker compose down -v
 docker system prune -a
 ```
 

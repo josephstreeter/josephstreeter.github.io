@@ -140,7 +140,7 @@ Distributed tracing and request-level telemetry (latency, error rate, dependenci
 
 ### Container and Kubernetes Monitoring
 
-- **Docker** — container and host metrics via cAdvisor and Node Exporter. See [Docker monitoring](../containers/docker/monitoring.md).
+- **Docker** — container and host metrics via cAdvisor and Node Exporter. See [Docker monitoring](../docker/monitoring.md).
 - **Kubernetes** — the kube-prometheus-stack (Prometheus Operator) is the standard, adding kube-state-metrics and service discovery. See [Kubernetes monitoring](../containers/kubernetes/monitoring.md).
 
 ## Best Practices
@@ -212,6 +212,6 @@ For less critical targets, raise `scrape_interval`/`evaluation_interval` in `pro
 - **[Alertmanager](alertmanager/index.md)** - Alert routing and notification management
 - **[Grafana](grafana/index.md)** - Dashboards, configuration, security, exporters, alerting, HA, and backup
 - **[Azure Monitor](azure-monitor/index.md)** - The managed alternate stack: data collection, Azure Alerts, and visualization
-- **[Container Monitoring](../containers/docker/monitoring.md)** - Docker-specific monitoring
+- **[Container Monitoring](../docker/monitoring.md)** - Docker-specific monitoring
 - **[Kubernetes Monitoring](../containers/kubernetes/monitoring.md)** - K8s cluster monitoring
 - **[Infrastructure Security](../security/index.md)** - Securing monitoring infrastructure

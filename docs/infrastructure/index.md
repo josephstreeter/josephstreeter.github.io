@@ -264,7 +264,7 @@ Deploy Prometheus and Grafana monitoring:
 # Using Docker Compose
 git clone https://github.com/prometheus/prometheus
 cd prometheus/documentation/examples/prometheus-grafana
-docker-compose up -d
+docker compose up -d
 
 # Access Grafana at http://localhost:3000 (admin/admin)
 ```

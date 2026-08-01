@@ -4,8 +4,6 @@
   href: asterisk/toc.yml
 - name: Authentik
   href: authentik/toc.yml
-- name: Docker
-  href: docker/toc.yml
 - name: iTop ITSM / CMDB
   href: itop/toc.yml
 - name: Kubernetes

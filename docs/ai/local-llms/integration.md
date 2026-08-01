@@ -1047,7 +1047,7 @@ services:
 EOF
 
 # Start services
-docker-compose up -d
+docker compose up -d
 ```
 
 **Systemd Service Setup:**

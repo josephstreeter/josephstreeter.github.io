@@ -568,7 +568,7 @@ volumes:
   
   "onCreateCommand": {
     "install-deps": "npm install",
-    "setup-db": "docker-compose up -d db && sleep 10 && npm run db:migrate"
+    "setup-db": "docker compose up -d db && sleep 10 && npm run db:migrate"
   },
   
   "postStartCommand": "npm run dev",
@@ -1041,22 +1041,22 @@ jobs:
         EOF
     
     - name: Start services
-      run: docker-compose -f docker-compose.test.yml up -d
+      run: docker compose -f docker-compose.test.yml up -d
     
     - name: Wait for services
       run: |
-        timeout 60 bash -c 'until docker-compose -f docker-compose.test.yml exec -T api curl -f http://localhost:3000/health; do sleep 2; done'
+        timeout 60 bash -c 'until docker compose -f docker-compose.test.yml exec -T api curl -f http://localhost:3000/health; do sleep 2; done'
     
     - name: Run integration tests
-      run: docker-compose -f docker-compose.test.yml exec -T api npm run test:integration
+      run: docker compose -f docker-compose.test.yml exec -T api npm run test:integration
     
     - name: Collect logs
       if: failure()
-      run: docker-compose -f docker-compose.test.yml logs
+      run: docker compose -f docker-compose.test.yml logs
     
     - name: Cleanup
       if: always()
-      run: docker-compose -f docker-compose.test.yml down -v
+      run: docker compose -f docker-compose.test.yml down -v
 ```
 
 ### Helm Chart Testing

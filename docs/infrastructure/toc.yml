@@ -24,6 +24,8 @@
     href: proxmox/index.md
   - name: Containers
     href: containers/toc.yml
+  - name: Docker
+    href: docker/toc.yml
   - name: Ansible
     href: ansible/toc.yml
   - name: Terraform

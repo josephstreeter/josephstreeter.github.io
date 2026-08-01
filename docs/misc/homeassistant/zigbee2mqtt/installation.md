@@ -89,13 +89,13 @@ ls -la /dev/ttyUSB0
 
 ```bash
 # Start containers
-docker-compose up -d
+docker compose up -d
 
 # Check logs
-docker-compose logs -f zigbee2mqtt
+docker compose logs -f zigbee2mqtt
 
 # Verify container status
-docker-compose ps
+docker compose ps
 ```
 
 ## Method 2: Native Installation on Raspberry Pi
@@ -336,10 +336,10 @@ sudo cat /sys/bus/usb-serial/devices/ttyUSB0/../../product
 
 ```bash
 # Pull latest image
-docker-compose pull
+docker compose pull
 
 # Restart with new image
-docker-compose up -d
+docker compose up -d
 
 # Cleanup old images
 docker image prune

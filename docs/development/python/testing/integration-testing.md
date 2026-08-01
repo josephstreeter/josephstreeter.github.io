@@ -1100,9 +1100,9 @@ services:
 Run tests with:
 
 ```bash
-docker-compose -f docker-compose.test.yml up -d
+docker compose -f docker-compose.test.yml up -d
 pytest tests/integration/
-docker-compose -f docker-compose.test.yml down
+docker compose -f docker-compose.test.yml down
 ```
 
 ## Best Practices

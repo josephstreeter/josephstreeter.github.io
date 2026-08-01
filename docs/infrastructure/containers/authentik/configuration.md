@@ -25,8 +25,8 @@ ms.date: 2026-07-17
 
    ```bash
    # Get default admin credentials
-   docker-compose exec authentik-server ak create_admin_group
-   docker-compose exec authentik-server ak create_admin_user
+   docker compose exec authentik-server ak create_admin_group
+   docker compose exec authentik-server ak create_admin_user
    ```
 
 #### Core Configuration Steps
