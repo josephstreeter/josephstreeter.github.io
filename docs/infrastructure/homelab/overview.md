@@ -13,24 +13,24 @@ A comprehensive home lab environment designed for learning, development, and exp
 
 ### 🏗️ **Architecture & Design**
 
-- [**Architecture Overview**](architecture/overview.md) - Complete system architecture and design principles
-- [**Network Topology**](architecture/network-topology.md) - Network design and segmentation
+- [**Architecture Overview**](architecture.md) - Complete system architecture and design principles
+- [**Network Topology**](network-topology.md) - Network design and segmentation
 
 ### 🖥️ **Physical Infrastructure**
 
-- [**Hardware Requirements & Setup**](hardware/requirements.md) - Mini-PC cluster, network equipment, and setup guide
+- [**Hardware Requirements & Setup**](hardware.md) - Mini-PC cluster, network equipment, and setup guide
 
 ### ⚙️ **Core Services**
 
-- [**DNS Configuration**](services/dns-configuration.md) - BIND9 DNS setup with high availability and security
+- [**DNS Configuration**](dns.md) - BIND9 DNS setup with high availability and security
 
 ### 🚀 **Infrastructure as Code**
 
-- [**Configuration Management**](iac/configuration.md) - Terraform and Ansible automation with CI/CD pipelines
+- [**Configuration Management**](infrastructure-as-code.md) - Terraform and Ansible automation with CI/CD pipelines
 
 ### 📊 **Monitoring & Security**
 
-- [**Monitoring Stack Overview**](monitoring/overview.md) - Prometheus, Grafana, Loki, and Alertmanager setup
+- [**Monitoring Stack Overview**](monitoring.md) - Prometheus, Grafana, Loki, and Alertmanager setup
 
 ## 🏠 **Home Lab Philosophy**
 
@@ -172,10 +172,10 @@ Proxmox Cluster (4 Nodes)
 
 ### Quick Start Guide
 
-1. **[Hardware Setup](hardware/requirements.md)** - Physical infrastructure planning and setup
-2. **[Network Design](architecture/network-topology.md)** - Network segmentation and security
-3. **[DNS Configuration](services/dns-configuration.md)** - Essential service deployment
-4. **[Monitoring Setup](monitoring/overview.md)** - Observability and alerting
+1. **[Hardware Setup](hardware.md)** - Physical infrastructure planning and setup
+2. **[Network Design](network-topology.md)** - Network segmentation and security
+3. **[DNS Configuration](dns.md)** - Essential service deployment
+4. **[Monitoring Setup](monitoring.md)** - Observability and alerting
 
 ## 📚 **Learning Objectives**
 

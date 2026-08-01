@@ -12,7 +12,8 @@
   href: gitignore.md
 - name: Patterns
   href: patterns.md
-- name: Examples
+- name: Solutions
+  href: solutions/index.md
   items:
     - name: Active Directory Forest (Azure)
       href: solutions/active-directory-forest-azure.md
