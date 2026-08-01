@@ -1,4 +1,5 @@
 - name: Home Assistant
+  href: index.md
   items:
     - name: Overview
       href: homeassistant/index.md

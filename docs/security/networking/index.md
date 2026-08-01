@@ -8,6 +8,12 @@ tags: [network, security, firewall, monitoring, intrusion-detection]
 
 Network security involves protecting the integrity, confidentiality, and availability of computer networks and their data. This guide covers essential network security concepts, tools, and best practices for securing network infrastructure.
 
+> [!NOTE]
+> This page covers network security concepts and practice. For securing network
+> **infrastructure devices** — switch and router hardening, segmentation, and access control
+> in the context of the network build — see
+> [Network Infrastructure Security](../../infrastructure/networking/security/index.md).
+
 ## Network Security Fundamentals
 
 ### Network Security Architecture

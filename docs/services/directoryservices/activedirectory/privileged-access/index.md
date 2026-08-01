@@ -911,7 +911,7 @@ function Get-PrivilegedAccountRiskAssessment
 ## Related Topics
 
 - [Active Directory Security](../security/index.md)
-- [Active Directory Monitoring](../configuration/ad-monitoring.md)
+- [Active Directory Monitoring](../operations/monitoring-and-alerting.md)
 - [Group Policy Management](../fundamentals/group-policy.md)
 - [Infrastructure Security](../../../../infrastructure/security/index.md)
 - [Identity and Access Management](../../../../infrastructure/security/iam/index.md)

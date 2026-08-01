@@ -41,7 +41,7 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 
 ### **Security and Configuration**
 
-- **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
+- **[Security Best Practices](security/index.md)** - Hardening guidelines
 - **[Directory Services Configuration](configuration/directory-services-configuration.md)** - Service settings
 - **[Group Policy](fundamentals/group-policy.md)** - Centralized configuration management
 - **[Delegation](operations/delegation.md)** - Administrative permissions
@@ -82,11 +82,11 @@ Microsoft Active Directory (AD) is a directory service that provides centralized
 2. Learn [Domain Controllers](./fundamentals/domain-controllers.md) deployment and management
 3. Master [User Objects](./objects-management/user-objects.md) and [Group Objects](objects-management/group-objects.md)
 4. Implement [Group Policy](./fundamentals/group-policy.md) for configuration management
-5. Apply [Security Best Practices](./security-best-practices.md)
+5. Apply [Security Best Practices](security/index.md)
 
 ### **For Security Professionals**
 
-1. Review [Security Best Practices](./security-best-practices.md)
+1. Review [Security Best Practices](security/index.md)
 2. Implement [Privileged Account Management](./objects-management/privileged-accounts.md)
 3. Configure [LDAP Channel Binding](./operations/ldap-channel-binding-and-ldap-signing.md)
 4. Set up [Monitoring and Logging](./operations/monitoring-and-alerting.md)

@@ -129,19 +129,30 @@ In multi-domain environments, strategic placement is critical:
 Use PowerShell to identify current FSMO role holders:
 
 ```powershell
-# View all FSMO roles in the forest
-function Get-FSMORoles {
+<#
+.SYNOPSIS
+    Retrieves and displays all FSMO role holders in the forest.
+.DESCRIPTION
+    This function displays forest-wide and domain-specific FSMO role holders
+    with color-coded output for easy identification.
+.EXAMPLE
+    Get-FSMORoles
+    Displays all FSMO role holders in the current forest.
+#>
+function Get-FSMORoles
+{
     Write-Host "Forest-wide FSMO Roles:" -ForegroundColor Green
-    $forest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
-    Write-Host "Schema Master: $($forest.SchemaRoleOwner)" -ForegroundColor Yellow
-    Write-Host "Domain Naming Master: $($forest.NamingRoleOwner)" -ForegroundColor Yellow
+    $Forest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+    Write-Host "Schema Master: $($Forest.SchemaRoleOwner)" -ForegroundColor Yellow
+    Write-Host "Domain Naming Master: $($Forest.NamingRoleOwner)" -ForegroundColor Yellow
     
     Write-Host "`nDomain-specific FSMO Roles:" -ForegroundColor Green
-    foreach ($domain in $forest.Domains) {
-        Write-Host "Domain: $($domain.Name)" -ForegroundColor Cyan
-        Write-Host "  PDC Emulator: $($domain.PdcRoleOwner)" -ForegroundColor Yellow
-        Write-Host "  RID Master: $($domain.RidRoleOwner)" -ForegroundColor Yellow
-        Write-Host "  Infrastructure Master: $($domain.InfrastructureRoleOwner)" -ForegroundColor Yellow
+    foreach ($Domain in $Forest.Domains)
+    {
+        Write-Host "Domain: $($Domain.Name)" -ForegroundColor Cyan
+        Write-Host "  PDC Emulator: $($Domain.PdcRoleOwner)" -ForegroundColor Yellow
+        Write-Host "  RID Master: $($Domain.RidRoleOwner)" -ForegroundColor Yellow
+        Write-Host "  Infrastructure Master: $($Domain.InfrastructureRoleOwner)" -ForegroundColor Yellow
     }
 }
 
@@ -168,22 +179,39 @@ Get-ADDomain | Select-Object PDCEmulator, RIDMaster, InfrastructureMaster
 **Transfer roles when the current holder is online and healthy:**
 
 ```powershell
-# Transfer using PowerShell (Windows Server 2012+)
-function Transfer-FSMORoles {
+<#
+.SYNOPSIS
+    Transfers FSMO roles to a target domain controller.
+.DESCRIPTION
+    This function gracefully transfers specified FSMO roles to a target domain controller
+    when the current role holder is online and healthy.
+.PARAMETER TargetDC
+    The fully qualified domain name of the target domain controller.
+.PARAMETER Roles
+    Array of FSMO roles to transfer. Valid values: SchemaRole, NamingRole, PDCRole, RIDRole, InfrastructureRole.
+.EXAMPLE
+    Transfer-FSMORoles -TargetDC "DC02.contoso.com" -Roles @("PDCRole", "RIDRole")
+    Transfers PDC Emulator and RID Master roles to DC02.
+#>
+function Transfer-FSMORoles
+{
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$TargetDC,
         [string[]]$Roles
     )
     
     # Available roles: SchemaRole, NamingRole, PDCRole, RIDRole, InfrastructureRole
-    foreach ($role in $Roles) {
-        try {
-            Move-ADDirectoryServerOperationMasterRole -Identity $TargetDC -OperationMasterRole $role -Force
-            Write-Host "Successfully transferred $role to $TargetDC" -ForegroundColor Green
+    foreach ($Role in $Roles)
+    {
+        try
+        {
+            Move-ADDirectoryServerOperationMasterRole -Identity $TargetDC -OperationMasterRole $Role -Force
+            Write-Host "Successfully transferred $Role to $TargetDC" -ForegroundColor Green
         }
-        catch {
-            Write-Error "Failed to transfer $role to $TargetDC`: $($_.Exception.Message)"
+        catch
+        {
+            Write-Error "Failed to transfer $Role to $TargetDC`: $($_.Exception.Message)"
         }
     }
 }
@@ -215,33 +243,53 @@ dsa.msc  # Active Directory Users and Computers
 > Role seizure should only be performed when the current role holder is permanently offline and will never return to the network. Improper seizure can cause replication conflicts.
 
 ```powershell
-# Seize roles using ntdsutil
-function Seize-FSMORoles {
+<#
+.SYNOPSIS
+    Forcibly seizes FSMO roles when the current holder is permanently offline.
+.DESCRIPTION
+    This function seizes FSMO roles using ntdsutil when graceful transfer is not possible.
+    Should only be used when the current role holder is permanently offline.
+.PARAMETER TargetDC
+    The fully qualified domain name of the target domain controller to seize roles to.
+.PARAMETER Roles
+    Array of FSMO roles to seize.
+.EXAMPLE
+    Seize-FSMORoles -TargetDC "DC02.contoso.com" -Roles @("pdc", "rid master")
+    Seizes PDC and RID Master roles to DC02.
+.NOTES
+    WARNING: Only use when the current role holder will never return to the network.
+#>
+function Seize-FSMORoles
+{
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$TargetDC,
         [string[]]$Roles
     )
     
     Write-Warning "CAUTION: Only seize roles if the current holder is permanently offline!"
-    $confirmation = Read-Host "Type 'CONFIRM' to proceed with role seizure"
+    $Confirmation = Read-Host "Type 'CONFIRM' to proceed with role seizure"
     
-    if ($confirmation -eq "CONFIRM") {
-        foreach ($role in $Roles) {
-            $ntdsutilCmd = @"
+    if ($Confirmation -eq "CONFIRM")
+    {
+        foreach ($Role in $Roles)
+        {
+            $NtdsutilCmd = @"
 ntdsutil
 roles
 connections
 connect to server $TargetDC
 quit
-seize $role
+seize $Role
 quit
 quit
 "@
-            Write-Host "Seizing $role on $TargetDC..." -ForegroundColor Yellow
-            $ntdsutilCmd | cmd
+            Write-Host "Seizing $Role on $TargetDC..." -ForegroundColor Yellow
+            $NtdsutilCmd | cmd
         }
-    } else {
+    }
+    else
+    {
         Write-Host "Operation cancelled" -ForegroundColor Red
     }
 }
@@ -268,24 +316,38 @@ quit
 ### FSMO Role Health Monitoring
 
 ```powershell
-# Comprehensive FSMO health check script
-function Test-FSMOHealth {
-    $report = @()
-    $forest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
+<#
+.SYNOPSIS
+    Performs comprehensive FSMO role health check.
+.DESCRIPTION
+    This function tests the availability and health of all FSMO role holders
+    in the forest and returns a detailed status report.
+.EXAMPLE
+    Test-FSMOHealth
+    Returns health status of all FSMO role holders.
+.NOTES
+    Exports results to CSV file in C:\Reports directory.
+#>
+function Test-FSMOHealth
+{
+    $Report = @()
+    $Forest = [System.DirectoryServices.ActiveDirectory.Forest]::GetCurrentForest()
     
     # Test Schema Master
-    try {
-        $schemaMaster = $forest.SchemaRoleOwner
-        $schemaTest = Test-NetConnection -ComputerName $schemaMaster.Name -Port 389 -WarningAction SilentlyContinue
-        $report += [PSCustomObject]@{
+    try
+    {
+        $SchemaMaster = $Forest.SchemaRoleOwner
+        $SchemaTest = Test-NetConnection -ComputerName $SchemaMaster.Name -Port 389 -WarningAction SilentlyContinue
+        $Report += [PSCustomObject]@{
             Role = "Schema Master"
-            Server = $schemaMaster.Name
-            Status = if ($schemaTest.TcpTestSucceeded) { "Online" } else { "Offline" }
+            Server = $SchemaMaster.Name
+            Status = if ($SchemaTest.TcpTestSucceeded) { "Online" } else { "Offline" }
             LastCheck = Get-Date
         }
     }
-    catch {
-        $report += [PSCustomObject]@{
+    catch
+    {
+        $Report += [PSCustomObject]@{
             Role = "Schema Master"
             Server = "Unknown"
             Status = "Error"
@@ -294,18 +356,20 @@ function Test-FSMOHealth {
     }
     
     # Test Domain Naming Master
-    try {
-        $namingMaster = $forest.NamingRoleOwner
-        $namingTest = Test-NetConnection -ComputerName $namingMaster.Name -Port 389 -WarningAction SilentlyContinue
-        $report += [PSCustomObject]@{
+    try
+    {
+        $NamingMaster = $Forest.NamingRoleOwner
+        $NamingTest = Test-NetConnection -ComputerName $NamingMaster.Name -Port 389 -WarningAction SilentlyContinue
+        $Report += [PSCustomObject]@{
             Role = "Domain Naming Master"
-            Server = $namingMaster.Name
-            Status = if ($namingTest.TcpTestSucceeded) { "Online" } else { "Offline" }
+            Server = $NamingMaster.Name
+            Status = if ($NamingTest.TcpTestSucceeded) { "Online" } else { "Offline" }
             LastCheck = Get-Date
         }
     }
-    catch {
-        $report += [PSCustomObject]@{
+    catch
+    {
+        $Report += [PSCustomObject]@{
             Role = "Domain Naming Master"
             Server = "Unknown"
             Status = "Error"
@@ -314,20 +378,23 @@ function Test-FSMOHealth {
     }
     
     # Test domain-specific roles
-    foreach ($domain in $forest.Domains) {
+    foreach ($Domain in $Forest.Domains)
+    {
         # PDC Emulator
-        try {
-            $pdcTest = Test-NetConnection -ComputerName $domain.PdcRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
-            $report += [PSCustomObject]@{
-                Role = "PDC Emulator ($($domain.Name))"
-                Server = $domain.PdcRoleOwner.Name
-                Status = if ($pdcTest.TcpTestSucceeded) { "Online" } else { "Offline" }
+        try
+        {
+            $PdcTest = Test-NetConnection -ComputerName $Domain.PdcRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
+            $Report += [PSCustomObject]@{
+                Role = "PDC Emulator ($($Domain.Name))"
+                Server = $Domain.PdcRoleOwner.Name
+                Status = if ($PdcTest.TcpTestSucceeded) { "Online" } else { "Offline" }
                 LastCheck = Get-Date
             }
         }
-        catch {
-            $report += [PSCustomObject]@{
-                Role = "PDC Emulator ($($domain.Name))"
+        catch
+        {
+            $Report += [PSCustomObject]@{
+                Role = "PDC Emulator ($($Domain.Name))"
                 Server = "Unknown"
                 Status = "Error"
                 LastCheck = Get-Date
@@ -335,18 +402,20 @@ function Test-FSMOHealth {
         }
         
         # RID Master
-        try {
-            $ridTest = Test-NetConnection -ComputerName $domain.RidRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
-            $report += [PSCustomObject]@{
-                Role = "RID Master ($($domain.Name))"
-                Server = $domain.RidRoleOwner.Name
-                Status = if ($ridTest.TcpTestSucceeded) { "Online" } else { "Offline" }
+        try
+        {
+            $RidTest = Test-NetConnection -ComputerName $Domain.RidRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
+            $Report += [PSCustomObject]@{
+                Role = "RID Master ($($Domain.Name))"
+                Server = $Domain.RidRoleOwner.Name
+                Status = if ($RidTest.TcpTestSucceeded) { "Online" } else { "Offline" }
                 LastCheck = Get-Date
             }
         }
-        catch {
-            $report += [PSCustomObject]@{
-                Role = "RID Master ($($domain.Name))"
+        catch
+        {
+            $Report += [PSCustomObject]@{
+                Role = "RID Master ($($Domain.Name))"
                 Server = "Unknown"
                 Status = "Error"
                 LastCheck = Get-Date
@@ -354,18 +423,20 @@ function Test-FSMOHealth {
         }
         
         # Infrastructure Master
-        try {
-            $infraTest = Test-NetConnection -ComputerName $domain.InfrastructureRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
-            $report += [PSCustomObject]@{
-                Role = "Infrastructure Master ($($domain.Name))"
-                Server = $domain.InfrastructureRoleOwner.Name
-                Status = if ($infraTest.TcpTestSucceeded) { "Online" } else { "Offline" }
+        try
+        {
+            $InfraTest = Test-NetConnection -ComputerName $Domain.InfrastructureRoleOwner.Name -Port 389 -WarningAction SilentlyContinue
+            $Report += [PSCustomObject]@{
+                Role = "Infrastructure Master ($($Domain.Name))"
+                Server = $Domain.InfrastructureRoleOwner.Name
+                Status = if ($InfraTest.TcpTestSucceeded) { "Online" } else { "Offline" }
                 LastCheck = Get-Date
             }
         }
-        catch {
-            $report += [PSCustomObject]@{
-                Role = "Infrastructure Master ($($domain.Name))"
+        catch
+        {
+            $Report += [PSCustomObject]@{
+                Role = "Infrastructure Master ($($Domain.Name))"
                 Server = "Unknown"
                 Status = "Error"
                 LastCheck = Get-Date
@@ -373,13 +444,13 @@ function Test-FSMOHealth {
         }
     }
     
-    return $report
+    return $Report
 }
 
 # Run health check and export results
-$healthReport = Test-FSMOHealth
-$healthReport | Format-Table -AutoSize
-$healthReport | Export-Csv -Path "C:\Reports\FSMO-Health-$(Get-Date -Format 'yyyyMMdd-HHmm').csv" -NoTypeInformation
+$HealthReport = Test-FSMOHealth
+$HealthReport | Format-Table -AutoSize
+$HealthReport | Export-Csv -Path "C:\Reports\FSMO-Health-$(Get-Date -Format 'yyyyMMdd-HHmm').csv" -NoTypeInformation
 ```
 
 ### Automated Monitoring with Scheduled Tasks
@@ -425,12 +496,26 @@ Register-ScheduledTask -TaskName "FSMO Health Check" -Action $taskAction -Trigge
 #### Scenario 1: Single FSMO Role Holder Failure
 
 ```powershell
-# Emergency role transfer procedure
-function Emergency-FSMOTransfer {
+<#
+.SYNOPSIS
+    Handles emergency FSMO role transfer procedures.
+.DESCRIPTION
+    This function determines whether to perform graceful transfer or role seizure
+    based on the availability of the current role holder.
+.PARAMETER FailedDC
+    The fully qualified domain name of the failed domain controller.
+.PARAMETER TargetDC
+    The fully qualified domain name of the target domain controller.
+.EXAMPLE
+    Emergency-FSMOTransfer -FailedDC "DC01.contoso.com" -TargetDC "DC02.contoso.com"
+    Evaluates DC01 status and determines appropriate transfer method to DC02.
+#>
+function Emergency-FSMOTransfer
+{
     param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$FailedDC,
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         [string]$TargetDC
     )
     
@@ -439,12 +524,15 @@ function Emergency-FSMOTransfer {
     Write-Host "Target DC: $TargetDC" -ForegroundColor Green
     
     # Check if failed DC is reachable
-    $dcTest = Test-NetConnection -ComputerName $FailedDC -Port 389 -WarningAction SilentlyContinue
+    $DcTest = Test-NetConnection -ComputerName $FailedDC -Port 389 -WarningAction SilentlyContinue
     
-    if ($dcTest.TcpTestSucceeded) {
+    if ($DcTest.TcpTestSucceeded)
+    {
         Write-Host "Source DC is reachable - performing graceful transfer" -ForegroundColor Green
         # Perform graceful transfer
-    } else {
+    }
+    else
+    {
         Write-Host "Source DC is unreachable - role seizure required" -ForegroundColor Red
         Write-Warning "Ensure the failed DC will NEVER return to the network before proceeding"
         # Perform role seizure
@@ -513,19 +601,23 @@ w32tm /monitor
 
 ```powershell
 # Check if Infrastructure Master is on a Global Catalog
-$infraMaster = (Get-ADDomain).InfrastructureMaster
-$isGC = (Get-ADDomainController -Identity $infraMaster).IsGlobalCatalog
+$InfraMaster = (Get-ADDomain).InfrastructureMaster
+$IsGC = (Get-ADDomainController -Identity $InfraMaster).IsGlobalCatalog
 
-if ($isGC) {
+if ($IsGC)
+{
     Write-Warning "Infrastructure Master is on a Global Catalog server!"
     
     # Check if ALL DCs in domain are GCs
-    $allDCs = Get-ADDomainController -Filter *
-    $allGCs = $allDCs | Where-Object {$_.IsGlobalCatalog -eq $true}
+    $AllDCs = Get-ADDomainController -Filter *
+    $AllGCs = $AllDCs | Where-Object { $_.IsGlobalCatalog -eq $true }
     
-    if ($allDCs.Count -eq $allGCs.Count) {
+    if ($AllDCs.Count -eq $AllGCs.Count)
+    {
         Write-Host "All DCs are GCs - configuration is acceptable" -ForegroundColor Green
-    } else {
+    }
+    else
+    {
         Write-Warning "Not all DCs are GCs - Infrastructure Master should be moved"
     }
 }
@@ -551,10 +643,10 @@ dcdiag /test:ridmanager /v
 
 # View current RID allocation
 Get-ADDomainController | ForEach-Object {
-    $ridInfo = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "RID Set References" -ErrorAction SilentlyContinue
+    $RidInfo = Get-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\NTDS\Parameters" -Name "RID Set References" -ErrorAction SilentlyContinue
     [PSCustomObject]@{
         DC = $_.Name
-        RIDInfo = $ridInfo
+        RIDInfo = $RidInfo
     }
 }
 ```
@@ -619,20 +711,33 @@ Restart-Service W32Time
 ### RID Master Optimization
 
 ```powershell
-# Monitor RID pool allocation
-function Get-RIDPoolStatus {
-    $ridMaster = (Get-ADDomain).RIDMaster
-    $computer = Get-ADComputer -Identity $ridMaster
+<#
+.SYNOPSIS
+    Monitors RID pool allocation status for domain controllers.
+.DESCRIPTION
+    This function retrieves RID pool allocation information from all domain controllers
+    to help monitor RID consumption and prevent pool depletion.
+.EXAMPLE
+    Get-RIDPoolStatus
+    Returns RID pool status for all domain controllers.
+.NOTES
+    Helps identify potential RID pool depletion issues before they occur.
+#>
+function Get-RIDPoolStatus
+{
+    $RidMaster = (Get-ADDomain).RIDMaster
+    $Computer = Get-ADComputer -Identity $RidMaster
     
     # Get RID allocation information
-    $ridSet = Get-ADObject -Filter {objectClass -eq "rIDSet"} -Properties rIDAllocationPool, rIDPreviousAllocationPool, rIDUsedPool
+    $RidSet = Get-ADObject -Filter { objectClass -eq "rIDSet" } -Properties rIDAllocationPool, rIDPreviousAllocationPool, rIDUsedPool
     
-    foreach ($rid in $ridSet) {
+    foreach ($Rid in $RidSet)
+    {
         [PSCustomObject]@{
-            DistinguishedName = $rid.DistinguishedName
-            AllocationPool = $rid.rIDAllocationPool
-            PreviousPool = $rid.rIDPreviousAllocationPool
-            UsedPool = $rid.rIDUsedPool
+            DistinguishedName = $Rid.DistinguishedName
+            AllocationPool = $Rid.rIDAllocationPool
+            PreviousPool = $Rid.rIDPreviousAllocationPool
+            UsedPool = $Rid.rIDUsedPool
         }
     }
 }

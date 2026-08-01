@@ -12,6 +12,8 @@
   href: objects-management/toc.yml
 - name: Security
   href: security/toc.yml
+- name: Privileged Access
+  href: privileged-access/index.md
 - name: Operations
   href: operations/toc.yml
 - name: Configuration

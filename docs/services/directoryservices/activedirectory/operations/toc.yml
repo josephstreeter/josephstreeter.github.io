@@ -44,3 +44,5 @@
   href: security-group-management-recommendations.md
 - name: Security Settings Applied for Domain Controllers
   href: security-settings-applied-for-domain-controllers.md
+- name: Backup and Restore
+  href: backup-and-restore.md

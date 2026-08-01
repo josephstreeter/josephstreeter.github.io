@@ -80,6 +80,16 @@
       href: automation/workflow-patterns.md
     - name: Integration Best Practices
       href: automation/best-practices.md
+    - name: Prompt Engineering
+      href: automation/prompt-engineering.md
+    - name: Vector Databases
+      href: automation/vector-databases.md
+    - name: Error Handling
+      href: automation/error-handling.md
+    - name: Monitoring
+      href: automation/monitoring.md
+    - name: Cost Optimization
+      href: automation/cost-optimization.md
 - name: References
   items:
     - name: Glossary

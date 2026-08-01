@@ -1,2 +1,20 @@
 - name: Home Lab
   href: index.md
+- name: Overview and Planning
+  href: overview.md
+- name: Architecture
+  items:
+  - name: Architecture Overview
+    href: architecture/overview.md
+  - name: Network Topology
+    href: architecture/network-topology.md
+- name: Hardware Requirements
+  href: hardware/requirements.md
+- name: Services
+  items:
+  - name: DNS Configuration
+    href: services/dns-configuration.md
+- name: Infrastructure as Code
+  href: iac/configuration.md
+- name: Monitoring
+  href: monitoring/overview.md

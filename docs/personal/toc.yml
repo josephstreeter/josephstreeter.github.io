@@ -6,7 +6,7 @@
   - name: Vehicles
     href: vehicles/toc.yml
   - name: Equipment
-    href: index.md
+    href: equipment/index.md
     items:
     - name: Ariens Icon Xd
       href: ./equipment/ariens-icon-xd/index.md

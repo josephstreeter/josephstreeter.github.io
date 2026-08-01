@@ -1092,7 +1092,7 @@ function Set-ADAdvancedAuditPolicy
 
 ## Related Topics
 
-- [Active Directory Monitoring](../configuration/ad-monitoring.md)
+- [Active Directory Monitoring](../operations/monitoring-and-alerting.md)
 - [Group Policy Management](../fundamentals/group-policy.md)
 - [Privileged Access Management](../privileged-access/index.md)
 - [Infrastructure Security](../../../../infrastructure/security/index.md)

@@ -459,7 +459,7 @@ Get-Counter "\Process(lsass)\Working Set" -SampleInterval 5 -MaxSamples 12
 - **[Forests and Domains](forests-and-domains.md)** - AD structure and design
 - **[Sites and Subnets](sites-and-subnets.md)** - Multi-site deployments
 - **[Operations](../operations/index.md)** - Day-to-day DC management
-- **[Security Best Practices](../security-best-practices.md)** - DC security hardening
+- **[Security Best Practices](../security/index.md)** - DC security hardening
 
 ---
 

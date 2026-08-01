@@ -10,3 +10,11 @@
   href: ../operations/confirming-ldaps-certificates.md
 - name: LDAP Channel Binding and Signing
   href: ../operations/ldap-channel-binding-and-ldap-signing.md
+- name: Directory Services Index
+  href: directory-services-index.md
+- name: LDAP Configuration
+  href: ldap-configuration/index.md
+- name: Authentication Protocols
+  href: authenticationprotocols/index.md
+- name: Disaster Recovery Notes
+  href: disaster-recovery.md

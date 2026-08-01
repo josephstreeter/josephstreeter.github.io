@@ -712,7 +712,7 @@ function Test-CertificateEnrollment
 
 ## Related Documentation
 
-- **[Active Directory Security Best Practices](../security-best-practices.md)**: Overall security guidance
+- **[Active Directory Security Best Practices](../security/index.md)**: Overall security guidance
 
 ## References
 

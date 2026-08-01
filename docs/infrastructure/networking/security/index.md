@@ -8,6 +8,11 @@ tags: [network-security, firewall, ids, ips, network-segmentation, vpn, wireless
 
 Network Infrastructure Security forms the foundation of enterprise cybersecurity, providing defense-in-depth through strategic network design, traffic monitoring, and access control mechanisms.
 
+> [!NOTE]
+> This page covers securing the network infrastructure itself. For network security concepts,
+> firewalls, IDS/IPS, VPNs, and network forensics, see
+> [Network Security](../../../security/networking/index.md).
+
 ## Network Security Architecture
 
 ### Security Framework Overview

@@ -322,7 +322,7 @@ After mastering the basics, explore:
 ### Advanced Administration
 
 - **[Operations](operations/index.md)** - Day-to-day administrative procedures
-- **[Security Best Practices](security-best-practices.md)** - Hardening guidelines
+- **[Security Best Practices](security/index.md)** - Hardening guidelines
 - **[Monitoring and Logging](operations/monitoring-and-alerting.md)** - Health monitoring
 - **[Disaster Recovery](configuration/disaster-recovery.md)** - Backup and recovery procedures
 

@@ -46,3 +46,5 @@
     href: best-practices/performance-optimization.md
   - name: Disaster Recovery
     href: best-practices/disaster-recovery.md
+- name: Enterprise DNS Architecture
+  href: enterprise/index.md

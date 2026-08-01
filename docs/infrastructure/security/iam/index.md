@@ -8,6 +8,11 @@ tags: [identity-management, authentication, authorization, sso, identity-governa
 
 Identity and Access Management (IAM) is the framework of policies and technologies for ensuring that the right individuals access the right resources at the right times for the right reasons. This guide covers comprehensive IAM implementation strategies.
 
+> [!NOTE]
+> This page is a conceptual overview of IAM. For enterprise implementation — Microsoft
+> Identity Manager, identity governance, and operational best practices — see
+> [Identity and Access Management](../../../services/iam/index.md).
+
 ## IAM Architecture Overview
 
 ### Core Components

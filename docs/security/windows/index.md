@@ -8,6 +8,12 @@ tags: [windows, security, hardening, monitoring, compliance]
 
 Windows security encompasses a comprehensive set of tools, technologies, and practices designed to protect Windows systems from threats and ensure data integrity. This guide covers essential security configurations, monitoring strategies, and best practices.
 
+> [!NOTE]
+> This page covers Windows security concepts and tooling generally. For hardening Windows
+> **Server infrastructure** — domain controllers, member servers, CIS/STIG baselines — see
+> [Windows Infrastructure Security](../../infrastructure/windows/security/index.md) and its
+> [Quick Start](../../infrastructure/windows/security/quick-start.md).
+
 ## Windows Security Architecture
 
 ### Security Components

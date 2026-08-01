@@ -12,6 +12,11 @@ uid: docs.infrastructure.windows.security.advanced
 
 Windows Infrastructure Security provides comprehensive guidance for securing Windows-based infrastructure components including domain controllers, member servers, and workstations against modern threats.
 
+> [!NOTE]
+> This page focuses on securing Windows Server infrastructure. For Windows security concepts,
+> Defender, threat detection, and incident response more broadly, see
+> [Windows Security](../../../security/windows/index.md).
+
 ## Security Architecture Overview
 
 ### Defense in Depth Model

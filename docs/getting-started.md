@@ -81,7 +81,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 
 1. Master **[SSH](security/ssh/index.md)** for secure access
 2. Implement **[PGP](security/pgp/index.md)** for encryption
-3. Study **[Active Directory Security](services/directoryservices/activedirectory/security-best-practices.md)**
+3. Study **[Active Directory Security](services/directoryservices/activedirectory/security/index.md)**
 4. Review **[Infrastructure Security](infrastructure/security/index.md)**
 
 ## 🔍 **Finding Information**

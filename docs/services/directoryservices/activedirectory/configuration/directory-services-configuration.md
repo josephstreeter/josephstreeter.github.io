@@ -858,7 +858,7 @@ For additional resources and support, consult Microsoft documentation and engage
 
 ## Related Topics
 
-- **[Active Directory Security Best Practices](../security-best-practices.md)**: Comprehensive security hardening guide
-- **[Group Policy Management](group-policy-management.md)**: Advanced policy configuration
-- **[Active Directory Monitoring](ad-monitoring.md)**: Performance and health monitoring
+- **[Active Directory Security Best Practices](../security/index.md)**: Comprehensive security hardening guide
+- **[Group Policy Management](group-policy.md)**: Advanced policy configuration
+- **[Active Directory Monitoring](../operations/monitoring-and-alerting.md)**: Performance and health monitoring
 - **[Disaster Recovery Planning](disaster-recovery.md)**: Backup and recovery procedures

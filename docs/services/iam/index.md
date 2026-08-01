@@ -9,6 +9,10 @@ tags: ["identity management", "idm", "identity", "access management", "governanc
 
 Identity Management refers to the processes, policies, and technologies that enable organizations to manage digital identities and control access to resources. This section provides comprehensive documentation on implementing and maintaining enterprise identity management solutions.
 
+> [!NOTE]
+> For the conceptual IAM framework — architecture, authentication models, and access control
+> patterns — see [Identity and Access Management](../../infrastructure/security/iam/index.md).
+
 ## Key Components
 
 ### Microsoft Identity Manager (MIM)

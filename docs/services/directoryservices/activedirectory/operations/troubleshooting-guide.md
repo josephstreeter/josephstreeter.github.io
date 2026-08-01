@@ -1182,7 +1182,7 @@ function New-AuthoritativeRestorePlan
 - **[Domain Controllers](../fundamentals/domain-controllers.md)** - DC deployment and management
 - **[Delegation](delegation.md)** - Permission delegation and security
 - **[Operations](index.md)** - Day-to-day AD administration
-- **[Security Best Practices](../security-best-practices.md)** - AD security hardening
+- **[Security Best Practices](../security/index.md)** - AD security hardening
 
 ---
 
