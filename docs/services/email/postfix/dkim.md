@@ -1051,7 +1051,7 @@ v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com; ruf=mailto:dmarc@example.c
 echo "Test" | mail -s "Auth Test" check-auth@verifier.port25.com
 ```
 
-For complete DMARC implementation, see [Email Authentication Guide](../smtp/authentication.md#dmarc-domain-based-message-authentication-reporting--conformance).
+For complete DMARC implementation, see [Email Authentication Guide](../smtp/authentication/dmarc.md).
 
 ## Monitoring and Maintenance
 
@@ -1166,7 +1166,7 @@ TTL: 300 (or default)
 ## Related Documentation
 
 - [Postfix Mail Server Guide](index.md) - Complete Postfix configuration
-- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication.md) - Comprehensive authentication guide
+- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication/index.md) - Comprehensive authentication guide
 - [SMTP Protocol Overview](../smtp/index.md) - SMTP fundamentals
 
 ## External Resources

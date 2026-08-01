@@ -311,7 +311,7 @@ dig TXT _dmarc.example.com
 3. Ensure not on blacklists
 4. Fix server reputation
 
-See [Email Authentication Guide](../smtp/authentication.md) for details.
+See [Email Authentication Guide](../smtp/authentication/index.md) for details.
 
 #### Symptom: Relay Access Denied
 

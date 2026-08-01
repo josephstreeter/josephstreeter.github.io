@@ -55,9 +55,7 @@
     - name: Overview
       href: deep-learning/index.md
 - name: Natural Language Processing
-  items:
-    - name: Overview
-      href: nlp/index.md
+  href: nlp/toc.yml
 - name: Computer Vision
   items:
     - name: Overview

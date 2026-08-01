@@ -10,7 +10,7 @@ last_updated: "2026-01-13"
 
 > **📘 Prerequisites**: This guide assumes you understand basic SPF redirect and include mechanisms.
 > For fundamental redirect vs include concepts, decision trees, and comparison tables,
-> see the [Email Authentication Guide - Redirect vs Include section](authentication.md#redirect-vs-include-decision-guide).
+> see the [Email Authentication Guide - Redirect vs Include section](authentication/spf.md#redirect-vs-include-decision-guide).
 
 This guide covers **advanced implementation patterns** for complex enterprise scenarios.
 
@@ -24,7 +24,7 @@ This advanced guide is for:
 - ✅ Organizations requiring tiered SPF architectures
 - ✅ Teams implementing SPF flattening strategies
 
-**If you're just getting started**, read the [basic redirect vs include guide](authentication.md#redirect-vs-include-decision-guide) first.
+**If you're just getting started**, read the [basic redirect vs include guide](authentication/spf.md#redirect-vs-include-decision-guide) first.
 
 ## Prerequisites
 
@@ -34,12 +34,12 @@ Before implementing these advanced patterns, ensure you:
 - ✅ Have implemented basic SPF records successfully
 - ✅ Understand DNS lookup limits (10 lookups) and their implications
 - ✅ Have multiple domains or complex sending infrastructure
-- ✅ Know the difference between redirect and include (see [main guide](authentication.md#redirect-vs-include-decision-guide))
+- ✅ Know the difference between redirect and include (see [main guide](authentication/spf.md#redirect-vs-include-decision-guide))
 
 ## Advanced Redirect Patterns
 
 > **Note**: For basic redirect usage and when to choose redirect vs include,
-> see the [main authentication guide](authentication.md#redirect-vs-include-decision-guide).
+> see the [main authentication guide](authentication/spf.md#redirect-vs-include-decision-guide).
 
 ### Geo-Specific Delegation
 
@@ -93,7 +93,7 @@ _spf-dev.example.com. IN TXT "v=spf1 ip4:192.0.2.200/28 ?all"
 ## Advanced Include Patterns
 
 > **Note**: For basic include usage and modular design principles,
-> see the [main authentication guide](authentication.md#redirect-vs-include-decision-guide).
+> see the [main authentication guide](authentication/spf.md#redirect-vs-include-decision-guide).
 
 ### Tiered Include Structure
 
@@ -491,9 +491,9 @@ _spf.example.com. IN TXT "v=spf1 mx include:_spf.google.com -all"
 
 ## Related Documentation
 
-- [Email Authentication Guide](authentication.md) - Basic SPF, DKIM, DMARC concepts
-- [SPF Migration Checklist](authentication.md#spf-migration-checklist) - Step-by-step migration guide
-- [SPF Troubleshooting](authentication.md#spf-troubleshooting-guide) - Common problems and solutions
+- [Email Authentication Guide](authentication/index.md) - Basic SPF, DKIM, DMARC concepts
+- [SPF Migration Checklist](authentication/spf-troubleshooting.md#spf-migration-checklist) - Step-by-step migration guide
+- [SPF Troubleshooting](authentication/spf-troubleshooting.md#spf-troubleshooting-guide) - Common problems and solutions
 
 ## Additional Resources
 

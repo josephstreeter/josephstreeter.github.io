@@ -7,12 +7,7 @@
 - name: Glossary
   href: glossary.md
 - name: Azure DevOps
-  href: azuredevops/index.md
-  items:
-  - name: Document Plan
-    href: azuredevops/document_plan.md
-  - name: Requirements Template
-    href: azuredevops/requirements_template.md
+  href: azuredevops/toc.yml
 - name: Setup and Configuration
   href: setup/index.md
   items:

@@ -1,0 +1,20 @@
+- name: Overview
+  href: index.md
+- name: DNS Architecture Types
+  href: architecture.md
+- name: Split-Brain DNS
+  href: split-brain.md
+- name: DNS Delegation
+  href: delegation.md
+- name: Zone and Record Management
+  href: zones-and-records.md
+- name: DNS Server Configuration
+  href: server-configuration.md
+- name: Automation and Tools
+  href: automation.md
+- name: DNS Security Threats
+  href: security.md
+- name: Security Hardening
+  href: hardening.md
+- name: Monitoring and Auditing
+  href: monitoring.md

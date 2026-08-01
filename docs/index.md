@@ -17,6 +17,7 @@ This documentation is organized into several main categories:
 - **[Infrastructure](infrastructure/index.md)**: Server management, virtualization, containers, and infrastructure as code
 - **[Development](development/index.md)**: Tools, languages, and workflows for software development
 - **[Networking](infrastructure/networking/index.md)**: Network configuration, management, and troubleshooting
+- **[AI](ai/index.md)**: Prompting, local LLMs, agents, automation, and model evaluation
 - **[Security](security/index.md)**: Encryption, authentication, secure communications, and OSINT techniques
 - **[Miscellaneous](misc/index.md)**: Useful tools and references that cross domain boundaries
 

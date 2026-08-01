@@ -1489,7 +1489,7 @@ postconf -n | grep sasl                   # Show SASL config
 
 - [Postfix Mail Server Guide](index.md) - Complete Postfix configuration
 - [Postfix with OpenDKIM](dkim.md) - DKIM email signing
-- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication.md)
+- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication/index.md)
 
 ## External Resources
 

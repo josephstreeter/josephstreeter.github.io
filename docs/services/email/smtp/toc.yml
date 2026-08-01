@@ -1,20 +1,7 @@
 - name: Overview
   href: index.md
 - name: Email Authentication
-  href: authentication.md
-  items:
-  - name: SPF (Sender Policy Framework)
-    href: authentication.md#spf-sender-policy-framework
-  - name: DKIM (DomainKeys Identified Mail)
-    href: authentication.md#dkim-domainkeys-identified-mail
-  - name: DMARC (Domain-based Message Authentication)
-    href: authentication.md#dmarc-domain-based-message-authentication-reporting--conformance
-  - name: Getting Started
-    href: authentication.md#getting-started
-  - name: Implementation Roadmap
-    href: authentication.md#implementation-roadmap
-  - name: Best Practices Summary
-    href: authentication.md#best-practices-summary
+  href: authentication/toc.yml
 - name: Advanced SPF Patterns
   href: spf-advanced-patterns.md
   items:

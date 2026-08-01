@@ -103,7 +103,7 @@ Server: 221 2.0.0 Bye
 
 Modern email systems require authentication to prevent spoofing and ensure delivery. See our comprehensive guide:
 
-### [📘 Complete Email Authentication Guide](authentication.md)
+### [📘 Complete Email Authentication Guide](authentication/index.md)
 
 This guide covers:
 
@@ -398,7 +398,7 @@ dig TXT _dmarc.example.com +short
 
 **Resolution:**
 
-1. **Implement email authentication** - See [Authentication Guide](authentication.md)
+1. **Implement email authentication** - See [Authentication Guide](authentication/index.md)
 2. Configure SPF record: `v=spf1 ip4:192.0.2.0/24 -all`
 3. Set up DKIM signing on your mail server
 4. Create DMARC policy: `v=DMARC1; p=quarantine; rua=mailto:dmarc@example.com`
@@ -1063,7 +1063,7 @@ Before implementing SMTP services, ensure you have:
 - [ ] Install and configure mail server (Postfix, Exim, Sendmail, etc.)
 - [ ] Obtain TLS certificate for encrypted connections
 - [ ] Configure SMTP authentication (SASL)
-- [ ] Set up SPF, DKIM, and DMARC records ([See Authentication Guide](authentication.md))
+- [ ] Set up SPF, DKIM, and DMARC records ([See Authentication Guide](authentication/index.md))
 - [ ] Configure relay restrictions and access controls
 - [ ] Set up logging and monitoring
 - [ ] Test mail flow (internal and external)
@@ -1089,5 +1089,5 @@ Before implementing SMTP services, ensure you have:
 
 ## Related Topics
 
-- [Email Authentication (SPF, DKIM, DMARC)](authentication.md) - **Essential for deliverability**
+- [Email Authentication (SPF, DKIM, DMARC)](authentication/index.md) - **Essential for deliverability**
 - [Exchange](../exchange/index.md)

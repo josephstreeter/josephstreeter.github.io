@@ -1,0 +1,24 @@
+- name: Overview
+  href: index.md
+- name: SPF (Sender Policy Framework)
+  href: spf.md
+- name: SPF Subdomain Protection and Attack Vectors
+  href: spf-security.md
+- name: SPF Testing and Validation
+  href: spf-testing.md
+- name: SPF Troubleshooting and Migration
+  href: spf-troubleshooting.md
+- name: DKIM (DomainKeys Identified Mail)
+  href: dkim.md
+- name: DKIM Testing and Troubleshooting
+  href: dkim-testing.md
+- name: DKIM Key Rotation and Operations
+  href: dkim-operations.md
+- name: DMARC (Domain-based Message Authentication)
+  href: dmarc.md
+- name: DMARC Reports and Analysis
+  href: dmarc-reports.md
+- name: DMARC Policy Rollout
+  href: dmarc-rollout.md
+- name: DMARC Testing and Troubleshooting
+  href: dmarc-testing.md

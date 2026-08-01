@@ -585,7 +585,7 @@ sudo postfix reload
 
 ### SPF, DKIM, and DMARC
 
-For comprehensive email authentication, see the [Email Authentication Guide](../smtp/authentication.md).
+For comprehensive email authentication, see the [Email Authentication Guide](../smtp/authentication/index.md).
 
 **Quick SPF Check Configuration:**
 
@@ -1422,7 +1422,7 @@ sudo chmod 600 /etc/postfix/sasl_passwd*
 ## Related Documentation
 
 - [SMTP Protocol Overview](../smtp/index.md) - Complete SMTP protocol guide
-- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication.md) - Essential for deliverability
+- [Email Authentication (SPF, DKIM, DMARC)](../smtp/authentication/index.md) - Essential for deliverability
 - [Exchange Server](../exchange/index.md) - Microsoft Exchange integration
 
 ## External Resources
