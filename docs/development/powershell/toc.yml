@@ -1,26 +1,35 @@
 - name: PowerShell
   href: index.md
-- name: Advanced
 - name: Functions
   href: functions.md
 - name: Scripts
   href: scripts.md
-- name: Powershell Runspaces
+- name: Classes
+  href: classes.md
+- name: Cmdlets
+  href: cmdlets.md
+- name: Runspaces
   href: powershellrunspaces.md
 - name: Remote Execution
   href: remoteexecution.md
-- name: Module Development
+- name: Testing
+  href: testing.md
 - name: Modules
   href: modules.md
 - name: Module Development
   href: moduledev.md
-- name: Module Reposiitoy
+- name: Module Repository
   href: modulerepo.md
 - name: Transfer Data
   href: transferdata.md
+- name: Azure DevOps
+  href: ado/index.md
+  items:
+  - name: Pipelines
+    href: ado/pipelines.md
+- name: Examples
+  href: examples/toc.yml
 - name: Tips and Tricks
   href: tipsandtricks.md
 - name: Troubleshooting
   href: troubleshooting.md
-- name: Examples
-  href: examples/toc.yml

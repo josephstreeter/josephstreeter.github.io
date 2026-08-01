@@ -210,7 +210,7 @@ Summary of what was accomplished.
 ## Additional Resources
 
 - [External Link](https://example.com)
-- [Internal Link](relative-path.md)
+- Internal Link
 ```
 
 ### API Documentation Template

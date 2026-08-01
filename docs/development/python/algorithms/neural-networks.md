@@ -3259,9 +3259,9 @@ Neural networks continue to advance with innovations in architectures (Transform
 - [Deep Learning Algorithms](index.md)
 - [Computer Vision with OpenCV](../../libraries/opencv.md)
 - [Natural Language Processing](../nlp/index.md)
-- [NumPy for Scientific Computing](../../libraries/numpy.md)
+- [NumPy for Scientific Computing](../data-science/numpy.md)
 - [Data Preprocessing](../../data-science/preprocessing.md)
-- [Model Deployment](../../deployment/index.md)
+- [Model Deployment](../deployment/index.md)
 
 ## Additional Topics
 

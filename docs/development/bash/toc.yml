@@ -2,7 +2,7 @@
   href: index.md
   items:
   - name: Command Reference
-    href: commands/
+    href: commands/toc.yml
   - name: Navigation and File Commands
     href: navigation-and-files.md
   - name: Text Processing and Search Commands

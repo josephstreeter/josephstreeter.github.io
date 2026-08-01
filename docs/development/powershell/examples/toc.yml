@@ -1,5 +1,9 @@
+- name: Overview
+  href: index.md
 - name: Active Directory
   href: activedirectory.md
+- name: Azure
+  href: azure.md
 - name: Entra ID
   href: entraid.md
 - name: Exchange

@@ -916,5 +916,5 @@ python --version > .python-version
 - [UV - Fast Package Manager](uv.md)
 - [conda - Package and Environment Manager](conda.md)
 - [virtualenv - Environment Isolation](virtualenv.md)
-- [Python Best Practices](../best-practices.md)
+- [Python Best Practices](../best-practices/index.md)
 - [Python Development Setup](../index.md)

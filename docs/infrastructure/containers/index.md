@@ -85,7 +85,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Security Monitoring
 
-- **Wazuh** - Security monitoring and compliance platform *(not yet documented)*
+- **[Wazuh](wazuh/index.md)** - Security monitoring and compliance platform *(placeholder)*
   - Host and container security monitoring
   - Threat detection and incident response
   - Compliance reporting and audit trails
@@ -106,7 +106,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - GitHub Codespaces for development environments
   - Security scanning and dependency management
 
-- **GitLab** - Integrated DevOps platform *(not yet documented)*
+- **[GitLab](gitlab/index.md)** - Integrated DevOps platform *(placeholder)*
   - GitLab CI/CD pipelines for containers
   - Container registry and package management
   - Security scanning and compliance features
@@ -119,12 +119,12 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Security scanning integration
   - Deployment automation
 
-- **GitLab CI** - Integrated CI/CD pipelines *(not yet documented)*
+- **[GitLab CI](gitlab-ci/index.md)** - Integrated CI/CD pipelines *(placeholder)*
   - Container-native build processes
   - Auto DevOps for containerized applications
   - Registry integration and image management
 
-- **Jenkins** - Extensible automation server *(not yet documented)*
+- **[Jenkins](jenkins/index.md)** - Extensible automation server *(placeholder)*
   - Container-based build agents
   - Pipeline as code with Jenkinsfile
   - Kubernetes plugin integration
@@ -147,14 +147,14 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Vulnerability Assessment
 
-- **OWASP ZAP** - Security testing and vulnerability scanning *(not yet documented)*
+- **[OWASP ZAP](owasp-zap/index.md)** - Security testing and vulnerability scanning *(placeholder)*
   - Container image security analysis
   - Runtime application security testing
   - Integration with CI/CD pipelines
 
 ### Secret Management
 
-- **Vault** - Secret and credential management platform *(not yet documented)*
+- **[Vault](vault/index.md)** - Secret and credential management platform *(placeholder)*
   - Dynamic secret generation for containers
   - Kubernetes integration and service authentication
   - Encryption and key management
@@ -178,12 +178,12 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Backup and recovery strategies
   - Kubernetes operator integration
 
-- **MySQL** - Popular relational database management system *(not yet documented)*
+- **[MySQL](mysql/index.md)** - Popular relational database management system *(placeholder)*
   - Container configuration and optimization
   - Clustering and scaling solutions
   - Performance tuning and monitoring
 
-- **Redis** - In-memory data structure store *(not yet documented)*
+- **[Redis](redis/index.md)** - In-memory data structure store *(placeholder)*
   - Cache and session storage for containers
   - High availability with Redis Sentinel
   - Clustering for horizontal scaling
@@ -191,17 +191,17 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Database Management Tools
 
-- **DBeaver** - Universal database management platform *(not yet documented)*
+- **DBeaver** - Universal database management platform *(placeholder)*
   - Container-based deployment options
   - Multi-database connectivity and management
   - Team collaboration features
 
-- **pgAdmin** - PostgreSQL administration platform *(not yet documented)*
+- **[pgAdmin](pgadmin/index.md)** - PostgreSQL administration platform *(placeholder)*
   - Web-based administration interface
   - Container deployment and configuration
   - User management and security
 
-- **MongoDB Compass** - MongoDB GUI and analysis tool *(not yet documented)*
+- **[MongoDB Compass](mongodb-compass/index.md)** - MongoDB GUI and analysis tool *(placeholder)*
   - Visual database exploration and analysis
   - Query performance optimization
   - Schema visualization and validation
@@ -249,32 +249,32 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Docker and Kubernetes integration
   - DevContainer configurations
 
-- **Vim** - Terminal-based text editor *(not yet documented)*
+- **[Vim](vim/index.md)** - Terminal-based text editor *(placeholder)*
   - Container-friendly editing workflows
   - Plugin ecosystem for development
   - Remote editing capabilities
 
 ### Development Utilities
 
-- **Terminal** - Command-line interface and utilities *(not yet documented)*
+- **[Terminal](terminal/index.md)** - Command-line interface and utilities *(placeholder)*
   - Container management commands
   - Shell scripting for automation
   - Remote access and management
 
 ### Package Managers
 
-- **pip** - Python package installer *(not yet documented)*
+- **pip** - Python package installer *(placeholder)*
   - Container-based Python development
   - Dependency management in containers
   - Virtual environment best practices
 
 ### Documentation & Configuration
 
-- **Markdown** - Lightweight markup language *(not yet documented)*
+- **[Markdown](markdown/index.md)** - Lightweight markup language *(placeholder)*
   - Documentation standards for container projects
   - README and documentation best practices
 
-- **YAML** - Human-readable data serialization *(not yet documented)*
+- **[YAML](yaml/index.md)** - Human-readable data serialization *(placeholder)*
   - Container configuration files
   - Kubernetes manifest authoring
   - CI/CD pipeline definitions

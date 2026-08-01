@@ -667,9 +667,9 @@ See [Documentation Standards](/Standards/Documentation) for requirements.
    Brief description of this service.
    
    ## Documentation Sections
-   - [Architecture](Architecture.md)
-   - [Operations](Operations/README.md)
-   - [Development](Development/README.md)
+   - Architecture
+   - Operations
+   - Development
    EOF
    
    git add docs/
@@ -779,7 +779,7 @@ See [Documentation Standards](/Standards/Documentation) for requirements.
 
 [High-level architecture diagram or link to Architecture.md]
 
-For detailed architecture documentation, see [Architecture](Architecture.md).
+For detailed architecture documentation, see Architecture.
 
 ## Getting Started
 
@@ -1346,9 +1346,9 @@ This guide describes how to deploy the Email Gateway service to production.
 **Solution:** [Steps]
 
 ## Related Documentation
-- [Monitoring Guide](Monitoring.md)
-- [Troubleshooting](Troubleshooting.md)
-- [Architecture](../Architecture.md)
+- Monitoring Guide
+- Troubleshooting
+- Architecture
 
 ---
 *Last updated: 2025-01-15 by Jane Smith*
@@ -2185,10 +2185,10 @@ steps:
 
 ## Quick Links
 
-- [Architecture](Architecture.md)
-- [Operations Runbook](Operations/Runbook.md)
-- [API Documentation](API/Overview.md)
-- [Troubleshooting](Operations/Troubleshooting.md)
+- Architecture
+- Operations Runbook
+- API Documentation
+- Troubleshooting
 - [Monitoring Dashboard](https://monitoring.company.com/dashboard)
 
 ## Service Information
@@ -3162,7 +3162,7 @@ Before proceeding, ensure you have:
 - [ ] **Credentials**: Service principal or user credentials
 - [ ] **Network Access**: Connectivity to [environment]
 
-If you don't have the required prerequisites, see [Getting Access](Getting-Access.md).
+If you don't have the required prerequisites, see Getting Access.
 ```
 
 **Create snippets in VS Code:**
@@ -3189,7 +3189,7 @@ If you don't have the required prerequisites, see [Getting Access](Getting-Acces
       "- [ ] **Credentials**: Service principal or user credentials",
       "- [ ] **Network Access**: Connectivity to ${4:environment}",
       "",
-      "If you don't have the required prerequisites, see [Getting Access](Getting-Access.md)."
+      "If you don't have the required prerequisites, see Getting Access."
     ],
     "description": "Insert prerequisites section"
   }
@@ -3388,9 +3388,9 @@ At bottom of each page:
 ```markdown
 ## Related Documentation
 
-- [Operations Runbook](Operations/Runbook.md) - Day-to-day operational procedures
-- [Troubleshooting Guide](Operations/Troubleshooting.md) - Common issues and solutions
-- [API Documentation](API/Overview.md) - API reference and examples
+- Operations Runbook - Day-to-day operational procedures
+- Troubleshooting Guide - Common issues and solutions
+- API Documentation - API reference and examples
 - [Incident Response](/Operations/Incident-Response) - (Project Wiki)
 ```
 

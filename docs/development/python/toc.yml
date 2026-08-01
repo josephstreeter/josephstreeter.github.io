@@ -2,8 +2,6 @@
   href: index.md
 - name: Best Practices
   items:
-    - name: Overview
-      href: best-practices.md
     - name: Best Practices Guide
       href: best-practices/index.md
     - name: Data Visualization
@@ -18,6 +16,8 @@
       href: web-development/flask.md
     - name: Django
       href: web-development/django.md
+    - name: FastAPI
+      href: frameworks/fastapi.md
 - name: APIs
   items:
     - name: API Integration
@@ -36,6 +36,10 @@
       href: data-science/pandas.md
     - name: Matplotlib
       href: data-science/matplotlib.md
+    - name: Seaborn
+      href: data-science/seaborn.md
+    - name: Statistical Analysis
+      href: data-science/statistical-analysis.md
 - name: Machine Learning
   items:
     - name: Overview
@@ -64,6 +68,8 @@
       href: orm/sqlalchemy.md
 - name: Algorithms
   items:
+    - name: Overview
+      href: algorithms/index.md
     - name: Neural Networks
       href: algorithms/neural-networks.md
 - name: Automation
@@ -92,8 +98,10 @@
       href: deployment/packaging.md
     - name: Continuous Integration
       href: deployment/ci.md
-    - name: Cloud Deployment
+    - name: Cloud Deployment Overview
       href: cloud-deployment.md
+    - name: Cloud Deployment Guide
+      href: deployment/cloud-deployment.md
 - name: Package Management
   items:
     - name: Overview

@@ -114,7 +114,7 @@ Ctrl+Shift+P → "Extensions: Disable All Installed Extensions"
 npx markdown-link-check docs/**/*.md
 
 # Validate internal links
-find docs -name "*.md" -exec grep -l "\[.*\](.*\.md)" {} \;
+find docs -name "*.md" -exec grep -l "\.*\" {} \;
 ```
 
 ### Performance Issues

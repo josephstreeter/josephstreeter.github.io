@@ -175,7 +175,7 @@ Content coming soon...
 ## See Also
 
 - [Python Overview](../python/index.md)
-- [NumPy](numpy.md)
+- [NumPy](../python/data-science/numpy.md)
 - [Machine Learning](../python/machine-learning/index.md)
 - [Neural Networks](../python/algorithms/neural-networks.md)
 

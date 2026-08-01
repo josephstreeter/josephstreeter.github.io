@@ -754,5 +754,5 @@ Python's philosophy of "beautiful is better than ugly" and "simple is better tha
 
 - **[Web Development with Python](web-development.md)**: Django and Flask frameworks
 - **[Data Science with Python](data-science.md)**: NumPy, pandas, and machine learning
-- **[Python Best Practices](best-practices.md)**: Code style, testing, and project structure
+- **[Python Best Practices](best-practices/index.md)**: Code style, testing, and project structure
 - **[Python Package Management](package-management.md)**: pip, virtual environments, and dependency management

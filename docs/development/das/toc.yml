@@ -40,6 +40,8 @@
 - name: Content Strategy
   href: content/index.md
   items:
+  - name: Content Strategy Guide
+    href: content/content-strategy.md
   - name: Content Migration
     href: content/migration.md
   - name: Style Guide
@@ -55,6 +57,8 @@
     href: development/collaboration.md
   - name: Quality Assurance
     href: development/quality-assurance.md
+  - name: VS Code and Copilot
+    href: development/vscode-copilot.md
 - name: Deployment and Operations
   href: deployment/index.md
   items:

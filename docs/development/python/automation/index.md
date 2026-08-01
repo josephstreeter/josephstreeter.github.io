@@ -1627,6 +1627,6 @@ The examples and patterns in this guide provide a foundation for building profes
 
 - [Scripting with Python](scripting.md) - Detailed scripting techniques
 - [Web Scraping](web-scraping.md) - Advanced scraping strategies
-- [Python Best Practices](../best-practices.md) - Code quality standards
+- [Python Best Practices](../best-practices/index.md) - Code quality standards
 - [Testing](../testing/index.md) - Testing automation code
 - [Deployment](../deployment/index.md) - Deploying automation solutions

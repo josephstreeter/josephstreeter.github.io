@@ -102,7 +102,7 @@ When documentation includes API or code references:
 
 ## Related Resources
 
-- [DocFX Configuration](/docs/development/das/setup/docfx-configuration.md)
-- [Azure DevOps Integration](/docs/development/das/setup/azure-devops.md)
-- [CI/CD Pipeline](/docs/development/das/setup/cicd-pipeline.md)
-- [Security Best Practices](/docs/development/das/advanced/security.md)
+- DocFX Configuration
+- Azure DevOps Integration
+- CI/CD Pipeline
+- Security Best Practices

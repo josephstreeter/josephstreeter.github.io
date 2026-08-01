@@ -1785,7 +1785,7 @@ async def metrics():
 ## See Also
 
 - [FastAPI Framework](../frameworks/fastapi.md)
-- [Flask Framework](../frameworks/flask.md)
-- [Django Framework](../frameworks/django.md)
+- [Flask Framework](../web-development/flask.md)
+- [Django Framework](../web-development/django.md)
 - [API Testing](../../testing/api-testing.md)
 - [Authentication Patterns](../../security/authentication.md)

@@ -211,7 +211,7 @@ def convert_links(content, base_path):
     # Convert file references
     content = re.sub(
         r'Reference: ([^\.]+\.docx)',
-        r'Reference: [\1](\1.md)',
+        r'Reference: \1',
         content
     )
     

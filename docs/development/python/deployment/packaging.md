@@ -1232,6 +1232,6 @@ jobs:
 
 - [pip - Package Installation](../package-management/pip.md)
 - [Virtual Environments](../package-management/virtualenv.md)
-- [Python Best Practices](../best-practices.md)
+- [Python Best Practices](../best-practices/index.md)
 - [CI/CD for Python](ci.md)
 - [Cloud Deployment](cloud-deployment.md)

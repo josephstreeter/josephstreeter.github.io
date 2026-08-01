@@ -1933,6 +1933,6 @@ if settings.DEBUG:
 
 - [Python Web Development](index.md)
 - [Flask Framework](flask.md)
-- [FastAPI Framework](fastapi.md)
+- FastAPI Framework
 - [REST API Design](../apis/rest-api.md)
 - [PostgreSQL Database](../../databases/postgresql.md)

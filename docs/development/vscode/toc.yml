@@ -2,5 +2,7 @@
   href: index.md
 - name: Configure
   href: configure.md
-- name: Tipa and Tricks
+- name: Snippets
+  href: snippets.md
+- name: Tips and Tricks
   href: tipsandtricks.md

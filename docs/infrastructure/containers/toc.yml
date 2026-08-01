@@ -18,3 +18,33 @@
     href: nginx/toc.yml
   - name: PostgreSQL
     href: postgresql/toc.yml
+- name: Planned Topics
+  items:
+  - name: GitLab
+    href: gitlab/index.md
+  - name: GitLab CI
+    href: gitlab-ci/index.md
+  - name: Jenkins
+    href: jenkins/index.md
+  - name: Markdown
+    href: markdown/index.md
+  - name: MongoDB Compass
+    href: mongodb-compass/index.md
+  - name: MySQL
+    href: mysql/index.md
+  - name: OWASP ZAP
+    href: owasp-zap/index.md
+  - name: pgAdmin
+    href: pgadmin/index.md
+  - name: Redis
+    href: redis/index.md
+  - name: Terminal
+    href: terminal/index.md
+  - name: Vault
+    href: vault/index.md
+  - name: Vim
+    href: vim/index.md
+  - name: Wazuh
+    href: wazuh/index.md
+  - name: YAML
+    href: yaml/index.md

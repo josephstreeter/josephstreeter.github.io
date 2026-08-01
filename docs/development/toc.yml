@@ -1,38 +1,62 @@
 - name: Development
   href: index.md
   items:
-  - name: Automation
-    href: automation/index.md
-  - name: Azure DevOps
-    href: azuredevops/index.md
-  - name: DevOps
-    href: devops/index.md
+  - name: Languages and Shells
     items:
-    - name: Pipeline Reference
-      href: devops/pipelinereference.md
-  - name: Documentation as Code
-    href: das/index.md
-  - name: docfx
-    href: docfx/index.md
-  - name: Git
-    href: git/index.md
-  - name: GitHub
-    href: github/index.md
-  - name: GitHub Actions
-    href: github-actions/index.md
-  - name: Make
-    href: make/index.md
-  - name: Bash
-    href: bash/toc.yml
-  - name: PowerShell
-    href: powershell/index.md
-  - name: Python
-    href: python/index.md
-  - name: Regex
-    href: regex/index.md
-  - name: Visual Studio Code
-    href: vscode/index.md
-  - name: Windows Terminal
-    href: windows-terminal/index.md
-  - name: Work Management
-    href: workmanagement/index.md
+    - name: Bash
+      href: bash/toc.yml
+    - name: PowerShell
+      href: powershell/toc.yml
+    - name: Python
+      href: python/toc.yml
+    - name: Regex
+      href: regex/toc.yml
+  - name: Version Control and Collaboration
+    items:
+    - name: Git
+      href: git/toc.yml
+    - name: GitHub
+      href: github/index.md
+    - name: Azure DevOps
+      href: azuredevops/toc.yml
+  - name: Build and Automation
+    items:
+    - name: Automation
+      href: automation/toc.yml
+    - name: GitHub Actions
+      href: github-actions/index.md
+    - name: Make
+      href: make/index.md
+    - name: DevOps
+      href: devops/index.md
+      items:
+      - name: Pipeline Reference
+        href: devops/pipelinereference.md
+  - name: Quality and Security
+    items:
+    - name: Testing
+      href: testing/toc.yml
+    - name: Application Security
+      href: security/toc.yml
+  - name: Data
+    items:
+    - name: Databases
+      href: databases/toc.yml
+    - name: Data Science
+      href: data-science/toc.yml
+    - name: Libraries
+      href: libraries/toc.yml
+  - name: Documentation
+    items:
+    - name: Documentation as Code
+      href: das/toc.yml
+    - name: docfx
+      href: docfx/toc.yml
+  - name: Tools
+    items:
+    - name: Visual Studio Code
+      href: vscode/toc.yml
+    - name: Windows Terminal
+      href: windows-terminal/toc.yml
+    - name: Work Management
+      href: workmanagement/toc.yml

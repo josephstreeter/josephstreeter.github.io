@@ -419,18 +419,18 @@ Create comprehensive onboarding resources:
 
 ## Tools and Setup
 - [VS Code Configuration Guide](setup.md)
-- [Git Workflow Overview](git-workflow.md)
-- [Extension Installation](extensions.md)
+- Git Workflow Overview
+- Extension Installation
 
 ## Standards and Guidelines
-- [Style Guide](style-guide.md)
-- [Markdown Standards](markdown-standards.md)
-- [Review Process](review-process.md)
+- Style Guide
+- Markdown Standards
+- Review Process
 
 ## Practice Exercises
-- [First Documentation Edit](exercises/first-edit.md)
-- [Pull Request Workflow](exercises/pr-workflow.md)
-- [Review Assignment](exercises/review-practice.md)
+- First Documentation Edit
+- Pull Request Workflow
+- Review Assignment
 ```
 
 ### Knowledge Sharing

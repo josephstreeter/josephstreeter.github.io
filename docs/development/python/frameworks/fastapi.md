@@ -25,8 +25,8 @@ Content coming soon...
 
 - [Python Web Development](../web-development.md)
 - [REST API Development](../apis/rest-api.md)
-- [Flask](flask.md)
-- [Django](django.md)
+- [Flask](../web-development/flask.md)
+- [Django](../web-development/django.md)
 
 ## Resources
 

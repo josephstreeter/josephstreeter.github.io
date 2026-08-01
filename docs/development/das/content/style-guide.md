@@ -175,7 +175,7 @@ function example() {
 **Internal links:**
 
 ```markdown
-[Link text](relative-path.md)
+Link text
 [Section reference](#section-heading)
 [Cross-reference](../other-section/file.md#specific-section)
 ```
