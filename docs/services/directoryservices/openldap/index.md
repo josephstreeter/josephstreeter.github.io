@@ -1,11 +1,11 @@
 ---
 title: "OpenLDAP"
 description: "Documentation for OpenLDAP directory services implementation, configuration, and management"
+author: "Joseph Streeter"
 tags: ["openldap", "ldap", "directory-services", "authentication", "linux"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2026-01-13"
-author: "Joseph Streeter"
 ---
 
 This section covers OpenLDAP directory services implementation, configuration, and management.

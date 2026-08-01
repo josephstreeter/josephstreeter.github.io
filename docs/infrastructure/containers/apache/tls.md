@@ -1,11 +1,10 @@
 ---
 title: "Apache TLS / SSL and Let's Encrypt"
 description: "Configuring HTTPS in Apache with mod_ssl, including automated certificates with Let's Encrypt (Certbot) on the host and in Docker"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "apache"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## TLS / SSL Configuration

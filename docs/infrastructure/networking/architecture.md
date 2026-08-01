@@ -1,11 +1,11 @@
 ---
 title: "Enterprise Network Architecture"
 description: "Design principles, topology patterns, and best practices for enterprise networks"
+author: "Joseph Streeter"
 tags: ["networking", "architecture", "design", "enterprise"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Design scalable, resilient, and secure network architectures for enterprise environments.

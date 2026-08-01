@@ -1,6 +1,9 @@
 ---
-title: pip - Python Package Installer
-description: Comprehensive guide to pip, the standard package installer for Python, covering installation, package management, requirements files, and best practices
+title: "pip - Python Package Installer"
+description: "Comprehensive guide to pip, the standard package installer for Python, covering installation, package management, requirements files, and best practices"
+tags: ["python", "package-management"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 pip is the standard package installer for Python, used to install and manage software packages from the Python Package Index (PyPI) and other package indexes. It's the most widely used Python package management tool and comes pre-installed with Python 3.4+.

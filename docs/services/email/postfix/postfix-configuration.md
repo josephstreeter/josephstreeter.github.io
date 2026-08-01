@@ -2,9 +2,9 @@
 title: "Postfix Configuration Reference"
 description: "Comprehensive configuration reference for Postfix mail server including basic setup, TLS, relay, virtual domains, and performance tuning"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, configuration, main.cf, master.cf, tls, relay, virtual domains, performance
+tags: ["postfix", "configuration", "main.cf", "master.cf", "tls", "relay", "virtual domains", "performance"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Comprehensive configuration guide for Postfix mail server covering

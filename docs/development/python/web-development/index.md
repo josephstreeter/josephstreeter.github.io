@@ -1,6 +1,9 @@
 ---
-title: Python Web Development
-description: Comprehensive guide to building modern web applications with Python, covering frameworks, best practices, deployment strategies, and full-stack development
+title: "Python Web Development"
+description: "Comprehensive guide to building modern web applications with Python, covering frameworks, best practices, deployment strategies, and full-stack development"
+tags: ["python", "web-development"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Python has evolved into one of the most powerful ecosystems for web development, offering frameworks ranging from micro-frameworks for simple APIs to full-featured solutions for enterprise applications. This guide covers the complete spectrum of Python web development, from choosing the right framework to deploying production-ready applications.

@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Guide
-description: Comprehensive guide to using OpenSSL for certificate management, encryption, and cryptographic operations
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: security
+title: "OpenSSL Guide"
+description: "Comprehensive guide to using OpenSSL for certificate management, encryption, and cryptographic operations"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## OpenSSL Guide

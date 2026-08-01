@@ -1,9 +1,10 @@
 ---
-title: Python Package Management
-description: Overview of package managers and dependency management in Python
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, package-management, pip, conda, uv, virtualenv]
+title: "Python Package Management"
+description: "Overview of package managers and dependency management in Python"
+author: "Joseph Streeter"
+tags: ["python", "package-management", "pip", "conda", "uv", "virtualenv"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

@@ -1,6 +1,9 @@
 ---
-title: Computer Vision with Python
-description: Comprehensive guide to computer vision concepts, techniques, and practical implementations using OpenCV, PIL, and deep learning frameworks
+title: "Computer Vision with Python"
+description: "Comprehensive guide to computer vision concepts, techniques, and practical implementations using OpenCV, PIL, and deep learning frameworks"
+tags: ["python", "computer-vision"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Computer vision is a field of artificial intelligence that enables computers to interpret and understand visual information from the world. This guide covers fundamental concepts, classical algorithms, and modern deep learning approaches for image and video processing.

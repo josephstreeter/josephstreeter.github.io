@@ -2,10 +2,9 @@
 title: "AI Safety"
 description: "Principles and practices for developing and deploying safe AI systems"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "ethics"
-keywords: ["ai safety", "safe ai", "risk management", "security", "reliability"]
-uid: docs.ai.ethics.safety
+tags: ["ai safety", "safe ai", "risk management", "security", "reliability"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

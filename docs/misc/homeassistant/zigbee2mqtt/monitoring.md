@@ -1,3 +1,11 @@
+---
+title: "Zigbee2MQTT Monitoring and Maintenance"
+description: "Comprehensive guide for monitoring system health, maintaining network performance, and implementing backup strategies."
+tags: ["homeassistant", "zigbee2mqtt"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Zigbee2MQTT Monitoring and Maintenance
 
 Comprehensive guide for monitoring system health, maintaining network performance, and implementing backup strategies.

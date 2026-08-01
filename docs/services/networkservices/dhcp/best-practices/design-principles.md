@@ -1,9 +1,10 @@
 ---
-title: DHCP Design Principles
-description: Network design principles and planning guidelines for enterprise DHCP deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dhcp-design, network-planning, enterprise-architecture]
+title: "DHCP Design Principles"
+description: "Network design principles and planning guidelines for enterprise DHCP deployments"
+author: "Joseph Streeter"
+tags: ["dhcp-design", "network-planning", "enterprise-architecture"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Fundamental design principles for planning and implementing enterprise DHCP infrastructure.

@@ -2,7 +2,7 @@
 title: "VS Code and Copilot for Documentation"
 description: "Comprehensive guide to leveraging Visual Studio Code and GitHub Copilot for Documentation as Code workflows"
 tags: ["vscode", "copilot", "documentation", "productivity", "ai-assistance"]
-category: "tools"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-06"
 ---

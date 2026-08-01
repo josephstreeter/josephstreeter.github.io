@@ -1,11 +1,10 @@
 ---
-title: sed Command
-description: Comprehensive reference for the sed command in Bash, including syntax, addressing, regex usage, scripts, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "sed Command"
+description: "Comprehensive reference for the sed command in Bash, including syntax, addressing, regex usage, scripts, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `sed` command (stream editor) performs non-interactive text transformations on input streams.

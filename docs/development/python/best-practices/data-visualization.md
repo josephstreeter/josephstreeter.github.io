@@ -1,9 +1,10 @@
 ---
-title: Data Visualization Best Practices
-description: Comprehensive guide to creating effective, accessible, and impactful data visualizations in Python
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, data-visualization, matplotlib, seaborn, plotly, best-practices, charts, graphs, accessibility]
+title: "Data Visualization Best Practices"
+description: "Comprehensive guide to creating effective, accessible, and impactful data visualizations in Python"
+author: "Joseph Streeter"
+tags: ["python", "data-visualization", "matplotlib", "seaborn", "plotly", "best-practices", "charts", "graphs"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

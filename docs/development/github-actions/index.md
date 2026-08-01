@@ -1,8 +1,9 @@
 ---
 title: "GitHub Actions"
 description: "Comprehensive guide to GitHub Actions for container workflows, CI/CD automation, and DevOps pipeline orchestration"
-category: "infrastructure"
 tags: ["containers", "github-actions", "ci-cd", "automation", "devops", "workflows", "pipelines"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 GitHub Actions is a powerful CI/CD and automation platform integrated directly into GitHub repositories. It enables you to automate software workflows, build and test code, deploy applications, and orchestrate complex DevOps processes using containerized environments and cloud-native technologies.

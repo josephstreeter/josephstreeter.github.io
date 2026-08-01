@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Automation and CLI Management
-description: Comprehensive guide to automating Azure DevOps operations using Azure CLI, PowerShell, and REST APIs for project management, boards, pipelines, and repositories
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, automation, cli, powershell, rest-api, boards, pipelines, repositories]
+title: "Azure DevOps Automation and CLI Management"
+description: "Comprehensive guide to automating Azure DevOps operations using Azure CLI, PowerShell, and REST APIs for project management, boards, pipelines, and repositories"
+author: "Joseph Streeter"
+tags: ["azure-devops", "automation", "cli", "powershell", "rest-api", "boards", "pipelines", "repositories"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure DevOps automation enables efficient management of projects, work items, pipelines, and repositories through command-line interfaces and APIs.

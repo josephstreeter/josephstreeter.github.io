@@ -1,11 +1,10 @@
 ---
-title: SSH Port Forwarding and Tunneling - Comprehensive Guide
-description: A complete guide to SSH port forwarding techniques, including local, remote, and dynamic forwarding for secure network tunneling
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-05-23
-ms.topic: conceptual
-ms.service: security
+title: "SSH Port Forwarding and Tunneling - Comprehensive Guide"
+description: "A complete guide to SSH port forwarding techniques, including local, remote, and dynamic forwarding for secure network tunneling"
+author: "josephstreeter"
+tags: ["ssh"]
+category: "security"
+last_updated: "2026-05-23"
 ---
 
 SSH port forwarding (also known as SSH tunneling) is a powerful mechanism that creates encrypted connections between a local computer and a remote machine through which services can be relayed. This technique allows you to secure otherwise insecure protocols and access internal services through approved administrative paths.

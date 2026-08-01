@@ -1,8 +1,9 @@
 ---
 title: "ELK Stack"
 description: "Comprehensive guide to Elasticsearch, Logstash, and Kibana (ELK Stack) for centralized logging, search, and analytics in containerized environments"
-category: "infrastructure"
 tags: ["containers", "logging", "elasticsearch", "logstash", "kibana", "elk-stack", "observability", "search"]
+category: "infrastructure"
+last_updated: "2026-08-01"
 ---
 
 The ELK Stack is a powerful collection of three open-source tools: Elasticsearch, Logstash, and Kibana. Together, they provide a complete solution for centralized logging, real-time search, and data visualization. The ELK Stack has become the de facto standard for log aggregation and analysis in distributed systems and containerized environments.

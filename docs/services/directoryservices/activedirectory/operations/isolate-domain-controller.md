@@ -1,12 +1,10 @@
 ---
-title: Isolate Domain Controller
-description: Comprehensive guide for safely isolating Active Directory domain controllers during decommissioning or troubleshooting hard-coded dependencies
-author: IT Operations Team
-ms.date: 2025-01-01
-ms.topic: how-to
-ms.service: active-directory
-ms.subservice: domain-controllers
-keywords: active directory, domain controller, isolation, dns, decommission, troubleshooting
+title: "Isolate Domain Controller"
+description: "Comprehensive guide for safely isolating Active Directory domain controllers during decommissioning or troubleshooting hard-coded dependencies"
+author: "IT Operations Team"
+tags: ["active directory", "domain controller", "isolation", "dns", "decommission", "troubleshooting"]
+category: "services"
+last_updated: "2025-01-01"
 ---
 
 ## Isolate Domain Controller

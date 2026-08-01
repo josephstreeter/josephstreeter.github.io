@@ -1,11 +1,10 @@
 ---
-title: awk Command
-description: Comprehensive reference for the awk command in Bash, including syntax, patterns, fields, built-in variables, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/25/2026
-ms.topic: reference
-ms.service: development
+title: "awk Command"
+description: "Comprehensive reference for the awk command in Bash, including syntax, patterns, fields, built-in variables, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-25"
 ---
 
 The `awk` command is a pattern-scanning and text-processing language designed for structured text.

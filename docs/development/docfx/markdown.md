@@ -1,3 +1,11 @@
+---
+title: "DocFx Flavored Markdown"
+description: "DocFX supports 'DocFX Flavored Markdown,' or DFM."
+tags: ["docfx"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # DocFx Flavored Markdown
 
 DocFX supports "DocFX Flavored Markdown," or DFM. It is 100% compatible with GitHub Flavored Markdown, and adds some additional functionality, including cross reference and file inclusion.

@@ -1,9 +1,10 @@
 ---
 title: "Authentik Backup and Recovery"
 description: "Backup and disaster-recovery procedures for Authentik"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Backup and Recovery

@@ -1,13 +1,10 @@
 ---
-title: Windows Server Roles and Features
-description: Overview of Windows Server roles including Active Directory, DNS, DHCP, File Services, IIS, and Hyper-V
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: overview
-ms.service: windows-server
-keywords: server roles, Windows features, AD DS, DNS, DHCP, file services, IIS, Hyper-V
-uid: docs.infrastructure.windows.server-roles
+title: "Windows Server Roles and Features"
+description: "Overview of Windows Server roles including Active Directory, DNS, DHCP, File Services, IIS, and Hyper-V"
+author: "Joseph Streeter"
+tags: ["server roles", "windows features", "ad ds", "dns", "dhcp", "file services", "iis", "hyper-v"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 Windows Server provides numerous roles and features that enable specific server functionality. This section covers the most common server roles and their configuration.

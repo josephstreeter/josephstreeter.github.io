@@ -2,8 +2,9 @@
 title: "Active Directory Troubleshooting"
 description: "Comprehensive troubleshooting guide for Active Directory issues, common problems, and resolution strategies"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["directoryservices", "activedirectory", "operations"]
+category: "services"
+last_updated: "2025-09-08"
 ---
 
 ## Overview

@@ -2,10 +2,9 @@
 title: "Terraform with Hyper-V"
 description: "Complete guide to using Terraform with Hyper-V for infrastructure automation and virtual machine management"
 author: "josephstreeter"
-ms.date: "2025-12-30"
-ms.topic: "how-to-guide"
-ms.service: "terraform"
-keywords: ["Terraform", "Hyper-V", "Windows", "Infrastructure as Code", "IaC", "Virtualization", "PowerShell", "Automation"]
+tags: ["terraform", "hyper-v", "windows", "infrastructure as code", "iac", "virtualization", "powershell", "automation"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide demonstrates how to use Terraform with Hyper-V to automate virtual machine provisioning and infrastructure management on Windows Server and Windows 10/11 Pro.

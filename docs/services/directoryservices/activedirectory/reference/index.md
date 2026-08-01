@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Reference"
 description: "Quick reference materials, command references, event IDs, performance counters, and PowerShell scripts for Active Directory administration."
+author: "Documentation Team"
 tags: ["active-directory", "reference", "commands", "event-ids", "performance-counters", "powershell"]
-category: "Services"
-subcategory: "Active Directory"
+category: "services"
 difficulty: "All Levels"
 last_updated: "2025-09-25"
-author: "Documentation Team"
 ---
 
 ## Overview

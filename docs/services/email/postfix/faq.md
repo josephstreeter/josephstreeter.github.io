@@ -1,9 +1,10 @@
 ---
-title: Frequently Asked Questions
-description: Common questions and answers about Postfix configuration, troubleshooting, and best practices
-author: Joseph Streeter
-ms.date: 01/13/2026
-ms.topic: article
+title: "Frequently Asked Questions"
+description: "Common questions and answers about Postfix configuration, troubleshooting, and best practices"
+author: "Joseph Streeter"
+tags: ["email", "postfix"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Common questions and practical answers for Postfix mail server administration,

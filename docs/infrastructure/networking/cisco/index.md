@@ -1,11 +1,11 @@
 ---
 title: "Cisco Networking Configuration"
 description: "Comprehensive configuration guides for Cisco IOS devices"
+author: "Joseph Streeter"
 tags: ["cisco", "ios", "networking", "switches", "routers"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Comprehensive guides for configuring and managing Cisco IOS devices including switches, routers, and network security.

@@ -2,11 +2,9 @@
 title: "Active Directory Security Group Management Guide"
 description: "Comprehensive guide for implementing RBAC and AGDLP strategy in Active Directory environments"
 tags: ["active-directory", "security-groups", "rbac", "agdlp", "access-control", "permissions"]
-category: "security"
-subcategory: "identity-management"
+category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"
-applies_to: ["Active Directory", "Windows Server 2016+", "Azure AD", "Hybrid Identity"]
 ---
 
 ## Overview

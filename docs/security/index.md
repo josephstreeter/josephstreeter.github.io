@@ -1,11 +1,11 @@
 ---
 title: "Security"
 description: "Comprehensive security documentation covering encryption, secure communications, OSINT, wireless security, and security best practices"
+author: "Joseph Streeter"
 tags: ["security", "encryption", "ssh", "pgp", "osint", "threat-hunting", "wireless-security", "cybersecurity"]
 category: "security"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section covers a range of security topics including encryption, secure communications, open source intelligence (OSINT), and wireless security.

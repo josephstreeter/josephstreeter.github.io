@@ -1,3 +1,11 @@
+---
+title: "Use Active Directory Recycle Bin"
+description: "Windows Server 2008 R2 Active Directory includes a feature called the Active Directory Recycle Bin that will allow administrators to restore deleted objects..."
+tags: ["directoryservices", "activedirectory", "operations"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Use Active Directory Recycle Bin
 
 Windows Server 2008 R2 Active Directory includes a feature called the Active Directory Recycle Bin that will allow administrators to restore deleted objects without having to perform an administrative restore. Campus Active Directory has the AD Recycle Bin enabled.

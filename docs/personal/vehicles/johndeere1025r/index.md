@@ -2,10 +2,9 @@
 title: "John Deere 1025R Compact Utility Tractor with Backhoe"
 description: "Overview, specifications, and ownership information for the John Deere 1025R sub-compact utility tractor with 260 backhoe attachment."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["John Deere", "1025R", "compact tractor", "sub-compact", "backhoe", "260 backhoe", "3-point hitch", "diesel"]
+tags: ["john deere", "1025r", "compact tractor", "sub-compact", "backhoe", "260 backhoe", "3-point hitch", "diesel"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## John Deere 1025R Compact Utility Tractor with Backhoe

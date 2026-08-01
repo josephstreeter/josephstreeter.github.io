@@ -1,11 +1,11 @@
 ---
 title: "Threat Hunting Tools and References"
 description: "Platforms, open-source tooling, frameworks, and further reading for threat hunting"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "tools", "references", "sigma", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Tools and references

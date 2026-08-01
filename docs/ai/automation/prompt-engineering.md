@@ -1,9 +1,10 @@
 ---
-title: Prompt Engineering for AI Automation
-description: Comprehensive guide to crafting effective prompts for AI automation workflows
-author: Joseph Streeter
-date: 2026-01-04
-tags: [ai, prompts, llm, automation, prompt-engineering]
+title: "Prompt Engineering for AI Automation"
+description: "Comprehensive guide to crafting effective prompts for AI automation workflows"
+author: "Joseph Streeter"
+tags: ["ai", "prompts", "llm", "automation", "prompt-engineering"]
+category: "ai"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

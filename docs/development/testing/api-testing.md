@@ -1,6 +1,9 @@
 ---
-title: API Testing Guide
-description: Strategies and tools for testing REST APIs and web services
+title: "API Testing Guide"
+description: "Strategies and tools for testing REST APIs and web services"
+tags: ["testing"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

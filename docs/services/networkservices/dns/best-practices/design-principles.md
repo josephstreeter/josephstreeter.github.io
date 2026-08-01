@@ -1,9 +1,10 @@
 ---
-title: DNS Design Principles
-description: Fundamental design principles and architecture guidelines for enterprise DNS deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dns-design, network-architecture, enterprise-dns, dns-planning]
+title: "DNS Design Principles"
+description: "Fundamental design principles and architecture guidelines for enterprise DNS deployments"
+author: "Joseph Streeter"
+tags: ["dns-design", "network-architecture", "enterprise-dns", "dns-planning"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Fundamental design principles and architecture guidelines for enterprise DNS infrastructure.

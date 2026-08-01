@@ -1,11 +1,11 @@
 ---
 title: "Threat Hunting Analytic Techniques"
 description: "Core analytic techniques for threat hunting including searching, clustering, grouping, stack counting, and baselining"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "analytics", "stack-counting", "baselining", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Analytic techniques

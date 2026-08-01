@@ -1,11 +1,11 @@
 ---
 title: "SMTP Protocol"
 description: "Documentation for Simple Mail Transfer Protocol (SMTP) implementation, configuration, and troubleshooting"
+author: "Joseph Streeter"
 tags: ["smtp", "email", "mail-transfer", "protocol", "messaging"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2026-01-13"
-author: "Joseph Streeter"
 ---
 
 This section covers the Simple Mail Transfer Protocol (SMTP) implementation, configuration, and management.

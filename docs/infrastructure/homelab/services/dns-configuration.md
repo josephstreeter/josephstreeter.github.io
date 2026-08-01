@@ -1,9 +1,10 @@
 ---
-title: DNS Infrastructure for Home Lab
-description: Complete DNS server configuration with BIND9, including forward/reverse zones, security, and high availability
-author: Joseph Streeter
-date: 2025-09-13
-tags: [dns-server, bind9, dns-configuration, network-infrastructure]
+title: "DNS Infrastructure for Home Lab"
+description: "Complete DNS server configuration with BIND9, including forward/reverse zones, security, and high availability"
+author: "Joseph Streeter"
+tags: ["dns-server", "bind9", "dns-configuration", "network-infrastructure"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Comprehensive DNS infrastructure setup for home lab environments with enterprise-grade features and security.

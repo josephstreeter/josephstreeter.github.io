@@ -1,11 +1,10 @@
 ---
-title: systemctl Command
-description: Comprehensive guide to systemctl for managing systemd services, targets, and unit states.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "systemctl Command"
+description: "Comprehensive guide to systemctl for managing systemd services, targets, and unit states."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 The `systemctl` command is the main interface for controlling systemd units.

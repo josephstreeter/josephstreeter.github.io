@@ -1,3 +1,11 @@
+---
+title: "Basic Cloud Infrastructure Diagram"
+description: "Basic Cloud Infrastructure Diagram"
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-07-18"
+---
+
 # Basic Cloud Infrastructure Diagram
 
 ```mermaid

@@ -1,3 +1,11 @@
+---
+title: "Git Branching Guide"
+description: "Git branches are fundamental to modern software development workflows, enabling parallel development, feature isolation, and collaborative coding practices."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Branching Guide
 
 Git branches are fundamental to modern software development workflows, enabling parallel development, feature isolation, and collaborative coding practices. This comprehensive guide covers branching concepts, strategies, and best practices for effective version control management.

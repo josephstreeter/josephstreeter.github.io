@@ -1,12 +1,10 @@
 ---
-title: Next Steps and References
-description: Additional learning resources and reference links for KQL, Kusto, and Microsoft security analytics.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: reference
-ms.service: azure-monitor
-keywords: KQL, Kusto, references, learning resources
+title: "Next Steps and References"
+description: "Additional learning resources and reference links for KQL, Kusto, and Microsoft security analytics."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "references", "learning resources"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 ## Next steps

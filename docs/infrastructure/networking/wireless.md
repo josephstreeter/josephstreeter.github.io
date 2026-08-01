@@ -1,8 +1,8 @@
 ---
 title: "Wireless Networking"
 description: "Comprehensive guide to 802.11 WiFi standards, security, planning, and optimization"
-tags: ["networking", "wireless", "WiFi", "802.11", "access-points"]
-category: "networking"
+tags: ["networking", "wireless", "wifi", "802.11", "access-points"]
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

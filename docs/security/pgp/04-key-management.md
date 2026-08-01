@@ -1,8 +1,8 @@
 ---
 title: "PGP Key Management"
 description: "Practical lifecycle management for PGP keys, trust, backup, and revocation"
-category: "security"
 tags: ["pgp", "gpg", "key-management", "security"]
+category: "security"
 difficulty: "intermediate"
 last_updated: "2026-05-23"
 ---

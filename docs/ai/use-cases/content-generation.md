@@ -2,10 +2,9 @@
 title: "Content Generation with AI"
 description: "Using AI for creating and optimizing various types of content"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "use-case"
-keywords: ["content generation", "ai writing", "content creation", "copywriting", "marketing"]
-uid: docs.ai.use-cases.content-generation
+tags: ["content generation", "ai writing", "content creation", "copywriting", "marketing"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

@@ -1,11 +1,11 @@
 ---
 title: "Threat Hunting Methodology and Frameworks"
 description: "Hypothesis-driven hunting, hunt types, and structured frameworks including the Sqrrl hunt loop, PEAK, and TaHiTI"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "methodology", "peak", "tahiti", "hypothesis", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Methodology and frameworks

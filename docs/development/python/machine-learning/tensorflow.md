@@ -1,3 +1,11 @@
+---
+title: "TensorFlow"
+description: "TensorFlow is an end-to-end open source platform for machine learning."
+tags: ["python", "machine-learning"]
+category: "development"
+last_updated: "2026-01-04"
+---
+
 # TensorFlow
 
 TensorFlow is an end-to-end open source platform for machine learning.

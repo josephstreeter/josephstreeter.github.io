@@ -1,13 +1,11 @@
 ---
 title: "Apply Baseline Group Policy and Security Templates"
 description: "Comprehensive guide for creating, exporting, and applying Windows security baselines using Group Policy and security templates across domain and standalone environments"
+author: "Joseph Streeter"
 tags: ["active-directory", "group-policy", "security-templates", "baseline", "security-hardening", "windows-server"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "advanced"
 last_updated: "2025-10-06"
-author: "Joseph Streeter"
-applies_to: ["Windows Server 2016+", "Windows 10/11", "Active Directory"]
 ---
 
 ## Overview

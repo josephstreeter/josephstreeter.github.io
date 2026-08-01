@@ -2,10 +2,9 @@
 title: "Prompt Engineering"
 description: "Advanced techniques for crafting effective prompts and optimizing AI interactions"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["prompt engineering", "prompt optimization", "ai techniques", "advanced prompting"]
-uid: docs.ai.prompts.engineering
+tags: ["prompt engineering", "prompt optimization", "ai techniques", "advanced prompting"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 Prompt engineering is the art and science of crafting effective instructions for AI language models to produce desired outputs. As AI models become more powerful and versatile, the ability to communicate effectively with them through well-designed prompts has become an essential skill for developers, researchers, and professionals across all industries.

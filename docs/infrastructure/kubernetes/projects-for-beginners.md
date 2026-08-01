@@ -1,11 +1,11 @@
 ---
 title: "Four Beginner-Friendly Kubernetes Projects to Build Confidence"
 description: "Hands-on Kubernetes projects for home labs and learning by doing, based on Christian Lempa's beginner-friendly approach"
+author: "Joseph Streeter"
 tags: ["kubernetes", "beginner", "projects", "hands-on", "learning", "containers", "homelab"]
 category: "infrastructure"
 difficulty: "beginner"
 last_updated: "2025-07-26"
-author: "Joseph Streeter"
 ---
 
 Starting your Kubernetes journey can feel overwhelming, but hands-on projects are the best way to build practical skills. This guide walks through four beginner-friendly projects that build confidence through real-world practice, especially suitable for home labs and learning by doing.

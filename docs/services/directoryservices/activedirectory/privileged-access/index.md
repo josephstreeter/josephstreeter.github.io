@@ -1,9 +1,10 @@
 ---
-title: Privileged Access Management (PAM)
-description: Comprehensive guide to implementing Privileged Access Management for Active Directory including Just-in-Time access, privileged account monitoring, and access governance
-author: Joseph Streeter
-date: 2024-01-15
-tags: [privileged-access, pam, active-directory, security, just-in-time, governance]
+title: "Privileged Access Management (PAM)"
+description: "Comprehensive guide to implementing Privileged Access Management for Active Directory including Just-in-Time access, privileged account monitoring, and access governance"
+author: "Joseph Streeter"
+tags: ["privileged-access", "pam", "active-directory", "security", "just-in-time", "governance"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 Privileged Access Management (PAM) is a critical security control for protecting Active Directory environments against insider threats and external attacks targeting privileged accounts. This guide covers comprehensive PAM implementation strategies.

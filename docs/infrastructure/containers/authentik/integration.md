@@ -1,9 +1,10 @@
 ---
 title: "Authentik Application Integration and User Management"
 description: "Integrating applications (SAML, OAuth2, OIDC, LDAP) and managing users and groups"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Application Integration

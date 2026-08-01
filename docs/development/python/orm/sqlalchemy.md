@@ -1,6 +1,9 @@
 ---
-title: SQLAlchemy ORM Guide
-description: Comprehensive guide to using SQLAlchemy for database operations in Python
+title: "SQLAlchemy ORM Guide"
+description: "Comprehensive guide to using SQLAlchemy for database operations in Python"
+tags: ["python", "orm"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

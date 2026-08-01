@@ -1,6 +1,9 @@
 ---
-title: Statistical Analysis with Python
-description: Comprehensive guide to statistical analysis in Python using NumPy, pandas, SciPy, and statsmodels for data exploration, hypothesis testing, and inference
+title: "Statistical Analysis with Python"
+description: "Comprehensive guide to statistical analysis in Python using NumPy, pandas, SciPy, and statsmodels for data exploration, hypothesis testing, and inference"
+tags: ["python", "data-science"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Statistical analysis is a fundamental component of data science, providing tools and techniques to understand, interpret, and draw conclusions from data. Python's rich ecosystem of libraries makes it an excellent platform for statistical computing.

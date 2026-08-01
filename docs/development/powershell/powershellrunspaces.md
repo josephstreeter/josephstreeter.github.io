@@ -1,9 +1,10 @@
 ---
-title: PowerShell Runspaces
-description: Comprehensive guide to PowerShell runspaces for parallel processing, background jobs, and advanced PowerShell programming
-author: Joseph Streeter
-date: 2024-01-15
-tags: [powershell, runspaces, parallel-processing, threading, performance]
+title: "PowerShell Runspaces"
+description: "Comprehensive guide to PowerShell runspaces for parallel processing, background jobs, and advanced PowerShell programming"
+author: "Joseph Streeter"
+tags: ["powershell", "runspaces", "parallel-processing", "threading", "performance"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 PowerShell Runspaces provide the foundation for parallel processing and advanced PowerShell execution scenarios. This guide covers runspace fundamentals, parallel processing techniques, and practical implementations for performance-critical applications.

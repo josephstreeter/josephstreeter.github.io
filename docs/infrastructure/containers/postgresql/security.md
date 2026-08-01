@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Security"
 description: "Securing containerized PostgreSQL — authentication, pg_hba.conf, TLS/SSL, roles and least privilege, secrets, and network isolation"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Security

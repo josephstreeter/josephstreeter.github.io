@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Repos - Git Repository Management
-description: Comprehensive guide to Azure Repos for Git repository management, branch policies, pull requests, code reviews, and collaborative development workflows
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, repos, git, version-control, branch-policies, pull-requests, code-review]
+title: "Azure DevOps Repos - Git Repository Management"
+description: "Comprehensive guide to Azure Repos for Git repository management, branch policies, pull requests, code reviews, and collaborative development workflows"
+author: "Joseph Streeter"
+tags: ["azure-devops", "repos", "git", "version-control", "branch-policies", "pull-requests", "code-review"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure Repos provides enterprise-grade Git repository hosting with advanced security, collaboration features, and seamless integration with Azure DevOps services.

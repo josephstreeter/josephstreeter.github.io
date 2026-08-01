@@ -1,9 +1,10 @@
 ---
-title: Vector Databases for AI Automation
-description: Guide to using vector databases for semantic search and RAG in AI automation workflows
-author: Joseph Streeter
-date: 2026-01-04
-tags: [ai, vector-database, embeddings, rag, semantic-search, knowledge-base]
+title: "Vector Databases for AI Automation"
+description: "Guide to using vector databases for semantic search and RAG in AI automation workflows"
+author: "Joseph Streeter"
+tags: ["ai", "vector-database", "embeddings", "rag", "semantic-search", "knowledge-base"]
+category: "ai"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

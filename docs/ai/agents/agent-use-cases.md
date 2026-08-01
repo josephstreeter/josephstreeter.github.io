@@ -2,10 +2,9 @@
 title: "Agent Use Cases"
 description: "Real-world applications and use cases for AI agents"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "use-case"
-keywords: ["agent applications", "agent use cases", "ai automation", "agent examples"]
-uid: docs.ai.agents.use-cases
+tags: ["agent applications", "agent use cases", "ai automation", "agent examples"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 AI agents are transforming how we work, learn, and solve problems across every industry. This comprehensive guide explores real-world use cases, from personal productivity tools to enterprise systems, with practical implementation examples, success metrics, and proven patterns.

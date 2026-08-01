@@ -1,3 +1,11 @@
+---
+title: "PowerShell Script Writing Guide"
+description: "This document provides guidelines for writing PowerShell scripts in a consistent and maintainable manner."
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-07-23"
+---
+
 # PowerShell Script Writing Guide
 
 This document provides guidelines for writing PowerShell scripts in a consistent and maintainable manner. It covers naming conventions, script structure, and best practices to ensure clarity and efficiency in your scripts.

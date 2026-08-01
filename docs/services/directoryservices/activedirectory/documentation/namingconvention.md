@@ -1,3 +1,11 @@
+---
+title: "Active Directory Naming Convention"
+description: "This document establishes standardized naming conventions for all Active Directory objects to ensure consistency, manageability, and security across the..."
+tags: ["directoryservices", "activedirectory", "documentation"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Active Directory Naming Convention
 
 ## Overview

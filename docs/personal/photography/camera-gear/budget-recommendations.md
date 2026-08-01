@@ -1,3 +1,11 @@
+---
+title: "Budget Recommendations"
+description: "Smart photography equipment choices for every budget level. This guide helps you maximize value and build a system that grows with your skills and needs."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Budget Recommendations
 
 Smart photography equipment choices for every budget level. This guide helps you maximize value and build a system that grows with your skills and needs.

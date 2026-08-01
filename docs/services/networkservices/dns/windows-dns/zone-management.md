@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Zone Management
-description: Comprehensive guide to managing DNS zones in Windows Server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dns-zones, dns-zone-management, windows-server, dns-administration]
+title: "Windows DNS Zone Management"
+description: "Comprehensive guide to managing DNS zones in Windows Server environments"
+author: "Joseph Streeter"
+tags: ["windows-dns-zones", "dns-zone-management", "windows-server", "dns-administration"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive guide to creating, configuring, and managing DNS zones in Windows Server environments.

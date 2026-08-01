@@ -1,13 +1,11 @@
 ---
 title: "Active Directory Certificate Management"
 description: "Comprehensive guide for managing certificates in Active Directory environments including CA deployment, certificate templates, enrollment processes, and troubleshooting procedures"
+author: "Joseph Streeter"
 tags: ["active-directory", "pki", "certificates", "certificate-authority", "ssl-tls", "security"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "advanced"
 last_updated: "2025-10-06"
-author: "Joseph Streeter"
-applies_to: ["Windows Server 2016+", "Active Directory Certificate Services", "PowerShell 5.1+"]
 ---
 
 ## Overview

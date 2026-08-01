@@ -1,13 +1,10 @@
 ---
-title: Home Lab Infrastructure
-description: Complete guide to setting up a home lab infrastructure with Proxmox, Kubernetes, Terraform, and Ansible for learning and development.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: homelab
-keywords: homelab, Proxmox, Kubernetes, Terraform, Ansible, virtualization, containers, infrastructure as code
-uid: docs.infrastructure.homelab.index
+title: "Home Lab Infrastructure"
+description: "Complete guide to setting up a home lab infrastructure with Proxmox, Kubernetes, Terraform, and Ansible for learning and development."
+author: "Joseph Streeter"
+tags: ["homelab", "proxmox", "kubernetes", "terraform", "ansible", "virtualization", "containers", "infrastructure as code"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 This document outlines the complete setup of a home lab infrastructure designed for learning and development. The lab consists of a Proxmox virtualization cluster, Kubernetes container orchestration, and infrastructure automation using Terraform and Ansible.

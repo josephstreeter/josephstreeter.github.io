@@ -1,11 +1,10 @@
 ---
-title: NumPy - Scientific Computing in Python
-description: Comprehensive guide to NumPy, the fundamental package for scientific computing and numerical operations in Python
-keywords: numpy, python, scientific computing, arrays, linear algebra, numerical computing, data science
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 01/04/2026
-ms.topic: conceptual
+title: "NumPy - Scientific Computing in Python"
+description: "Comprehensive guide to NumPy, the fundamental package for scientific computing and numerical operations in Python"
+author: "Joseph Streeter"
+tags: ["numpy", "python", "scientific computing", "arrays", "linear algebra", "numerical computing", "data science"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 NumPy (Numerical Python) is the fundamental package for scientific computing in Python. It provides support for large, multi-dimensional arrays and matrices, along with a comprehensive collection of high-level mathematical functions to operate on these arrays efficiently.

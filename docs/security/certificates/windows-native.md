@@ -1,11 +1,10 @@
 ---
-title: Managing Certificates in Windows with Native Tools
-description: Guide to managing X.509 certificates on Windows using built-in tools — Certificate Manager (MMC), certutil, certreq, PowerShell, and netsh
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-25
-ms.topic: how-to
-ms.service: security
+title: "Managing Certificates in Windows with Native Tools"
+description: "Guide to managing X.509 certificates on Windows using built-in tools — Certificate Manager (MMC), certutil, certreq, PowerShell, and netsh"
+author: "josephstreeter"
+tags: ["certificates"]
+category: "security"
+last_updated: "2026-07-25"
 ---
 
 ## Managing Certificates in Windows with Native Tools

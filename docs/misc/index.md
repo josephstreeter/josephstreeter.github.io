@@ -1,3 +1,11 @@
+---
+title: "Miscellaneous"
+description: "This section covers useful tools, techniques, and references that don't fit neatly into other categories but are valuable for development, operations, and..."
+tags: ["misc"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Miscellaneous
 
 This section covers useful tools, techniques, and references that don't fit neatly into other categories but are valuable for development, operations, and productivity. From software-defined radio to home automation and wildlife cameras, these topics represent practical applications of technology for both personal and professional use.

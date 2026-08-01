@@ -1,3 +1,11 @@
+---
+title: "Active Directory Documentation Example"
+description: "This document provides a complete inventory and configuration analysis of the Contoso Corporation Active Directory environment."
+tags: ["directoryservices", "activedirectory", "documentation"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Active Directory Documentation Example
 
 *This is an example of comprehensive Active Directory documentation generated using the automated collection process. This documentation was generated on October 6, 2025, for the Contoso Corporation Active Directory environment.*

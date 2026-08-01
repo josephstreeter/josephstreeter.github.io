@@ -2,10 +2,9 @@
 title: "Azure Public DNS Service with Terraform"
 description: "Complete guide to deploying and managing a production-ready Azure Public DNS service using Terraform infrastructure as code"
 author: "josephstreeter"
-ms.date: "2025-01-18"
-ms.topic: "how-to-guide"
-ms.service: "azure"
-keywords: ["Azure", "DNS", "Domain Name System", "Terraform", "Infrastructure as Code", "Public DNS", "DNS Zone", "Name Resolution"]
+tags: ["azure", "dns", "domain name system", "terraform", "infrastructure as code", "public dns", "dns zone", "name resolution"]
+category: "infrastructure"
+last_updated: "2025-01-18"
 ---
 
 This guide provides a comprehensive approach to deploying a production-ready Azure Public DNS service using Terraform. The configuration includes public DNS zones, proper security hardening, and operational considerations for internet-facing domain name resolution.

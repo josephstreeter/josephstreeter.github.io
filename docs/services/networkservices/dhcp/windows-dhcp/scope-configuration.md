@@ -1,9 +1,10 @@
 ---
-title: Windows DHCP Scope Configuration
-description: Comprehensive guide to creating, configuring, and managing DHCP scopes in Windows Server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dhcp-scopes, dhcp-scope-configuration, ip-address-management, dhcp-reservations]
+title: "Windows DHCP Scope Configuration"
+description: "Comprehensive guide to creating, configuring, and managing DHCP scopes in Windows Server environments"
+author: "Joseph Streeter"
+tags: ["windows-dhcp-scopes", "dhcp-scope-configuration", "ip-address-management", "dhcp-reservations"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 DHCP scopes define the range of IP addresses that can be distributed to DHCP clients. This guide covers creating, configuring, and managing DHCP scopes effectively.

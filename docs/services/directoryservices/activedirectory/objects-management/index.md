@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Objects and Management"
 description: "Comprehensive guide to managing Active Directory objects including users, groups, organizational units, and privileged accounts."
+author: "Documentation Team"
 tags: ["active-directory", "user-management", "group-management", "organizational-units", "privileged-accounts"]
-category: "Services"
-subcategory: "Active Directory"
+category: "services"
 difficulty: "Intermediate"
 last_updated: "2025-09-25"
-author: "Documentation Team"
 ---
 
 ## Overview

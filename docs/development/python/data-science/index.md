@@ -2,9 +2,9 @@
 title: "Python for Data Science"
 description: "Comprehensive guide to data science with Python, covering essential libraries, data manipulation, visualization, machine learning, and best practices"
 author: "Joseph Streeter"
-ms.date: "2026-01-04"
-ms.topic: "article"
-keywords: python, data science, pandas, numpy, scikit-learn, matplotlib, machine learning, data analysis
+tags: ["python", "data science", "pandas", "numpy", "scikit-learn", "matplotlib", "machine learning", "data analysis"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 Python has become the de facto language for data science due to its simplicity, extensive ecosystem of libraries, and strong community support. This comprehensive guide covers essential concepts, tools, and best practices for data science with Python.

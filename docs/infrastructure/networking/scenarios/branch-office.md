@@ -2,7 +2,7 @@
 title: "Branch Office Network Design (20-50 Users)"
 description: "Complete network design for a remote branch office with site-to-site VPN to headquarters"
 tags: ["networking", "scenarios", "branch-office", "vpn", "design"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

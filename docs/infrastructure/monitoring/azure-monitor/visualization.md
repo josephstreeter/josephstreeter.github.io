@@ -1,13 +1,10 @@
 ---
-title: Azure Monitor Visualization
-description: Visualizing Azure Monitor telemetry - Metrics Explorer, Workbooks, Azure dashboards, and Azure Managed Grafana.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: how-to
-ms.service: azure-monitor
-keywords: Metrics Explorer, Azure Workbooks, Azure dashboards, Azure Managed Grafana, visualization
-uid: docs.infrastructure.azure-monitor.visualization
+title: "Azure Monitor Visualization"
+description: "Visualizing Azure Monitor telemetry - Metrics Explorer, Workbooks, Azure dashboards, and Azure Managed Grafana."
+author: "Joseph Streeter"
+tags: ["metrics explorer", "azure workbooks", "azure dashboards", "azure managed grafana", "visualization"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Visualization

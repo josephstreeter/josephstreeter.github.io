@@ -1,6 +1,9 @@
 ---
-title: REST API Development in Python
-description: Comprehensive guide to building robust, scalable RESTful APIs in Python using Flask, FastAPI, and Django REST Framework
+title: "REST API Development in Python"
+description: "Comprehensive guide to building robust, scalable RESTful APIs in Python using Flask, FastAPI, and Django REST Framework"
+tags: ["python", "apis"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 REST (Representational State Transfer) APIs are the backbone of modern web services, enabling seamless communication between clients and servers. Python offers exceptional frameworks for building robust, scalable RESTful APIs that power everything from mobile applications to enterprise microservices.

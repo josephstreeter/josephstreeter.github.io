@@ -1,11 +1,10 @@
 ---
-title: SSH Keys - Complete Guide
-description: A practical guide to SSH key generation, management, client configuration, and server hardening
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-05-23
-ms.topic: conceptual
-ms.service: security
+title: "SSH Keys - Complete Guide"
+description: "A practical guide to SSH key generation, management, client configuration, and server hardening"
+author: "josephstreeter"
+tags: ["ssh"]
+category: "security"
+last_updated: "2026-05-23"
 ---
 
 SSH keys are asymmetric cryptographic keys that provide a more secure alternative to password-based authentication. A key pair consists of:

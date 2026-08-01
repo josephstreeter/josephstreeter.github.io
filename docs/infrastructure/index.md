@@ -1,11 +1,11 @@
 ---
 title: "Infrastructure"
 description: "Comprehensive infrastructure documentation covering virtualization, containers, operating systems, monitoring, automation, and disaster recovery"
+author: "Joseph Streeter"
 tags: ["infrastructure", "virtualization", "containers", "operating-systems", "monitoring", "automation", "disaster-recovery"]
 category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section covers infrastructure topics including virtualization, containers, operating systems, monitoring, automation, and disaster recovery. Whether you're building a home lab, managing enterprise infrastructure, or exploring cloud architectures, you'll find comprehensive guides and best practices here.

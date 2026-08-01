@@ -1,12 +1,10 @@
 ---
-title: Active Directory Firewall and Network Configuration
-description: Comprehensive guide for configuring firewalls and network infrastructure to support Active Directory services, including port requirements, security considerations, and best practices
-author: IT Operations Team
-ms.date: 2025-01-01
-ms.topic: reference
-ms.service: active-directory
-ms.subservice: networking
-keywords: active directory, firewall, network, ports, security, domain controllers, infrastructure
+title: "Active Directory Firewall and Network Configuration"
+description: "Comprehensive guide for configuring firewalls and network infrastructure to support Active Directory services, including port requirements, security considerations, and best practices"
+author: "IT Operations Team"
+tags: ["active directory", "firewall", "network", "ports", "security", "domain controllers", "infrastructure"]
+category: "services"
+last_updated: "2025-01-01"
 ---
 
 ## Overview

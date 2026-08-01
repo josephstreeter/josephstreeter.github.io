@@ -1,3 +1,11 @@
+---
+title: "Filters"
+description: "Enhance your photography with optical filters that modify light before it reaches your camera sensor."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Filters
 
 Enhance your photography with optical filters that modify light before it reaches your camera sensor. This guide covers essential filters and their creative applications.

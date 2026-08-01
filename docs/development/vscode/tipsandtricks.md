@@ -2,10 +2,9 @@
 title: "VS Code Tips and Tricks"
 description: "Master Visual Studio Code with productivity tips, keyboard shortcuts, and advanced features for PowerShell development and general coding workflows."
 author: "Joseph Streeter"
-ms.date: "2024-01-15"
-ms.topic: "how-to"
-ms.service: "vscode"
-keywords: ["Visual Studio Code", "VS Code", "PowerShell", "tips", "tricks", "shortcuts", "productivity"]
+tags: ["visual studio code", "vs code", "powershell", "tips", "tricks", "shortcuts", "productivity"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 ## VS Code Tips and Tricks

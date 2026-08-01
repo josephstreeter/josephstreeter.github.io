@@ -1,3 +1,11 @@
+---
+title: "Zigbee2MQTT Configuration Guide"
+description: "Complete configuration guide for Zigbee2MQTT including basic setup, advanced options, and optimization."
+tags: ["homeassistant", "zigbee2mqtt"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Zigbee2MQTT Configuration Guide
 
 Complete configuration guide for Zigbee2MQTT including basic setup, advanced options, and optimization.

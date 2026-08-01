@@ -1,6 +1,9 @@
 ---
-title: FastAPI Web Framework
-description: Modern, fast web framework for building APIs with Python
+title: "FastAPI Web Framework"
+description: "Modern, fast web framework for building APIs with Python"
+tags: ["python", "frameworks"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 ## Overview

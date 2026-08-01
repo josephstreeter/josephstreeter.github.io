@@ -1,11 +1,10 @@
 ---
-title: Bash Command Reference
-description: Index of Bash command reference pages, grouped by task.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "Bash Command Reference"
+description: "Index of Bash command reference pages, grouped by task."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 Reference pages for common Bash commands, each covering syntax, options, and practical examples.

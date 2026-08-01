@@ -1,9 +1,10 @@
 ---
-title: BIND9 Installation & Setup
-description: Complete installation and initial configuration guide for BIND9 DNS Server on Linux systems
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-installation, dns-setup, linux-dns, bind-configuration]
+title: "BIND9 Installation & Setup"
+description: "Complete installation and initial configuration guide for BIND9 DNS Server on Linux systems"
+author: "Joseph Streeter"
+tags: ["bind9-installation", "dns-setup", "linux-dns", "bind-configuration"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Step-by-step installation and configuration guide for BIND9 DNS Server on Linux systems.

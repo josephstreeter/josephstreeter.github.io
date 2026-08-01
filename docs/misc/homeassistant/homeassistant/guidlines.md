@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.homeassistant.guidelines
-title: Home Assistant Configuration Guidelines
-description: Best practices and architectural guidelines for Home Assistant configuration
-keywords: [home assistant, guidelines, best practices, architecture, configuration]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Configuration Guidelines"
+description: "Best practices and architectural guidelines for Home Assistant configuration"
+author: "Joseph Streeter"
+tags: ["home assistant", "guidelines", "best practices", "architecture", "configuration"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Home Assistant Configuration Guidelines

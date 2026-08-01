@@ -1,11 +1,10 @@
 ---
-title: mkdir Command
-description: Comprehensive reference for the mkdir command in Bash, including syntax, options, permissions, and practical directory-creation patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "mkdir Command"
+description: "Comprehensive reference for the mkdir command in Bash, including syntax, options, permissions, and practical directory-creation patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `mkdir` command creates directories.

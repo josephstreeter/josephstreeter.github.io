@@ -1,3 +1,11 @@
+---
+title: "Cmdlets"
+description: "This document will cover some common and a few not-so-common cmdlets."
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # Cmdlets
 
 This document will cover some common and a few not-so-common cmdlets.

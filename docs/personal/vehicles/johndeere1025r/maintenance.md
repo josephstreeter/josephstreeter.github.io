@@ -2,10 +2,9 @@
 title: "John Deere 1025R - Maintenance Guide"
 description: "Comprehensive maintenance guide and service schedule for the John Deere 1025R sub-compact utility tractor with 260 backhoe."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["John Deere", "1025R", "tractor maintenance", "Yanmar diesel", "260 backhoe", "service schedule", "hydraulic fluid"]
+tags: ["john deere", "1025r", "tractor maintenance", "yanmar diesel", "260 backhoe", "service schedule", "hydraulic fluid"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## John Deere 1025R Maintenance Guide

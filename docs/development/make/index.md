@@ -1,8 +1,9 @@
 ---
 title: "Make - Comprehensive Guide"
 description: "Complete guide to GNU Make: syntax, rules, variables, patterns, functions, and best practices for build automation."
-ms.topic: reference
-ms.date: 2025-11-29
+tags: ["make"]
+category: "development"
+last_updated: "2025-11-29"
 ---
 
 Make is a build automation tool that automatically builds executable programs and libraries from source code by reading files called Makefiles which specify how to derive the target program.

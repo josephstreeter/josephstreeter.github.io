@@ -2,8 +2,9 @@
 title: "PowerShell Classes"
 description: "Complete guide to PowerShell classes, object-oriented programming, and advanced PowerShell development"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-09-08"
 ---
 
 ## Overview

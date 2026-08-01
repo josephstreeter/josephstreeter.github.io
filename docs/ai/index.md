@@ -2,10 +2,9 @@
 title: "Artificial Intelligence Overview"
 description: "Introduction to AI concepts, technologies, and applications"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "overview"
-keywords: ["ai", "artificial intelligence", "machine learning", "deep learning", "neural networks"]
-uid: docs.ai.index
+tags: ["ai", "artificial intelligence", "machine learning", "deep learning", "neural networks"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Introduction

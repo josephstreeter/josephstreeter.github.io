@@ -2,10 +2,9 @@
 title: "Hardware Requirements for Local LLMs"
 description: "Understanding the hardware needed to run local LLMs effectively"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["hardware", "gpu", "ram", "requirements", "specifications"]
-uid: docs.ai.local-llms.hardware
+tags: ["hardware", "gpu", "ram", "requirements", "specifications"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

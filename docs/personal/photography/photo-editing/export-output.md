@@ -1,3 +1,11 @@
+---
+title: "Export and Output"
+description: "Optimize your images for different output purposes, from web display to high-quality prints."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Export and Output
 
 Optimize your images for different output purposes, from web display to high-quality prints. This comprehensive guide covers export settings, color management, and output optimization for various media.

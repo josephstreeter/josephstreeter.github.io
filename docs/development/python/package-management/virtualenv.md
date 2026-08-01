@@ -1,6 +1,9 @@
 ---
-title: virtualenv - Python Virtual Environment Tool
-description: Comprehensive guide to virtualenv for creating isolated Python environments, managing dependencies, and preventing package conflicts
+title: "virtualenv - Python Virtual Environment Tool"
+description: "Comprehensive guide to virtualenv for creating isolated Python environments, managing dependencies, and preventing package conflicts"
+tags: ["python", "package-management"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 virtualenv is a tool to create isolated Python environments, allowing different projects to have separate dependencies without conflicts. It's one of the most widely used tools in the Python ecosystem for dependency isolation and project management.

@@ -1,13 +1,10 @@
 ---
-title: Playbooks and Tasks
-description: Writing Ansible playbooks - plays, tasks, modules, handlers, conditionals, loops, blocks, error handling, and controlling execution.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: how-to
-ms.service: ansible
-keywords: ansible, playbook, tasks, handlers, conditionals, loops, blocks, ansible-playbook, idempotency
-uid: docs.infrastructure.ansible.playbooks
+title: "Playbooks and Tasks"
+description: "Writing Ansible playbooks - plays, tasks, modules, handlers, conditionals, loops, blocks, error handling, and controlling execution."
+author: "Joseph Streeter"
+tags: ["ansible", "playbook", "tasks", "handlers", "conditionals", "loops", "blocks", "ansible-playbook"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Playbooks and Tasks

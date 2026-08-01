@@ -2,10 +2,9 @@
 title: "n8n - AI Workflow Automation"
 description: "Comprehensive guide to using n8n for AI-powered workflow automation"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["n8n", "workflow automation", "open source", "self-hosted", "ai integration"]
-uid: docs.ai.automation.n8n
+tags: ["n8n", "workflow automation", "open source", "self-hosted", "ai integration"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

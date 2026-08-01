@@ -1,13 +1,10 @@
 ---
-title: SQL Query Reference
-description: A comprehensive collection of commonly used SQL queries for quick reference and daily development tasks, including SELECT, UPDATE, INSERT, DELETE, and advanced SQL operations.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: sql-server
-keywords: SQL, queries, database, T-SQL, SQL Server, SELECT, UPDATE, INSERT, DELETE, JOIN, CTE
-uid: docs.infrastructure.sql.sqlqueries
+title: "SQL Query Reference"
+description: "A comprehensive collection of commonly used SQL queries for quick reference and daily development tasks, including SELECT, UPDATE, INSERT, DELETE, and advanced SQL operations."
+author: "Joseph Streeter"
+tags: ["sql", "queries", "database", "t-sql", "sql server", "select", "update", "insert"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 A comprehensive collection of commonly used SQL queries for quick reference and daily development tasks.

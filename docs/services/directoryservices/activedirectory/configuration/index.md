@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Configuration"
 description: "Configuration guides for Active Directory environments, directory services, and LDAP settings."
+author: "Documentation Team"
 tags: ["active-directory", "configuration", "ldap", "directory-services", "environments"]
-category: "Services"
-subcategory: "Active Directory"
+category: "services"
 difficulty: "Advanced"
 last_updated: "2025-09-25"
-author: "Documentation Team"
 ---
 
 ## Overview

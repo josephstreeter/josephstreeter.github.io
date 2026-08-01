@@ -1,6 +1,9 @@
 ---
-title: Neural Networks - Deep Learning in Python
-description: Comprehensive guide to neural networks, covering theory, architectures, implementation, and practical applications using PyTorch, TensorFlow, and Keras
+title: "Neural Networks - Deep Learning in Python"
+description: "Comprehensive guide to neural networks, covering theory, architectures, implementation, and practical applications using PyTorch, TensorFlow, and Keras"
+tags: ["python", "algorithms"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 Neural networks are computational models inspired by biological neural systems, capable of learning complex patterns from data. They form the foundation of modern deep learning and have revolutionized fields including computer vision, natural language processing, speech recognition, and reinforcement learning.

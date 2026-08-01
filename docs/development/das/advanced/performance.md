@@ -1,6 +1,9 @@
 ---
-title: Performance Optimization
-description: Advanced techniques for optimizing DocFX site performance and user experience
+title: "Performance Optimization"
+description: "Advanced techniques for optimizing DocFX site performance and user experience"
+tags: ["das", "advanced"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Performance Optimization

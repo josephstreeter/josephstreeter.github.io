@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.first-template
-title: Creating Your First Packer Template
-description: Step-by-step tutorial for creating and running your first Packer template to build machine images
-ms.date: 01/18/2026
+title: "Creating Your First Packer Template"
+description: "Step-by-step tutorial for creating and running your first Packer template to build machine images"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section walks through creating your first Packer template to build a simple machine image.

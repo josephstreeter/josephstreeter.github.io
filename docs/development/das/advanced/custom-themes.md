@@ -1,6 +1,9 @@
 ---
-title: Custom Themes and Styling
-description: Creating and customizing DocFX themes for branded documentation experiences
+title: "Custom Themes and Styling"
+description: "Creating and customizing DocFX themes for branded documentation experiences"
+tags: ["das", "advanced"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Custom Themes and Styling

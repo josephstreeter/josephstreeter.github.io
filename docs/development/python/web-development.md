@@ -1,9 +1,10 @@
 ---
-title: Web Development with Python
-description: Overview of web development frameworks and tools in Python
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, web-development, flask, django, fastapi]
+title: "Web Development with Python"
+description: "Overview of web development frameworks and tools in Python"
+author: "Joseph Streeter"
+tags: ["python", "web-development", "flask", "django", "fastapi"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

@@ -2,10 +2,9 @@
 title: "VS Code Snippets for PowerShell Development"
 description: "Comprehensive collection of Visual Studio Code snippets for PowerShell administration, automation, and development tasks."
 author: "Joseph Streeter"
-ms.date: "2024-01-15"
-ms.topic: "reference"
-ms.service: "vscode"
-keywords: ["Visual Studio Code", "VS Code", "PowerShell", "snippets", "templates", "automation"]
+tags: ["visual studio code", "vs code", "powershell", "snippets", "templates", "automation"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 ## VS Code Snippets for PowerShell

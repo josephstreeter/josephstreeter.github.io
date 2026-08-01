@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.deployment.mosquitto
-title: Mosquitto MQTT Deployment
-description: Dedicated Mosquitto MQTT broker deployment guide
-keywords: [mosquitto, mqtt, deployment, docker, broker, messaging]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Mosquitto MQTT Deployment"
+description: "Dedicated Mosquitto MQTT broker deployment guide"
+author: "Joseph Streeter"
+tags: ["mosquitto", "mqtt", "deployment", "docker", "broker", "messaging"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Mosquitto MQTT Broker Deployment

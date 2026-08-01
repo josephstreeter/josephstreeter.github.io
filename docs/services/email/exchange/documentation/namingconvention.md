@@ -1,3 +1,11 @@
+---
+title: "Exchange Server Naming Convention"
+description: "This document establishes standardized naming conventions for all Exchange Server objects and components to ensure consistency, manageability, and integration..."
+tags: ["email", "exchange", "documentation"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Exchange Server Naming Convention
 
 ## Overview

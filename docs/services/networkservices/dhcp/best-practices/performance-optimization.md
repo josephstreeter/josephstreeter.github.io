@@ -1,9 +1,10 @@
 ---
-title: DHCP Performance Optimization
-description: Performance tuning and optimization strategies for DHCP server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dhcp-performance, optimization, capacity-planning]
+title: "DHCP Performance Optimization"
+description: "Performance tuning and optimization strategies for DHCP server deployments"
+author: "Joseph Streeter"
+tags: ["dhcp-performance", "optimization", "capacity-planning"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Performance optimization techniques and capacity planning for enterprise DHCP deployments.

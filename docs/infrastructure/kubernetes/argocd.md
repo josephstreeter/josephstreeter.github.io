@@ -1,12 +1,10 @@
 ---
-uid: infrastructure.containers.kubernetes.argocd
-title: ArgoCD - GitOps for Kubernetes
-description: Complete guide to ArgoCD - GitOps continuous delivery tool for Kubernetes environments
-keywords: [argocd, gitops, kubernetes, continuous delivery, cd, deployment, git, declarative]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 07/26/2025
-ms.topic: conceptual
+title: "ArgoCD - GitOps for Kubernetes"
+description: "Complete guide to ArgoCD - GitOps continuous delivery tool for Kubernetes environments"
+author: "Joseph Streeter"
+tags: ["argocd", "gitops", "kubernetes", "continuous delivery", "cd", "deployment", "git", "declarative"]
+category: "infrastructure"
+last_updated: "2025-07-26"
 ---
 
 ## Overview

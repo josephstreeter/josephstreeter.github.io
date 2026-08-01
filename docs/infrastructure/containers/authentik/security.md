@@ -1,9 +1,10 @@
 ---
 title: "Authentik Security, Compliance, and Monitoring"
 description: "Security hardening, compliance, monitoring, and logging for Authentik"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Security and Compliance

@@ -1,11 +1,10 @@
 ---
-title: tail Command
-description: Comprehensive reference for the tail command in Bash, including follow mode, byte and line output controls, and practical log-monitoring patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "tail Command"
+description: "Comprehensive reference for the tail command in Bash, including follow mode, byte and line output controls, and practical log-monitoring patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `tail` command prints the end of files or streams.

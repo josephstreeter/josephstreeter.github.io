@@ -1,11 +1,10 @@
 ---
-title: mv Command
-description: Comprehensive reference for the mv command in Bash, including rename semantics, overwrite controls, and practical move workflows.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "mv Command"
+description: "Comprehensive reference for the mv command in Bash, including rename semantics, overwrite controls, and practical move workflows."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `mv` command moves or renames files and directories.

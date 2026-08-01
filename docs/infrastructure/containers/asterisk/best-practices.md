@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Best Practices"
 description: "Production Asterisk — NAT and RTP handling, codec selection, high availability, backups, and container operations"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Best Practices

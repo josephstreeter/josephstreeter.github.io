@@ -2,10 +2,9 @@
 title: "Data Analysis with AI"
 description: "Leveraging AI for data analysis, insights, and decision-making"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "use-case"
-keywords: ["data analysis", "analytics", "business intelligence", "insights", "data science"]
-uid: docs.ai.use-cases.data-analysis
+tags: ["data analysis", "analytics", "business intelligence", "insights", "data science"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

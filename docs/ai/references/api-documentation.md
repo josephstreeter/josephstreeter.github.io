@@ -2,10 +2,9 @@
 title: "API Documentation"
 description: "Reference guide for working with AI model APIs"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "reference"
-keywords: ["api", "documentation", "integration", "sdk", "api reference"]
-uid: docs.ai.references.api
+tags: ["api", "documentation", "integration", "sdk", "api reference"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

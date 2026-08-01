@@ -1,11 +1,10 @@
 ---
-title: Nginx TLS / SSL and Let's Encrypt
-description: Configuring TLS/SSL in Nginx, including automated certificates with Let's Encrypt (Certbot) on host and in Docker
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+title: "Nginx TLS / SSL and Let's Encrypt"
+description: "Configuring TLS/SSL in Nginx, including automated certificates with Let's Encrypt (Certbot) on host and in Docker"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## SSL/TLS Configuration

@@ -1,6 +1,9 @@
 ---
-title: Python Deployment - Complete Guide
-description: Comprehensive guide to deploying Python applications covering packaging, containerization, CI/CD, configuration management, monitoring, and production best practices
+title: "Python Deployment - Complete Guide"
+description: "Comprehensive guide to deploying Python applications covering packaging, containerization, CI/CD, configuration management, monitoring, and production best practices"
+tags: ["python", "deployment"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 Deploying Python applications requires careful consideration of packaging, environment management, infrastructure choices, and operational practices. This comprehensive guide covers the entire deployment lifecycle from local development to production operations.

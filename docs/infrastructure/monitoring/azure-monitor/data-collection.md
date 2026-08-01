@@ -1,13 +1,10 @@
 ---
-title: Azure Monitor Data Collection
-description: How Azure Monitor collects telemetry - platform metrics, resource logs, the Azure Monitor Agent, Data Collection Rules, Log Analytics workspaces, and Application Insights.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: concept
-ms.service: azure-monitor
-keywords: Azure Monitor Agent, Data Collection Rules, Log Analytics, Application Insights, diagnostic settings, metrics, logs
-uid: docs.infrastructure.azure-monitor.data-collection
+title: "Azure Monitor Data Collection"
+description: "How Azure Monitor collects telemetry - platform metrics, resource logs, the Azure Monitor Agent, Data Collection Rules, Log Analytics workspaces, and Application Insights."
+author: "Joseph Streeter"
+tags: ["azure monitor agent", "data collection rules", "log analytics", "application insights", "diagnostic settings", "metrics", "logs"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Data collection

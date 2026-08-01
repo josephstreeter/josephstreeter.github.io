@@ -1,8 +1,9 @@
 ---
 title: "Mongodb Compass"
 description: "Mongodb Compass documentation"
-category: "infrastructure"
 tags: ["containers", "tools"]
+category: "infrastructure"
+last_updated: "2026-08-01"
 ---
 
 # Mongodb Compass

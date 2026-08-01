@@ -1,13 +1,10 @@
 ---
-title: Inventory
-description: Defining managed hosts with static INI and YAML inventories, groups, group_vars/host_vars, dynamic inventory, and targeting patterns.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: concept
-ms.service: ansible
-keywords: ansible, inventory, groups, group_vars, host_vars, dynamic inventory, patterns, ansible-inventory
-uid: docs.infrastructure.ansible.inventory
+title: "Inventory"
+description: "Defining managed hosts with static INI and YAML inventories, groups, group_vars/host_vars, dynamic inventory, and targeting patterns."
+author: "Joseph Streeter"
+tags: ["ansible", "inventory", "groups", "group_vars", "host_vars", "dynamic inventory", "patterns", "ansible-inventory"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Inventory

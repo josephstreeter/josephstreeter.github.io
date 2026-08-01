@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Certificate Conversions
-description: Converting certificates and keys between PEM, DER, PKCS#7, PKCS#12, and JKS formats
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL Certificate Conversions"
+description: "Converting certificates and keys between PEM, DER, PKCS#7, PKCS#12, and JKS formats"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Certificate Conversions

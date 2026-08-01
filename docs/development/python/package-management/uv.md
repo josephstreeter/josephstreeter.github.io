@@ -1,6 +1,9 @@
 ---
-title: UV - Extremely Fast Python Package Manager
-description: Comprehensive guide to UV, the Rust-powered Python package installer and resolver that's 10-100x faster than pip
+title: "UV - Extremely Fast Python Package Manager"
+description: "Comprehensive guide to UV, the Rust-powered Python package installer and resolver that's 10-100x faster than pip"
+tags: ["python", "package-management"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 UV is an extremely fast Python package installer and resolver written in Rust by Astral, designed as a drop-in replacement for pip and pip-tools. It delivers 10-100x performance improvements while maintaining full compatibility with existing Python workflows.

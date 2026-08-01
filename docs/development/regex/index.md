@@ -1,8 +1,9 @@
 ---
-title: Regular Expressions (Regex) — Overview
-description: Short landing page for the Regular Expressions guide with quick links to language-specific examples.
-ms.topic: overview
-ms.date: 2025-11-27
+title: "Regular Expressions (Regex) — Overview"
+description: "Short landing page for the Regular Expressions guide with quick links to language-specific examples."
+tags: ["regex"]
+category: "development"
+last_updated: "2025-11-27"
 ---
 
 This is a short landing page for regular expressions. Use the quick links below to jump to language-specific examples in the full guide.

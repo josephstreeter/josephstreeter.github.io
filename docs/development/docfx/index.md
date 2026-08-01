@@ -1,3 +1,11 @@
+---
+title: "DocFx"
+description: "Build your technical documentation site with docfx."
+tags: ["docfx"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # DocFx
 
 ---

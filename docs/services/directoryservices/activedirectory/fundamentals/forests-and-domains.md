@@ -1,14 +1,10 @@
 ---
-uid: ad-forests-domains
 title: "Active Directory Forests and Domains Design Guide"
 description: "Comprehensive guide for designing and implementing Active Directory forest and domain architecture with modern best practices, security considerations, and automation examples."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "domain-services"
-keywords: ["Active Directory", "Forest", "Domain", "Design", "Architecture", "Security", "PowerShell"]
+tags: ["active directory", "forest", "domain", "design", "architecture", "security", "powershell"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 ## Active Directory Forests and Domains Design Guide

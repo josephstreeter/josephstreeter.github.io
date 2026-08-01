@@ -1,9 +1,10 @@
 ---
-title: Container Orchestration
-description: Comprehensive guide to container orchestration with Kubernetes, Docker Swarm, and modern deployment strategies
-author: Joseph Streeter
-date: 2024-01-15
-tags: [containers, orchestration, kubernetes, docker-swarm, deployment, scaling]
+title: "Container Orchestration"
+description: "Comprehensive guide to container orchestration with Kubernetes, Docker Swarm, and modern deployment strategies"
+author: "Joseph Streeter"
+tags: ["containers", "orchestration", "kubernetes", "docker-swarm", "deployment", "scaling"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Container orchestration automates the deployment, management, scaling, and networking of containers across clusters of hosts. This guide covers modern orchestration platforms and deployment strategies for production environments.
@@ -103,8 +104,17 @@ containerd config default | sudo tee /etc/containerd/config.toml
 sudo systemctl restart containerd
 
 # Install kubeadm, kubelet, kubectl
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+# The repositories are split per minor version — pick the one you intend to run
+K8S_VERSION=v1.31
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL "https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key" \
+  | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+sudo chmod a+r /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/ /" \
+  | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl

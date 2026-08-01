@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Queues and IVR"
 description: "Building auto-attendant IVR menus and ACD call queues in Asterisk — Background/WaitExten/Read, time-based routing, queues.conf strategies, and agent management"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Queues and IVR

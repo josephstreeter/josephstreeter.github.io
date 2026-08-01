@@ -1,3 +1,11 @@
+---
+title: "Troubleshooting"
+description: "This page will try to outline some simple things to try in troubleshooting issues with PowerShell"
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-07-18"
+---
+
 # Troubleshooting
 
 This page will try to outline some simple things to try in troubleshooting issues with PowerShell

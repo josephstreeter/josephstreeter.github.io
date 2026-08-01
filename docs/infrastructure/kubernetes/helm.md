@@ -1,12 +1,10 @@
 ---
-uid: infrastructure.containers.kubernetes.helm
-title: Helm - The Package Manager for Kubernetes
-description: Complete guide to Helm - the package manager for Kubernetes applications
-keywords: [helm, kubernetes, package manager, charts, templates, deployment, k8s]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 07/26/2025
-ms.topic: conceptual
+title: "Helm - The Package Manager for Kubernetes"
+description: "Complete guide to Helm - the package manager for Kubernetes applications"
+author: "Joseph Streeter"
+tags: ["helm", "kubernetes", "package manager", "charts", "templates", "deployment", "k8s"]
+category: "infrastructure"
+last_updated: "2025-07-26"
 ---
 
 ## Overview

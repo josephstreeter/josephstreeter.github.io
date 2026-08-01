@@ -1,11 +1,11 @@
 ---
 title: "Hunting with MITRE ATT&CK"
 description: "Using the MITRE ATT&CK knowledge base to structure, prioritize, and scope threat hunts"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "mitre-attack", "ttp", "detection", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Hunting with MITRE ATT&CK

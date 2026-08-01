@@ -1,13 +1,10 @@
 ---
-title: Kusto Query Language (KQL)
-description: Complete guide to Kusto Query Language (KQL) for data exploration, pattern discovery, and threat hunting in Microsoft services like Azure Monitor, Sentinel, and Defender.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: overview
-ms.service: azure-monitor
-keywords: KQL, Kusto, query language, Azure Monitor, Sentinel, Defender, threat hunting, log analytics
-uid: docs.infrastructure.kql.index
+title: "Kusto Query Language (KQL)"
+description: "Complete guide to Kusto Query Language (KQL) for data exploration, pattern discovery, and threat hunting in Microsoft services like Azure Monitor, Sentinel, and Defender."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "query language", "azure monitor", "sentinel", "defender", "threat hunting", "log analytics"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Kusto Query Language (KQL) is used to explore data and discover patterns, identify anomalies and outliers, create statistical modeling, and more. KQL is a simple yet powerful language to query structured, semi-structured, and unstructured data. The language is expressive, easy to read and understand the query intent, and optimized for authoring experiences.

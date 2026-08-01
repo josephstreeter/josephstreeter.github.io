@@ -1,11 +1,10 @@
 ---
-title: Bash System, Process, and Network Commands
-description: Common Bash commands for system visibility, process control, and network troubleshooting.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 05/21/2026
-ms.topic: conceptual
-ms.service: development
+title: "Bash System, Process, and Network Commands"
+description: "Common Bash commands for system visibility, process control, and network troubleshooting."
+author: "Joseph Streeter"
+tags: ["bash"]
+category: "development"
+last_updated: "2026-05-21"
 ---
 
 These commands are useful for diagnosing runtime issues, checking system state, and validating connectivity.

@@ -2,8 +2,9 @@
 title: "Active Directory Getting Started"
 description: "Getting started guide for Active Directory fundamentals and basic administration"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["directoryservices", "activedirectory"]
+category: "services"
+last_updated: "2025-09-08"
 ---
 
 ## Active Directory Getting Started

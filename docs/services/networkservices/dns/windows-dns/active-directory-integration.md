@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Active Directory Integration
-description: Configuring DNS integration with Active Directory for enhanced security and functionality
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dns-ad-integration, active-directory-dns, dns-security, domain-services]
+title: "Windows DNS Active Directory Integration"
+description: "Configuring DNS integration with Active Directory for enhanced security and functionality"
+author: "Joseph Streeter"
+tags: ["windows-dns-ad-integration", "active-directory-dns", "dns-security", "domain-services"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Windows DNS Server provides deep integration with Active Directory for enhanced security and functionality.

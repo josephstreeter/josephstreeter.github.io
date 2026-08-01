@@ -1,9 +1,10 @@
 ---
-title: Identity and Access Management (IAM)
-description: Comprehensive guide to enterprise identity and access management including authentication, authorization, single sign-on, and identity governance
-author: Joseph Streeter
-date: 2024-01-15
-tags: [identity-management, authentication, authorization, sso, identity-governance, rbac]
+title: "Identity and Access Management (IAM)"
+description: "Comprehensive guide to enterprise identity and access management including authentication, authorization, single sign-on, and identity governance"
+author: "Joseph Streeter"
+tags: ["identity-management", "authentication", "authorization", "sso", "identity-governance", "rbac"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Identity and Access Management (IAM) is the framework of policies and technologies for ensuring that the right individuals access the right resources at the right times for the right reasons. This guide covers comprehensive IAM implementation strategies.

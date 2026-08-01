@@ -1,7 +1,7 @@
 ---
 title: "MIM 2016 Performance Tuning"
 description: "Comprehensive guide to optimizing performance for Microsoft Identity Manager 2016 Synchronization Service"
-tags: ["MIM", "performance", "optimization", "tuning", "scalability"]
+tags: ["mim", "performance", "optimization", "tuning", "scalability"]
 category: "services"
 difficulty: "advanced"
 last_updated: "2025-07-05"

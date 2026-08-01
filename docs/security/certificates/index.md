@@ -1,11 +1,10 @@
 ---
-title: Certificate Management
-description: Comprehensive guide to certificate management, creation, and deployment
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2025-09-22
-ms.topic: overview
-ms.service: security
+title: "Certificate Management"
+description: "Comprehensive guide to certificate management, creation, and deployment"
+author: "josephstreeter"
+tags: ["certificates"]
+category: "security"
+last_updated: "2025-09-22"
 ---
 
 ## Certificate Management and PKI

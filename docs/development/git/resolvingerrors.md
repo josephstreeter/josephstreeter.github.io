@@ -1,3 +1,11 @@
+---
+title: "Git Error Resolution Guide"
+description: "Git errors can be intimidating, but understanding common error patterns and their solutions is essential for effective version control workflows."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Error Resolution Guide
 
 Git errors can be intimidating, but understanding common error patterns and their solutions is essential for effective version control workflows. This comprehensive guide covers the most frequent Git errors, their underlying causes, and step-by-step resolution strategies for professional development environments.

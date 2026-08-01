@@ -1,7 +1,7 @@
 ---
 title: "MIM 2016 Rule Extensions Development"
 description: "Comprehensive guide to developing custom rule extensions for Microsoft Identity Manager 2016 Synchronization Service"
-tags: ["MIM", "rule extensions", ".NET", "development", "customization"]
+tags: ["mim", "rule extensions", ".net", "development", "customization"]
 category: "services"
 difficulty: "advanced"
 last_updated: "2025-07-05"

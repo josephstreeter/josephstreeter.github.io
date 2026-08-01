@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Maintenance and Troubleshooting"
 description: "Essential maintenance procedures and troubleshooting guides for Active Directory environments, including database management, diagnostic logging, and recovery operations"
+author: "Joseph Streeter"
 tags: ["active-directory", "maintenance", "troubleshooting", "ntds", "diagnostic-logging", "dsrm", "database"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "advanced"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section provides essential maintenance procedures and troubleshooting guides for Active Directory environments, focusing on database management, diagnostic capabilities, and recovery operations.

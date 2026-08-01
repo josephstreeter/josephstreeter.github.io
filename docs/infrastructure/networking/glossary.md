@@ -2,7 +2,7 @@
 title: "Networking Glossary"
 description: "Comprehensive reference of networking terms, acronyms, and definitions"
 tags: ["networking", "glossary", "reference", "terminology"]
-category: "networking"
+category: "infrastructure"
 difficulty: "all-levels"
 last_updated: "2025-12-30"
 ---

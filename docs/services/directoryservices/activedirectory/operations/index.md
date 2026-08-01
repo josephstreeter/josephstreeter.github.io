@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Operations"
 description: "Comprehensive collection of Active Directory operational procedures, maintenance tasks, and administrative guides"
+author: "Joseph Streeter"
 tags: ["active-directory", "operations", "administration", "maintenance", "procedures"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "intermediate"
 last_updated: "2025-09-25"
-author: "Joseph Streeter"
 ---
 
 ## Overview

@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.homeassistant.groups
-title: Home Assistant Groups - Complete Guide
-description: Comprehensive guide to creating and managing groups in Home Assistant
-keywords: [home assistant, groups, organization, entities, automation]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Groups - Complete Guide"
+description: "Comprehensive guide to creating and managing groups in Home Assistant"
+author: "Joseph Streeter"
+tags: ["home assistant", "groups", "organization", "entities", "automation"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Home Assistant Groups

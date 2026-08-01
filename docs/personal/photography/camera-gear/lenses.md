@@ -1,3 +1,11 @@
+---
+title: "Lenses"
+description: "Master the art of lens selection and understand how different focal lengths, apertures, and optical designs affect your photography."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Lenses
 
 Master the art of lens selection and understand how different focal lengths, apertures, and optical designs affect your photography. This comprehensive guide covers everything from kit lenses to professional glass.

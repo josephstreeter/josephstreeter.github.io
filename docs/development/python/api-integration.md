@@ -1,9 +1,10 @@
 ---
-title: API Integration with Python
-description: Guide to integrating external APIs in Python applications
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, api, rest, graphql, integration, requests, http]
+title: "API Integration with Python"
+description: "Guide to integrating external APIs in Python applications"
+author: "Joseph Streeter"
+tags: ["python", "api", "rest", "graphql", "integration", "requests", "http"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

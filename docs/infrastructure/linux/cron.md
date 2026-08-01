@@ -1,8 +1,9 @@
 ---
-title: Cron - Comprehensive Guide
+title: "Cron - Comprehensive Guide"
 description: "Complete guide to using cron for job scheduling in Linux: syntax, examples, best practices, and troubleshooting."
-ms.topic: reference
-ms.date: 2025-11-29
+tags: ["linux"]
+category: "infrastructure"
+last_updated: "2025-11-29"
 ---
 
 Cron is a time-based job scheduler in Unix-like operating systems. It enables users to schedule jobs (commands or scripts) to run periodically at fixed times, dates, or intervals.

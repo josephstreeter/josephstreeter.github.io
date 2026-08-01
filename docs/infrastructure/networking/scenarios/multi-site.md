@@ -2,7 +2,7 @@
 title: "Multi-Site Enterprise Network Design (100+ Users)"
 description: "Enterprise headquarters with multiple branch offices, MPLS or SD-WAN connectivity"
 tags: ["networking", "scenarios", "enterprise", "multi-site", "sd-wan", "mpls"]
-category: "networking"
+category: "infrastructure"
 difficulty: "advanced"
 last_updated: "2025-12-30"
 ---

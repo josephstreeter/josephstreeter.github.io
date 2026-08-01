@@ -1,9 +1,10 @@
 ---
-title: BIND9 Zone Configuration
-description: Creating and managing DNS zones in BIND9 server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-zones, dns-zone-configuration, bind-zone-management]
+title: "BIND9 Zone Configuration"
+description: "Creating and managing DNS zones in BIND9 server environments"
+author: "Joseph Streeter"
+tags: ["bind9-zones", "dns-zone-configuration", "bind-zone-management"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive guide to creating and managing DNS zones in BIND9 server environments.

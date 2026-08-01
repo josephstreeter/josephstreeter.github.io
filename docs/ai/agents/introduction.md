@@ -2,10 +2,9 @@
 title: "Introduction to AI Agents"
 description: "Understanding autonomous AI agents and their capabilities"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "introduction"
-keywords: ["ai agents", "autonomous agents", "intelligent agents", "agent systems"]
-uid: docs.ai.agents.introduction
+tags: ["ai agents", "autonomous agents", "intelligent agents", "agent systems"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 AI agents represent one of the most exciting frontiers in artificial intelligence—systems that can perceive their environment, make decisions, take actions, and learn from experience to achieve specific goals with minimal human intervention. As we enter 2026, AI agents are evolving from research concepts to practical tools transforming how we work, automate tasks, and solve complex problems.

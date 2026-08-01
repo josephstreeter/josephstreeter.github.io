@@ -2,10 +2,9 @@
 title: "2007 Harley-Davidson Ultra Classic - Maintenance Guide"
 description: "Comprehensive maintenance guide and service schedule for the 2007 Harley-Davidson Ultra Classic Electra Glide (FLHTCU) with Twin Cam 96 engine."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Harley-Davidson", "Ultra Classic", "FLHTCU", "Twin Cam 96", "maintenance", "service schedule", "oil change"]
+tags: ["harley-davidson", "ultra classic", "flhtcu", "twin cam 96", "maintenance", "service schedule", "oil change"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2007 Harley-Davidson Ultra Classic Maintenance Guide

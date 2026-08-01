@@ -1,3 +1,11 @@
+---
+title: "Security Diagrams"
+description: "This section contains diagrams related to security concepts and processes."
+tags: ["pgp", "diagrams"]
+category: "security"
+last_updated: "2025-07-18"
+---
+
 # Security Diagrams
 
 This section contains diagrams related to security concepts and processes.

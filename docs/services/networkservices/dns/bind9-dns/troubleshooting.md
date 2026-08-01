@@ -1,9 +1,10 @@
 ---
-title: BIND9 Troubleshooting
-description: Diagnostic procedures and troubleshooting techniques for BIND9 DNS server issues
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-troubleshooting, dns-diagnostics, problem-resolution]
+title: "BIND9 Troubleshooting"
+description: "Diagnostic procedures and troubleshooting techniques for BIND9 DNS server issues"
+author: "Joseph Streeter"
+tags: ["bind9-troubleshooting", "dns-diagnostics", "problem-resolution"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive troubleshooting guide for diagnosing and resolving BIND9 DNS server issues.

@@ -2,9 +2,9 @@
 title: "Terraform .gitignore Best Practices"
 description: "Comprehensive guide to configuring .gitignore for Terraform projects to protect sensitive data and maintain clean version control"
 author: "josephstreeter"
-ms.date: "2025-01-18"
-ms.topic: "reference"
-keywords: ["Terraform", "Git", "Version Control", "Gitignore", "Security", "Best Practices", "State Files", "Secrets Management"]
+tags: ["terraform", "git", "version control", "gitignore", "security", "best practices", "state files", "secrets management"]
+category: "infrastructure"
+last_updated: "2025-01-18"
 ---
 
 When working with Terraform in a Git repository, a properly configured `.gitignore` file is essential for maintaining security and keeping your repository clean. This guide covers what files should be excluded from version control and why.

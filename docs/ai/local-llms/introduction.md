@@ -2,10 +2,9 @@
 title: "Introduction to Local LLMs"
 description: "Understanding the benefits and considerations of running large language models locally"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "introduction"
-keywords: ["local llms", "self-hosted", "on-premise", "privacy", "offline ai"]
-uid: docs.ai.local-llms.introduction
+tags: ["local llms", "self-hosted", "on-premise", "privacy", "offline ai"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 Running large language models (LLMs) locally on your own hardware is transforming how organizations and individuals approach AI. This comprehensive guide explores everything you need to know about local LLMs—from understanding the technology to deployment strategies, hardware requirements, and real-world applications.

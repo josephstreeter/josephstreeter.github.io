@@ -1,9 +1,10 @@
 ---
-title: Compliance and Auditing Framework
-description: Comprehensive compliance management covering STIG, NIST, ISO 27001, SOX, and automated audit frameworks for enterprise infrastructure
-author: Joseph Streeter
-date: 2024-01-15
-tags: [compliance, auditing, stig, nist, iso27001, sox, governance, risk-management]
+title: "Compliance and Auditing Framework"
+description: "Comprehensive compliance management covering STIG, NIST, ISO 27001, SOX, and automated audit frameworks for enterprise infrastructure"
+author: "Joseph Streeter"
+tags: ["compliance", "auditing", "stig", "nist", "iso27001", "sox", "governance", "risk-management"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Compliance and Auditing Framework provides systematic approaches to meeting regulatory requirements, implementing security controls, and maintaining continuous compliance across enterprise infrastructure.

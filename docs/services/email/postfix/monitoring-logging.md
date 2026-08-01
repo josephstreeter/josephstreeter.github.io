@@ -2,9 +2,9 @@
 title: "Postfix Monitoring and Logging"
 description: "Guide for monitoring and logging Postfix mail server operations"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, monitoring, logging, logs, metrics
+tags: ["postfix", "monitoring", "logging", "logs", "metrics"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Monitor and analyze Postfix mail server operations.

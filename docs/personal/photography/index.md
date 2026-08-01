@@ -1,3 +1,11 @@
+---
+title: "Photography"
+description: "Welcome to my photography documentation and resource collection."
+tags: ["photography"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Photography
 
 Welcome to my photography documentation and resource collection. This section serves as a comprehensive guide covering various aspects of photography, from technical fundamentals to creative techniques and post-processing workflows.

@@ -1,9 +1,10 @@
 ---
-title: BIND9 DNS Server
-description: Comprehensive guide to BIND9 DNS Server installation, configuration, and management for enterprise Linux environments
-author: Joseph Streeter
-date: 2024-01-15
-tags: [bind9, dns-server, linux, ubuntu, centos, dnssec, security]
+title: "BIND9 DNS Server"
+description: "Comprehensive guide to BIND9 DNS Server installation, configuration, and management for enterprise Linux environments"
+author: "Joseph Streeter"
+tags: ["bind9", "dns-server", "linux", "ubuntu", "centos", "dnssec", "security"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 BIND9 (Berkeley Internet Name Domain) is the most widely used DNS server software on the Internet. This comprehensive guide covers installation, configuration, security hardening, and management of BIND9 in enterprise Linux environments.

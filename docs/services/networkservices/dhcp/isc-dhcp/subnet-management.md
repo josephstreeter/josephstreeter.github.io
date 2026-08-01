@@ -1,9 +1,10 @@
 ---
-title: ISC DHCP Subnet Management
-description: Managing subnets, pools, and address ranges in ISC DHCP Server configurations
-author: Joseph Streeter
-date: 2025-09-12
-tags: [isc-dhcp-subnets, dhcp-pools, network-management]
+title: "ISC DHCP Subnet Management"
+description: "Managing subnets, pools, and address ranges in ISC DHCP Server configurations"
+author: "Joseph Streeter"
+tags: ["isc-dhcp-subnets", "dhcp-pools", "network-management"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive guide to managing subnets and address pools in ISC DHCP Server.

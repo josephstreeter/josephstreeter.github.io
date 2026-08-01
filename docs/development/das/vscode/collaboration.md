@@ -2,7 +2,7 @@
 title: "Collaboration Workflows"
 description: "Team-based documentation workflows using VS Code, including version control integration and collaborative editing techniques"
 tags: ["collaboration", "git", "workflow", "team", "version-control"]
-category: "collaboration"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-06"
 ---

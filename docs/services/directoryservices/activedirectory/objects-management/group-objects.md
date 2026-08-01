@@ -1,14 +1,10 @@
 ---
-uid: ad-group-objects
 title: "Active Directory Group Objects Management Guide"
 description: "Comprehensive guide for managing Active Directory group objects including types, scopes, AGDLP strategy, security best practices, and PowerShell automation for enterprise environments."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "domain-services"
-keywords: ["Active Directory", "Groups", "Security", "AGDLP", "RBAC", "PowerShell", "Management"]
+tags: ["active directory", "groups", "security", "agdlp", "rbac", "powershell", "management"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 ## Active Directory Group Objects Management Guide

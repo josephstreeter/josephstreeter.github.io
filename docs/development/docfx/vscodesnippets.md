@@ -1,3 +1,11 @@
+---
+title: "VS Code Markdown Snippets"
+description: "Visual Studio Code provides the ability to create custom snippets."
+tags: ["docfx"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # VS Code Markdown Snippets
 
 Visual Studio Code provides the ability to create custom snippets.

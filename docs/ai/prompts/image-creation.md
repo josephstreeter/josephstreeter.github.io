@@ -2,10 +2,9 @@
 title: "AI Image Creation Guide"
 description: "A comprehensive guide to creating high-quality images using AI, covering prompt engineering, style techniques, and best practices for various image generation models"
 author: "Joseph Streeter"
-ms.date: "2025-12-30"
-ms.topic: "guide"
-keywords: ["ai", "image generation", "dall-e", "midjourney", "stable diffusion", "prompt engineering", "ai art", "generative ai"]
-uid: docs.ai.image-creation
+tags: ["ai", "image generation", "dall-e", "midjourney", "stable diffusion", "prompt engineering", "ai art", "generative ai"]
+category: "ai"
+last_updated: "2025-12-30"
 ---
 
 A comprehensive reference for creating high-quality images using AI image generation models. This guide covers prompt engineering techniques, style descriptors, technical parameters, and best practices for tools like DALL-E, Midjourney, Stable Diffusion, and other generative AI platforms.

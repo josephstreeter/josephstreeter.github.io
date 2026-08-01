@@ -1,9 +1,10 @@
 ---
-title: Home Lab Infrastructure
-description: Comprehensive home lab setup with Proxmox virtualization, infrastructure as code, and enterprise-grade services for learning and development
-author: Joseph Streeter
-date: 2025-09-13
-tags: [homelab, proxmox, infrastructure-as-code, virtualization, docker, kubernetes]
+title: "Home Lab Infrastructure"
+description: "Comprehensive home lab setup with Proxmox virtualization, infrastructure as code, and enterprise-grade services for learning and development"
+author: "Joseph Streeter"
+tags: ["homelab", "proxmox", "infrastructure-as-code", "virtualization", "docker", "kubernetes"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 A comprehensive home lab environment designed for learning, development, and experimentation with enterprise technologies while maintaining simplicity and cost-effectiveness.

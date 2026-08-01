@@ -1,11 +1,10 @@
 ---
-title: Nginx Monitoring and Troubleshooting
-description: Monitoring Nginx with the status module, useful operational commands, and solutions to common issues
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+title: "Nginx Monitoring and Troubleshooting"
+description: "Monitoring Nginx with the status module, useful operational commands, and solutions to common issues"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Monitoring and Troubleshooting

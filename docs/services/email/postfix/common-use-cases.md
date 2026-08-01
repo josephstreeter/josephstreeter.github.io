@@ -2,9 +2,9 @@
 title: "Postfix Common Use Cases"
 description: "Common Postfix configuration scenarios and use cases"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, use cases, scenarios, examples
+tags: ["postfix", "use cases", "scenarios", "examples"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Common configuration scenarios and use cases for Postfix.

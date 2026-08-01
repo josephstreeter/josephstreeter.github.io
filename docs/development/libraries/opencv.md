@@ -1,6 +1,9 @@
 ---
-title: OpenCV Computer Vision Library
-description: Comprehensive guide to using OpenCV for computer vision and image processing in Python
+title: "OpenCV Computer Vision Library"
+description: "Comprehensive guide to using OpenCV for computer vision and image processing in Python"
+tags: ["libraries"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 ## Overview

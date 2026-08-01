@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Security"
 description: "Securing Asterisk against toll fraud — strong auth, ACLs, TLS/SRTP encryption, fail2ban, and locking down AMI/ARI"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Security

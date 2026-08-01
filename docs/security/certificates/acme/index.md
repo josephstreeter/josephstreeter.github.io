@@ -1,11 +1,10 @@
 ---
-title: ACME Protocol and Automated Certificates
-description: Overview of the ACME protocol for automated certificate issuance and renewal, with guides for win-acme and Certbot
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: security
+title: "ACME Protocol and Automated Certificates"
+description: "Overview of the ACME protocol for automated certificate issuance and renewal, with guides for win-acme and Certbot"
+author: "josephstreeter"
+tags: ["certificates", "acme"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## ACME Protocol and Automated Certificates

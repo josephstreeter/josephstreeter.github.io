@@ -1,11 +1,11 @@
 ---
 title: "Cisco VLAN Configuration"
 description: "VLAN implementation and management for Cisco IOS switches"
+author: "Joseph Streeter"
 tags: ["cisco", "vlan", "ios", "switching"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Comprehensive VLAN configuration guide for Cisco IOS switches including creation, trunk configuration, and inter-VLAN routing.

@@ -2,10 +2,9 @@
 title: "Running Local LLM Models"
 description: "Practical guide to executing and managing local LLM inference"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["running models", "inference", "execution", "local llm usage"]
-uid: docs.ai.local-llms.running
+tags: ["running models", "inference", "execution", "local llm usage"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

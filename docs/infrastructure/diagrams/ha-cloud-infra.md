@@ -1,3 +1,11 @@
+---
+title: "High Availability Cloud Infrastructure"
+description: "High Availability Cloud Infrastructure"
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-07-18"
+---
+
 # High Availability Cloud Infrastructure
 
 ```mermaid

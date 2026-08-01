@@ -1,11 +1,10 @@
 ---
-title: grep Command
-description: Comprehensive reference for the grep command in Bash, including syntax, regex usage, recursive search, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "grep Command"
+description: "Comprehensive reference for the grep command in Bash, including syntax, regex usage, recursive search, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `grep` command searches text for lines that match a pattern.

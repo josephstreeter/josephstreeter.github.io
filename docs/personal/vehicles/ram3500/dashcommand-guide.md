@@ -1,12 +1,10 @@
 ---
-uid: dashcommand-guide
 title: "DashCommand App Guide for Diesel Truck Diagnostics"
 description: "Comprehensive guide for using DashCommand v4.0+ on Android, iOS, and Windows for advanced vehicle monitoring, diagnostics, and data logging for diesel trucks."
 author: "Joseph Streeter"
-ms.date: "2025-07-26"
-ms.topic: "how-to"
-ms.service: "vehicles"
-keywords: ["Diesel Truck", "DashCommand", "OBD-II", "Diagnostics", "Android", "iOS", "Windows", "Cummins", "Data Logging"]
+tags: ["diesel truck", "dashcommand", "obd-ii", "diagnostics", "android", "ios", "windows", "cummins"]
+category: "personal"
+last_updated: "2025-07-26"
 ---
 
 ## DashCommand Advanced Vehicle Diagnostics

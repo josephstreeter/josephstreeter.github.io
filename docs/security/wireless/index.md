@@ -1,23 +1,10 @@
 ---
-description: A comprehensive guide to wireless network security assessment tools and techniques for security professionals
-author: Joseph Streeter
 title: "Wireless Network Security Tools and Techniques"
-ms.author: jstreeter
-ms.date: 2025-09-22
-ms.topic: conceptual
-ms.custom: security-tools, wireless-security
-ms.prod: security
-categories:
-  - security
-  - wireless
-  - networking
-tags:
-  - aircrack-ng
-  - wireless
-  - wifi
-  - security-tools
-  - network-security
-  - penetration-testing
+description: "A comprehensive guide to wireless network security assessment tools and techniques for security professionals"
+author: "Joseph Streeter"
+tags: ["aircrack-ng", "wireless", "wifi", "security-tools", "network-security", "penetration-testing"]
+category: "security"
+last_updated: "2025-09-22"
 ---
 
 ## Overview

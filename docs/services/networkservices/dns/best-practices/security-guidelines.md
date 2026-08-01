@@ -1,9 +1,10 @@
 ---
-title: DNS Security Guidelines
-description: Comprehensive security guidelines and best practices for DNS infrastructure protection
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dns-security, security-guidelines, dns-protection, cybersecurity]
+title: "DNS Security Guidelines"
+description: "Comprehensive security guidelines and best practices for DNS infrastructure protection"
+author: "Joseph Streeter"
+tags: ["dns-security", "security-guidelines", "dns-protection", "cybersecurity"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive security guidelines and best practices for protecting DNS infrastructure.

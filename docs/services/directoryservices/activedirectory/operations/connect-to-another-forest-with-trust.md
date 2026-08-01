@@ -2,10 +2,9 @@
 title: "Connect to Another Forest with PowerShell"
 description: "Guide for connecting to and managing Active Directory domains in different forests using PowerShell PSDrives and remote connections"
 author: "IT Operations"
-ms.date: "07/05/2025"
-ms.topic: "how-to"
-ms.service: "active-directory"
-keywords: PowerShell, Active Directory, forest, cross-forest, PSDrive, domain controller, authentication
+tags: ["powershell", "active directory", "forest", "cross-forest", "psdrive", "domain controller", "authentication"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This guide demonstrates how to establish PowerShell connections to Active Directory domains in different forests for cross-forest administration and management tasks.

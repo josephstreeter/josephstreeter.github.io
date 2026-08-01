@@ -1,13 +1,10 @@
 ---
-title: Windows Server Security Quick Start
-description: Essential Windows Server security hardening guide with quick wins and links to comprehensive security documentation
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: quickstart
-ms.service: windows-server
-keywords: Windows Server security, hardening, quick start, security baseline, best practices
-uid: docs.infrastructure.windows.security.quick-start
+title: "Windows Server Security Quick Start"
+description: "Essential Windows Server security hardening guide with quick wins and links to comprehensive security documentation"
+author: "Joseph Streeter"
+tags: ["windows server security", "hardening", "quick start", "security baseline", "best practices"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 This quick-start guide provides essential security configurations for Windows Server. For comprehensive security documentation including advanced threat protection, compliance, and enterprise security architecture, see [Windows Infrastructure Security (Advanced)](index.md).

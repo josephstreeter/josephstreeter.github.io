@@ -2,8 +2,9 @@
 title: "Web Scraping with Python"
 description: "Comprehensive guide to web scraping using Python, covering BeautifulSoup, Selenium, Scrapy, and best practices"
 author: "Joseph Streeter"
-ms.date: "2026-01-04"
-ms.topic: "article"
+tags: ["python", "automation"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Web Scraping with Python

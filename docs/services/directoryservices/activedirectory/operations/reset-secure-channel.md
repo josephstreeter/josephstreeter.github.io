@@ -2,11 +2,9 @@
 title: "Active Directory Secure Channel Reset Guide"
 description: "Comprehensive guide for diagnosing and repairing secure channel trust relationships between domain-joined computers and Active Directory"
 tags: ["active-directory", "secure-channel", "computer-accounts", "trust-relationship", "powershell", "troubleshooting"]
-category: "infrastructure"
-subcategory: "active-directory"
+category: "services"
 difficulty: "intermediate"
 last_updated: "2025-01-22"
-applies_to: ["Windows 10", "Windows 11", "Windows Server 2016+", "Active Directory"]
 ---
 
 ## Overview

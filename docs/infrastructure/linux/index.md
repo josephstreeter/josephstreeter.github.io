@@ -1,13 +1,10 @@
 ---
-title: Linux Operating System
-description: Comprehensive guide to Linux, focusing on Debian and Ubuntu distributions for both server and desktop environments.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: linux
-keywords: Linux, Debian, Ubuntu, open source, operating system, server, desktop, distribution
-uid: docs.infrastructure.linux.index
+title: "Linux Operating System"
+description: "Comprehensive guide to Linux, focusing on Debian and Ubuntu distributions for both server and desktop environments."
+author: "Joseph Streeter"
+tags: ["linux", "debian", "ubuntu", "open source", "operating system", "server", "desktop", "distribution"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Linux is a free and open-source operating system based on the Unix architecture. It serves as the foundation for numerous distributions (distros) that power everything from smartphones and embedded systems to enterprise servers and supercomputers.

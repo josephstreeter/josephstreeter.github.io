@@ -1,13 +1,10 @@
 ---
-title: SQL Server Security
-description: Comprehensive guide to SQL Server security features, best practices, and implementation strategies for protecting enterprise data.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: sql-server
-keywords: SQL Server security, database security, authentication, authorization, encryption, audit, compliance
-uid: docs.infrastructure.sql.security
+title: "SQL Server Security"
+description: "Comprehensive guide to SQL Server security features, best practices, and implementation strategies for protecting enterprise data."
+author: "Joseph Streeter"
+tags: ["sql server security", "database security", "authentication", "authorization", "encryption", "audit", "compliance"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 SQL Server security is a multi-layered approach to protecting data, ensuring proper access controls, and maintaining compliance with regulatory requirements. This guide covers comprehensive security features and implementation strategies for enterprise environments.

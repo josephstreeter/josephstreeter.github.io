@@ -1,3 +1,11 @@
+---
+title: "Retouching Techniques"
+description: "Professional retouching methods for portraits, landscapes, and product photography."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Retouching Techniques
 
 Professional retouching methods for portraits, landscapes, and product photography. This guide covers both subtle enhancement and advanced retouching workflows for commercial-quality results.

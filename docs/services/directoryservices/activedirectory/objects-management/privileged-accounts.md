@@ -1,14 +1,10 @@
 ---
-uid: ad-privileged-account-management
 title: "Active Directory Privileged Account Management Guide"
 description: "Comprehensive guide for implementing enterprise privileged account management (PAM) with modern security practices, automation, Just-In-Time access, and Zero Trust principles."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "privileged-access"
-keywords: ["Privileged Access", "PAM", "PIM", "Just-In-Time", "Zero Trust", "Administrative Accounts", "Security", "PowerShell", "Automation"]
+tags: ["privileged access", "pam", "pim", "just-in-time", "zero trust", "administrative accounts", "security", "powershell"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This comprehensive guide provides enterprise-level strategies for implementing Privileged Account Management (PAM) in Active Directory environments with modern security practices, automation, Just-In-Time access, and Zero Trust principles.

@@ -1,13 +1,10 @@
 ---
-title: Best Practices and Performance
-description: Practical guidance for writing fast, readable, and maintainable KQL queries, including filter ordering, has vs contains, join tuning, and formatting conventions.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: conceptual
-ms.service: azure-monitor
-keywords: KQL, Kusto, performance, optimization, best practices, has, join, materialize, readability
-uid: docs.infrastructure.kql.best-practices
+title: "Best Practices and Performance"
+description: "Practical guidance for writing fast, readable, and maintainable KQL queries, including filter ordering, has vs contains, join tuning, and formatting conventions."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "performance", "optimization", "best practices", "has", "join", "materialize"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 ## Writing efficient and readable KQL

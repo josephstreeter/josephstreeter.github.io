@@ -1,12 +1,10 @@
 ---
-title: Installation and Setup
-description: Production-ready installation guide for Grafana and Prometheus monitoring stack
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.topic: installation
-ms.date: 12/30/2025
-keywords: grafana, prometheus, installation, docker, docker-compose, monitoring
-uid: docs.infrastructure.grafana.installation
+title: "Installation and Setup"
+description: "Production-ready installation guide for Grafana and Prometheus monitoring stack"
+author: "Joseph Streeter"
+tags: ["grafana", "prometheus", "installation", "docker", "docker-compose", "monitoring"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide covers installing and configuring a production-ready Grafana and Prometheus monitoring stack using Docker Compose or native installation methods.

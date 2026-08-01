@@ -1,11 +1,10 @@
 ---
 title: "Apache Security and Hardening"
 description: "Hardening the Apache HTTP Server — security response headers, information-disclosure controls, request limits, and access control"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "apache"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Security and Hardening

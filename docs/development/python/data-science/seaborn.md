@@ -1,9 +1,10 @@
 ---
-title: Seaborn - Statistical Data Visualization
-description: Comprehensive guide to creating beautiful statistical graphics with Seaborn, including distribution plots, categorical visualizations, regression analysis, and advanced styling techniques
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, seaborn, data-visualization, statistics, plotting, matplotlib, pandas]
+title: "Seaborn - Statistical Data Visualization"
+description: "Comprehensive guide to creating beautiful statistical graphics with Seaborn, including distribution plots, categorical visualizations, regression analysis, and advanced styling techniques"
+author: "Joseph Streeter"
+tags: ["python", "seaborn", "data-visualization", "statistics", "plotting", "matplotlib", "pandas"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

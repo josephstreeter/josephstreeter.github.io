@@ -1,11 +1,10 @@
 ---
-title: OpenSSL SSL/TLS Testing
-description: Testing SSL/TLS connections, ciphers, and TLS 1.3 with OpenSSL s_client and s_server
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL SSL/TLS Testing"
+description: "Testing SSL/TLS connections, ciphers, and TLS 1.3 with OpenSSL s_client and s_server"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## SSL/TLS Testing

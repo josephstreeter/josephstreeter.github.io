@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.provisioners
-title: Packer Provisioners
-description: Comprehensive guide to Packer provisioners including Shell, PowerShell, Ansible, Chef, Puppet, and File provisioners for configuring machine images
-ms.date: 01/18/2026
+title: "Packer Provisioners"
+description: "Comprehensive guide to Packer provisioners including Shell, PowerShell, Ansible, Chef, Puppet, and File provisioners for configuring machine images"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers Packer provisioners for configuring machine images.

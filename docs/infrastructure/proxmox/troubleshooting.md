@@ -2,10 +2,9 @@
 title: "Proxmox VE Troubleshooting Guide"
 description: "Comprehensive troubleshooting guide for common Proxmox VE issues including installation, configuration, networking, and VM management problems."
 author: "Joseph Streeter"
-ms.date: "2025-08-29"
-ms.topic: "troubleshooting"
-ms.service: "proxmox"
-keywords: ["Proxmox", "VE", "Troubleshooting", "Docker", "Debian", "Bookworm", "Repository", "VM", "Container", "Network"]
+tags: ["proxmox", "ve", "troubleshooting", "docker", "debian", "bookworm", "repository", "vm"]
+category: "infrastructure"
+last_updated: "2025-08-29"
 ---
 
 ## Proxmox VE Troubleshooting Guide

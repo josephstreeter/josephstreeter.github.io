@@ -1,11 +1,10 @@
 ---
 title: "iTop Monitoring and Troubleshooting"
 description: "Monitoring iTop — application and cron logs, query logging, background-task health, and solutions to common issues"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Monitoring and Troubleshooting

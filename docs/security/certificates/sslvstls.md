@@ -1,11 +1,10 @@
 ---
-title: SSL vs TLS - Understanding Secure Communication Protocols
-description: A comprehensive guide to the differences between SSL and TLS protocols, their evolution, security implications, and best practices for implementation
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2025-09-22
-ms.topic: conceptual
-ms.service: security
+title: "SSL vs TLS - Understanding Secure Communication Protocols"
+description: "A comprehensive guide to the differences between SSL and TLS protocols, their evolution, security implications, and best practices for implementation"
+author: "josephstreeter"
+tags: ["certificates"]
+category: "security"
+last_updated: "2025-09-22"
 ---
 
 ## Overview

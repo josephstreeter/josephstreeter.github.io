@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.zigbee2mqtt.advanced
-title: Zigbee2MQTT Advanced Topics
-description: Advanced configuration, security hardening, performance optimization, and enterprise deployment strategies for Zigbee2MQTT
-keywords: [zigbee2mqtt, advanced, security, performance, enterprise, clustering, optimization]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: advanced
+title: "Zigbee2MQTT Advanced Topics"
+description: "Advanced configuration, security hardening, performance optimization, and enterprise deployment strategies for Zigbee2MQTT"
+author: "Joseph Streeter"
+tags: ["zigbee2mqtt", "advanced", "security", "performance", "enterprise", "clustering", "optimization"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 This guide covers advanced configuration, security hardening, performance optimization, and enterprise deployment strategies for Zigbee2MQTT.

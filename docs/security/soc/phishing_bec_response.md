@@ -1,10 +1,10 @@
 ---
 title: "Phishing and Business Email Compromise Response"
-description: >-
-  Runbook for phishing and business email compromise investigations in the SOC
+description: "Runbook for phishing and business email compromise investigations in the SOC"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "how-to"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Phishing and Business Email Compromise Response

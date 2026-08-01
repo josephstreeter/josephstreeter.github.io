@@ -1,11 +1,10 @@
 ---
-title: sudo Command
-description: Comprehensive reference for the sudo command in Bash, including privilege escalation patterns, safety practices, and configuration notes.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "sudo Command"
+description: "Comprehensive reference for the sudo command in Bash, including privilege escalation patterns, safety practices, and configuration notes."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `sudo` command runs commands as another user (default: root), based on policy rules.

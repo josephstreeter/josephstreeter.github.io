@@ -2,11 +2,9 @@
 title: "Grafana Dashboards"
 description: "Comprehensive guide to creating, managing, and optimizing Grafana dashboards for monitoring infrastructure and applications"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: how-to
-ms.date: 12/30/2025
-keywords: ["grafana", "dashboards", "visualization", "panels", "promql", "queries", "templates"]
-uid: docs.infrastructure.grafana.dashboards
+tags: ["grafana", "dashboards", "visualization", "panels", "promql", "queries", "templates"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide covers creating, managing, and optimizing Grafana dashboards for effective monitoring and visualization of metrics from Prometheus and other data sources.

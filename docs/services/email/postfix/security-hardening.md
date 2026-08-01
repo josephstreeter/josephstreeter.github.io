@@ -1,9 +1,10 @@
 ---
-title: Security Hardening Checklist
-description: Comprehensive security hardening guide for Postfix mail servers with CIS benchmarks and best practices
-author: Joseph Streeter
-ms.date: 01/13/2026
-ms.topic: article
+title: "Security Hardening Checklist"
+description: "Comprehensive security hardening guide for Postfix mail servers with CIS benchmarks and best practices"
+author: "Joseph Streeter"
+tags: ["email", "postfix"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Comprehensive guide to securing Postfix mail servers using industry best

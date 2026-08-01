@@ -1,3 +1,11 @@
+---
+title: "Module Repositories"
+description: "The following Docker Compose file can be used to run BaGet."
+tags: ["powershell"]
+category: "development"
+last_updated: "2026-01-04"
+---
+
 # Module Repositories
 
 ## Private Repositories

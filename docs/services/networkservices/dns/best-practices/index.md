@@ -1,9 +1,10 @@
 ---
-title: DNS Best Practices
-description: Comprehensive DNS design principles, security guidelines, and operational best practices for enterprise environments
-author: Joseph Streeter
-date: 2024-01-15
-tags: [dns-best-practices, dns-design, dns-security, enterprise-dns, operations]
+title: "DNS Best Practices"
+description: "Comprehensive DNS design principles, security guidelines, and operational best practices for enterprise environments"
+author: "Joseph Streeter"
+tags: ["dns-best-practices", "dns-design", "dns-security", "enterprise-dns", "operations"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 DNS is a critical infrastructure component that requires careful planning, design, and management. This guide provides comprehensive best practices for DNS implementation in enterprise environments.

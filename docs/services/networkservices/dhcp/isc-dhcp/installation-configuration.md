@@ -1,9 +1,10 @@
 ---
-title: ISC DHCP Installation & Configuration
-description: Step-by-step guide to installing and configuring ISC DHCP Server on Linux systems
-author: Joseph Streeter
-date: 2025-09-12
-tags: [isc-dhcp-installation, linux-dhcp-setup, dhcp-configuration]
+title: "ISC DHCP Installation & Configuration"
+description: "Step-by-step guide to installing and configuring ISC DHCP Server on Linux systems"
+author: "Joseph Streeter"
+tags: ["isc-dhcp-installation", "linux-dhcp-setup", "dhcp-configuration"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Complete guide for installing and configuring ISC DHCP Server on various Linux distributions.

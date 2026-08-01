@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Certificate Operations
-description: Creating, viewing, and managing X.509 certificates, CAs, SANs, wildcards, and CRLs with OpenSSL
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL Certificate Operations"
+description: "Creating, viewing, and managing X.509 certificates, CAs, SANs, wildcards, and CRLs with OpenSSL"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Certificate Operations

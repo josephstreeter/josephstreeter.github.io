@@ -1,12 +1,10 @@
 ---
-uid: python-obd-guide
 title: "Python OBD-II Data Analysis for Diesel Trucks"
 description: "Comprehensive guide to using Python and OBD-II adapters for advanced diagnostics, data logging, and analysis on diesel trucks with code examples and best practices."
 author: "Joseph Streeter"
-ms.date: "2025-07-26"
-ms.topic: "how-to"
-ms.service: "vehicles"
-keywords: ["Diesel Truck", "OBD-II", "Python", "Diagnostics", "Data Analysis", "Cummins", "python-obd", "ELM327"]
+tags: ["diesel truck", "obd-ii", "python", "diagnostics", "data analysis", "cummins", "python-obd", "elm327"]
+category: "personal"
+last_updated: "2025-07-26"
 ---
 
 ## Python-Based OBD-II Data Logging and Analysis

@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.mosquitto
-title: Mosquitto MQTT Broker - Complete Setup and Management Guide
-description: Comprehensive guide to provisioning, operating, and maintaining Mosquitto MQTT broker for home automation
-keywords: [mosquitto, mqtt, message broker, home automation, iot, smart home, message queuing]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Mosquitto MQTT Broker - Complete Setup and Management Guide"
+description: "Comprehensive guide to provisioning, operating, and maintaining Mosquitto MQTT broker for home automation"
+author: "Joseph Streeter"
+tags: ["mosquitto", "mqtt", "message broker", "home automation", "iot", "smart home", "message queuing"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Overview

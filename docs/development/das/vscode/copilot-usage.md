@@ -2,7 +2,7 @@
 title: "Copilot Usage Guide"
 description: "Master GitHub Copilot for documentation tasks with effective prompting strategies and content generation techniques"
 tags: ["copilot", "ai-assistance", "documentation", "prompting", "content-generation"]
-category: "ai-tools"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-06"
 ---

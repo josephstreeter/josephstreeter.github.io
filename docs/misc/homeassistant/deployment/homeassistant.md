@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.deployment.homeassistant
-title: Home Assistant Deployment
-description: Dedicated Home Assistant deployment guide
-keywords: [home assistant, deployment, docker, container, production]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Deployment"
+description: "Dedicated Home Assistant deployment guide"
+author: "Joseph Streeter"
+tags: ["home assistant", "deployment", "docker", "container", "production"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Home Assistant Deployment

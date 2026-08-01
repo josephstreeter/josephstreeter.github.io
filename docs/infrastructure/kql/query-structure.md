@@ -1,12 +1,10 @@
 ---
-title: Query Structure and Statements
-description: Learn the core shape of KQL queries, including tabular statements, let statements, and the pipe operator.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: conceptual
-ms.service: azure-monitor
-keywords: KQL, Kusto, query structure, let, pipe, tabular statements
+title: "Query Structure and Statements"
+description: "Learn the core shape of KQL queries, including tabular statements, let statements, and the pipe operator."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "query structure", "let", "pipe", "tabular statements"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 ## Kusto Queries

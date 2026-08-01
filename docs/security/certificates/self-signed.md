@@ -1,11 +1,10 @@
 ---
-title: Self-Signed Certificates
-description: Comprehensive guide to creating and managing self-signed certificates with OpenSSL
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: security
+title: "Self-Signed Certificates"
+description: "Comprehensive guide to creating and managing self-signed certificates with OpenSSL"
+author: "josephstreeter"
+tags: ["certificates"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Self-Signed Certificates

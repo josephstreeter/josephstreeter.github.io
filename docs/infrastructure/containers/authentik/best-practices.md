@@ -1,9 +1,10 @@
 ---
 title: "Authentik Best Practices and Automation"
 description: "Enterprise best practices and automation/scripting for Authentik"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Enterprise Best Practices

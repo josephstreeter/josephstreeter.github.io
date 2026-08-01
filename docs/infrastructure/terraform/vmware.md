@@ -2,10 +2,9 @@
 title: "Terraform with VMware vSphere"
 description: "Complete guide to using Terraform with VMware vSphere for enterprise infrastructure automation and virtual machine management"
 author: "josephstreeter"
-ms.date: "2026-01-18"
-ms.topic: "how-to-guide"
-ms.service: "terraform"
-keywords: ["Terraform", "VMware", "vSphere", "ESXi", "Infrastructure as Code", "IaC", "Virtualization", "Automation", "vCenter"]
+tags: ["terraform", "vmware", "vsphere", "esxi", "infrastructure as code", "iac", "virtualization", "automation"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This guide demonstrates how to use Terraform to automate infrastructure provisioning and management on VMware vSphere. VMware vSphere is an enterprise-class virtualization platform that combines ESXi hypervisors with vCenter Server for centralized management of virtual infrastructure.

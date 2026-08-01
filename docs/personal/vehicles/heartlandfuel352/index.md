@@ -2,10 +2,9 @@
 title: "2019 Heartland Fuel Toy Hauler - Series M-352"
 description: "Overview, specifications, and ownership information for the 2019 Heartland RVs Fuel Toy Hauler Series M-352 fifth-wheel toy hauler."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Heartland", "Fuel", "Toy Hauler", "M-352", "fifth wheel", "RV", "2019"]
+tags: ["heartland", "fuel", "toy hauler", "m-352", "fifth wheel", "rv", "2019"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2019 Heartland Fuel Toy Hauler Series M-352

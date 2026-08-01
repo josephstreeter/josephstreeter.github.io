@@ -2,12 +2,9 @@
 title: "Active Directory Forest Recovery Guide"
 description: "Comprehensive disaster recovery guide for Active Directory forest restoration using modern DFSR-based procedures and best practices"
 tags: ["active-directory", "forest-recovery", "disaster-recovery", "dfsr", "sysvol", "fsmo", "backup-restore"]
-category: "infrastructure"
-subcategory: "active-directory"
+category: "services"
 difficulty: "expert"
 last_updated: "2025-01-22"
-applies_to: ["Windows Server 2016+", "Active Directory", "DFSR", "Forest Recovery"]
-warning: "Forest recovery is a critical operation that affects the entire AD infrastructure. Thorough planning and testing required."
 ---
 
 ## Overview

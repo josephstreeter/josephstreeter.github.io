@@ -2,9 +2,9 @@
 title: "Postfix Anti-Spam and Anti-Virus - Complete Guide"
 description: "Comprehensive guide for implementing spam filtering and virus scanning with Postfix using SpamAssassin, Amavis, ClamAV, Postgrey, and Rspamd"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, spam filtering, antivirus, spamassassin, amavis, clamav, postgrey, rspamd, mail security
+tags: ["postfix", "spam filtering", "antivirus", "spamassassin", "amavis", "clamav", "postgrey", "rspamd"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Comprehensive guide for protecting your Postfix mail server against spam

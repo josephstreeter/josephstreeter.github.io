@@ -1,3 +1,11 @@
+---
+title: "Color Grading"
+description: "Develop your color theory knowledge and learn to create compelling color palettes and moods through advanced color grading techniques."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Color Grading
 
 Develop your color theory knowledge and learn to create compelling color palettes and moods through advanced color grading techniques. This guide covers both technical and creative aspects of color in photography.

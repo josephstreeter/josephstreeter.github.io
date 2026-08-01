@@ -1,10 +1,12 @@
 ---
-title: Active Directory Backup and Restore
-description: Comprehensive guide to backing up and restoring Active Directory Domain Services
-author: Joseph Streeter
-date: 2024-01-15
-tags: [active-directory, backup, restore, disaster-recovery, operations]
+title: "Active Directory Backup and Restore"
+description: "Comprehensive guide to backing up and restoring Active Directory Domain Services"
+author: "Joseph Streeter"
+tags: ["active-directory", "backup", "restore", "disaster-recovery", "operations"]
+category: "services"
+last_updated: "2024-01-15"
 ---
+
 ## Overview
 
 Comprehensive guide to backing up and restoring Active Directory Domain Services components and data.

@@ -1,9 +1,10 @@
 ---
-title: Home Lab Monitoring Stack
-description: Complete monitoring and observability solution using Prometheus, Grafana, and Loki for comprehensive home lab visibility
-author: Joseph Streeter
-date: 2025-09-13
-tags: [monitoring, prometheus, grafana, loki, observability, alerting]
+title: "Home Lab Monitoring Stack"
+description: "Complete monitoring and observability solution using Prometheus, Grafana, and Loki for comprehensive home lab visibility"
+author: "Joseph Streeter"
+tags: ["monitoring", "prometheus", "grafana", "loki", "observability", "alerting"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Enterprise-grade monitoring and observability stack for home lab infrastructure with metrics, logs, and alerting.

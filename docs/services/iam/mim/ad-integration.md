@@ -1,7 +1,7 @@
 ---
 title: "MIM 2016 Active Directory Integration"
 description: "Comprehensive guide to integrating Microsoft Identity Manager 2016 with Active Directory domains and forests"
-tags: ["MIM", "Active Directory", "LDAP", "integration", "synchronization"]
+tags: ["mim", "active directory", "ldap", "integration", "synchronization"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"

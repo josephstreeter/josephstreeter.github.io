@@ -2,8 +2,9 @@
 title: "Getting Started"
 description: "Quick start guide for new users to navigate and use this documentation site"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["documentation", "getting-started"]
+category: "documentation"
+last_updated: "2026-08-01"
 ---
 
 ## Getting Started

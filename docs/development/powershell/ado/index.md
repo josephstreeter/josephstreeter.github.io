@@ -1,12 +1,11 @@
 ---
 title: "PowerShell Azure DevOps Integration"
 description: "PowerShell automation and scripting for Azure DevOps pipelines, deployments, and CI/CD workflows"
+author: "Joseph Streeter"
 tags: ["powershell", "azure-devops", "ado", "pipelines", "ci-cd", "automation", "deployment"]
 category: "development"
-subcategory: "powershell"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section covers PowerShell integration with Azure DevOps (ADO) for automation, CI/CD pipelines, and deployment workflows. Learn how to leverage PowerShell's capabilities within Azure DevOps environments.

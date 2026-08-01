@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Configuration and Tuning"
 description: "Configuring containerized PostgreSQL — passing postgresql.conf and pg_hba.conf, key tuning parameters, and building a custom image"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Configuration and Tuning

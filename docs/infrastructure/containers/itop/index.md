@@ -1,11 +1,10 @@
 ---
 title: "iTop ITSM / CMDB"
 description: "Comprehensive guide to running iTop (IT Operational Portal) in containers — deployment, configuration, CMDB and ITIL processes, REST API and data sync, security, backups, and monitoring"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## iTop ITSM / CMDB

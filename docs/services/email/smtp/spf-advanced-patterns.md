@@ -1,11 +1,11 @@
 ---
 title: "Advanced SPF Architecture Patterns"
 description: "Advanced patterns for SPF implementation including redirect vs include strategies, enterprise architectures, and complex multi-domain scenarios"
+author: "Joseph Streeter"
 tags: ["spf", "email-authentication", "email-security", "smtp", "advanced"]
 category: "services"
 difficulty: "advanced"
 last_updated: "2026-01-13"
-author: "Joseph Streeter"
 ---
 
 > **📘 Prerequisites**: This guide assumes you understand basic SPF redirect and include mechanisms.

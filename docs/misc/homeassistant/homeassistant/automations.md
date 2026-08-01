@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.homeassistant.automations
-title: Home Assistant Automations - Complete Guide
-description: Comprehensive guide to creating and managing Home Assistant automations
-keywords: [home assistant, automations, triggers, conditions, actions, yaml, blueprint]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Automations - Complete Guide"
+description: "Comprehensive guide to creating and managing Home Assistant automations"
+author: "Joseph Streeter"
+tags: ["home assistant", "automations", "triggers", "conditions", "actions", "yaml", "blueprint"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Home Assistant Automations

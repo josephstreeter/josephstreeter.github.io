@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Deployment"
 description: "Deploying PostgreSQL with Docker and Docker Compose — environment variables, init scripts, persistent volumes, and health checks"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Deployment

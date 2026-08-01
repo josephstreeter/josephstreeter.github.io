@@ -2,10 +2,9 @@
 title: "2016 Honda Accord Sport"
 description: "Overview, specifications, and ownership information for the 2016 Honda Accord Sport."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Honda Accord", "Accord Sport", "2016", "K24W2", "CVT", "Sedan"]
+tags: ["honda accord", "accord sport", "2016", "k24w2", "cvt", "sedan"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2016 Honda Accord Sport

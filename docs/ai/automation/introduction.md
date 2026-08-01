@@ -2,10 +2,9 @@
 title: "Introduction to AI Workflow and Automation Tools"
 description: "Overview of tools for building AI-powered workflows and automations"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "introduction"
-keywords: ["workflow automation", "no-code", "low-code", "ai integration", "automation tools"]
-uid: docs.ai.automation.introduction
+tags: ["workflow automation", "no-code", "low-code", "ai integration", "automation tools"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 AI workflow automation tools are revolutionizing how organizations build, deploy, and scale intelligent systems. These platforms democratize AI development by providing visual interfaces, pre-built integrations, and powerful orchestration capabilities—enabling both developers and non-technical users to create sophisticated AI-powered automations without writing extensive code.

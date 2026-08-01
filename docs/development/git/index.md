@@ -1,3 +1,11 @@
+---
+title: "Git Version Control: Complete Getting Started Guide"
+description: "Git is the world's most widely used distributed version control system, enabling efficient collaboration, code tracking, and project management across software..."
+tags: ["git"]
+category: "development"
+last_updated: "2025-09-08"
+---
+
 # Git Version Control: Complete Getting Started Guide
 
 Git is the world's most widely used distributed version control system, enabling efficient collaboration, code tracking, and project management across software development teams. This comprehensive guide provides essential knowledge for understanding Git fundamentals, implementing effective workflows, and mastering core operations.

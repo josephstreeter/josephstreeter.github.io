@@ -1,6 +1,9 @@
 ---
-title: Team Training and Adoption
-description: Strategies for training teams and driving adoption of Documentation as Code practices
+title: "Team Training and Adoption"
+description: "Strategies for training teams and driving adoption of Documentation as Code practices"
+tags: ["das", "advanced"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Team Training and Adoption

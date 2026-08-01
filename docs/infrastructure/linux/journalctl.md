@@ -1,10 +1,10 @@
 ---
 title: "journalctl: Complete Guide to systemd Log Analysis"
 description: "Comprehensive guide to using journalctl for systemd log management, filtering, monitoring, and troubleshooting in Linux environments"
-keywords: journalctl, systemd, linux logs, log analysis, system administration, troubleshooting
 author: "System Administrator"
-ms.topic: reference
-ms.date: 10/10/2025
+tags: ["journalctl", "systemd", "linux logs", "log analysis", "system administration", "troubleshooting"]
+category: "infrastructure"
+last_updated: "2025-10-10"
 ---
 
 The `journalctl` command-line utility is the primary interface for querying and analyzing systemd journal logs. It provides comprehensive functionality for reading, filtering, and monitoring logs collected by the `journald` daemon, making it an indispensable tool for system administrators, DevOps engineers, and developers working with modern Linux systems.

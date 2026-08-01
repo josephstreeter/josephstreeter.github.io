@@ -1,9 +1,10 @@
 ---
-title: Virtual Domains and Mailboxes
-description: Complete guide to configuring Postfix virtual domains with database backends, Dovecot integration, and mailbox management
-author: Joseph Streeter
-ms.date: 01/13/2026
-ms.topic: article
+title: "Virtual Domains and Mailboxes"
+description: "Complete guide to configuring Postfix virtual domains with database backends, Dovecot integration, and mailbox management"
+author: "Joseph Streeter"
+tags: ["email", "postfix"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Virtual domains allow a single Postfix server to handle email for multiple

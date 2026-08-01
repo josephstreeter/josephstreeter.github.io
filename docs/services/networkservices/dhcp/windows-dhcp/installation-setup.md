@@ -1,9 +1,10 @@
 ---
-title: Windows DHCP Installation & Setup
-description: Complete guide to installing and configuring Microsoft Windows DHCP Server role in enterprise environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dhcp-installation, dhcp-setup, windows-server-roles, dhcp-configuration]
+title: "Windows DHCP Installation & Setup"
+description: "Complete guide to installing and configuring Microsoft Windows DHCP Server role in enterprise environments"
+author: "Joseph Streeter"
+tags: ["windows-dhcp-installation", "dhcp-setup", "windows-server-roles", "dhcp-configuration"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 This guide provides step-by-step instructions for installing and performing initial configuration of the Windows DHCP Server role.

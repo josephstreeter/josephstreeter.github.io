@@ -1,9 +1,10 @@
 ---
-title: Infrastructure as Code Configuration
-description: Terraform and Ansible configurations for automated home lab infrastructure deployment and management
-author: Joseph Streeter
-date: 2025-09-13
-tags: [infrastructure-as-code, terraform, ansible, automation, configuration-management]
+title: "Infrastructure as Code Configuration"
+description: "Terraform and Ansible configurations for automated home lab infrastructure deployment and management"
+author: "Joseph Streeter"
+tags: ["infrastructure-as-code", "terraform", "ansible", "automation", "configuration-management"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Complete Infrastructure as Code implementation for home lab using Terraform for provisioning and Ansible for configuration management.

@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Installation
-description: Installing and verifying OpenSSL on Linux, Windows, macOS, and Docker
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL Installation"
+description: "Installing and verifying OpenSSL on Linux, Windows, macOS, and Docker"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Installation

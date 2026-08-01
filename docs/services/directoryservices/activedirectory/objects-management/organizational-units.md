@@ -1,14 +1,10 @@
 ---
-uid: ad-organizational-units
 title: "Active Directory Organizational Units Design Guide"
 description: "Comprehensive guide for designing, implementing, and managing Active Directory Organizational Units with modern security practices, automation, and enterprise best practices."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "organizational-units"
-keywords: ["Organizational Units", "OU Design", "Active Directory", "Security", "Delegation", "Group Policy", "PowerShell", "Automation"]
+tags: ["organizational units", "ou design", "active directory", "security", "delegation", "group policy", "powershell", "automation"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This comprehensive guide provides enterprise-level strategies for designing, implementing, and managing Organizational Units (OUs) in Active Directory environments with modern security practices, delegation models, and automation.

@@ -1,12 +1,10 @@
 ---
-title: Install Server Certificate for Domain Controllers
-description: Comprehensive guide for installing and configuring SSL/TLS certificates for LDAPS on Active Directory domain controllers using modern methods and best practices
-author: IT Operations Team
-ms.date: 2025-01-01
-ms.topic: how-to
-ms.service: active-directory
-ms.subservice: certificates
-keywords: active directory, ldaps, ssl, tls, certificates, domain controller, security
+title: "Install Server Certificate for Domain Controllers"
+description: "Comprehensive guide for installing and configuring SSL/TLS certificates for LDAPS on Active Directory domain controllers using modern methods and best practices"
+author: "IT Operations Team"
+tags: ["active directory", "ldaps", "ssl", "tls", "certificates", "domain controller", "security"]
+category: "services"
+last_updated: "2025-01-01"
 ---
 
 ## Install Server Certificate for Domain Controllers

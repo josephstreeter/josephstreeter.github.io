@@ -1,13 +1,10 @@
 ---
-title: Linux Server Administration
-description: Comprehensive guide to Linux server administration, focusing on Debian and Ubuntu server environments for enterprise and cloud deployments.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: linux
-keywords: Linux server, Ubuntu server, Debian server, system administration, enterprise, cloud, infrastructure
-uid: docs.infrastructure.linux.server
+title: "Linux Server Administration"
+description: "Comprehensive guide to Linux server administration, focusing on Debian and Ubuntu server environments for enterprise and cloud deployments."
+author: "Joseph Streeter"
+tags: ["linux server", "ubuntu server", "debian server", "system administration", "enterprise", "cloud", "infrastructure"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Linux servers form the backbone of modern IT infrastructure, powering everything from web applications to enterprise databases. This guide focuses on server administration using Debian and Ubuntu distributions.

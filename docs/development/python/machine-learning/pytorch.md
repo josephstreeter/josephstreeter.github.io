@@ -1,6 +1,9 @@
 ---
-title: PyTorch - Deep Learning Framework
-description: Comprehensive guide to PyTorch, the dynamic deep learning framework for research and production with GPU acceleration and automatic differentiation
+title: "PyTorch - Deep Learning Framework"
+description: "Comprehensive guide to PyTorch, the dynamic deep learning framework for research and production with GPU acceleration and automatic differentiation"
+tags: ["python", "machine-learning"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 PyTorch is an open-source deep learning framework developed by Meta AI (formerly Facebook AI Research) that provides a flexible, pythonic interface for building neural networks. It features dynamic computational graphs, automatic differentiation, and seamless GPU acceleration, making it the preferred choice for both research and production in machine learning.

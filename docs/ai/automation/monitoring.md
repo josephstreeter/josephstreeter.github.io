@@ -1,9 +1,10 @@
 ---
-title: Monitoring AI Automation Workflows
-description: Best practices for monitoring, logging, and maintaining AI automation workflows
-author: Joseph Streeter
-date: 2026-01-04
-tags: [ai, automation, monitoring, logging, observability, metrics]
+title: "Monitoring AI Automation Workflows"
+description: "Best practices for monitoring, logging, and maintaining AI automation workflows"
+author: "Joseph Streeter"
+tags: ["ai", "automation", "monitoring", "logging", "observability", "metrics"]
+category: "ai"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

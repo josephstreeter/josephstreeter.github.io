@@ -2,10 +2,9 @@
 title: "Azure Private DNS Service with Terraform"
 description: "Complete guide to deploying and managing a production-ready Azure Private DNS service using Terraform infrastructure as code"
 author: "josephstreeter"
-ms.date: "2025-01-18"
-ms.topic: "how-to-guide"
-ms.service: "azure"
-keywords: ["Azure", "DNS", "Domain Name System", "Terraform", "Infrastructure as Code", "Private DNS", "DNS Zone", "Name Resolution", "VNet", "Virtual Network"]
+tags: ["azure", "dns", "domain name system", "terraform", "infrastructure as code", "private dns", "dns zone", "name resolution"]
+category: "infrastructure"
+last_updated: "2025-01-18"
 ---
 
 This guide provides a comprehensive approach to deploying a production-ready Azure Private DNS service using Terraform. The configuration includes private DNS zones, virtual network integration, automatic VM registration, and operational considerations for internal name resolution.

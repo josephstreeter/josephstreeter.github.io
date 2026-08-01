@@ -1,11 +1,10 @@
 ---
-title: rm Command
-description: Comprehensive reference for the rm command in Bash, including safe deletion patterns, recursive removal, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "rm Command"
+description: "Comprehensive reference for the rm command in Bash, including safe deletion patterns, recursive removal, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `rm` command removes files and directories.

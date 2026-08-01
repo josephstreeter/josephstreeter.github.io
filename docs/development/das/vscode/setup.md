@@ -2,7 +2,7 @@
 title: "Setup and Configuration"
 description: "Complete guide to setting up Visual Studio Code with essential extensions and configurations for documentation workflows"
 tags: ["vscode", "setup", "configuration", "extensions", "workspace"]
-category: "setup"
+category: "development"
 difficulty: "beginner"
 last_updated: "2025-07-06"
 ---

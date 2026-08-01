@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.zigbee2mqtt.integration
-title: Zigbee2MQTT Home Assistant Integration
-description: Complete guide to integrating Zigbee2MQTT with Home Assistant including MQTT discovery, entity customization, and automation examples
-keywords: [zigbee2mqtt, home assistant, mqtt discovery, automations, entities, integration]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: how-to
+title: "Zigbee2MQTT Home Assistant Integration"
+description: "Complete guide to integrating Zigbee2MQTT with Home Assistant including MQTT discovery, entity customization, and automation examples"
+author: "Joseph Streeter"
+tags: ["zigbee2mqtt", "home assistant", "mqtt discovery", "automations", "entities", "integration"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 This guide covers the complete integration of Zigbee2MQTT with Home Assistant, including MQTT discovery, entity customization, and advanced automation examples.

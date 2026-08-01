@@ -1,11 +1,10 @@
 ---
-title: find Command
-description: Comprehensive reference for the find command in Bash, including tests, actions, operators, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/25/2026
-ms.topic: reference
-ms.service: development
+title: "find Command"
+description: "Comprehensive reference for the find command in Bash, including tests, actions, operators, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-25"
 ---
 
 The `find` command recursively searches directories and evaluates each file path against an expression you define.

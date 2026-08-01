@@ -1,3 +1,11 @@
+---
+title: "Encryption Flow"
+description: "Encryption Flow"
+tags: ["pgp", "diagrams"]
+category: "security"
+last_updated: "2025-07-18"
+---
+
 # Encryption Flow
 
 ```mermaid

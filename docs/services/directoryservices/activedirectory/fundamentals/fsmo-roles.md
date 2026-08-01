@@ -2,11 +2,9 @@
 title: "FSMO Roles - Planning, Management, and Best Practices"
 description: "Comprehensive guide for planning, managing, and maintaining Flexible Single Master Operations (FSMO) roles in Active Directory environments"
 author: "Enterprise IT Documentation"
-ms.author: "itdocs"
-ms.date: "2024-01-15"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-keywords: ["FSMO", "Active Directory", "Domain Controllers", "Schema Master", "PDC Emulator", "RID Master", "Infrastructure Master", "Domain Naming Master"]
+tags: ["fsmo", "active directory", "domain controllers", "schema master", "pdc emulator", "rid master", "infrastructure master", "domain naming master"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 ## FSMO Roles - Planning, Management, and Best Practices

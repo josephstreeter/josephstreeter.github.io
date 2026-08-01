@@ -2,9 +2,9 @@
 title: "Postfix SPF and DMARC Integration"
 description: "Guide for implementing SPF and DMARC email authentication in Postfix"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, spf, dmarc, email authentication, dns
+tags: ["postfix", "spf", "dmarc", "email authentication", "dns"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Implement SPF and DMARC for email authentication and anti-spoofing.

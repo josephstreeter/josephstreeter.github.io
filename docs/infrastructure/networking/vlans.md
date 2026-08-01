@@ -1,11 +1,11 @@
 ---
 title: "VLAN Strategy and Implementation"
 description: "VLAN design, segmentation, and management for enterprise networks"
+author: "Joseph Streeter"
 tags: ["networking", "vlan", "segmentation", "security"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Implement effective VLAN strategies for network segmentation, security, and performance optimization.

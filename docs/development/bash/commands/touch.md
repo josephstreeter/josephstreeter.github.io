@@ -1,11 +1,10 @@
 ---
-title: touch Command
-description: Comprehensive reference for the touch command in Bash, including timestamp control, file creation behavior, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "touch Command"
+description: "Comprehensive reference for the touch command in Bash, including timestamp control, file creation behavior, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `touch` command updates file access and modification timestamps, and can create files that do not already exist.

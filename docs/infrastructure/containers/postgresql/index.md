@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL in Containers"
 description: "Comprehensive guide to running PostgreSQL in containers — deployment, configuration and tuning, backups, replication and HA, security, and monitoring with Docker"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## PostgreSQL in Containers

@@ -1,9 +1,10 @@
 ---
-title: Home Lab Network Topology
-description: Detailed network design with VLAN segmentation, security zones, and traffic flow for home lab infrastructure
-author: Joseph Streeter
-date: 2025-09-13
-tags: [network-topology, vlan-design, network-security, unifi-networking]
+title: "Home Lab Network Topology"
+description: "Detailed network design with VLAN segmentation, security zones, and traffic flow for home lab infrastructure"
+author: "Joseph Streeter"
+tags: ["network-topology", "vlan-design", "network-security", "unifi-networking"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Comprehensive network topology design for home lab infrastructure with security-focused VLAN segmentation and traffic controls.

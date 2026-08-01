@@ -1,11 +1,10 @@
 ---
-title: Bash Text Processing and Search Commands
-description: Common Bash commands for searching, filtering, transforming, and inspecting text data.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 05/21/2026
-ms.topic: conceptual
-ms.service: development
+title: "Bash Text Processing and Search Commands"
+description: "Common Bash commands for searching, filtering, transforming, and inspecting text data."
+author: "Joseph Streeter"
+tags: ["bash"]
+category: "development"
+last_updated: "2026-05-21"
 ---
 
 Text processing is a core part of shell scripting and operations work. This page summarizes commands you will use frequently.

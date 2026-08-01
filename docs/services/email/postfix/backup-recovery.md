@@ -2,9 +2,9 @@
 title: "Postfix Backup and Recovery"
 description: "Guide for backing up and recovering Postfix mail server"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, backup, recovery, disaster recovery
+tags: ["postfix", "backup", "recovery", "disaster recovery"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Backup and recovery procedures for Postfix mail server.

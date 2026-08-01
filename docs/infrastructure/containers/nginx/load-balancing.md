@@ -1,11 +1,10 @@
 ---
-title: Nginx Load Balancing
-description: Load balancing with Nginx — upstream groups, balancing methods, health checks, and advanced configuration
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+title: "Nginx Load Balancing"
+description: "Load balancing with Nginx — upstream groups, balancing methods, health checks, and advanced configuration"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Load Balancer

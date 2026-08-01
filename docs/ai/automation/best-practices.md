@@ -1,3 +1,11 @@
+---
+title: "Integration Best Practices"
+description: "This guide provides comprehensive best practices for integrating AI capabilities into your applications and workflows."
+tags: ["automation"]
+category: "ai"
+last_updated: "2026-01-04"
+---
+
 # Integration Best Practices
 
 ## Overview

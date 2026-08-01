@@ -1,3 +1,11 @@
+---
+title: "DevOps Pipeline Architecture"
+description: "Comprehensive DevOps pipeline architecture for automated software delivery, infrastructure as code, and continuous integration/continuous deployment (CI/CD)."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # DevOps Pipeline Architecture
 
 ## Overview

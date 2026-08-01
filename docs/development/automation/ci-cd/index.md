@@ -1,9 +1,10 @@
 ---
-title: CI/CD Pipeline Implementation
-description: Comprehensive guide to implementing Continuous Integration and Continuous Deployment pipelines using modern DevOps tools and practices
-author: Joseph Streeter
-date: 2024-01-15
-tags: [ci-cd, devops, automation, azure-devops, github-actions, deployment, testing]
+title: "CI/CD Pipeline Implementation"
+description: "Comprehensive guide to implementing Continuous Integration and Continuous Deployment pipelines using modern DevOps tools and practices"
+author: "Joseph Streeter"
+tags: ["ci-cd", "devops", "automation", "azure-devops", "github-actions", "deployment", "testing"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 Continuous Integration and Continuous Deployment (CI/CD) is fundamental to modern software development, enabling teams to deliver high-quality software rapidly and reliably. This guide provides comprehensive implementation strategies for various CI/CD platforms.

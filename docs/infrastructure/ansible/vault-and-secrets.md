@@ -1,13 +1,10 @@
 ---
-title: Vault and Secrets Management
-description: Protecting sensitive data with Ansible Vault - encrypting files and variables, vault IDs, password sources, and integrating external secret managers.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: how-to
-ms.service: ansible
-keywords: ansible vault, secrets, encrypt_string, vault-id, ansible-vault, no_log, secret management
-uid: docs.infrastructure.ansible.vault-and-secrets
+title: "Vault and Secrets Management"
+description: "Protecting sensitive data with Ansible Vault - encrypting files and variables, vault IDs, password sources, and integrating external secret managers."
+author: "Joseph Streeter"
+tags: ["ansible vault", "secrets", "encrypt_string", "vault-id", "ansible-vault", "no_log", "secret management"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Vault and Secrets Management

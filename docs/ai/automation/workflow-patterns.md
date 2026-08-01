@@ -1,3 +1,11 @@
+---
+title: "Workflow Design Patterns"
+description: "This guide covers common design patterns for building effective AI-powered automation workflows."
+tags: ["automation"]
+category: "ai"
+last_updated: "2026-01-04"
+---
+
 # Workflow Design Patterns
 
 ## Overview

@@ -1,8 +1,9 @@
 ---
 title: "Identity Management"
 description: "Enterprise Identity Management documentation, guides, and best practices"
-category: "services"
 tags: ["identity management", "idm", "identity", "access management", "governance"]
+category: "services"
+last_updated: "2026-08-01"
 ---
 
 ## Identity Management (IDM)

@@ -1,8 +1,8 @@
 ---
 title: "Routing Protocols and Concepts"
 description: "Comprehensive guide to routing fundamentals, static routes, and dynamic routing protocols"
-tags: ["networking", "routing", "OSPF", "BGP", "RIP", "routing-protocols"]
-category: "networking"
+tags: ["networking", "routing", "ospf", "bgp", "rip", "routing-protocols"]
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

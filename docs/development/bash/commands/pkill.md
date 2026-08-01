@@ -1,11 +1,10 @@
 ---
-title: pkill Command
-description: Comprehensive guide to pkill for signaling processes by name or pattern.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "pkill Command"
+description: "Comprehensive guide to pkill for signaling processes by name or pattern."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 The `pkill` command sends a signal to processes selected by name or pattern.

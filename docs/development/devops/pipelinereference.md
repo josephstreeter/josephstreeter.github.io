@@ -1,10 +1,10 @@
 ---
 title: "YAML Pipeline Reference — GitHub Actions & Azure DevOps"
 description: "Reference guide for YAML pipelines in GitHub Actions and Azure DevOps: syntax, triggers, jobs, steps, variables, templates, secrets, deployment strategies and best practices."
-keywords: "yaml pipelines, github actions, azure devops, ci cd, pipeline templates, pipeline variables"
 author: "Joseph Streeter"
-ms.topic: "reference"
-ms.date: "2025-11-27"
+tags: ["yaml pipelines", "github actions", "azure devops", "ci cd", "pipeline templates", "pipeline variables"]
+category: "development"
+last_updated: "2025-11-27"
 ---
 
  

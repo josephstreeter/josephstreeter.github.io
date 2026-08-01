@@ -1,3 +1,11 @@
+---
+title: "Email Authentication Documentation - Action Plan"
+description: "1. **DKIM/DMARC Approach:** Complete vs remove vs warn?"
+tags: ["email", "smtp"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Email Authentication Documentation - Action Plan
 
 ## CRITICAL - Week 1: Make It Honest (Before Next Commit)

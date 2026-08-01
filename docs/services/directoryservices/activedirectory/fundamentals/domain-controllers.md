@@ -2,13 +2,9 @@
 title: "Active Directory Domain Controllers"
 description: "Comprehensive guide to Active Directory Domain Controller deployment, management, and best practices"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
----: "Active Directory Domain Controllers"
-description: "Comprehensive guide to Active Directory Domain Controller deployment, management, and best practices"
-author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["directoryservices", "activedirectory", "fundamentals"]
+category: "services"
+last_updated: "2025-09-08"
 ---
 
 ## Active Directory Domain Controllers

@@ -1,11 +1,11 @@
 ---
 title: "Networking"
 description: "Enterprise networking documentation covering fundamentals, design, automation, and operations"
+author: "Joseph Streeter"
 tags: ["networking", "infrastructure", "network-design", "network-automation"]
-category: "networking"
+category: "infrastructure"
 difficulty: "beginner-to-advanced"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Welcome to the comprehensive networking documentation hub. Whether you're just starting with networking concepts or managing enterprise infrastructure, you'll find guides, tutorials, and reference materials organized by expertise level.

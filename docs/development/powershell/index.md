@@ -1,3 +1,11 @@
+---
+title: "PowerShell: Complete Development Guide"
+description: "PowerShell is a powerful cross-platform task automation solution consisting of a command-line shell, scripting language, and configuration management framework."
+tags: ["powershell"]
+category: "development"
+last_updated: "2026-05-21"
+---
+
 # PowerShell: Complete Development Guide
 
 > *"PowerShell is the Swiss Army knife of system administration and automation. Once you master its fundamentals, you'll wonder how you ever managed without it."* - Jeffrey Snover, Architect of PowerShell¹

@@ -2,9 +2,9 @@
 title: "Postfix Queue Management"
 description: "Guide for managing the Postfix mail queue"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, queue management, mail queue, postqueue
+tags: ["postfix", "queue management", "mail queue", "postqueue"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Manage and troubleshoot the Postfix mail queue.

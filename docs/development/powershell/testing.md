@@ -2,8 +2,9 @@
 title: "PowerShell Testing"
 description: "Comprehensive guide to testing PowerShell code with Pester and test-driven development practices"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-09-08"
 ---
 
 ## Overview

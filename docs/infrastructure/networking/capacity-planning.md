@@ -2,7 +2,7 @@
 title: "Network Capacity Planning"
 description: "Guide to sizing, scaling, and planning network capacity for current and future needs"
 tags: ["networking", "capacity-planning", "performance", "scaling"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

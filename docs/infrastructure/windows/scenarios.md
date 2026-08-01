@@ -1,13 +1,10 @@
 ---
-title: Windows Server End-to-End Scenarios
-description: Real-world deployment scenarios with step-by-step instructions for common Windows Server implementations
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: tutorial
-ms.service: windows-server
-keywords: Windows Server scenarios, deployment guide, real-world examples, step-by-step, tutorials
-uid: docs.infrastructure.windows.scenarios
+title: "Windows Server End-to-End Scenarios"
+description: "Real-world deployment scenarios with step-by-step instructions for common Windows Server implementations"
+author: "Joseph Streeter"
+tags: ["windows server scenarios", "deployment guide", "real-world examples", "step-by-step", "tutorials"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 This guide provides complete, real-world deployment scenarios for common Windows Server implementations. Each scenario includes prerequisites, step-by-step instructions, security considerations, and troubleshooting tips.

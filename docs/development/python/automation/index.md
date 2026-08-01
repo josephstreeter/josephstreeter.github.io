@@ -1,14 +1,11 @@
 ---
 title: "Python Automation - Comprehensive Guide"
 description: "Master Python automation techniques for scripting, web scraping, task automation, and system administration"
+author: "Joseph Streeter"
 tags: ["python", "automation", "scripting", "web-scraping", "devops"]
 category: "development"
 difficulty: "intermediate"
 last_updated: "2026-01-04"
-author: "Joseph Streeter"
-ms.topic: "guide"
-keywords: ["python automation", "scripting", "task automation", "web scraping", "process automation", "system administration"]
-uid: docs.development.python.automation.index
 ---
 
 Python has become the de facto language for automation due to its simplicity, extensive library ecosystem, and cross-platform capabilities. This comprehensive guide covers everything from basic scripting to advanced automation patterns, enabling you to automate repetitive tasks, integrate systems, and build robust automation workflows.

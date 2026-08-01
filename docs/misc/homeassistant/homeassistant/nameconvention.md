@@ -1,8 +1,10 @@
 ---
-title: Home Assistant Naming Convention
-description: Comprehensive guide for naming entities, devices, automations, and scenes in Home Assistant for multi-home setups and Alexa integration.
-author: josephstreeter
-ms.date: 2025-08-11
+title: "Home Assistant Naming Convention"
+description: "Comprehensive guide for naming entities, devices, automations, and scenes in Home Assistant for multi-home setups and Alexa integration."
+author: "josephstreeter"
+tags: ["homeassistant"]
+category: "misc"
+last_updated: "2025-08-11"
 ---
 
 ## Home Assistant Naming Convention

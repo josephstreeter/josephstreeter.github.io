@@ -2,10 +2,9 @@
 title: "Model Selection"
 description: "Guide to choosing the right AI model for your use case"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["model selection", "ai models", "llm", "choosing models", "model comparison"]
-uid: docs.ai.models.selection
+tags: ["model selection", "ai models", "llm", "choosing models", "model comparison"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Understanding Model Types

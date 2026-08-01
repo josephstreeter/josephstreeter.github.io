@@ -2,8 +2,9 @@
 title: "Container Security"
 description: "Comprehensive guide to container security, Docker hardening, Kubernetes security policies, and secure container development"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["containers", "security"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Overview

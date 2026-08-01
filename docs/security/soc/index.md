@@ -1,11 +1,10 @@
 ---
 title: "Security Operations Center (SOC)"
-description: >-
-    Central hub for SOC strategy, detection engineering, incident response, and
-    continuous security operations improvement
+description: "Central hub for SOC strategy, detection engineering, incident response, and continuous security operations improvement"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "landing-page"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Security Operations Center

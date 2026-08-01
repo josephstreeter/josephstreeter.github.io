@@ -1,9 +1,10 @@
 ---
-title: LDAP Configuration
-description: Advanced LDAP settings and secure communications setup for Active Directory
-author: Joseph Streeter
-date: 2024-01-15
-tags: [active-directory, ldap, ldaps, security, configuration]
+title: "LDAP Configuration"
+description: "Advanced LDAP settings and secure communications setup for Active Directory"
+author: "Joseph Streeter"
+tags: ["active-directory", "ldap", "ldaps", "security", "configuration"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 

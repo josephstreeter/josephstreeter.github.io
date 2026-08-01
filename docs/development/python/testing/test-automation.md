@@ -1,6 +1,9 @@
 ---
-title: Python Test Automation - Complete Guide to Automated Testing
-description: Comprehensive guide to Python test automation including pytest runners, CI/CD integration, parallel execution, test reporting, and continuous testing strategies
+title: "Python Test Automation - Complete Guide to Automated Testing"
+description: "Comprehensive guide to Python test automation including pytest runners, CI/CD integration, parallel execution, test reporting, and continuous testing strategies"
+tags: ["python", "testing"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Python test automation is the practice of automatically executing tests throughout the development lifecycle to ensure code quality, catch regressions early, and enable continuous delivery. Modern test automation encompasses test discovery, execution, reporting, and integration with development workflows and CI/CD pipelines.

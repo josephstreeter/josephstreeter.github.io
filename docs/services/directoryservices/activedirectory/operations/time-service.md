@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Windows Time Service Configuration Guide"
 description: "Comprehensive guide for configuring, managing, and optimizing Windows Time Service in Active Directory environments with modern automation, security, and enterprise best practices"
+author: "Joseph Streeter"
 tags: ["windows-time-service", "w32time", "ntp", "pdc-emulator", "time-synchronization", "active-directory", "automation", "enterprise"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "advanced"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This comprehensive guide provides enterprise-level strategies for configuring, managing, and optimizing Windows Time Service (W32Time) in Active Directory environments with modern automation, security considerations, and operational best practices.

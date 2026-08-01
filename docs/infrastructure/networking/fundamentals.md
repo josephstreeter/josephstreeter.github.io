@@ -1,11 +1,11 @@
 ---
 title: "Network Fundamentals"
 description: "Core networking concepts, protocols, addressing, and the TCP/IP stack"
+author: "Joseph Streeter"
 tags: ["networking", "fundamentals", "tcp-ip", "protocols", "addressing"]
-category: "networking"
+category: "infrastructure"
 difficulty: "beginner"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Learn the fundamental concepts that form the foundation of modern networking.

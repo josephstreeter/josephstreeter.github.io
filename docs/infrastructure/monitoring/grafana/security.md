@@ -1,12 +1,10 @@
 ---
-title: Security Configuration
-description: Comprehensive security guide for Grafana and Prometheus including TLS, authentication, secrets management, and hardening
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.topic: security
-ms.date: 12/30/2025
-keywords: security, tls, mtls, authentication, oauth, ldap, secrets management, hardening
-uid: docs.infrastructure.grafana.security
+title: "Security Configuration"
+description: "Comprehensive security guide for Grafana and Prometheus including TLS, authentication, secrets management, and hardening"
+author: "Joseph Streeter"
+tags: ["security", "tls", "mtls", "authentication", "oauth", "ldap", "secrets management", "hardening"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide covers implementing production-grade security for your Grafana and Prometheus monitoring stack including TLS/mTLS, authentication, authorization, secrets management, and security hardening.

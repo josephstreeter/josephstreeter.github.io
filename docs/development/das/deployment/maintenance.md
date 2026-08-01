@@ -1,6 +1,9 @@
 ---
-title: Maintenance and Updates
-description: Best practices for maintaining and updating your Documentation as Code implementation over time
+title: "Maintenance and Updates"
+description: "Best practices for maintaining and updating your Documentation as Code implementation over time"
+tags: ["das", "deployment"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Maintenance and Updates

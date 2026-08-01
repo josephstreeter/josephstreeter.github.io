@@ -1,8 +1,9 @@
 ---
 title: "Loki"
 description: "Comprehensive guide to Grafana Loki for log aggregation, analysis, and observability in containerized environments"
-category: "infrastructure"
 tags: ["containers", "logging", "loki", "grafana", "observability", "log-aggregation", "promtail"]
+category: "infrastructure"
+last_updated: "2026-08-01"
 ---
 
 ## Loki

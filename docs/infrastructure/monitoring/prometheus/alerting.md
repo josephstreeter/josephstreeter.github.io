@@ -2,11 +2,9 @@
 title: "Alerting Configuration"
 description: "Comprehensive guide to configuring Prometheus and Grafana alerting, including alert rules, Alertmanager, notification channels, and runbooks"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: how-to
-ms.date: 12/30/2025
-keywords: ["prometheus", "alerting", "alertmanager", "grafana", "notifications", "monitoring", "runbooks"]
-uid: docs.infrastructure.prometheus.alerting
+tags: ["prometheus", "alerting", "alertmanager", "grafana", "notifications", "monitoring", "runbooks"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

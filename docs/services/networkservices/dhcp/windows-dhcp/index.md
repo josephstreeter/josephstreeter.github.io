@@ -1,9 +1,10 @@
 ---
-title: Windows DHCP Server
-description: Comprehensive guide to Microsoft Windows DHCP Server implementation, configuration, and management in enterprise environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dhcp, microsoft-dhcp, dhcp-server, windows-server, enterprise-networking]
+title: "Windows DHCP Server"
+description: "Comprehensive guide to Microsoft Windows DHCP Server implementation, configuration, and management in enterprise environments"
+author: "Joseph Streeter"
+tags: ["windows-dhcp", "microsoft-dhcp", "dhcp-server", "windows-server", "enterprise-networking"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Microsoft Windows DHCP Server provides enterprise-grade dynamic IP address assignment and network configuration management. This comprehensive guide covers installation, configuration, and advanced management of Windows DHCP Server.

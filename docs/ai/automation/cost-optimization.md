@@ -1,9 +1,10 @@
 ---
-title: Cost Optimization for AI Automation
-description: Strategies for reducing costs and improving efficiency in AI automation workflows
-author: Joseph Streeter
-date: 2026-01-04
-tags: [ai, automation, cost-optimization, efficiency, budget, pricing]
+title: "Cost Optimization for AI Automation"
+description: "Strategies for reducing costs and improving efficiency in AI automation workflows"
+author: "Joseph Streeter"
+tags: ["ai", "automation", "cost-optimization", "efficiency", "budget", "pricing"]
+category: "ai"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

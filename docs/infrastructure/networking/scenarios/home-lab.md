@@ -2,7 +2,7 @@
 title: "Home Lab Network Design"
 description: "Segmented home lab network for IT professionals, testing, and learning"
 tags: ["networking", "scenarios", "home-lab", "virtualization", "testing"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

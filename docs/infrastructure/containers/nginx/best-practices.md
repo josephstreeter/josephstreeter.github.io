@@ -1,11 +1,10 @@
 ---
-title: Nginx Best Practices
-description: Nginx security headers, rate limiting, and caching best practices
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: infrastructure
+title: "Nginx Best Practices"
+description: "Nginx security headers, rate limiting, and caching best practices"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Best Practices

@@ -1,7 +1,7 @@
 ---
 title: "Active Directory Directory Services Configuration"
 description: "Comprehensive guide for configuring Active Directory security policies, DS-Heuristics, and maintenance procedures"
-tags: ["Active Directory", "security", "configuration", "DS-Heuristics", "password policy"]
+tags: ["active directory", "security", "configuration", "ds-heuristics", "password policy"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"

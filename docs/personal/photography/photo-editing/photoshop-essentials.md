@@ -1,3 +1,11 @@
+---
+title: "Photoshop Essentials"
+description: "Explore advanced editing techniques using Adobe Photoshop for complex retouching, compositing, and creative image manipulation."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Photoshop Essentials
 
 Explore advanced editing techniques using Adobe Photoshop for complex retouching, compositing, and creative image manipulation. This guide covers essential tools and professional workflows.

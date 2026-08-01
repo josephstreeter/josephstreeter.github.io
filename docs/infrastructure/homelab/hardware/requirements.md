@@ -1,9 +1,10 @@
 ---
-title: Home Lab Hardware Requirements and Setup
-description: Comprehensive guide to hardware selection, specifications, and setup procedures for home lab infrastructure
-author: Joseph Streeter
-date: 2025-09-13
-tags: [hardware-requirements, mini-pc-cluster, network-hardware, storage-planning]
+title: "Home Lab Hardware Requirements and Setup"
+description: "Comprehensive guide to hardware selection, specifications, and setup procedures for home lab infrastructure"
+author: "Joseph Streeter"
+tags: ["hardware-requirements", "mini-pc-cluster", "network-hardware", "storage-planning"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Complete hardware selection and setup guide for building a production-ready home lab with enterprise features on a budget.

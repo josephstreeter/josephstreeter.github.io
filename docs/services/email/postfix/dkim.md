@@ -2,9 +2,9 @@
 title: "Postfix with OpenDKIM - Complete Integration Guide"
 description: "Comprehensive guide for implementing DKIM email authentication with Postfix using OpenDKIM for improved email deliverability and security"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, opendkim, dkim, email authentication, mail security, email signing, deliverability
+tags: ["postfix", "opendkim", "dkim", "email authentication", "mail security", "email signing", "deliverability"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 This comprehensive guide covers implementing DomainKeys Identified Mail (DKIM) with Postfix using OpenDKIM to cryptographically sign outgoing emails, improving deliverability and preventing email spoofing.

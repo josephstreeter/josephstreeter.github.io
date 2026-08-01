@@ -1,6 +1,9 @@
 ---
-title: Python Unit Testing - Complete Guide to Testing Individual Components
-description: Comprehensive guide to Python unit testing with unittest and pytest frameworks, including fixtures, mocking, assertions, test patterns, and best practices
+title: "Python Unit Testing - Complete Guide to Testing Individual Components"
+description: "Comprehensive guide to Python unit testing with unittest and pytest frameworks, including fixtures, mocking, assertions, test patterns, and best practices"
+tags: ["python", "testing"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Unit testing is the practice of testing individual components, functions, or methods in isolation from the rest of the application. It forms the foundation of a robust testing strategy by verifying that each piece of code works correctly on its own before integration with other components.

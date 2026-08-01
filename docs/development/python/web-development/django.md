@@ -1,6 +1,9 @@
 ---
-title: Django - The Web Framework for Perfectionists with Deadlines
-description: Comprehensive guide to Django, the high-level Python web framework that enables rapid development of secure and maintainable web applications
+title: "Django - The Web Framework for Perfectionists with Deadlines"
+description: "Comprehensive guide to Django, the high-level Python web framework that enables rapid development of secure and maintainable web applications"
+tags: ["python", "web-development"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, Django takes care of much of the hassle of web development, allowing you to focus on writing your application without needing to reinvent the wheel.

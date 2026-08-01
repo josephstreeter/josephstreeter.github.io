@@ -1,8 +1,9 @@
 ---
-title: OSI Model - Comprehensive Guide
+title: "OSI Model - Comprehensive Guide"
 description: "Complete guide to the OSI (Open Systems Interconnection) model: seven layers, protocols, encapsulation, and practical troubleshooting."
-ms.topic: reference
-ms.date: 2025-11-29
+tags: ["networking"]
+category: "infrastructure"
+last_updated: "2025-11-29"
 ---
 
 The OSI (Open Systems Interconnection) model is a conceptual framework that standardizes the functions of a communication system into seven distinct layers. It helps network professionals understand, design, and troubleshoot network communications.

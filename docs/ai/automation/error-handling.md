@@ -1,9 +1,10 @@
 ---
-title: Error Handling in AI Automation
-description: Strategies for handling errors, retries, and failures in AI automation workflows
-author: Joseph Streeter
-date: 2026-01-04
-tags: [ai, automation, error-handling, retry, resilience, fault-tolerance]
+title: "Error Handling in AI Automation"
+description: "Strategies for handling errors, retries, and failures in AI automation workflows"
+author: "Joseph Streeter"
+tags: ["ai", "automation", "error-handling", "retry", "resilience", "fault-tolerance"]
+category: "ai"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

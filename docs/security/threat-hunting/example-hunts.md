@@ -1,11 +1,11 @@
 ---
 title: "Example Threat Hunts"
 description: "Practical, query-driven threat hunts mapped to MITRE ATT&CK, using KQL against Microsoft Sentinel and Defender data"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "kql", "mitre-attack", "sentinel", "defender", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Example hunts

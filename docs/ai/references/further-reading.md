@@ -2,10 +2,9 @@
 title: "Further Reading"
 description: "Recommended resources for learning more about AI"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "reference"
-keywords: ["resources", "learning", "books", "courses", "papers", "tutorials"]
-uid: docs.ai.references.further-reading
+tags: ["resources", "learning", "books", "courses", "papers", "tutorials"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Books

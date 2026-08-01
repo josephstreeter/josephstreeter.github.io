@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.index
-title: Packer Documentation
-description: Comprehensive guide to HashiCorp Packer for building automated machine images across multiple platforms
-ms.date: 01/18/2026
+title: "Packer Documentation"
+description: "Comprehensive guide to HashiCorp Packer for building automated machine images across multiple platforms"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section provides comprehensive documentation for HashiCorp Packer, an open-source tool for creating identical machine images for multiple platforms from a single source configuration.

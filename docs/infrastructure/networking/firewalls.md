@@ -1,11 +1,11 @@
 ---
 title: "Network Firewalls"
 description: "Firewall concepts, types, configuration, and security best practices"
+author: "Joseph Streeter"
 tags: ["networking", "security", "firewall", "acl", "filtering"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
-author: "Joseph Streeter"
 ---
 
 Comprehensive guide to network firewalls, including types, implementation strategies, and configuration best practices.

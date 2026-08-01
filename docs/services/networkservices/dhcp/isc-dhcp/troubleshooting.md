@@ -1,9 +1,10 @@
 ---
-title: ISC DHCP Troubleshooting
-description: Diagnostic procedures and troubleshooting techniques for ISC DHCP Server issues
-author: Joseph Streeter
-date: 2025-09-12
-tags: [isc-dhcp-troubleshooting, dhcp-debugging, log-analysis]
+title: "ISC DHCP Troubleshooting"
+description: "Diagnostic procedures and troubleshooting techniques for ISC DHCP Server issues"
+author: "Joseph Streeter"
+tags: ["isc-dhcp-troubleshooting", "dhcp-debugging", "log-analysis"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive troubleshooting guide for diagnosing and resolving ISC DHCP Server issues.

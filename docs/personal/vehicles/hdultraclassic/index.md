@@ -2,10 +2,9 @@
 title: "2007 Harley-Davidson Ultra Classic Electra Glide"
 description: "Overview, specifications, and ownership information for the 2007 Harley-Davidson Ultra Classic Electra Glide (FLHTCU)."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Harley-Davidson", "Ultra Classic", "Electra Glide", "FLHTCU", "Twin Cam 96", "touring motorcycle", "2007"]
+tags: ["harley-davidson", "ultra classic", "electra glide", "flhtcu", "twin cam 96", "touring motorcycle", "2007"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2007 Harley-Davidson Ultra Classic Electra Glide

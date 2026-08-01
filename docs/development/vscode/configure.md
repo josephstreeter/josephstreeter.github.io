@@ -2,10 +2,9 @@
 title: "VS Code Configuration for PowerShell Development"
 description: "Complete guide to configuring Visual Studio Code for PowerShell development, including extensions, settings, and code snippets."
 author: "Joseph Streeter"
-ms.date: "2024-01-15"
-ms.topic: "how-to"
-ms.service: "vscode"
-keywords: ["Visual Studio Code", "VS Code", "PowerShell", "configuration", "extensions", "snippets"]
+tags: ["visual studio code", "vs code", "powershell", "configuration", "extensions", "snippets"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 ## Visual Studio Code Configuration

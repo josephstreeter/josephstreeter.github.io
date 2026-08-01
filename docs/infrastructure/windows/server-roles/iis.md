@@ -1,9 +1,9 @@
 ---
-uid: docs.infrastructure.windows.server-roles.iis
-title: IIS Web Server Role
-ms.date: 12/30/2025
-ms.topic: guide
-description: Comprehensive guide to Internet Information Services (IIS) deployment, configuration, and management on Windows Server
+title: "IIS Web Server Role"
+description: "Comprehensive guide to Internet Information Services (IIS) deployment, configuration, and management on Windows Server"
+tags: ["windows", "server-roles"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 Internet Information Services (IIS) is a flexible, secure, and manageable web server platform for hosting websites, services, and applications on Windows Server.

@@ -1,6 +1,9 @@
 ---
-title: Python Algorithms
-description: Common algorithms and data structures implemented in Python
+title: "Python Algorithms"
+description: "Common algorithms and data structures implemented in Python"
+tags: ["python", "algorithms"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

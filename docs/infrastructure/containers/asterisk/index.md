@@ -1,11 +1,10 @@
 ---
 title: "Asterisk PBX"
 description: "Comprehensive guide to running the Asterisk open-source PBX in containers — deployment, PJSIP configuration, dialplan, trunks, security, monitoring, and best practices"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Asterisk PBX

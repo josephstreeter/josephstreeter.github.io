@@ -1,12 +1,10 @@
 ---
-uid: networking.unifi.setup-guide
 title: "UniFi Network Complete Setup Guide"
 description: "Comprehensive step-by-step guide to setting up and configuring UniFi networking equipment for optimal performance"
-keywords: [unifi, setup, configuration, ubiquiti, cloud gateway, access point, networking, wireless, home network]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: how-to
+author: "Joseph Streeter"
+tags: ["unifi", "setup", "configuration", "ubiquiti", "cloud gateway", "access point", "networking", "wireless"]
+category: "infrastructure"
+last_updated: "2025-08-07"
 ---
 
 This comprehensive guide walks you through the complete setup and configuration of a UniFi network, from initial installation to advanced optimization for maximum performance.

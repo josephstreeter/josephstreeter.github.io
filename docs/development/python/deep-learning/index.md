@@ -1,6 +1,9 @@
 ---
-title: Deep Learning with Python
-description: Comprehensive guide to deep learning concepts, neural networks, and practical implementations using PyTorch and TensorFlow
+title: "Deep Learning with Python"
+description: "Comprehensive guide to deep learning concepts, neural networks, and practical implementations using PyTorch and TensorFlow"
+tags: ["python", "deep-learning"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Deep learning is a subset of machine learning that uses artificial neural networks with multiple layers to learn complex patterns from large amounts of data. This guide covers fundamental concepts, architectures, and practical implementations.

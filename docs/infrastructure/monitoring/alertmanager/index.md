@@ -1,12 +1,11 @@
 ---
 title: "Alertmanager"
 description: "Comprehensive guide to Prometheus Alertmanager for alert handling, routing, and notification management"
+author: "Joseph Streeter"
 tags: ["alertmanager", "prometheus", "monitoring", "alerting", "containers", "notifications"]
 category: "infrastructure"
-subcategory: "containers"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 ## Alertmanager

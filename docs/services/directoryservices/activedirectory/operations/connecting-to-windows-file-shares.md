@@ -2,10 +2,9 @@
 title: "Connecting to Windows File Shares"
 description: "Comprehensive guide for connecting to Windows file shares from various operating systems including Windows, macOS, Linux, and mobile devices"
 author: "IT Operations"
-ms.date: "07/05/2025"
-ms.topic: "how-to"
-ms.service: "active-directory"
-keywords: windows file shares, SMB, CIFS, network drives, file server
+tags: ["windows file shares", "smb", "cifs", "network drives", "file server"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This guide provides step-by-step instructions for connecting to Windows file shares from various operating systems and devices. It covers both GUI and command-line methods, security considerations, and troubleshooting common issues.

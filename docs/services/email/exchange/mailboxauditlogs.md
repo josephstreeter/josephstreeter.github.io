@@ -1,3 +1,11 @@
+---
+title: "Search Exchange Online Mailbox Audit Logs"
+description: "Search the audit logs for a mailbox in Microsoft Exchange Online."
+tags: ["email", "exchange"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Search Exchange Online Mailbox Audit Logs
 
 ## Introduction

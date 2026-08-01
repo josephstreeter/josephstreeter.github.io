@@ -1,9 +1,10 @@
 ---
-title: Data Science with Python
-description: Overview of data science tools and libraries in Python
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, data-science, numpy, pandas, matplotlib, machine-learning]
+title: "Data Science with Python"
+description: "Overview of data science tools and libraries in Python"
+author: "Joseph Streeter"
+tags: ["python", "data-science", "numpy", "pandas", "matplotlib", "machine-learning"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

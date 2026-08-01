@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Performance Monitoring
-description: Performance monitoring and optimization techniques for Windows DNS Server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dns-performance, dns-monitoring, performance-optimization, dns-metrics]
+title: "Windows DNS Performance Monitoring"
+description: "Performance monitoring and optimization techniques for Windows DNS Server deployments"
+author: "Joseph Streeter"
+tags: ["windows-dns-performance", "dns-monitoring", "performance-optimization", "dns-metrics"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Performance monitoring and optimization strategies for Windows DNS Server environments.

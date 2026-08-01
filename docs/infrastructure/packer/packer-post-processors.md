@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.post-processors
-title: Packer Post-Processors
-description: Comprehensive guide to Packer post-processors for processing, compressing, uploading, and distributing machine images after builds
-ms.date: 01/18/2026
+title: "Packer Post-Processors"
+description: "Comprehensive guide to Packer post-processors for processing, compressing, uploading, and distributing machine images after builds"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers Packer post-processors, which process artifacts after image builds to perform tasks like compression, uploading, creating Vagrant boxes, and generating manifests.

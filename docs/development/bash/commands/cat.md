@@ -1,11 +1,10 @@
 ---
-title: cat Command
-description: Comprehensive reference for the cat command in Bash, including syntax, options, common patterns, and practical examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "cat Command"
+description: "Comprehensive reference for the cat command in Bash, including syntax, options, common patterns, and practical examples."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `cat` command concatenates files and writes their contents to standard output.

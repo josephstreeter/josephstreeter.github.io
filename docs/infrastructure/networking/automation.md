@@ -1,11 +1,11 @@
 ---
 title: "Network Automation"
 description: "PowerShell and scripting tools for network management and automation"
+author: "Joseph Streeter"
 tags: ["networking", "automation", "powershell", "scripting"]
-category: "networking"
+category: "infrastructure"
 difficulty: "advanced"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Automate repetitive networking tasks using PowerShell, Python, and other scripting tools. This section provides frameworks and examples for managing network infrastructure programmatically.

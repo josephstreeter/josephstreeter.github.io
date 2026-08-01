@@ -2,10 +2,9 @@
 title: "2014 RAM 3500 Cummins 6.7L Diesel Dually - Maintenance Guide"
 description: "Comprehensive maintenance guide and schedule for a 2014 RAM 3500 with the Cummins 6.7L turbo diesel engine in a dually configuration."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["RAM 3500", "Cummins 6.7L", "Diesel Maintenance", "Dually", "Service Schedule", "Fluid Capacities"]
+tags: ["ram 3500", "cummins 6.7l", "diesel maintenance", "dually", "service schedule", "fluid capacities"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2014 RAM 3500 Cummins 6.7L Diesel Dually Maintenance Guide

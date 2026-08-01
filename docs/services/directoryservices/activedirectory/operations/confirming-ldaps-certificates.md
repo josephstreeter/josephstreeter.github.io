@@ -1,13 +1,11 @@
 ---
 title: "Confirming LDAPS Certificates"
 description: "Comprehensive guide for validating and confirming LDAPS (LDAP over SSL/TLS) certificates on Active Directory Domain Controllers using PowerShell, OpenSSL, and built-in Windows tools"
+author: "Joseph Streeter"
 tags: ["active-directory", "ldaps", "ssl-certificates", "domain-controllers", "certificate-validation", "security"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "intermediate"
 last_updated: "2025-10-06"
-author: "Joseph Streeter"
-applies_to: ["Windows Server 2016+", "Active Directory Domain Services", "PowerShell 5.1+"]
 ---
 
 ## Overview

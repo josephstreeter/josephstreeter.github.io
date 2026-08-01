@@ -1,3 +1,11 @@
+---
+title: "Git Conflict Resolution Guide"
+description: "Git merge conflicts are inevitable when working with collaborative development teams."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Conflict Resolution Guide
 
 Git merge conflicts are inevitable when working with collaborative development teams. Understanding how to efficiently identify, analyze, and resolve conflicts is crucial for maintaining productive workflows and ensuring code quality. This comprehensive guide covers conflict resolution strategies, tools, and best practices for professional Git environments.

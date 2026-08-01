@@ -1,8 +1,9 @@
 ---
 title: "PowerShell Data Transfer"
 description: "Comprehensive guide to data transfer formats and methods in PowerShell including XML, JSON, CSV, and other data interchange formats"
-category: "development"
 tags: ["powershell", "data-transfer", "xml", "json", "csv", "data-formats", "serialization"]
+category: "development"
+last_updated: "2025-09-19"
 ---
 
 PowerShell provides robust capabilities for transferring and transforming data between different formats and systems. Understanding these data transfer methods is essential for automation, integration, and data processing tasks.

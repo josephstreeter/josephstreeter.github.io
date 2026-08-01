@@ -1,6 +1,9 @@
 ---
-title: Python Cloud Deployment - Comprehensive Guide
-description: Complete guide to deploying Python applications on AWS, Azure, Google Cloud, and other cloud platforms with best practices, configuration examples, and optimization strategies
+title: "Python Cloud Deployment - Comprehensive Guide"
+description: "Complete guide to deploying Python applications on AWS, Azure, Google Cloud, and other cloud platforms with best practices, configuration examples, and optimization strategies"
+tags: ["python", "deployment"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Deploying Python applications to cloud platforms enables scalability, reliability, and global reach. This comprehensive guide covers deployment strategies across major cloud providers, containerization approaches, and production best practices for Python applications.

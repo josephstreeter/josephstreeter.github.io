@@ -1,10 +1,10 @@
 ---
 title: "Azure DevOps Documentation-as-Code Implementation Guide"
 description: "Comprehensive guide for implementing Documentation-as-Code approach using Azure DevOps with project wikis, code wikis, and automated publishing"
-keywords: "azure devops, documentation as code, wikis, markdown, devops, automation, git, version control"
 author: "Joseph Streeter"
-ms.date: "2025-11-26"
-ms.topic: "article"
+tags: ["azure devops", "documentation as code", "wikis", "markdown", "devops", "automation", "git", "version control"]
+category: "development"
+last_updated: "2025-11-26"
 ---
 
 **Organization:** [Organization Name]  

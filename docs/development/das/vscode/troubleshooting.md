@@ -2,7 +2,7 @@
 title: "Troubleshooting Guide"
 description: "Comprehensive troubleshooting guide for VS Code documentation environments, performance optimization, and common issue resolution"
 tags: ["troubleshooting", "performance", "issues", "optimization", "debugging"]
-category: "support"
+category: "development"
 difficulty: "advanced"
 last_updated: "2025-07-06"
 ---

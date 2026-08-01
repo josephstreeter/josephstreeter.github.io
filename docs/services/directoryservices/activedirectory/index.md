@@ -2,8 +2,9 @@
 title: "Active Directory"
 description: "Comprehensive Active Directory administration and management documentation"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["directoryservices", "activedirectory"]
+category: "services"
+last_updated: "2025-09-08"
 ---
 
 Microsoft Active Directory (AD) is a directory service that provides centralized authentication, authorization, and directory services for Windows-based networks. This comprehensive guide covers all aspects of Active Directory deployment, configuration, management, and security.

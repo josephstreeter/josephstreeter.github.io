@@ -1,11 +1,10 @@
 ---
 title: "iTop Integration"
 description: "Integrating iTop — the REST/JSON API, data synchronization and collectors, LDAP authentication, and email-to-ticket"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Integration

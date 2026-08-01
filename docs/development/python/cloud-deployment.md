@@ -1,9 +1,10 @@
 ---
-title: Cloud Deployment for Python Applications
-description: Guide to deploying Python applications to cloud platforms
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, cloud, deployment, aws, azure, gcp, docker, kubernetes]
+title: "Cloud Deployment for Python Applications"
+description: "Guide to deploying Python applications to cloud platforms"
+author: "Joseph Streeter"
+tags: ["python", "cloud", "deployment", "aws", "azure", "gcp", "docker", "kubernetes"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

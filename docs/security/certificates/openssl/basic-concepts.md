@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Basic Concepts
-description: Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and command structure
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: security
+title: "OpenSSL Basic Concepts"
+description: "Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and command structure"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Basic Concepts

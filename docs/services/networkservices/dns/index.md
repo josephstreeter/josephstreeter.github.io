@@ -1,3 +1,11 @@
+---
+title: "DNS Services Documentation"
+description: "This section contains documentation for DNS (Domain Name System) services and configurations."
+tags: ["networkservices", "dns"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # DNS Services Documentation
 
 ## Overview

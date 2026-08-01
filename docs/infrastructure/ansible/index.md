@@ -1,13 +1,10 @@
 ---
-title: Ansible
-description: A comprehensive guide to Ansible - installation, inventory, playbooks, variables and facts, roles and collections, secrets management, and best practices.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: overview
-ms.service: ansible
-keywords: ansible, automation, configuration management, playbooks, roles, inventory, ansible vault, infrastructure as code
-uid: docs.infrastructure.ansible.index
+title: "Ansible"
+description: "A comprehensive guide to Ansible - installation, inventory, playbooks, variables and facts, roles and collections, secrets management, and best practices."
+author: "Joseph Streeter"
+tags: ["ansible", "automation", "configuration management", "playbooks", "roles", "inventory", "ansible vault", "infrastructure as code"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Ansible

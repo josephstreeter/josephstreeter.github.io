@@ -2,9 +2,9 @@
 title: "Postfix Mail Server - Complete Guide"
 description: "Comprehensive guide for deploying, configuring, and managing Postfix mail transfer agent for enterprise email services with security best practices"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: overview
-keywords: postfix, mail server, MTA, email, SMTP, mail transfer agent, configuration, security
+tags: ["postfix", "mail server", "mta", "email", "smtp", "mail transfer agent", "configuration", "security"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Postfix is a powerful, flexible, and secure mail transfer agent (MTA) used for routing and delivering email. This comprehensive guide covers deploying, configuring, and managing Postfix in enterprise environments.

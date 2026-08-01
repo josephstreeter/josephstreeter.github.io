@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Installation and Deployment"
 description: "Deploying the Asterisk PBX with Docker — images, config volumes, and the SIP/RTP networking model"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Installation and Deployment

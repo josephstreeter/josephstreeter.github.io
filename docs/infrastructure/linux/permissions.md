@@ -1,8 +1,9 @@
 ---
-title: Linux Permissions - Comprehensive Guide
+title: "Linux Permissions - Comprehensive Guide"
 description: "Complete guide to Linux file permissions, ownership, and access control: understanding modes, chmod, chown, ACLs, and special permissions."
-ms.topic: reference
-ms.date: 2025-11-29
+tags: ["linux"]
+category: "infrastructure"
+last_updated: "2025-11-29"
 ---
 
 Linux file permissions control who can read, write, and execute files and directories. Understanding permissions is fundamental to system security and proper file management.

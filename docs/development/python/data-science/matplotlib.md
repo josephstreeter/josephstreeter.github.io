@@ -1,9 +1,10 @@
 ---
-title: Matplotlib - Python Data Visualization
-description: Comprehensive guide to creating static, animated, and interactive visualizations in Python using Matplotlib
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, matplotlib, data-visualization, plotting, charts, graphs]
+title: "Matplotlib - Python Data Visualization"
+description: "Comprehensive guide to creating static, animated, and interactive visualizations in Python using Matplotlib"
+author: "Joseph Streeter"
+tags: ["python", "matplotlib", "data-visualization", "plotting", "charts", "graphs"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

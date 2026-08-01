@@ -1,11 +1,10 @@
 ---
 title: "Identity Compromise Response"
-description: >-
-  Runbook for investigating and responding to suspected or confirmed identity
-  compromise in the SOC
+description: "Runbook for investigating and responding to suspected or confirmed identity compromise in the SOC"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "how-to"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Identity Compromise Response

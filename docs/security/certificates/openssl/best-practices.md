@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Best Practices, Automation, and Security
-description: Certificate automation, known vulnerabilities, secure configuration, and best practices for OpenSSL
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: security
+title: "OpenSSL Best Practices, Automation, and Security"
+description: "Certificate automation, known vulnerabilities, secure configuration, and best practices for OpenSSL"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Certificate Management Automation

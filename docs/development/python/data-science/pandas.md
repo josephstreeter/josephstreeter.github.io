@@ -1,9 +1,10 @@
 ---
-title: Pandas - Python Data Analysis Library
-description: Comprehensive guide to pandas, the powerful Python library for data manipulation and analysis
-author: Joseph Streeter
-date: 2026-01-04
-keywords: pandas, python, data analysis, dataframe, series, data manipulation, data cleaning, data science
+title: "Pandas - Python Data Analysis Library"
+description: "Comprehensive guide to pandas, the powerful Python library for data manipulation and analysis"
+author: "Joseph Streeter"
+tags: ["pandas", "python", "data analysis", "dataframe", "series", "data manipulation", "data cleaning", "data science"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Pandas - Python Data Analysis Library

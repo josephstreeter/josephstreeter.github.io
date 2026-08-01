@@ -1,14 +1,10 @@
 ---
-uid: ad-sites-subnets
 title: "Active Directory Sites and Subnets Design Guide"
 description: "Comprehensive guide for designing, implementing, and managing Active Directory Sites and Subnets with modern optimization, automation, and enterprise best practices."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "sites-subnets"
-keywords: ["Sites and Subnets", "AD Replication", "Site Topology", "Network Optimization", "PowerShell", "Automation", "KCC", "Site Links"]
+tags: ["sites and subnets", "ad replication", "site topology", "network optimization", "powershell", "automation", "kcc", "site links"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This comprehensive guide provides enterprise-level strategies for designing, implementing, and managing Active Directory Sites and Subnets with modern optimization techniques, automated management, and network performance best practices.

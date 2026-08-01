@@ -1,11 +1,11 @@
 ---
 title: "Cisco Device Configuration"
 description: "Step-by-step configuration guides for Cisco IOS devices"
+author: "Joseph Streeter"
 tags: ["cisco", "ios", "configuration", "networking"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Step-by-step guides for configuring Cisco IOS devices including switches, routers, and essential network services.

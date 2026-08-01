@@ -2,10 +2,9 @@
 title: "Local LLM Model Selection"
 description: "Guide to choosing the right local LLM for your needs"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["model selection", "local models", "llama", "mistral", "model comparison"]
-uid: docs.ai.local-llms.model-selection
+tags: ["model selection", "local models", "llama", "mistral", "model comparison"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

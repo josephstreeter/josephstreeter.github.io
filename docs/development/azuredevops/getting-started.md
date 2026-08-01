@@ -1,3 +1,11 @@
+---
+title: "Getting Started with Azure DevOps"
+description: "This guide will walk you through the basics of setting up and using Azure DevOps for your projects."
+tags: ["azuredevops"]
+category: "development"
+last_updated: "2025-07-18"
+---
+
 # Getting Started with Azure DevOps
 
 This guide will walk you through the basics of setting up and using Azure DevOps for your projects.

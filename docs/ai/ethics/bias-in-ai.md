@@ -2,10 +2,9 @@
 title: "Bias in AI"
 description: "Understanding, detecting, and mitigating bias in AI systems"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "ethics"
-keywords: ["ai bias", "algorithmic bias", "fairness", "discrimination", "equity"]
-uid: docs.ai.ethics.bias
+tags: ["ai bias", "algorithmic bias", "fairness", "discrimination", "equity"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

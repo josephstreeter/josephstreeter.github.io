@@ -1,3 +1,11 @@
+---
+title: "Active Directory Documentation Process"
+description: "Maintaining comprehensive documentation of your Active Directory environment is crucial for security, compliance, troubleshooting, and change management."
+tags: ["directoryservices", "activedirectory", "documentation"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Active Directory Documentation Process
 
 ## Overview

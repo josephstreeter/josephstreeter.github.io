@@ -1,11 +1,10 @@
 ---
-title: nohup Command
-description: Comprehensive guide to nohup for running long-lived commands that survive terminal disconnects.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "nohup Command"
+description: "Comprehensive guide to nohup for running long-lived commands that survive terminal disconnects."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 The `nohup` command runs a command immune to the hangup signal (`SIGHUP`).

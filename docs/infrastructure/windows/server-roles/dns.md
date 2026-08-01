@@ -1,9 +1,9 @@
 ---
-uid: docs.infrastructure.windows.server-roles.dns
-title: DNS Server Role
-ms.date: 12/30/2025
-ms.topic: guide
-description: Comprehensive guide to DNS Server deployment, configuration, and management on Windows Server
+title: "DNS Server Role"
+description: "Comprehensive guide to DNS Server deployment, configuration, and management on Windows Server"
+tags: ["windows", "server-roles"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 The Domain Name System (DNS) Server role provides name resolution services, translating human-readable domain names into IP addresses. DNS is essential for Active Directory environments and internet connectivity.

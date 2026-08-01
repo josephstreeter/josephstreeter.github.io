@@ -1,8 +1,8 @@
 ---
 title: "DNS - Domain Name System"
 description: "Comprehensive guide to DNS architecture, records, configuration, and troubleshooting"
-tags: ["networking", "DNS", "name-resolution", "infrastructure"]
-category: "networking"
+tags: ["networking", "dns", "name-resolution", "infrastructure"]
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

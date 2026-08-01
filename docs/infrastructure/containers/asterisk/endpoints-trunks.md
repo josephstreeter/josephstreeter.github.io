@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Endpoints and Trunks"
 description: "Registering SIP phones and connecting provider (ITSP) trunks in Asterisk PJSIP, with inbound and outbound call routing"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Endpoints and Trunks

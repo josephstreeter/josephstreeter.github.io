@@ -1,11 +1,10 @@
 ---
-title: win-acme Guide
-description: Installing and using win-acme to automate Let's Encrypt certificates on Windows and IIS
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "win-acme Guide"
+description: "Installing and using win-acme to automate Let's Encrypt certificates on Windows and IIS"
+author: "josephstreeter"
+tags: ["certificates", "acme"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## win-acme Guide

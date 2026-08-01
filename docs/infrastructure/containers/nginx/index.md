@@ -1,11 +1,10 @@
 ---
-title: Nginx Reverse Proxy and Load Balancing
-description: Guide to using Nginx as a reverse proxy, load balancer, and TLS terminator with Docker
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: overview
-ms.service: infrastructure
+title: "Nginx Reverse Proxy and Load Balancing"
+description: "Guide to using Nginx as a reverse proxy, load balancer, and TLS terminator with Docker"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Nginx

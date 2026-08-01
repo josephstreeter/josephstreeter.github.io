@@ -1,9 +1,10 @@
 ---
-title: PowerShell Azure Examples
-description: Comprehensive PowerShell examples for Azure resource management, automation, and cloud operations
-author: Joseph Streeter
-date: 2024-01-15
-tags: [powershell, azure, cloud, automation, resource-management]
+title: "PowerShell Azure Examples"
+description: "Comprehensive PowerShell examples for Azure resource management, automation, and cloud operations"
+author: "Joseph Streeter"
+tags: ["powershell", "azure", "cloud", "automation", "resource-management"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 This collection demonstrates PowerShell's capabilities for Azure resource management, automation, and cloud operations. These examples use the Azure PowerShell module and follow Azure best practices for security and resource management.

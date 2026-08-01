@@ -2,11 +2,9 @@
 title: "Grafana High Availability"
 description: "Guide to deploying a highly available Grafana visualization layer with a shared database backend, clustering, and load balancing"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: architecture
-ms.date: 12/30/2025
-keywords: ["grafana", "high availability", "clustering", "load balancing", "postgresql", "ha"]
-uid: docs.infrastructure.grafana.high-availability
+tags: ["grafana", "high availability", "clustering", "load balancing", "postgresql", "ha"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

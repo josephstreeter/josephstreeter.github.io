@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Fundamentals"
 description: "Core concepts and architecture of Active Directory Domain Services including forests, domains, domain controllers, and sites."
+author: "Documentation Team"
 tags: ["active-directory", "fundamentals", "architecture", "domain-services"]
-category: "Services"
-subcategory: "Active Directory"
+category: "services"
 difficulty: "Beginner"
 last_updated: "2025-09-25"
-author: "Documentation Team"
 ---
 
 ## Overview

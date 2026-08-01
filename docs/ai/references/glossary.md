@@ -2,10 +2,9 @@
 title: "AI Glossary"
 description: "Comprehensive glossary of AI terms and definitions"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "reference"
-keywords: ["glossary", "definitions", "terminology", "ai terms", "dictionary"]
-uid: docs.ai.references.glossary
+tags: ["glossary", "definitions", "terminology", "ai terms", "dictionary"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## A

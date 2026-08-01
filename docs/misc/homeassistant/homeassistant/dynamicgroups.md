@@ -1,8 +1,10 @@
 ---
-title: Dynamic Groups
-description: Complete guide to creating and managing dynamic groups that automatically update based on entity attributes
-author: josephstreeter
-ms.date: 2025-08-25
+title: "Dynamic Groups"
+description: "Complete guide to creating and managing dynamic groups that automatically update based on entity attributes"
+author: "josephstreeter"
+tags: ["homeassistant"]
+category: "misc"
+last_updated: "2025-08-25"
 ---
 
 ## Dynamic Groups

@@ -1,11 +1,10 @@
 ---
-title: Secure Shell (SSH) - Comprehensive Guide
-description: A comprehensive guide to SSH protocol, configuration, security best practices, and advanced usage scenarios
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-05-23
-ms.topic: conceptual
-ms.service: security
+title: "Secure Shell (SSH) - Comprehensive Guide"
+description: "A comprehensive guide to SSH protocol, configuration, security best practices, and advanced usage scenarios"
+author: "josephstreeter"
+tags: ["ssh"]
+category: "security"
+last_updated: "2026-05-23"
 ---
 
 Secure Shell (SSH) is a cryptographic network protocol that provides secure communication over an unsecured network. It enables users to securely access remote systems, execute commands, transfer files, and tunnel other network services. SSH was designed as a replacement for insecure protocols like Telnet, rlogin, and FTP, which transmit data (including authentication credentials) in plaintext.

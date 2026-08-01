@@ -1,13 +1,10 @@
 ---
-title: Windows Infrastructure Security (Advanced)
-description: Comprehensive security hardening guide for Windows Server infrastructure including domain controllers, member servers, and workstations
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: article
-ms.service: windows-server
-keywords: Windows Server security, hardening, domain security, infrastructure security, compliance, CIS, STIG
-uid: docs.infrastructure.windows.security.advanced
+title: "Windows Infrastructure Security (Advanced)"
+description: "Comprehensive security hardening guide for Windows Server infrastructure including domain controllers, member servers, and workstations"
+author: "Joseph Streeter"
+tags: ["windows server security", "hardening", "domain security", "infrastructure security", "compliance", "cis", "stig"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 Windows Infrastructure Security provides comprehensive guidance for securing Windows-based infrastructure components including domain controllers, member servers, and workstations against modern threats.

@@ -1,11 +1,10 @@
 ---
 title: "Suspicious Cloud Activity Response"
-description: >-
-    Runbook for responding to suspicious SaaS and Azure cloud activity in the
-    SOC
+description: "Runbook for responding to suspicious SaaS and Azure cloud activity in the SOC"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "how-to"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Suspicious Cloud Activity Response

@@ -1,3 +1,11 @@
+---
+title: "Hybrid Cloud Integration"
+description: "This document outlines the architecture and implementation patterns for integrating on-premises infrastructure with cloud services, creating a seamless hybrid e"
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Hybrid Cloud Integration
 
 ## Overview

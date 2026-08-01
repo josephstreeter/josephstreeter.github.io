@@ -1,3 +1,11 @@
+---
+title: "Add Shared Mailboxes to Anti-Spam Allowed Senders List"
+description: "If a relaxed inbound Anti-Spam policy is required for Shared Mailboxes, they can be added to the Allowed Senders list on the Default policy."
+tags: ["email", "exchange"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Add Shared Mailboxes to Anti-Spam Allowed Senders List
 
 ## Introduction

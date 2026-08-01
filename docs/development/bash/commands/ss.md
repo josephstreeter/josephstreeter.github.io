@@ -1,11 +1,10 @@
 ---
-title: ss Command
-description: Comprehensive reference for the ss command in Bash, including socket inspection, filtering, and troubleshooting patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "ss Command"
+description: "Comprehensive reference for the ss command in Bash, including socket inspection, filtering, and troubleshooting patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `ss` command displays socket statistics and network connection details.

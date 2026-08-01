@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.builders
-title: Packer Builders
-description: Comprehensive guide to Packer builders for creating machine images across AWS, Azure, Google Cloud, VMware, VirtualBox, Docker, and other platforms
-ms.date: 01/18/2026
+title: "Packer Builders"
+description: "Comprehensive guide to Packer builders for creating machine images across AWS, Azure, Google Cloud, VMware, VirtualBox, Docker, and other platforms"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers Packer builders and how they create machine images across different platforms.

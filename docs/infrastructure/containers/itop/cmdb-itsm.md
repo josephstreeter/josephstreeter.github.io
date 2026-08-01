@@ -1,11 +1,10 @@
 ---
 title: "iTop CMDB and ITSM"
 description: "Using iTop's CMDB and ITIL processes — configuration items and relationships, incident, problem, change, and service management"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: concept
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## CMDB and ITSM

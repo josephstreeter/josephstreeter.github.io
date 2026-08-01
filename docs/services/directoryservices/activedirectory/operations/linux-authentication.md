@@ -1,12 +1,10 @@
 ---
-title: Linux Active Directory Authentication
-description: Comprehensive guide for configuring Linux systems to authenticate against Active Directory using modern methods including SSSD, Winbind, and Kerberos
-author: IT Operations Team
-ms.date: 2025-01-01
-ms.topic: how-to
-ms.service: active-directory
-ms.subservice: authentication
-keywords: linux, active directory, authentication, sssd, kerberos, winbind, domain join
+title: "Linux Active Directory Authentication"
+description: "Comprehensive guide for configuring Linux systems to authenticate against Active Directory using modern methods including SSSD, Winbind, and Kerberos"
+author: "IT Operations Team"
+tags: ["linux", "active directory", "authentication", "sssd", "kerberos", "winbind", "domain join"]
+category: "services"
+last_updated: "2025-01-01"
 ---
 
 ## Linux Active Directory Authentication

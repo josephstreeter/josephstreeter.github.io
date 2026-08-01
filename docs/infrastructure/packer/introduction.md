@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.introduction
-title: Introduction to Packer
-description: Learn about HashiCorp Packer, its core concepts, benefits, and common use cases for automated machine image creation
-ms.date: 01/18/2026
+title: "Introduction to Packer"
+description: "Learn about HashiCorp Packer, its core concepts, benefits, and common use cases for automated machine image creation"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section provides an introduction to HashiCorp Packer and its core concepts.

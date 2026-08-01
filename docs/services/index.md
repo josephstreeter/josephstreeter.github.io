@@ -1,11 +1,11 @@
 ---
 title: "Enterprise Services"
 description: "Comprehensive documentation for enterprise services including Active Directory, Exchange, and identity management solutions"
+author: "Joseph Streeter"
 tags: ["enterprise-services", "active-directory", "exchange", "identity-management", "services"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section covers Enterprise Service topics such as Active Directory and Exchange.

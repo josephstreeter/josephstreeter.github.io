@@ -1,6 +1,9 @@
 ---
-title: Authentication and Authorization
-description: Security practices for implementing authentication and authorization in applications
+title: "Authentication and Authorization"
+description: "Security practices for implementing authentication and authorization in applications"
+tags: ["security"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

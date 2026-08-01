@@ -1,11 +1,10 @@
 ---
-title: pgrep Command
-description: Comprehensive guide to pgrep for locating process IDs by name and pattern.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "pgrep Command"
+description: "Comprehensive guide to pgrep for locating process IDs by name and pattern."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 The `pgrep` command searches running processes and prints matching PIDs.

@@ -1,11 +1,11 @@
 ---
 title: "Threat Hunting"
 description: "Comprehensive guide to proactive threat hunting, covering methodology, data sources, MITRE ATT&CK-driven hunts, analytic techniques, and practical hunting queries"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "security", "detection", "mitre-attack", "soc", "incident-response", "kql"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 Threat hunting is the proactive, hypothesis-driven search through networks, endpoints, and datasets to detect malicious activity that has evaded existing automated security controls. Unlike alert-driven monitoring, hunting assumes a breach may already have occurred and sets out to prove or disprove that assumption.

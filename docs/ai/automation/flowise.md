@@ -1,3 +1,11 @@
+---
+title: "Flowise"
+description: "Flowise is an open-source, low-code tool for building customized LLM orchestration flows and AI agents using a visual interface."
+tags: ["automation"]
+category: "ai"
+last_updated: "2026-01-04"
+---
+
 # Flowise
 
 ## Overview

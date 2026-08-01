@@ -1,11 +1,10 @@
 ---
 title: "Apache Monitoring and Troubleshooting"
 description: "Monitoring Apache with mod_status, configuring logging, and resolving common Apache issues in containers"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "apache"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Monitoring and Troubleshooting

@@ -1,3 +1,11 @@
+---
+title: "Exchange"
+description: "get-mailbox diningservices | select audit*"
+tags: ["powershell", "examples"]
+category: "development"
+last_updated: "2025-11-17"
+---
+
 # Exchange
 
 Table of Contents

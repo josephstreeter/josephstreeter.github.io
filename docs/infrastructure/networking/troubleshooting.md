@@ -2,7 +2,7 @@
 title: "Network Troubleshooting Guide"
 description: "Comprehensive guide to diagnosing and resolving common networking issues"
 tags: ["networking", "troubleshooting", "diagnostics", "connectivity"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

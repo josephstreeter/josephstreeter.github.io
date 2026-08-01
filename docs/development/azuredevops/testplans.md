@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Test Plans - Comprehensive Test Management
-description: Complete guide to Azure Test Plans for manual testing, exploratory testing, test automation integration, and enterprise quality assurance workflows
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, test-plans, manual-testing, exploratory-testing, test-automation, quality-assurance, test-management]
+title: "Azure DevOps Test Plans - Comprehensive Test Management"
+description: "Complete guide to Azure Test Plans for manual testing, exploratory testing, test automation integration, and enterprise quality assurance workflows"
+author: "Joseph Streeter"
+tags: ["azure-devops", "test-plans", "manual-testing", "exploratory-testing", "test-automation", "quality-assurance", "test-management"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure Test Plans provides enterprise-grade test management capabilities for manual testing, exploratory testing, and comprehensive quality assurance workflows integrated with Azure DevOps services.

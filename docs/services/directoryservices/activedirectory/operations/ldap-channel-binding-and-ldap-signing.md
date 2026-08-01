@@ -2,12 +2,9 @@
 title: "LDAP Channel Binding and Signing Security Guide"
 description: "Complete implementation guide for LDAP channel binding and signing security measures in Windows Active Directory environments"
 tags: ["ldap", "security", "active-directory", "windows-server", "authentication", "channel-binding", "ldap-signing"]
-category: "security"
-subcategory: "directory-services"
+category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"
-applies_to: ["Windows Server 2016+", "Active Directory", "LDAP Services", "Windows 10+"]
-security_advisory: ["ADV190023", "CVE-2017-8563"]
 ---
 
 ## Overview

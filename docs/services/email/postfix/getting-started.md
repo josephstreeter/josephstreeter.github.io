@@ -2,9 +2,9 @@
 title: "Getting Started with Postfix - Quick Guide"
 description: "15-minute quick start guide to get Postfix mail server up and running with basic configuration and test email sending"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: quickstart
-keywords: postfix, quick start, getting started, installation, basic setup, first email
+tags: ["postfix", "quick start", "getting started", "installation", "basic setup", "first email"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Get Postfix mail server up and running in 15 minutes. This quick start

@@ -2,10 +2,9 @@
 title: "Troubleshooting Local LLMs"
 description: "Common issues and solutions for running local LLMs"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "troubleshooting"
-keywords: ["troubleshooting", "debugging", "errors", "problems", "solutions"]
-uid: docs.ai.local-llms.troubleshooting
+tags: ["troubleshooting", "debugging", "errors", "problems", "solutions"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

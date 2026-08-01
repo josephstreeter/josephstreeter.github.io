@@ -2,7 +2,7 @@
 title: "Small Office Network Scenario"
 description: "Complete network design for 10-20 user small office with internet, WiFi, and basic security"
 tags: ["networking", "small-office", "design", "scenario"]
-category: "networking"
+category: "infrastructure"
 difficulty: "beginner"
 last_updated: "2025-12-30"
 ---

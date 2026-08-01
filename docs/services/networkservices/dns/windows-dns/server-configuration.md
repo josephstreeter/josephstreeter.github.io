@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Server Configuration
-description: Comprehensive guide to Windows DNS Server initial setup and advanced configuration options
-author: Joseph Streeter
-date: 2024-01-15
-tags: [windows-dns, server-configuration, dns-setup, powershell, windows-server]
+title: "Windows DNS Server Configuration"
+description: "Comprehensive guide to Windows DNS Server initial setup and advanced configuration options"
+author: "Joseph Streeter"
+tags: ["windows-dns", "server-configuration", "dns-setup", "powershell", "windows-server"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 This guide covers the complete configuration of Windows DNS Server from initial installation through advanced settings optimization for enterprise environments.

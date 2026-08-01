@@ -2,10 +2,9 @@
 title: "Model Evaluation"
 description: "Methods and metrics for evaluating AI model performance"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["model evaluation", "performance metrics", "benchmarking", "testing", "validation"]
-uid: docs.ai.models.evaluation
+tags: ["model evaluation", "performance metrics", "benchmarking", "testing", "validation"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Importance of Evaluation

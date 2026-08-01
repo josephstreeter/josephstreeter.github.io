@@ -1,9 +1,10 @@
 ---
-title: Identity Governance
-description: Comprehensive guide to Identity Governance and Administration (IGA) covering access management, compliance, and automated identity lifecycle management
-author: Joseph Streeter
-date: 2024-01-15
-tags: [identity-governance, iga, access-management, compliance, security, automation]
+title: "Identity Governance"
+description: "Comprehensive guide to Identity Governance and Administration (IGA) covering access management, compliance, and automated identity lifecycle management"
+author: "Joseph Streeter"
+tags: ["identity-governance", "iga", "access-management", "compliance", "security", "automation"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 Identity Governance and Administration (IGA) is a framework that provides organizations with the ability to manage user identities, enforce access policies, ensure compliance, and reduce security risks through automated identity lifecycle management.

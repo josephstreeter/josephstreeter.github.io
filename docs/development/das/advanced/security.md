@@ -2,9 +2,9 @@
 title: "Security Best Practices for Documentation as Code"
 description: "Comprehensive guide to implementing security best practices for documentation-as-code workflows using DocFX and Azure DevOps"
 author: "Joseph Streeter"
-ms.date: "2025-07-18"
-ms.topic: "conceptual"
-ms.service: "documentation"
+tags: ["das", "advanced"]
+category: "development"
+last_updated: "2025-07-18"
 ---
 
 ## Security Best Practices for Documentation as Code

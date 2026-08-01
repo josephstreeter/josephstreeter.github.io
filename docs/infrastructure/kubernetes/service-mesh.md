@@ -2,8 +2,9 @@
 title: "Kubernetes Service Mesh"
 description: "Complete guide to service mesh architecture, Istio implementation, and microservices communication"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["kubernetes"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Overview

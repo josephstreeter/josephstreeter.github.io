@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.zigbee2mqtt.troubleshooting
-title: Zigbee2MQTT Troubleshooting Guide
-description: Comprehensive troubleshooting guide for common Zigbee2MQTT issues, diagnostics, and recovery procedures
-keywords: [zigbee2mqtt, troubleshooting, debugging, logs, diagnostics, recovery]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: troubleshooting
+title: "Zigbee2MQTT Troubleshooting Guide"
+description: "Comprehensive troubleshooting guide for common Zigbee2MQTT issues, diagnostics, and recovery procedures"
+author: "Joseph Streeter"
+tags: ["zigbee2mqtt", "troubleshooting", "debugging", "logs", "diagnostics", "recovery"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 This guide covers common issues, diagnostic procedures, and solutions for Zigbee2MQTT problems.

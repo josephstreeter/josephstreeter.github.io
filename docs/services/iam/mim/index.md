@@ -1,7 +1,7 @@
 ---
 title: "Microsoft Identity Manager 2016 Synchronization Service"
 description: "High-level overview of MIM 2016 Sync Service architecture, components, and capabilities"
-tags: ["MIM", "identity", "synchronization", "active directory", "microsoft"]
+tags: ["mim", "identity", "synchronization", "active directory", "microsoft"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"

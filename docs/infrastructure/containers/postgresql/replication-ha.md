@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Replication and High Availability"
 description: "Streaming replication, connection pooling with PgBouncer, and high-availability options (Patroni, Kubernetes operators) for containerized PostgreSQL"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Replication and High Availability

@@ -1,11 +1,10 @@
 ---
-title: Bash Navigation and File Commands
-description: Common Bash commands for directory navigation, file management, and file inspection.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 05/21/2026
-ms.topic: conceptual
-ms.service: development
+title: "Bash Navigation and File Commands"
+description: "Common Bash commands for directory navigation, file management, and file inspection."
+author: "Joseph Streeter"
+tags: ["bash"]
+category: "development"
+last_updated: "2026-05-21"
 ---
 
 This page covers frequently used Bash commands for moving around the filesystem and managing files and directories.

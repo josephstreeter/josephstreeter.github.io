@@ -1,6 +1,9 @@
 ---
-title: Machine Learning with Python
-description: Comprehensive guide to machine learning in Python, covering scikit-learn, TensorFlow, PyTorch, model development, training, evaluation, and deployment strategies
+title: "Machine Learning with Python"
+description: "Comprehensive guide to machine learning in Python, covering scikit-learn, TensorFlow, PyTorch, model development, training, evaluation, and deployment strategies"
+tags: ["python", "machine-learning"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Machine learning in Python has revolutionized data science and artificial intelligence, providing accessible yet powerful tools for building predictive models, neural networks, and intelligent systems. Python's rich ecosystem of libraries, combined with its simplicity and extensive community support, makes it the dominant language for machine learning research and production applications.

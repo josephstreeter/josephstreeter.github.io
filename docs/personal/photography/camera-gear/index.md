@@ -1,3 +1,11 @@
+---
+title: "Camera Gear"
+description: "Welcome to the comprehensive camera gear section."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Camera Gear
 
 Welcome to the comprehensive camera gear section. Here you'll find detailed information about photography equipment, from camera bodies and lenses to essential accessories that will help you capture better images.

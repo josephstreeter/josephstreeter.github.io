@@ -1,3 +1,11 @@
+---
+title: "Entra ID"
+description: "Some PowerShell for managing Entra ID, Conditional Access, Identity Protection, etc."
+tags: ["powershell", "examples"]
+category: "development"
+last_updated: "2025-08-20"
+---
+
 # Entra ID
 
 Some PowerShell for managing Entra ID, Conditional Access, Identity Protection, etc.

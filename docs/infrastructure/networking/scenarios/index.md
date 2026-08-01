@@ -2,7 +2,7 @@
 title: "Network Design Scenarios"
 description: "Real-world network implementation examples with complete designs and configurations"
 tags: ["networking", "design", "scenarios", "examples", "implementation"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

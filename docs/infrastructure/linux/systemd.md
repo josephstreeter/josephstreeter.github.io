@@ -1,12 +1,10 @@
 ---
 title: "Complete SystemD Service Management Guide"
 description: "Comprehensive guide to systemd service management, unit files, timers, and enterprise best practices for Linux system administration"
-ms.date: 09/13/2025
-author: josephstreeter
-ms.author: joseph.streeter
-ms.topic: how-to
-ms.service: linux
-keywords: systemd, linux, service management, unit files, timers, systemctl, journalctl
+author: "josephstreeter"
+tags: ["systemd", "linux", "service management", "unit files", "timers", "systemctl", "journalctl"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 ## Complete SystemD Service Management Guide

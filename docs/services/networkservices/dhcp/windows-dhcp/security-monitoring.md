@@ -1,9 +1,10 @@
 ---
-title: Windows DHCP Security & Monitoring
-description: DHCP security best practices, monitoring, and operational procedures for Windows Server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dhcp-security, dhcp-monitoring, dhcp-troubleshooting, dhcp-best-practices]
+title: "Windows DHCP Security & Monitoring"
+description: "DHCP security best practices, monitoring, and operational procedures for Windows Server environments"
+author: "Joseph Streeter"
+tags: ["windows-dhcp-security", "dhcp-monitoring", "dhcp-troubleshooting", "dhcp-best-practices"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Securing and monitoring Windows DHCP Server is critical for network reliability and security.

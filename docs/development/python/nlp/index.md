@@ -1,6 +1,9 @@
 ---
-title: Natural Language Processing with Python
-description: Comprehensive guide to natural language processing techniques and libraries in Python
+title: "Natural Language Processing with Python"
+description: "Comprehensive guide to natural language processing techniques and libraries in Python"
+tags: ["python", "nlp"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

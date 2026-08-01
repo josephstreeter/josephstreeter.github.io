@@ -1,9 +1,10 @@
 ---
-title: Data Processing with Python
-description: Techniques for cleaning, transforming, and processing data in Python
-author: Joseph Streeter
-date: 2026-01-04
-tags: [python, data-processing, etl, pandas, data-cleaning]
+title: "Data Processing with Python"
+description: "Techniques for cleaning, transforming, and processing data in Python"
+author: "Joseph Streeter"
+tags: ["python", "data-processing", "etl", "pandas", "data-cleaning"]
+category: "development"
+last_updated: "2026-01-04"
 ---
 
 ## Overview

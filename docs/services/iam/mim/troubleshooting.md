@@ -1,7 +1,7 @@
 ---
 title: "MIM 2016 Troubleshooting Guide"
 description: "Comprehensive troubleshooting guide for Microsoft Identity Manager 2016 Synchronization Service issues and solutions"
-tags: ["MIM", "troubleshooting", "diagnostics", "support", "error resolution"]
+tags: ["mim", "troubleshooting", "diagnostics", "support", "error resolution"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2025-07-05"

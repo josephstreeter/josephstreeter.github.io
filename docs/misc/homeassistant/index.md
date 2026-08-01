@@ -1,12 +1,11 @@
 ---
 title: "Home Assistant"
 description: "Home automation guides and configurations for Home Assistant, including MQTT, Zigbee, and smart home device integration"
+author: "Joseph Streeter"
 tags: ["home-assistant", "home-automation", "iot", "mqtt", "zigbee", "smart-home"]
 category: "misc"
-subcategory: "homeassistant"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section contains guides and configurations for Home Assistant home automation, including setup, device integration, and automation workflows.

@@ -1,11 +1,10 @@
 ---
-title: Nginx Reverse Proxy
-description: Configuring Nginx as a reverse proxy with Docker — basic setup, separate ports, and name-based virtual hosts
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+title: "Nginx Reverse Proxy"
+description: "Configuring Nginx as a reverse proxy with Docker — basic setup, separate ports, and name-based virtual hosts"
+author: "josephstreeter"
+tags: ["containers", "nginx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Reverse Proxy

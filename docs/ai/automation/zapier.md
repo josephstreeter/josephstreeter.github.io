@@ -1,3 +1,11 @@
+---
+title: "Zapier with AI"
+description: "This guide covers integrating AI capabilities with Zapier, a popular automation platform that connects different apps and services."
+tags: ["automation"]
+category: "ai"
+last_updated: "2026-01-04"
+---
+
 # Zapier with AI
 
 ## Overview

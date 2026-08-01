@@ -2,8 +2,9 @@
 title: "Python Best Practices"
 description: "Documentation for Python Development Best Practices"
 author: "Joseph Streeter"
-ms.date: "2025-07-18"
-ms.topic: "article"
+tags: ["python", "best-practices"]
+category: "development"
+last_updated: "2025-07-18"
 ---
 
 ## Code Style and Formatting

@@ -2,11 +2,9 @@
 title: "Global Catalog Services - Design, Implementation, and Management"
 description: "Comprehensive guide for planning, implementing, and managing Global Catalog services in Active Directory environments"
 author: "Enterprise IT Documentation"
-ms.author: "itdocs"
-ms.date: "2024-01-15"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-keywords: ["Global Catalog", "Active Directory", "GC", "Domain Controllers", "Directory Services", "LDAP", "Replication"]
+tags: ["global catalog", "active directory", "gc", "domain controllers", "directory services", "ldap", "replication"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 ## Global Catalog Services - Design, Implementation, and Management

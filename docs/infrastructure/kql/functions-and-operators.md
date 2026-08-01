@@ -1,12 +1,10 @@
 ---
-title: Functions and Operators
-description: Reference material for common KQL operators and functions including where, project, join, summarize, parse_json, and datetime handling.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: conceptual
-ms.service: azure-monitor
-keywords: KQL, Kusto, where, project, extend, join, union, summarize, parse_json, mv-expand, datetime
+title: "Functions and Operators"
+description: "Reference material for common KQL operators and functions including where, project, join, summarize, parse_json, and datetime handling."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "where", "project", "extend", "join", "union", "summarize"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 ## Common KQL Operators and Functions

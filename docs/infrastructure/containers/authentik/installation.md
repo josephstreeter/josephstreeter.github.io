@@ -1,9 +1,10 @@
 ---
 title: "Authentik Installation and Deployment"
 description: "Deploying Authentik with Docker Compose — single-instance and high-availability"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Installation and Deployment

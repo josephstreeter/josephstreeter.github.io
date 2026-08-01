@@ -2,10 +2,9 @@
 title: "Terraform Proxmox VM Infrastructure for Kubernetes"
 description: "Complete guide to deploying VM infrastructure on Proxmox VE using Terraform for Kubernetes clusters with automation and best practices"
 author: "josephstreeter"
-ms.date: "2026-01-19"
-ms.topic: "how-to-guide"
-ms.service: "terraform"
-keywords: ["Terraform", "Proxmox", "Kubernetes", "K8s", "Infrastructure as Code", "IaC", "Cloud-Init", "Automation", "VMs"]
+tags: ["terraform", "proxmox", "kubernetes", "k8s", "infrastructure as code", "iac", "cloud-init", "automation"]
+category: "infrastructure"
+last_updated: "2026-01-19"
 ---
 
 This guide demonstrates how to deploy VM infrastructure on Proxmox VE using Terraform for Kubernetes clusters. Terraform handles VM provisioning with cloud-init integration, while Kubernetes installation can be automated through cloud-init scripts, Ansible, or manual setup. The configuration creates multiple nodes with proper networking, security, and scalability considerations.

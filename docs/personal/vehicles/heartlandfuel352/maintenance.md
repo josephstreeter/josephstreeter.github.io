@@ -2,10 +2,9 @@
 title: "2019 Heartland Fuel M-352 Toy Hauler - Maintenance Guide"
 description: "Comprehensive maintenance guide and service schedule for the 2019 Heartland Fuel Series M-352 fifth-wheel toy hauler."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Heartland Fuel", "M-352", "toy hauler", "RV maintenance", "fifth wheel", "winterization", "service schedule"]
+tags: ["heartland fuel", "m-352", "toy hauler", "rv maintenance", "fifth wheel", "winterization", "service schedule"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2019 Heartland Fuel M-352 Maintenance Guide

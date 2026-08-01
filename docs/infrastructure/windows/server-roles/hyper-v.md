@@ -1,9 +1,9 @@
 ---
-uid: docs.infrastructure.windows.server-roles.hyper-v
-title: Hyper-V Virtualization Role
-ms.date: 12/30/2025
-ms.topic: guide
-description: Comprehensive guide to Hyper-V deployment, configuration, and management on Windows Server
+title: "Hyper-V Virtualization Role"
+description: "Comprehensive guide to Hyper-V deployment, configuration, and management on Windows Server"
+tags: ["windows", "server-roles"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 Hyper-V is Microsoft's hardware virtualization technology that enables running multiple operating systems as virtual machines on Windows Server, providing efficient resource utilization and workload isolation.

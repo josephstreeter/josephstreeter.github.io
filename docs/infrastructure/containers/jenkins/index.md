@@ -1,8 +1,9 @@
 ---
 title: "Jenkins"
 description: "Jenkins documentation"
-category: "infrastructure"
 tags: ["containers", "tools"]
+category: "infrastructure"
+last_updated: "2026-08-01"
 ---
 
 This is a placeholder page for Jenkins documentation.

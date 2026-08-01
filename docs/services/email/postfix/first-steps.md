@@ -2,9 +2,9 @@
 title: "Postfix First Steps"
 description: "Initial configuration steps for Postfix mail server"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, first steps, initial setup, configuration
+tags: ["postfix", "first steps", "initial setup", "configuration"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Essential first steps after installing Postfix.

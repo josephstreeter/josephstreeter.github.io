@@ -1,9 +1,10 @@
 ---
-title: DevOps Best Practices
-description: Comprehensive guide to DevOps methodologies, CI/CD pipelines, infrastructure as code, and modern software delivery practices
-author: Joseph Streeter
-date: 2024-01-15
-tags: [devops, ci-cd, infrastructure-as-code, automation, deployment, monitoring]
+title: "DevOps Best Practices"
+description: "Comprehensive guide to DevOps methodologies, CI/CD pipelines, infrastructure as code, and modern software delivery practices"
+author: "Joseph Streeter"
+tags: ["devops", "ci-cd", "infrastructure-as-code", "automation", "deployment", "monitoring"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 DevOps represents a set of practices that combines software development (Dev) and IT operations (Ops) to shorten the systems development life cycle and provide continuous delivery with high software quality. This guide covers essential DevOps practices and implementation strategies.

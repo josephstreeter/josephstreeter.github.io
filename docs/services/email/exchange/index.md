@@ -1,3 +1,11 @@
+---
+title: "Microsoft Exchange"
+description: "Microsoft Exchange Server is a mail server and calendaring server developed by Microsoft."
+tags: ["email", "exchange"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Microsoft Exchange
 
 Microsoft Exchange Server is a mail server and calendaring server developed by Microsoft. This section covers Exchange on-premises, Exchange Online, and hybrid deployments.

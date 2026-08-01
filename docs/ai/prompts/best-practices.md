@@ -2,10 +2,9 @@
 title: "AI Prompting Guide"
 description: "A practical reference guide for writing effective AI prompts, covering core principles, advanced techniques, and comprehensive prompt templates"
 author: "Joseph Streeter"
-ms.date: "2025-12-15"
-ms.topic: "guide"
-keywords: ["ai", "prompting", "chatgpt", "claude", "llm", "artificial intelligence", "prompt engineering", "best practices"]
-uid: docs.ai.prompts
+tags: ["ai", "prompting", "chatgpt", "claude", "llm", "artificial intelligence", "prompt engineering", "best practices"]
+category: "ai"
+last_updated: "2025-12-15"
 ---
 
 A practical reference guide for writing effective AI prompts. Synthesized from multiple sources including video tutorials, leadership frameworks, and official AI provider documentation.[^intro]

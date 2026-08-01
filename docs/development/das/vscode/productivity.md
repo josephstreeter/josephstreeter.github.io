@@ -2,7 +2,7 @@
 title: "Productivity Features"
 description: "Advanced VS Code features, keyboard shortcuts, and workflow optimizations for maximum documentation productivity"
 tags: ["productivity", "shortcuts", "workflow", "efficiency", "features"]
-category: "productivity"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-06"
 ---

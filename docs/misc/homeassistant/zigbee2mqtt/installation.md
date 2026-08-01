@@ -1,3 +1,11 @@
+---
+title: "Zigbee2MQTT Installation Guide"
+description: "Complete installation guide for Zigbee2MQTT across different platforms and deployment methods."
+tags: ["homeassistant", "zigbee2mqtt"]
+category: "misc"
+last_updated: "2026-08-01"
+---
+
 # Zigbee2MQTT Installation Guide
 
 Complete installation guide for Zigbee2MQTT across different platforms and deployment methods.

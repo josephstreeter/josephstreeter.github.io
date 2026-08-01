@@ -1,9 +1,10 @@
 ---
-title: Kubernetes Networking
-description: Kubernetes networking concepts — CNI plugins, Services, Ingress, NetworkPolicy, and pod networking
-author: Joseph Streeter
-date: 2024-01-15
-tags: [containers, networking, kubernetes, CNI, ingress, networkpolicy, service-mesh]
+title: "Kubernetes Networking"
+description: "Kubernetes networking concepts — CNI plugins, Services, Ingress, NetworkPolicy, and pod networking"
+author: "Joseph Streeter"
+tags: ["containers", "networking", "kubernetes", "cni", "ingress", "networkpolicy", "service-mesh"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Kubernetes networking governs how pods communicate with each other, how traffic reaches

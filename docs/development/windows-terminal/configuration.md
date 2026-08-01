@@ -2,7 +2,7 @@
 title: "Configuration Guide"
 description: "Comprehensive configuration guide for Windows Terminal - profiles, themes, and customization options"
 tags: ["windows-terminal", "configuration", "profiles", "themes", "customization"]
-category: "development-tools"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-11"
 ---

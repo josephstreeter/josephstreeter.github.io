@@ -1,9 +1,10 @@
 ---
-title: Active Directory Security Best Practices
-description: Comprehensive guide to securing Active Directory infrastructure including hardening, access controls, monitoring, and threat detection
-author: Joseph Streeter
-date: 2024-01-15
-tags: [active-directory, security, hardening, access-control, privileged-access, powershell]
+title: "Active Directory Security Best Practices"
+description: "Comprehensive guide to securing Active Directory infrastructure including hardening, access controls, monitoring, and threat detection"
+author: "Joseph Streeter"
+tags: ["active-directory", "security", "hardening", "access-control", "privileged-access", "powershell"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 Securing Active Directory is critical for enterprise infrastructure protection. This comprehensive guide covers security hardening, access controls, monitoring, and threat detection strategies for AD environments.

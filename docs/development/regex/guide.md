@@ -1,8 +1,9 @@
 ---
-title: Regular Expressions (Regex) Guide (Full)
+title: "Regular Expressions (Regex) Guide (Full)"
 description: "Full, language-agnostic regex reference: syntax, examples, engine notes, performance tips, and testing tools."
-ms.topic: reference
-ms.date: 2025-11-27
+tags: ["regex"]
+category: "development"
+last_updated: "2025-11-27"
 ---
 
 This is the full Regular Expressions (regex) guide. It is language-agnostic and focuses on practical patterns, engine differences, testing tools, performance, and recipes you can adapt.

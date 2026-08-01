@@ -1,3 +1,11 @@
+---
+title: "CuddeLink Network Setup"
+description: "Configure your CuddeLink camera network with one HOME camera and multiple REMOTE cameras for comprehensive coverage."
+tags: ["cuddeback"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # CuddeLink Network Setup
 
 Configure your CuddeLink camera network with one HOME camera and multiple REMOTE cameras for comprehensive coverage.

@@ -2,10 +2,9 @@
 title: "Azure Active Directory Forest with Terraform"
 description: "Complete guide to deploying and managing a production-ready Active Directory Forest on Azure using Terraform infrastructure as code"
 author: "josephstreeter"
-ms.date: "2025-08-30"
-ms.topic: "how-to-guide"
-ms.service: "azure"
-keywords: ["Azure", "Active Directory", "AD", "Forest", "Domain Controller", "Terraform", "Infrastructure as Code", "Windows Server", "DNS", "LDAP"]
+tags: ["azure", "active directory", "ad", "forest", "domain controller", "terraform", "infrastructure as code", "windows server"]
+category: "infrastructure"
+last_updated: "2025-08-30"
 ---
 
 This guide provides a comprehensive approach to deploying a production-ready Active Directory Forest on Azure using Terraform. The configuration includes domain controllers, proper networking, security hardening, and operational considerations.

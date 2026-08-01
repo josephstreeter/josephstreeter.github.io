@@ -1,9 +1,9 @@
 ---
-uid: docs.infrastructure.windows.server-roles.dhcp
-title: DHCP Server Role
-ms.date: 12/30/2025
-ms.topic: guide
-description: Comprehensive guide to DHCP Server deployment, configuration, and management on Windows Server
+title: "DHCP Server Role"
+description: "Comprehensive guide to DHCP Server deployment, configuration, and management on Windows Server"
+tags: ["windows", "server-roles"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 The Dynamic Host Configuration Protocol (DHCP) Server role automatically assigns IP addresses and network configuration to clients, simplifying network management and reducing configuration errors.

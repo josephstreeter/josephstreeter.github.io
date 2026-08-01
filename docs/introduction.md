@@ -1,3 +1,11 @@
+---
+title: "Introduction"
+description: "Welcome to my personal technical documentation site. This contains guides, configurations, and best practices for various technologies I work with."
+tags: ["documentation", "overview"]
+category: "documentation"
+last_updated: "2025-12-29"
+---
+
 # Technical Documentation
 
 Welcome to my personal technical documentation site. This contains guides, configurations, and best practices for various technologies I work with.

@@ -1,13 +1,10 @@
 ---
-title: Azure Alerts
-description: Azure Monitor alerting - metric, log search, and activity-log alert rules, dynamic thresholds, action groups, and alert processing rules, with a mapping to Prometheus Alertmanager.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: how-to
-ms.service: azure-monitor
-keywords: Azure Alerts, alert rules, metric alerts, log alerts, action groups, alert processing rules, dynamic thresholds
-uid: docs.infrastructure.azure-monitor.alerts
+title: "Azure Alerts"
+description: "Azure Monitor alerting - metric, log search, and activity-log alert rules, dynamic thresholds, action groups, and alert processing rules, with a mapping to Prometheus Alertmanager."
+author: "Joseph Streeter"
+tags: ["azure alerts", "alert rules", "metric alerts", "log alerts", "action groups", "alert processing rules", "dynamic thresholds"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Azure Alerts

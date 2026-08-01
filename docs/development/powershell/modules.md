@@ -2,8 +2,9 @@
 title: "PowerShell Modules"
 description: "Comprehensive guide to creating, managing, and using PowerShell modules"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-09-08"
 ---
 
 ## PowerShell Modules

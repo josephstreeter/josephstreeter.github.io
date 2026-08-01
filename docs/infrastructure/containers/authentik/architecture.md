@@ -1,9 +1,10 @@
 ---
 title: "Authentik Architecture and Components"
 description: "Authentik architecture, core components, and deployment topologies"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Architecture and Components

@@ -1,13 +1,10 @@
 ---
-title: Windows Server Configuration Management
-description: Comprehensive guide to Windows Server configuration management using PowerShell, winget, and automation tools for efficient server administration.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: windows-server
-keywords: PowerShell, winget, configuration management, automation, Windows Server, DSC, package management
-uid: docs.infrastructure.windows.configuration-management
+title: "Windows Server Configuration Management"
+description: "Comprehensive guide to Windows Server configuration management using PowerShell, winget, and automation tools for efficient server administration."
+author: "Joseph Streeter"
+tags: ["powershell", "winget", "configuration management", "automation", "windows server", "dsc", "package management"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Configuration management is essential for maintaining consistent, secure, and efficient Windows Server environments. This guide covers PowerShell automation, package management with winget, and configuration management best practices.

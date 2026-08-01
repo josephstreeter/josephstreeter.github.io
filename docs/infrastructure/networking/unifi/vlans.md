@@ -1,3 +1,11 @@
+---
+title: "VLANs"
+description: "This document outlines the VLAN and subnet configuration for each site in the Unifi environment. Use these tables as a reference for network segmentation, devic"
+tags: ["networking", "unifi"]
+category: "infrastructure"
+last_updated: "2025-12-29"
+---
+
 # VLANs
 
 This document outlines the VLAN and subnet configuration for each site in the Unifi environment. Use these tables as a reference for network segmentation, device assignment, and firewall rule planning.

@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.homeassistant
-title: Home Assistant - Complete Setup and Management Guide
-description: Comprehensive guide to provisioning, operating, and maintaining Home Assistant for home automation
-keywords: [home assistant, smart home, automation, iot, home automation platform, hassio]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant - Complete Setup and Management Guide"
+description: "Comprehensive guide to provisioning, operating, and maintaining Home Assistant for home automation"
+author: "Joseph Streeter"
+tags: ["home assistant", "smart home", "automation", "iot", "home automation platform", "hassio"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Overview

@@ -1,3 +1,11 @@
+---
+title: "Azure DevOps Team Guide for Work Management"
+description: "2. [Team Structure & Roles](#team-structure--roles)"
+tags: ["workmanagement"]
+category: "development"
+last_updated: "2025-12-05"
+---
+
 # Azure DevOps Team Guide for Work Management
 
 ## Table of Contents

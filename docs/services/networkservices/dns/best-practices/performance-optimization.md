@@ -1,9 +1,10 @@
 ---
-title: DNS Performance Optimization
-description: Performance optimization strategies and tuning guidelines for DNS infrastructure
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dns-performance, optimization, performance-tuning, dns-efficiency]
+title: "DNS Performance Optimization"
+description: "Performance optimization strategies and tuning guidelines for DNS infrastructure"
+author: "Joseph Streeter"
+tags: ["dns-performance", "optimization", "performance-tuning", "dns-efficiency"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Performance optimization strategies and tuning guidelines for DNS infrastructure.

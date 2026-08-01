@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.deployment.zigbee2mqtt
-title: Zigbee2MQTT Deployment
-description: Dedicated Zigbee2MQTT deployment guide for Zigbee device integration
-keywords: [zigbee2mqtt, zigbee, deployment, docker, iot, smart home]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Zigbee2MQTT Deployment"
+description: "Dedicated Zigbee2MQTT deployment guide for Zigbee device integration"
+author: "Joseph Streeter"
+tags: ["zigbee2mqtt", "zigbee", "deployment", "docker", "iot", "smart home"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Zigbee2MQTT Deployment

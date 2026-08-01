@@ -2,9 +2,9 @@
 title: "Postfix Troubleshooting Guide"
 description: "Comprehensive troubleshooting guide for Postfix mail server issues including connection problems, delivery failures, and configuration errors"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, troubleshooting, debugging, mail delivery, smtp errors, queue management
+tags: ["postfix", "troubleshooting", "debugging", "mail delivery", "smtp errors", "queue management"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Comprehensive troubleshooting guide for diagnosing and resolving common

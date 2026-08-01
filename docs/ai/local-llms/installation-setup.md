@@ -2,10 +2,9 @@
 title: "Installation and Setup of Local LLMs"
 description: "Step-by-step guide to installing and configuring local LLM environments"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["installation", "setup", "configuration", "deployment", "local llm setup"]
-uid: docs.ai.local-llms.installation
+tags: ["installation", "setup", "configuration", "deployment", "local llm setup"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

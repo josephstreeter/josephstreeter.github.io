@@ -1,14 +1,10 @@
 ---
-uid: ad-group-policy-configuration
 title: "Active Directory Group Policy Management Guide"
 description: "Comprehensive guide for designing, implementing, and managing Active Directory Group Policy with modern security baselines, automation, and enterprise best practices."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "group-policy"
-keywords: ["Group Policy", "GPO", "Active Directory", "Security", "Configuration", "PowerShell", "Automation"]
+tags: ["group policy", "gpo", "active directory", "security", "configuration", "powershell", "automation"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 ## Group Policy Management Guide

@@ -2,11 +2,9 @@
 title: "Grafana Backup and Recovery"
 description: "Guide to backing up and restoring Grafana, including database backups, dashboard exports via API, provisioning as code, and restore procedures"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: how-to
-ms.date: 12/30/2025
-keywords: ["grafana", "backup", "recovery", "dashboards", "provisioning", "restore", "database"]
-uid: docs.infrastructure.grafana.backup-recovery
+tags: ["grafana", "backup", "recovery", "dashboards", "provisioning", "restore", "database"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

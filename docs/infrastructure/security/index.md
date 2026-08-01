@@ -2,8 +2,9 @@
 title: "Infrastructure Security"
 description: "Comprehensive infrastructure security hardening, best practices, and compliance guidelines"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["security"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Infrastructure Security

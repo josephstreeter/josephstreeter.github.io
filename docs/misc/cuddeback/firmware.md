@@ -1,3 +1,11 @@
+---
+title: "Firmware Updates"
+description: "Keep your Cuddeback camera up-to-date with the latest firmware for optimal performance and new features."
+tags: ["cuddeback"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Firmware Updates
 
 Keep your Cuddeback camera up-to-date with the latest firmware for optimal performance and new features.

@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Artifacts - Package Management
-description: Comprehensive guide to Azure Artifacts for managing NuGet, npm, Maven, Python packages, and Universal Packages with feeds, upstream sources, and CI/CD integration
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, artifacts, package-management, nuget, npm, maven, python, universal-packages]
+title: "Azure DevOps Artifacts - Package Management"
+description: "Comprehensive guide to Azure Artifacts for managing NuGet, npm, Maven, Python packages, and Universal Packages with feeds, upstream sources, and CI/CD integration"
+author: "Joseph Streeter"
+tags: ["azure-devops", "artifacts", "package-management", "nuget", "npm", "maven", "python", "universal-packages"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure Artifacts provides enterprise-grade package management capabilities integrated with Azure DevOps, supporting multiple package types and seamless CI/CD workflows.

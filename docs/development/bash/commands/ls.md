@@ -1,11 +1,10 @@
 ---
-title: ls Command
-description: Comprehensive reference for the ls command in Bash, including common options, sorting, filtering, and practical listing patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "ls Command"
+description: "Comprehensive reference for the ls command in Bash, including common options, sorting, filtering, and practical listing patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `ls` command lists directory contents.

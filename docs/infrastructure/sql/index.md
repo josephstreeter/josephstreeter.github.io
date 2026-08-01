@@ -1,13 +1,10 @@
 ---
-title: Microsoft SQL Server
-description: Complete guide to Microsoft SQL Server, a comprehensive relational database management system for enterprise applications and data management.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: sql-server
-keywords: SQL Server, database, RDBMS, T-SQL, Microsoft, database management, enterprise data
-uid: docs.infrastructure.sql.index
+title: "Microsoft SQL Server"
+description: "Complete guide to Microsoft SQL Server, a comprehensive relational database management system for enterprise applications and data management."
+author: "Joseph Streeter"
+tags: ["sql server", "database", "rdbms", "t-sql", "microsoft", "database management", "enterprise data"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Microsoft SQL Server is a relational database management system (RDBMS) developed by Microsoft. It is designed to store, manage, and retrieve data efficiently while providing enterprise-grade security, performance, and scalability features.

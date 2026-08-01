@@ -1,13 +1,10 @@
 ---
-title: Getting Started with Windows Server
-description: Introduction to Windows Server editions, installation options, and initial configuration
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: getting-started
-ms.service: windows-server
-keywords: Windows Server, installation, editions, setup, configuration
-uid: docs.infrastructure.windows.getting-started
+title: "Getting Started with Windows Server"
+description: "Introduction to Windows Server editions, installation options, and initial configuration"
+author: "Joseph Streeter"
+tags: ["windows server", "installation", "editions", "setup", "configuration"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 Windows Server is Microsoft's enterprise-grade server operating system designed to provide the foundation for modern datacenter infrastructure. This guide covers the essentials of Windows Server editions, installation options, and initial configuration.

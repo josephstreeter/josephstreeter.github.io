@@ -1,8 +1,8 @@
 ---
 title: "PGP Encryption"
 description: "Practical PGP encryption and decryption workflows for files and messages"
-category: "security"
 tags: ["pgp", "gpg", "encryption", "security"]
+category: "security"
 difficulty: "intermediate"
 last_updated: "2026-05-23"
 ---

@@ -1,3 +1,11 @@
+---
+title: "Cuddeback Trail Cameras"
+description: "Complete guide for Cuddeback trail cameras, including setup, configuration, and firmware management."
+tags: ["cuddeback"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Cuddeback Trail Cameras
 
 Complete guide for Cuddeback trail cameras, including setup, configuration, and firmware management.

@@ -1,3 +1,11 @@
+---
+title: "Git Stash: Complete Guide to Temporary Storage"
+description: "Git stash is a powerful feature that provides temporary storage for uncommitted changes, allowing developers to quickly switch contexts without losing work in..."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-20"
+---
+
 # Git Stash: Complete Guide to Temporary Storage
 
 Git stash is a powerful feature that provides temporary storage for uncommitted changes, allowing developers to quickly switch contexts without losing work in progress. This comprehensive guide covers stashing strategies, advanced techniques, and best practices for professional Git workflows.

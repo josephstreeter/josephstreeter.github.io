@@ -1,3 +1,11 @@
+---
+title: "Alternative Software"
+description: "Explore powerful alternatives to Adobe's Creative Suite, including free and specialized options for photo editing and RAW processing."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Alternative Software
 
 Explore powerful alternatives to Adobe's Creative Suite, including free and specialized options for photo editing and RAW processing. This guide covers professional-grade software that offers unique features and workflows.

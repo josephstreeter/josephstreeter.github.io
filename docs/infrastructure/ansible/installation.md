@@ -1,13 +1,10 @@
 ---
-title: Installation and Setup
-description: Installing Ansible on the control node, configuring ansible.cfg, project layout, and preparing managed nodes.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: install
-ms.service: ansible
-keywords: ansible, installation, pipx, pip, ansible-core, ansible.cfg, control node, managed nodes, ssh
-uid: docs.infrastructure.ansible.installation
+title: "Installation and Setup"
+description: "Installing Ansible on the control node, configuring ansible.cfg, project layout, and preparing managed nodes."
+author: "Joseph Streeter"
+tags: ["ansible", "installation", "pipx", "pip", "ansible-core", "ansible.cfg", "control node", "managed nodes"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Installation and Setup

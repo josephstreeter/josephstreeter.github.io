@@ -1,13 +1,10 @@
 ---
-title: Active Directory Domain Services (AD DS)
-description: Configure and manage Active Directory Domain Services for centralized identity and access management
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: reference
-ms.service: windows-server
-keywords: Active Directory, AD DS, domain controller, LDAP, Kerberos, identity management
-uid: docs.infrastructure.windows.server-roles.ad-ds
+title: "Active Directory Domain Services (AD DS)"
+description: "Configure and manage Active Directory Domain Services for centralized identity and access management"
+author: "Joseph Streeter"
+tags: ["active directory", "ad ds", "domain controller", "ldap", "kerberos", "identity management"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 Active Directory Domain Services provides centralized authentication, authorization, and directory services for Windows environments. It serves as the foundation for enterprise identity management.

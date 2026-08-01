@@ -1,3 +1,11 @@
+---
+title: "Git Rebasing Guide"
+description: "Git rebasing is a powerful feature that allows you to move or combine a sequence of commits to a new base commit."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Rebasing Guide
 
 Git rebasing is a powerful feature that allows you to move or combine a sequence of commits to a new base commit. It's a fundamental tool for maintaining clean, linear project history and integrating changes between branches effectively. This comprehensive guide covers rebasing concepts, techniques, and best practices for professional Git workflows.

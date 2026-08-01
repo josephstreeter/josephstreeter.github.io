@@ -1,11 +1,11 @@
 ---
 title: "Authentik Identity Provider"
 description: "Complete enterprise guide to Authentik - modern identity provider with SSO, SAML, OAuth2, OIDC, SCIM, and advanced security features for containerized environments"
-tags: ["authentik", "identity", "sso", "saml", "oauth2", "oidc", "ldap", "containers", "security", "authentication", "authorization", "enterprise"]
+author: "Joseph Streeter"
+tags: ["authentik", "identity", "sso", "saml", "oauth2", "oidc", "ldap", "containers"]
 category: "infrastructure"
 difficulty: "advanced"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 ## Overview

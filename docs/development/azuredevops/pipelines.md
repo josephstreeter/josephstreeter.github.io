@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Pipelines - CI/CD Automation
-description: Comprehensive guide to Azure Pipelines for continuous integration and deployment, including YAML pipeline configuration, multi-stage deployments, and DevOps best practices
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, pipelines, ci-cd, yaml, deployment, automation, devops]
+title: "Azure DevOps Pipelines - CI/CD Automation"
+description: "Comprehensive guide to Azure Pipelines for continuous integration and deployment, including YAML pipeline configuration, multi-stage deployments, and DevOps best practices"
+author: "Joseph Streeter"
+tags: ["azure-devops", "pipelines", "ci-cd", "yaml", "deployment", "automation", "devops"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure Pipelines provides enterprise-grade continuous integration and continuous deployment (CI/CD) capabilities, supporting multiple languages, platforms, and deployment targets with infrastructure as code.

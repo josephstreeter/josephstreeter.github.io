@@ -1,11 +1,10 @@
 ---
 title: "SOC Analyst Role"
-description: >-
-  Analyst-facing playbook for SOC threat detection, triage, investigation, and
-  response workflows
+description: "Analyst-facing playbook for SOC threat detection, triage, investigation, and response workflows"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "how-to"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## SOC Analyst Role

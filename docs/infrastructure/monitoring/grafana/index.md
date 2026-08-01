@@ -1,13 +1,10 @@
 ---
-title: Grafana
-description: Grafana visualization, dashboards, provisioning, security, and clustering for the Prometheus monitoring stack.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 12/30/2025
-ms.topic: overview
-ms.service: monitoring
-keywords: Grafana, dashboards, visualization, provisioning, security, high availability
-uid: docs.infrastructure.grafana.index
+title: "Grafana"
+description: "Grafana visualization, dashboards, provisioning, security, and clustering for the Prometheus monitoring stack."
+author: "Joseph Streeter"
+tags: ["grafana", "dashboards", "visualization", "provisioning", "security", "high availability"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Grafana

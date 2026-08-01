@@ -1,11 +1,10 @@
 ---
-title: OpenSSL Certificate Validation and Troubleshooting
-description: Verifying certificates, checking revocation, and diagnosing common OpenSSL issues
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL Certificate Validation and Troubleshooting"
+description: "Verifying certificates, checking revocation, and diagnosing common OpenSSL issues"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Certificate Validation and Troubleshooting

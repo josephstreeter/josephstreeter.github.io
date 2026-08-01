@@ -1,9 +1,10 @@
 ---
-title: DNS Disaster Recovery
-description: Disaster recovery planning and procedures for DNS infrastructure
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dns-disaster-recovery, business-continuity, dns-backup, recovery-procedures]
+title: "DNS Disaster Recovery"
+description: "Disaster recovery planning and procedures for DNS infrastructure"
+author: "Joseph Streeter"
+tags: ["dns-disaster-recovery", "business-continuity", "dns-backup", "recovery-procedures"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Disaster recovery planning and procedures for DNS infrastructure.

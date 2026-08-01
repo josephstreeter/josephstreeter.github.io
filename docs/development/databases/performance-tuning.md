@@ -1,6 +1,9 @@
 ---
-title: Database Performance Tuning
-description: Strategies and techniques for optimizing database performance
+title: "Database Performance Tuning"
+description: "Strategies and techniques for optimizing database performance"
+tags: ["databases"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

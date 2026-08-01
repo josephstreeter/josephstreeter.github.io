@@ -1,13 +1,10 @@
 ---
-title: Variables, Facts, and Templating
-description: Ansible variables and their precedence, gathered and custom facts, magic variables, and Jinja2 templating with filters and tests.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: concept
-ms.service: ansible
-keywords: ansible, variables, precedence, facts, jinja2, templating, filters, set_fact, hostvars
-uid: docs.infrastructure.ansible.variables-and-facts
+title: "Variables, Facts, and Templating"
+description: "Ansible variables and their precedence, gathered and custom facts, magic variables, and Jinja2 templating with filters and tests."
+author: "Joseph Streeter"
+tags: ["ansible", "variables", "precedence", "facts", "jinja2", "templating", "filters", "set_fact"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Variables, Facts, and Templating

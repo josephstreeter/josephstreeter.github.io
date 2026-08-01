@@ -1,9 +1,10 @@
 ---
-title: Windows DHCP Advanced Features
-description: Enterprise DHCP features including failover, load balancing, and integration capabilities
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dhcp-failover, dhcp-load-balancing, dhcp-advanced-features, enterprise-dhcp]
+title: "Windows DHCP Advanced Features"
+description: "Enterprise DHCP features including failover, load balancing, and integration capabilities"
+author: "Joseph Streeter"
+tags: ["windows-dhcp-failover", "dhcp-load-balancing", "dhcp-advanced-features", "enterprise-dhcp"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Windows DHCP Server provides enterprise-grade features for high availability, load balancing, and advanced network integration.

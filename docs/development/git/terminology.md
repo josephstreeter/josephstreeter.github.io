@@ -1,3 +1,11 @@
+---
+title: "Git Terminology Reference Guide"
+description: "Understanding Git's terminology is fundamental to mastering distributed version control."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Terminology Reference Guide
 
 Understanding Git's terminology is fundamental to mastering distributed version control. This comprehensive reference defines essential concepts, their relationships, and practical applications in modern software development workflows. Terms are organized by functional categories to provide context and facilitate learning.

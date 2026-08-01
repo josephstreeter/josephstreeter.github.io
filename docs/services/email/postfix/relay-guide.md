@@ -1,9 +1,10 @@
 ---
-title: Relay and Smart Host Configuration
-description: Guide to configuring Postfix as a relay or smart host with Office 365, Gmail, SendGrid, and AWS SES integration
-author: Joseph Streeter
-ms.date: 01/13/2026
-ms.topic: article
+title: "Relay and Smart Host Configuration"
+description: "Guide to configuring Postfix as a relay or smart host with Office 365, Gmail, SendGrid, and AWS SES integration"
+author: "Joseph Streeter"
+tags: ["email", "postfix"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Learn how to configure Postfix to relay email through external providers like

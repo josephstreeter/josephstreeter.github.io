@@ -1,9 +1,10 @@
 ---
-title: CI/CD Automation
-description: Complete guide to continuous integration and deployment automation, pipeline design, and automated testing strategies
-author: Joseph Streeter
-date: 2024-01-15
-tags: [ci-cd, automation, testing, deployment, pipelines, gitlab, github-actions]
+title: "CI/CD Automation"
+description: "Complete guide to continuous integration and deployment automation, pipeline design, and automated testing strategies"
+author: "Joseph Streeter"
+tags: ["ci-cd", "automation", "testing", "deployment", "pipelines", "gitlab", "github-actions"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 Continuous Integration and Continuous Deployment (CI/CD) automation is essential for modern software development. This guide covers pipeline design, automated testing, deployment strategies, and best practices for reliable software delivery.

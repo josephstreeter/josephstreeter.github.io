@@ -1,9 +1,10 @@
 ---
-title: Azure DevOps Boards - Agile Project Management
-description: Comprehensive guide to Azure Boards for agile project management, work item tracking, sprint planning, Kanban boards, and team collaboration
-author: Joseph Streeter
-date: 2025-09-13
-tags: [azure-devops, boards, agile, scrum, kanban, work-items, sprint-planning, project-management]
+title: "Azure DevOps Boards - Agile Project Management"
+description: "Comprehensive guide to Azure Boards for agile project management, work item tracking, sprint planning, Kanban boards, and team collaboration"
+author: "Joseph Streeter"
+tags: ["azure-devops", "boards", "agile", "scrum", "kanban", "work-items", "sprint-planning", "project-management"]
+category: "development"
+last_updated: "2025-09-13"
 ---
 
 Azure Boards provides comprehensive agile project management tools for planning, tracking, and discussing work across development teams, supporting Scrum, Kanban, and hybrid methodologies.

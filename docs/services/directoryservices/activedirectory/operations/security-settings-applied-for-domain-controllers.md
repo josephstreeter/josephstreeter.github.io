@@ -2,12 +2,9 @@
 title: "InCommon Silver Compliance Security Settings"
 description: "Complete Active Directory security configuration guide for InCommon Silver certification compliance"
 tags: ["incommon", "compliance", "active-directory", "security", "authentication", "identity-provider"]
-category: "security"
-subcategory: "compliance"
+category: "services"
 difficulty: "advanced"
 last_updated: "2025-07-05"
-applies_to: ["Active Directory", "Windows Server 2016+", "InCommon Silver", "Higher Education"]
-compliance_framework: ["InCommon Silver", "NIST SP 800-63", "SAML 2.0"]
 ---
 
 ## Overview

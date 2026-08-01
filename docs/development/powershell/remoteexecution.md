@@ -1,8 +1,9 @@
 ---
 title: "PowerShell Remote Execution"
 description: "Comprehensive guide to PowerShell remoting, remote execution, and managing multiple computers using WinRM, SSH, and PowerShell sessions"
-category: "development"
 tags: ["powershell", "remoting", "winrm", "ssh", "remote-execution", "sessions", "administration"]
+category: "development"
+last_updated: "2025-09-19"
 ---
 
 ## Remote Execution

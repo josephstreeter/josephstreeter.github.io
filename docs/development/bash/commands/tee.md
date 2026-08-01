@@ -1,11 +1,10 @@
 ---
-title: tee Command
-description: Comprehensive reference for the tee command in Bash, including stream duplication, append behavior, and pipeline usage patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "tee Command"
+description: "Comprehensive reference for the tee command in Bash, including stream duplication, append behavior, and pipeline usage patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `tee` command reads from standard input and writes simultaneously to standard output and one or more files.

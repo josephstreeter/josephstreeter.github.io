@@ -1,9 +1,10 @@
 ---
-title: DHCP Services
-description: Comprehensive guide to Dynamic Host Configuration Protocol (DHCP) implementation, configuration, and management in enterprise environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dhcp, network-services, ip-management, windows-dhcp, isc-dhcp, enterprise-networking]
+title: "DHCP Services"
+description: "Comprehensive guide to Dynamic Host Configuration Protocol (DHCP) implementation, configuration, and management in enterprise environments"
+author: "Joseph Streeter"
+tags: ["dhcp", "network-services", "ip-management", "windows-dhcp", "isc-dhcp", "enterprise-networking"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Dynamic Host Configuration Protocol (DHCP) is a critical network service that automatically assigns IP addresses and network configuration parameters to devices on a network. This comprehensive guide covers DHCP implementation, configuration, and management across different platforms.

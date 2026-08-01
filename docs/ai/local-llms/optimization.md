@@ -2,10 +2,9 @@
 title: "Optimization Techniques for Local LLMs"
 description: "Methods to improve performance, speed, and efficiency of local LLMs"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["optimization", "performance", "quantization", "efficiency", "tuning"]
-uid: docs.ai.local-llms.optimization
+tags: ["optimization", "performance", "quantization", "efficiency", "tuning"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

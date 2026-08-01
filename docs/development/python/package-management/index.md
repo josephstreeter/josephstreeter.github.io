@@ -1,9 +1,10 @@
 ---
-title: Python Package Management
-description: Comprehensive guide to Python package management tools and best practices including pip, UV, conda, and virtual environments
-author: Joseph Streeter
-ms.date: 2026-01-05
-ms.topic: article
+title: "Python Package Management"
+description: "Comprehensive guide to Python package management tools and best practices including pip, UV, conda, and virtual environments"
+author: "Joseph Streeter"
+tags: ["python", "package-management"]
+category: "development"
+last_updated: "2026-01-05"
 ---
 
 Python package management is the process of installing, upgrading, configuring, and removing Python packages and their dependencies. With hundreds of thousands of packages available on PyPI and other repositories, effective package management is essential for productive Python development.

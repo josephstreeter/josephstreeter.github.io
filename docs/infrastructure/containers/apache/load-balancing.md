@@ -1,11 +1,10 @@
 ---
 title: "Apache Load Balancing"
 description: "Load balancing with Apache mod_proxy_balancer — balancing methods, sticky sessions, health checks, and the balancer manager"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "apache"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Load Balancing

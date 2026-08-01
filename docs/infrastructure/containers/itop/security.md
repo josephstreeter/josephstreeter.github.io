@@ -1,11 +1,10 @@
 ---
 title: "iTop Security"
 description: "Securing iTop — TLS via a reverse proxy, authentication and profiles, database and file-permission hardening, and locking down the setup wizard"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Security

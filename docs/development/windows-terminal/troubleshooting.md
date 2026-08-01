@@ -2,7 +2,7 @@
 title: "Troubleshooting Guide"
 description: "Comprehensive troubleshooting guide for Windows Terminal - common issues, performance problems, and solutions"
 tags: ["windows-terminal", "troubleshooting", "performance", "issues", "solutions"]
-category: "development-tools"
+category: "development"
 difficulty: "advanced"
 last_updated: "2025-07-11"
 ---

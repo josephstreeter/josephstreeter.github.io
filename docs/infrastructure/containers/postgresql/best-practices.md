@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Container Best Practices"
 description: "Production best practices for containerized PostgreSQL — shared memory, PGDATA ownership, resource limits, autovacuum, and major-version upgrades"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: conceptual
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Best Practices

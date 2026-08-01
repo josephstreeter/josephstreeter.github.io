@@ -1,3 +1,11 @@
+---
+title: "SSH Authentication for Git: Complete Guide"
+description: "SSH (Secure Shell) authentication is the gold standard for secure Git operations, providing cryptographic authentication without transmitting passwords over..."
+tags: ["git"]
+category: "development"
+last_updated: "2026-01-12"
+---
+
 # SSH Authentication for Git: Complete Guide
 
 SSH (Secure Shell) authentication is the gold standard for secure Git operations, providing cryptographic authentication without transmitting passwords over the network. This comprehensive guide covers SSH key management, configuration strategies, and advanced security practices for professional Git workflows across multiple platforms and services.

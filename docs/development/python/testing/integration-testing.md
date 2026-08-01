@@ -1,6 +1,9 @@
 ---
-title: Integration Testing in Python
-description: Comprehensive guide to integration testing in Python including database testing, API testing, service integration, and test environment management
+title: "Integration Testing in Python"
+description: "Comprehensive guide to integration testing in Python including database testing, API testing, service integration, and test environment management"
+tags: ["python", "testing"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 Integration testing verifies that different components, services, and systems work together correctly. Unlike unit tests that isolate individual functions, integration tests validate the interactions between modules, databases, external APIs, and other system boundaries to ensure end-to-end functionality.

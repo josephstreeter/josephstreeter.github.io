@@ -1,13 +1,10 @@
 ---
-title: Roles and Collections
-description: Structuring reusable automation with Ansible roles, and distributing content with collections and Ansible Galaxy.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: concept
-ms.service: ansible
-keywords: ansible, roles, collections, ansible-galaxy, requirements.yml, FQCN, reusable
-uid: docs.infrastructure.ansible.roles-and-collections
+title: "Roles and Collections"
+description: "Structuring reusable automation with Ansible roles, and distributing content with collections and Ansible Galaxy."
+author: "Joseph Streeter"
+tags: ["ansible", "roles", "collections", "ansible-galaxy", "requirements.yml", "fqcn", "reusable"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Roles and Collections

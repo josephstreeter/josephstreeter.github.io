@@ -1,3 +1,11 @@
+---
+title: "Functions"
+description: "Functions in PowerShell allow you to group code into reusable blocks, making scripts easier to read, maintain, and test."
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-10-10"
+---
+
 # Functions
 
 Functions in PowerShell allow you to group code into reusable blocks, making scripts easier to read, maintain, and test. Functions can accept parameters, return values, and support advanced features such as parameter validation and pipeline input. A simple function groups code for reuse.

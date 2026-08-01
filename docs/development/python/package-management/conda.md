@@ -1,6 +1,9 @@
 ---
-title: conda - Package and Environment Manager
-description: Comprehensive guide to conda, the cross-platform package and environment management system for Python and beyond
+title: "conda - Package and Environment Manager"
+description: "Comprehensive guide to conda, the cross-platform package and environment management system for Python and beyond"
+tags: ["python", "package-management"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 conda is an open-source package and environment management system that runs on Windows, macOS, and Linux. It was created for Python programs but can package and distribute software for any language. conda is the package manager used by Anaconda distributions.

@@ -1,13 +1,10 @@
 ---
-title: Windows Configuration Overview
-description: Quick-start guide to Windows configuration with links to comprehensive configuration management documentation
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: overview
-ms.service: windows-server
-keywords: Windows configuration, quick start, overview, setup guide, Windows Server, workstation configuration
-uid: docs.infrastructure.windows.configuration
+title: "Windows Configuration Overview"
+description: "Quick-start guide to Windows configuration with links to comprehensive configuration management documentation"
+author: "Joseph Streeter"
+tags: ["windows configuration", "quick start", "overview", "setup guide", "windows server", "workstation configuration"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 This guide provides a quick-start overview of Windows configuration for both servers and workstations. For comprehensive configuration management including PowerShell DSC, automation, and package management, see [Configuration Management](../configuration-management.md).

@@ -1,9 +1,10 @@
 ---
-title: ISC DHCP Advanced Configuration
-description: Advanced ISC DHCP Server features including host reservations, classes, and custom options
-author: Joseph Streeter
-date: 2025-09-12
-tags: [isc-dhcp-advanced, dhcp-reservations, dhcp-classes]
+title: "ISC DHCP Advanced Configuration"
+description: "Advanced ISC DHCP Server features including host reservations, classes, and custom options"
+author: "Joseph Streeter"
+tags: ["isc-dhcp-advanced", "dhcp-reservations", "dhcp-classes"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Advanced configuration features for ISC DHCP Server including host reservations and client classes.

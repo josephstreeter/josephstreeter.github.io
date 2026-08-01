@@ -1,3 +1,11 @@
+---
+title: "Pipelines"
+description: "Pipelines can be used to deploy scripts managed in Azure DevOps to Servers where they can be run from scheduled tasks or interactively by an admin."
+tags: ["powershell", "ado"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # Pipelines
 
 Pipelines can be used to deploy scripts managed in Azure DevOps to Servers where they can be run from scheduled tasks or interactively by an admin.

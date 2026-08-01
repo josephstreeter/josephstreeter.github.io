@@ -2,9 +2,9 @@
 title: "Infrastructure Monitoring"
 description: "Comprehensive infrastructure monitoring, alerting, and observability solutions"
 author: "Joseph Streeter"
-ms.author: josephstreeter
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["monitoring"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Infrastructure Monitoring

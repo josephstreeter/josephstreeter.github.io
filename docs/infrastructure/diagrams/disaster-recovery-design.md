@@ -1,3 +1,11 @@
+---
+title: "Disaster Recovery Design"
+description: "Comprehensive disaster recovery architecture and procedures for enterprise infrastructure resilience and business continuity."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Disaster Recovery Design
 
 ## Overview

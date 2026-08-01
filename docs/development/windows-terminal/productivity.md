@@ -2,7 +2,7 @@
 title: "Productivity Features"
 description: "Master Windows Terminal productivity features including pane management, shortcuts, and workflow optimization"
 tags: ["windows-terminal", "productivity", "shortcuts", "panes", "workflow"]
-category: "development-tools"
+category: "development"
 difficulty: "intermediate"
 last_updated: "2025-07-11"
 ---

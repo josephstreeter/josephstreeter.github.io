@@ -2,9 +2,9 @@
 title: "Postfix SASL Authentication - Complete Guide"
 description: "Comprehensive guide for implementing SASL authentication in Postfix for secure SMTP authentication with Cyrus SASL, Dovecot, LDAP, and database backends"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: guide
-keywords: postfix, sasl, smtp authentication, cyrus sasl, dovecot sasl, ldap, active directory, mysql, postgresql
+tags: ["postfix", "sasl", "smtp authentication", "cyrus sasl", "dovecot sasl", "ldap", "active directory", "mysql"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 This comprehensive guide covers implementing SASL (Simple Authentication

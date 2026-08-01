@@ -1,6 +1,9 @@
 ---
-title: Python Testing - Comprehensive Guide
-description: Complete guide to testing in Python including pytest, unittest, TDD, mocking, fixtures, and CI/CD integration
+title: "Python Testing - Comprehensive Guide"
+description: "Complete guide to testing in Python including pytest, unittest, TDD, mocking, fixtures, and CI/CD integration"
+tags: ["python", "testing"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Testing is fundamental to professional Python development, ensuring code reliability, maintainability, and correctness. This comprehensive guide covers testing methodologies, frameworks, best practices, and real-world patterns for building robust test suites that scale with your projects.

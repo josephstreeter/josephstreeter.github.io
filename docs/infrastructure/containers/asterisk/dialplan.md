@@ -1,11 +1,10 @@
 ---
 title: "Asterisk Dialplan"
 description: "Asterisk call routing with extensions.conf — contexts, extensions, priorities, applications, variables, and pattern matching"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "asterisk"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Dialplan

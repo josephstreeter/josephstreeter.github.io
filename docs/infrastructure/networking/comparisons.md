@@ -2,7 +2,7 @@
 title: "Technology Comparisons"
 description: "Side-by-side comparisons of networking technologies, protocols, and approaches"
 tags: ["networking", "comparison", "reference", "decision-making"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

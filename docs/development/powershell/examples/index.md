@@ -1,12 +1,11 @@
 ---
 title: "PowerShell Examples"
 description: "Practical PowerShell code examples and scripts for various Microsoft technologies and services"
+author: "Joseph Streeter"
 tags: ["powershell", "examples", "scripts", "automation", "microsoft"]
 category: "development"
-subcategory: "powershell"
 difficulty: "beginner"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section provides practical PowerShell examples and scripts for working with various Microsoft technologies and services. Each example follows PowerShell best practices and includes detailed explanations.

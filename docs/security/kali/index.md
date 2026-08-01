@@ -1,11 +1,11 @@
 ---
 title: "Kali Linux"
 description: "Kali Linux guidance for defensive security workflows, tooling, and lab practices"
+author: "Joseph Streeter"
 tags: ["kali-linux", "security", "defensive-security", "linux", "lab"]
 category: "security"
 difficulty: "intermediate"
 last_updated: "2026-05-25"
-author: "Joseph Streeter"
 ---
 
 Kali Linux is a Debian-based distribution designed for security professionals. This section focuses on defensive and authorized use in lab, audit, and blue-team workflows.

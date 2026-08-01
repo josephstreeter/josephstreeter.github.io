@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.advanced-features
-title: Advanced Packer Features
-description: Master advanced Packer capabilities including HCL2 templates, parallel builds, dynamic variables, custom plugins, and multi-stage image workflows
-ms.date: 01/18/2026
+title: "Advanced Packer Features"
+description: "Master advanced Packer capabilities including HCL2 templates, parallel builds, dynamic variables, custom plugins, and multi-stage image workflows"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers advanced features and capabilities of Packer that enable sophisticated build workflows, improved performance, and greater flexibility in image creation.

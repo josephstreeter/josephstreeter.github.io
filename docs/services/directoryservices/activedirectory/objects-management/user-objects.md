@@ -1,3 +1,11 @@
+---
+title: "User Objects"
+description: "User object are split into two general categories"
+tags: ["directoryservices", "activedirectory", "objects-management"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # User Objects
 
 User object are split into two general categories

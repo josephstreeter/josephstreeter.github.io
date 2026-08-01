@@ -1,3 +1,11 @@
+---
+title: "Zero Trust Implementation"
+description: "Zero Trust security architecture implementation guide for enterprise environments, focusing on 'never trust, always verify' principles."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-30"
+---
+
 # Zero Trust Implementation
 
 ## Overview

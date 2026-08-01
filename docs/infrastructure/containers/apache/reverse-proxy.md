@@ -1,11 +1,10 @@
 ---
 title: "Apache Reverse Proxy"
 description: "Configuring Apache HTTP Server as a reverse proxy with mod_proxy and name-based virtual hosts, using Docker"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "apache"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Reverse Proxy

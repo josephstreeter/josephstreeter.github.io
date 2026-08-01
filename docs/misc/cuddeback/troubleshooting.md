@@ -1,3 +1,11 @@
+---
+title: "Troubleshooting Guide"
+description: "Comprehensive troubleshooting guide for Cuddeback trail cameras and CuddeLink network issues."
+tags: ["cuddeback"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Troubleshooting Guide
 
 Comprehensive troubleshooting guide for Cuddeback trail cameras and CuddeLink network issues.

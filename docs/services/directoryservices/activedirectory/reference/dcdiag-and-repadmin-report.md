@@ -2,10 +2,9 @@
 title: "Active Directory Health Check and Diagnostic Report"
 description: "Comprehensive PowerShell script for monitoring Active Directory forest health using DCDiag and RepAdmin tools with modern reporting capabilities"
 author: "IT Operations"
-ms.date: "07/05/2025"
-ms.topic: "how-to"
-ms.service: "active-directory"
-keywords: Active Directory, DCDiag, RepAdmin, PowerShell, forest health, replication, diagnostics, monitoring
+tags: ["active directory", "dcdiag", "repadmin", "powershell", "forest health", "replication", "diagnostics", "monitoring"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 This comprehensive PowerShell module provides enterprise-grade Active Directory health monitoring and reporting capabilities. It combines DCDiag and RepAdmin functionality with modern PowerShell practices, error handling, and flexible output formats.

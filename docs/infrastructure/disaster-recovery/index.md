@@ -1,9 +1,10 @@
 ---
-title: Disaster Recovery
-description: Comprehensive disaster recovery planning, implementation, and testing strategies for infrastructure and applications
-author: Joseph Streeter
-date: 2024-01-15
-tags: [disaster-recovery, backup, business-continuity, incident-response, infrastructure]
+title: "Disaster Recovery"
+description: "Comprehensive disaster recovery planning, implementation, and testing strategies for infrastructure and applications"
+author: "Joseph Streeter"
+tags: ["disaster-recovery", "backup", "business-continuity", "incident-response", "infrastructure"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Disaster recovery (DR) encompasses the strategies, policies, and procedures that enable an organization to recover or continue its technology infrastructure critical to supporting business functions after a natural or human-induced disaster. This guide provides a comprehensive framework for implementing effective disaster recovery solutions.

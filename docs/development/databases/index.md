@@ -1,6 +1,9 @@
 ---
-title: Database Guide
-description: Overview of database technologies and integration strategies
+title: "Database Guide"
+description: "Overview of database technologies and integration strategies"
+tags: ["databases"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

@@ -1,9 +1,10 @@
 ---
-title: PowerShell Security Examples
-description: Practical PowerShell examples for security administration, compliance checking, and vulnerability assessment
-author: Joseph Streeter
-date: 2024-01-15
-tags: [powershell, security, compliance, auditing, vulnerability-assessment]
+title: "PowerShell Security Examples"
+description: "Practical PowerShell examples for security administration, compliance checking, and vulnerability assessment"
+author: "Joseph Streeter"
+tags: ["powershell", "security", "compliance", "auditing", "vulnerability-assessment"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 This collection demonstrates PowerShell's capabilities for security administration, compliance checking, and vulnerability assessment. These examples follow enterprise security best practices and include proper error handling.

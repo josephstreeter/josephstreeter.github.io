@@ -1,9 +1,10 @@
 ---
 title: "Equipment"
 description: "Personal reference notes for outdoor power equipment, including model numbers, specifications, and maintenance details."
+author: "Joseph Streeter"
 tags: ["equipment", "tools", "outdoor power"]
 category: "personal"
-author: "Joseph Streeter"
+last_updated: "2026-04-18"
 ---
 
 ## Equipment

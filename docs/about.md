@@ -1,7 +1,10 @@
 ---
-#layout: page
-title: About
 permalink: /about/
+title: "About"
+description: "About the author and this documentation site."
+tags: ["about"]
+category: "documentation"
+last_updated: "2025-12-31"
 ---
 
 ## About Me

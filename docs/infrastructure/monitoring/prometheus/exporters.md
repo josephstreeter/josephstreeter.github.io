@@ -2,11 +2,9 @@
 title: "Exporters Configuration"
 description: "Comprehensive guide to configuring and deploying Prometheus exporters for monitoring infrastructure and applications"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: reference
-ms.date: 12/30/2025
-keywords: ["prometheus", "exporters", "node exporter", "cadvisor", "blackbox", "monitoring", "metrics"]
-uid: docs.infrastructure.prometheus.exporters
+tags: ["prometheus", "exporters", "node exporter", "cadvisor", "blackbox", "monitoring", "metrics"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

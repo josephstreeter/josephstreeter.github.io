@@ -2,10 +2,9 @@
 title: "Make (Integromat) - AI Workflow Automation"
 description: "Guide to using Make for building AI-powered automations and integrations"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["make", "integromat", "workflow automation", "visual builder", "ai integration"]
-uid: docs.ai.automation.make
+tags: ["make", "integromat", "workflow automation", "visual builder", "ai integration"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

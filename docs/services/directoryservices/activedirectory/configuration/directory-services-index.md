@@ -1,12 +1,11 @@
 ---
 title: "Directory Services Configuration"
 description: "Essential configuration guides for Active Directory directory services, including LDAP security, certificate management, and protocol configuration"
+author: "Joseph Streeter"
 tags: ["active-directory", "ldap", "ldaps", "certificates", "configuration", "security"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 This section covers essential configuration procedures for Active Directory directory services, focusing on LDAP protocol security, certificate management, and advanced configuration options.

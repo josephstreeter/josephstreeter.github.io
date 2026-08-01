@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Security Configuration
-description: Security hardening and configuration guidelines for Windows DNS Server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dns-security, dns-hardening, security-configuration, dns-protection]
+title: "Windows DNS Security Configuration"
+description: "Security hardening and configuration guidelines for Windows DNS Server deployments"
+author: "Joseph Streeter"
+tags: ["windows-dns-security", "dns-hardening", "security-configuration", "dns-protection"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Security configuration and hardening guidelines for Windows DNS Server environments.

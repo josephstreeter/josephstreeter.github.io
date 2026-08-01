@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.installing
-title: Installing Packer
-description: Step-by-step guide to installing HashiCorp Packer on Windows, Linux, and macOS platforms
-ms.date: 01/18/2026
+title: "Installing Packer"
+description: "Step-by-step guide to installing HashiCorp Packer on Windows, Linux, and macOS platforms"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers the installation process for HashiCorp Packer on various platforms.

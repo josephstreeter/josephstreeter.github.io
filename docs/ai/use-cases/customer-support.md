@@ -2,10 +2,9 @@
 title: "Customer Support with AI"
 description: "Using AI to enhance customer support operations and experiences"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "use-case"
-keywords: ["customer support", "chatbots", "helpdesk", "ai automation", "customer service"]
-uid: docs.ai.use-cases.customer-support
+tags: ["customer support", "chatbots", "helpdesk", "ai automation", "customer service"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

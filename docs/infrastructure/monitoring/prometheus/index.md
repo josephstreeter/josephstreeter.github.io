@@ -1,12 +1,11 @@
 ---
 title: "Prometheus Monitoring System"
 description: "Complete guide to Prometheus, an open-source monitoring and alerting system designed for reliability and scalability in modern cloud-native and containerized environments"
-tags: ["prometheus", "monitoring", "alerting", "metrics", "observability", "containers", "kubernetes", "grafana", "promql"]
+author: "Joseph Streeter"
+tags: ["prometheus", "monitoring", "alerting", "metrics", "observability", "containers", "kubernetes", "grafana"]
 category: "infrastructure"
-subcategory: "containers"
 difficulty: "intermediate"
 last_updated: "2025-01-14"
-author: "Joseph Streeter"
 ---
 
 Prometheus is an open-source monitoring and alerting system originally developed by SoundCloud in 2012 and is now a graduated project of the Cloud Native Computing Foundation (CNCF). It has become the de facto standard for monitoring cloud-native applications, containerized workloads, and distributed systems in dynamic environments.

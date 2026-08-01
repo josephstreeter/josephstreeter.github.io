@@ -1,8 +1,10 @@
 ---
-title: Proxmox Virtual Environment
-description: Complete guide to installing, configuring, and managing Proxmox VE for enterprise virtualization
-author: josephstreeter
-ms.date: 2025-08-29
+title: "Proxmox Virtual Environment"
+description: "Complete guide to installing, configuring, and managing Proxmox VE for enterprise virtualization"
+author: "josephstreeter"
+tags: ["proxmox"]
+category: "infrastructure"
+last_updated: "2025-08-29"
 ---
 
 ## Proxmox Virtual Environment

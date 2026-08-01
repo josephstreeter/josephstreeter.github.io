@@ -1,13 +1,10 @@
 ---
-title: Best Practices
-description: Project structure, idempotency, linting and testing, performance tuning, CI/CD, and scaling Ansible with Automation Platform.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: best-practice
-ms.service: ansible
-keywords: ansible, best practices, ansible-lint, molecule, ci-cd, performance, pipelining, awx, automation platform
-uid: docs.infrastructure.ansible.best-practices
+title: "Best Practices"
+description: "Project structure, idempotency, linting and testing, performance tuning, CI/CD, and scaling Ansible with Automation Platform."
+author: "Joseph Streeter"
+tags: ["ansible", "best practices", "ansible-lint", "molecule", "ci-cd", "performance", "pipelining", "awx"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Best Practices

@@ -1,11 +1,10 @@
 ---
-title: OpenSSL CSR Creation and Management
-description: Creating and verifying Certificate Signing Requests (CSRs) with OpenSSL
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "OpenSSL CSR Creation and Management"
+description: "Creating and verifying Certificate Signing Requests (CSRs) with OpenSSL"
+author: "josephstreeter"
+tags: ["certificates", "openssl"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## CSR Creation and Management

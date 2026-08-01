@@ -1,9 +1,10 @@
 ---
 title: "Stihl"
 description: "Reference notes for Stihl outdoor power equipment including chainsaws, trimmers, and blowers."
+author: "Joseph Streeter"
 tags: ["stihl", "chainsaw", "trimmer", "blower", "equipment", "outdoor power"]
 category: "personal"
-author: "Joseph Streeter"
+last_updated: "2026-04-18"
 ---
 
 ## Stihl

@@ -1,6 +1,9 @@
 ---
-title: PostgreSQL - Advanced Open Source Database
-description: Comprehensive guide to PostgreSQL, the powerful open-source relational database system with advanced features, ACID compliance, and robust performance capabilities
+title: "PostgreSQL - Advanced Open Source Database"
+description: "Comprehensive guide to PostgreSQL, the powerful open-source relational database system with advanced features, ACID compliance, and robust performance capabilities"
+tags: ["databases"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 PostgreSQL is a powerful, open-source object-relational database system that uses and extends the SQL language combined with many features that safely store and scale the most complicated data workloads. With over 35 years of active development, PostgreSQL has earned a strong reputation for reliability, feature robustness, and performance.

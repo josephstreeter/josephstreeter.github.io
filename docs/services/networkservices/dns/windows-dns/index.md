@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Server
-description: Comprehensive guide to Windows DNS Server configuration, management, and optimization for enterprise environments
-author: Joseph Streeter
-date: 2024-01-15
-tags: [windows-dns, dns-server, active-directory, windows-server, networking]
+title: "Windows DNS Server"
+description: "Comprehensive guide to Windows DNS Server configuration, management, and optimization for enterprise environments"
+author: "Joseph Streeter"
+tags: ["windows-dns", "dns-server", "active-directory", "windows-server", "networking"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 Windows DNS Server is Microsoft's implementation of the Domain Name System service, deeply integrated with Active Directory and Windows Server infrastructure. This comprehensive guide covers deployment, configuration, management, and optimization of Windows DNS in enterprise environments.

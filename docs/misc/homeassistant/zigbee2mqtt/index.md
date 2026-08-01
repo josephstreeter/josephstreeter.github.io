@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.zigbee2mqtt
-title: Zigbee2MQTT - Complete Setup and Management Guide
-description: Comprehensive guide to provisioning, operating, and maintaining Zigbee2MQTT for home automation
-keywords: [zigbee2mqtt, zigbee, mqtt, home automation, home assistant, iot, smart home]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Zigbee2MQTT - Complete Setup and Management Guide"
+description: "Comprehensive guide to provisioning, operating, and maintaining Zigbee2MQTT for home automation"
+author: "Joseph Streeter"
+tags: ["zigbee2mqtt", "zigbee", "mqtt", "home automation", "home assistant", "iot", "smart home"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Overview

@@ -1,7 +1,10 @@
 ---
 _layout: landing
-title: Technical Documentation Hub
-description: Comprehensive technical documentation covering infrastructure, development, security, and networking
+title: "Technical Documentation Hub"
+description: "Comprehensive technical documentation covering infrastructure, development, security, and networking"
+tags: ["documentation", "overview"]
+category: "documentation"
+last_updated: "2025-12-29"
 ---
 
 Welcome to my comprehensive technical documentation site. This resource serves as a centralized knowledge base for various IT domains including infrastructure management, software development, security practices, and networking configurations.

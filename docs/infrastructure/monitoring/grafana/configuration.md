@@ -1,12 +1,10 @@
 ---
-title: Prometheus and Grafana Configuration
-description: Detailed configuration guide for Prometheus, Grafana, and monitoring components
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.topic: configuration
-ms.date: 12/30/2025
-keywords: prometheus, grafana, configuration, scrape_configs, recording rules, datasources
-uid: docs.infrastructure.grafana.configuration
+title: "Prometheus and Grafana Configuration"
+description: "Detailed configuration guide for Prometheus, Grafana, and monitoring components"
+author: "Joseph Streeter"
+tags: ["prometheus", "grafana", "configuration", "scrape_configs", "recording rules", "datasources"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide covers production-grade configuration for Prometheus, Grafana, and related monitoring components including service discovery, recording rules, and dashboard provisioning.

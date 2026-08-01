@@ -1,11 +1,10 @@
 ---
-title: head Command
-description: Comprehensive reference for the head command in Bash, including syntax, options, and practical examples for file and stream inspection.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "head Command"
+description: "Comprehensive reference for the head command in Bash, including syntax, options, and practical examples for file and stream inspection."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `head` command prints the beginning of files or input streams.

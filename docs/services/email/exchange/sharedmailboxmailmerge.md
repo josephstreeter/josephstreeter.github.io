@@ -1,7 +1,7 @@
 ---
 title: "Shared Mailbox Mail Merge with Outlook Profiles"
 description: "Complete guide to creating Outlook profiles for shared mailboxes and performing mail merge operations in Microsoft 365"
-tags: ["Exchange", "Outlook", "Mail Merge", "Shared Mailbox", "Microsoft 365"]
+tags: ["exchange", "outlook", "mail merge", "shared mailbox", "microsoft 365"]
 category: "services"
 difficulty: "beginner"
 last_updated: "2025-07-05"

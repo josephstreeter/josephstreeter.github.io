@@ -1,11 +1,10 @@
 ---
 title: "iTop Backup, Recovery, and Upgrades"
 description: "Backing up and restoring iTop — the database, configuration, and attachments — plus safely upgrading iTop in containers"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "itop"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Backup, Recovery, and Upgrades

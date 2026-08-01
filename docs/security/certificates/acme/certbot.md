@@ -1,11 +1,10 @@
 ---
-title: Certbot Guide
-description: Installing and using Certbot to automate Let's Encrypt certificates on Linux with Nginx, Apache, and standalone servers
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: security
+title: "Certbot Guide"
+description: "Installing and using Certbot to automate Let's Encrypt certificates on Linux with Nginx, Apache, and standalone servers"
+author: "josephstreeter"
+tags: ["certificates", "acme"]
+category: "security"
+last_updated: "2026-07-17"
 ---
 
 ## Certbot Guide

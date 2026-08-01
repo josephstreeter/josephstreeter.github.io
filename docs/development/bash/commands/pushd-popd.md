@@ -1,11 +1,10 @@
 ---
-title: pushd and popd Commands
-description: Comprehensive reference for the pushd and popd commands in Bash, including directory stack behavior, options, and practical navigation workflows.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "pushd and popd Commands"
+description: "Comprehensive reference for the pushd and popd commands in Bash, including directory stack behavior, options, and practical navigation workflows."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `pushd` and `popd` commands manage a directory stack for fast navigation.

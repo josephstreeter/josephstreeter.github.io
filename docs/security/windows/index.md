@@ -1,9 +1,10 @@
 ---
-title: Windows Security
-description: Comprehensive guide to Windows security hardening, monitoring, and best practices
-author: Joseph Streeter
-date: 2024-01-15
-tags: [windows, security, hardening, monitoring, compliance]
+title: "Windows Security"
+description: "Comprehensive guide to Windows security hardening, monitoring, and best practices"
+author: "Joseph Streeter"
+tags: ["windows", "security", "hardening", "monitoring", "compliance"]
+category: "security"
+last_updated: "2024-01-15"
 ---
 
 Windows security encompasses a comprehensive set of tools, technologies, and practices designed to protect Windows systems from threats and ensure data integrity. This guide covers essential security configurations, monitoring strategies, and best practices.

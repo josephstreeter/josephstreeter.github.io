@@ -2,10 +2,9 @@
 title: "Proxmox VE Cluster Management"
 description: "Complete guide to creating, configuring, and managing Proxmox VE clusters for high availability and scalability"
 author: "josephstreeter"
-ms.date: "2025-08-29"
-ms.topic: "how-to-guide"
-ms.service: "proxmox"
-keywords: ["Proxmox", "Cluster", "High Availability", "HA", "Corosync", "Quorum", "Migration", "Fencing"]
+tags: ["proxmox", "cluster", "high availability", "ha", "corosync", "quorum", "migration", "fencing"]
+category: "infrastructure"
+last_updated: "2025-08-29"
 ---
 
 ## Proxmox VE Cluster Management

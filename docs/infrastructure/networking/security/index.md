@@ -1,9 +1,10 @@
 ---
-title: Network Infrastructure Security
-description: Comprehensive network security guide covering firewall management, network segmentation, intrusion detection, and secure network design
-author: Joseph Streeter
-date: 2024-01-15
-tags: [network-security, firewall, ids, ips, network-segmentation, vpn, wireless-security]
+title: "Network Infrastructure Security"
+description: "Comprehensive network security guide covering firewall management, network segmentation, intrusion detection, and secure network design"
+author: "Joseph Streeter"
+tags: ["network-security", "firewall", "ids", "ips", "network-segmentation", "vpn", "wireless-security"]
+category: "infrastructure"
+last_updated: "2024-01-15"
 ---
 
 Network Infrastructure Security forms the foundation of enterprise cybersecurity, providing defense-in-depth through strategic network design, traffic monitoring, and access control mechanisms.

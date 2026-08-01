@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Backup and Recovery"
 description: "Backing up containerized PostgreSQL — logical dumps with pg_dump/pg_restore, physical base backups, and point-in-time recovery (PITR)"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Backup and Recovery

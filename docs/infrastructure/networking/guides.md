@@ -1,11 +1,11 @@
 ---
 title: "Network Configuration Guides"
 description: "Step-by-step guides for common network configuration tasks"
+author: "Joseph Streeter"
 tags: ["networking", "configuration", "guides", "tutorials"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-29"
-author: "Joseph Streeter"
 ---
 
 Step-by-step guides for configuring network devices and implementing common network configurations.

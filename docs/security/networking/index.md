@@ -1,9 +1,10 @@
 ---
-title: Network Security
-description: Comprehensive guide to network security hardening, monitoring, and threat detection
-author: Joseph Streeter
-date: 2024-01-15
-tags: [network, security, firewall, monitoring, intrusion-detection]
+title: "Network Security"
+description: "Comprehensive guide to network security hardening, monitoring, and threat detection"
+author: "Joseph Streeter"
+tags: ["network", "security", "firewall", "monitoring", "intrusion-detection"]
+category: "security"
+last_updated: "2024-01-15"
 ---
 
 Network security involves protecting the integrity, confidentiality, and availability of computer networks and their data. This guide covers essential network security concepts, tools, and best practices for securing network infrastructure.

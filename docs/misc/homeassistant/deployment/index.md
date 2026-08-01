@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.deployment
-title: Home Assistant Stack Deployment Guide
-description: Complete deployment guide for Home Assistant, Mosquitto MQTT, and Zigbee2MQTT
-keywords: [home assistant, deployment, docker, docker-compose, mosquitto, zigbee2mqtt, installation]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Stack Deployment Guide"
+description: "Complete deployment guide for Home Assistant, Mosquitto MQTT, and Zigbee2MQTT"
+author: "Joseph Streeter"
+tags: ["home assistant", "deployment", "docker", "docker-compose", "mosquitto", "zigbee2mqtt", "installation"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Home Assistant Stack Deployment Guide

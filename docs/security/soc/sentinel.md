@@ -1,11 +1,10 @@
 ---
 title: "Microsoft Sentinel in the SOC"
-description: >-
-   How Microsoft Sentinel supports SIEM operations, automation, and
-   cross-source investigations in the SOC
+description: "How Microsoft Sentinel supports SIEM operations, automation, and cross-source investigations in the SOC"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "conceptual"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Microsoft Sentinel in the SOC

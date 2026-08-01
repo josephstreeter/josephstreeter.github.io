@@ -1,3 +1,11 @@
+---
+title: "Network Security Architecture"
+description: "Comprehensive network security design patterns and implementations for enterprise environments."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Network Security Architecture
 
 ## Overview

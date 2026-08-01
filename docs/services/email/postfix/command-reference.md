@@ -2,9 +2,9 @@
 title: "Postfix Command Reference"
 description: "Reference guide for Postfix command-line tools"
 author: "Joseph Streeter"
-ms.date: 01/13/2026
-ms.topic: reference
-keywords: postfix, commands, postfix, postqueue, postsuper, postconf
+tags: ["postfix", "commands", "postqueue", "postsuper", "postconf"]
+category: "services"
+last_updated: "2026-01-13"
 ---
 
 Complete reference of Postfix command-line tools.

@@ -1,3 +1,11 @@
+---
+title: "Container Platform Design"
+description: "Enterprise container platform architecture for scalable, secure, and manageable containerized applications."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Container Platform Design
 
 ## Overview

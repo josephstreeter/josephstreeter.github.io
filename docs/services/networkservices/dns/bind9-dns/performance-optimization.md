@@ -1,9 +1,10 @@
 ---
-title: BIND9 Performance Optimization
-description: Performance tuning and optimization strategies for BIND9 DNS server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-performance, dns-optimization, performance-tuning]
+title: "BIND9 Performance Optimization"
+description: "Performance tuning and optimization strategies for BIND9 DNS server deployments"
+author: "Joseph Streeter"
+tags: ["bind9-performance", "dns-optimization", "performance-tuning"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Performance optimization techniques and tuning strategies for BIND9 DNS server environments.

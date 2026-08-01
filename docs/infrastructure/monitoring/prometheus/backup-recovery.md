@@ -2,11 +2,9 @@
 title: "Prometheus Backup and Recovery"
 description: "Comprehensive guide to backing up and restoring Prometheus and Alertmanager, including shared backup storage, disaster recovery procedures, and stack-wide automation scripts"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: how-to
-ms.date: 12/30/2025
-keywords: ["prometheus", "alertmanager", "backup", "recovery", "disaster recovery", "snapshots", "restore"]
-uid: docs.infrastructure.prometheus.backup-recovery
+tags: ["prometheus", "alertmanager", "backup", "recovery", "disaster recovery", "snapshots", "restore"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

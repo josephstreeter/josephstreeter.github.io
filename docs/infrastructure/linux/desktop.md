@@ -1,13 +1,10 @@
 ---
-title: Linux Desktop
-description: Comprehensive guide to Linux desktop environments, focusing on Debian and Ubuntu desktop distributions for personal and professional use.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: linux
-keywords: Linux desktop, Ubuntu desktop, Debian desktop, GNOME, KDE, desktop environment, GUI, personal computing
-uid: docs.infrastructure.linux.desktop
+title: "Linux Desktop"
+description: "Comprehensive guide to Linux desktop environments, focusing on Debian and Ubuntu desktop distributions for personal and professional use."
+author: "Joseph Streeter"
+tags: ["linux desktop", "ubuntu desktop", "debian desktop", "gnome", "kde", "desktop environment", "gui", "personal computing"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Linux desktop environments provide powerful, customizable, and secure computing experiences for personal and professional use. This guide covers desktop-focused distributions and environments, primarily Ubuntu and Debian.

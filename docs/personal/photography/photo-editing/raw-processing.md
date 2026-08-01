@@ -1,3 +1,11 @@
+---
+title: "RAW Processing"
+description: "Master the fundamentals of RAW file processing and understand why shooting RAW is essential for serious photography."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # RAW Processing
 
 Master the fundamentals of RAW file processing and understand why shooting RAW is essential for serious photography. This guide covers RAW format benefits, workflow basics, and essential processing techniques.

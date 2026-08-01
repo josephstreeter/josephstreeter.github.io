@@ -2,7 +2,7 @@
 title: "Windows Terminal"
 description: "Comprehensive guide to Microsoft Windows Terminal - installation, configuration, customization, and productivity features for developers"
 tags: ["windows-terminal", "command-line", "terminal", "productivity", "development-tools"]
-category: "development-tools"
+category: "development"
 difficulty: "beginner"
 last_updated: "2025-07-11"
 ---

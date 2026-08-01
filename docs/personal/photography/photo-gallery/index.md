@@ -1,3 +1,11 @@
+---
+title: "Photo Gallery"
+description: "Welcome to my photography portfolio - a curated collection of images showcasing different genres, techniques, and creative approaches."
+tags: ["photography", "photo-gallery"]
+category: "personal"
+last_updated: "2025-07-26"
+---
+
 # Photo Gallery
 
 Welcome to my photography portfolio - a curated collection of images showcasing different genres, techniques, and creative approaches. Each gallery includes technical details, behind-the-scenes insights, and the stories behind the photographs.

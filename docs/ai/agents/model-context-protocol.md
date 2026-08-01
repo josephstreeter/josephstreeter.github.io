@@ -1,6 +1,9 @@
 ---
-title: Model Context Protocol (MCP)
-description: Comprehensive guide to the Model Context Protocol, an open standard for connecting AI assistants to external tools, data sources, and services
+title: "Model Context Protocol (MCP)"
+description: "Comprehensive guide to the Model Context Protocol, an open standard for connecting AI assistants to external tools, data sources, and services"
+tags: ["agents"]
+category: "ai"
+last_updated: "2026-01-06"
 ---
 
 The Model Context Protocol (MCP) is an open protocol developed by Anthropic that standardizes how AI assistants connect to external data sources and tools. It provides a universal interface for integrating context from various systems, enabling AI agents to access real-time information, execute actions, and interact with external services in a secure and consistent manner.

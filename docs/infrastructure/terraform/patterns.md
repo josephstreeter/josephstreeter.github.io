@@ -2,10 +2,9 @@
 title: "Terraform Patterns"
 description: "Common Terraform patterns and best practices for Infrastructure as Code including for_each loops, resource management, and modular configurations"
 author: "josephstreeter"
-ms.date: "2026-01-18"
-ms.topic: "reference"
-ms.service: "terraform"
-keywords: ["Terraform", "Patterns", "for_each", "Infrastructure as Code", "IaC", "Best Practices", "Azure VMs", "Resource Management"]
+tags: ["terraform", "patterns", "for_each", "infrastructure as code", "iac", "best practices", "azure vms", "resource management"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This page contains some useful examples that can be used in solutions.

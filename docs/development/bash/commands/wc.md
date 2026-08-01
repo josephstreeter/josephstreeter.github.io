@@ -1,11 +1,10 @@
 ---
-title: wc Command
-description: Comprehensive reference for the wc command in Bash, including line, word, byte, and character counting patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "wc Command"
+description: "Comprehensive reference for the wc command in Bash, including line, word, byte, and character counting patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `wc` command counts lines, words, bytes, and characters in files or standard input.

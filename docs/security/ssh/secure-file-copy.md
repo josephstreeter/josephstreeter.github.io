@@ -1,11 +1,10 @@
 ---
-title: Secure File Copy (SCP) and SFTP - Complete Guide
-description: A comprehensive guide to securely transferring files between systems using SCP and SFTP protocols
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-05-23
-ms.topic: conceptual
-ms.service: security
+title: "Secure File Copy (SCP) and SFTP - Complete Guide"
+description: "A comprehensive guide to securely transferring files between systems using SCP and SFTP protocols"
+author: "josephstreeter"
+tags: ["ssh"]
+category: "security"
+last_updated: "2026-05-23"
 ---
 
 Secure file transfer is essential for protecting sensitive data when copying files between systems. This guide covers the two primary secure file transfer protocols that leverage SSH for encryption and authentication: SCP (Secure Copy Protocol) and SFTP (SSH File Transfer Protocol).

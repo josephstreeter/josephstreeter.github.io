@@ -2,11 +2,9 @@
 title: "PromQL Query Language"
 description: "Reference for PromQL, the Prometheus query language - data model, selectors, operators, functions, aggregation, rates, histograms, and subqueries."
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: reference
-ms.date: 07/18/2026
-keywords: ["prometheus", "promql", "query language", "rate", "histogram_quantile", "aggregation", "selectors", "subquery"]
-uid: docs.infrastructure.prometheus.promql
+tags: ["prometheus", "promql", "query language", "rate", "histogram_quantile", "aggregation", "selectors", "subquery"]
+category: "infrastructure"
+last_updated: "2026-07-18"
 ---
 
 ## PromQL Query Language

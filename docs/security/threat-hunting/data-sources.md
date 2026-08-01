@@ -1,11 +1,11 @@
 ---
 title: "Threat Hunting Data Sources and Telemetry"
 description: "The endpoint, identity, network, cloud, and email telemetry that threat hunts depend on, and how to assess visibility and coverage"
+author: "Joseph Streeter"
 tags: ["threat-hunting", "telemetry", "logging", "edr", "siem", "security"]
 category: "security"
 difficulty: "advanced"
 last_updated: "2026-07-11"
-author: "Joseph Streeter"
 ---
 
 ## Data sources and telemetry

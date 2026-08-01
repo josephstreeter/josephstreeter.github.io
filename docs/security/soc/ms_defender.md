@@ -2,8 +2,9 @@
 title: "Microsoft Defender Outline"
 description: "Working outline for implementing Microsoft Defender in a Security Operations Center"
 author: "Joseph Streeter"
-ms.date: "2026-05-19"
-ms.topic: "conceptual"
+tags: ["soc"]
+category: "security"
+last_updated: "2026-05-19"
 ---
 
 ## Microsoft Defender in the SOC

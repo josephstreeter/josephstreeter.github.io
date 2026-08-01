@@ -1,3 +1,11 @@
+---
+title: "Accessories"
+description: "Essential photography accessories that enhance your shooting experience and protect your investment."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Accessories
 
 Essential photography accessories that enhance your shooting experience and protect your investment. This guide covers must-have items and useful additions for various photography styles.

@@ -2,10 +2,9 @@
 title: "Diesel Truck Expert Guide: Troubleshooting Fuel Efficiency & DEF Consumption in a 2014 Ram 3500 Cummins"
 description: "Comprehensive troubleshooting guide for fuel efficiency and DEF consumption issues in a 2014 Ram 3500 Cummins, including diagnostic techniques and OBD-II data analysis."
 author: "Joseph Streeter"
-ms.date: "2025-07-14"
-ms.topic: "how-to"
-ms.service: "vehicles"
-keywords: ["Diesel Truck", "Cummins", "DEF", "DPF", "OBD-II", "Diagnostics", "Fuel Efficiency", "DashCommand", "Python"]
+tags: ["diesel truck", "cummins", "def", "dpf", "obd-ii", "diagnostics", "fuel efficiency", "dashcommand"]
+category: "personal"
+last_updated: "2025-07-14"
 ---
 
 ## Overview

@@ -1,14 +1,10 @@
 ---
-uid: ad-monitoring-logging
 title: "Active Directory Monitoring and Logging Guide"
 description: "Comprehensive guide for monitoring, logging, and auditing Active Directory environments with modern security practices, automation, and enterprise monitoring solutions."
 author: "Active Directory Team"
-ms.author: "adteam"
-ms.date: "07/05/2025"
-ms.topic: "conceptual"
-ms.service: "active-directory"
-ms.subservice: "monitoring"
-keywords: ["Active Directory", "Monitoring", "Logging", "SIEM", "Performance", "Security", "Auditing", "PowerShell", "Automation"]
+tags: ["active directory", "monitoring", "logging", "siem", "performance", "security", "auditing", "powershell"]
+category: "services"
+last_updated: "2025-07-05"
 ---
 
 ## Overview

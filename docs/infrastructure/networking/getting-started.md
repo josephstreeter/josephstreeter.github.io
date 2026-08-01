@@ -2,7 +2,7 @@
 title: "Getting Started with Networking"
 description: "Beginner-friendly guide to building your first network"
 tags: ["networking", "beginner", "tutorial", "getting-started"]
-category: "networking"
+category: "infrastructure"
 difficulty: "beginner"
 last_updated: "2025-12-30"
 ---

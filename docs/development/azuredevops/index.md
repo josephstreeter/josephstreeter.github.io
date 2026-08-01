@@ -1,3 +1,11 @@
+---
+title: "Introduction to Azure DevOps"
+description: "Azure DevOps is a comprehensive suite of development tools and cloud services from Microsoft designed to support the entire software development lifecycle."
+tags: ["azuredevops"]
+category: "development"
+last_updated: "2025-07-17"
+---
+
 # Introduction to Azure DevOps
 
 Azure DevOps is a comprehensive suite of development tools and cloud services from Microsoft designed to support the entire software development lifecycle. It enables teams to plan, build, test, deliver, and monitor applications efficiently, whether you are working on-premises, in the cloud, or in a hybrid environment.

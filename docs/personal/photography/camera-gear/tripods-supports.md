@@ -1,3 +1,11 @@
+---
+title: "Tripods and Supports"
+description: "Achieve sharp images and creative possibilities with proper camera support systems."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Tripods and Supports
 
 Achieve sharp images and creative possibilities with proper camera support systems. This guide covers tripods, monopods, and stabilizers for various photography applications.

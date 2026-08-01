@@ -1,9 +1,10 @@
 ---
-title: Group Policy Management
-description: Complete guide to Windows Group Policy configuration, deployment, and troubleshooting
-author: Joseph Streeter
-date: 2024-01-15
-tags: [windows, group-policy, active-directory, gpo, management]
+title: "Group Policy Management"
+description: "Complete guide to Windows Group Policy configuration, deployment, and troubleshooting"
+author: "Joseph Streeter"
+tags: ["windows", "group-policy", "active-directory", "gpo", "management"]
+category: "services"
+last_updated: "2024-01-15"
 ---
 
 Windows Group Policy provides centralized management and configuration of users and computers in an Active Directory environment. This guide covers essential Group Policy concepts, implementation, and best practices.

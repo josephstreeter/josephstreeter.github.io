@@ -2,7 +2,7 @@
 title: "Unifi Network Management"
 description: "Guide to configuring and managing Unifi networking equipment"
 tags: ["unifi", "networking", "ubiquiti", "configuration", "router", "access point"]
-category: "networking"
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-07-18"
 ---

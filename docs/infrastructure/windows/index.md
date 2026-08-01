@@ -1,13 +1,10 @@
 ---
-title: Windows Server Documentation
-description: Comprehensive documentation for Windows Server administration, configuration, security, and automation
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 2024-12-30
-ms.topic: hub-page
-ms.service: windows-server
-keywords: Windows Server, documentation, administration, security, PowerShell, automation
-uid: docs.infrastructure.windows
+title: "Windows Server Documentation"
+description: "Comprehensive documentation for Windows Server administration, configuration, security, and automation"
+author: "Joseph Streeter"
+tags: ["windows server", "documentation", "administration", "security", "powershell", "automation"]
+category: "infrastructure"
+last_updated: "2024-12-30"
 ---
 
 Welcome to the Windows Server documentation. This comprehensive guide covers everything from initial setup to advanced configuration, security hardening, and automation.

@@ -2,10 +2,9 @@
 title: "Terraform with Azure"
 description: "Complete guide to using Terraform with Microsoft Azure for cloud infrastructure automation and resource management"
 author: "josephstreeter"
-ms.date: "2025-12-30"
-ms.topic: "how-to-guide"
-ms.service: "terraform"
-keywords: ["Terraform", "Azure", "Microsoft Azure", "Infrastructure as Code", "IaC", "Cloud", "AzureRM", "Automation", "DevOps"]
+tags: ["terraform", "azure", "microsoft azure", "infrastructure as code", "iac", "cloud", "azurerm", "automation"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 This guide demonstrates how to use Terraform with Microsoft Azure to automate cloud infrastructure provisioning, management, and deployment using infrastructure-as-code principles.

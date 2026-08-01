@@ -1,9 +1,10 @@
 ---
-title: ISC DHCP Server
-description: Comprehensive guide to Internet Systems Consortium (ISC) DHCP Server implementation and management on Linux systems
-author: Joseph Streeter
-date: 2025-09-12
-tags: [isc-dhcp, linux-dhcp, dhcp-server, dhcp-configuration, enterprise-networking]
+title: "ISC DHCP Server"
+description: "Comprehensive guide to Internet Systems Consortium (ISC) DHCP Server implementation and management on Linux systems"
+author: "Joseph Streeter"
+tags: ["isc-dhcp", "linux-dhcp", "dhcp-server", "dhcp-configuration", "enterprise-networking"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 ISC DHCP Server is the most widely used DHCP server implementation for Unix and Linux systems, providing robust and flexible DHCP services.

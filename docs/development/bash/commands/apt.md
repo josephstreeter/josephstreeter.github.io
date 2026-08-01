@@ -1,11 +1,10 @@
 ---
-title: apt Command
-description: Comprehensive guide to apt for package installation, upgrades, repository management, and troubleshooting on Debian-based Linux systems.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/05/2026
-ms.topic: reference
-ms.service: development
+title: "apt Command"
+description: "Comprehensive guide to apt for package installation, upgrades, repository management, and troubleshooting on Debian-based Linux systems."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-05"
 ---
 
 The `apt` command is the primary package management interface on Debian-based distributions such as Ubuntu, Debian, Kali, and Linux Mint.

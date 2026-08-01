@@ -1,3 +1,11 @@
+---
+title: "Zigbee2MQTT Device Management"
+description: "Complete guide for pairing, configuring, and managing Zigbee devices with Zigbee2MQTT."
+tags: ["homeassistant", "zigbee2mqtt"]
+category: "misc"
+last_updated: "2025-08-07"
+---
+
 # Zigbee2MQTT Device Management
 
 Complete guide for pairing, configuring, and managing Zigbee devices with Zigbee2MQTT.

@@ -1,12 +1,11 @@
 ---
 title: "Active Directory Forest Trusts - Complete Guide"
 description: "Comprehensive guide to Active Directory forest trusts including concepts, implementation, technical requirements, and best practices"
+author: "Joseph Streeter"
 tags: ["active-directory", "forest-trusts", "cross-forest", "authentication", "security", "kerberos", "enterprise"]
 category: "services"
-subcategory: "activedirectory"
 difficulty: "advanced"
 last_updated: "2025-10-06"
-author: "Joseph Streeter"
 ---
 
 ## Overview

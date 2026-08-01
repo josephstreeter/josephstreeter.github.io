@@ -1,9 +1,10 @@
 ---
 title: "Ariens IKON XD 60"
 description: "Specifications and reference notes for the Ariens IKON XD 60 zero-turn mower, model 915273, with a 23 HP Kawasaki FR691V engine and 60-inch fabricated deck."
+author: "Joseph Streeter"
 tags: ["ariens", "zero-turn", "mower", "equipment", "lawn care"]
 category: "personal"
-author: "Joseph Streeter"
+last_updated: "2026-04-18"
 ---
 
 ## Ariens IKON XD 60

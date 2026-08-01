@@ -1,9 +1,10 @@
 ---
-title: DHCP Security Guidelines
-description: Security best practices and hardening guidelines for DHCP server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dhcp-security, network-security, security-hardening]
+title: "DHCP Security Guidelines"
+description: "Security best practices and hardening guidelines for DHCP server deployments"
+author: "Joseph Streeter"
+tags: ["dhcp-security", "network-security", "security-hardening"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Essential security practices for protecting DHCP infrastructure from attacks and unauthorized access.

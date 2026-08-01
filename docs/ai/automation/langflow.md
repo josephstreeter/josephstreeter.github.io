@@ -1,3 +1,11 @@
+---
+title: "LangFlow"
+description: "LangFlow is an open-source visual framework for building and testing LangChain applications through an intuitive drag-and-drop interface."
+tags: ["automation"]
+category: "ai"
+last_updated: "2026-01-04"
+---
+
 # LangFlow
 
 ## Overview

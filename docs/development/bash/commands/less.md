@@ -1,11 +1,10 @@
 ---
-title: less Command
-description: Comprehensive reference for the less command in Bash, including navigation keys, options, search behavior, and practical usage patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "less Command"
+description: "Comprehensive reference for the less command in Bash, including navigation keys, options, search behavior, and practical usage patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `less` command is an interactive pager for viewing text one screen at a time.

@@ -1,9 +1,10 @@
 ---
 title: "Authentik Configuration and Authentication Flows"
 description: "Configuring Authentik and building authentication and authorization flows"
-category: "infrastructure"
 author: "Joseph Streeter"
-ms.date: 2026-07-17
+tags: ["containers", "authentik"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Configuration and Setup

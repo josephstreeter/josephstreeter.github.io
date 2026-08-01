@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.troubleshooting
-title: Troubleshooting Packer Builds
-description: Comprehensive guide to diagnosing and resolving common Packer build issues including errors, debugging techniques, and log analysis
-ms.date: 01/18/2026
+title: "Troubleshooting Packer Builds"
+description: "Comprehensive guide to diagnosing and resolving common Packer build issues including errors, debugging techniques, and log analysis"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers common issues encountered during Packer builds and provides practical troubleshooting techniques to diagnose and resolve them effectively.

@@ -1,3 +1,11 @@
+---
+title: "PowerShell Module Development"
+description: "PowerShell modules are reusable packages of PowerShell code that provide specific functionality."
+tags: ["powershell"]
+category: "development"
+last_updated: "2025-08-20"
+---
+
 # PowerShell Module Development
 
 ## Table of Contents

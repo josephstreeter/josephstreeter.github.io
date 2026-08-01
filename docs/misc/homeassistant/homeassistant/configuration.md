@@ -1,12 +1,10 @@
 ---
-uid: misc.homeassistant.homeassistant.configuration
-title: Home Assistant Configuration - Advanced Setup Guide
-description: Advanced configuration options and best practices for Home Assistant
-keywords: [home assistant, configuration, yaml, integrations, customization]
-author: Joseph Streeter
-ms.author: joseph.streeter
-ms.date: 08/07/2025
-ms.topic: conceptual
+title: "Home Assistant Configuration - Advanced Setup Guide"
+description: "Advanced configuration options and best practices for Home Assistant"
+author: "Joseph Streeter"
+tags: ["home assistant", "configuration", "yaml", "integrations", "customization"]
+category: "misc"
+last_updated: "2025-08-07"
 ---
 
 ## Advanced Configuration

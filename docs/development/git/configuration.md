@@ -1,3 +1,11 @@
+---
+title: "Git Configuration Guide"
+description: "Git configuration is essential for proper version control setup and personalized development workflows."
+tags: ["git"]
+category: "development"
+last_updated: "2025-08-18"
+---
+
 # Git Configuration Guide
 
 Git configuration is essential for proper version control setup and personalized development workflows. This comprehensive guide covers initial setup, advanced configuration options, security settings, and best practices for managing Git configurations across different environments.

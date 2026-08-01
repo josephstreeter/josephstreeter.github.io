@@ -1,10 +1,10 @@
 ---
-title: Identity and Access Management (IAM) Best Practices
-description: Comprehensive guide to identity and access management principles, components, implementation strategies, and security best practices for protecting digital identities and resources.
-author: Joseph Streeter
-ms.date: 01/12/2026
-ms.topic: conceptual
-keywords: IAM, identity management, access control, authentication, authorization, MFA, SSO, identity governance, security
+title: "Identity and Access Management (IAM) Best Practices"
+description: "Comprehensive guide to identity and access management principles, components, implementation strategies, and security best practices for protecting digital identities and resources."
+author: "Joseph Streeter"
+tags: ["iam", "identity management", "access control", "authentication", "authorization", "mfa", "sso", "identity governance"]
+category: "services"
+last_updated: "2026-01-12"
 ---
 
 A comprehensive guide to implementing effective identity and access management solutions that protect sensitive information while ensuring compliance and enhancing user experience.

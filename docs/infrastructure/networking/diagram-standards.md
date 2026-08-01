@@ -2,7 +2,7 @@
 title: "Network Diagram Standards"
 description: "Standardized conventions for creating clear, consistent network diagrams using Mermaid"
 tags: ["networking", "documentation", "diagrams", "mermaid", "standards"]
-category: "networking"
+category: "infrastructure"
 difficulty: "beginner"
 last_updated: "2025-12-30"
 ---

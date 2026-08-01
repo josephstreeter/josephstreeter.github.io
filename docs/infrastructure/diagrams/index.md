@@ -1,3 +1,11 @@
+---
+title: "Infrastructure Diagrams"
+description: "This section contains comprehensive diagrams, architectures, and visual documentation for enterprise infrastructure components and designs."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Infrastructure Diagrams
 
 This section contains comprehensive diagrams, architectures, and visual documentation for enterprise infrastructure components and designs.

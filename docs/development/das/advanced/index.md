@@ -1,6 +1,9 @@
 ---
-title: Advanced Documentation Topics
-description: Advanced techniques and strategies for sophisticated Documentation as Code implementations
+title: "Advanced Documentation Topics"
+description: "Advanced techniques and strategies for sophisticated Documentation as Code implementations"
+tags: ["das", "advanced"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Advanced Documentation Topics

@@ -1,7 +1,7 @@
 ---
 title: "MIM 2016 SQL Synchronization Guide"
 description: "Comprehensive guide to synchronizing SQL table identities to Active Directory using MIM 2016 Sync Service with rule extensions"
-tags: ["MIM", "SQL", "synchronization", "active directory", "rule extensions"]
+tags: ["mim", "sql", "synchronization", "active directory", "rule extensions"]
 category: "services"
 difficulty: "advanced"
 last_updated: "2025-07-05"

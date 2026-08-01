@@ -1,3 +1,11 @@
+---
+title: "Table of Contents Creation Script"
+description: "This is a PowerShell script that creates a Table of Contents file for earch directory."
+tags: ["docfx"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # Table of Contents Creation Script
 
 This is a PowerShell script that creates a Table of Contents file for earch directory.

@@ -2,10 +2,9 @@
 title: "VS Code Installation and Setup"
 description: "Comprehensive guide for installing and configuring Visual Studio Code for PowerShell development across Windows and Linux platforms."
 author: "Joseph Streeter"
-ms.date: "2024-01-15"
-ms.topic: "get-started"
-ms.service: "vscode"
-keywords: ["Visual Studio Code", "VS Code", "PowerShell", "installation", "setup", "Windows", "Linux"]
+tags: ["visual studio code", "vs code", "powershell", "installation", "setup", "windows", "linux"]
+category: "development"
+last_updated: "2024-01-15"
 ---
 
 ## VS Code Installation and Setup

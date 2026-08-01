@@ -1,3 +1,11 @@
+---
+title: "Monitoring Architecture"
+description: "Comprehensive monitoring and observability architecture for enterprise infrastructure and applications."
+tags: ["diagrams"]
+category: "infrastructure"
+last_updated: "2025-09-12"
+---
+
 # Monitoring Architecture
 
 ## Overview

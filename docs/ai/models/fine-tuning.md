@@ -2,10 +2,9 @@
 title: "Fine-tuning Models"
 description: "Techniques and best practices for fine-tuning AI models for specific tasks"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["fine-tuning", "model training", "transfer learning", "custom models", "training data"]
-uid: docs.ai.models.fine-tuning
+tags: ["fine-tuning", "model training", "transfer learning", "custom models", "training data"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## What is Fine-tuning?

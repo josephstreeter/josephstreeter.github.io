@@ -2,9 +2,9 @@
 title: "Content Strategy for Documentation as Code"
 description: "A comprehensive approach to organizing and managing content in a Documentation as Code environment"
 author: "Joseph Streeter"
-ms.date: "2023-07-18"
-ms.topic: "conceptual"
-ms.service: "documentation"
+tags: ["das", "content"]
+category: "development"
+last_updated: "2023-07-18"
 ---
 
 ## Content Strategy for Documentation as Code

@@ -1,6 +1,9 @@
 ---
-title: SQL Fundamentals
-description: Essential SQL concepts and query techniques for database interaction
+title: "SQL Fundamentals"
+description: "Essential SQL concepts and query techniques for database interaction"
+tags: ["databases"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

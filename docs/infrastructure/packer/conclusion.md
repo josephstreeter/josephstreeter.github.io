@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.conclusion
-title: Conclusion and Next Steps
-description: Summary of key Packer concepts, best practices, and guidance for advancing your infrastructure automation journey
-ms.date: 01/18/2026
+title: "Conclusion and Next Steps"
+description: "Summary of key Packer concepts, best practices, and guidance for advancing your infrastructure automation journey"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section summarizes the key concepts covered in this documentation and provides guidance on continuing your journey with HashiCorp Packer.

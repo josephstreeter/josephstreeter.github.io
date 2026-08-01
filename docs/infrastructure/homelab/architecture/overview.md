@@ -1,9 +1,10 @@
 ---
-title: Home Lab Architecture Overview
-description: Comprehensive architecture design for a home lab environment with enterprise-grade services and learning opportunities
-author: Joseph Streeter
-date: 2025-09-13
-tags: [homelab-architecture, system-design, virtualization, infrastructure]
+title: "Home Lab Architecture Overview"
+description: "Comprehensive architecture design for a home lab environment with enterprise-grade services and learning opportunities"
+author: "Joseph Streeter"
+tags: ["homelab-architecture", "system-design", "virtualization", "infrastructure"]
+category: "infrastructure"
+last_updated: "2025-09-13"
 ---
 
 Comprehensive architecture overview for a home lab environment designed for learning, development, and experimentation with enterprise technologies.

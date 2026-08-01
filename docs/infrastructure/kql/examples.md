@@ -1,12 +1,10 @@
 ---
-title: Infrastructure Examples
-description: Example KQL queries for infrastructure monitoring in Azure Monitor and Log Analytics - VM and host metrics, availability, containers/AKS, Application Insights, and ingestion cost.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/17/2026
-ms.topic: conceptual
-ms.service: azure-monitor
-keywords: KQL, Azure Monitor, Log Analytics, Perf, Heartbeat, KubePodInventory, Application Insights, monitoring
+title: "Infrastructure Examples"
+description: "Example KQL queries for infrastructure monitoring in Azure Monitor and Log Analytics - VM and host metrics, availability, containers/AKS, Application Insights, and ingestion cost."
+author: "Joseph Streeter"
+tags: ["kql", "azure monitor", "log analytics", "perf", "heartbeat", "kubepodinventory", "application insights", "monitoring"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Examples

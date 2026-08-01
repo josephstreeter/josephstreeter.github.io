@@ -2,10 +2,9 @@
 title: "Introduction to Prompts"
 description: "Understanding prompt engineering and how to communicate effectively with AI models"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "introduction"
-keywords: ["prompts", "prompt engineering", "ai communication", "llm", "instructions"]
-uid: docs.ai.prompts.introduction
+tags: ["prompts", "prompt engineering", "ai communication", "llm", "instructions"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 Prompts are the primary interface through which humans communicate with AI language models. Understanding how to craft effective prompts is essential for anyone working with AI, whether you're a developer building AI-powered applications, a content creator leveraging AI tools, or a business professional seeking to enhance productivity with AI assistance.

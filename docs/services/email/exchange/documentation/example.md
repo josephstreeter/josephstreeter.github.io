@@ -1,3 +1,11 @@
+---
+title: "Exchange Server Documentation Example"
+description: "This document provides a complete inventory and configuration analysis of the Contoso Corporation Exchange Server environment."
+tags: ["email", "exchange", "documentation"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Exchange Server Documentation Example
 
 *This is an example of comprehensive Exchange Server documentation generated using the automated collection process. This documentation was generated on October 6, 2025, for the Contoso Corporation Exchange environment.*

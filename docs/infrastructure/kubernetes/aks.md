@@ -2,8 +2,9 @@
 title: "Azure Kubernetes Service (AKS)"
 description: "Complete guide to Azure Kubernetes Service deployment and management"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["kubernetes"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Azure Kubernetes Service (AKS)

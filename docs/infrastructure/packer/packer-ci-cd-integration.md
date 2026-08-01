@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.ci-cd-integration
-title: Integrating Packer with CI/CD Pipelines
-description: Complete guide to integrating Packer into CI/CD workflows with GitHub Actions, Azure DevOps, Jenkins, GitLab CI, automated testing, and image versioning strategies
-ms.date: 01/18/2026
+title: "Integrating Packer with CI/CD Pipelines"
+description: "Complete guide to integrating Packer into CI/CD workflows with GitHub Actions, Azure DevOps, Jenkins, GitLab CI, automated testing, and image versioning strategies"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers integration of Packer builds into CI/CD workflows, enabling automated, consistent, and repeatable machine image creation as part of your deployment pipeline.

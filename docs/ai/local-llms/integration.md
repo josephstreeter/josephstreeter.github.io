@@ -2,10 +2,9 @@
 title: "Integration and APIs for Local LLMs"
 description: "Connecting local LLMs to applications and creating API interfaces"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["integration", "api", "sdk", "openai compatible", "local llm api"]
-uid: docs.ai.local-llms.integration
+tags: ["integration", "api", "sdk", "openai compatible", "local llm api"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

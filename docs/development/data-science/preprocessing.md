@@ -1,6 +1,9 @@
 ---
-title: Data Preprocessing
-description: Techniques for cleaning, transforming, and preparing data for analysis and machine learning
+title: "Data Preprocessing"
+description: "Techniques for cleaning, transforming, and preparing data for analysis and machine learning"
+tags: ["data-science"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 ## Overview

@@ -1,9 +1,10 @@
 ---
-title: Continuous Integration for Python
-description: Comprehensive guide to CI/CD pipelines for Python projects using GitHub Actions, Azure DevOps, GitLab CI, and Jenkins with best practices
-author: Joseph Streeter
-ms.date: 01/05/2026
-ms.topic: article
+title: "Continuous Integration for Python"
+description: "Comprehensive guide to CI/CD pipelines for Python projects using GitHub Actions, Azure DevOps, GitLab CI, and Jenkins with best practices"
+author: "Joseph Streeter"
+tags: ["python", "deployment"]
+category: "development"
+last_updated: "2026-01-05"
 ---
 
 Continuous Integration (CI) is the practice of automatically building, testing, and validating code changes as they are committed to version control. For Python projects, CI ensures code quality, catches bugs early, and maintains consistent development workflows.

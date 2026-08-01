@@ -2,12 +2,9 @@
 title: "Active Directory Schema Extension Guide"
 description: "Comprehensive guide for safely extending Active Directory schema with custom attributes using PowerShell and LDIF"
 tags: ["active-directory", "schema", "powershell", "ldif", "extensions", "attributes"]
-category: "infrastructure"
-subcategory: "active-directory"
+category: "services"
 difficulty: "advanced"
 last_updated: "2025-01-22"
-applies_to: ["Active Directory", "Windows Server 2016+", "Schema Administration"]
-warning: "Schema modifications are irreversible and require careful planning and testing"
 ---
 
 ## Overview

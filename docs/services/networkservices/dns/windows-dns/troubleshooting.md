@@ -1,9 +1,10 @@
 ---
-title: Windows DNS Troubleshooting
-description: Diagnostic procedures and troubleshooting techniques for Windows DNS Server issues
-author: Joseph Streeter
-date: 2025-09-12
-tags: [windows-dns-troubleshooting, dns-diagnostics, problem-resolution, dns-debugging]
+title: "Windows DNS Troubleshooting"
+description: "Diagnostic procedures and troubleshooting techniques for Windows DNS Server issues"
+author: "Joseph Streeter"
+tags: ["windows-dns-troubleshooting", "dns-diagnostics", "problem-resolution", "dns-debugging"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive troubleshooting guide for diagnosing and resolving Windows DNS Server issues.

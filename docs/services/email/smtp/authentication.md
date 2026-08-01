@@ -1,11 +1,11 @@
 ---
 title: "Email Authentication - DKIM, DMARC, and SPF"
 description: "Documentation for email authentication protocols including DKIM, DMARC, and SPF implementation and configuration"
+author: "Joseph Streeter"
 tags: ["dkim", "dmarc", "spf", "email-authentication", "email-security", "smtp"]
 category: "services"
 difficulty: "intermediate"
 last_updated: "2026-01-13"
-author: "Joseph Streeter"
 ---
 
 This section covers email authentication protocols including DKIM, DMARC, and SPF for securing email communications and preventing spoofing.

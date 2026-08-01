@@ -2,10 +2,9 @@
 title: "Ethical Considerations in AI"
 description: "Understanding and addressing ethical issues in AI development and deployment"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "ethics"
-keywords: ["ai ethics", "ethical ai", "responsible ai", "ai governance", "ethics"]
-uid: docs.ai.ethics.considerations
+tags: ["ai ethics", "ethical ai", "responsible ai", "ai governance", "ethics"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 ## Overview

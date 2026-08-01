@@ -1,8 +1,8 @@
 ---
 title: "DHCP - Dynamic Host Configuration Protocol"
 description: "Complete guide to DHCP configuration, scopes, reservations, and troubleshooting"
-tags: ["networking", "DHCP", "IP-management", "infrastructure"]
-category: "networking"
+tags: ["networking", "dhcp", "ip-management", "infrastructure"]
+category: "infrastructure"
 difficulty: "intermediate"
 last_updated: "2025-12-30"
 ---

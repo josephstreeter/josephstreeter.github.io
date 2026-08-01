@@ -2,10 +2,9 @@
 title: "2016 Honda Accord Sport - Maintenance Guide"
 description: "Comprehensive maintenance guide and schedule for the 2016 Honda Accord Sport with the K24W2 2.4L i-VTEC engine."
 author: "Joseph Streeter"
-ms.date: "2026-04-12"
-ms.topic: "reference"
-ms.service: "vehicles"
-keywords: ["Honda Accord", "Accord Sport", "2016", "K24W2", "CVT", "Maintenance", "Service Schedule"]
+tags: ["honda accord", "accord sport", "2016", "k24w2", "cvt", "maintenance", "service schedule"]
+category: "personal"
+last_updated: "2026-04-12"
 ---
 
 ## 2016 Honda Accord Sport Maintenance Guide

@@ -1,9 +1,9 @@
 ---
-uid: docs.infrastructure.windows.server-roles.file-services
-title: File and Storage Services Role
-ms.date: 12/30/2025
-ms.topic: guide
-description: Comprehensive guide to File and Storage Services deployment, configuration, and management on Windows Server
+title: "File and Storage Services Role"
+description: "Comprehensive guide to File and Storage Services deployment, configuration, and management on Windows Server"
+tags: ["windows", "server-roles"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 File and Storage Services provides technologies for storage management, file replication, distributed namespace management, fast file searching, and streamlined client access to files.

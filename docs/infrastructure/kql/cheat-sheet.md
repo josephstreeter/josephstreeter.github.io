@@ -1,13 +1,10 @@
 ---
-title: Quick Reference (Cheat Sheet)
-description: A condensed KQL cheat sheet of the most common operators and functions with one-line descriptions and tiny examples.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: reference
-ms.service: azure-monitor
-keywords: KQL, Kusto, cheat sheet, quick reference, operators, functions
-uid: docs.infrastructure.kql.cheat-sheet
+title: "Quick Reference (Cheat Sheet)"
+description: "A condensed KQL cheat sheet of the most common operators and functions with one-line descriptions and tiny examples."
+author: "Joseph Streeter"
+tags: ["kql", "kusto", "cheat sheet", "quick reference", "operators", "functions"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 ## KQL quick reference

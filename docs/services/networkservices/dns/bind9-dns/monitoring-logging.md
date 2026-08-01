@@ -1,9 +1,10 @@
 ---
-title: BIND9 Monitoring & Logging
-description: Monitoring and logging configuration for BIND9 DNS server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-monitoring, dns-logging, log-analysis]
+title: "BIND9 Monitoring & Logging"
+description: "Monitoring and logging configuration for BIND9 DNS server environments"
+author: "Joseph Streeter"
+tags: ["bind9-monitoring", "dns-logging", "log-analysis"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Monitoring and logging configuration for BIND9 DNS server environments.

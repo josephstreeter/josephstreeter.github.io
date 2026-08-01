@@ -1,6 +1,9 @@
 ---
-title: Scikit-learn - Machine Learning in Python
-description: Comprehensive guide to scikit-learn, the essential Python library for machine learning featuring supervised and unsupervised algorithms, model evaluation, and preprocessing tools
+title: "Scikit-learn - Machine Learning in Python"
+description: "Comprehensive guide to scikit-learn, the essential Python library for machine learning featuring supervised and unsupervised algorithms, model evaluation, and preprocessing tools"
+tags: ["python", "machine-learning"]
+category: "development"
+last_updated: "2026-01-06"
 ---
 
 Scikit-learn is the most widely-used machine learning library for Python, providing simple and efficient tools for predictive data analysis. Built on NumPy, SciPy, and matplotlib, it offers a consistent API for dozens of machine learning algorithms, making it the go-to choice for practitioners and researchers alike.

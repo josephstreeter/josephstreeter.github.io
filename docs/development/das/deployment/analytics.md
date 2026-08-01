@@ -1,6 +1,9 @@
 ---
-title: Analytics and Metrics
-description: Implementing analytics and metrics for your Documentation as Code site to track usage and performance
+title: "Analytics and Metrics"
+description: "Implementing analytics and metrics for your Documentation as Code site to track usage and performance"
+tags: ["das", "deployment"]
+category: "development"
+last_updated: "2025-07-06"
 ---
 
 ## Analytics and Metrics

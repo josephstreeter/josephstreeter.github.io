@@ -1,3 +1,11 @@
+---
+title: "Photo Editing"
+description: "Transform your captured images into compelling final photographs through the art and science of digital post-processing."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Photo Editing
 
 Transform your captured images into compelling final photographs through the art and science of digital post-processing. This comprehensive guide covers everything from basic RAW processing to advanced retouching techniques.

@@ -1,3 +1,11 @@
+---
+title: "Lightroom Basics"
+description: "Master Adobe Lightroom's powerful tools for organizing, processing, and managing your photo library."
+tags: ["photography", "photo-editing"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Lightroom Basics
 
 Master Adobe Lightroom's powerful tools for organizing, processing, and managing your photo library. This comprehensive guide covers everything from import to export in Lightroom Classic and Lightroom CC.

@@ -1,13 +1,10 @@
 ---
-title: Azure Monitor
-description: Azure Monitor and Azure Alerts as the cloud-native, fully managed alternative to the self-hosted Prometheus + Grafana stack - metrics, logs, alerting, and visualization.
-author: Joseph Streeter
-ms.author: josephstreeter
-ms.date: 07/17/2026
-ms.topic: overview
-ms.service: azure-monitor
-keywords: Azure Monitor, Azure Alerts, Log Analytics, Application Insights, Action Groups, monitoring, observability
-uid: docs.infrastructure.azure-monitor.index
+title: "Azure Monitor"
+description: "Azure Monitor and Azure Alerts as the cloud-native, fully managed alternative to the self-hosted Prometheus + Grafana stack - metrics, logs, alerting, and visualization."
+author: "Joseph Streeter"
+tags: ["azure monitor", "azure alerts", "log analytics", "application insights", "action groups", "monitoring", "observability"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Azure Monitor

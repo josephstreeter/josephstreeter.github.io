@@ -1,11 +1,11 @@
 ---
-title: Bash Scripting
-description: Practical Bash scripting guidance for automation, reliability, and secure shell workflows.
+title: "Bash Scripting"
+description: "Practical Bash scripting guidance for automation, reliability, and secure shell workflows."
+author: "Joseph Streeter"
 tags: ["development", "bash", "linux", "automation", "shell-scripting"]
 category: "development"
 difficulty: "intermediate"
 last_updated: "2026-05-21"
-author: "Joseph Streeter"
 ---
 
 Bash is a foundational shell for Linux and Unix-like systems. This section focuses on practical scripting patterns that are reliable in automation workflows and easy to maintain over time.

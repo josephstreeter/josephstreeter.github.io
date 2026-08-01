@@ -1,3 +1,11 @@
+---
+title: "Active Directory"
+description: "$ADObjects = Get-ADGroup -Filter * -SearchBase 'OU=groups,OU=managed,DC=ad,DC=domain,DC=com'"
+tags: ["powershell", "examples"]
+category: "development"
+last_updated: "2025-07-05"
+---
+
 # Active Directory
 
 ## Table of Contents

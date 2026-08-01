@@ -1,9 +1,10 @@
 ---
-title: DHCP Monitoring & Maintenance
-description: Operational procedures for monitoring and maintaining DHCP server infrastructure
-author: Joseph Streeter
-date: 2025-09-12
-tags: [dhcp-monitoring, maintenance-procedures, operational-excellence]
+title: "DHCP Monitoring & Maintenance"
+description: "Operational procedures for monitoring and maintaining DHCP server infrastructure"
+author: "Joseph Streeter"
+tags: ["dhcp-monitoring", "maintenance-procedures", "operational-excellence"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Comprehensive operational procedures for monitoring and maintaining enterprise DHCP infrastructure.

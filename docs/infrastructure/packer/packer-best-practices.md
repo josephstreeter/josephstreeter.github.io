@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.best-practices
-title: Packer Best Practices
-description: Essential best practices for creating maintainable, efficient, and secure Packer templates with proper organization and testing strategies
-ms.date: 01/18/2026
+title: "Packer Best Practices"
+description: "Essential best practices for creating maintainable, efficient, and secure Packer templates with proper organization and testing strategies"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers best practices for creating maintainable, efficient, and secure Packer templates that scale with your infrastructure needs.

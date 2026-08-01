@@ -1,8 +1,9 @@
 ---
 title: "GitHub"
 description: "Comprehensive guide to GitHub's containerization features, CI/CD workflows, GitHub Actions, Container Registry, and development environments for modern containerized applications"
-category: "infrastructure"
 tags: ["containers", "github", "actions", "registry", "codespaces", "ci-cd", "devops", "automation"]
+category: "development"
+last_updated: "2026-08-01"
 ---
 
 GitHub has evolved into a comprehensive DevOps platform that provides powerful tools for containerized application development, deployment, and management. From GitHub Actions for CI/CD automation to GitHub Container Registry for artifact storage and GitHub Codespaces for cloud development environments, GitHub offers a complete ecosystem for modern containerized workflows.

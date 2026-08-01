@@ -1,3 +1,11 @@
+---
+title: "Enterprise DNS"
+description: "Enterprise DNS infrastructure forms the backbone of modern organizational network services, serving as the critical translation layer between human-readable..."
+tags: ["networkservices", "dns", "enterprise"]
+category: "services"
+last_updated: "2026-01-13"
+---
+
 # Enterprise DNS
 
 ## Overview

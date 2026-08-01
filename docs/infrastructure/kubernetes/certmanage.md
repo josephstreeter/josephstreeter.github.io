@@ -2,8 +2,9 @@
 title: "Kubernetes Certificate Management"
 description: "Comprehensive guide to certificate management in Kubernetes environments"
 author: "Joseph Streeter"
-ms.date: "2025-09-08"
-ms.topic: "article"
+tags: ["kubernetes"]
+category: "infrastructure"
+last_updated: "2025-09-08"
 ---
 
 ## Kubernetes Certificate Management

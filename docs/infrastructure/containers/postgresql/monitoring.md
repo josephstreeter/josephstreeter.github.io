@@ -1,11 +1,10 @@
 ---
 title: "PostgreSQL Monitoring and Troubleshooting"
 description: "Monitoring containerized PostgreSQL — logging, pg_stat views, pg_stat_statements, the Prometheus exporter, health checks, and common issues"
-author: josephstreeter
-ms.author: josephstreeter
-ms.date: 2026-07-17
-ms.topic: how-to
-ms.service: infrastructure
+author: "josephstreeter"
+tags: ["containers", "postgresql"]
+category: "infrastructure"
+last_updated: "2026-07-17"
 ---
 
 ## Monitoring and Troubleshooting

@@ -2,11 +2,9 @@
 title: "Prometheus High Availability"
 description: "Comprehensive guide to deploying a highly available Prometheus metrics pipeline with multiple replicas, Thanos, federation, remote storage, and disaster recovery"
 author: "josephstreeter"
-ms.author: josephstreeter
-ms.topic: architecture
-ms.date: 12/30/2025
-keywords: ["prometheus", "high availability", "thanos", "federation", "remote storage", "cortex", "victoriametrics", "ha"]
-uid: docs.infrastructure.prometheus.high-availability
+tags: ["prometheus", "high availability", "thanos", "federation", "remote storage", "cortex", "victoriametrics", "ha"]
+category: "infrastructure"
+last_updated: "2025-12-30"
 ---
 
 ## Overview

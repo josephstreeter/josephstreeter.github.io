@@ -2,10 +2,9 @@
 title: "Building AI Agents"
 description: "Practical guide to designing and implementing AI agents"
 author: "Joseph Streeter"
-ms.date: "2025-12-31"
-ms.topic: "guide"
-keywords: ["building agents", "agent development", "agent implementation", "agent design"]
-uid: docs.ai.agents.building
+tags: ["building agents", "agent development", "agent implementation", "agent design"]
+category: "ai"
+last_updated: "2025-12-31"
 ---
 
 Building AI agents is one of the most exciting applications of modern AI technology. This comprehensive guide walks you through the entire process—from initial design to production deployment—providing practical patterns, code examples, and battle-tested strategies for creating effective, reliable AI agents.

@@ -1,13 +1,10 @@
 ---
-title: Terraform Infrastructure as Code
-description: Complete guide to Terraform, an open-source Infrastructure as Code (IaC) tool for defining, provisioning, and managing cloud infrastructure using declarative configuration files.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 07/08/2025
-ms.topic: article
-ms.service: terraform
-keywords: Terraform, Infrastructure as Code, IaC, HCL, AWS, Azure, Google Cloud, DevOps, automation
-uid: docs.infrastructure.terraform.index
+title: "Terraform Infrastructure as Code"
+description: "Complete guide to Terraform, an open-source Infrastructure as Code (IaC) tool for defining, provisioning, and managing cloud infrastructure using declarative configuration files."
+author: "Joseph Streeter"
+tags: ["terraform", "infrastructure as code", "iac", "hcl", "aws", "azure", "google cloud", "devops"]
+category: "infrastructure"
+last_updated: "2025-07-08"
 ---
 
 Terraform is an open-source Infrastructure as Code (IaC) tool that allows you to define, provision, and manage cloud infrastructure and services using declarative configuration files written in HashiCorp Configuration Language (HCL).

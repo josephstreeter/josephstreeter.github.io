@@ -1,11 +1,10 @@
 ---
-title: cp Command
-description: Comprehensive reference for the cp command in Bash, including syntax, options, recursive copy behavior, and safe usage patterns.
-author: Joseph Streeter
-ms.author: jstreeter
-ms.date: 06/30/2026
-ms.topic: reference
-ms.service: development
+title: "cp Command"
+description: "Comprehensive reference for the cp command in Bash, including syntax, options, recursive copy behavior, and safe usage patterns."
+author: "Joseph Streeter"
+tags: ["bash", "commands"]
+category: "development"
+last_updated: "2026-06-30"
 ---
 
 The `cp` command copies files and directories.

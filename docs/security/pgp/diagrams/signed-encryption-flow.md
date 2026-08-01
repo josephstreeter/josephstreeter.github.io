@@ -1,3 +1,11 @@
+---
+title: "PGP Signed Encryption Flow Diagram"
+description: "PGP Signed Encryption Flow Diagram"
+tags: ["pgp", "diagrams"]
+category: "security"
+last_updated: "2025-07-18"
+---
+
 # PGP Signed Encryption Flow Diagram
 
 ```mermaid

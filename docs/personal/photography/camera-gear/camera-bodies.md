@@ -1,3 +1,11 @@
+---
+title: "Camera Bodies"
+description: "Choose the right camera body for your photography needs."
+tags: ["photography", "camera-gear"]
+category: "personal"
+last_updated: "2025-07-23"
+---
+
 # Camera Bodies
 
 Choose the right camera body for your photography needs. This guide covers different types of camera systems, their strengths and weaknesses, and recommendations for various skill levels and budgets.

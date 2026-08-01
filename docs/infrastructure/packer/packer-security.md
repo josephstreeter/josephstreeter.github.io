@@ -1,8 +1,9 @@
 ---
-uid: infrastructure.packer.security
-title: Packer Security Considerations
-description: Comprehensive guide to security best practices for Packer including credential management, image hardening, vulnerability scanning, and compliance
-ms.date: 01/18/2026
+title: "Packer Security Considerations"
+description: "Comprehensive guide to security best practices for Packer including credential management, image hardening, vulnerability scanning, and compliance"
+tags: ["packer"]
+category: "infrastructure"
+last_updated: "2026-01-18"
 ---
 
 This section covers security best practices when working with Packer, ensuring your machine images are secure from build time through deployment.

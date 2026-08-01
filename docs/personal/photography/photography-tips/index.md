@@ -1,3 +1,11 @@
+---
+title: "Photography Tips"
+description: "Master the art and craft of photography with practical tips, techniques, and creative insights."
+tags: ["photography", "photography-tips"]
+category: "personal"
+last_updated: "2025-07-26"
+---
+
 # Photography Tips
 
 Master the art and craft of photography with practical tips, techniques, and creative insights. This comprehensive collection covers essential skills for photographers at all levels, from composition basics to advanced shooting techniques.

@@ -1,9 +1,10 @@
 ---
-title: BIND9 Security Hardening
-description: Security hardening and protection measures for BIND9 DNS server deployments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-security, dns-hardening, security-configuration]
+title: "BIND9 Security Hardening"
+description: "Security hardening and protection measures for BIND9 DNS server deployments"
+author: "Joseph Streeter"
+tags: ["bind9-security", "dns-hardening", "security-configuration"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Security hardening guidelines and protection measures for BIND9 DNS server environments.

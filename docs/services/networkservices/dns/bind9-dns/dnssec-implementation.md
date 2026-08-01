@@ -1,9 +1,10 @@
 ---
-title: BIND9 DNSSEC Implementation
-description: Implementing DNSSEC security extensions in BIND9 DNS server environments
-author: Joseph Streeter
-date: 2025-09-12
-tags: [bind9-dnssec, dns-security, dnssec-implementation]
+title: "BIND9 DNSSEC Implementation"
+description: "Implementing DNSSEC security extensions in BIND9 DNS server environments"
+author: "Joseph Streeter"
+tags: ["bind9-dnssec", "dns-security", "dnssec-implementation"]
+category: "services"
+last_updated: "2025-09-12"
 ---
 
 Complete guide to implementing DNSSEC in BIND9 for enhanced DNS security.
