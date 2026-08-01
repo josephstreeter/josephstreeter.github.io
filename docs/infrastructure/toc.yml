@@ -17,11 +17,11 @@
   - name: Disaster Recovery
     href: disaster-recovery/index.md
   - name: Linux
-    href: linux/index.md
+    href: linux/toc.yml
   - name: Windows
     href: windows/toc.yml
   - name: Proxmox
-    href: proxmox/index.md
+    href: proxmox/toc.yml
   - name: Containers
     href: containers/toc.yml
   - name: Docker
@@ -30,9 +30,11 @@
     href: ansible/toc.yml
   - name: Terraform
     href: terraform/toc.yml
+  - name: Packer
+    href: packer/toc.yml
   - name: Home Lab
-    href: homelab/index.md
+    href: homelab/toc.yml
   - name: SQL Server
-    href: sql/index.md
+    href: sql/toc.yml
   - name: KQL
-    href: kql/index.md
+    href: kql/toc.yml

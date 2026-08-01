@@ -80,7 +80,7 @@ The installer at `/setup/` can rebuild the database and configuration — it mus
 
 - Give iTop a **dedicated database user** limited to its own schema — not the MySQL root account. The [Deployment](deployment.md) Compose file does this with `MARIADB_USER`.
 - Keep the database on the **internal Docker network**; do not publish port 3306.
-- Source DB credentials from **secrets/`_FILE` variables**, not inline environment values. See [PostgreSQL Security](../postgresql/security.md) for the same principles applied to a database backend, and [MySQL](../mysql/index.md).
+- Source DB credentials from **secrets/`_FILE` variables**, not inline environment values. See [PostgreSQL Security](../postgresql/security.md) for the same principles applied to a database backend, and to the MySQL/MariaDB backend.
 
 ### File Permissions
 

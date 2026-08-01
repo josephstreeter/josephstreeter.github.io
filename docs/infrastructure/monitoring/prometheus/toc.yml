@@ -1,5 +1,7 @@
 - name: Overview
   href: index.md
+- name: PromQL Query Language
+  href: promql.md
 - name: Exporters
   href: exporters.md
 - name: Alerting

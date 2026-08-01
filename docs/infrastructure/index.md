@@ -319,5 +319,5 @@ Found an error or want to improve the documentation? See our contribution guidel
 ### Next Steps
 
 - Learn about [container orchestration with Kubernetes](containers/kubernetes/index.md)
-- Explore [infrastructure as code](containers/terraform/index.md) with Terraform
+- Explore [infrastructure as code](terraform/index.md) with Terraform
 - Set up a [complete home lab environment](homelab/index.md) with multiple services

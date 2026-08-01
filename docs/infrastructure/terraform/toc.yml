@@ -6,6 +6,8 @@
   href: proxmox.md
 - name: Hyper-V
   href: hyper-v.md
+- name: VMware vSphere
+  href: vmware.md
 - name: Gitignore
   href: gitignore.md
 - name: Patterns

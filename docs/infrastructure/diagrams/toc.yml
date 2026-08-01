@@ -1,4 +1,20 @@
+- name: Overview
+  href: index.md
 - name: Basic Cloud Infrastructure
   href: basic-cloud-infra.md
 - name: HA Cloud Infrastructure
   href: ha-cloud-infra.md
+- name: Hybrid Cloud Integration
+  href: hybrid-cloud-integration.md
+- name: Container Platform
+  href: container-platform.md
+- name: DevOps Pipeline
+  href: devops-pipeline.md
+- name: Monitoring Architecture
+  href: monitoring-architecture.md
+- name: Network Security Architecture
+  href: network-security-arch.md
+- name: Zero Trust Model
+  href: zero-trust-model.md
+- name: Disaster Recovery Design
+  href: disaster-recovery-design.md

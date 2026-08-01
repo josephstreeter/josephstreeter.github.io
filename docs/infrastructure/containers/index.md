@@ -81,7 +81,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Security Monitoring
 
-- **[Wazuh](wazuh/index.md)** - Security monitoring and compliance platform
+- **Wazuh** - Security monitoring and compliance platform *(not yet documented)*
   - Host and container security monitoring
   - Threat detection and incident response
   - Compliance reporting and audit trails
@@ -91,7 +91,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Version Control & Collaboration
 
-- **[Git](git/index.md)** - Distributed version control system
+- **[Git](../../development/git/index.md)** - Distributed version control system
   - Repository management and branching strategies
   - Container-focused workflow patterns
   - GitOps deployment methodologies
@@ -102,7 +102,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - GitHub Codespaces for development environments
   - Security scanning and dependency management
 
-- **[GitLab](gitlab/index.md)** - Integrated DevOps platform
+- **GitLab** - Integrated DevOps platform *(not yet documented)*
   - GitLab CI/CD pipelines for containers
   - Container registry and package management
   - Security scanning and compliance features
@@ -115,12 +115,12 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Security scanning integration
   - Deployment automation
 
-- **[GitLab CI](gitlab-ci/index.md)** - Integrated CI/CD pipelines
+- **GitLab CI** - Integrated CI/CD pipelines *(not yet documented)*
   - Container-native build processes
   - Auto DevOps for containerized applications
   - Registry integration and image management
 
-- **[Jenkins](jenkins/index.md)** - Extensible automation server
+- **Jenkins** - Extensible automation server *(not yet documented)*
   - Container-based build agents
   - Pipeline as code with Jenkinsfile
   - Kubernetes plugin integration
@@ -128,7 +128,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Infrastructure as Code
 
-- **[Terraform](terraform/index.md)** - Infrastructure provisioning and management
+- **[Terraform](../terraform/index.md)** - Infrastructure provisioning and management
   - Container infrastructure deployment
   - Multi-cloud orchestration
   - State management and team collaboration
@@ -143,14 +143,14 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Vulnerability Assessment
 
-- **[OWASP ZAP](owasp-zap/index.md)** - Security testing and vulnerability scanning
+- **OWASP ZAP** - Security testing and vulnerability scanning *(not yet documented)*
   - Container image security analysis
   - Runtime application security testing
   - Integration with CI/CD pipelines
 
 ### Secret Management
 
-- **[Vault](vault/index.md)** - Secret and credential management platform
+- **Vault** - Secret and credential management platform *(not yet documented)*
   - Dynamic secret generation for containers
   - Kubernetes integration and service authentication
   - Encryption and key management
@@ -174,12 +174,12 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Backup and recovery strategies
   - Kubernetes operator integration
 
-- **[MySQL](mysql/index.md)** - Popular relational database management system
+- **MySQL** - Popular relational database management system *(not yet documented)*
   - Container configuration and optimization
   - Clustering and scaling solutions
   - Performance tuning and monitoring
 
-- **[Redis](redis/index.md)** - In-memory data structure store
+- **Redis** - In-memory data structure store *(not yet documented)*
   - Cache and session storage for containers
   - High availability with Redis Sentinel
   - Clustering for horizontal scaling
@@ -187,17 +187,17 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Database Management Tools
 
-- **DBeaver** - Universal database management platform
+- **DBeaver** - Universal database management platform *(not yet documented)*
   - Container-based deployment options
   - Multi-database connectivity and management
   - Team collaboration features
 
-- **[pgAdmin](pgadmin/index.md)** - PostgreSQL administration platform
+- **pgAdmin** - PostgreSQL administration platform *(not yet documented)*
   - Web-based administration interface
   - Container deployment and configuration
   - User management and security
 
-- **[MongoDB Compass](mongodb-compass/index.md)** - MongoDB GUI and analysis tool
+- **MongoDB Compass** - MongoDB GUI and analysis tool *(not yet documented)*
   - Visual database exploration and analysis
   - Query performance optimization
   - Schema visualization and validation
@@ -239,43 +239,43 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Code Editors & IDEs
 
-- **[Visual Studio Code](vscode/index.md)** - Extensible code editor
+- **[Visual Studio Code](../../development/vscode/index.md)** - Extensible code editor
   - Container development extensions
   - Remote development capabilities
   - Docker and Kubernetes integration
   - DevContainer configurations
 
-- **[Vim](vim/index.md)** - Terminal-based text editor
+- **Vim** - Terminal-based text editor *(not yet documented)*
   - Container-friendly editing workflows
   - Plugin ecosystem for development
   - Remote editing capabilities
 
 ### Development Utilities
 
-- **[Terminal](terminal/index.md)** - Command-line interface and utilities
+- **Terminal** - Command-line interface and utilities *(not yet documented)*
   - Container management commands
   - Shell scripting for automation
   - Remote access and management
 
 ### Package Managers
 
-- **[pip](pip/index.md)** - Python package installer
+- **pip** - Python package installer *(not yet documented)*
   - Container-based Python development
   - Dependency management in containers
   - Virtual environment best practices
 
 ### Documentation & Configuration
 
-- **[Markdown](markdown/index.md)** - Lightweight markup language
+- **Markdown** - Lightweight markup language *(not yet documented)*
   - Documentation standards for container projects
   - README and documentation best practices
 
-- **[YAML](yaml/index.md)** - Human-readable data serialization
+- **YAML** - Human-readable data serialization *(not yet documented)*
   - Container configuration files
   - Kubernetes manifest authoring
   - CI/CD pipeline definitions
 
-- **[Regular Expressions](regex/index.md)** - Pattern matching and text processing
+- **[Regular Expressions](../../development/regex/index.md)** - Pattern matching and text processing
   - Log analysis and parsing
   - Configuration file manipulation
   - Search and replace operations
@@ -291,7 +291,7 @@ If you're new to containerization, follow this learning path:
    - Docker installation and basic commands
    - Creating and running your first container
 
-2. **[Container Development](vscode/index.md)** - Set up your development environment
+2. **[Container Development](../../development/vscode/index.md)** - Set up your development environment
    - Install Docker Desktop and VS Code
    - Configure container development extensions
    - Create your first containerized application

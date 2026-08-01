@@ -9,3 +9,11 @@
     href: helm.md
   - name: Monitoring and Logging
     href: monitoring.md
+  - name: Ingress
+    href: ingress.md
+  - name: Service Mesh
+    href: service-mesh.md
+  - name: Certificate Management
+    href: certmanage.md
+  - name: Azure Kubernetes Service (AKS)
+    href: aks.md

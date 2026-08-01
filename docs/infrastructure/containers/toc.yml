@@ -1,14 +1,38 @@
-- name: Apache HTTP Server
-  href: apache/toc.yml
-- name: Asterisk PBX
-  href: asterisk/toc.yml
-- name: Authentik
-  href: authentik/toc.yml
-- name: iTop ITSM / CMDB
-  href: itop/toc.yml
+- name: Overview
+  href: index.md
 - name: Kubernetes
   href: kubernetes/toc.yml
-- name: Nginx
-  href: nginx/toc.yml
-- name: PostgreSQL
-  href: postgresql/toc.yml
+- name: Container Orchestration
+  href: orchestration/index.md
+- name: Kubernetes Networking
+  href: networking/index.md
+- name: Container Security
+  href: security/index.md
+- name: Logging and Observability
+  items:
+  - name: ELK Stack
+    href: elk-stack/index.md
+  - name: Loki
+    href: loki/index.md
+- name: CI/CD and Build Tooling
+  items:
+  - name: GitHub
+    href: github/index.md
+  - name: GitHub Actions
+    href: github-actions/index.md
+  - name: Make
+    href: make/index.md
+- name: Containerized Services
+  items:
+  - name: Apache HTTP Server
+    href: apache/toc.yml
+  - name: Asterisk PBX
+    href: asterisk/toc.yml
+  - name: Authentik
+    href: authentik/toc.yml
+  - name: iTop ITSM / CMDB
+    href: itop/toc.yml
+  - name: Nginx
+    href: nginx/toc.yml
+  - name: PostgreSQL
+    href: postgresql/toc.yml

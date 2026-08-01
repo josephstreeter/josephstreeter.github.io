@@ -66,7 +66,7 @@ docker exec itop-app php /var/www/html/webservices/cron.php \
     start_period: 60s
   ```
 
-- **Database** — monitor MariaDB/MySQL separately (connections, slow queries); see [MySQL](../mysql/index.md).
+- **Database** — monitor MariaDB/MySQL separately (connections, slow queries).
 - **Reverse proxy** — front-end metrics (status codes, latency) via the proxy's own monitoring ([Nginx](../nginx/monitoring.md) / [Apache](../apache/monitoring.md)).
 
 ### Troubleshooting Guide

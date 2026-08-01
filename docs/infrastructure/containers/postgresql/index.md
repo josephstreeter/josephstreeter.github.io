@@ -13,7 +13,7 @@ ms.service: infrastructure
 [PostgreSQL](https://www.postgresql.org/) ("Postgres") is a powerful, open-source object-relational database with 35+ years of development, full ACID compliance, MVCC, and a rich extension ecosystem. This section focuses on **running PostgreSQL in containers** with Docker — deployment, configuration and tuning, data persistence, backup and recovery, replication and high availability, security, and monitoring.
 
 > [!NOTE]
-> This section covers the **operational, containerized** side of PostgreSQL. For the SQL language, data types, indexing, query tuning, and general database concepts, see the [PostgreSQL developer guide](../../../development/databases/postgresql.md). For administration UIs, see [pgAdmin](../pgadmin/index.md).
+> This section covers the **operational, containerized** side of PostgreSQL. For the SQL language, data types, indexing, query tuning, and general database concepts, see the [PostgreSQL developer guide](../../../development/databases/postgresql.md). For administration UIs, see pgAdmin.
 
 ### The Official Image
 
@@ -60,6 +60,6 @@ Running PostgreSQL in a container adds a few considerations beyond a bare-metal 
 ### Related Topics
 
 - [PostgreSQL developer guide](../../../development/databases/postgresql.md) — SQL, indexing, and query tuning
-- [pgAdmin](../pgadmin/index.md) — web administration UI
+- pgAdmin — web administration UI *(not yet documented)*
 - [Docker](../../docker/index.md)
 - [Kubernetes](../kubernetes/index.md)
