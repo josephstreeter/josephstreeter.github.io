@@ -857,7 +857,7 @@ kubectl logs -n istio-system deployment/istiod
 - **[Ingress](ingress.md)** - HTTP/HTTPS routing
 - **[Certificate Management](certmanage.md)** - TLS certificate automation
 - **[Container Security](../security/index.md)** - Security best practices
-- **[Monitoring](../../monitoring/index.md)** - Observability and monitoring
+- **[Monitoring](../monitoring/index.md)** - Observability and monitoring
 
 ---
 

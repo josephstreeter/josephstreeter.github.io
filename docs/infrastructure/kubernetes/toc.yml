@@ -3,17 +3,19 @@
   items:
   - name: Projects for Beginners
     href: projects-for-beginners.md
-  - name: ArgoCD - GitOps for Kubernetes
-    href: argocd.md
-  - name: Helm - Package Manager for Kubernetes
-    href: helm.md
-  - name: Monitoring and Logging
-    href: monitoring.md
+  - name: Networking
+    href: networking.md
   - name: Ingress
     href: ingress.md
   - name: Service Mesh
     href: service-mesh.md
   - name: Certificate Management
     href: certmanage.md
+  - name: Helm - Package Manager for Kubernetes
+    href: helm.md
+  - name: ArgoCD - GitOps for Kubernetes
+    href: argocd.md
+  - name: Monitoring and Logging
+    href: monitoring.md
   - name: Azure Kubernetes Service (AKS)
     href: aks.md

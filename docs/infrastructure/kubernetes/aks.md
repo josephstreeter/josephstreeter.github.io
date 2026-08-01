@@ -311,8 +311,8 @@ kubectl describe resourcequota --all-namespaces
 ## Related Documentation
 
 - **[Kubernetes](index.md)** - Core Kubernetes concepts
-- **[Container Registry](../../docker/index.md)** - Container image management
-- **[Monitoring](../../monitoring/index.md)** - Infrastructure monitoring
+- **[Container Registry](../docker/index.md)** - Container image management
+- **[Monitoring](../monitoring/index.md)** - Infrastructure monitoring
 
 ---
 

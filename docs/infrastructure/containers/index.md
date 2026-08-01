@@ -7,7 +7,11 @@ difficulty: "intermediate"
 last_updated: "2025-08-20"
 ---
 
-Container infrastructure forms the backbone of modern cloud-native applications, providing consistent, scalable, and portable deployment environments. This section covers the complete containerization ecosystem, from basic container technologies to advanced orchestration platforms and supporting infrastructure.
+Container infrastructure forms the backbone of modern cloud-native applications, providing consistent, scalable, and portable deployment environments. This page is a map of the whole containerization ecosystem across the documentation — most entries below link out to the section that owns the topic.
+
+**What lives in this section:** [Container Orchestration](orchestration/index.md) (choosing between orchestrators), [Container Security](security/index.md), and the containerized services — Apache, Asterisk, Authentik, iTop, Nginx, and PostgreSQL.
+
+**Where the container platforms live:** [Docker](../docker/index.md) and [Kubernetes](../kubernetes/index.md) each have their own top-level section. Log aggregation is under [Monitoring](../monitoring/index.md); CI/CD tooling is under [Development](../../development/index.md).
 
 ## Table of Contents
 
@@ -38,7 +42,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Container Orchestration
 
-- **[Kubernetes](kubernetes/index.md)** - Enterprise container orchestration platform
+- **[Kubernetes](../kubernetes/index.md)** - Enterprise container orchestration platform
   - Cluster setup and configuration
   - Workload management and scaling
   - Service discovery and networking
@@ -67,13 +71,13 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Log Aggregation
 
-- **[Loki](loki/index.md)** - Log aggregation system optimized for Kubernetes
+- **[Loki](../monitoring/loki/index.md)** - Log aggregation system optimized for Kubernetes
   - LogQL query language for log analysis
   - Promtail log collection agent
   - Grafana integration for unified observability
   - Scalable storage and retention policies
 
-- **[ELK Stack](elk-stack/index.md)** - Elasticsearch, Logstash, and Kibana
+- **[ELK Stack](../monitoring/elk-stack/index.md)** - Elasticsearch, Logstash, and Kibana
   - Centralized logging and search capabilities
   - Log parsing and transformation with Logstash
   - Rich visualizations and dashboards with Kibana
@@ -96,7 +100,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - Container-focused workflow patterns
   - GitOps deployment methodologies
 
-- **[GitHub](github/index.md)** - Git hosting and DevOps platform
+- **[GitHub](../../development/github/index.md)** - Git hosting and DevOps platform
   - GitHub Actions for container CI/CD
   - GitHub Container Registry (GHCR)
   - GitHub Codespaces for development environments
@@ -109,7 +113,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
 
 ### Build and Deployment Automation
 
-- **[GitHub Actions](github-actions/index.md)** - Workflow automation platform
+- **[GitHub Actions](../../development/github-actions/index.md)** - Workflow automation platform
   - Container build and push workflows
   - Multi-platform image builds
   - Security scanning integration
@@ -134,7 +138,7 @@ Container infrastructure forms the backbone of modern cloud-native applications,
   - State management and team collaboration
   - Integration with Kubernetes and cloud providers
 
-- **[Make](make/index.md)** - Build automation and task runner
+- **[Make](../../development/make/index.md)** - Build automation and task runner
   - Container build automation
   - Development workflow standardization
   - Multi-environment deployment scripts

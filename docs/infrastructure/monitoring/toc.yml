@@ -8,3 +8,9 @@
   href: grafana/toc.yml
 - name: Azure Monitor
   href: azure-monitor/toc.yml
+- name: Log Aggregation
+  items:
+  - name: Loki
+    href: loki/index.md
+  - name: ELK Stack
+    href: elk-stack/index.md

@@ -50,7 +50,7 @@ Swarm remains supported and is a reasonable choice for a handful of nodes runnin
 you deploy by hand, a homelab, or an edge site where a Kubernetes control plane is
 disproportionate. Choose Kubernetes when you need autoscaling, multi-tenancy, or the wider
 ecosystem — and see [Container Orchestration](../containers/orchestration/index.md) and
-[Kubernetes](../containers/kubernetes/index.md) for that path.
+[Kubernetes](../kubernetes/index.md) for that path.
 
 > [!NOTE]
 > Swarm development is in maintenance mode: it receives fixes and security updates rather
@@ -763,4 +763,4 @@ Running services continue throughout — this restores the control plane, not th
 - [Registries](registries.md) — private image access from workers
 - [Daemon Configuration](daemon.md) — cluster host configuration
 - [Container Orchestration](../containers/orchestration/index.md) — comparison with other orchestrators
-- [Kubernetes](../containers/kubernetes/index.md) — the alternative when Swarm is not enough
+- [Kubernetes](../kubernetes/index.md) — the alternative when Swarm is not enough

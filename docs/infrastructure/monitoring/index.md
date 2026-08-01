@@ -130,7 +130,7 @@ The following are complementary approaches this section references but does not 
 
 Metrics answer "what is happening"; logs answer "why". Common log pipelines:
 
-- **ELK / Elastic Stack** (Elasticsearch + Logstash + Kibana) — see the [ELK Stack container guide](../containers/elk-stack/index.md).
+- **ELK / Elastic Stack** (Elasticsearch + Logstash + Kibana) — see the [ELK Stack container guide](elk-stack/index.md).
 - **Grafana Loki** — a log store that pairs with Grafana, using labels like Prometheus.
 - **Fluentd / Fluent Bit** — log collectors/forwarders, common in Kubernetes.
 
@@ -141,7 +141,7 @@ Distributed tracing and request-level telemetry (latency, error rate, dependenci
 ### Container and Kubernetes Monitoring
 
 - **Docker** — container and host metrics via cAdvisor and Node Exporter. See [Docker monitoring](../docker/monitoring.md).
-- **Kubernetes** — the kube-prometheus-stack (Prometheus Operator) is the standard, adding kube-state-metrics and service discovery. See [Kubernetes monitoring](../containers/kubernetes/monitoring.md).
+- **Kubernetes** — the kube-prometheus-stack (Prometheus Operator) is the standard, adding kube-state-metrics and service discovery. See [Kubernetes monitoring](../kubernetes/monitoring.md).
 
 ## Best Practices
 
@@ -213,5 +213,5 @@ For less critical targets, raise `scrape_interval`/`evaluation_interval` in `pro
 - **[Grafana](grafana/index.md)** - Dashboards, configuration, security, exporters, alerting, HA, and backup
 - **[Azure Monitor](azure-monitor/index.md)** - The managed alternate stack: data collection, Azure Alerts, and visualization
 - **[Container Monitoring](../docker/monitoring.md)** - Docker-specific monitoring
-- **[Kubernetes Monitoring](../containers/kubernetes/monitoring.md)** - K8s cluster monitoring
+- **[Kubernetes Monitoring](../kubernetes/monitoring.md)** - K8s cluster monitoring
 - **[Infrastructure Security](../security/index.md)** - Securing monitoring infrastructure

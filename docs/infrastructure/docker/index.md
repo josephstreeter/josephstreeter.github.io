@@ -194,7 +194,7 @@ docker compose up -d --scale web=3
 ## Related Topics
 
 - [Container Infrastructure](../containers/index.md) — the wider container ecosystem
-- [Kubernetes](../containers/kubernetes/index.md) — orchestration beyond a single host
+- [Kubernetes](../kubernetes/index.md) — orchestration beyond a single host
 - [Container Security](../containers/security/index.md) — image scanning, runtime hardening
 - [Infrastructure Monitoring](../monitoring/index.md) — Prometheus and Grafana
 - [CI/CD Pipelines](../../development/automation/ci-cd/index.md) — automating builds and deploys

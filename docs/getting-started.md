@@ -66,7 +66,7 @@ Welcome to the comprehensive technical documentation site! This guide will help 
 ### New to Container Technology?
 
 1. Begin with **[Docker Basics](infrastructure/docker/index.md)**
-2. Progress to **[Kubernetes](infrastructure/containers/kubernetes/index.md)**
+2. Progress to **[Kubernetes](infrastructure/kubernetes/index.md)**
 3. Learn **[Container Orchestration](infrastructure/containers/index.md)**
 4. Implement **[Monitoring](infrastructure/monitoring/index.md)**
 

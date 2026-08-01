@@ -770,7 +770,7 @@ spec:
 - **[Certificate Management](certmanage.md)** - TLS certificate automation
 - **[Service Mesh](service-mesh.md)** - Advanced traffic management
 - **[Container Security](../security/index.md)** - Security best practices
-- **[Monitoring](../../monitoring/index.md)** - Observability and monitoring
+- **[Monitoring](../monitoring/index.md)** - Observability and monitoring
 
 ---
 

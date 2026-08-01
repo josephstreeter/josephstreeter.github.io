@@ -13,7 +13,7 @@ them.
 
 > [!NOTE]
 > For the Docker engine's own networking — bridge and macvlan drivers, embedded DNS, port
-> publishing, and firewall interaction — see [Docker Networking](../../docker/networking.md).
+> publishing, and firewall interaction — see [Docker Networking](../docker/networking.md).
 
 ## Kubernetes Networking
 
@@ -493,8 +493,8 @@ spec:
 
 - [Docker Networking](~/docs/infrastructure/docker/networking.md) — the Docker engine's networking
 - [Docker Fundamentals](~/docs/infrastructure/docker/index.md)
-- [Kubernetes Fundamentals](~/docs/infrastructure/containers/kubernetes/index.md)
+- [Kubernetes Fundamentals](~/docs/infrastructure/kubernetes/index.md)
 - [Container Security](~/docs/infrastructure/containers/security/index.md)
-- [Service Mesh](~/docs/infrastructure/containers/kubernetes/service-mesh.md)
-- [Ingress Controllers](~/docs/infrastructure/containers/kubernetes/ingress.md)
+- [Service Mesh](~/docs/infrastructure/kubernetes/service-mesh.md)
+- [Ingress Controllers](~/docs/infrastructure/kubernetes/ingress.md)
 - [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)

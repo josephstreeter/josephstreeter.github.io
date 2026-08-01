@@ -16,7 +16,7 @@ appears to do nothing — come from a small number of behaviors that are worth u
 directly rather than by trial and error.
 
 This page covers the Docker engine's networking. For Kubernetes networking (CNI plugins,
-Services, Ingress, NetworkPolicy), see [Container Networking](../containers/networking/index.md).
+Services, Ingress, NetworkPolicy), see [Container Networking](../kubernetes/networking.md).
 
 ## Table of Contents
 
@@ -602,5 +602,5 @@ communicate over a shared user-defined network rather than through the host.
 - [Daemon Configuration](daemon.md) — `daemon.json`, DNS defaults, MTU, and iptables control
 - [Docker Swarm](swarm.md) — overlay networks and the routing mesh
 - [Working with Containers](containers.md) — container lifecycle and operations
-- [Container Networking](../containers/networking/index.md) — Kubernetes CNI, Services, and NetworkPolicy
+- [Container Networking](../kubernetes/networking.md) — Kubernetes CNI, Services, and NetworkPolicy
 - [Container Security](../containers/security/index.md) — network isolation as a security control

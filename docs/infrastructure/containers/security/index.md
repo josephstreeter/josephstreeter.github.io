@@ -1111,9 +1111,9 @@ Essential security practices:
 
 ## Related Documentation
 
-- **[Kubernetes Ingress](../kubernetes/ingress.md)** - HTTP/HTTPS routing security
-- **[Service Mesh](../kubernetes/service-mesh.md)** - Advanced traffic security
-- **[Certificate Management](../kubernetes/certmanage.md)** - TLS certificate automation
+- **[Kubernetes Ingress](../../kubernetes/ingress.md)** - HTTP/HTTPS routing security
+- **[Service Mesh](../../kubernetes/service-mesh.md)** - Advanced traffic security
+- **[Certificate Management](../../kubernetes/certmanage.md)** - TLS certificate automation
 - **[Infrastructure Security](../../security/index.md)** - Overall security practices
 - **[Monitoring](../../monitoring/index.md)** - Security monitoring and alerting
 

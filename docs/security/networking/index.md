@@ -952,5 +952,5 @@ EOF
 - [Windows Security](~/docs/security/windows/index.md)
 - [Container Security](~/docs/infrastructure/containers/security/index.md)
 - [Infrastructure Monitoring](~/docs/infrastructure/monitoring/index.md)
-- [Container Networking](~/docs/infrastructure/containers/networking/index.md)
+- [Container Networking](~/docs/infrastructure/kubernetes/networking.md)
 - [SSH Security](~/docs/security/ssh/index.md)

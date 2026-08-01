@@ -16,6 +16,12 @@
     href: docfx/index.md
   - name: Git
     href: git/index.md
+  - name: GitHub
+    href: github/index.md
+  - name: GitHub Actions
+    href: github-actions/index.md
+  - name: Make
+    href: make/index.md
   - name: Bash
     href: bash/toc.yml
   - name: PowerShell

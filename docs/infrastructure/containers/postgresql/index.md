@@ -62,4 +62,4 @@ Running PostgreSQL in a container adds a few considerations beyond a bare-metal 
 - [PostgreSQL developer guide](../../../development/databases/postgresql.md) — SQL, indexing, and query tuning
 - pgAdmin — web administration UI *(not yet documented)*
 - [Docker](../../docker/index.md)
-- [Kubernetes](../kubernetes/index.md)
+- [Kubernetes](../../kubernetes/index.md)

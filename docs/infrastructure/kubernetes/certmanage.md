@@ -141,7 +141,7 @@ spec:
 
 ### Creating Self-Signed Certificates
 
-For development or internal services only. For the full self-signed and OpenSSL reference (formats, key types, validation), see [Self-Signed Certificates](../../../security/certificates/self-signed.md) and the [OpenSSL Guide](../../../security/certificates/openssl/index.md). In production, prefer cert-manager with an ACME or CA issuer (below).
+For development or internal services only. For the full self-signed and OpenSSL reference (formats, key types, validation), see [Self-Signed Certificates](../../security/certificates/self-signed.md) and the [OpenSSL Guide](../../security/certificates/openssl/index.md). In production, prefer cert-manager with an ACME or CA issuer (below).
 
 ```bash
 # Generate private key
