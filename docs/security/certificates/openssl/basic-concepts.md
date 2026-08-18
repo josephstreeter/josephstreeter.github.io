@@ -75,12 +75,32 @@ openssl ecparam -list_curves
 # Generate a random sequence of bytes
 openssl rand -base64 32
 
-# Encrypt a file with AES-256
-openssl enc -aes-256-cbc -salt -in plaintext.txt -out encrypted.bin
+# Encrypt a file with AES-256 (always pass -pbkdf2; see Advanced Operations)
+openssl enc -aes-256-cbc -salt -pbkdf2 -in plaintext.txt -out encrypted.bin
 
 # Decrypt an encrypted file
-openssl enc -aes-256-cbc -d -in encrypted.bin -out decrypted.txt
+openssl enc -aes-256-cbc -d -pbkdf2 -in encrypted.bin -out decrypted.txt
 ```
+
+### File Naming Conventions Used in This Guide
+
+Examples throughout this section use a consistent set of placeholder filenames. Knowing what each one holds makes the commands easier to read and adapt:
+
+| Filename | Contents |
+| -------- | -------- |
+| `private.key` | The end-entity (leaf) private key |
+| `request.csr` | The certificate signing request for that key |
+| `certificate.crt` | The end-entity (leaf) certificate |
+| `intermediate.crt` | A single intermediate CA certificate |
+| `rootca.crt` | The root CA certificate — the trust anchor |
+| `ca.crt` | The issuing CA's certificate, in single-tier examples where there is no intermediate |
+| `ca-chain.crt` | Intermediate(s) + root concatenated. This is the **trust input**, passed to `openssl verify -CAfile` |
+| `fullchain.pem` | Leaf + intermediate(s) concatenated. This is the **deployment artifact** a web server presents to clients |
+
+> [!NOTE]
+> `ca-chain.crt` and `fullchain.pem` are frequently confused. The distinction is whether the leaf certificate is included: a trust bundle never contains the leaf, while the chain a server sends always starts with it. Sending the wrong file is a common cause of validation failures.
+>
+> The `.crt` and `.pem` extensions carry no technical meaning — both files are PEM-encoded either way. The extensions here are only conventional labels.
 
 ### Command Structure
 

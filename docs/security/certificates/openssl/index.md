@@ -25,7 +25,7 @@ With its versatile capabilities, OpenSSL enables security professionals, system 
 - Encrypt sensitive data using industry-standard algorithms
 - Develop security-focused applications with cryptographic functionality
 
-As one of the most widely deployed security toolkits in the world, OpenSSL secures approximately 70% of web servers globally and forms a critical component in countless security-critical applications and infrastructure.
+OpenSSL is one of the most widely deployed security toolkits in the world, and forms a critical component in countless security-critical applications and infrastructure.
 
 > [!NOTE]
 > This guide is designed to be practical and hands-on, with ready-to-use command examples and real-world scenarios. Commands are tested with OpenSSL 3.x, with notes for version-specific differences where relevant.

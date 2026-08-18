@@ -158,10 +158,10 @@ ECC provides stronger security with smaller key sizes:
 
 ```bash
 # Generate an EC private key using a named curve
-openssl ecparam -name prime256v1 -genkey -noout -out ec_key.pem
+openssl ecparam -name prime256v1 -genkey -noout -out ec_private.key
 
 # Convert EC key to PKCS#8 format with encryption
-openssl pkcs8 -topk8 -in ec_key.pem -out ec_key_pkcs8.pem -encrypt
+openssl pkcs8 -topk8 -in ec_private.key -out ec_key_pkcs8.pem -encrypt
 
 # List supported EC curves
 openssl ecparam -list_curves
@@ -170,10 +170,10 @@ openssl ecparam -list_curves
 openssl ecparam -name secp384r1 -out secp384r1.pem
 
 # Generate a CSR using an EC key
-openssl req -new -key ec_key.pem -out ec_request.csr
+openssl req -new -key ec_private.key -out ec_request.csr
 
 # Create a self-signed cert with EC key
-openssl req -new -x509 -key ec_key.pem -out ec_cert.pem -days 365
+openssl req -new -x509 -key ec_private.key -out ec_cert.pem -days 365
 ```
 
 ## Navigation

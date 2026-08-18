@@ -16,40 +16,43 @@ OpenSSL provides powerful tools for testing and troubleshooting SSL/TLS connecti
 
 The `s_client` command creates an SSL/TLS client connection to a server, showing details about the handshake, certificates, and protocols:
 
+> [!TIP]
+> After the handshake completes, `s_client` hands you an open connection and waits for input to send to the server. If you only want the handshake details, this looks like the command has hung. Redirect stdin with `</dev/null` — as every example below does — to close the connection and return to your shell as soon as the handshake finishes. Omit it only when you intend to type into the session (for example, sending `GET / HTTP/1.0` by hand).
+
 ```bash
 # Basic connection test (HTTPS)
-openssl s_client -connect example.com:443
+openssl s_client -connect example.com:443 </dev/null
 
 # Test with Server Name Indication (SNI) - important for virtual hosts
-openssl s_client -connect example.com:443 -servername example.com
+openssl s_client -connect example.com:443 -servername example.com </dev/null
 
 # Display the full certificate chain
-openssl s_client -connect example.com:443 -showcerts
+openssl s_client -connect example.com:443 -showcerts </dev/null
 
 # Save server certificate to a file
 openssl s_client -connect example.com:443 -showcerts </dev/null | \
   sed -n '/-----BEGIN CERTIFICATE-----/,/-----END CERTIFICATE-----/p' > certificate.pem
 
 # Test a specific TLS version
-openssl s_client -connect example.com:443 -tls1_2
-openssl s_client -connect example.com:443 -tls1_3
+openssl s_client -connect example.com:443 -tls1_2 </dev/null
+openssl s_client -connect example.com:443 -tls1_3 </dev/null
 
 # Force TLSv1.3 only
-openssl s_client -connect example.com:443 -tls1_3 -no_tls1_2 -no_tls1_1 -no_tls1
+openssl s_client -connect example.com:443 -tls1_3 -no_tls1_2 -no_tls1_1 -no_tls1 </dev/null
 
 # Test STARTTLS for protocols like SMTP, POP3, IMAP, FTP
-openssl s_client -connect mail.example.com:25 -starttls smtp
-openssl s_client -connect mail.example.com:110 -starttls pop3
-openssl s_client -connect mail.example.com:143 -starttls imap
+openssl s_client -connect mail.example.com:25 -starttls smtp </dev/null
+openssl s_client -connect mail.example.com:110 -starttls pop3 </dev/null
+openssl s_client -connect mail.example.com:143 -starttls imap </dev/null
 
 # Check for certificate expiration
-openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -dates
+openssl s_client -connect example.com:443 </dev/null 2>/dev/null | openssl x509 -noout -dates
 
 # Bypass DNS resolution with IP connection
-openssl s_client -connect 192.168.1.1:443 -servername example.com
+openssl s_client -connect 192.168.1.1:443 -servername example.com </dev/null
 
 # View all handshake details including session tickets and session resumption
-openssl s_client -connect example.com:443 -state -debug
+openssl s_client -connect example.com:443 -state -debug </dev/null
 ```
 
 ### Analyzing Connection Security
@@ -58,46 +61,62 @@ Evaluate various security aspects of an SSL/TLS connection:
 
 ```bash
 # Check for SSL renegotiation support (security vulnerability)
-openssl s_client -connect example.com:443 -reconnect
+openssl s_client -connect example.com:443 -reconnect </dev/null
 
 # Check for session resumption capability
-openssl s_client -connect example.com:443 -reconnect -no_ticket
+openssl s_client -connect example.com:443 -reconnect -no_ticket </dev/null
 
 # Verify OCSP stapling
-openssl s_client -connect example.com:443 -status
-
-# Check which cipher suites a server supports
-for cipher in $(openssl ciphers 'ALL:eNULL' | tr ':' ' '); do
-  echo -n "Testing $cipher... "
-  result=$(openssl s_client -connect example.com:443 -cipher "$cipher" -servername example.com </dev/null 2>&1)
-  if [[ "$result" =~ "Cipher is $cipher" || "$result" =~ "Cipher    :" ]]; then
-    echo "Supported"
-  else
-    echo "Not supported"
-  fi
-done
-
-# Test for specific vulnerabilities
-# Heartbleed
-openssl s_client -connect example.com:443 -tlsextdebug 2>&1 | grep 'server extension "heartbeat"'
-
-# BEAST vulnerability (CBC ciphers in TLSv1.0)
-openssl s_client -connect example.com:443 -tls1 -cipher 'ECDHE-RSA-AES128-SHA:AES128-SHA'
-
-# POODLE vulnerability (SSLv3)
-openssl s_client -connect example.com:443 -ssl3
-
-# FREAK vulnerability (export ciphers)
-openssl s_client -connect example.com:443 -cipher 'EXPORT'
-
-# CRIME vulnerability (TLS compression)
-openssl s_client -connect example.com:443 -compress
+openssl s_client -connect example.com:443 -status </dev/null
 
 # Check for secure renegotiation support
-openssl s_client -connect example.com:443 | grep "Secure Renegotiation"
+openssl s_client -connect example.com:443 </dev/null 2>/dev/null | grep "Secure Renegotiation"
 
 # Check for perfect forward secrecy (a "Server Temp Key" line indicates PFS)
-openssl s_client -connect example.com:443 | grep "Server Temp Key"
+openssl s_client -connect example.com:443 </dev/null 2>/dev/null | grep "Server Temp Key"
+```
+
+#### Enumerating supported cipher suites
+
+Use a purpose-built scanner rather than OpenSSL for this. `testssl.sh`, `sslyze`, and Qualys SSL Labs already know which probes are meaningful against which protocol version, and they report results you can act on:
+
+```bash
+testssl.sh --cipher-per-proto example.com:443
+sslyze --regular example.com:443
+```
+
+A hand-rolled loop over `openssl ciphers` is a poor substitute. It opens one connection per cipher — hundreds of connections, often enough to trip rate limiting or intrusion detection — it can only test the ciphers your local build happens to support, and `-cipher` has no effect on TLS 1.3 (which uses the separate `-ciphersuites` list). To check one specific suite, connect with it directly:
+
+```bash
+# TLS 1.2 and earlier
+openssl s_client -connect example.com:443 -servername example.com \
+  -cipher 'ECDHE-RSA-AES256-GCM-SHA384' -tls1_2 </dev/null
+
+# TLS 1.3 uses -ciphersuites instead
+openssl s_client -connect example.com:443 -servername example.com \
+  -ciphersuites TLS_AES_256_GCM_SHA384 -tls1_3 </dev/null
+```
+
+#### Legacy vulnerability probes
+
+> [!IMPORTANT]
+> Most of the classic probes below no longer run on a current OpenSSL. SSLv3, TLS 1.0/1.1, export ciphers, and TLS compression are compiled out of stock OpenSSL 3.x builds, so these commands typically fail with `unknown option` or `no ciphers available` — **which is a report about your client, not about the server.** Do not read such a failure as "the server is not vulnerable." Use `testssl.sh` (which ships its own probes) for real vulnerability assessment.
+
+```bash
+# Heartbleed — does the server advertise the heartbeat extension?
+openssl s_client -connect example.com:443 -tlsextdebug </dev/null 2>&1 | grep 'heartbeat'
+
+# BEAST (CBC ciphers in TLS 1.0) — requires a build with TLS 1.0 enabled
+openssl s_client -connect example.com:443 -tls1 -cipher 'ECDHE-RSA-AES128-SHA:AES128-SHA' </dev/null
+
+# POODLE (SSLv3) — requires a build with SSLv3 enabled (rare since 2016)
+openssl s_client -connect example.com:443 -ssl3 </dev/null
+
+# FREAK (export ciphers) — export ciphers were removed in OpenSSL 1.1.0
+openssl s_client -connect example.com:443 -cipher 'EXPORT' </dev/null
+
+# CRIME (TLS compression) — most builds are compiled without zlib support
+openssl s_client -connect example.com:443 -compress </dev/null
 ```
 
 ### Server Setup and Testing
@@ -119,7 +138,7 @@ openssl s_server -cert server.crt -key server.key -accept 4433 -tls1_2 -cipher '
 openssl s_server -cert server.crt -key server.key -accept 4433 -verify 1 -CAfile ca.crt
 
 # Connect to a test server with a client certificate
-openssl s_client -connect localhost:4433 -cert client.crt -key client.key -CAfile ca.crt
+openssl s_client -connect localhost:4433 -cert client.crt -key client.key -CAfile ca.crt </dev/null
 ```
 
 ### Practical Security Assessments
@@ -173,7 +192,7 @@ openssl ciphers -v 'ALL:@STRENGTH'
 
 # Check if a server supports a specific cipher
 # (if the connection succeeds, the server supports it)
-openssl s_client -connect example.com:443 -cipher 'ECDHE-RSA-AES256-GCM-SHA384'
+openssl s_client -connect example.com:443 -cipher 'ECDHE-RSA-AES256-GCM-SHA384' </dev/null
 ```
 
 ### Modern TLS 1.3 Configurations
@@ -186,21 +205,21 @@ openssl version
 openssl ciphers -v | grep TLSv1.3
 
 # Test TLS 1.3 connection
-openssl s_client -connect example.com:443 -tls1_3
+openssl s_client -connect example.com:443 -tls1_3 </dev/null
 
 # Test TLS 1.3 with specific cipher suite
-openssl s_client -connect example.com:443 -tls1_3 -ciphersuites TLS_AES_256_GCM_SHA384
+openssl s_client -connect example.com:443 -tls1_3 -ciphersuites TLS_AES_256_GCM_SHA384 </dev/null
 
 # View TLS 1.3 handshake details
-openssl s_client -connect example.com:443 -tls1_3 -msg -state
+openssl s_client -connect example.com:443 -tls1_3 -msg -state </dev/null
 
 # List supported TLS 1.3 cipher suites
 openssl ciphers -v -tls1_3
 
 # Test TLS 1.3 0-RTT (Early Data) feature
 echo "GET / HTTP/1.1" > request.txt
-openssl s_client -connect example.com:443 -tls1_3 -sess_out session.pem
-openssl s_client -connect example.com:443 -tls1_3 -sess_in session.pem -early_data request.txt
+openssl s_client -connect example.com:443 -tls1_3 -sess_out session.pem </dev/null
+openssl s_client -connect example.com:443 -tls1_3 -sess_in session.pem -early_data request.txt </dev/null
 ```
 
 Key differences in TLS 1.3:
@@ -218,22 +237,22 @@ Key differences in TLS 1.3:
 
 ```bash
 # Check SSL/TLS session parameters and ticket information
-openssl s_client -connect example.com:443 -status -tlsextdebug
+openssl s_client -connect example.com:443 -status -tlsextdebug </dev/null
 
 # Check OCSP stapling support
-openssl s_client -connect example.com:443 -status | grep -A 10 "OCSP response"
+openssl s_client -connect example.com:443 -status | grep -A 10 "OCSP response" </dev/null
 
 # Test mutual TLS authentication (client certificate)
-openssl s_client -connect example.com:443 -cert client.crt -key client.key
+openssl s_client -connect example.com:443 -cert client.crt -key client.key </dev/null
 
 # Capture detailed handshake timing
-openssl s_client -connect example.com:443 -debug -msg -state -time
+openssl s_client -connect example.com:443 -debug -msg -state -time </dev/null
 
 # Validate certificate against Mozilla's included CA list
-openssl s_client -connect example.com:443 -CApath /etc/ssl/certs
+openssl s_client -connect example.com:443 -CApath /etc/ssl/certs </dev/null
 
 # Test TLS protocol version negotiation (downgrade attack protection)
-openssl s_client -connect example.com:443 -no_tls1_3
+openssl s_client -connect example.com:443 -no_tls1_3 </dev/null
 ```
 
 ### Interpreting Connection Results

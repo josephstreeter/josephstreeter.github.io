@@ -17,27 +17,32 @@ Verifying certificates and diagnosing issues is a critical part of certificate m
 openssl verify -CAfile ca.crt certificate.crt
 
 # Verify a certificate chain
-openssl verify -CAfile ca-chain.pem certificate.crt
+openssl verify -CAfile ca-chain.crt certificate.crt
 
 # Check if a private key matches a certificate
 openssl x509 -noout -modulus -in certificate.crt | openssl md5
 openssl rsa -noout -modulus -in private.key | openssl md5
 # If the outputs match, the key corresponds to the certificate
 
-# Check the hostname against the certificate (OpenSSL 1.1.1+)
-openssl s_client -connect example.com:443 -servername example.com | openssl x509 -noout -checkhost example.com
+# Check the hostname against the certificate presented by a server (OpenSSL 1.1.1+).
+# s_client does this itself — its output is not bare PEM, so it cannot be piped into x509.
+openssl s_client -connect example.com:443 -servername example.com \
+  -verify_hostname example.com -verify_return_error </dev/null
+
+# Check the hostname against a certificate file
+openssl x509 -in certificate.crt -noout -checkhost example.com
 
 # Test an HTTPS connection and view the certificate
-openssl s_client -connect example.com:443 -servername example.com
+openssl s_client -connect example.com:443 -servername example.com </dev/null
 
 # Test an HTTPS connection with full certificate chain verification
-openssl s_client -connect example.com:443 -servername example.com -CAfile ca-chain.pem -verify_return_error
+openssl s_client -connect example.com:443 -servername example.com -CAfile ca-chain.crt -verify_return_error </dev/null
 
 # Check certificate expiration date
 openssl x509 -enddate -noout -in certificate.crt
 
 # List all common SSL/TLS problems for a website
-openssl s_client -connect example.com:443 -servername example.com -showcerts -tlsextdebug -status
+openssl s_client -connect example.com:443 -servername example.com -showcerts -tlsextdebug -status </dev/null
 ```
 
 ### Certificate Revocation Status Checking
@@ -58,10 +63,10 @@ openssl crl -in ca.crl.pem -text -noout
 openssl verify -crl_check -CAfile ca.crt -CRLfile ca.crl.pem certificate.crt
 
 # Check OCSP status of a certificate
-openssl ocsp -issuer issuer.crt -cert certificate.crt -url http://ocsp.example.com -text
+openssl ocsp -issuer ca.crt -cert certificate.crt -url http://ocsp.example.com -text
 
 # Check OCSP stapling during TLS connection
-openssl s_client -connect example.com:443 -status -servername example.com
+openssl s_client -connect example.com:443 -status -servername example.com </dev/null
 
 # Extract CRL distribution points from a certificate
 openssl x509 -in certificate.crt -text -noout | grep -A 3 "CRL Distribution"
@@ -84,10 +89,10 @@ When validation or connections fail, these targeted checks help isolate the caus
 
 ```bash
 # Check the entire certificate chain with verbose output
-openssl verify -verbose -CAfile ca_bundle.crt certificate.crt
+openssl verify -verbose -CAfile ca-chain.crt certificate.crt
 
 # Test whether an intermediate certificate is missing
-openssl verify -untrusted intermediate.crt -CAfile root.crt certificate.crt
+openssl verify -untrusted intermediate.crt -CAfile rootca.crt certificate.crt
 
 # Validate the certificate against a specific hostname
 openssl x509 -in certificate.crt -noout -checkhost example.com
@@ -128,14 +133,15 @@ grep -v "^#" request.csr > fixed_csr.pem
 #### Connectivity Problems
 
 ```bash
-# Test through a CONNECT proxy (using nc)
-nc -X connect -x proxy.example.com:8080 example.com 443 | openssl s_client -quiet -connect example.com:443
+# Test through an HTTP CONNECT proxy (s_client has native support; no nc pipeline needed)
+openssl s_client -proxy proxy.example.com:8080 -connect example.com:443 \
+  -servername example.com </dev/null
 
 # Test with a specific protocol version
-openssl s_client -connect example.com:443 -tls1_2
+openssl s_client -connect example.com:443 -tls1_2 </dev/null
 
 # Bypass DNS/SNI by connecting to an IP while sending a specific SNI name
-openssl s_client -connect IP_ADDRESS:443 -servername example.com
+openssl s_client -connect IP_ADDRESS:443 -servername example.com </dev/null
 ```
 
 #### TLS Handshake Failures
@@ -144,16 +150,16 @@ TLS handshake failures are common but can be difficult to diagnose:
 
 ```bash
 # Full debug output of the handshake
-openssl s_client -connect example.com:443 -debug -msg -state
+openssl s_client -connect example.com:443 -debug -msg -state </dev/null
 
 # Check whether the server accepts a given cipher policy
-openssl s_client -connect example.com:443 -cipher 'HIGH' -tls1_2
+openssl s_client -connect example.com:443 -cipher 'HIGH' -tls1_2 </dev/null
 
 # Check whether the server requires a client certificate
-openssl s_client -connect example.com:443 -cert client.crt -key client.key
+openssl s_client -connect example.com:443 -cert client.crt -key client.key </dev/null
 
 # Debug output with timing information
-openssl s_client -connect example.com:443 -tls1_2 -debug -time -msg -state
+openssl s_client -connect example.com:443 -tls1_2 -debug -time -msg -state </dev/null
 ```
 
 ### Common Certificate Problems and Solutions

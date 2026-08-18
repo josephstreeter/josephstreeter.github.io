@@ -63,16 +63,16 @@ When selecting a key type, consider security requirements, performance needs, an
 
 ```bash
 # Generate Ed25519 key (OpenSSL 1.1.1+)
-openssl genpkey -algorithm ED25519 -out ed25519_key.pem
+openssl genpkey -algorithm ED25519 -out ed25519_private.key
 
 # View Ed25519 key details
-openssl pkey -in ed25519_key.pem -text -noout
+openssl pkey -in ed25519_private.key -text -noout
 
 # Generate X25519 key for ECDH key exchange
 openssl genpkey -algorithm X25519 -out x25519_key.pem
 
 # Extract public key from Ed25519 private key
-openssl pkey -in ed25519_key.pem -pubout -out ed25519_public.pem
+openssl pkey -in ed25519_private.key -pubout -out ed25519_public.key
 
 # Generate Ed448 key (OpenSSL 1.1.1+)
 openssl genpkey -algorithm ED448 -out ed448_key.pem
@@ -181,30 +181,24 @@ openssl rand -base64 32
 # Generate random bytes (hex encoded)
 openssl rand -hex 32
 
-# Generate random password with specific character set
-openssl rand -base64 15 | tr -dc 'a-zA-Z0-9!@#$%^&*()_+?><~'
+# Generate a 24-character password from an explicit alphabet
+# (draw extra bytes, filter to the allowed set, then truncate)
+openssl rand -base64 96 | tr -dc 'a-zA-Z0-9' | head -c 24; echo
 
 # Create a random symmetric key (e.g., for AES-256)
 openssl rand -out aes_key.bin 32
 
 # Generate a random initialization vector (IV)
 openssl rand -out iv.bin 16
-
-# Test randomness quality
-openssl rand 1000000 | openssl dgst -sha256
-
-# Use pseudorandom data for testing (NOT for production)
-openssl rand -engine rdrand -out test_random.bin 32
 ```
 
 > [!IMPORTANT]
-> Secure random number generation is critical for cryptographic security. Always ensure:
+> Secure random number generation underpins every key you generate. Points worth knowing:
 >
-> - Your system has sufficient entropy sources
-> - Use hardware-based random number generators when available
-> - Never use predictable seeds or weak PRNGs for key generation
-> - For virtual machines, consider entropy augmentation solutions
-> - Test your random number generator quality with tools like `rngtest` or `ent`
+> - `openssl rand` draws from the OS entropy source through OpenSSL's DRBG. This is the correct source for key material — you do not need to select a hardware RNG yourself, and modern builds already seed from hardware sources such as RDRAND via the OS. (The `-engine rdrand` option seen in older guides relies on the ENGINE API, deprecated in OpenSSL 3.x.)
+> - Never use predictable seeds or weak PRNGs for key generation.
+> - Do not attempt to judge randomness by hashing the output — a hash of random data tells you nothing. To evaluate an entropy source, use a dedicated statistical test suite such as `rngtest`, `ent`, or NIST SP 800-90B tooling.
+> - Virtual machines can start with a thin entropy pool. If you generate keys at first boot, consider a paravirtual RNG device (`virtio-rng`) or a host entropy feed.
 
 ### Converting Between Key Formats
 
@@ -233,7 +227,7 @@ openssl pkcs12 -export -out certificate.p12 -inkey private.key -in certificate.c
 openssl pkcs12 -in certificate.p12 -nocerts -out private_from_p12.key
 
 # Convert EC key to traditional PEM format
-openssl ec -in ec_key.pem -out ec_traditional.pem
+openssl ec -in ec_private.key -out ec_traditional.pem
 
 # Convert SSH public key to OpenSSL format (if you have the SSH public key)
 ssh-keygen -e -m PKCS8 -f id_rsa.pub > ssh_key_openssl.pem

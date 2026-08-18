@@ -87,7 +87,7 @@ openssl x509 -in certificate.crt -noout -serial
 openssl x509 -in certificate.crt -noout -text -nameopt oneline,utf8,-esc_msb
 
 # Check certificate chain
-openssl verify -CAfile ca-chain.pem certificate.crt
+openssl verify -CAfile ca-chain.crt certificate.crt
 
 # Checking certificate expiration date in human-readable format
 openssl x509 -enddate -noout -in certificate.crt | sed 's/notAfter=/Expires: /'
@@ -108,15 +108,16 @@ openssl verify -CAfile rootca.crt certificate.crt
 openssl verify -CAfile rootca.crt -untrusted intermediate.crt certificate.crt
 
 # Alternative approach using a certificate bundle
-cat intermediate.crt rootca.crt > ca-bundle.crt
-openssl verify -CAfile ca-bundle.crt certificate.crt
+cat intermediate.crt rootca.crt > ca-chain.crt
+openssl verify -CAfile ca-chain.crt certificate.crt
 
-# Verify a certificate with a complete chain (for web servers)
+# Build the chain file a web server serves to clients (leaf first, root last).
+# Note this is a deployment artifact, not a verification input — `verify` takes
+# the trusted root via -CAfile and any intermediates via -untrusted, as above.
 cat certificate.crt intermediate.crt rootca.crt > fullchain.pem
-openssl verify -CAfile rootca.crt -untrusted intermediate.crt certificate.crt
 
 # Display the full certificate chain from a remote server
-openssl s_client -connect example.com:443 -showcerts
+openssl s_client -connect example.com:443 -showcerts </dev/null
 
 # Extract and verify individual certificates from a chain
 openssl s_client -connect example.com:443 -showcerts </dev/null | \
@@ -145,7 +146,7 @@ openssl x509 -in certificate.pem -outform der -out certificate.der
 openssl x509 -inform der -in certificate.der -out certificate.pem
 
 # Convert PEM certificate to PKCS#12 (PFX) format including private key
-openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt -certfile ca-chain.pem
+openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt -certfile ca-chain.crt
 
 # Extract certificate and key from PKCS#12 (PFX) file
 openssl pkcs12 -in certificate.pfx -nocerts -out private.key -nodes
@@ -234,9 +235,7 @@ basicConstraints = critical, CA:true
 keyUsage = critical, digitalSignature, cRLSign, keyCertSign
 
 [ server_cert ]
-basicConstraints = CA:FALSE
-nsCertType = server
-nsComment = "OpenSSL Generated Server Certificate"
+basicConstraints = critical, CA:FALSE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage = critical, digitalSignature, keyEncipherment
@@ -277,9 +276,7 @@ openssl req -new -key server.key -out server.csr \
 
 # 2. Create a configuration file for the server certificate
 cat > server.conf << EOF
-basicConstraints = CA:FALSE
-nsCertType = server
-nsComment = "OpenSSL Generated Server Certificate"
+basicConstraints = critical, CA:FALSE
 subjectKeyIdentifier = hash
 authorityKeyIdentifier = keyid,issuer:always
 keyUsage = critical, digitalSignature, keyEncipherment

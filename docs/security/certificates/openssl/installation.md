@@ -158,10 +158,11 @@ openssl req -new -key test.key -x509 -days 1 -out test.crt -subj "/CN=test"
 # 6. Verify the certificate
 openssl x509 -in test.crt -text -noout
 
-# 7. Test encryption/decryption
+# 7. Test encryption/decryption (-pbkdf2 selects a modern key derivation function;
+#    without it, OpenSSL falls back to a legacy MD5-based KDF)
 echo "Test data" > testfile.txt
-openssl enc -aes-256-cbc -salt -in testfile.txt -out testfile.enc -k testpassword
-openssl enc -d -aes-256-cbc -in testfile.enc -out testfile.dec -k testpassword
+openssl enc -aes-256-cbc -salt -pbkdf2 -in testfile.txt -out testfile.enc -k testpassword
+openssl enc -d -aes-256-cbc -pbkdf2 -in testfile.enc -out testfile.dec -k testpassword
 diff testfile.txt testfile.dec
 
 # 8. Clean up test files
@@ -171,7 +172,7 @@ rm test.key test.crt testfile.txt testfile.enc testfile.dec
 ```
 
 > [!NOTE]
-> If you encounter any issues during verification, ensure your path is correctly set and that any required libraries are installed. For OpenSSL errors, include the `-d` flag (e.g., `openssl req -d ...`) to enable debug output.
+> If you encounter issues during verification, confirm that your `PATH` is set correctly and that any required libraries are installed. OpenSSL has no global debug flag; for more detail, use the options the individual subcommand provides — for example `openssl s_client -debug -msg -state` for connection problems, or `openssl errstr <code>` to expand a numeric error code.
 
 ## Navigation
 

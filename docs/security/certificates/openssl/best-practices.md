@@ -99,10 +99,10 @@ chmod 600 secure_key.pem
 openssl rand -writerand .rnd
 
 # Verify a certificate hasn't been revoked (OCSP)
-openssl ocsp -issuer ca.crt -cert cert.crt -text -url http://ocsp.example.com/
+openssl ocsp -issuer ca.crt -cert certificate.crt -text -url http://ocsp.example.com/
 
 # Verify a certificate with CRL checking
-openssl verify -crl_check -CAfile ca.crt -CRLfile revoked.crl cert.crt
+openssl verify -crl_check -CAfile ca.crt -CRLfile revoked.crl certificate.crt
 
 # Create secure Diffie-Hellman parameters (2048+ bits)
 openssl dhparam -out dhparams.pem 2048
@@ -125,7 +125,7 @@ openssl dhparam -out dhparams.pem 2048
 
 3. **Certificate Chain Validation**:
    - Always include the complete certificate chain in server configurations
-   - Verify chain validity with `openssl verify -CAfile chain.pem cert.crt`
+   - Verify chain validity with `openssl verify -CAfile ca-chain.crt certificate.crt`
    - Include intermediate certificates when distributing end-entity certificates
 
 4. **Certificate Lifecycle Management**:
