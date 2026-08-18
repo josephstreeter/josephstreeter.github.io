@@ -108,7 +108,7 @@ openssl ecparam -list_curves
 - [Installation](installation.md) — Installing and verifying OpenSSL on Linux, Windows, macOS, and Docker
 - [Basic Concepts](basic-concepts.md) — Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and file naming conventions
 - [Certificate Operations](certificate-operations.md) — Creating, inspecting, and verifying X.509 certificates, including SANs and wildcards
-- [Running a Private CA](private-ca.md) — Standing up a CA, signing certificates with it, and managing revocation
+- [Running a Private CA](private-ca.md) — Building a two-tier CA (offline root plus issuing CA), signing certificates, and managing revocation
 - [Private Key Management](private-keys.md) — Generating, protecting, analyzing, and converting private keys with OpenSSL
 - [CSR Creation and Management](csr.md) — Creating and verifying Certificate Signing Requests (CSRs) with OpenSSL
 - [Certificate Conversions](conversions.md) — Converting certificates and keys between PEM, DER, PKCS#7, PKCS#12, and JKS formats

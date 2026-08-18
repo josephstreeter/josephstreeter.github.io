@@ -98,6 +98,11 @@ openssl req -new -newkey rsa:4096 -nodes -keyout private.key \
 > - Using business validation information in the Organization field
 > - Using SHA-256 signatures (not SHA-1)
 
+Signing the CSR yourself rather than sending it to a commercial CA comes with one significant caveat.
+
+> [!WARNING]
+> If you sign this CSR with your **own** CA using `openssl ca`, the SANs are discarded unless the CA configuration sets `copy_extensions = copy`. Signing appears to succeed and the certificate looks correct — only the SANs are missing, and clients then reject it with a name mismatch. See [Issue a Server Certificate](private-ca.md#step-5-issue-a-server-certificate). Commercial CAs are unaffected; they build extensions from your validated order, not from the CSR.
+
 ### Verifying a CSR
 
 Always verify your CSR before submitting it to a CA:
