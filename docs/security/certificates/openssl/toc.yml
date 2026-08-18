@@ -1,11 +1,15 @@
 - name: Overview
   href: index.md
+- name: Quick Reference
+  href: quick-reference.md
 - name: Installation
   href: installation.md
 - name: Basic Concepts
   href: basic-concepts.md
 - name: Certificate Operations
   href: certificate-operations.md
+- name: Running a Private CA
+  href: private-ca.md
 - name: Private Key Management
   href: private-keys.md
 - name: CSR Creation and Management

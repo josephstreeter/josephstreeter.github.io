@@ -30,6 +30,30 @@ OpenSSL is one of the most widely deployed security toolkits in the world, and f
 > [!NOTE]
 > This guide is designed to be practical and hands-on, with ready-to-use command examples and real-world scenarios. Commands are tested with OpenSSL 3.x, with notes for version-specific differences where relevant.
 
+### Start Here
+
+In a hurry? The [Quick Reference](quick-reference.md) collects the commands needed most often on a single page.
+
+Otherwise, find your task below:
+
+| I want to… | Go to |
+| ---------- | ----- |
+| Look up a command I half-remember | [Quick Reference](quick-reference.md) |
+| Install OpenSSL, or check which version I have | [Installation](installation.md) |
+| Understand certificates, chains, and how OpenSSL is put together | [Basic Concepts](basic-concepts.md) |
+| See what is inside a certificate I already have | [Certificate Operations](certificate-operations.md#viewing-certificate-information) |
+| Work out why a certificate is not trusted | [Certificate Chain Verification](certificate-operations.md#certificate-chain-verification) |
+| Create a self-signed certificate for testing | [Certificate Operations](certificate-operations.md#creating-self-signed-certificates) |
+| Request a certificate from a commercial CA | [CSR Creation and Management](csr.md) |
+| Cover several hostnames with one certificate | [Subject Alternative Names](certificate-operations.md#creating-certificates-with-subject-alternative-names-sans) |
+| Run my own CA for internal services | [Running a Private CA](private-ca.md) |
+| Revoke a certificate I issued | [Managing CRLs](private-ca.md#managing-certificate-revocation-lists-crls) |
+| Generate or protect a private key | [Private Key Management](private-keys.md) |
+| Turn a `.pfx` into `.pem`, or the reverse | [Certificate Conversions](conversions.md) |
+| Check what a live server is serving | [SSL/TLS Testing](tls-testing.md) |
+| Diagnose a failing TLS connection | [Validation and Troubleshooting](validation-troubleshooting.md) |
+| Stop renewing certificates by hand | [ACME (Automated Certificates)](../acme/index.md) |
+
 ### OpenSSL Versions
 
 OpenSSL has evolved significantly over time with critical security improvements in each major release. Understanding version differences is essential when working across different environments, particularly for security-critical applications.
@@ -80,9 +104,11 @@ openssl ecparam -list_curves
 
 ### In This Section
 
+- [Quick Reference](quick-reference.md) — The commands needed most often, on one page
 - [Installation](installation.md) — Installing and verifying OpenSSL on Linux, Windows, macOS, and Docker
-- [Basic Concepts](basic-concepts.md) — Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and command structure
-- [Certificate Operations](certificate-operations.md) — Creating, viewing, and managing X.509 certificates, CAs, SANs, wildcards, and CRLs with OpenSSL
+- [Basic Concepts](basic-concepts.md) — Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and file naming conventions
+- [Certificate Operations](certificate-operations.md) — Creating, inspecting, and verifying X.509 certificates, including SANs and wildcards
+- [Running a Private CA](private-ca.md) — Standing up a CA, signing certificates with it, and managing revocation
 - [Private Key Management](private-keys.md) — Generating, protecting, analyzing, and converting private keys with OpenSSL
 - [CSR Creation and Management](csr.md) — Creating and verifying Certificate Signing Requests (CSRs) with OpenSSL
 - [Certificate Conversions](conversions.md) — Converting certificates and keys between PEM, DER, PKCS#7, PKCS#12, and JKS formats

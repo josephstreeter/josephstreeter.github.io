@@ -270,4 +270,4 @@ shred -u -z -n 3 unneeded_key.pem
 
 ## Navigation
 
-[◄ Certificate Operations](certificate-operations.md) · [OpenSSL Guide](index.md) · [CSR Creation and Management ►](csr.md)
+[◄ Running a Private CA](private-ca.md) · [OpenSSL Guide](index.md) · [CSR Creation and Management ►](csr.md)

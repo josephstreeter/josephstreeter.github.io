@@ -176,4 +176,4 @@ rm test.key test.crt testfile.txt testfile.enc testfile.dec
 
 ## Navigation
 
-[◄ OpenSSL Guide](index.md) · [OpenSSL Guide](index.md) · [Basic Concepts ►](basic-concepts.md)
+[◄ Quick Reference](quick-reference.md) · [OpenSSL Guide](index.md) · [Basic Concepts ►](basic-concepts.md)

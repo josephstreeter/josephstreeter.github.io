@@ -46,271 +46,210 @@ For a comprehensive guide on self-signed certificates, see the [Self-Signed Cert
 
 ### Viewing Certificate Information
 
-Inspect certificate details to verify content and configuration:
+Every inspection command below uses `openssl x509`. Two options appear throughout and are worth learning first:
+
+- `-in <file>` names the certificate to read.
+- `-noout` suppresses the re-printed PEM blob. Without it, every command dumps the whole encoded certificate after its output. You almost always want it.
+
+#### Read the whole certificate
+
+The catch-all command. Use it when you don't yet know what you're looking for:
 
 ```bash
-# View complete certificate information in text format
 openssl x509 -in certificate.crt -text -noout
+```
 
-# View certificate issuer
-openssl x509 -in certificate.crt -issuer -noout
+This prints everything — version, serial, issuer, validity, public key, and all extensions. It is verbose; the targeted commands below are easier to read when you know which field you need.
 
-# View certificate subject
-openssl x509 -in certificate.crt -subject -noout
+#### Check who a certificate is for, and who issued it
 
-# View certificate validity dates
+```bash
+openssl x509 -in certificate.crt -subject -issuer -noout
+```
+
+```text
+subject=C = US, ST = State, L = City, O = Example Corp, CN = example.com
+issuer=C = US, ST = State, L = City, O = Example Corp, CN = Example Corp Issuing CA
+```
+
+When `subject` and `issuer` are identical, the certificate is self-signed — it is either a root CA or a certificate that no CA vouched for.
+
+#### Check the validity period
+
+```bash
 openssl x509 -in certificate.crt -dates -noout
+```
 
-# View certificate validity dates in human-readable format
-openssl x509 -in certificate.crt -noout -enddate | sed 's/notAfter=/Expires: /'
-openssl x509 -in certificate.crt -noout -startdate | sed 's/notBefore=/Valid from: /'
+```text
+notBefore=Aug 18 15:27:36 2026 GMT
+notAfter=Aug 18 15:27:36 2027 GMT
+```
 
-# Calculate days until certificate expiration
-openssl x509 -in certificate.crt -noout -enddate | cut -d= -f2 | xargs -I{} bash -c 'echo $(( ($(date -d "{}" +%s) - $(date +%s)) / 86400 )) days until expiration'
+To test expiry without reading dates yourself, use `-checkend`, which takes a number of seconds and sets the exit status. This is the right building block for monitoring scripts, and unlike date arithmetic it is portable across Linux and macOS:
 
-# View certificate fingerprint (SHA-256)
+```bash
+# Exit status 0 = still valid in 30 days, 1 = expires within 30 days
+openssl x509 -in certificate.crt -noout -checkend 2592000 \
+  && echo "OK" || echo "WARNING: expires within 30 days"
+```
+
+#### Check which hostnames a certificate covers
+
+Clients match the hostname against the Subject Alternative Name extension, not the Common Name. Read the SANs directly:
+
+```bash
+openssl x509 -in certificate.crt -ext subjectAltName -noout
+```
+
+```text
+X509v3 Subject Alternative Name:
+    DNS:example.com, DNS:www.example.com
+```
+
+To test one specific name, let OpenSSL apply the matching rules (including wildcards) rather than reading the list yourself:
+
+```bash
+openssl x509 -in certificate.crt -noout -checkhost www.example.com
+openssl x509 -in certificate.crt -noout -checkhost wrong.example.net
+```
+
+```text
+Hostname www.example.com does match certificate
+Hostname wrong.example.net does NOT match certificate
+```
+
+#### Confirm a private key belongs to a certificate
+
+A certificate and key match when their public moduli match. Hash each one so you compare short strings instead of long ones:
+
+```bash
+openssl x509 -noout -modulus -in certificate.crt | openssl sha256
+openssl rsa  -noout -modulus -in private.key     | openssl sha256
+```
+
+```text
+SHA2-256(stdin)= beb0e5c3202503ce9a571cbaad4fe7abccad2c1042d09f25edd553988863ccab
+SHA2-256(stdin)= beb0e5c3202503ce9a571cbaad4fe7abccad2c1042d09f25edd553988863ccab
+```
+
+Identical hashes mean the key belongs to the certificate. Different hashes mean it does not — a common cause of a web server refusing to start after a certificate renewal.
+
+> [!NOTE]
+> This modulus comparison works for RSA only. For EC keys, compare the public keys instead: `openssl x509 -in certificate.crt -pubkey -noout` against `openssl ec -in ec_private.key -pubout`.
+
+#### Other useful fields
+
+```bash
+# SHA-256 fingerprint — used to pin or identify a certificate
 openssl x509 -in certificate.crt -fingerprint -sha256 -noout
 
-# Check the certificate's purpose
+# Serial number — the value you need when revoking
+openssl x509 -in certificate.crt -serial -noout
+
+# What the certificate is approved for
 openssl x509 -in certificate.crt -purpose -noout
 
-# Extract the public key from a certificate
+# Extract the public key
 openssl x509 -in certificate.crt -pubkey -noout > pubkey.pem
+```
 
-# Check extensions (including SANs)
-openssl x509 -in certificate.crt -text -noout | grep -A 10 "X509v3 Subject Alternative Name"
-
-# Show the serial number (useful for certificate revocation)
-openssl x509 -in certificate.crt -noout -serial
-
-# Display the certificate in a human-readable format without header/footer
-openssl x509 -in certificate.crt -noout -text -nameopt oneline,utf8,-esc_msb
-
-# Check certificate chain
-openssl verify -CAfile ca-chain.crt certificate.crt
-
-# Checking certificate expiration date in human-readable format
-openssl x509 -enddate -noout -in certificate.crt | sed 's/notAfter=/Expires: /'
+```text
+sha256 Fingerprint=AF:1D:04:28:E6:CA:3F:AC:B7:02:F9:88:C8:9F:27:74:C2:4D:93:9E:91:22:51:21:E0:D6:0E:0B:6E:B8:F9:33
+serial=75CD2BFF34E9ED9EBCFEDEE4CD941C994C53228D
 ```
 
 > [!TIP]
-> For routine certificate monitoring, create a simple shell script that checks expiration dates and alerts when certificates are nearing expiration (e.g., 30 days before).
+> For ongoing monitoring, build on `-checkend` rather than parsing dates. A worked example is in [Certificate Expiration, Renewal, and Monitoring](validation-troubleshooting.md#certificate-expiration-renewal-and-monitoring).
 
 ### Certificate Chain Verification
 
-Validating certificate chains is crucial for ensuring trust in the PKI infrastructure. A proper certificate chain connects an end-entity certificate to a trusted root CA through zero or more intermediate certificates.
+A certificate is trusted only if it links back to a trusted root, through however many intermediate CAs sit between them. `openssl verify` walks that path and tells you whether it completes.
+
+The command takes trust material through two separate options, and mixing them up is the usual reason verification fails when the certificate is fine:
+
+- `-CAfile` supplies the **trust anchor** — the root you have decided to trust.
+- `-untrusted` supplies **intermediates**, which help build the path but are not themselves trusted.
+
+#### Verify a certificate
 
 ```bash
-# Verify a certificate against a trusted CA certificate
-openssl verify -CAfile rootca.crt certificate.crt
-
-# Verify a certificate with intermediate certificates
 openssl verify -CAfile rootca.crt -untrusted intermediate.crt certificate.crt
+```
 
-# Alternative approach using a certificate bundle
+```text
+certificate.crt: OK
+```
+
+`OK` means a complete path was built to the trust anchor and every signature and validity period along it checked out.
+
+If you keep intermediates and the root together in one bundle, pass the bundle as the trust anchor instead — the result is the same:
+
+```bash
 cat intermediate.crt rootca.crt > ca-chain.crt
 openssl verify -CAfile ca-chain.crt certificate.crt
+```
 
-# Build the chain file a web server serves to clients (leaf first, root last).
-# Note this is a deployment artifact, not a verification input — `verify` takes
-# the trusted root via -CAfile and any intermediates via -untrusted, as above.
-cat certificate.crt intermediate.crt rootca.crt > fullchain.pem
+#### Read the failure messages
 
-# Display the full certificate chain from a remote server
-openssl s_client -connect example.com:443 -showcerts </dev/null
+The two most common failures look similar but mean different things. Both name the certificate at which the path broke, and the `depth` tells you how far up the chain that was:
 
-# Extract and verify individual certificates from a chain
-openssl s_client -connect example.com:443 -showcerts </dev/null | \
+```bash
+# Root supplied, but the intermediate that links to it is missing
+openssl verify -CAfile rootca.crt certificate.crt
+```
+
+```text
+C = US, ST = State, L = City, O = Example Corp, CN = example.com
+error 20 at 0 depth lookup: unable to get local issuer certificate
+error certificate.crt: verification failed
+```
+
+**Error 20 at depth 0** — OpenSSL could not find the issuer of the leaf certificate itself. The intermediate is missing. This is by far the most common chain problem, and the same root cause behind browsers trusting a site on one machine but not another.
+
+```bash
+# Intermediate supplied as the anchor, but the root behind it is missing
+openssl verify -CAfile intermediate.crt certificate.crt
+```
+
+```text
+C = US, ST = State, L = City, O = Example Corp, CN = Example Corp Issuing CA
+error 2 at 1 depth lookup: unable to get issuer certificate
+error certificate.crt: verification failed
+```
+
+**Error 2 at depth 1** — the path got as far as the intermediate, then ran out. Note the subject line names the *intermediate*, not the leaf: the depth number tells you which certificate in the chain is the problem.
+
+To check against the operating system's trust store rather than a file you supply, drop `-CAfile` and use `-CApath`:
+
+```bash
+openssl verify -CApath /etc/ssl/certs certificate.crt
+```
+
+#### Build the chain a server sends
+
+`fullchain.pem` is a deployment artifact, not a verification input. It holds the leaf first, then intermediates — and it omits the root, which clients already have:
+
+```bash
+cat certificate.crt intermediate.crt > fullchain.pem
+```
+
+Getting the order wrong, or omitting the intermediate, produces exactly the error 20 shown above on the client side.
+
+#### Inspect a live server's chain
+
+```bash
+# Show every certificate the server sends
+openssl s_client -connect example.com:443 -servername example.com -showcerts </dev/null
+
+# Split them into separate files for inspection
+openssl s_client -connect example.com:443 -servername example.com -showcerts </dev/null | \
   awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/{ if(/BEGIN CERTIFICATE/){a++}; out="cert"a".pem"; print >out}'
 ```
 
-Common certificate chain issues include:
-
-1. **Missing Intermediate Certificates**: The chain is incomplete, causing trust failures
-2. **Incorrect Chain Order**: Certificates not in proper sequence from end-entity to root
-3. **Expired Certificates in Chain**: Any certificate in the chain has expired
-4. **Cross-Signed Certificates**: Complex chains with cross-signed intermediate certificates
-
 > [!IMPORTANT]
-> Always include the complete certificate chain in server configurations. Missing intermediate certificates are one of the most common causes of certificate validation failures in client applications.
+> A server must send its intermediates. Browsers often paper over a missing one by fetching it or reusing a cached copy, so a site can appear fine in your browser and fail for API clients, mobile apps, and `curl`. Always confirm with `s_client` rather than trusting a green padlock.
 
-### Certificate Formats and Conversions
-
-X.509 certificates can be stored in different formats depending on the application requirements:
-
-```bash
-# Convert PEM to DER format
-openssl x509 -in certificate.pem -outform der -out certificate.der
-
-# Convert DER to PEM format
-openssl x509 -inform der -in certificate.der -out certificate.pem
-
-# Convert PEM certificate to PKCS#12 (PFX) format including private key
-openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt -certfile ca-chain.crt
-
-# Extract certificate and key from PKCS#12 (PFX) file
-openssl pkcs12 -in certificate.pfx -nocerts -out private.key -nodes
-openssl pkcs12 -in certificate.pfx -nokeys -out certificate.crt
-
-# Create a full chain certificate by concatenating certificates
-cat certificate.crt intermediate.crt rootca.crt > fullchain.pem
-```
-
-Common certificate formats:
-
-| Format | Description | Common Usage |
-| ------- | ----------- | ------------ |
-| PEM (.pem, .crt, .cer) | Base64 encoded with header/footer | Most web servers, OpenSSL |
-| DER (.der, .cer) | Binary format | Java applications, Windows |
-| PKCS#7 (.p7b, .p7c) | Certificate containers, no private key | Windows, Java Keystores |
-| PKCS#12 (.pfx, .p12) | Contains certificates and private keys | Windows, macOS, mobile devices |
-
-### Creating a Certificate Authority (CA)
-
-Setting up your own CA is useful for managing certificates within an organization or for development environments. This example creates a complete CA structure:
-
-```bash
-# 1. Create a directory structure for your CA
-mkdir -p ca/{certs,crl,newcerts,private}
-touch ca/index.txt
-echo 1000 > ca/serial
-
-# 2. Create a CA configuration file
-cat > ca.conf << EOF
-[ ca ]
-default_ca = CA_default
-
-[ CA_default ]
-dir               = ./ca
-certs             = \$dir/certs
-crl_dir           = \$dir/crl
-new_certs_dir     = \$dir/newcerts
-database          = \$dir/index.txt
-serial            = \$dir/serial
-RANDFILE          = \$dir/private/.rand
-
-private_key       = \$dir/private/ca.key
-certificate       = \$dir/certs/ca.crt
-
-crl               = \$dir/crl/ca.crl
-crlnumber         = \$dir/crlnumber
-crl_extensions    = crl_ext
-default_crl_days  = 30
-
-default_md        = sha256
-name_opt          = ca_default
-cert_opt          = ca_default
-default_days      = 365
-preserve          = no
-policy            = policy_strict
-
-[ policy_strict ]
-countryName             = match
-stateOrProvinceName     = match
-organizationName        = match
-organizationalUnitName  = optional
-commonName              = supplied
-emailAddress            = optional
-
-[ req ]
-default_bits        = 4096
-distinguished_name  = req_distinguished_name
-string_mask         = utf8only
-default_md          = sha256
-x509_extensions     = v3_ca
-
-[ req_distinguished_name ]
-countryName                     = Country Name (2 letter code)
-stateOrProvinceName             = State or Province Name
-localityName                    = Locality Name
-0.organizationName              = Organization Name
-organizationalUnitName          = Organizational Unit Name
-commonName                      = Common Name
-emailAddress                    = Email Address
-
-[ v3_ca ]
-subjectKeyIdentifier = hash
-authorityKeyIdentifier = keyid:always,issuer
-basicConstraints = critical, CA:true
-keyUsage = critical, digitalSignature, cRLSign, keyCertSign
-
-[ server_cert ]
-basicConstraints = critical, CA:FALSE
-subjectKeyIdentifier = hash
-authorityKeyIdentifier = keyid,issuer:always
-keyUsage = critical, digitalSignature, keyEncipherment
-extendedKeyUsage = serverAuth
-EOF
-
-# 3. Create a private key for the CA
-openssl genrsa -aes256 -out ca/private/ca.key 4096
-chmod 400 ca/private/ca.key
-
-# 4. Create a self-signed CA certificate
-openssl req -config ca.conf -key ca/private/ca.key -new -x509 -days 3650 -sha256 \
-  -extensions v3_ca -out ca/certs/ca.crt
-
-# 5. Verify the CA certificate
-openssl x509 -noout -text -in ca/certs/ca.crt
-```
-
-> [!IMPORTANT]
-> Best practices for managing a Certificate Authority:
->
-> 1. Keep the CA private key extremely secure, preferably offline
-> 2. Use strong passphrases for CA keys
-> 3. Set appropriate validity periods (root CAs can be valid for 10+ years)
-> 4. Implement strict issuance policies
-> 5. Maintain proper revocation mechanisms (CRLs and/or OCSP)
-> 6. Consider a two-tier CA hierarchy with root and intermediate CAs for added security
-
-### Signing Certificates with Your CA
-
-Once your CA is set up, you can sign certificate requests. This is the typical workflow for issuing certificates from your CA:
-
-```bash
-# 1. Create a server key and CSR
-openssl genrsa -out server.key 2048
-openssl req -new -key server.key -out server.csr \
-  -subj "/C=US/ST=State/L=City/O=Organization/CN=example.com"
-
-# 2. Create a configuration file for the server certificate
-cat > server.conf << EOF
-basicConstraints = critical, CA:FALSE
-subjectKeyIdentifier = hash
-authorityKeyIdentifier = keyid,issuer:always
-keyUsage = critical, digitalSignature, keyEncipherment
-extendedKeyUsage = serverAuth
-subjectAltName = @alt_names
-
-[alt_names]
-DNS.1 = example.com
-DNS.2 = www.example.com
-EOF
-
-# 3. Sign the CSR with the CA
-openssl ca -config ca.conf -extensions server_cert -days 365 -notext \
-  -md sha256 -in server.csr -out server.crt -extfile server.conf
-
-# 4. Verify the signed certificate
-openssl verify -CAfile ca/certs/ca.crt server.crt
-
-# 5. Create a certificate chain file (if needed)
-cat server.crt ca/certs/ca.crt > server-chain.crt
-```
-
-Certificate validity periods should follow industry best practices:
-
-| Certificate Type | Recommended Validity | Notes |
-| ---------------- | -------------------- | ----- |
-| Root CA | 10-20 years | Keep offline, used only to sign intermediates |
-| Intermediate CA | 5-10 years | Used for routine certificate signing |
-| Server/Client | 1 year or less | Public CAs now limit to 398 days |
-| Code Signing | 1-3 years | Often requires hardware security |
-| Email (S/MIME) | 1-3 years | Tied to individual identity |
-
-> [!NOTE]
-> Starting September 2020, major browsers limit the maximum validity period of publicly trusted TLS certificates to 398 days.
+Other chain problems worth knowing: certificates in the wrong order, an expired certificate anywhere in the path (not just the leaf), and cross-signed intermediates, where more than one valid path exists and clients may not all pick the same one.
 
 ### Creating Certificates with Subject Alternative Names (SANs)
 
@@ -352,11 +291,11 @@ openssl req -new -nodes -newkey rsa:2048 -keyout server_san.key \
 # 3. Verify the SANs in the CSR
 openssl req -in server_san.csr -noout -text | grep -A 1 "Subject Alternative Name"
 
-# 4. Sign the CSR with your CA (if you have one)
-# openssl ca -config ca.conf -extensions v3_req -days 365 -notext \
+# 4. To sign this CSR with your own CA instead, see "Running a Private CA":
+# openssl ca -config ca.conf -extensions server_cert -days 365 -notext \
 #   -md sha256 -in server_san.csr -out server_san.crt -extfile san.conf
 
-# For self-signed certificate with SANs:
+# For a self-signed certificate with SANs:
 openssl x509 -req -in server_san.csr -signkey server_san.key \
   -out server_san.crt -days 365 -sha256 -extfile san.conf -extensions v3_req
 
@@ -422,74 +361,12 @@ openssl x509 -in wildcard.crt -text -noout | grep -A 1 "Subject Alternative Name
 
 Consider using multi-domain certificates with explicit SANs as a more secure alternative to wildcards in high-security environments.
 
-### Managing Certificate Revocation Lists (CRLs)
+### Related Pages
 
-When certificates need to be invalidated before expiry, CRLs provide a way to notify clients:
-
-```bash
-# 1. Ensure CRL number file exists
-echo 01 > ca/crlnumber
-
-# 2. Create a CRL configuration file
-cat > crl.conf << EOF
-[ ca ]
-default_ca = CA_default
-
-[ CA_default ]
-dir = ./ca
-database = \$dir/index.txt
-crlnumber = \$dir/crlnumber
-
-default_days = 30
-default_crl_days = 30
-default_md = sha256
-
-[ crl_ext ]
-authorityKeyIdentifier=keyid:always
-EOF
-
-# 3. Generate an initial CRL
-openssl ca -config crl.conf -gencrl -out ca/crl/ca.crl
-
-# 4. View CRL information
-openssl crl -in ca/crl/ca.crl -text -noout
-
-# 5. Revoke a certificate (specify a reason)
-openssl ca -config ca.conf -revoke server.crt -crl_reason keyCompromise
-# Valid reasons: unspecified, keyCompromise, CACompromise, affiliationChanged,
-#                superseded, cessationOfOperation, certificateHold, removeFromCRL
-
-# 6. Generate updated CRL after revocation
-openssl ca -config crl.conf -gencrl -out ca/crl/ca.crl
-
-# 7. Configure web server to serve the CRL at a well-known URL
-# Example for nginx:
-# location /crl/ {
-#   types { } default_type "application/pkix-crl";
-#   alias /path/to/ca/crl/;
-# }
-
-# 8. Update certificates to include CRL distribution point
-# Add to the [v3_req] section in your certificate config:
-# crlDistributionPoints = URI:http://example.com/crl/ca.crl
-```
-
-#### CRL vs. OCSP
-
-Certificate revocation status can be checked through two main methods:
-
-| Method | Advantages | Disadvantages |
-| ------ | ---------- | ------------- |
-| CRL | Simple implementation | Can grow large over time |
-| | Works offline once downloaded | Potentially stale data |
-| | Single file for many certificates | Full list must be downloaded |
-| OCSP | Real-time status | Requires online verification |
-| | Smaller network footprint | Privacy concerns |
-| | More current information | Single point of failure |
-| | Only queries needed certificates | More complex to implement |
-
-For high-security environments, consider implementing both CRL and OCSP for redundancy.
+- [Certificate Conversions](conversions.md) — moving certificates between PEM, DER, PKCS#7, PKCS#12, and JKS
+- [Running a Private CA](private-ca.md) — issuing and revoking certificates from your own CA
+- [Validation and Troubleshooting](validation-troubleshooting.md) — diagnosing verification failures in depth
 
 ## Navigation
 
-[◄ Basic Concepts](basic-concepts.md) · [OpenSSL Guide](index.md) · [Private Key Management ►](private-keys.md)
+[◄ Basic Concepts](basic-concepts.md) · [OpenSSL Guide](index.md) · [Running a Private CA ►](private-ca.md)
