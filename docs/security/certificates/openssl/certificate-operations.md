@@ -59,7 +59,7 @@ The catch-all command. Use it when you don't yet know what you're looking for:
 openssl x509 -in certificate.crt -text -noout
 ```
 
-This prints everything — version, serial, issuer, validity, public key, and all extensions. It is verbose; the targeted commands below are easier to read when you know which field you need.
+This prints everything — version, serial, issuer, validity, public key, and all extensions. It is verbose; the targeted commands below are easier to read when you know which field you need. For what each field means, see [Anatomy of an X.509 Certificate](basic-concepts.md#anatomy-of-an-x509-certificate).
 
 #### Check who a certificate is for, and who issued it
 

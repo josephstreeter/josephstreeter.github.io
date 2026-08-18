@@ -40,6 +40,7 @@ Otherwise, find your task below:
 | ---------- | ----- |
 | Look up a command I half-remember | [Quick Reference](quick-reference.md) |
 | Install OpenSSL, or check which version I have | [Installation](installation.md) |
+| Understand what every field in a certificate means | [Anatomy of an X.509 Certificate](basic-concepts.md#anatomy-of-an-x509-certificate) |
 | Understand certificates, chains, and how OpenSSL is put together | [Basic Concepts](basic-concepts.md) |
 | See what is inside a certificate I already have | [Certificate Operations](certificate-operations.md#viewing-certificate-information) |
 | Work out why a certificate is not trusted | [Certificate Chain Verification](certificate-operations.md#certificate-chain-verification) |
@@ -106,7 +107,7 @@ openssl ecparam -list_curves
 
 - [Quick Reference](quick-reference.md) — The commands needed most often, on one page
 - [Installation](installation.md) — Installing and verifying OpenSSL on Linux, Windows, macOS, and Docker
-- [Basic Concepts](basic-concepts.md) — Core PKI and cryptographic concepts, OpenSSL architecture, configuration, and file naming conventions
+- [Basic Concepts](basic-concepts.md) — Core PKI and cryptographic concepts, the anatomy of an X.509 certificate, OpenSSL architecture, and file naming conventions
 - [Certificate Operations](certificate-operations.md) — Creating, inspecting, and verifying X.509 certificates, including SANs and wildcards
 - [Running a Private CA](private-ca.md) — Building a two-tier CA (offline root plus issuing CA), signing certificates, and managing revocation
 - [Private Key Management](private-keys.md) — Generating, protecting, analyzing, and converting private keys with OpenSSL
