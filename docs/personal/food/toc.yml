@@ -1,0 +1,22 @@
+- name: Smoker and Griddle Recipes
+  href: index.md
+- name: Smoker
+  items:
+  - name: Beef
+    href: ./smoker/beef.md
+  - name: Pork
+    href: ./smoker/pork.md
+  - name: Poultry
+    href: ./smoker/poultry.md
+  - name: Sides and Extras
+    href: ./smoker/sides.md
+- name: Griddle
+  items:
+  - name: Breakfast
+    href: ./griddle/breakfast.md
+  - name: Burgers and Sandwiches
+    href: ./griddle/burgers-sandwiches.md
+  - name: Hibachi and Stir-Fry
+    href: ./griddle/hibachi-stir-fry.md
+  - name: Vegetables
+    href: ./griddle/vegetables.md

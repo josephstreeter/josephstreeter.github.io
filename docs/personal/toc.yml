@@ -5,6 +5,8 @@
     href: photography/toc.yml
   - name: Vehicles
     href: vehicles/toc.yml
+  - name: Food
+    href: food/toc.yml
   - name: Equipment
     href: index.md
     items:
